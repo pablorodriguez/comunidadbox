@@ -1,0 +1,5 @@
+%p#legal Copyright © Comunidad Box .
+%p#links
+  %a{:href => "#"} Privacy Policy
+  |
+  %a{:href => "#"} Terms of Use

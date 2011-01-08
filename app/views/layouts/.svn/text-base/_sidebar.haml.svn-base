@@ -1,0 +1,23 @@
+#sidebar
+  #updates.boxed
+    %h2.title Ultimas Noticias
+    .content
+      %ul
+        %li
+          %h3 March 5, 2007
+          %p
+            %a{:href => "#"} In posuere eleifend odio quisque semper augue mattis wisi maecenasâ€¦
+        %li
+          %h3 March 3, 2007
+          %p
+            %a{:href => "#"} Quisque dictum integer nisl risus, sagittis convallis, rutrum id, congue, and nibhâ€¦
+        %li
+          %h3 February 28, 2007
+          %p
+            %a{:href => "#"} Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrumâ€¦
+        %li
+          %h3 February 25, 2007
+          %p
+            %a{:href => "#"} Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam nequeaâ€¦
+
+  %div{:id=>"div-6435504336017390613",:style=>"width:240px;border:1px solid #cccccc;"}

@@ -1,0 +1,45 @@
+- form_for(@alarm) do |f|
+  = f.error_messages
+  %table
+    %tr
+      %td{:colspan=>3} Nombre
+    %tr
+      %td{:colspan=>3}  
+        = f.text_field :name
+    %tr
+      %td{:colspan=>3} Descripcion
+    %tr
+      %td{:colspan=>3}
+        = f.text_area :description, :cols => 80, :rows => 3
+    %tr
+      %td Intervalo de Tiempo
+      %td Unidad de Tiempo
+      %td Estado
+    %tr
+      %td  
+        = f.text_field :time, :default => 0
+      %td
+        = f.select :time_unit, Alarm::TIME_UNIT_TYPES
+      %td
+        = f.select :status, Alarm::STATUS_TYPES
+    %tr
+      %td
+        Alarma
+    %tr
+      %td{:colspan=>3}
+        = f.datetime_select :date_alarm, :default => Time.zone.now
+    %tr
+      %td{:colspan=>3}Inicio
+    %tr
+      %td{:colspan=>3}
+        = f.datetime_select :date_ini, :default => Time.zone.now
+    %tr
+      %td{:colspan=>3}Fin
+    %tr
+      %td{:colspan=>3}
+        = f.datetime_select :date_end, :default => Time.zone.now
+    %tr
+      %td{:colspan=>3}
+        = f.submit "Grabar"
+        = link_to_back
+

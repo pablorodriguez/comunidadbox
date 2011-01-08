@@ -1,0 +1,1 @@
+= collection_select(:service_offer,:service_type, service_filters,:id,:name,{:include_blank=>:true},{:class=>"change medium_select",:id=>:sf,:name=>:sf,:selected=>@sf,:style=>"display:none"})

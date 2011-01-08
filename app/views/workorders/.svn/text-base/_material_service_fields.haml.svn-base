@@ -1,0 +1,21 @@
+%tr
+  %td
+    = f.hidden_field :material_service_type_id
+  %td
+    - f.fields_for :material_service_type do |mst_form|
+      - mst_form.fields_for :material do |m_form|
+        = m_form.object.detail
+    - unless f.object.material.blank?    
+      = f.text_field :material,:class=>:material
+    - if f.object.material.nil?
+      = f.text_field :material,:class=>:material,:style =>"display:none"
+  %td.number
+    = f.text_field :amount,:class =>:amount
+  %td.number
+    = f.text_field :price ,:class =>:price
+  %td.number
+    .total_item
+      = number_to_currency(f.object.total_price) if f.object.amount
+  %td.number
+    = f.hidden_field :_destroy
+    = link_to_remove_fields f,:material_service

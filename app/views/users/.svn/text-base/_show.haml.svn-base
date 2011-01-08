@@ -1,0 +1,17 @@
+%table
+  %tbody
+  %tr
+    %td
+      %label{ :for => "login" }Nombre
+    %td
+      = @user.first_name
+  %tr
+    %td
+      %label{ :for => "login" }Apellido
+    %td
+      = @user.last_name
+  %tr
+    %td
+      %label{ :for => "email" }Email *
+    %td
+      = @user.email

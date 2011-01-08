@@ -1,0 +1,5 @@
+<div id="app_msg">
+	<% flash.each do |key,msg| %>
+		<%= content_tag :div, msg,:id=>key %>
+	<% end %>
+</div>

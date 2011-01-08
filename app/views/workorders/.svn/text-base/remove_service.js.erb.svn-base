@@ -1,0 +1,3 @@
+$("#service_<%=@id%>").fadeOut();
+$("#service_<%=@id%>").remove();
+$('#service_total_price').html(<%=@work_order.total_price%>);

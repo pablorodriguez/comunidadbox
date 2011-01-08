@@ -1,0 +1,6 @@
+if (<%=@clients.size%> > 0){
+  $('#result').html("<%=escape_javascript(render(:partial=>'filter',:locals=>{:clients=>@clients}))%>");
+}else{
+  $('#result').html("No se encontró ningún cliente.");
+}
+

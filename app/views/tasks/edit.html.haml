@@ -1,0 +1,9 @@
+- stylesheets 'jquery.ui.base.css'
+- stylesheets 'jquery.ui.theme.css'
+- javascript 'service_offer'
+%h1
+  Modificar Tarea
+- form_for @task do |f|
+  = f.error_messages
+  = render :partial => 'form', :locals => {:f => f}
+

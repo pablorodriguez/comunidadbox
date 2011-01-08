@@ -1,0 +1,3 @@
+%h1
+  Nombre Filtro  
+= text_field_tag 'name'  

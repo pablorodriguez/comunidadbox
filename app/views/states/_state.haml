@@ -1,0 +1,16 @@
+- form_for(@state) do |f|
+  = f.error_messages
+  %p
+    País
+    %br
+    = collection_select(:state, :country_id, Country.find(:all,:order=>'name'), :id, :name, {:prompt => "Seleccione un país"})
+  %p
+    Nombre Corto
+    %br
+    = f.text_field :short_name
+  %p
+    Nombre
+    %br
+    = f.text_field :name
+  %p
+    = f.submit "Grabar"

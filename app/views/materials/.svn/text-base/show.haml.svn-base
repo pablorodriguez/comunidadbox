@@ -1,0 +1,25 @@
+- javascript 'jquery.dataTables'
+- javascript 'sort.table'
+- stylesheets 'demo_page'
+- stylesheets 'demo_table'
+%h1 Material
+%table
+  %tr
+    %td.label_title Codigo
+    %td
+      = h @materials.code
+  %tr
+    %td.label_title Nombre
+    %td
+      = h @materials.name
+%br
+- form_remote_for :servicetype, :url=>{:action=>"save_service_type"},:before =>"beforeSubmit(this)",:complete =>"afterSubmit()",:loading =>"AjaxLoader.enable()", :html => {:id => 'form'} do |form|
+  #select_servicetype
+    = render 'select_services'
+  = submit_tag "Agregar" 
+  #ajax_loader.ajax_loader{:style=>"display:none"} 
+#servicestypes
+  = render 'servicetypes',:locals=>{:materials =>@materials} 
+
+= link_to image_tag('edit.png'), edit_material_path(@materials)
+= link_to_back

@@ -1,0 +1,254 @@
+var priceNumberPattern = /[0-9]+\.*[0-9]+$/;
+var materialCodePattern = /\[\S*\]/;
+var numberPattern = /[0-9]/;
+serviceRow=0;
+jQuery(document).ready( function(){
+	$(".text_lable").each(function(){
+		$(this).disable();
+	});
+	initMaterialItems();
+	$("#maxim").click(maxim);
+	var url_km = $("#url_update_km").val();
+	var url_km_avg = $("#url_update_km_avg").val();
+	
+	var domain = $.trim($("#domain").html());
+	var param_values ="domain=" + domain;
+	
+	$("#km_actual").editInPlace({
+ 		url:url_km,
+		params:param_values
+ 	});
+	
+	$("#km_avg").editInPlace({
+ 		url:url_km_avg,
+		params:param_values
+ 	});
+	$("#material_service_type_id").change(function(){
+		$("#materials_list").html("");
+	});
+	
+	$(".status").change(updateWorkOrderTotalPrice);
+	 
+});
+
+function addEmptyMaterial(element){
+	var div = $(element).parent().parent().parent().parent().parent()
+	div.find("#material_services_link").click();
+	var tr = div.find("table tr:last");
+	tr.find(".material").show();		
+}
+
+
+function maxim(element){
+	if ($("#header").is(":visible")){
+		$(element.target).html("Min");
+		$("#header").slideUp();
+		$("#menu").slideUp();			
+		$("#footer").slideUp('slow',function(){
+			$("body").removeClass("background");	
+		});
+		
+		$("#material_per_page").val(20);
+	}else{
+		$(element.target).html("Max");
+		$("#header").slideDown();
+		$("#menu").slideDown();	
+		$("#footer").slideDown('slow',function(){
+			$("body").addClass("background");	
+		});
+				
+		$("#material_per_page").val(10);
+	}
+}
+
+function initMaterialItems(){
+	$(".amount").blur(updateItemTotalPrice);
+	$(".price").blur(updateItemTotalPrice);
+	$(".comments").click(showModalComment);
+}
+
+function updateItemTotalPrice(element){
+	var amount=0;
+	var price=0;
+	var totalLabel ;
+	if ($(element.target).hasClass("amount")){
+		amount = $(element.target).asNumber();
+		price = $(element.target).parent().next().find("input").val();
+		totalLabel = $(element.target).parent().next().next().find(".total_item");
+	}else{
+		amount = $(element.target).parent().prev().find("input").val();
+		price =  $(element.target).val();
+		totalLabel = $(element.target).parent().next().find(".total_item");
+	}
+	var serviceDiv = $(element.target).parent().parent().parent().parent().parent();
+	totalLabel.html(amount * price);
+	totalLabel.formatCurrency();
+	updateTotalService(serviceDiv);
+	updateWorkOrderTotalPrice();
+}
+
+function updateTotalService(service_element){
+	var total= 0;
+	var element =$(service_element);
+	element.find(".total_item").each(function(){
+		var elem = $(this).parent().parent()[0];
+		if(elem.style.display != 'none'){
+			total += $(this).asNumber();
+		}
+		
+	});
+	total_service = element.find(".total_service");
+	total_service.html(total);
+	total_service.formatCurrency();
+}
+
+function updateWorkOrderTotalPrice(){
+	var total= 0;
+	$(".total_service").each(function(){
+		var div = $(this).parent().parent().parent().parent().parent();
+		if (div.is(':visible')){
+			if (div.find("table tr:first").find(":select :selected").text() != "Cancelado") {
+				total += $(this).asNumber();
+			}
+		}
+		
+	});
+	$("#total_work_order").html(total);
+	$("#total_work_order").formatCurrency();
+}
+
+function search_sub_category(){
+	var category = $('#category_id').val();
+	var action =$('#search_sub_category_url').val();
+	$.ajax({
+		url:action,
+		data:{'id':category},
+		type:'POST',
+		dataType:'script'	
+	});
+}
+
+
+function task_list(){
+	$('#service_type_task').html("");
+	var service_type=$('#material_service_type_id').val();
+	var action="/service_types/" + service_type + "/task_list.js";
+	var token = $("input[name='authenticity_token']")[0];
+	showServiceTypeAjaxLoader();
+	jQuery.ajax({
+		data:'authenticity_token=' + encodeURIComponent(token), 
+		dataType:'script',
+		type:'get', 
+		url:action});
+}
+
+function showServiceTypeAjaxLoader(element){
+	$("#search_task").show();
+	$("#st_ajax_loader").show();	
+}
+
+function hideServiceTypeAjaxLoader(){
+	$("#search_task").hide();
+	$("#st_ajax_loader").hide();	
+}
+
+function remove_fields(link,association){
+	if (association=="services"){
+		$(link).prev("input[type=hidden]").attr("value", '1');
+		$(link).parent().parent().parent().parent().parent().hide();
+	}else{
+		$(link).prev("input[type=hidden]").attr("value", '1');
+		$(link).parent().parent().hide()
+	}
+	var serviceDiv = $(link).parent().parent().parent().parent().parent();
+	updateTotalService(serviceDiv);
+	updateWorkOrderTotalPrice();
+    
+}
+
+function add_fields(link, association, content){
+	var msg="";
+	var new_id = new Date().getTime();
+	var regexp = new RegExp("new_" + association, "g");
+	if (association =="material_services"){
+		var div = $(link).parent().parent();	
+		var lastTr = div.find('table tr:last');
+		lastTr.after(content.replace(regexp, new_id));
+	}else if (association =="services"){
+		$("#services").find("#services_list").append(content.replace(regexp, new_id));
+	}
+	initMaterialItems();
+}
+
+
+function add_material_service_type(){	
+	var checks = $("#materials_list").find("input[type=checkbox]:checked");
+	var serviceTypeDiv= null;	
+	checks.each(function(){
+		var ele = $(this);
+		var tr0 = ele.parent().parent();
+		
+		var serviceTypeId = $("#material_service_type_id").val();
+		var serviceType = $("#material_service_type_id option:selected").text();
+		var materialServiceTypeId = this.id;
+		var material =$.trim(tr0.find("td:eq(1)").html());
+		var price = tr0.find("td:eq(2)").asNumber();
+		
+		$(".service_type_id").each(function(){
+			if($(this).val()== serviceTypeId){
+				serviceTypeDiv = $(this).parent().parent().parent().parent().parent();
+			}
+		});
+	
+		if (serviceTypeDiv==null){
+			$("#services_link").click();
+			var serviceTypes = $(".service_type");
+			serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
+			serviceTypeDiv.find("#serviceType").text(serviceType);	
+		}
+		serviceTypeDiv.show();
+		var materialButton = serviceTypeDiv.find("#material_services_link");
+		materialButton.click();
+		
+		serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
+		var tr = serviceTypeDiv.find("table tr:last");
+		tr = $(tr[0]);
+		tr.find("td:eq(0) :input").val(materialServiceTypeId);
+		tr.find("td:eq(1)").append("<label>"+ material + "</label>");
+		tr.find("td:eq(2) :input").val(1)
+		tr3 = tr.find("td:eq(3) :input");
+		tr3.val(price);
+		//tr3.formatCurrency(tr3);
+		//tr3.toNumber();		
+		var total = tr.find("td:eq(4)").find(".total_item").html(price);
+		total.formatCurrency(total);
+		tr.find(".text_lable").each(function(){
+			$(this).disable();
+		});
+		
+	});
+	initMaterialItems();
+	updateTotalService(serviceTypeDiv);
+	updateWorkOrderTotalPrice();
+	$("#materials_list").find("input[type=checkbox][checked]").each(function(){
+		$(this).attr('checked',false);
+	});
+}
+
+function showModalComment(link){
+	$(link.target).next().modal({
+		onOpen: function (dialog) {
+			dialog.overlay.fadeIn('slow', function () {
+				dialog.data.hide();
+				dialog.container.fadeIn('slow', function () {
+				dialog.data.fadeIn('slow');
+				});
+			});
+		},
+		onClose:function(){
+			var comment = $(this.d.data).find(':textarea').val();
+			$.modal.close();
+			}
+		});
+}
+

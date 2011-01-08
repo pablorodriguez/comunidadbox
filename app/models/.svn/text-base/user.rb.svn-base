@@ -1,0 +1,119 @@
+class User < ActiveRecord::Base
+  
+  # Include default devise modules. Others available are:
+	# :http_authenticatable, :token_authenticatable, :confirmable, :lockable, :timeoutable and :activatable
+  devise :registerable, :database_authenticatable, :recoverable,:rememberable, :trackable, :validatable
+  # Setup accessible (or protected) attributes for your model
+  # attr_accessible :email, :password, :password_confirmation
+
+  # Get Imge from GRAvatar
+  # is_gravtastic(:size=> 50,:default =>"mm")
+
+  has_many :service_filters
+  has_many :cars
+  
+  belongs_to :creator,:class_name=>'User'
+  has_many :companies
+  
+  belongs_to :supplier, :class_name => 'Company', :foreign_key => 'supplier_id'
+  has_many :user_roles
+  has_many :roles ,:through => :user_roles
+  
+  has_one :address
+  has_one :company,:class_name=>"Company",:conditions=>"active=1"
+  belongs_to :employer,:class_name =>"Company",:foreign_key=>'employer_id'
+  
+  has_many :alarms, :dependent => :destroy
+
+  #validates_presence_of :email
+  #validates_uniqueness_of :email, :case_sensitive => false
+
+  accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
+  #accepts_nested_attributes_for :company,:reject_if =>lambda {|a| a[:name].blank?}
+  accepts_nested_attributes_for :cars,:reject_if=>lambda{|a| a[:domain].blank?},:allow_destroy => true
+  
+  #validate :validate_addresses
+  def current_company
+    return company if company
+    return employer if employer
+    return Company.find(Company::DEFAULT_COMPANY_ID)
+  end
+  
+  def after_initialize
+    #self.build_address if self.address.nil?
+    #self.cars.build if self.cars.empty?
+    #- @user.user_addresses[0].address = Address.new
+  end
+  
+  def company_id
+    if company
+      return company.id
+    elsif employer
+      return employer.id
+    end
+  end
+
+  def current_address
+    if self.address
+      return self.address
+    elsif self.company
+      return self.company.address
+    elsif self.employer
+      return self.employer.address
+    end
+  end
+  
+  def address_text
+    current_address ? current_address.to_text : ""
+  end
+  
+  def validate_addresses
+    if addresses.nil?
+      errors.add_to_base("Debe seleccionar una dirección como valida")      
+    end
+  end
+  
+  def future_events
+    company_cars = Car.find(:all,:conditions=>["user_id = ? ",id])
+    cars_ids = company_cars.each{|c|c.id.to_i}
+    Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids])
+  end
+
+  def is_administrator
+    find_role Role::ADMINISTRATOR
+  end
+
+  def is_super_admin
+    find_role Role::SUPER_ADMIN
+  end
+  
+  def is_employee
+    employer != nil 
+  end
+
+  def find_role(role_name)
+    roles.select{|r| r.name == role_name}[0] != nil
+  end
+
+  def full_name
+    (first_name.blank? && last_name.blank?) ? email : "#{first_name.capitalize} #{last_name.capitalize}"  
+  end
+
+  def price_list
+    if company
+      PriceList.find_by_company_id_and_active company.id,1
+    end
+  end
+
+  def self.email_confirmation(user)
+    begin
+      result = MiddleMan.worker(:mailer_worker).async_user_activation_notification(:arg => user.id)
+      logger.debug "Mailer sent #{result}"
+    rescue Exception => e
+      logger.debug "Error #{e} (#{e.class})!"
+    end
+  end
+
+ 
+end
+

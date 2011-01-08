@@ -1,0 +1,32 @@
+%h1 Filtro
+= f.text_field 'name',{:class=>"short_text"}
+%label{:id=>'filter_label',:class=>:link,:style=>"display:none"}
+#service_offers
+  = collection_select(:service_offer,:service_type, @filters,:id,:name,{:include_blank=>:true},{:class=>"change medium_select",:id=>:sf,:name=>:sf,:selected=>@sf,:style=>"display:none"})
+#img
+  = image_tag('reload3_A.png',{:id=>:reload,:class=>:link})
+  = image_tag('reload2_A.png',{:id=>:new_reload,:class=>:link})
+  = image_tag('save.png',{:id=>:save_filter,:class=>:link})
+  = image_tag('find.png',{:id=>:find_filter,:class=>:link})
+%p
+  Tipo de servicio
+  %br
+  =f.collection_select(:service_type_id, @company_services,:id,:name,{},{:class=>"change long_select"})
+%p
+  Marca
+  %br
+  = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>:true},{:class=>"clear change long_select"})
+%p  
+  Modelo
+  %br
+  #models
+    = f.collection_select(:model_id, @models, 'id', 'name', {:include_blank=>:true},{:class=>'model clear change long_select'})  
+%p
+  Combustible
+  %br
+  =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:include_blank=>:true},{:class=>"clear change short_select"})
+%p
+  Año
+  %br
+  =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>:true},{:class=>"clear change short_select"})    
+

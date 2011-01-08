@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/tasks
+END
+show.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/tasks/show.html.haml
+END
+_form.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/tasks/_form.html.haml
+END
+edit.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/tasks/edit.html.haml
+END
+index.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/tasks/index.html.haml
+END
+new.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/tasks/new.html.haml
+END

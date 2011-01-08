@@ -1,0 +1,26 @@
+%table
+  %tr
+    %td
+      %label{ :for => "name" } Razón Social
+  %tr
+    %td
+      = f.text_field :name
+  %tr
+    %td
+      %label{:for =>"cuit"} CUIT
+  %tr
+    %td
+      =f.text_field :cuit
+ 
+  %tr      
+    %td
+      %label{ :for => "phone" } Teléfono
+  %tr      
+    %td
+      = f.text_field :phone
+  %tr      
+    %td
+      %label{ :for => "website" } Pagina Web
+  %tr      
+    %td
+      = f.text_field :website

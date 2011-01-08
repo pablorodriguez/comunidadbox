@@ -1,0 +1,3 @@
+%h1
+  Nuevo País
+= render :partial=>'country'

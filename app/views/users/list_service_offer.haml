@@ -1,0 +1,31 @@
+- javascript 'jquery.dataTables'
+- javascript 'sort.table'
+- stylesheets 'demo_page'
+- stylesheets 'demo_table'
+%table#sort_table.display
+  %thead
+    %tr
+      %th Servicio
+      %th Compañia
+      %th Titulo
+      %th Precio      
+      %th Desde
+      %th Hasta
+      %th Estado
+  - for car_offer in @car_service_offers
+    %tr
+      %td 
+        = link_to car_offer.service_offer.service_type.name, car_offer
+      %td
+        =car_offer.service_offer.company.name
+      %td
+        = car_offer.service_offer.title
+      %td
+        = number_to_currency car_offer.service_offer.final_price
+      %td
+        = car_offer.service_offer.from
+      %td
+        = car_offer.service_offer.until
+      %td
+        = car_offer.status
+        

@@ -1,0 +1,18 @@
+- form_remote_tag :url=>{:action=>"save_material"} do |form|
+  #select_material
+    = render :partial => 'select_materials'
+%table#sort_table1.display
+  %thead
+    %tr
+      %th Código
+      %th Nombre
+      %th
+  - for material in @service_type.materials
+    %tr
+      %td
+        = material.code
+      %td
+        = material.name
+      %td
+        = link_to image_tag('delete.gif'), {:controller => 'service_types', :action => 'destroy_material', :id => material.id}, :confirm => '¿Esta seguro que desea borrarlo?', :method => :delete
+

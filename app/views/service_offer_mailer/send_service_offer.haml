@@ -1,0 +1,36 @@
+%h3 Listado de Ofertas de Servicio
+%p
+  Estimado #{@user.full_name}
+  Las siguientes empresas le envian estas ofertas de servicios a realizar a su automovil.
+  %br
+  Por favor elija la mas conveniente.
+  
+%table{:width=>"100%"}
+  %caption Listado de Ofertas de Servicio
+  %thead
+    %th{:width=>"20%"}
+      Empresa
+    %th{:width=>"40%"}
+      Oferta de Servicio
+    %th{:width=>"5%"}
+      Precio
+    %th{:width=>"30%"}  
+      Valido
+    %th{:width=>"5%"}
+  %tbody
+    - for service in @service_offers
+      %tr
+        %td
+          = service.company.name
+        %td
+          = service.title
+          %br
+          = service.comment
+        %td
+          = number_to_currency(service.final_price)
+        %td
+          = "Desde #{service.from} hasta #{service.until}"
+        %td
+                
+%p Muchas gracias por usar Comunidad Box.
+%h3 Equipo de Comunidad Box

@@ -1,0 +1,16 @@
+%tr{:class=>:fields}
+  %td
+    = f.text_field :name,:size=>15
+  %td
+    = f.text_field :street,:size=>20
+  %td
+    = f.text_field :city,:size=>15
+  %td
+    = f.text_field :zip,:size=>5
+  %td
+    = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:id=>@state_id,:class=>"state medium_select"})
+  %td
+    =# f.radio_button :default, ???
+  %td
+    = link_to_remove_fields f,:address
+

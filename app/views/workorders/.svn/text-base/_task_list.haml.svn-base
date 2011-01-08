@@ -1,0 +1,5 @@
+%ul#tasks
+  - for task in tasks
+    %li
+      = check_box_tag("material[task_ids][]",task.id,service.tasks.include?(task))
+      = task.name

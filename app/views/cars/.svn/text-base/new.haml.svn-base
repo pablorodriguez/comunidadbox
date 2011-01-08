@@ -1,0 +1,5 @@
+- javascript 'accounts'
+%h1
+  Nuevo Auto para 
+  = current_user.full_name
+= render :partial=>'car'

@@ -1,0 +1,103 @@
+#car_filter{
+	width:200px;
+	float:left;
+	margin-top:-20px;
+}
+
+#service_offers{
+	display:inline;
+}
+
+#zone_filter{
+	margin-left:185px;
+}
+
+#control_panel{
+	margin-left:0px;
+}
+
+#cars{
+	margin-top:10px;
+	margin-left:5px;
+	margin-right:10px;	
+}
+
+#departments{
+	display:inline;
+}
+
+table.control-panel{
+	width:100%;
+	border-collapse:collapse;
+	margin:6px;
+}
+
+table.control-panel th{
+	font-size:12px;
+	color:black;
+	font-family:verdana;
+	font-size:20px;
+}
+
+table.control-panel col{
+	margin:5px;
+}
+
+table.control-panel caption{
+	color: white;
+	background:url("../images/img07.gif") repeat-x scroll 0 0 #F7F7F7;
+	font-family:verdana;
+	font-size:20px;
+	font-weight:bold;
+	height:45px;
+	text-align:left;
+	padding:5px;
+}
+
+.rojo{
+	border: 1px solid red;
+	background-color: #FF9999;
+}
+
+.amarillo{
+	background-color:#FFFFA0;
+	border: 1px solid #FF8057 ;
+}
+
+.verde{
+	background-color:#A0FFA0 ;
+	border: 1px solid green;
+}
+
+.short_select{
+	width:100px
+}
+
+.medium_select{
+	width:130px
+}
+
+.long_select{
+	width:180px
+}
+
+.long_text{
+	width:150px
+}
+
+.short_text{
+	width:100px
+}
+
+#offer{
+	margin-top:10px;
+}
+
+#img{
+	float:right;
+	margin-right:30px;
+}
+
+.link {
+	cursor:pointer;
+}

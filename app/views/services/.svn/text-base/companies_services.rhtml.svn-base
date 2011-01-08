@@ -1,0 +1,6 @@
+<% form_remote_for :service, :url=>{:action=>"save_service"} do |form| %>   
+<ol class="formList">   
+  <li><%= tree_select(ServiceType.find(:all, :conditions => "parent_id = 0"),'ServiceType', 'parent_id', @servicios) %></li>
+  <li><%= submit_tag "Agregar" %></li>   
+</ol>   
+<% end %> 

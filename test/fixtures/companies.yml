@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: ComunidadBox
+  country_id: 1
+  phone: 4526157
+  website: www.comunidadbox.com
+  cuit: 4565656
+  user_id: 1
+  active: 1

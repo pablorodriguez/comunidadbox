@@ -1,0 +1,5 @@
+module RanksHelper
+  def pagetitle
+    @pagetilte || "Calificación"
+  end
+end

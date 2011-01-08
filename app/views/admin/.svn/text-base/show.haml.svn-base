@@ -1,0 +1,20 @@
+%ul
+  %li 
+    = link_to "Mis Servicios", service_types_companies_path
+  %li
+    = link_to "Servicios Realizados" , workorders_path
+  %li
+    = link_to "Panel de control" , control_panels_path
+  %li
+    = link_to "Listado de Filtros" , service_filters_path
+  %li
+    = link_to "Administración Ofertas de Servicio" , service_offers_path
+  %li
+    = link_to "Ofertas Servicios Enviadas",car_service_offer_index_path
+  %li
+    = link_to "Lista de Precios", price_lists_path
+  %li
+    = link_to "Mis Empresas", companies_path
+  %li
+    = link_to "Mis Empleados", employees_path
+    

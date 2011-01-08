@@ -1,0 +1,20 @@
+-form_for @service do |f|
+  %table     
+    %tr
+      %td
+        Materialesssssssssssssssss
+    %tr
+      %td
+        Material
+      %td
+        Cantidad
+      %td
+        Precio Unitario
+    - f.fields_for :material_services do |ms|
+      %tr
+        %td
+        %td
+          = ms.text_field :amount
+        %td
+          = ms.text_field :price
+  = f.submit "Save"

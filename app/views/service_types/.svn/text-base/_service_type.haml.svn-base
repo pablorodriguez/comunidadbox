@@ -1,0 +1,22 @@
+= error_messages_for :service_type
+- form_for @service_type do |f|
+  #newService_type
+    %p
+      %label{ :for => "name" }Nombre
+      %br
+      = f.text_field :name
+    %p
+      %label{ :for => "kms" }Kilometro
+      %br
+      = f.text_field :kms
+    %p
+      %label{ :for => "parent_id" }Pertenece a
+      %br
+      = f.collection_select :parent_id, ServiceType.find(:all), :id, :name, { :include_blank => true }, :style => "width: 200px;"
+    %p
+      %label{ :for => "active" }Estado
+      %br
+      = f.check_box :active
+      %br
+  = submit_tag 'Grabar'
+= link_to_back

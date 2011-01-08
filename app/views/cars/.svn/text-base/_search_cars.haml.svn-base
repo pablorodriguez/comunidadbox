@@ -1,0 +1,9 @@
+#list_car.boxs
+  #car_domains.left
+    - remote_form_for :car, :url => search_cars_path,:loading =>'AjaxLoader.enable()',:html=>{:id=>:car_search}  do |f|
+      Dominio 
+      = f.text_field :domain
+      = submit_tag "Buscar"
+      = link_to "Registrar nuevo cliente", new_client_users_path
+  #ajax_loader.ajax_loader.left{:style=>"display:none"}        
+#cars_search.left

@@ -1,0 +1,2 @@
+%tr{:id=> "service_#{service.row}" ,:class=>"service_row"}
+  = render :partial=>'service',:locals =>{:service=>service}

@@ -1,0 +1,21 @@
+%table{:id=>:materials_table, :class=>:service_table} 
+  %input{:id=>:service_id,:type =>:hidden}
+  %tr{:class=>:table_header}
+    %td{:colspan=>"5"}
+      Materiales
+  %tr
+    %td{:class=>:caption}
+      Material
+    %td{:class=>"caption number"}
+      Cantidad
+    %td{:class=>"caption number"}
+      Precio Unitario
+    %td{:class=>"caption number"}
+      Total
+    %td
+#material_btns{:class=>:service_table_btn}
+  = hidden_field("add_service","url",{:value=>add_service_services_path})
+  %input{:type=>"button",:id=>"add_service",:value=>"Agregar Servicio",:class=>:btn}
+  #service_ajax_loader.ajax_loader{:style=>"display:none"}
+  Precio Total Materiales:
+  %label{:id=>:material_total_price,:class=>:caption}

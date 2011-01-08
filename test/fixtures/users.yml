@@ -1,0 +1,10 @@
+1:
+  id: 1
+  first_name: Admin
+  last_name: Admin
+  email: admin@comunidadbox.com
+  password_salt: $10$kkZu3tYMlVJmy0kaO1VqR.
+  encrypted_password: $10$kkZu3tYMlVJmy0kaO1VqR.KM7Jf2SzJ6gZ5XhaFatj.XbadUuPVcC # admintest
+  #crypted_password: "ce2/iFrNtQ8=\n" # quentin, use only if you're using 2-way encryption
+  created_at: <%= 5.days.ago.to_s :db %>
+  # activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups  

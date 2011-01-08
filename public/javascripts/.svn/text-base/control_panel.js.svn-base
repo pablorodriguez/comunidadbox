@@ -1,0 +1,139 @@
+function checkAll(element,css){
+	var id = "input[class='" + css +"']";
+	var value = element.checked;
+	$(id).each(function(){
+		this.checked = value;
+	});
+}
+
+function submitServiceOffer(){
+	var checked=false;
+	$('.red').each(function(){
+		if (this.checked){
+			checked=true;
+			return;			
+		}
+	});
+	
+	if (!checked){
+		$('.yellow').each(function(){
+			if (this.checked){
+				checked=true;
+				return;			
+			}
+		});
+	}
+	
+	if (checked){
+		$('#service_offer_service_type_id').val($('#service_filter_service_type_id') .val());
+		$('#service_offer_form').submit();		
+	}else{
+		$('#error').text("Debe elegir al menos un automovil");
+		$('#error').show();
+		return false;
+	}
+	
+}
+
+function submit_form(){
+	$('#service_filter_form').submit();
+}
+
+function save_filter(){
+	var new_action=$('#save_filter_url').val();
+	var params= "service_type_id=" + $('#service_filter_service_type_id').val();
+	$.ajax({
+		url: new_action,
+			data: {
+				'service_filter[name]':$('#service_filter_name').val(),
+				'service_filter[service_type_id]':$('#service_filter_service_type_id').val(),
+				'service_filter[brand_id':$('#service_filter_brand_id').val(),
+				'service_filter[model_id]':$('#service_filter_model_id').val(),
+				'service_filter[fuel]':$('#service_filter_fuel').val(),
+				'service_filter[year]':$('#service_filter_year').val(),
+				'service_filter[state_id]':$('#service_filter_state_id').val(),
+				'service_filter[city]':$('#service_filter_city').val()
+			},
+		type:'POST',
+		dataType:'script'
+	});
+}
+
+function save_filter_callback(){
+	$('#filter_label').text($('#service_filter_name').val());
+	$('#service_filter_name').hide();
+	$('#filter_label').show();
+	$('#save_filter').hide();
+}
+
+function edit_filter_name(){
+	$('#service_filter_name').show();
+	$('#filter_label').hide();	
+	$('#save_filter').show();
+}
+
+jQuery(document).ready( function(){
+	$('#operators_red').click(function(){checkAll(this,'red');});
+	$('#operators_yellow').click(function(){checkAll(this,'yellow');});
+	
+	$('#reload').click(submit_form);
+	$('#new_reload').click(submit_form);
+	$('#save_filter').click(save_filter);
+	$('#new_reload').hide();
+	$('#filter_label').click(edit_filter_name);
+	$('#clear_filter').click(clear_filter);
+	$('#save_offer').click(submitServiceOffer);
+	$('#sf').change(submit_form);
+	$('#find_filter').click(toggleSearchFilter);
+	
+	if ($('#service_filter_name').val()){
+		$('#filter_label').text($('#service_filter_name').val());
+		$('#service_filter_name').hide();
+		$('#filter_label').show();
+		$('#save_filter').hide();
+	}else{
+		$('#service_filter_name').show();
+		$('#filter_label').hide();		
+	}
+	
+	$("select.change").each(function(){
+		$(this).change(filter_change);
+		});
+	$("input.change").each(function(){
+		$(this).blur(filter_change);
+	});
+});
+
+function toggleSearchFilter(){
+	if ($('#sf').is(':visible')){
+		$('#sf').hide();
+		if ($('#filter_label').text() == "") {
+			$('#service_filter_name').show();
+			$('#filter_label').hide();
+			$('#save_filter').show();
+		}else {
+			$('#service_filter_name').hide();
+			$('#filter_label').show();
+			$('#save_filter').hide();
+		}
+	}else{
+		$('#sf').show();
+		$('#filter_label').hide();
+		$('#service_filter_name').hide();
+		$('#save_filter').hide();
+	}
+	
+	
+}
+
+function filter_change(){
+	$('#reload').hide();
+	$('#new_reload').show();
+}
+
+function clear_filter(){
+	$(".clear").each(function(){
+		$(this).val('');
+		});
+}
+

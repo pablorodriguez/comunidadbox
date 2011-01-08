@@ -1,0 +1,30 @@
+- javascript 'jquery.dataTables'
+- javascript 'sort.table'
+- stylesheets 'demo_page'
+- stylesheets 'demo_table'
+%h1
+  Listas de Precios
+%table#sort_table.display
+  %thead
+    %tr
+      %th
+        Nombre
+      %th
+        Estado
+      %th 
+  - for price_list in @price_lists
+    %tr
+      %td
+        = link_to h(price_list.name),items_price_list_path(price_list)
+        - if price_list.company.nil?
+          = link_to "Copiar",copy_price_list_path(price_list)
+      %td
+        = is_active price_list
+      %td
+        -unless price_list.company.nil?
+          = link_to image_tag('edit.png'), edit_price_list_path(price_list)
+        -unless price_list.active
+          = link_to image_tag('delete.gif'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+%br
+= link_to image_tag('new.png'), new_price_list_path
+= link_to_back

@@ -1,0 +1,47 @@
+= hidden_field_tag :full_address, @company.full_address
+%table.service_table
+  %thead
+    %th.table_header{:colspan=>2}
+      Información del Prestador de Servicios
+  %tbody
+    %tr
+      %td Nombre
+      %td
+        = @company.name
+    %tr
+      %td
+        Teléfono
+      %td
+        = h @company.phone
+    %tr
+      %td
+        Sitio Web
+      %td
+        = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
+    
+    -if @company.address
+      = hidden_field_tag :full_address, @company.address.to_text
+      %tr
+        %td.table_header{:colspan=>2}
+          Dirección
+      %tr
+        %td 
+          %label{ :for => "state" }Provincia
+        %td
+          = @company.address.state.name
+      %tr
+        %td
+          %label{ :for => "city" }Ciudad    
+        %td
+          = @company.address.city    
+      %tr
+        %td
+          %label{ :for => "street" }Calle
+        %td
+          = @company.address.street
+      %tr
+        %td
+          %label{ :for => "zip" }Código Postal    
+        %td
+          = @company.address.zip
+            

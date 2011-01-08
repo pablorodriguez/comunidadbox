@@ -1,0 +1,18 @@
+- javascript 'jquery.formatCurrency-1.4.0'
+- javascript 'jquery.formatCurrency.es-AR'
+- javascript 'jquery.simplemodal.1.4.min'
+- javascript 'jquery.services'
+- javascript 'pagination'
+- javascript 'jquery.editinplace'
+- stylesheets 'jquery.ui.base.css'
+- stylesheets 'jquery.ui.theme.css'
+#work_order_info
+  = render 'shared/error_messages', :target => @work_order
+  #work_order
+    #car_info
+      = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}    
+    #work_order_form
+      = render :partial=>'services_list',:locals =>{:work_order=>@work_order}
+  #materials
+    = render :partial=>'materials'
+           

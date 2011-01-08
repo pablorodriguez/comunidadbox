@@ -1,0 +1,13 @@
+
+- form_remote_tag :url => filter_clients_path do
+  Email
+  = text_field_tag 'email'
+  Nombre
+  = text_field_tag 'first_name'
+  Apellido
+  = text_field_tag 'last_name'
+  = submit_tag 'Buscar'
+  = link_to "Registrar nuevo cliente", new_client_users_path
+%br
+#result
+

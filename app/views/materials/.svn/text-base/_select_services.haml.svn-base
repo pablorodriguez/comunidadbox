@@ -1,0 +1,1 @@
+= collection_select(:ServiceType, :parent_id, @servicetypes, :id, :name, options ={:prompt => "-Seleccione un tipo de servicio"})

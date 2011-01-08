@@ -1,0 +1,57 @@
+- stylesheets 'control_panel'
+:javascript
+  var rowCarNro= #{@user.cars.size};
+  var rowAddNro= #{@user.addresses.size};
+
+- form_for @user, :url => client_path(@user) do |f|
+  #errors
+    =f.error_messages
+  #account
+    %ul
+      %li
+        %a{:href=>"#user"} Usuario *
+      %li
+        %a{:href=>"#car"} Autos *
+      %li
+        %a{:href=>"#address"} Direcciones *
+    #user
+      = render 'user'
+    #car
+      %table
+        %tr
+          %td Dominio * (XXX999)
+          %td Marca *
+          %td
+            Modelo
+            #ajax_loader.ajax_loader{:style=>"display:none"}
+          %td Año *
+          %td Km Actual *
+          %td
+            Km Promedio
+            %br Mensual *
+          %td Combustible
+        -f.fields_for :cars do |c|
+          = render 'car_fields',:f =>c
+      = button_to_add_fields "Nuevo Auto",f,:cars
+    #address
+      %table
+        %tr
+          %th
+            Tipo *
+          %th
+            Calle *
+          %th
+            Ciudad *
+          %th
+            Código Postal *
+          %th
+            Provincia *
+          %th
+            Usar
+        - f.fields_for :addresses do |b1|
+          = render 'address_fields',:f =>b1
+      = button_to_add_fields "Nueva Dirección",f,:addresses
+  = submit_tag 'Grabar  '
+  = link_to_back
+  %label * Campos Obligatorios
+

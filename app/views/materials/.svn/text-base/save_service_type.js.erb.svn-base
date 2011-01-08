@@ -1,0 +1,4 @@
+$("#servicestypes").html("<%=escape_javascript(render(:partial=>'servicetypes', :locals =>{:materials =>@materials}))%>");
+$("#select_servicetype").html("<%=escape_javascript(render(:partial =>'select_services',:locals=>{:servicetypes =>@servicetypes}))%>");
+initTable();
+AjaxLoader.disable();

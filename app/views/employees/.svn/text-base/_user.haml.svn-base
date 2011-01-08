@@ -1,0 +1,24 @@
+- fields_for @user do |f1|
+  %p
+    %label{ :for => "login" }Nombre
+    %br
+    = f1.text_field :first_name
+  %p
+    %label{ :for => "login" }Apellido
+    %br
+    = f1.text_field :last_name
+  %p
+    %label{:for =>"phone"}Teléfono
+    %br
+    = f1.text_field :phone
+  %p
+    %label{ :for => "email" }Email *
+    %br
+    = f1.text_field :email
+  %p
+    %label Tipo de Empleado
+    %br
+      - for role in Role.all :conditions =>["id >= ?",1] 
+        #div
+          = check_box_tag "user[role_ids][]",role.id,@user.roles.include?(role)
+          = role.detail

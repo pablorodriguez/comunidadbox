@@ -1,0 +1,12 @@
+= f.error_messages
+%table
+  %tbody
+    = render :partial =>'users/user_row',:locals  =>{:f => f}
+    %tr
+      %td Clave Actual
+      %td
+        = f.password_field :current_password
+    %tr
+      %td
+      %td
+        <i>(necesitamos su clave actual para confirmar los cambios)</i>

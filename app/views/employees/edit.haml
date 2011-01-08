@@ -1,0 +1,9 @@
+- javascript 'accounts'
+- stylesheets 'control_panel'
+- stylesheets 'jquery.ui.base.css'
+- stylesheets 'jquery.ui.theme.css'
+#user_company_address
+  %h1 Modificar Empleado
+  - form_for  @employee, :url => employee_path(@employee)  do |f|  
+    = render 'form',:f => f
+

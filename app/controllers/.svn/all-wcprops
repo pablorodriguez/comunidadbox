@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers
+END
+countries_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/countries_controller.rb
+END
+companies_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/autoasistencia/!svn/ver/497/branches/linkcar_auth/app/controllers/companies_controller.rb
+END
+ranks_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/ranks_controller.rb
+END
+alarms_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/alarms_controller.rb
+END
+price_lists_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/autoasistencia/!svn/ver/491/branches/linkcar_auth/app/controllers/price_lists_controller.rb
+END
+materials_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/autoasistencia/!svn/ver/494/branches/linkcar_auth/app/controllers/materials_controller.rb
+END
+control_panels_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/autoasistencia/!svn/ver/494/branches/linkcar_auth/app/controllers/control_panels_controller.rb
+END
+models_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/models_controller.rb
+END
+services_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/services_controller.rb
+END
+service_types_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/service_types_controller.rb
+END
+conf_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/conf_controller.rb
+END
+tasks_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/tasks_controller.rb
+END
+cars_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/autoasistencia/!svn/ver/494/branches/linkcar_auth/app/controllers/cars_controller.rb
+END
+admin_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/admin_controller.rb
+END
+home_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/autoasistencia/!svn/ver/486/branches/linkcar_auth/app/controllers/home_controller.rb
+END
+service_filters_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/service_filters_controller.rb
+END
+car_filters_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/car_filters_controller.rb
+END
+application.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/autoasistencia/!svn/ver/486/branches/linkcar_auth/app/controllers/application.rb
+END
+item_services_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/item_services_controller.rb
+END
+clients_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/autoasistencia/!svn/ver/494/branches/linkcar_auth/app/controllers/clients_controller.rb
+END
+workorders_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/autoasistencia/!svn/ver/497/branches/linkcar_auth/app/controllers/workorders_controller.rb
+END
+users_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/autoasistencia/!svn/ver/497/branches/linkcar_auth/app/controllers/users_controller.rb
+END
+employees_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/autoasistencia/!svn/ver/497/branches/linkcar_auth/app/controllers/employees_controller.rb
+END
+application_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/autoasistencia/!svn/ver/486/branches/linkcar_auth/app/controllers/application_controller.rb
+END
+states_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/states_controller.rb
+END
+service_offers_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/service_offers_controller.rb
+END
+car_service_offer_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/car_service_offer_controller.rb
+END
+brands_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/controllers/brands_controller.rb
+END

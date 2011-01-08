@@ -1,0 +1,19 @@
+#company
+  %h1
+    Empresa
+  - new_or_existing =  @user.company.new_record? ? 'new':'existing'
+  - prefix ="user[#{new_or_existing}_company_attributes]"
+  = fields_for prefix, @user.company do |cf|
+    = cf.error_messages
+    %p
+      %label{ :for => "name" } Nombre
+      %br
+      = cf.text_field :name
+    %p
+      %label{ :for => "phone" } Teléfono
+      %br
+      = cf.text_field :phone
+    %p
+      %label{ :for => "website" } Pagina Web
+      %br
+      = cf.text_field :website

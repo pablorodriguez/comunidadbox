@@ -1,0 +1,36 @@
+- javascript 'jquery.dataTables'
+- javascript 'sort.table'
+- stylesheets 'demo_page'
+- stylesheets 'demo_table'
+%h1 Ofertas de Servicio
+%table{:id=>'sort_table',:class=>'display'}
+  %thead
+    %tr
+      -unless current_user.company
+        %th Compañia
+      %th Titulo        
+      %th Desde
+      %th Hasta  
+      %th Autos    
+      %th Estado
+      - if current_user.company
+        %th
+  - @offers.each do |offer|
+    %tr
+      -unless current_user.company
+        %td 
+          = offer.company.name      
+      %td=link_to offer.title, offer
+      %td=h offer.from
+      %td=h offer.until
+      %td= offer.cars.size
+      %td=h offer.status     
+      - if current_user.company
+        %td
+          = link_to image_tag('edit.png'), edit_service_offer_path(offer) if (offer.status == 'Pendiente' || offer.status == 'Abierto')
+          = link_to image_tag('delete.gif'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete
+- unless current_user.company
+  = button_to("Enviar Ofertas de Servicio", :action => :send_notification)
+%br
+  = link_to_back
+  

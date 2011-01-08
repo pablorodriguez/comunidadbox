@@ -1,0 +1,17 @@
+%h2 Comunidad Box
+%p
+  Estimado #{@user.full_name}
+%p
+  Usted nos pidio que le recordaramos lo siguiente.
+%p
+  Titulo
+  %br
+  =h @alarm.name
+%p
+  Descripcion
+  %br
+  =h @alarm.description
+%p
+  Muchas gracias !!!
+%h3 Equipo de Comunidad Box
+

@@ -1,0 +1,56 @@
+- stylesheets 'control_panel'
+#car_info
+  %table.service_table
+    %tr.table_header
+      %td{:colspan=>4} Automovil
+    %tr
+      %td.label_title Dueño
+      %td
+        = h @car.user.full_name
+      %td.label_title Año
+      %td
+        = h @car.year
+    %tr
+      %td.label_title Dominio
+      %td
+        = h @car.domain
+      %td.label_title Km
+      %td
+        = h @car.km
+    %tr
+      %td.label_title Marca
+      %td
+        = h @car.brand.name
+      %td.label_title Combustible
+      %td
+        = h @car.fuel
+    %tr
+      %td.label_title Modelo
+      %td
+        = h @car.model.name        
+      %td.label_title Promedio Km Mensual
+      %td
+        = h @car.kmAverageMonthly
+    %tr
+      %td.label_title Total Gastado
+      %td.label_title
+        %strong
+          = h number_to_currency @car.total_spend
+      %td.label_title Publico
+      %td
+        = h @car.public
+    - if current_user.company
+      %tr
+        %td.label_title 
+          Total Gastado en tu empresa
+        %td.label_title
+          %strong
+            = h number_to_currency @car.total_spend(current_user.company.id) 
+      
+  
+  - if current_user.company
+    = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
+  = link_to image_tag('return.png'),cars_path
+  %br
+#cars_work_orders    
+  = render "work_orders"

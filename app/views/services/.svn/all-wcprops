@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services
+END
+_service.haml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/_service.haml
+END
+_service_type.haml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/_service_type.haml
+END
+companies_services.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/companies_services.rhtml
+END
+edit.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/edit.js.erb
+END
+_new_service.haml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/_new_service.haml
+END
+add_material.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/add_material.js.erb
+END
+add_service.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/add_service.js.erb
+END
+_list_services.haml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/_list_services.haml
+END
+remove_material.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/autoasistencia/!svn/ver/485/branches/linkcar_auth/app/views/services/remove_material.js.erb
+END

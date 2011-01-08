@@ -1,0 +1,13 @@
+- form_for(@material) do |f|
+  = f.error_messages
+  %p
+    %label{ :for => "login" }Codigo (XX99999)
+    %br
+    = f.text_field :code
+  %p
+    %label{ :for => "login" }Nombre
+    %br
+    = f.text_field :name    
+  %p
+    = f.submit "Grabar"
+= link_to_back

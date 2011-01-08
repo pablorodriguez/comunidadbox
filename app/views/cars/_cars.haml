@@ -1,0 +1,27 @@
+%table#sort_table.display
+  %thead
+    %tr
+      %th Dominio
+      %th Marca
+      %th Modelo
+      %th Año
+      %th Km
+      %th Km Promedio Mensual
+      %th
+  - for car in cars
+    %tr
+      %td
+        = link_to h(car.domain),car
+      %td
+        = h car.brand.name
+      %td
+        = h car.model.name
+      %td
+        = h car.year
+      %td
+        = h car.km
+      %td
+        = h car.kmAverageMonthly
+      %td
+        = link_to image_tag('new.png'), new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio"}
+		

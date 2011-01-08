@@ -1,0 +1,103 @@
+%table.service_table
+  %tr.table_header
+    %td{:colspan=>4}
+      = @title
+  %tr
+    %td
+      Autos Seleccionados
+    %td{:colspan=>3}      
+      =@offer.car_service_offer.size()
+      .cars{:style=>"display:none"}
+        - @offer.car_service_offer.each do |c_s_o|
+          =hidden_field_tag 'car_ids[]', c_s_o.car.id
+  %tr
+    %td 
+      Servicio
+    %td{:colspan=>3}
+      = @offer.service_type.name
+      = f.hidden_field :service_type_id
+  %tr
+    %td
+      Titulo
+    %td{:colspan=>3}
+      = f.text_field :title
+  %tr{:class=>:table_header}
+    %td{:colspan=>4}
+      Importe
+  %tr
+    %td
+      Precio
+    %td
+      = f.text_field :price, :size=>4
+    %td  
+      Descuento %
+    %td
+      = f.text_field :percent, :size=>4
+  %tr
+    %td  
+      Precio Final
+    %td      
+      = f.text_field :final_price, :size=>4
+    %td
+      Estado
+    %td
+      = f.select :status, ServiceOffersController::STATUS
+  %tr{:class=>:table_header}
+    %td{:colspan=>4} 
+      Valido
+  %tr
+    %td
+      Desde
+    %td
+      = f.text_field :from ,:size =>10
+    %td
+      Hasta
+    %td
+      = f.text_field :until,:size=>10
+  %tr{:class=>:table_header}
+    %td{:colspan=>4}
+      Dias
+  %tr
+    %td
+      %ul
+        %li 
+          = f.check_box :monday,{:class=>:day}
+          Lunes
+        %li 
+          = f.check_box :tuesday,{:class=>:day}
+          Martes
+    %td
+      %ul
+        %li
+          = f.check_box :wednesday,{:class=>:day}
+          Miercoles
+        %li
+          = f.check_box :thursday,{:class=>:day}
+          Jueves
+    %td
+      %ul
+        %li
+          = f.check_box :friday,{:class=>:day}
+          Viernes
+        %li
+          = f.check_box :saturday,{:class=>:day}
+          Sabado
+    %td
+      %ul
+        %li
+          = f.check_box :sunday,{:class=>:day}
+          Domingo
+        %li
+          = check_box_tag :todos
+          Todos          
+  %tr{:class=>:table_header}
+    %td{:colspan=>4}
+      Comentario
+  %tr
+    %td{:colspan=>4}
+      = f.text_area :comment, :cols => 80, :rows => 3
+  %tr{:colspan=>4}
+    %td
+      = f.submit 'Grabar'
+      = link_to_back
+

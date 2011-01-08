@@ -1,0 +1,36 @@
+- form_remote_for :material,:url=>formatted_add_material_services_path(:js),:loading =>'AjaxLoader.enable()',:html=>{:id=>:material_form} do |f|              
+  =f.hidden_field :row
+  %input{:value=> search_sub_category_service_types_path, :type=>:hidden,:id=>:search_sub_category_url}
+  %table.service_table
+    %tr.table_header
+      %td{:colspan=>"4"} Servicio
+    %tr
+      %td.label_title{:style=>"width:10%"}Servicio
+      %td{:colspan=>"3",:style=>"width:90%"}
+        %label
+          = f.collection_select :service_type_id,@service_types,:id,:name,:include_blank => true          
+        #search_task.inline{:style=>"display:none"}
+          %strong.label_title
+            Buscando Tareas
+          #st_ajax_loader.ajax_loader{:style=>"display:none"}               
+    %tr
+      %td.label_title Material
+      %td{:colspan=>"3"}
+        = text_field :material, :detail
+        #div{:style =>"display:none"}
+          #category.inline
+            = collection_select(:category, :id, ["Categoría ..."], :to_s, :to_s, {:include_blank => false})
+          #subcategory.inline
+            = collection_select(:category, :id, ["Sub Categoría ..."],:to_s,:to_s, {:include_blank => false})          
+    %tr
+      %td.label_title{:style=>"width:10%"}Cantidad
+      %td.lable_title{:style=>"width:80%",:colspan=>"2"}
+        = f.text_field :amount
+        Precio Unitario:
+        = f.text_field :price
+  #service_type_task         
+  #add_material_btns.service_table_btn        
+    %input{ :name => "Agregar", :type => "submit", :value => "Agregar Material" ,:id=>"add_material",:class=>:btn}
+    #ajax_loader.ajax_loader{:style=>"display:none"}     
+    Precio Total:
+    %label#total_price.caption

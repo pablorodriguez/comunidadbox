@@ -1,0 +1,4 @@
+if (<%=@service_error%>){
+	$('#msg_<%=@service_type_id%>').html("<%=@msg%>");
+}
+$('#service_type_<%=@service_type_id%>').parent().next().hide();

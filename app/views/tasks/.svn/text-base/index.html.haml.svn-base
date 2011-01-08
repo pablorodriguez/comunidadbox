@@ -1,0 +1,21 @@
+- javascript 'jquery.dataTables'
+- javascript 'sort.table'
+- stylesheets 'demo_page'
+- stylesheets 'demo_table'
+%h1 Tareas
+%table{:id=>'sort_table',:class=>'display'}
+  %thead
+    %tr
+      %th Nombre
+      %th Descripcion
+      %th
+  - @tasks.each do |task|
+    %tr
+      %td= h task.name
+      %td=h task.description
+      %td
+        = link_to image_tag('edit.png'), edit_task_path(task)
+        = link_to image_tag('delete.gif'), task, :confirm => 'Esta seguro?', :method => :delete
+
+= link_to image_tag('new.png'), new_task_path
+

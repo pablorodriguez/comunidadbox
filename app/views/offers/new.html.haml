@@ -1,0 +1,6 @@
+- form_for :offer, @offer, :url => offers_path do |f|
+  = f.error_messages
+  = render :partial => 'form', :locals => {:f => f}
+  %p
+    = f.submit 'Crear'
+

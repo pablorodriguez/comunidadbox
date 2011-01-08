@@ -1,0 +1,142 @@
+10
+
+dir
+485
+http://my-svn.assembla.com/svn/autoasistencia/branches/linkcar_auth/app/views
+http://my-svn.assembla.com/svn/autoasistencia
+
+
+
+2010-11-24T18:12:42.904664Z
+484
+pablorodriguez.ar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2b46f844-1d64-4159-8e26-b0a61c8db15a
+
+price_lists
+dir
+
+control_panels
+dir
+
+services
+dir
+
+conf
+dir
+
+passwords
+dir
+
+service_filters
+dir
+
+cars
+dir
+
+home
+dir
+
+registrations
+dir
+
+layouts
+dir
+
+workorders
+dir
+
+users
+dir
+
+clients
+dir
+
+service_offers
+dir
+
+shared
+dir
+
+sessions
+dir
+
+user_mailer
+dir
+
+devise_mailer
+dir
+
+brands
+dir
+
+event_mailer
+dir
+
+service_offer_mailer
+dir
+
+countries
+dir
+
+confirmations
+dir
+
+ranks
+dir
+
+alarms
+dir
+
+materials
+dir
+
+models
+dir
+
+offers
+dir
+
+service_types
+dir
+
+alarm_mailer
+dir
+
+tasks
+dir
+
+admin
+dir
+
+item_services
+dir
+
+employees
+dir
+
+states
+dir
+
+car_service_offer
+dir
+
+companies
+dir
+
+unlocks
+dir
+

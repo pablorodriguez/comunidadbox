@@ -1,0 +1,4 @@
+Provincia
+= f.collection_select(:state_id, @states, 'id', 'name', {:include_blank=>:true},{:class=>"clear change medium_select"})
+Ciudad
+=f.text_field :city,{:class=>"clear change long_text"}

@@ -1,0 +1,98 @@
+#work_order
+  %table.service_table
+    %tr.table_header
+      %td{:colspan=>2} 
+        Order de Trabajo 
+        [Estado:
+        = @work_order.status
+        ]
+        Total 
+        = number_to_currency @work_order.total_price
+    %tr
+      %td.label_title Empresa
+      %td
+        = @work_order.company.name
+    %tr
+      %td.label_title Realizado
+      %td
+        = l @work_order.created_at.to_date
+    %tr
+      %td.label_title Operario
+      %td
+        = @work_order.user.full_name
+  #car
+    %table.service_table
+      %tr.table_header
+        %td{:colspan=>"4"}
+          Vehiculo
+      %tr
+        %td.label_title
+          Dominio
+        %td
+          = "#{@car.domain} Year: #{@car.year}"
+      %tr
+        %td.label_title
+          Km Actual
+        %td
+          = @car.km
+        %td.label_title
+          Km Promedio Mensual
+        %td
+          = @car.kmAverageMonthly
+  %table.service_table
+    - for service in @work_order.services
+      %tr.table_header
+        %td{:colspan=>"3"}
+          = service.service_type.name
+          [Estado: 
+          = service.status
+          ]
+      %tr
+        %td.label_title
+          Materiales
+        %td.label_title.number
+          Cantidad
+        %td.label_title.number
+          Precio
+      - for ms in service.material_services
+        %tr
+          %td
+            - if ms.material_service_type
+              = ms.material_service_type.material.name
+            - unless ms.material_service_type
+              = ms.material
+          %td.number
+            = ms.amount
+          %td.number
+            = number_to_currency ms.price
+      - if service.service_type.tasks.size >0
+        %tr.table_header
+          %td{:colspan=>2} Tareas
+          %td Comentario
+        %tr
+          %td{:colspan=>2}
+            %ul.tasks
+              - for task in service.service_type.tasks
+                %li{:class=>service.tasks.include?(task)?"":"red"}
+                  = task.name
+                  
+          %td
+            = service.comment
+      %tr
+        %td
+        %td.label_title 
+          Total
+        %td.label_title.number
+          = number_to_currency service.total_price
+    %tr
+      %td
+      %td.label_title
+        Total Orden de Trabajo
+      %td.number.label_title
+        = number_to_currency @work_order.total_price
+.buttons        
+  -if @work_order.open?
+    = link_to image_tag('edit.png'), edit_workorder_path(@work_order)
+    |
+  = link_to_pdf @work_order
+  = link_to image_tag('return.png'), workorders_path   
