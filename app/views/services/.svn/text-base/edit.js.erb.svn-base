@@ -1,9 +1,0 @@
-removeMaterials();
-$("#materials_table tr:last").after("<%=escape_javascript(render(:partial=>'materials/new_material', :collection =>@materials,:as => :material))%>");
-$("#service_id").val(<%=@service.row%>);
-toggleEditServiceRow(<%=@service.row%>);
-$("#add_service").val("Actualizar Servicio");
-$('#material_total_price').html("$ <%=@service.total_price%>");
-$('#material_total_price').effect('highlight',{},3000);
-$('#material_service_type_id').val(<%=@service.service_type.id%>);
-$('#material_service_type_id').disable()

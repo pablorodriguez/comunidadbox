@@ -1,4 +1,0 @@
-%h1
-  Nueva Provincia
-= render :partial=>'state'
-= link_to_back

@@ -1,9 +1,0 @@
-- @company.build_address if @company.address.nil?
-%h1
-  Nueva Empresa
-- form_for(@company) do |f|
-  = render :partial =>"form",:locals =>{:f =>f}
-  = f.submit "Grabar" 
-  |
-  = link_to_back
-      

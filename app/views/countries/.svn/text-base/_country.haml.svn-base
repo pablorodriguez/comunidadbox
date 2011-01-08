@@ -1,9 +1,0 @@
-- form_for(@country) do |f|
-  = f.error_messages
-  %p
-    Nombre
-    %br
-    = f.text_field :name
-  %p
-    = f.submit "Grabar"
-= link_to_back

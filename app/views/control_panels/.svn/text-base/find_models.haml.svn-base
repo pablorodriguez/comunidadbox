@@ -1,1 +1,0 @@
-= collection_select(:service_filter, :model_id, @models, 'id', 'name', {:include_blank=>:true},{:class=>"clear submit long_select"})

@@ -1,4 +1,0 @@
-%h1
-  Modificar País
-= render :partial=>'country'
-

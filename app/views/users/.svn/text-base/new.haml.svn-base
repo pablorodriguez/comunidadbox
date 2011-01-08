@@ -1,8 +1,0 @@
-- javascript 'accounts'
-- stylesheets 'jquery.ui.base.css'
-- stylesheets 'jquery.ui.theme.css'
-#user_company_address
-  %h1
-    = @title
-  = render 'form'
-

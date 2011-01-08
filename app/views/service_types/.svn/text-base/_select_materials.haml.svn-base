@@ -1,2 +1,0 @@
-= collection_select(:Materials, :parent_id, @materials, :id, :name, options ={:prompt => "-Seleccione un Material "})
-= submit_tag "Agregar" 

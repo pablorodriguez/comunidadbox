@@ -1,7 +1,0 @@
-- javascript 'maps'
-- javascript 'search_company_map'
-#company_info
-  = render 'show'
-= link_to image_tag("return.png"),companies_path
-= link_to image_tag("edit.png"),edit_company_path(@company)
-#map_canvas.map

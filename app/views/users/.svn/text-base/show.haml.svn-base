@@ -1,4 +1,0 @@
-- javascript 'accounts'
-%h2 Informacion del Usuario
-= render :partial => 'users/show'
-  

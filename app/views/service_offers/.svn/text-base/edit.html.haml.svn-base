@@ -1,7 +1,0 @@
-- stylesheets 'jquery.ui.base.css'
-- stylesheets 'jquery.ui.theme.css'
-- javascript 'service_offer'
-- form_for @offer do |f|
-  = f.error_messages
-  = render :partial => 'form', :locals => {:f => f}
-

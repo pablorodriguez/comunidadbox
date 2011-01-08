@@ -1,8 +1,0 @@
-$("#material_detail_<%=@material_id%>").fadeOut();
-$("#material_detail_<%=@material_id%>").remove();
-$('#material_total_price').html(<%=@service.total_price%>);
-if (!<%=@service.has_materials?%>){
-	$("#material_service_type_id").enable();
-	$("#material_service_type_id").selectedIndex=0;
-}
-toggleEditServiceRow(<%=@service.row%>);

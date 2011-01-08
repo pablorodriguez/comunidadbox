@@ -1,6 +1,0 @@
-$("#service_offers").html("<%=escape_javascript(render(:partial=>'service_filters',:locals=>{:sevice_filters=>@service_filters,}))%>")
-$('#filter_label').text($('#service_filter_name').val());
-$('#service_filter_name').hide();
-$('#filter_label').show();
-$('#save_filter').hide();
-$('#sf').change(submit_form);

@@ -1,1 +1,0 @@
-$('#subcategory').html("<%=escape_javascript(render(:partial=>'search_sub_category',:locals =>{:sub_category =>@sub_categories}))%>");
