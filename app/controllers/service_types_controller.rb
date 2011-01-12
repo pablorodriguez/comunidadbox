@@ -123,7 +123,7 @@ class ServiceTypesController < ApplicationController
 
     respond_to do |format|
       if @service_type.save
-        flash[:notice] = 'El Tipo de Servicio se creo con éxito.'
+        flash[:notice] = 'El Tipo de Servicio se creo con exito.'
         format.html { redirect_to(service_types_url) }
         format.xml  { render :xml => @service_type, :status => :created, :location => @service_type }
       else
