@@ -1,4 +1,5 @@
 ComunidadBox::Application.routes.draw do
+  match 'auth/:provider/callback' => 'authentications#create'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -56,8 +57,8 @@ ComunidadBox::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
+  resources :authentications
   devise_for :users
-  resource :conf 
   resources :service_filters
   resources :states
   resources :countries
@@ -153,12 +154,17 @@ ComunidadBox::Application.routes.draw do
     end
     collection do
       get :search_sub_category
+      put :save_material
+      put :destroy_material
+      put :save_task
     end
   end
   
   resources :materials do
     collection do
       post :details
+      post :save_service_type
+      post :destroy_servicetype
     end
   end
   

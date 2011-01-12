@@ -1,5 +1,5 @@
 %div#search
-  - form_tag materials_path, :method => :put do
+  - form_tag materials_path, :method => :get do
     %table.service_table
       %thead
         %tr
@@ -39,5 +39,5 @@
 
 %br
 = link_to image_tag('new.png'), new_material_path
-= link_to_back
+= link_to image_tag('return.png'),conf_path
 

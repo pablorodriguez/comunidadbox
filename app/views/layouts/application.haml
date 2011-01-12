@@ -23,7 +23,7 @@
         - if  user_signed_in?
           %li= link_to "Mis Autos",cars_path
           - if current_user.is_administrator
-            %li= link_to "Administración",admin_url
+            %li= link_to "Administración",admin_path
           - if current_user.is_super_admin
             %li= link_to "Configuración", conf_path
     #content

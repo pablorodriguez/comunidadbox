@@ -13,7 +13,7 @@
     %td
       = h @materials.name
 %br
-- form_remote_for :servicetype, :url=>{:action=>"save_service_type"},:before =>"beforeSubmit(this)",:complete =>"afterSubmit()",:loading =>"AjaxLoader.enable()", :html => {:id => 'form'} do |form|
+- form_for :servicetype,:remote => true, :url=>{:action=>"save_service_type"},:html => {:id => 'form'} do |form|
   #select_servicetype
     = render 'select_services'
   = submit_tag "Agregar" 
@@ -22,4 +22,4 @@
   = render 'servicetypes',:locals=>{:materials =>@materials} 
 
 = link_to image_tag('edit.png'), edit_material_path(@materials)
-= link_to_back
+= link_to image_tag('return.png'),materials_path

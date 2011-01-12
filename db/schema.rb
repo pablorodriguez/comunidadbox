@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101128004009) do
+ActiveRecord::Schema.define(:version => 20110110224540) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(:version => 20101128004009) do
   end
 
   add_index "alarms", ["user_id"], :name => "alarms_user_id_fk"
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bdrb_job_queues", :force => true do |t|
     t.text     "args"

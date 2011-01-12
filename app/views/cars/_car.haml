@@ -1,6 +1,6 @@
 - stylesheets 'control_panel'
 - form_for(@car) do |f|
-  = f.error_messages
+  = render 'shared/error_messages', :target => @car
   = f.hidden_field :user_id
   %table
     %tbody

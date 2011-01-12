@@ -22,10 +22,10 @@
   %tr
     %td.label_title Activo
     %td
-      = @service_type.active
+      = check_box_tag "active","1", @service_type.active,:disabled => true
 #buttons
   = link_to image_tag('edit.png'), edit_service_type_path(@service_type)
-  = link_to_back
+  = link_to image_tag('return.png'),service_types_path
 #tabs
   %ul
     %li
