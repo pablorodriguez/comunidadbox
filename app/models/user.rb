@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :service_filters
   has_many :cars
+  has_many :authentications
   
   belongs_to :creator,:class_name=>'User'
   has_many :companies
