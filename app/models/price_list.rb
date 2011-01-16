@@ -82,7 +82,7 @@ class PriceList < ActiveRecord::Base
   
   def self.import_price(name)
     get_first_code_nro
-    messageFiles = "C:\\Users\\pablo\\Documents\\My Empresa\\AutoAsistencia\\database\\#{name}.txt"
+    messageFiles = "D:\\Users\\pablo\\Documents\\My Empresa\\ComunidadBox\\database\\#{name}.txt"
     r=0
     errors = Array.new
     pl = PriceList.find 1

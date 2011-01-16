@@ -20,7 +20,7 @@ class CarsController < ApplicationController
   end
   
   def find_models
-    @models = Model.find_all_by_brand_id(params[:brand_id])
+    @models = Model.find_all_by_brand_id(params[:brand_id],:order =>"name")
     @brand_id=params[:id]
     respond_to do |format|
       format.js
