@@ -40,4 +40,19 @@ class Brand < ActiveRecord::Base
     puts "Modelos parecidos: #{parecidos}, Modelos nuevos :#{nuevos}"
   end
   
+  def self.remove_duplicate
+    brands = Brand.all
+    brands.each do |b|
+      m= b.models
+      m.each do |m1|
+        mm = b.models.where("name like ?", "%#{m1.name}")
+        if mm.size > 2
+          puts "#{mm[0].name} count: #{mm.size}"
+        end
+      end
+      
+    end
+    puts brands.size
+  end
+  
 end
