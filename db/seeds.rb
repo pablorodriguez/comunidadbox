@@ -11,9 +11,5 @@ userAdmin = User.create([:first_name =>'Admin',:last_name =>'Admin',
 company = Company.create([:name =>'ComunidadBox',:phone =>'0261-4526157',
     :website=>'www.comunidadbox.com',:user_id =>userAdmin.id,:active=>1])[0]
 
-Country.create([:name =>'Argentina'])
-Country.create([:name =>'Brazil'])
-Country.create([:name =>'Chile'])
-
 
 PriceList.create([:name =>'Default Price List',:active =>1,:company_id => company.id])
