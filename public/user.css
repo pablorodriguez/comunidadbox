@@ -684,7 +684,8 @@ div #user,#company{
 
 #graph{
 	float:left;
-	margin-left:100px;
+	margin-left: 100px;
+	margin-top: 40px;
 }
 
 .tab{

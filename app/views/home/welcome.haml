@@ -11,14 +11,13 @@
   - if user_signed_in?
     %br
     %ul
-      - if current_user.companies.nil?
+      - if current_user.has_company
         %li
-          = link_to "Nuevo Cliente", new_client_users_path           
+          = link_to "Nuevo Cliente", new_client_users_path
+        %li
+          = link_to "Panel de control" , control_panels_path                 
       %li
         = link_to "Mis Autos", cars_path
-      - if current_user.companies.nil?
-        %li
-          = link_to "Panel de control" , control_panels_path      
       %li
         = link_to "Servicios Realizados" , workorders_path
       %li
@@ -33,6 +32,4 @@
         = link_to "Mi Perfil", edit_user_registration_path        
       %li
         = link_to "Mis Empresas", companies_path
-      %li
-        = link_to "Registrar nuevo cliente", new_client_users_path
            

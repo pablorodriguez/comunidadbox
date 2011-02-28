@@ -29,8 +29,7 @@ class CompaniesController < ApplicationController
   end
    
   def index
-    @companies = Company.all unless current_user
-    @companies = current_user.companies if current_user
+    @companies = current_user.companies
     
     respond_to do |format|
       format.html # index.html.erb

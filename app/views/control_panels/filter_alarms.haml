@@ -5,8 +5,6 @@
 %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
 #filters
   - form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
-    #zone_filter    
-      = render "zone_filters",:f =>f
     #car_filter
       = render "car_filters",:f=>f  
 #car  

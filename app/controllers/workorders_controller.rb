@@ -103,7 +103,7 @@ class WorkordersController < ApplicationController
         flash[:notice] = 'Orden de Trabajo actualizada'
         if @work_order.finish?
           @work_order.generate_events
-          #send_notification @wor_korder
+          send_notification @work_order.id          
         end
         format.html { redirect_to(@work_order) }
         format.xml  { head :ok }
@@ -143,7 +143,7 @@ class WorkordersController < ApplicationController
     if saveAction
       if @work_order.finish?
         @work_order.generate_events
-        # send_notification @work_order.id
+        send_notification @work_order.id
       end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
@@ -174,8 +174,13 @@ class WorkordersController < ApplicationController
   private
   
   def send_notification(work_order_id)
-    worker = MiddleMan.worker(:mailer_worker)
-    worker.async_work_order_notification(:args => work_order_id)
+    work_order = Workorder.find work_order_id
+    message = WorkOrderNotifier.notify(work_order)
+    message.deliver
+    puts "########### work order enviada #{work_order.id} a #{work_order.user.email}"
+    #worker = MiddleMan.worker(:mailer_worker)
+    #worker.async_work_order_notification(:args => work_order_id)
+    
   end
   
   def sort_column

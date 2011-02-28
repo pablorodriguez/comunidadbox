@@ -33,11 +33,14 @@
         %td.dashboard.number= @eventos_amarillo.values.sum
         %td.dashboard.number= @eventos_verde.values.sum
         %td.dashboard.number= @eventos_total.values.sum
-#graph  
-  %input{:id=>"json_url",:value=>@url_map_json,:type=>"hidden"}   
-  %input{:id=>"services_url",:value=>links.chomp!("|"),:type=>"hidden"}
-  %img{:src=>@url_map,:usemap=>"#notes"}
-  %map{:id=>"notes",:name=>'notes'}
+#graph
+  -if @url_map_json	
+    %input{:id=>"json_url",:value=>@url_map_json,:type=>"hidden"}   
+    %input{:id=>"services_url",:value=>links.chomp!("|"),:type=>"hidden"}
+    %img{:src=>@url_map,:usemap=>"#notes"}
+    %map{:id=>"notes",:name=>'notes'}
+  -unless @url_map_json
+    No hay eventos para mostrar
   %br
     = link_to_back
   

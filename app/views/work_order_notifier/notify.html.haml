@@ -1,0 +1,23 @@
+%h3 Notificación de Servicio Realizado
+%p
+  Estimado #{@user.full_name}
+  Muchas gracias por confiar en ComunidadBox.
+  %br
+  Ud. acaba de realizar los siguientes servicios
+%ul
+  - for service in @work_order.services
+    %li
+      = service.service_type.name
+-if @user.future_events.size > 0      
+  Sus proximos servicios de mantenimiento a realizar son
+  %ul
+  - for car in @user.cars
+    %li
+      = "Auto: #{car.domain}"
+    -for event in car.future_events
+      %li
+        = "#{event.service_type.name} #{event.dueDate}"
+    
+    
+%p Muchas gracias por usar ComunidadBox.
+%h3 Equipo de ComunidadBox

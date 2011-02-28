@@ -24,8 +24,13 @@ class ControlPanelsController < ApplicationController
                             :include => ['service_type'],
                             :group => ['service_type'])
     
-    @url_map = map_url_str @company_services,@eventos_rojo,@eventos_amarillo,@eventos_verde        
-    @url_map_json = @url_map + "&chof=json" 
+    @url_map = map_url_str @company_services,@eventos_rojo,@eventos_amarillo,@eventos_verde
+    puts "######################################################################################entro################"
+    if @url_map
+      puts "######################################################################################entro"
+      @url_map_json = @url_map + "&chof=json"    
+    end        
+     
   end
   
  
@@ -46,19 +51,21 @@ class ControlPanelsController < ApplicationController
       end
     end
     url ="http://chart.apis.google.com/chart"
-    
-    @rdata = rdata.chomp!(",") + "|" + adata.chomp!(",") + "|" + vdata.chomp!(",")
-    labels_str = labels.reverse!.join("|")
-    @rdata.chomp!(",")
-    chm="N,FF0000,-1,,12|N,000000,0,,12,,c|N,000000,1,,12,,c|N,000000,2,,12,,c"
-    chco="FF9999,FFFFA0,A0FFA0" 
-    chbh="50,5,15"
-    chs="chs=500x" + ((65 * labels.size)+2).to_s
-    chxl="0:|" + labels_str
-    chxr="1,0,10"
-    chdl="< 1 Mes|1 < Mes < 2|> 2 Meses"
-    chxs="0,FF0000,18"
-    "#{url}?#{chs}&chd=#{@rdata}&chbh=#{chbh}&cht=bhs&chco=#{chco}&chm=#{chm}&chds=0,10&chxt=y&chdl=#{chdl}&chxl=#{chxl}&chxr=#{chxr}&chxs=#{chxs}"
+    if rdata != "t:"
+        @rdata = rdata.chomp!(",") + "|" + adata.chomp!(",") + "|" + vdata.chomp!(",")
+        labels_str = labels.reverse!.join("|")
+        @rdata.chomp!(",")
+        chm="N,FF0000,-1,,12|N,000000,0,,12,,c|N,000000,1,,12,,c|N,000000,2,,12,,c"
+        chco="FF9999,FFFFA0,A0FFA0" 
+        chbh="50,5,15"
+        chs="chs=500x" + ((65 * labels.size)+2).to_s
+        chxl="0:|" + labels_str
+        chxr="1,0,10"
+        chdl="< 1 Mes|1 < Mes < 2|> 2 Meses"
+        chxs="0,FF0000,18"
+        link = "#{url}?#{chs}&chd=#{@rdata}&chbh=#{chbh}&cht=bhs&chco=#{chco}&chm=#{chm}&chds=0,10&chxt=y&chdl=#{chdl}&chxl=#{chxl}&chxr=#{chxr}&chxs=#{chxs}"    
+    end
+    link
   end
   
   def n(value)

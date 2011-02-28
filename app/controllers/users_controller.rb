@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     redirect_to(:action => 'signup') unless user_signed_in? || User.count > 0
   end
   
+  def edit
+    @user = current_user
+    @user.address = Address.new if @user.address.nil?
+  end
+  
   def show
     @user = User.find(params[:id])
   end
@@ -34,10 +39,6 @@ class UsersController < ApplicationController
     end     
   end
 
-
-  def new
-    @user = User.new
-  end
 
   def create_client
     @user = User.new(params[:user])

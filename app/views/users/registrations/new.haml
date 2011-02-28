@@ -1,0 +1,18 @@
+- javascript 'accounts'
+
+%h2 Nuevo Usuario
+= form_for resource, :as => resource_name,:url => registration_path(resource_name) do |f|
+  = devise_error_messages!
+  %table
+    %tbody
+      = render 'users/user_row',:f => f
+  
+  %h2 Información de su auto
+  =f.fields_for :cars do |c|
+    = render 'users/car_fields',:f =>c
+  
+  %h2 Dirección
+  =f.fields_for :address do |a|
+    = render 'users/user_address_fields', :f =>a
+  %p= f.submit "Grabar"
+= render :partial => "devise/shared/links"

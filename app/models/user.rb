@@ -46,6 +46,10 @@ class User < ActiveRecord::Base
     #- @user.user_addresses[0].address = Address.new
   end
   
+  def has_company
+    companies.size > 0  
+  end
+  
   def company_id
     if company
       return company.id

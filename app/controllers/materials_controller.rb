@@ -57,11 +57,9 @@ class MaterialsController < ApplicationController
   end
 
   def show
-    session[:material_id] = params[:id]
-
     @materials = Material.find(params[:id])
     @not_in = (res = (@materials.service_types.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
-    @servicetypes = ServiceType.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
+    @servicetypes = ServiceType.find(:all, :conditions => ["id NOT IN (?)",  @not_in],:order =>'name')
 
     respond_to do |format|
       format.html # show.html.erb
@@ -70,7 +68,7 @@ class MaterialsController < ApplicationController
   end
 
   def save_service_type
-    material_id=session[:material_id]
+    material_id=params[:id]
     @material = MaterialServiceType.new
     @material.material_id = material_id
     @material.service_type_id = params[:ServiceType][:parent_id]
@@ -82,7 +80,7 @@ class MaterialsController < ApplicationController
         @servicetypes = ServiceType.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
 
         flash[:notice] = 'Material agregado a tipo de servicio'
-        format.html { redirect_to :controller => :materials, :action => :show, :id => material_id  }
+        #format.html { redirect_to :controller => :materials, :action => :show, :id => material_id  }
         format.js
       else
         @materials = Material.find(material_id)

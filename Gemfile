@@ -17,7 +17,7 @@ gem "geokit"
 gem "devise"
 gem "omniauth"
 gem 'jquery-rails', '>= 0.2.6'
-
+# gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Use unicorn as the web server
 # gem 'unicorn'

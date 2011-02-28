@@ -61,7 +61,8 @@ ComunidadBox::Application.routes.draw do
   match "admin" => "admin#show"
   match "conf" => "conf#show"
   
-  devise_for :users
+  devise_for :users,:controllers => { :registrations => "users/registrations" }
+
   resources :authentications
   resources :service_filters
   resources :states
@@ -166,7 +167,7 @@ ComunidadBox::Application.routes.draw do
     collection do
       post :details
       post :save_service_type
-      post :destroy_servicetype
+      get :destroy_servicetype
     end
   end
   
