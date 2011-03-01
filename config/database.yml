@@ -11,8 +11,8 @@ development:
   reconnect: false
   database: ComunidadBox_development
   pool: 5
-  username: root
-  password: root
+  username: combox 
+  password: combox
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
