@@ -175,8 +175,8 @@ class WorkordersController < ApplicationController
   
   def send_notification(work_order_id)
     work_order = Workorder.find work_order_id
-    message = WorkOrderNotifier.notify(work_order)
-    message.deliver
+    message = WorkOrderNotifier.delay.notify(work_order)
+    #message.deliver
     puts "########### work order enviada #{work_order.id} a #{work_order.user.email}"
     #worker = MiddleMan.worker(:mailer_worker)
     #worker.async_work_order_notification(:args => work_order_id)
