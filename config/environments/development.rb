@@ -28,8 +28,8 @@ ComunidadBox::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => 'linkcar.com.ar',
-    :user_name            => 'info@linkcar.com.ar',
+    :domain               => 'comunidadbox.com',
+    :user_name            => 'info@comunidadbox.com',
     :password             => 'info5624',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
