@@ -404,12 +404,13 @@ ul{
 }
 
 
-#cruzroja {
-  margin-left:20px;
-  margin-top:33px;
-  margin-right:5px;
+.cruzroja {
+  margin:10px;
   vertical-align:middle;
   float:left;
+  background-image:url(/images/cruz_roja.png);
+  width: 23px;
+  height: 23px;
 }
 
 .msj_error{
@@ -503,7 +504,7 @@ input{
 
 select{
   height:30px;
-  width:180px;
+  width:186px;
   padding: 5px;
 }
 
@@ -610,6 +611,28 @@ select{
   padding: 5px 5px 5px 5px;
 }
 
+.contentright_u {
+  overflow: auto;
+  z-index: 2; 
+  float: left;
+  width: 580px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DDDDDD;
+  margin-left: 5px;
+  padding: 5px 5px 5px 5px;
+}
+
+.contentleft_u{
+  width:270px;
+  float:left;
+  overflow:auto;
+  background-repeat:repeat-y;
+  background-position:right;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DDDDDD;
+  padding: 5px 5px 5px 5px;
+}
+
 .contentleft{
   width:250px;
   float:left;
@@ -632,7 +655,7 @@ td.number input{
   float:left; 
 }
 
-.contentleft h1,.contentright h1 {
+.contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1 {
   font-size:20px;
   color:#B3B3B3;
   margin:0px;
@@ -1200,7 +1223,7 @@ ol{
   margin: 5px;
 }
 
-#search_map{
+.search_map{
   margin-top: 15px;
   -moz-border-radius: 5px 5px 5px 5px;
   border: 1px solid #AFAFAF;
@@ -1252,4 +1275,25 @@ td.number, th.number{
 #work_order_form{
   background-color: #F2EAB7;
   border: 1px solid #AFAFAF;
+}
+
+.errorExplanation{
+  background-color: #FFAFAF;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DF0000;
+  margin: 0px 4px 10px 1px;
+}
+
+.errorExplanation h2 {
+  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-size:14px;
+  font-style:normal;
+  color:black;
+  font-weight: bold
+}
+
+.errorExplanation ul{
+  list-style: decimal;
+  margin-left: 25px;
+  font-style: italic;
 }

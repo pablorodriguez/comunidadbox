@@ -1,8 +1,4 @@
 %tr
-  %td{:colspan=>2}
-    = vineta
-    %h1 Información Personal
-%tr
   %td
     %label{ :for => "login" }Nombre
   %td
@@ -23,7 +19,9 @@
   %td
     = f.password_field :password
 %tr
-  %td
-    %label{ :for => "password_confirmation" }Confirmar Clave *
+  %td    
+    Confirmar
+    %br
+    Clave *
   %td
     = f.password_field :password_confirmation

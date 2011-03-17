@@ -1,5 +1,6 @@
-- if target.errors.any?
-  #errorExplanation
+- if target && target.errors.any?
+  .errorExplanation
+    .cruzroja
     %h2
       = pluralize(target.errors.count, "error")
       prohibited this record from being saved:
