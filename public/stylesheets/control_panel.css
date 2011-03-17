@@ -1,7 +1,7 @@
 #car_filter{
-	width:200px;
+	width:97%;
 	float:left;
-	margin-top:15px;
+	margin: 15px 5px 5px 5px;
 }
 
 #service_offers{
@@ -17,8 +17,9 @@
 }
 #car{
   float: left;
-  width: 800px;
   margin-top: 18px;
+  width: 97%;
+  padding:5px;
 }
 
 #cars{

@@ -1,0 +1,14 @@
+#car_search.left
+  - form_for :car,:remote =>true, :url => search_cars_path,:loading =>'AjaxLoader.enable()',:html=>{:id=>:car_search}  do |f|
+    %table
+      %tr
+        %td Dominio 
+      %tr
+        %td
+          = f.text_field :domain
+          = image_submit_tag("find.png",:class =>"input_img")
+      %tr
+        %td
+          = button_to "Nuevo cliente", new_client_users_path,:class =>"btn"
+          
+          #ajax_loader.ajax_loader.left{:style=>"display:none"}        

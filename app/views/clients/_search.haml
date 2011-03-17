@@ -1,0 +1,24 @@
+- form_for :client, :remote =>true, :url => search_clients_path do
+  %table
+    %thead
+      %tr
+        %td Email
+      %tr
+        %td
+          = text_field_tag 'email'
+      %tr
+        %td Nombre
+      %tr
+        %td
+          = text_field_tag 'first_name'
+      %tr
+        %td Apellido
+      %tr
+        %td
+          = text_field_tag 'last_name'
+          = image_submit_tag("find.png",:class =>"input_img")
+      - if current_user.is_administrator
+        %tr
+          %td
+            = button_to "Nuevo cliente", new_client_users_path,:class =>"btn"
+

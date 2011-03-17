@@ -114,7 +114,7 @@ class PriceListsController < ApplicationController
   def items
     id = params[:id]
     @page = params[:page] || 1
-    @service_type_ids = params[:service_type_ids] || []
+    @service_type_ids = params[:service_type_ids] ? params[:service_type_ids].values : []
     @percentage = params[:percentage] || ""
     @material = params[:material] || ""
     company_id=current_user.company.id

@@ -11,5 +11,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.cars.build if resource.cars.empty?
   end
   
-    
 end

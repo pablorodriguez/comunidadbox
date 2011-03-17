@@ -1,5 +1,5 @@
 = render 'shared/error_messages', :target => @user
-%table
+%table.w
   %tbody
     = render :partial =>'users/user_row',:locals  =>{:f => f}
     %tr
@@ -9,4 +9,4 @@
     %tr
       %td
       %td
-        <i>(necesitamos su clave actual para confirmar los cambios)</i>
+        <i>(necesitamos su clave actual <br>para confirmar los cambios)</i>

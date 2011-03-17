@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   
   def new
-    @employee = User.new
+    @user = User.new
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @user }
@@ -9,7 +9,7 @@ class EmployeesController < ApplicationController
   end
   
   def show
-    @employee = user.find(params[:id])
+    @user = User.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }

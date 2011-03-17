@@ -3,8 +3,12 @@
   Nueva Empresa
 - form_for(@company) do |f|
   = render 'shared/error_messages', :target => @company
-  = render :partial =>"form",:locals =>{:f =>f}
-  = f.submit "Grabar" 
-  |
-  = link_to_back
+  .contentleft
+    = render :partial =>"form",:locals =>{:f =>f}
+  .contentright
+    = f.fields_for :address do |a|
+      = render :partial =>'company_address_fields', :locals  =>{:f => a}
+    = f.submit "Grabar",:class=>"btn" 
+    |
+    = link_to_back
       

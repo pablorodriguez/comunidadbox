@@ -1,0 +1,11 @@
+#cont1
+  %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
+  %h2
+    %span#cont1
+      Ud. ha ingresado al mejor sitio sobre Servicios al automotor. Disfrutelo!
+      %br
+    - unless user_signed_in?
+      %span
+        Si usted ya es usuario por favor    
+        = link_to "Ingrese al Sitio",new_user_session_path
+        , si no es usuario aún, lo invitamos a que se #{link_to "Registrarse", new_user_registration_path}.

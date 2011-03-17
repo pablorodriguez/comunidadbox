@@ -1,26 +1,8 @@
-- javascript 'jquery.dataTables'
-- javascript 'sort.table'
-- stylesheets 'demo_page'
-- stylesheets 'demo_table'
-- javascript 'cars'
-- stylesheets 'jquery.ui.base.css'
-- stylesheets 'jquery.ui.theme.css'
-#cars
-  %ul
-    %li
-      %a{:href=>"#my_cars"} Mis Autos
-    - if current_user.company
-      %li
-        %a{:href=>"#search_cars"} Buscar Auto
-      %li
-        %a{:href=>"#search_client"} Buscar Cliente
-  #my_cars
-    =render :partial=>"cars",:locals =>{:cars=>@company_cars,:table_id =>:sort_table}  
-  - if current_user.company
-    #search_cars.boxs
-      =render :partial=>"search_cars",:locals =>{:cars=>[],:table_id =>:sort_table}
-    #search_client
-      =render :partial=>"/clients/show"    
-.boxs
-  = link_to image_tag("new.png"),new_car_path
-  = link_to_back
+#all_cars
+  %h1 Buscar Auto
+  #my_cars.contentleft
+    =render :partial=>"search",:locals =>{:cars=>[],:table_id =>:sort_table}
+  #cars.contentright
+    =render :partial=>"cars",:locals =>{:cars=>@company_cars,:table_id =>:sort_table}
+    .boxs
+      = link_to image_tag("new.png"),new_car_path,{:title=>"Nuevo Auto"}

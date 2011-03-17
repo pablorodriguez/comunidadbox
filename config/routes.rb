@@ -73,14 +73,20 @@ ComunidadBox::Application.routes.draw do
   resources :car_filters
   resources :ranks
   resources :tasks
-  resources :workorders
   resources :employees
   resources :home
   
+  resources :workorders do
+    collection do
+      post :filter
+    end
+  end
+    
  resources :companies do
     collection do
       get :service_types
       get :all
+      post :search
       post :add_service_type
     end
     
@@ -120,7 +126,7 @@ ComunidadBox::Application.routes.draw do
 
   resources :clients do
     collection do
-      post :filter
+      post :search
     end
   end
     resources :services do

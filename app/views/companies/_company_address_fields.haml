@@ -1,7 +1,11 @@
-%table
+%table.w
   %tbody
     %tr
-      %td 
+      %td{:colspan=>2}
+        =vineta
+        %h1 Dirección
+    %tr
+      %td
         %label{ :for => "state" }Provincia
       %td
         = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:id=>@state_id,:class=>"state medium_select"})

@@ -58,7 +58,8 @@ class CarsController < ApplicationController
   # GET /cars/1.xml
   def show
     @car = Car.find(params[:id])
-    @work_orders = Workorder.all(:conditions =>["car_id = ?",params[:id]])
+    page = params[:page] || 1
+    @work_orders = Workorder.paginate(:all,:per_page=>13,:page =>page,:conditions =>["car_id = ?",params[:id]])  
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @car }

@@ -1,6 +1,10 @@
 - stylesheets 'jquery.ui.base.css'
 - stylesheets 'jquery.ui.theme.css'
 - javascript 'service_offer'
-- form_for @offer do |f|
-  = render :partial => 'form', :locals => {:f => f}
+%h1 Modificar Oferta de Servicio
+.contentleft
+  = render 'list_cars'
+.contentright
+  - form_for @offer do |f|
+    = render :partial => 'form', :locals => {:f => f}
 

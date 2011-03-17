@@ -1,13 +1,22 @@
 - javascript 'accounts'
-%h2 Modificar Usuario
+%h1 Modificar Usuario
 = form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f|
-  = render :partial => 'users/edit',:locals  =>{:f => f}
-  %h2 Dirección
-  =f.fields_for :address do |a|    
-    = render :partial =>'users/user_address_fields', :locals  =>{:f => a}
-  %p= f.submit "Actualizar"
-%br
-%h2 Cancelar mi cuenta
-%p
-  Insatisfecho ? #{link_to "Cancelar mi cuenta", registration_path(resource_name), :confirm => "Esta Uds. seguro?", :method => :delete}.
-= render :partial => "devise/shared/links"
+  .contentleft
+    = render :partial => 'users/edit',:locals  =>{:f => f}
+    %br
+    %table
+      %tr
+        %td
+          =vineta
+          %h1 Cancelar mi cuenta
+      %tr
+        %td
+          Insatisfecho ? #{link_to "Cancelar mi cuenta", registration_path(resource_name), :confirm => "Esta Uds. seguro?", :method => :delete}.
+      %tr
+        %td    
+          = render :partial => "devise/shared/links"
+  .contentright
+    =f.fields_for :address do |a|    
+      = render :partial =>'users/user_address_fields', :locals  =>{:f => a}
+    = f.submit "Actualizar",:class =>"btn"
+  

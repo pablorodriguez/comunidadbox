@@ -1,59 +1,37 @@
 - javascript 'control_panel'
 - stylesheets 'control_panel'
 #error{:style=>"display:none"}
-  
-%input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
-#filters
-  - form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
-    #car_filter
-      = render "car_filters",:f=>f  
-#car  
-  - form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
-    #cars
-      = hidden_field("service_offer","service_type_id")
-      %table.control-panel
-        %tr
-          %td{:width=>"20%"}
-          %td.dashboard.number{:width=>"10%"}
-          %td.dashboard{:width=>"5%"} 
-        - for event in @red_cars
-          %tr.rojo.dashboard
-            %td
-              = event.car.info
-              %br
-              = l event.dueDate
-            %td
-              %strong
-                = number_to_currency(event.car.total_spend(current_user.company.id))
-              =number_to_currency(event.car.total_spend)
-            %td
-              = check_box_tag("checked_ids[]", event.car.id,false,{:class=>:red})          
-        - for event in @yellow_cars
-          %tr.amarillo.dashboard              
-            %td
-              = event.car.info
-              %br
-              = l event.dueDate                
-            %td
-              %strong
-              = number_to_currency(event.car.total_spend(current_user.company.id))
-              = number_to_currency(event.car.total_spend)
-            %td
-              = check_box_tag("checked_ids[]", event.car.id,false,{:class=>:yellow})          
-        - for event in @green_cars
-          %tr.verde.dashboard.number              
-            %td
-              = event.car.info
-              %br
-                = l event.dueDate                  
-            %td
-              %strong
-                = number_to_currency(event.car.total_spend(current_user.company.id))
-              %br
-              = number_to_currency(event.car.total_spend)
-            %td
-      #offer
-        %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta"}
-        %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro"}
-        = link_to image_tag('return.png'),control_panels_path
-  #msg
+%h1 Nueva Oferta de Servicio
+.contentleft  
+  %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
+  #filters
+    = form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
+      #car_filter
+        = render "car_filters",:f=>f
+.contentright  
+  #car
+    = vineta
+    %h1 Listado de Autos  
+    = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
+      #cars
+        = hidden_field("service_offer","service_type_id")
+        %table.control-panel
+          %tr
+            %td{:width=>"20%"}
+            %td.dashboard.number{:width=>"10%"}
+            %td.dashboard{:width=>"5%"} 
+          - for event in @page_events
+            - if event.is_red
+              %tr.rojo.dashboard
+                = render event
+            - if event.is_yellow
+              %tr.amarillo.dashboard
+                = render event
+            - if event.is_green
+              %tr.verde.dashboard.number    
+                = render event
+        = will_paginate @page_events
+        #offer
+          %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn"}
+          %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn"}
+    #msg

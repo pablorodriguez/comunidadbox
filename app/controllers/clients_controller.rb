@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  layout "application", :except => [:filter]
+  layout "application", :except => [:search]
   
   def edit
     @user = User.find(params[:id])
@@ -18,10 +18,11 @@ class ClientsController < ApplicationController
     end
   end
 
-  def show
+  def index
+    @clients = []
   end
 
-  def filter
+  def search
     @condition = ''
     unless params[:first_name] == ''
       @condition += 'first_name=' + "'" + params[:first_name]+ "'"

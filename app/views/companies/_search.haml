@@ -1,0 +1,28 @@
+- form_for :company, :remote =>true, :url => search_companies_path do |f|
+  %table.w
+    %thead
+      %tr
+        %td
+          = vineta
+          %h1 Buscar Empresas      
+      %tr
+        %td Nombre
+      %tr
+        %td
+          = text_field_tag 'name'
+      %tr
+        %td Dirección
+      %tr
+        %td
+          = text_field_tag 'street'
+      %tr
+        %td Ciudad
+      %tr
+        %td
+          = text_field_tag 'city'
+      %tr
+        %td Provincia
+      %tr
+        %td
+          = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"state medium_select"})
+          = image_submit_tag("find.png",:class =>"input_img")

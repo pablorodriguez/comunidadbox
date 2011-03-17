@@ -1,29 +1,31 @@
 = f.hidden_field :user_id
-%p
-  %label Nombre
-  %br
-  = f.text_field :name
-%p
-  %label CUIT
-  %br
-  = f.text_field :cuit
-%p
-  %label Teléfono
-  %br
-  = f.text_field :phone
-%p
-  %label Sitio Web
-  %br
-  = f.text_field :website
-%p
-  %label Activar
-  %br
-    =f.check_box :active
-  
-%p
-  %h2 Dirección
-  = f.fields_for :address do |a|
-    = render :partial =>'company_address_fields', :locals  =>{:f => a}
-%p
-
-  
+%table.w
+  %tr
+    %td{:colspan=>2}
+      = vineta
+      %h1 Datos de la Empresa
+  %tr
+    %td
+      %label Nombre
+    %td
+      = f.text_field :name
+  %tr
+    %td
+      %label CUIT
+    %td
+      = f.text_field :cuit
+  %tr
+    %td
+      %label Teléfono
+    %td
+      = f.text_field :phone
+  %tr
+    %td
+      %label Sitio Web
+    %td
+      = f.text_field :website
+  %tr
+    %td
+      %label Activar
+    %td
+      =f.check_box :active

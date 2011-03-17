@@ -11,6 +11,11 @@ function search_address(target){
 	$("#address_map").val(address);
 }
 
+function search_address_text(){
+  var address = $("#address_map").val();
+  codeAddress(address,16);
+}
+
 function search_companies_near_to_me(address){
 	codeAddress(address,16);
 }

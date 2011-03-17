@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController  
-  layout "application", :except => [:add_service_type,:remove_service_type]
+  layout "application", :except => [:add_service_type,:remove_service_type,:search]
   skip_before_filter :authenticate_user!, :only => [:index,:show,:all]
   
   def service_types   
@@ -16,6 +16,15 @@ class CompaniesController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
+    end
+  end
+  
+  def search
+    name = params[:name]
+    @companies = Company.where(:name => name)
+    #@companies = Company.where(:name => "IMR").includes(:address).where("addresses.city like ? ","Real del Padre")
+    respond_to do |format|
+      format.js
     end
   end
   

@@ -1,20 +1,15 @@
 - javascript 'accounts'
 - stylesheets 'jquery.ui.base.css'
 - stylesheets 'jquery.ui.theme.css'
-#account
-  %ul
-    %li
-      %a{:href=>"#user"} Usuario
-    %li{:id=>"company_li"}
-      %a{:href=>"#company"} Prestador de Servicio        
-    %li
-      %a{:href=>"#address"} Direcciones
+#account.box
   #user
+    %h1 Empleado
     = render 'user_show'
-  #company
-    = render '/companies/show'      
-  #address
-    = render 'address_show'
+  - if @user.company
+    #company
+      = render '/companies/show'
+  - if @user.address            
+    #address
+      = render 'address_show'
       
-= link_to image_tag('edit.png'),edit_employee_path(@user)      
-= link_to_back
+  = link_to image_tag('edit.png'),edit_employee_path(@user)      

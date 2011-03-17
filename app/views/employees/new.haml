@@ -1,7 +1,8 @@
 - javascript 'accounts'
-%h2
+%h1
   Nuevo Empleado para  
   = current_user.company.name
 - form_for @employee, :url => employees_path do |f|
-  = render :partial => 'form',:locals  =>{:f => f}
-  %p= f.submit "Grabar"
+  .box
+    = render :partial => 'form',:locals  =>{:f => f}
+    = f.submit "Grabar",:class =>"btn"

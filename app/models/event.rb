@@ -13,5 +13,17 @@ class Event < ActiveRecord::Base
   named_scope :yeared, lambda { |year| { :joins => :car, :conditions => ["cars.year = ?", year] } }
   named_scope :fueled, lambda { |fuel| { :joins => :car, :conditions => ["cars.fuel = ?", fuel] } }
   named_scope :service_typed, lambda { |service_type| { :conditions => ["service_type_id = ?", service_type] } }
+  
+  def is_green
+    dueDate > Time.now.months_since(2).to_date ? true : false
+  end
+  
+  def is_yellow
+    dueDate > Time.now.months_since(1).to_date && dueDate < Time.now.months_since(2).to_date ? true : false
+  end
+  
+  def is_red
+    dueDate < Time.now.months_since(1).to_date ? true : false 
+  end
 
 end

@@ -1,7 +1,6 @@
 if (<%=@cars.size%> > 0){
-	$("#cars_search").html("<%=escape_javascript(render(:partial=>'car_searched',:locals=>{:cars=>@cars}))%>")
-	$("#new_client").hide();
+	$("#cars").html("<%=escape_javascript(render(:partial=>'cars',:locals=>{:cars=>@cars}))%>")
 }else{
-	$("#cars_search").html("No se encontró ningún automóvil.");
+	$("#cars").html("No se encontró ningún automóvil.");
 }
 AjaxLoader.disable();

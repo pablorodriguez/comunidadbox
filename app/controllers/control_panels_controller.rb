@@ -25,9 +25,25 @@ class ControlPanelsController < ApplicationController
                             :group => ['service_type'])
     
     @url_map = map_url_str @company_services,@eventos_rojo,@eventos_amarillo,@eventos_verde
-    puts "######################################################################################entro################"
+    
+    @services_names= @service_data.inject(""){|result,service| result += "'#{service.name}',"}.chop
+    
+    g_data="name: '> 2 Meses',data:["
+    y_data="name:'1 < Meses < 2',data:["
+    r_data="name:'Meses < 1',data:["
+    
+    @service_data.each do |service|
+      g_data += "#{@eventos_verde[service] ? @eventos_verde[service]: 0},"
+      y_data += "#{@eventos_amarillo[service] ? @eventos_amarillo[service]: 0},"
+      r_data += "#{@eventos_rojo[service] ? @eventos_rojo[service] : 0},"
+    end
+    g_data.chop!  
+    y_data.chop!
+    r_data.chop!
+    
+    @series_data="[{#{g_data}]},{#{y_data}]},{#{r_data}]}]"
+    
     if @url_map
-      puts "######################################################################################entro"
       @url_map_json = @url_map + "&chof=json"    
     end        
      
@@ -132,8 +148,11 @@ class ControlPanelsController < ApplicationController
     @yellow_cars = Event.yellow.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
     @green_cars = Event.green.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
     
- #   @events = join_cars(autos_rojo,autos_amarillo,autos_verde)
-   
+    @events = @red_cars + @yellow_cars + @green_cars
+    current_page = params[:page] || 1
+    per_page=10
+    logger.info "###   #{current_page}"
+    @page_events = @events.paginate(:page=>current_page,:per_page=>per_page)
     
   end
   

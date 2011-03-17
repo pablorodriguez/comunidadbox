@@ -43,16 +43,18 @@ function maxim(element){
 	if ($("#header").is(":visible")){
 		$(element.target).html("Min");
 		$("#header").slideUp();
-		$("#menu").slideUp();			
+		$("#menu").slideUp();		
+		$("#wrapmenu").slideUp();	
 		$("#footer").slideUp('slow',function(){
 			$("body").removeClass("background");	
 		});
 		
-		$("#material_per_page").val(20);
+		$("#material_per_page").val(15);
 	}else{
 		$(element.target).html("Max");
 		$("#header").slideDown();
 		$("#menu").slideDown();	
+		$("#wrapmenu").slideDown();
 		$("#footer").slideDown('slow',function(){
 			$("body").addClass("background");	
 		});

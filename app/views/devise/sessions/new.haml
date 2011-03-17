@@ -1,0 +1,48 @@
+#cont1
+  %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
+  %h2
+    %span#cont1
+      Por favor ingrese su correo electronico y su clave..
+#cont2
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    #part1.part
+      INICIAR SESIÓN
+    #part2.part
+      %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "556"}
+        %tr
+          %td{:height => "30", :width => "229"}
+            %h3
+              = f.label :email,t('user.email')
+          %td{:height => "30", :width => "200"}
+            %h3
+              = f.label :password,t('user.password')
+          %td{:width => "127"}          
+        %tr
+          %td{:height => "30", :width => "229"}
+            = f.text_field :email, {:class =>"textarea"}
+          %td{:height => "30", :width => "200"}
+            = f.password_field :password, {:class =>"textarea"}
+          %td
+            %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"btn"}
+        %tr
+          %td{:height => "2", :width => "229"}  
+          %td{:height => "2", :width => "200"}  
+          %td{:width => "127"}  
+    #part22.part
+      %table{:align => "center", :valign => "center", :width => "200"}
+        %tr
+          %td{:align => "center", :height => "50%", :valign => "middle", :width => "20%"}
+            %h4
+              - if devise_mapping.rememberable?
+                = f.check_box :remember_me,:class=>"checkbox"
+          %td{:width => "80%"}
+            %h4
+              - if devise_mapping.rememberable?
+                = f.label :remember_me
+        %tr
+          %th{:align => "center", :height => "50%", :nowrap => "nowrap", :valign => "middle", :width => "20%"}
+            %img.sgn{:height => "20", :src => "/images/sgn_pass.png", :width => "20"}
+          %td{:width => "80%"}
+            %h4
+              = render :partial => "devise/shared/links"
+= render "home/new_msgs"

@@ -3,8 +3,8 @@
     = item.name
   %td
     = item.material.name
-  %td{:class=>:currency}    
+  %td.currency.number    
     = number_to_currency item.price
   %td
-    %input{:id=>"ids_#{item.id}",:name=>"ids[#{item.id}]",:value=>item.price,:class=>"currency_input currency"}
-    %label.diff    
+    %input{:id=>"ids_#{item.id}",:name=>"ids[#{item.id}]",:value=>item.price,:class=>"currency_input price"}
+    %label.diff.right    

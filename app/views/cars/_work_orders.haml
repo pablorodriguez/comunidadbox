@@ -1,10 +1,6 @@
-- javascript 'jquery.dataTables'
-- javascript 'sort.table'
-- stylesheets 'demo_page'
-- stylesheets 'demo_table'
 %h1
   Servicios Realizados
-%table{:id=>'sort_table',:class=>'display service_table'}
+%table#sort_table.comboxtable
   %thead
     %tr
       %th Detalle
@@ -34,5 +30,5 @@
       %td
         -if work_order.finish?
           = get_user_rank(current_user,work_order)
-%br        
-= link_to_back
+%br
+= will_paginate @work_orders

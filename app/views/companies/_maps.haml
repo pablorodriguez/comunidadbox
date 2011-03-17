@@ -1,0 +1,15 @@
+#search_map
+  #search_address
+    %table.w
+      %tr
+        %td{:colspan=>3}
+          %h1 Buscar en el Mapa        
+      %tr
+        %td Dirección
+        %td
+          %input{:id =>"address_map",:size =>"20"}
+          = link_to_function image_tag("find.png"),"search_address_text()",{:title => "Buscar dirección en el mapa"}
+          - if current_user
+            = link_to_function "Cerca mio","search_companies_near_to_me('#{current_user.address_text}');"
+           
+  #map_canvas.map

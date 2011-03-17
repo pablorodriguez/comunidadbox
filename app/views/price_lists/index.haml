@@ -1,10 +1,6 @@
-- javascript 'jquery.dataTables'
-- javascript 'sort.table'
-- stylesheets 'demo_page'
-- stylesheets 'demo_table'
 %h1
   Listas de Precios
-%table#sort_table.display
+%table#sort_table.comboxtable
   %thead
     %tr
       %th
@@ -27,4 +23,3 @@
           = link_to image_tag('delete.gif'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
 %br
 = link_to image_tag('new.png'), new_price_list_path
-= link_to_back

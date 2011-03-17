@@ -1,0 +1,11 @@
+%table
+  %tr
+    %td
+      =vineta
+      %h1 Autos Seleccionados
+  %tr
+    %td 
+    - @offer.car_service_offer.each do |car_service|
+      %tr
+        %td{:colspan=>4}
+          =h car_service.car.info

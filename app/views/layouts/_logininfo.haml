@@ -1,26 +1,10 @@
-#login-info
-  #topmenu
-    %ul
-      %li
-        - if user_signed_in?
-          = link_to "Salir", destroy_user_session_path
-          - if current_user.is_employee
-            %label.name
-              = current_user.full_name
-          - else
-            = link_to current_user.full_name ,edit_user_registration_path
-      - if current_user
-        %li.company_info
-          = current_user.company.name if current_user.company
-          = current_user.employer.name if current_user.employer            
-      %li
-        %a#topmenu1{:accesskey => "1", :href => "/", :title => ""} Inicio
-      %li
-        %a#topmenu2{:accesskey => "3", :href => "#", :title => ""} Contactos
-      %li
-        %a#topmenu3{:accesskey => "3", :href => "#", :title => ""} Sitemap
-      
-      %li    
-        - if user_signed_in?
-          #avatar
-            =# image_tag current_user.gravatar_url 
+- if user_signed_in?
+  #avatar_login
+    %img{:src=>"/images/avatar.png",:width=>"70", :height=>"70", :align=>"right"}
+    %h1
+      = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"
+    %h3
+      = current_user.company.name if current_user.company
+      = current_user.employer.name if current_user.employer    
+    %h3
+      = link_to "Salir", destroy_user_session_path,:class =>"link_w"

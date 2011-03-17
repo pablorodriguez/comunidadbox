@@ -2,15 +2,16 @@
   %table.service_table
     %tr.table_header
       %td{:colspan=>2,:style=>'width:60%'}
-        %label{:id=>"serviceType"}
-        = f.hidden_field :service_type_id,:class=>:service_type_id
-        = f.fields_for :service_type do |st_form|          
-          %label.header_text_lable
-            = st_form.object.name
+        %h2.inline
+          %label{:id=>"serviceType"}
+          = f.hidden_field :service_type_id,:class=>:service_type_id
+          = f.fields_for :service_type do |st_form|
+            %label.header_text_lable
+              = st_form.object.name
         = f.select(:status,WorkordersController::STATUS,{:selected =>f.object.status},{:class=>'status'})
         = f.hidden_field :_destroy        
-        = link_to_function image_tag('new.png'), "addEmptyMaterial(this)"
-        = f.label :comment, "Comentario ...",:class =>"comments"           
+        = link_to_function image_tag('new.png',{:class =>"input_img"}), "addEmptyMaterial(this)"
+        = link_to_function image_tag('comment.png',{:class =>"input_img"}), "#"
         #coment{:style =>"display:none"}
           Por favor ingrese un comentario
           %br

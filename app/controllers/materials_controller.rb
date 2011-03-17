@@ -22,11 +22,10 @@ class MaterialsController < ApplicationController
       else
         @nombre = nil
       end
+      page = params[:page] || 1
       unless @condition_select == ''
-        page = params[:page] || 1
         @materials = Material.paginate(:all, :per_page => 20, :page => page, :order=>'name', :conditions => @condition_select)
       else
-        page = params[:page] || 1
         @materials = Material.paginate(:all, :per_page => 20, :page => page, :order=>'name')
       end
     else

@@ -17,6 +17,57 @@ class WorkordersController < ApplicationController
     @work_order = session[:work_order]
     @work_order.remove_service @id.to_i
   end
+  
+  def filter
+    page = params[:page] || 1
+    per_page = 10
+    @sort_column = sort_column
+    @direction = sort_direction
+    order_by = @sort_column + " " + @direction
+    
+    if current_user.company
+      @condition_select = "workorders.company_id = " + current_user.company.id.to_s
+    else
+      cars_ids = Array.new
+      current_user.cars.each{|c| cars_ids << c.id}
+      @condition_select = "workorders.car_id in (" + cars_ids.join(",") + ")"
+    end
+
+    @join_select = ''
+
+    unless params[:date_from].empty? && params[:date_to].empty?
+      date_f = params[:date_from].to_datetime
+      @date_f = params[:date_from]
+      date_t = params[:date_to].to_datetime
+      @date_t = params[:date_to]
+      @condition_select +=  " AND (workorders.created_at between " + "'" + date_f.in_time_zone.to_s + "'" + " AND " +  "'" + date_t.in_time_zone.next.end_of_day.to_s + "'" + ")"
+    else
+      @date_f = nil
+      @date_t = nil
+    end
+
+    unless params[:domain].empty?
+      @join_select += " INNER JOIN cars ON cars.id = workorders.car_id"
+      @condition_select +=  " AND cars.domain = " + "'" + params[:domain].upcase + "'"
+      @domain = params[:domain]
+    else
+      @domain = nil
+    end
+
+    unless params[:service_type][:id] == ""
+      @join_select += " INNER JOIN services ON services.workorder_id = workorders.id"
+      @condition_select +=  " AND services.service_type_id = " + params[:service_type][:id]
+      @service_type_id =  params[:service_type][:id].to_i
+    end
+
+    @work_orders = Workorder.paginate(:all,
+      :page => page,
+      :per_page=>per_page,
+      :include =>:car,
+      :order =>order_by,
+      :joins => @join_select,
+      :conditions =>[@condition_select])
+  end
 
   def index
     page = params[:page] || 1
@@ -25,60 +76,12 @@ class WorkordersController < ApplicationController
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
-    if  params[:domain]  ||  params[:service_type]
-      
-      if current_user.company
-        @condition_select = "workorders.company_id = " + current_user.company.id.to_s
-      else
-        cars_ids = Array.new
-        current_user.cars.each{|c| cars_ids << c.id}
-        @condition_select = "workorders.car_id in (" + cars_ids.join(",") + ")"
-      end
-
-      @join_select = ''
-
-      unless params[:date_from].empty? && params[:date_to].empty?
-        date_f = params[:date_from].to_datetime
-        @date_f = params[:date_from]
-        date_t = params[:date_to].to_datetime
-        @date_t = params[:date_to]
-        @condition_select +=  " AND (workorders.created_at between " + "'" + date_f.in_time_zone.to_s + "'" + " AND " +  "'" + date_t.in_time_zone.next.end_of_day.to_s + "'" + ")"
-      else
-        @date_f = nil
-        @date_t = nil
-      end
-
-
-      unless params[:domain].empty?
-        @join_select += " INNER JOIN cars ON cars.id = workorders.car_id"
-        @condition_select +=  " AND cars.domain = " + "'" + params[:domain].upcase + "'"
-        @domain = params[:domain]
-      else
-        @domain = nil
-      end
-
-      unless params[:service_type][:id] == ""
-        @join_select += " INNER JOIN services ON services.workorder_id = workorders.id"
-        @condition_select +=  " AND services.service_type_id = " + params[:service_type][:id]
-        @service_type_id =  params[:service_type][:id].to_i
-      end
-
-      @work_orders = Workorder.paginate(:all,
-        :page => page,
-        :per_page=>per_page,
-        :include =>:car,
-        :order =>order_by,
-        :joins => @join_select,
-        :conditions =>[@condition_select])
+    if current_user.company
+      @work_orders = Workorder.paginate(:all,:page => page,:per_page=>per_page,:include =>:car,:order =>order_by,:conditions =>["workorders.company_id = ?",current_user.company.id])
     else
-
-      if current_user.company
-        @work_orders = Workorder.paginate(:all,:page => page,:per_page=>per_page,:include =>:car,:order =>order_by,:conditions =>["workorders.company_id = ?",current_user.company.id])
-      else
-        cars_ids = Array.new
-        current_user.cars.each{|c| cars_ids << c.id}
-        @work_orders = Workorder.paginate(:all,:page => page,:per_page=>per_page,:include =>:car,:order =>order_by,:conditions =>["car_id in (?)",cars_ids])
-      end
+      cars_ids = Array.new
+      current_user.cars.each{|c| cars_ids << c.id}
+      @work_orders = Workorder.paginate(:all,:page => page,:per_page=>per_page,:include =>:car,:order =>order_by,:conditions =>["car_id in (?)",cars_ids])
     end
   end
 

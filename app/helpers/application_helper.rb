@@ -7,6 +7,15 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc":"asc"
     link_to_function title,"submitForm('#{column}' ,'#{direction}')",{:class => css_class}
   end
+  
+  def vineta
+     image_tag("/images/vineta_4.png", :size => "39x21", :alt => "",:class=>:ordencontentimg)
+  end
+  
+  def show_status status
+    image_tag('ok.png') if status == "Terminado"
+  end
+  
   def link_to_pdf work_order
     if (work_order.company == current_user.company ||
       work_order.car.user == current_user)
@@ -111,7 +120,7 @@ module ApplicationHelper
   end
   
   def link_to_remove_fields(f,association)
-    f.hidden_field(:_destroy) + link_to_function(image_tag('delete.gif'),"remove_fields(this,\'#{association}\')")
+    f.hidden_field(:_destroy) + link_to_function(image_tag('delete.png'),"remove_fields(this,\'#{association}\')")
   end
   
   

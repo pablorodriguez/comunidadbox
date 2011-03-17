@@ -7,12 +7,13 @@
 - stylesheets 'jquery.ui.base.css'
 - stylesheets 'jquery.ui.theme.css'
 #work_order_info
+  .cont1
+    %h1 Nueva Order de Trabajo
   = render 'shared/error_messages', :target => @work_order
   #work_order
-    #car_info
+    #car_info.barradatos
       = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}    
-    #work_order_form
-      = render :partial=>'services_list',:locals =>{:work_order=>@work_order}
-  #materials
+  #materials.contentleft
     = render :partial=>'materials'
-           
+  #work_order_form.contentright
+    = render :partial=>'services_list',:locals =>{:work_order=>@work_order}

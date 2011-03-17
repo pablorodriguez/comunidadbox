@@ -1,0 +1,29 @@
+-if @companies && @companies.size > 0
+  =vineta
+  %h1 Listado de Empresas
+  %table.comboxtable  
+    %thead
+      %tr
+        %th Nombre
+        %th Dirección
+        %th Mapa
+        %th Teléfono
+        %th Reputación (1..5)
+    - for company in @companies
+      %tr
+        %td
+          = link_to company.name,company_path(company),{:title => "Ver"}
+        %td
+          %label        
+            = company.full_address
+        %td
+          - if company.address
+            = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"}
+          
+        %td
+          = company.phone
+        %td
+          ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{company.user_rank}]"
+-else
+  %label
+    No hay empresas registradas        

@@ -1,11 +1,14 @@
-%table.service_table
-  %tr
-    %td.table_header{:colspan=>3}
-      Materiales Encontrados
+%table.comboxtable
+  %thead
+    %tr
+      %th{:colspan=>2}
+        Materiales Encontrados
+      %th
+        = link_to_function image_tag('add.png',:class=>:input_img,:title =>"Agregar Materiales"),"add_material_service_type()"
   - for material in @materials
     %tr
       %td
-        = check_box :material_service_type,:id,{:id=>material.material_service_type_id}
+        = check_box :material_service_type,:id,{:id=>material.material_service_type_id,:class =>"checkbox"}
       %td
         = material.detail
       %td.number    
@@ -13,5 +16,4 @@
       %td
         %label{:id=>:service_type_id,:style=>"display:none"}
           = material.service_type_id
-= button_to_function "Agregar","add_material_service_type()"
 = will_paginate @materials

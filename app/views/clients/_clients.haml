@@ -1,0 +1,13 @@
+- if @clients.size > 0
+  %table.comboxtable
+    %thead
+      %tr
+        %th Email
+        %th Nombre
+        %th Apellido
+    - for client in @clients
+      %tr
+        %td=link_to h(client.email), user_path(client)
+        %td=h client.first_name
+        %td=h client.last_name
+
