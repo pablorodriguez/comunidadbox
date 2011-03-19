@@ -1,6 +1,8 @@
 - stylesheets 'control_panel'
 #car_info
-  %h1 Automovil
+  %h1
+    = vineta 
+    Automovil
   .contentleft
     %table.service_table
       %tr
@@ -51,7 +53,6 @@
     
     - if current_user.company
       = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
-    = link_to image_tag('return.png'),cars_path
   .contentright
     #cars_work_orders    
       = render "work_orders"

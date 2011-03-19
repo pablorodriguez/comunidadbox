@@ -88,10 +88,10 @@ ComunidadBox::Application.routes.draw do
       get :all
       post :search
       post :add_service_type
+      post :remove_service_type
     end
     
     member do
-      post :remove_service_type
       get :post
       post :activate
     end

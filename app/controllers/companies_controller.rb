@@ -149,7 +149,7 @@ class CompaniesController < ApplicationController
     @service_type_id =service_type.id
     companyService.service_type = service_type
     companyService.save
-    @msg ="ok"
+    @msg ="Tipo de Servicio asociado exitosamente"
     respond_to do |format|
         format.js {render :msg}   
     end
@@ -160,7 +160,7 @@ class CompaniesController < ApplicationController
     @service_type_id = params[:id].to_i
     company_id= current_user.company.id
     company_service = CompanyService.all(:conditions=>["company_id = ? and service_type_id = ?",company_id,@service_type_id])
-    @msg ="ok"
+    @msg ="Tipo de Servicio eliminado exitosamente"
     @service_error = false
     if company_service != nil
       company_service[0].delete

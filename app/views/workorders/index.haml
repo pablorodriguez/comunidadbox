@@ -4,7 +4,9 @@
 - javascript 'workorder'
 
 %all-workorder
-  %h1 Servicios Realizados
+  %h1
+    = vineta 
+    Servicios Realizados
   .contentleft
     - form_tag filter_workorders_path,:remote =>true,:id=>:filter do
       = hidden_field_tag :direction, @direction
