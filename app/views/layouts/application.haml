@@ -28,5 +28,14 @@
           = render "layouts/logininfo"
     =render "layouts/menu"
     #content
+      #msgs
+        - if flash[:notice]
+          .errorExplanation.notice
+            %h2
+              = flash[:notice]
+        - if flash[:alert]
+          .errorExplanation.alert
+            %h2
+              = flash[:alert]
       = yield
     = render :partial => "/layouts/footer"

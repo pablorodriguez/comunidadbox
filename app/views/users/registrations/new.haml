@@ -2,9 +2,9 @@
 .box
   %h1
     = vineta 
-    Nuevo Usuario
+    Nuevo Usuarioeeee
   = render 'shared/error_messages', :target => @user
-  = form_for resource, :as => resource_name,:url => registration_path(resource_name) do |f|
+  = form_for @user, :url => user_registration_path do |f|
     .contentleft_u
       %h1 Información Personal
       %table

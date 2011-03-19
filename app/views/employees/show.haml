@@ -3,7 +3,9 @@
 - stylesheets 'jquery.ui.theme.css'
 #account.box
   #user
-    %h1 Empleado
+    %h1
+      = vineta 
+      Empleado
     = render 'user_show'
   - if @user.company
     #company
