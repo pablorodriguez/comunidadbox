@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 jQuery(document).ready( function(){
+  
   $('ul li:has(ul)').hover( 
       function(e) 
       { 
@@ -22,7 +23,21 @@ jQuery(document).ready( function(){
 		$(this).html("Ha ocurrido un error general en la applicación. Por favor intente nuevamente en 5 minutos");
 		$(".ajax_loader").hide();
 	});
+	
+	
+	if ($("#notice").length > 0){
+    $container = $("#msgs").notify();
+    create("default",{},{sticky:true});
+  }
 });
+
+function create( template, vars, opts ){
+  return $container.notify("create", template, vars, opts);
+}
+
+function resetStatusMessages(){
+  //$("#msgs").fadeOut();
+}
 
 function showGRAvatar(){
 	window.open("http://www.gravatar.com");

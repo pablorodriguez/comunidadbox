@@ -1,6 +1,15 @@
 @charset "utf-8";
 /* CSS Document */
 
+body {
+  background-color: #F2F2F2;
+}
+
+body, td, th {
+  color: #000;
+  text-align: left;
+}
+        
 a{
   color:#CCCC00;
   font-weight: bold;
@@ -1287,7 +1296,7 @@ td.number, th.number{
 .notice{
   background-color: #AFFFC9;
   -moz-border-radius: 5px 5px 5px 5px;
-  border: 1px solid #099F3A;
+  border: 0px solid #099F3A;
   margin: 0px 4px 10px 1px;
 }
 
