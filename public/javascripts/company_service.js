@@ -13,24 +13,27 @@ jQuery(document).ready( function(){
 });
 
 function removeService(ser_type_id){
-		$.ajax({
-			url: "/companies/remove_service_type",
-			data: {
-				'id':ser_type_id
-			},
-		dataType:'script',
-		type:'POST'
-	});
-	
+    var token = $("input[name='authenticity_token']")[0];
+    $.ajax({
+      url: "/companies/remove_service_type",
+      data: {
+        'id':ser_type_id,        
+        'authenticity_token':encodeURIComponent(token)
+      },
+    dataType:'script',
+    type:'POST'
+  });
 }
 
 function addServiceType(ser_type_id){
-		$.ajax({
-			url: "/companies/add_service_type",
-			data: {
-				'id':ser_type_id
-			},
-		dataType:'script',
-		type:'POST'
-	});
+   var token = $("input[name='authenticity_token']")[0];
+    $.ajax({
+      url: "/companies/add_service_type",
+      data: {
+        'id':ser_type_id,        
+        'authenticity_token':encodeURIComponent(token)
+      },
+    dataType:'script',
+    type:'POST'
+  });
 }

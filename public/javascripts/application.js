@@ -27,7 +27,7 @@ jQuery(document).ready( function(){
 	
 	if ($("#notice").length > 0){
     $container = $("#msgs").notify();
-    create("default",{},{sticky:true});
+    create("sticky",{},{sticky:true});
   }
 });
 

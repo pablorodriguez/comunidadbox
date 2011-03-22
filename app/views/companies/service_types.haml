@@ -1,7 +1,10 @@
 - javascript 'company_service'
 %h1 Listado Tipo de Servicio
 .box
-  #company_services    
+  #company_services   
+    .hide 
+      = form_for :service_type do |f|
+        = f.text_field :id
     %table{:id=>'sort_table',:class=>'comboxtable'}
       %thead
         %tr
