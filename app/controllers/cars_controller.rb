@@ -1,7 +1,7 @@
 class CarsController < ApplicationController
   
   layout "application", :except => [:search,:update_km,:update_km_avg,:find_models] 
-  skip_before_filter :authenticate_user!,:only => [:find_models]
+  skip_before_filter :authenticate_user!,:only => [:find_models,:update_km,:update_km_avg]
  
   # GET /cars
   # GET /cars.xml

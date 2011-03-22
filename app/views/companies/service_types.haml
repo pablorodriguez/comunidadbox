@@ -20,6 +20,7 @@
               = service_type.parent.name
           %td                    
             %label.left
+              = from_for :url => add_
               = check_box_tag "service_type_#{service_type.id}", service_type.id,@company_service_type.include?(service_type),:class =>:service_type_id
             %div.ajax_loader.left{:style=>"display:none"}
             %div{:id=>"msg_#{service_type.id}"}
