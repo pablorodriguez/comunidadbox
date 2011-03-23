@@ -3,7 +3,7 @@
     - flash.each do |key,msg|
       = content_tag :div,:id=>key,:class=>"errorExplanation notice" do
         = content_tag :h2, msg
-  #sticky
+  #sticky.hide
     %a{:class=>"ui-notify-close ui-notify-cross",:href=>"#"}x
     - flash.each do |key,msg|
       = content_tag :div,:id=>key,:class=>"errorExplanation notice" do
