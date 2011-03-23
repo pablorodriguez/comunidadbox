@@ -59,7 +59,7 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     page = params[:page] || 1
-    @work_orders = Workorder.paginate(:all,:per_page=>13,:page =>page,:conditions =>["car_id = ?",params[:id]])  
+    @work_orders = Workorder.paginate(:all,:per_page=>13,:page =>page,:order =>"created_at",:conditions =>["car_id = ?",params[:id]])  
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @car }

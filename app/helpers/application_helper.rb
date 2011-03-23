@@ -22,6 +22,7 @@ module ApplicationHelper
       link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank"
     end
   end
+  
   def link_to_back
     link_to_function image_tag('return.png'),"javascript:history.back(-1)"
   end
