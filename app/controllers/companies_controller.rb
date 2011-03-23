@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController  
   layout "application", :except => [:add_service_type,:remove_service_type,:search]
-  skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:add_service_type,:remove_service_type]
+  skip_before_filter :authenticate_user!, :only => [:index,:show,:all]
   
   def service_types   
     @company = current_user.company
