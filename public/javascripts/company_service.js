@@ -13,12 +13,10 @@ jQuery(document).ready( function(){
 });
 
 function removeService(ser_type_id){
-    var token = $("input[name='authenticity_token']")[0];
     $.ajax({
       url: "/companies/remove_service_type",
       data: {
-        'id':ser_type_id,        
-        'authenticity_token':encodeURIComponent(token)
+        'id':ser_type_id        
       },
     dataType:'script',
     type:'POST'
@@ -26,12 +24,10 @@ function removeService(ser_type_id){
 }
 
 function addServiceType(ser_type_id){
-   var token = $("input[name='authenticity_token']")[0];
     $.ajax({
       url: "/companies/add_service_type",
       data: {
-        'id':ser_type_id,        
-        'authenticity_token':encodeURIComponent(token)
+        'id':ser_type_id        
       },
     dataType:'script',
     type:'POST'
