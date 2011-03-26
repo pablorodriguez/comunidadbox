@@ -129,12 +129,9 @@ class WorkordersController < ApplicationController
 
   def create
     @work_order = Workorder.new(params[:workorder])
-    
-    @work_order.company = current_user.current_company
-    
+    #@work_order.company = current_user.current_company
     @work_order.user = current_user
     saveAction =false
-
     Workorder.transaction do
       car = @work_order.car
       car.company = current_user.current_company
@@ -160,17 +157,34 @@ class WorkordersController < ApplicationController
   end
   
   def new
-    @work_order = Workorder.new
-    company_id = Company::DEFAULT_COMPANY_ID
-    if current_user.company
-      company_id = current_user.company_id
+    company_id = params[:company_id]
+    car_id = params[:car_id]
+    if (car_id)
+      car =Car.find(params[:car_id])
+    else
+      if current_user.cars.size == 1
+        car = current_user.cars[0]
+      else
+        flash[:notice] = "Por favor seleccione un automovil"
+        redirect_to cars_path(:company_id =>company_id)
+      end
     end
-      
-      
-    @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
-        @service_types = CompanyService.find(:all,
-          :conditions=>["company_id= ?",company_id],
-          :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+    if company_id
+      @work_order = Workorder.new
+      if current_user.company
+        company_service_id = current_user.company.id
+      else
+        company_service_id = Company::DEFAULT_COMPANY_ID
+      end
+      @work_order.company = Company.find company_id
+      @work_order.car = car
+      @service_types = CompanyService.find(:all,
+        :conditions=>["company_id= ?",company_service_id],
+        :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+    else
+      flash[:notice] ="Por favro seleccione un prestador de servicios"
+      redirect_to all_companies_path(:car_id =>car_id)
+    end
   end
 
   private

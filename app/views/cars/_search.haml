@@ -1,5 +1,7 @@
 #car_search.left
   - form_for :car,:remote =>true, :url => search_cars_path,:loading =>'AjaxLoader.enable()',:html=>{:id=>:car_search}  do |f|
+    = hidden_field_tag :car_id,@car_id
+    = hidden_field_tag :company_id,@company_id
     %table
       %tr
         %td Dominio 

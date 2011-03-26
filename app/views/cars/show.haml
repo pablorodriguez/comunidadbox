@@ -2,7 +2,7 @@
 #car_info
   %h1
     = vineta 
-    Automovil
+    Automóvil
   .contentleft
     %table.service_table
       %tr
@@ -50,10 +50,9 @@
             %strong
               = h number_to_currency @car.total_spend(current_user.company.id) 
         
-    
-    - if current_user.company
-      = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
-      = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"}
+  
+    = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
+    = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"}
   .contentright
     #cars_work_orders    
       = render "work_orders"

@@ -13,7 +13,7 @@ class CarsController < ApplicationController
     else
       @company_cars = Car.find(:all,:conditions=>["user_id = ? ",current_user.id])
     end
-    
+    @company_id = params[:company_id]
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -47,6 +47,8 @@ class CarsController < ApplicationController
   
   def search
     domain = params[:car][:domain]
+    @company_id = params[:company_id]
+    @car_id = params[:car_id]
     @cars = Car.all(:conditions =>["domain = ?",domain])
     respond_to do |format|
       format.js

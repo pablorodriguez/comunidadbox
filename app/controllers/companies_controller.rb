@@ -30,7 +30,7 @@ class CompaniesController < ApplicationController
   
   def all
     @companies = Company.find(:all,:conditions=>["id >1"])
-    
+    @car_id = params[:car_id]
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @companies }
