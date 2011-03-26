@@ -3,7 +3,7 @@
     %ul.menu
       %li= link_to "Inicio", root_path
       %li= link_to "Prestador de Servicio", all_companies_path
-      - if current_user.current_company
+      - if user_signed_in? && current_user.current_company
         %li
           %a{:href=>"#"} Mis Autos
           %ul#submenu
@@ -12,13 +12,13 @@
               - if current_user.is_administrator
                 %li 
                   = link_to "Buscar Cliente", clients_path
-      - if current_user.is_car_owner
+      - if user_signed_in? && current_user.is_car_owner
         %li
           = link_to "Mis Autos", cars_path
         %li
           = link_to "Crear Empresa", new_company_path
         
-      - if current_user.is_administrator
+      - if user_signed_in? && current_user.is_administrator
         %li
           %a{:href=>"#"} Administración
           %ul#submenu
@@ -41,5 +41,5 @@
             %li
               = link_to "Mis Empleados", employees_path
   
-        - if current_user.is_super_admin
+        - if user_signed_in? && current_user.is_super_admin
           %li= link_to "Configuración", conf_path
