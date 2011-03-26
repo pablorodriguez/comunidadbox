@@ -9,7 +9,8 @@
         %th Mapa
         %th Teléfono
         %th Reputación (1..5)
-        %th
+        - if user_signed_in?
+          %th
     - for company in @companies
       %tr
         %td
@@ -25,8 +26,9 @@
           = company.phone
         %td
           ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{company.user_rank}]"
-        %td
-          = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio"}
+        - if user_signed_in?
+          %td
+            = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio"}
     
 -else
   %label
