@@ -41,4 +41,6 @@
           %label{ :for => "zip" }Código Postal    
         %td
           = @company.address.zip
-            
+          
+= link_to image_tag("edit.png"),edit_company_path(@company),{:title =>"Modificar"}
+= link_to image_tag("return.png"),companies_path    

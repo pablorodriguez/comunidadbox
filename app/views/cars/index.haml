@@ -4,5 +4,3 @@
     =render :partial=>"search",:locals =>{:cars=>[],:table_id =>:sort_table}
   #cars.contentright
     =render :partial=>"cars",:locals =>{:cars=>@company_cars,:table_id =>:sort_table}
-    .boxs
-      = link_to image_tag("new.png"),new_car_path,{:title=>"Nuevo Auto"}

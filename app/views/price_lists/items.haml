@@ -6,7 +6,7 @@
   .contentleft
     = render "update"
   .contentright
-    - form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
+    = form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
       %table
         %tbody
           %tr

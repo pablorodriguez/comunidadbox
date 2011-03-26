@@ -2,7 +2,7 @@ class ControlPanelsController < ApplicationController
    layout "application", :except => [:find_models]
     
   def index   
-    @company_services = company_services(current_user.company.id)
+    @company_services = company_services(current_user.current_company.id)
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
     @eventos_rojo = Event.count(:all,
                            :conditions => ["dueDate < ? and service_type_id IN (?)", Time.now.months_since(1),@not_in],
@@ -126,7 +126,7 @@ class ControlPanelsController < ApplicationController
       @service_filter.service_type_id = ServiceType.find(params[:st]).id
     end
     
-    @company_services = company_services(current_user.company.id)
+    @company_services = company_services(current_user.current_company.id)
     @brands = Brand.all(:order=>:name)
     
     @models  = Array.new

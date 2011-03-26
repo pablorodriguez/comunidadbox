@@ -17,6 +17,25 @@ class ClientsController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  def create
+    @client = User.new(params[:user])
+    
+    if @client.save
+        flash[:notice] = "Cliente creado exitosamente"
+        redirect_to  new_workorder_path(:car_id =>@client.cars[0].id)
+    else
+      @client.cars.build unless @client.cars[0].domain
+      @client.build_address unless @client.address
+      render :action => 'new'
+    end
+  end
+  
+  def new
+    @client = User.new
+    @client.address = Address.new
+    @client.cars.build
+  end
 
   def index
     @clients = []

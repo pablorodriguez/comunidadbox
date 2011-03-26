@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :roles ,:through => :user_roles
   
   has_one :address
-  has_one :company,:class_name=>"Company",:conditions=>"active=1"
+  has_one :company_active,:class_name=>"Company",:conditions=>"active=1"
   belongs_to :employer,:class_name =>"Company",:foreign_key=>'employer_id'
   
   has_many :alarms, :dependent => :destroy
@@ -37,7 +37,11 @@ class User < ActiveRecord::Base
   def current_company
     return company if company
     return employer if employer
-    return Company.find(Company::DEFAULT_COMPANY_ID)
+  end
+  
+  def company
+    return company_active if companies.size > 0 
+    return employer if employer
   end
   
   def after_initialize2
@@ -46,8 +50,8 @@ class User < ActiveRecord::Base
     #- @user.user_addresses[0].address = Address.new
   end
   
-  def has_company
-    companies.size > 0  
+  def has_company?
+    companies.size > 0
   end
   
   def company_id
@@ -89,6 +93,14 @@ class User < ActiveRecord::Base
   
   def is_employee
     employer != nil 
+  end
+  
+  def is_car_owner
+    car_owner = true
+    if has_company? || is_employee
+      car_owner = false
+    end
+    car_owner
   end
 
   def find_role(role_name)

@@ -26,3 +26,5 @@
         %td
           = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"state medium_select"})
           = image_submit_tag("find.png",:class =>"input_img")
+-if current_user
+  = button_to "Nuevo Empresa", new_company_path,{:method =>:get,:class =>"btn"}

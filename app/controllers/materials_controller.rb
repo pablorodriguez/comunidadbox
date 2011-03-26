@@ -34,18 +34,16 @@ class MaterialsController < ApplicationController
   end
 
   def details
-    company_id = Company::DEFAULT_COMPANY_ID
-    if current_user.company
-      company_id = current_user.company_id
+    @company_id = Company::DEFAULT_COMPANY_ID
+    if current_user.company_id
+      @company_id = current_user.company_id
     end
-    material = MaterialDetail.new(params[:material])
-    search = material.detail
-    service_type_id = material.service_type_id
-    search = search.gsub(/\s/,"%").upcase
-    service_type_id = service_type_id.to_i
-    page = params[:page] || 1
-    per_page = material.per_page.blank? ? 10 :material.per_page
-    @materials = MaterialDetail.paginate(:all,:per_page=>per_page,:page => page,:conditions=>['detail_upper LIKE ? and service_type_id = ? and company_id = ?',"%#{search}%",service_type_id,company_id])
+    @detail = params[:detail]
+    @service_type_id = params[:service_type][:id].to_i
+    @detail = @detail.gsub(/\s/,"%").upcase
+    @page = params[:page] || 1
+    @per_page = params[:per_page] || 10
+    @materials = MaterialDetail.paginate(:all,:per_page=>@per_page,:page => @page,:conditions=>['detail_upper LIKE ? and service_type_id = ? and company_id = ?',"%#{@detail}%",@service_type_id,@company_id])
 
     respond_to do |format|
       format.js

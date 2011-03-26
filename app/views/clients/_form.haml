@@ -1,57 +1,16 @@
-- stylesheets 'control_panel'
-:javascript
-  var rowCarNro= #{@user.cars.size};
-  var rowAddNro= #{@user.addresses.size};
-
-- form_for @user, :url => client_path(@user) do |f|
-  #errors
-    = render 'shared/error_messages', :target => @user
-  #account
-    %ul
-      %li
-        %a{:href=>"#user"} Usuario *
-      %li
-        %a{:href=>"#car"} Autos *
-      %li
-        %a{:href=>"#address"} Direcciones *
-    #user
-      = render 'user'
-    #car
-      %table
-        %tr
-          %td Dominio * (XXX999)
-          %td Marca *
-          %td
-            Modelo
-            #ajax_loader.ajax_loader{:style=>"display:none"}
-          %td Año *
-          %td Km Actual *
-          %td
-            Km Promedio
-            %br Mensual *
-          %td Combustible
-        = f.fields_for :cars do |c|
-          = render 'car_fields',:f =>c
-      = button_to_add_fields "Nuevo Auto",f,:cars
-    #address
-      %table
-        %tr
-          %th
-            Tipo *
-          %th
-            Calle *
-          %th
-            Ciudad *
-          %th
-            Código Postal *
-          %th
-            Provincia *
-          %th
-            Usar
-        - f.fields_for :addresses do |b1|
-          = render 'address_fields',:f =>b1
-      = button_to_add_fields "Nueva Dirección",f,:addresses
-  = submit_tag 'Grabar  '
-  = link_to_back
-  %label * Campos Obligatorios
-
+- javascript 'accounts'
+.box
+  = render 'shared/error_messages', :target => @client
+  = form_for @client, :url => clients_path do |f|
+    %h1 Información Personal
+    %table
+      %tbody
+        = render 'users/user_row',:f => f
+    %h1 Información de su auto
+    =f.fields_for :cars do |c|
+      = render 'users/car_fields',:f =>c
+    .search_map   
+      %h1 Dirección
+      =f.fields_for :address do |a|
+        = render 'users/user_address_fields', :f =>a
+    %p= f.submit "Grabar",:class=>"btn"

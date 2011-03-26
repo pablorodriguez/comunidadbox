@@ -4,7 +4,7 @@
   = l event.dueDate
 %td
   %strong
-    = number_to_currency(event.car.total_spend(current_user.company.id))
+    = number_to_currency(event.car.total_spend(current_user.current_company.id))
   =number_to_currency(event.car.total_spend)
 %td
   -unless event.is_green

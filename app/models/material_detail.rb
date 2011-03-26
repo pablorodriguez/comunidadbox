@@ -7,6 +7,7 @@ class MaterialDetail < ActiveRecord::Base
   attr :task_ids,true
   attr :comment,true
   attr :per_page , true
+  attr :page,true
 #  attr :service_type_id,true
   
   def totalPrice

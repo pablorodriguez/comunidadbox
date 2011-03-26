@@ -87,7 +87,6 @@ class WorkordersController < ApplicationController
 
   def show
     @work_order = Workorder.find params[:id]
-    @work_order.user = current_user
     @car = @work_order.car
     respond_to do |format|
       format.html

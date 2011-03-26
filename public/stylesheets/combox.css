@@ -304,6 +304,7 @@ form .textarea {
   margin:0px;
   margin-left:15px;
 }
+
 .btn {
   display: inline-block;
   width:100px;
@@ -316,6 +317,7 @@ form .textarea {
   color:#FFF;
   font-weight:600;
 }
+
 .btn:hover {
   background-position:bottom;
 }
@@ -1315,4 +1317,8 @@ td.number, th.number{
   font-style: italic;
 }
 
-
+#msg{
+  position: absolute;
+  margin-left: 600px;
+  width: 300px;
+}

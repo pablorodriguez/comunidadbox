@@ -45,7 +45,7 @@ function toggleCheck(event){
 function searchModel(event){
 	var brand_id = event.target.id;	
 	var token = $("input[name='authenticity_token']")[0];
-	AjaxLoader.enable();
+	//AjaxLoader.enable();
 	$.ajax({
 		url: "/cars/find_models",
 			data: {

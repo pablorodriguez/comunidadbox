@@ -1,5 +1,4 @@
-= form_for :material,:remote=>true,:url=>details_materials_path,:method=>:get,:loading =>'AjaxLoader.enable()',:html=>{:id=>:material_form} do |f|
-  = f.hidden_field :per_page
+= form_for :material,:remote=>true,:url=>details_materials_path,:html=>{:id=>:material_form,:method=>:get} do |f|
   %table.service_table
     %tr
       %td
@@ -10,16 +9,15 @@
         Servicio
     %tr
       %td
-        = f.collection_select :service_type_id,@service_types,:id,:name,:include_blank => true
+        = collection_select :service_type,:id,@service_types,:id,:name,:include_blank => true,:name=>"service_type_id"
         =link_to image_tag('max.png',:class=>"input_img",:title =>"Maximizar Orden de Trabajo"),"#",:id=>"maxim"
     %tr
       %td
         Material
     %tr
       %td
-        = text_field :material, :detail,:class=>:left
+        = text_field_tag :detail,@detail,:class=>:left
         = image_submit_tag("find.png",:class =>"input_img")
-        #ajax_loader.ajax_loader.left{:style=>"display:none"}
 #materials_list
   
 		

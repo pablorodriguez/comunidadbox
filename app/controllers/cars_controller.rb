@@ -85,7 +85,7 @@ class CarsController < ApplicationController
   # GET /cars/1/edit
   def edit
     @car = Car.find(params[:id])
-    @models = find_model(@car.brand.id)
+    @models = Model.find_by_brand_id(@car.brand.id)
   end
 
   # POST /cars

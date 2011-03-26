@@ -7,8 +7,7 @@
         %td
           = f.text_field :domain
           = image_submit_tag("find.png",:class =>"input_img")
-      %tr
-        %td
-          = button_to "Nuevo cliente", new_client_users_path,:class =>"btn"
-          
-          #ajax_loader.ajax_loader.left{:style=>"display:none"}        
+  = button_to "Nuevo Auto", new_car_path,{:method =>:get,:class =>"btn"}
+  - if current_user.has_company?
+    = button_to "Nuevo cliente", new_client_path,{:method =>:get,:class =>"btn"}
+  #ajax_loader.ajax_loader.left{:style=>"display:none"}        

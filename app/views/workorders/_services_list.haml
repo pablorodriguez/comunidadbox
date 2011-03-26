@@ -2,23 +2,24 @@
   #services
     = wo_form.hidden_field :car_id
     %table.service_table
-      %tr.header_text_lable
-        %td{:style=>'width:80%'}
-          %label.left 
+      %theader
+        %th
+          %td{:style=>'width:80%'}
+            %label.left 
+              %h1
+                = vineta
+                Orden de Trabajo [Estado:
+                = @work_order.status
+                ]
+          %td.number
             %h1
-              = vineta
-              Orden de Trabajo [Estado:
-              = @work_order.status
-              ]
-        %td.number
-          %h1
-            #total_work_order
-              = number_to_currency @work_order.total_price
-        %td{:style=>'width:5%'}
+              #total_work_order
+                = number_to_currency @work_order.total_price
+          %td{:style=>'width:5%'}
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|
         = render "service_fields",:f => s_form
-    #n_s{:style=>"display:none"}
+    #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     = wo_form.submit "Grabar",:class =>"btn"
             

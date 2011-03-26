@@ -99,10 +99,11 @@ class PriceListsController < ApplicationController
   def update_item_price
     plid= params[:id]
     ids = params[:ids]
+    puts "##### #{ids}"
     page = params[:page]
     item_update = params[:item_update]
     percentage = params[:percentage]
-    service_types_ids = params["service_type_ids"]
+    service_types_ids = params[:service_type_ids]
     material = params[:material]
     update_all(plid,percentage) if (item_update == "all")      
     update_all_page(plid,percentage,service_types_ids,material)if (item_update == "all_page")

@@ -53,6 +53,7 @@
     
     - if current_user.company
       = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
+      = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"}
   .contentright
     #cars_work_orders    
       = render "work_orders"

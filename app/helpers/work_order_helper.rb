@@ -69,4 +69,8 @@ module WorkOrderHelper
     end
   end
   
+  def can_edit? work_order
+    @work_order.open? && @work_order.company.id == current_user.company_id
+  end
+  
 end

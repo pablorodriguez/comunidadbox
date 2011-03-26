@@ -1,5 +1,5 @@
 #service_types
-  -form_for @price_list,:url => items_price_list_path(@price_list),:html=>{:method =>:get} do |ff|
+  = form_for @price_list,:url => items_price_list_path(@price_list),:html=>{:method =>:get} do |ff|
     %table
       %tbody
       - for service_type in current_user.company.service_type

@@ -171,7 +171,7 @@ ComunidadBox::Application.routes.draw do
   
   resources :materials do
     collection do
-      post :details
+      get :details
       post :save_service_type
       get :destroy_servicetype
     end

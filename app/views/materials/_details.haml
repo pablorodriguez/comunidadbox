@@ -16,4 +16,4 @@
       %td
         %label{:id=>:service_type_id,:style=>"display:none"}
           = material.service_type_id
-= will_paginate @materials
+= will_paginate @materials,:params =>{:service_type_id =>@service_type_id,:detail=>@detail}

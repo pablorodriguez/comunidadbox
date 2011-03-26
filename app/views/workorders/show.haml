@@ -91,7 +91,7 @@
       %td.number.label_title
         = number_to_currency @work_order.total_price
 .buttons        
-  -if @work_order.open?
+  -if can_edit? @work_order
     = link_to image_tag('edit.png'), edit_workorder_path(@work_order)
     |
   = link_to_pdf @work_order

@@ -17,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     
     if @user.save
         flash[:notice] = "Cliente creado exitosamente"
-        redirect_to  new_workorder_path(:car_id =>@user.cars[0].id)
+        redirect_to  user_sign_in_path
     else
       @user.cars.build unless @user.cars[0].domain
       @user.build_address unless @user.address
