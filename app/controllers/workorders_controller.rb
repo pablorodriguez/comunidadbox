@@ -169,6 +169,10 @@ class WorkordersController < ApplicationController
         redirect_to cars_path(:company_id =>company_id)
       end
     end
+    
+    if current_user.company
+      company_id = current_user.company.id
+    end
     if company_id
       @work_order = Workorder.new
       if current_user.company
