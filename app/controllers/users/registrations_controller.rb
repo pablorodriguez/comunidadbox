@@ -4,20 +4,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new
     resource.address = Address.new if resource.address.nil?
     resource.cars.build if resource.cars.empty?
+    @company = resource.companies.build
+    @company.build_address if @company.address.nil?
   end
   
   def edit    
     resource.address = Address.new if resource.address.nil?
     resource.cars.build if resource.cars.empty?
+    unless resource.company
+      @company = resource.companies.build
+      @company.build_address if @company.address.nil?
+    end
+    
   end
   
   def create
-    puts "#########################################"
     @user = User.new(params[:user])
+    
+    if @user.companies.size > 0
+       @user.companies[0].active=1
+       @user.roles << Role.find_by_name(Role::ADMINISTRATOR) 
+    end
     
     if @user.save
         flash[:notice] = "Cliente creado exitosamente"
-        redirect_to  user_sign_in_path
+        redirect_to new_user_session_path
     else
       @user.cars.build unless @user.cars[0].domain
       @user.build_address unless @user.address

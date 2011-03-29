@@ -20,7 +20,7 @@ a.link_w{
   font-weight: bold;
 }
 
-.checkbox{
+.checkbox, .radio{
   width: 15px;
   height: 25px;
 }
@@ -1298,6 +1298,7 @@ td.number, th.number{
 .notice{
   background-color: #AFFFC9;
   -moz-border-radius: 5px 5px 5px 5px;
+  
   border: 0px solid #099F3A;
   margin: 0px 4px 10px 1px;
 }
@@ -1322,3 +1323,74 @@ td.number, th.number{
   margin-left: 600px;
   width: 300px;
 }
+
+ul.usr_menu{
+  padding: 0px;
+}
+
+ul.usr_menu li h3{
+ margin: 0px;
+ font-size: 14px;
+}
+
+ul.usr_menu li{
+  margin: 2px;
+  padding: 5px;
+}
+
+.usr_menu_link{
+  cursor: pointer; 
+}
+
+.usr_menu_link:hover{
+  background-color: #CCCC00;
+}
+
+.usr_menu_link:hover a{
+  background-color: #CCCC00;
+  color:white;
+}
+
+.usr_menu_link a{
+  color: #CCCC00;
+}
+
+.usr_menu_selected a{
+  color:white;
+}
+
+.usr_menu_selected{
+  cursor: pointer; 
+  background-color: #CCCC00;
+}
+
+ 
+.ui-accordion-header{
+  background-color: #CCCC00;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  padding: 5px; 
+  border: 2px solid #AFAFAF;
+  cursor: pointer;
+  margin:5px 5px 5px 5px;
+}
+
+.ui-accordion-header a{
+  color:white;
+  text-decoration: none;
+}
+
+.ui-accordion-content{
+  margin: 0px 5px 0px 5px;
+  border: 1px solid #AFAFAF;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  padding-left: 5px;
+}
+
+#all_data h3{
+  margin-top: 5px;
+}
+

@@ -2,13 +2,52 @@
 %h1
   = vineta 
   Modificar Usuario
+= render 'shared/error_messages', :target => @user  
 = form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f|
-  .contentleft_u
-    = render :partial => 'users/edit',:locals  =>{:f => f}
-  .contentright_u
-    .search_map  
-      =f.fields_for :address do |a|    
-        = render :partial =>'users/user_address_fields', :locals  =>{:f => a}
+  .contentleft
+    -unless current_user.company
+      %h1 ¿ Que tipo de usuario desea ser ?
+      %input{:type=>:radio,:class=>"radio",:value=>"final_user" ,:name=>"user_type",:id=>:fu,:checked =>"true"}
+      %label{:for =>"fu",:class=>:link}Usuario Final
+      %br
+      %input{:type=>:radio,:class=>"radio",:value=>"service_center",:name=>"user_type",:id=>:sc}
+      %label{:for =>"sc",:class=>:link} Prestador de Servicio
+    %ul.usr_menu
+      %li.usr_menu_selected.usr_menu_link
+        %a{:href=>"#",:id=>"0"} 
+          Información Personal
+      %li.usr_menu_link
+        %a{:href=>"#",:id=>"1"}
+          Dirección Personal
+      %li#li_info_sc.usr_menu_link
+        %a{:href=>"#",:id=>"2"}
+          Información de Prestador de Servicios
+      %li#li_info_asc.usr_menu_link
+        %a{:href=>"#",:id=>"3"} 
+          Dirección de Prestado de Servicios
+  .contentright   
+    #user_data
+      %h3
+        %a{:href=>"#"}Información Personal
+      .personal_info
+        %table
+          %tbody
+            = render 'users/user_edit',:f => f
+      %h3
+        %a{:href=>"#"}Direccion Personal
+      .personal_address      
+        =f.fields_for :address do |a|
+          = render 'users/user_address_fields', :f =>a
+      =f.fields_for :companies do |c|
+        %h3#h_info_sc
+          %a{:href=>"#"}Información del Prestador de Servicio
+        #d_info_sc.company_info
+          = render 'companies/form', :f => c
+        %h3#h_address_sc
+          %a{:href=>"#"}Direccion del Prestador de Servicio
+        #d_address_sc.company_address
+          = c.fields_for :address do |ad|
+            = render 'companies/company_address_fields', :ad => ad
     = f.submit "Actualizar",:class =>"btn"
     %br
     %table

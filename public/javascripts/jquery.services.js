@@ -188,6 +188,43 @@ function add_fields(link, association, content){
 	initMaterialItems();
 }
 
+function add_new_material_service_type(){ 
+  var serviceTypeDiv= null; 
+  var ele = $(this);
+  ele.attr("checked",false)
+  var tr0 = ele.parent().parent();
+  
+  var serviceTypeId = $("#service_type_id").val();
+  var serviceType = $("#service_type_id option:selected").text();
+  var material =$("#new_material").val();
+  
+  $(".service_type_id").each(function(){
+    if($(this).val()== serviceTypeId){
+      serviceTypeDiv = $(this).parent().parent().parent().parent().parent().parent();
+    }
+  });
+
+  if (serviceTypeDiv==null){
+    $("#services_link").click();
+    var serviceTypes = $(".service_type");
+    serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
+    serviceTypeDiv.find("#serviceType").text(serviceType);  
+  }
+  serviceTypeDiv.show();
+  var table = serviceTypeDiv.find("table");
+  table.find("thead tr a.comment").click();
+  table.find("thead th:last").find("input").attr("value","0");
+  serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
+  var tr = table.find("tr:last");
+  tr = $(tr[0]);
+  tr.find("td:eq(1) input").val(material);
+  tr.find("td:eq(2) :input").val(1)
+  tr.find(".text_lable").each(function(){
+    $(this).disable();
+  });
+    
+  initMaterialItems();
+}
 
 function add_material_service_type(){	
 	var checks = $("#materials_list").find("input[type=checkbox]:checked");

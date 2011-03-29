@@ -1,14 +1,30 @@
-- @company.build_address if @company.address.nil?
+- javascript 'company'
 %h1
+  = vineta
   Nueva Empresa
 - form_for(@company) do |f|
   = render 'shared/error_messages', :target => @company
   .contentleft
-    = render :partial =>"form",:locals =>{:f =>f}
+    %ul.usr_menu
+      %li#li_info_sc.usr_menu_link
+        %a{:href=>"#",:id=>"0"}
+          Información de Prestador de Servicios
+      %li#li_info_asc.usr_menu_link
+        %a{:href=>"#",:id=>"1"} 
+          Dirección de Prestado de Servicios
   .contentright
-    = f.fields_for :address do |a|
-      = render :partial =>'company_address_fields', :locals  =>{:f => a}
-    = f.submit "Grabar",:class=>"btn" 
-    |
-    = link_to_back
+    = f.hidden_field :user_id
+    #company_data
+      %h3#h_info_sc
+        %a{:href=>"#"}Información del Prestador de Servicio
+      #d_info_sc.company_info
+        = render 'companies/form', :f => f
+      %h3#h_address_sc
+        %a{:href=>"#"}Direccion del Prestador de Servicio
+      #d_address_sc.company_address
+        = f.fields_for :address do |ad|
+          = render 'companies/company_address_fields', :ad => ad
+    .buttons        
+      = f.submit "Grabar",:class=>"btn" 
+      = link_to_back
       

@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
   #validates_presence_of :email
   #validates_uniqueness_of :email, :case_sensitive => false
 
-  accepts_nested_attributes_for :address
-  #accepts_nested_attributes_for :company,:reject_if =>lambda {|a| a[:name].blank?}
-  accepts_nested_attributes_for :cars
+  accepts_nested_attributes_for :address,:reject_if =>lambda {|a| a[:street].blank?}
+  accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
+  accepts_nested_attributes_for :cars,:reject_if =>lambda {|a| a[:domain].blank?}
   
   #validate :validate_addresses
   def current_company

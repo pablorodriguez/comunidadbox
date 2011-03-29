@@ -1,4 +1,9 @@
 en:
+  sign_in: "Sign in"
+  forgot_your_password: "Forgot your password?"
+  not_receive_confirmation_instruction: "Didn't receive confirmation instructions?"
+  sign_up: "Sign up"
+  not_receive_unlock_instruction: "Didn't receive unlock instructions?"
   errors:
     messages:
       not_found: "not found"

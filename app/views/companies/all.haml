@@ -1,9 +1,11 @@
 - javascript 'maps'
 - javascript 'search_company_map'
-%h1 Prestadores de Servicios
+%h1
+  =vineta 
+  Prestadores de Servicios
 #filtro.contentleft
   = render "search"
 #all_companies.contentright
   #companies
-    = render "companies"
+    = render "all_companies"
     = render "maps"

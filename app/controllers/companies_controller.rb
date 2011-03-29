@@ -62,7 +62,7 @@ class CompaniesController < ApplicationController
   def new
     @company = Company.new
     @company.user = current_user
-    
+    @company.build_address if @company.address.nil?
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @company }

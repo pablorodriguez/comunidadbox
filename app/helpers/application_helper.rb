@@ -23,8 +23,9 @@ module ApplicationHelper
     end
   end
   
-  def link_to_back
-    link_to_function image_tag('return.png'),"javascript:history.back(-1)"
+  def link_to_back(url=nil)    
+    link_to_function image_tag('return.png'),"javascript:history.back(-1)" unless url
+    link_to image_tag('return.png'),url if url
   end
  
   def title(title)
@@ -56,14 +57,9 @@ module ApplicationHelper
     end
   end
   
-  def is_active(price_list)
-    unless (price_list.company.nil?)
-      if price_list.active
-        return image_tag('active.png')
-      else
-        return link_to(image_tag("disable.png"),activate_price_list_path(price_list))
-      end
-    end
+  def is_active(entity,url=root_path)
+    return image_tag("ok.png") if entity.active
+    return link_to(image_tag("delete.png"),url,{:title => "Activar"}) unless entity.active
   end
   
   def stylesheets(*files)

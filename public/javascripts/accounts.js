@@ -1,7 +1,42 @@
+var sc_hide =["#li_info_sc","#li_info_asc","#h_info_sc","#h_address_sc"];
 
 jQuery(document).ready(function(){
+  for(var i = 0; i < sc_hide.length; i++)
+      $(sc_hide[i]).hide();
 	$('.brand').change(searchModel);
+	$( "#user_data" ).accordion();
+	$(".usr_menu_link").click(changeAccountTabs);
+	$('input[name="user_type"]')[0].checked = true;
+	$("input[type=radio]").change(updateAccountUserType);
 });
+
+function updateAccountUserType(){
+  var id = $(this).attr("id");
+  if (id == "sc"){
+    $("#company_data").show();
+    for(var i = 0; i < sc_hide.length; i++)
+      $(sc_hide[i]).show();
+  }else{
+    $("#company_data").hide();
+    for(var i = 0; i < sc_hide.length; i++)
+      $(sc_hide[i]).hide();
+  }
+  $( "#user_data" ).accordion();
+  
+}
+function changeAccountTabs(){
+  var item = $(this)
+  var ul = item.parent();
+  ul.find(".usr_menu_selected").each(function(){
+    $(this).removeClass("usr_menu_selected");
+  });
+  item.addClass("usr_menu_selected");
+  var a = item.find("a");
+  var tabId = parseInt(a.attr("id"));
+  $( "#user_data" ).accordion({ active: tabId });
+  
+  //alert(tabId + " " + a.html());
+}
 
 function addNewAddress(element){
 	$(element).prev().find("input").click();

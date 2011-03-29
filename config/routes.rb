@@ -92,8 +92,7 @@ ComunidadBox::Application.routes.draw do
     end
     
     member do
-      get :post
-      post :activate
+      get :activate
     end
   end
   

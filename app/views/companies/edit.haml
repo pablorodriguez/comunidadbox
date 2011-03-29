@@ -2,10 +2,17 @@
   = render 'shared/error_messages', :target => @company
   %h1 Modificar Compañía
   .contentleft  
-    = render :partial=>'form', :locals=>{:f => f}
   .contentright
-    = f.fields_for :address do |a|
-      = render :partial =>'company_address_fields', :locals  =>{:f => a}
+    %table
+      %tbody
+        %tr
+          %td
+            %h1 Datos Empresa
+          = render 'form', :f => f
+        %tr
+          %td
+            %h1 Dirección
+        = f.fields_for :address do |a|
+          = render 'company_address_fields', :ad => a
     = f.submit "Actualizar",:class=>"btn" 
-    |
-    = link_to image_tag("return.png"),companies_path
+    = link_to_back companies_path

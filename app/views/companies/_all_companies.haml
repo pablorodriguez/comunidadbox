@@ -4,17 +4,16 @@
     %thead
       %tr
         %th Nombre
-        %th
         %th Dirección
         %th Mapa
         %th Teléfono
         %th Reputación (1..5)
+        - if user_signed_in? && current_user.company.nil?
+          %th
     - for company in @companies
       %tr
         %td
           = link_to company.name,company_path(company),{:title => "Ver"}
-        %td
-          = is_active(company,activate_company_path(company))
         %td
           %label        
             = company.full_address
@@ -25,6 +24,10 @@
           = company.phone
         %td
           ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{company.user_rank}]"
+        - if user_signed_in? && current_user.company.nil?
+          %td
+            = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio"}
+    
 -else
   %label
     No hay empresas registradas        

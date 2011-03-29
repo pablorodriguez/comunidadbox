@@ -1,20 +1,64 @@
 - javascript 'accounts'
-.box
-  %h1
-    = vineta 
-    Nuevo Usuario
-  = render 'shared/error_messages', :target => @user
-  = form_for @user, :url => user_registration_path do |f|
-    %h1 Información Personal
-    %table
-      %tbody
-        = render 'users/user_row',:f => f
-    %h1 Información de su auto
-    =f.fields_for :cars do |c|
-      = render 'users/car_fields',:f =>c
-    .search_map   
-      %h1 Dirección
-      =f.fields_for :address do |a|
-        = render 'users/user_address_fields', :f =>a
+%h1
+  = vineta 
+  Nuevo Usuario
+= render 'shared/error_messages', :target => @user
+= form_for @user, :url => user_registration_path do |f|
+  .contentleft
+    %h1 ¿ Que tipo de usuario desea ser ?
+    %input{:type=>:radio,:class=>"radio",:value=>"final_user" ,:name=>"user_type",:id=>:fu,:checked =>"true"}
+    %label{:for =>"fu",:class=>:link}Usuario Final
+    %br
+    %input{:type=>:radio,:class=>"radio",:value=>"service_center",:name=>"user_type",:id=>:sc}
+    %label{:for =>"sc",:class=>:link} Prestador de Servicio
+    %ul.usr_menu
+      %li.usr_menu_selected.usr_menu_link
+        %a{:href=>"#",:id=>"0"} 
+          Información Personal
+      %li.usr_menu_link
+        %a{:href=>"#",:id=>"1"} 
+          Información de su auto
+      %li.usr_menu_link
+        %a{:href=>"#",:id=>"2"}
+          Dirección Personal
+      %li#li_info_sc.usr_menu_link
+        %a{:href=>"#",:id=>"3"}
+          Información de Prestador de Servicios
+      %li#li_info_asc.usr_menu_link
+        %a{:href=>"#",:id=>"4"} 
+          Dirección de Prestado de Servicios
+  .contentright
+    #user_data
+      %h3
+        %a{:href=>"#"}Información Personal
+      .personal_info
+        %table
+          %tbody
+            = render 'users/user_row',:f => f
+      %h3
+        %a{:href=>"#"}Información de su auto
+      .car_info
+        =f.fields_for :cars do |c|
+          = render 'users/car_fields',:f =>c
+      %h3
+        %a{:href=>"#"}Direccion Personal
+      .personal_address      
+        =f.fields_for :address do |a|
+          = render 'users/user_address_fields', :f =>a
+      =f.fields_for :companies do |c|
+        %h3#h_info_sc
+          %a{:href=>"#"}Información del Prestador de Servicio
+        #d_info_sc.company_info
+          = render 'companies/form', :f => c
+        %h3#h_address_sc
+          %a{:href=>"#"}Direccion del Prestador de Servicio
+        #d_address_sc.company_address
+          = c.fields_for :address do |ad|
+            = render 'companies/company_address_fields', :ad => ad      
     %p= f.submit "Grabar",:class=>"btn"
-  = render :partial => "devise/shared/links"
+    - if user_signed_in?
+      -if devise_mapping.recoverable? && controller_name != 'passwords'
+        = link_to t(:forgot_your_password), new_password_path(resource_name)
+        %br
+      -if devise_mapping.confirmable? && controller_name != 'confirmations'
+        = link_to t(:not_receive_confirmation_instruction), new_confirmation_path(resource_name)
