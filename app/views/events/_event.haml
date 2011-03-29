@@ -4,8 +4,8 @@
   = l event.dueDate
 %td
   %strong
-    = number_to_currency(event.car.total_spend(current_user.current_company.id))
-  =number_to_currency(event.car.total_spend)
+    = number_to_currency(event.car.total_spend(current_user.current_company.id,event.service_type.id))
+  =number_to_currency(event.car.total_spend(nil,event.service_type.id))
 %td
   -unless event.is_green
     = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})  

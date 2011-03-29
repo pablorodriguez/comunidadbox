@@ -1,4 +1,5 @@
 %h1
+  =vineta
   Listas de Precios
 %table#sort_table.comboxtable
   %thead
@@ -15,11 +16,10 @@
         - if price_list.company.nil?
           = link_to "Copiar",copy_price_list_path(price_list)
       %td
-        = is_active(price_list,activate_price_list_path(price_list)
+        = is_active(price_list,activate_price_list_path(price_list))
       %td
         -unless price_list.company.nil?
           = link_to image_tag('edit.png'), edit_price_list_path(price_list)
         -unless price_list.active
           = link_to image_tag('delete.gif'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
-%br
 = link_to image_tag('new.png'), new_price_list_path

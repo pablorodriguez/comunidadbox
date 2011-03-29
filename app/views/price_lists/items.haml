@@ -2,10 +2,11 @@
 - javascript 'jquery.formatCurrency.es-AR'
 - javascript 'price_list'
 #price_list_items
-  %h1 Actualizar Lista de Precio
+  %h1 Lista de Precio
   .contentleft
     = render "update"
   .contentright
+    %h1 Actualizar Precios
     = form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
       %table
         %tbody
@@ -28,17 +29,17 @@
               #service_types_ids{:style =>"display:none"}
                 = hidden_field_tag "material",@material
                 = hidden_field_tag "page",@page
-    %table#sort_table.comboxtable
-      %thead
-        %tr.table_header
-          %th{:width=>"25%"}
-            Tipo de Servicio
-          %th{:width=>"45%"}
-            Material
-          %th{:width=>"10%"}
-            Precio
-          %th{:width=>"20%"}
-            Nuevo Precio 
-      = render :partial => "item", :collection =>@materials
+      %table#sort_table.comboxtable
+        %thead
+          %tr.table_header
+            %th{:width=>"25%"}
+              Tipo de Servicio
+            %th{:width=>"45%"}
+              Material
+            %th{:width=>"10%"}
+              Precio
+            %th{:width=>"20%"}
+              Nuevo Precio 
+        = render :partial => "item", :collection =>@materials
     %br      
     = will_paginate @materials
