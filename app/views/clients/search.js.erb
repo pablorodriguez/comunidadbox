@@ -1,6 +1,6 @@
 if (<%=@clients.size%> > 0){
   $('#clients').html("<%=escape_javascript(render(:partial=>'clients',:locals=>{:clients=>@clients}))%>");
 }else{
-  $('#clients').html("No se encontró ningún cliente.");
+  $("#clients").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún cliente."}))%>");
 }
 

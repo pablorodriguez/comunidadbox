@@ -1,5 +1,5 @@
 if (<%=@companies.size%> > 0){
   $("#companies").html("<%=escape_javascript(render(:partial=>'companies'))%>")
 }else{
-  $("#companies").html("No se encontró ningún a empresa");
+  $("#companies").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna empresa"}))%>");
 }

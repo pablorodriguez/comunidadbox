@@ -1,5 +1,5 @@
 if (<%=@cars.size%> > 0){
 	$("#cars").html("<%=escape_javascript(render(:partial=>'cars',:locals=>{:cars=>@cars}))%>")
 }else{
-	$("#cars").html("No se encontró ningún automóvil.");
+	$("#cars").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún automóvil."}))%>");
 }
