@@ -9,7 +9,7 @@ class EmployeesController < ApplicationController
   end
   
   def show
-    @employee = User.find(params[:id])
+    @user = User.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -17,16 +17,16 @@ class EmployeesController < ApplicationController
   end
   
   def update
-    @employee = User.find(params[:id])
+    @user = User.find(params[:id])
    
     respond_to do |format|
-      if @employee.update_attributes(params[:employee])
+      if @user.update_attributes(params[:user])
         flash[:notice] = 'Empleado actualizado con exito.'
         format.html { redirect_to :action => "show" }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @employee.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end

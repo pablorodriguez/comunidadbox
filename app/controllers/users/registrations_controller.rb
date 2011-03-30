@@ -9,7 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   def edit    
-    resource.address = Address.new if resource.address.nil?
+    resource.build_address if resource.address.nil?
     resource.cars.build if resource.cars.empty?
     unless resource.company
       @company = resource.companies.build

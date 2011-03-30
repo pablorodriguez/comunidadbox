@@ -8,18 +8,17 @@
       %th Provincia
       %th       
   %tbody    
-    - @addresses.each do |address|
-      %tr{:class=>:fields}
-        %td
-          =h address.name
-        %td
-          =h address.street
-        %td
-          =h address.city
-        %td
-          =h address.zip
-        %td
-          =h address.state.name
-        %td
-          - if (@user.address.id == address.id)
-            *        
+    %tr{:class=>:fields}
+      %td
+        =h address.name
+      %td
+        =h address.street
+      %td
+        =h address.city
+      %td
+        =h address.zip
+      %td
+        =h address.state.name
+      %td
+        - if (@user.address.id == address.id)
+          *        

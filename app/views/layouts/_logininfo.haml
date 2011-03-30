@@ -5,6 +5,5 @@
       = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"
     %h3
       = current_user.company.name if current_user.company
-      = current_user.employer.name if current_user.employer
     %h3
       = link_to "Salir", destroy_user_session_path,:class =>"link_w"
