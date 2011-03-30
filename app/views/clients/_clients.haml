@@ -1,13 +1,14 @@
-- if @clients.size > 0
+%h1 Listado de Clientes
+- if @cars.size > 0
   %table.comboxtable
     %thead
       %tr
+        %th Cliente
         %th Email
-        %th Nombre
-        %th Apellido
-    - for client in @clients
+        %th Auto
+    - for car in @cars
       %tr
-        %td=link_to h(client.email), user_path(client)
-        %td=h client.first_name
-        %td=h client.last_name
+        %td= car.user.full_name
+        %td=link_to h(car.user.email), user_path(car.user)
+        %td= car.info
 

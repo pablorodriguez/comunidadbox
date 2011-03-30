@@ -1,8 +1,9 @@
 #employees
-  %h1 Lista de Empleados
+  %h1 Empleados
   .contentleft
     = render "search"
   .contentright  
+    %h1 Listado de Empleados
     - if @employees.size > 0
       %table#sort_table.comboxtable
         %thead
@@ -23,6 +24,6 @@
               %td
                 = link_to image_tag('delete.png'), employee_path(emp), :confirm => '¿ Esta seguro que desea borrar al empleado ?', :method => :delete,:title =>"Borrar empleado"
     -else
-      %h1 No hay empleados
+      =render(:partial=>'shared/message',:locals =>{:msg =>"No hay empleados registrados."})
     %br         
       = link_to image_tag('new.png'), new_employee_path,:title =>"Crear nuevo empleado"

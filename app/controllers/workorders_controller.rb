@@ -1,7 +1,7 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
 
-  layout "application", :except => [:remove_service]
+  layout "application", :except => [:remove_service,:filter]
 
   STATUS = ['Abierto','En Proceso','Cancelado','Terminado']
 
@@ -25,48 +25,37 @@ class WorkordersController < ApplicationController
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
+    
     if current_user.company
-      @condition_select = "workorders.company_id = " + current_user.company.id.to_s
+      @workorders = Workorder.where("workorders.company_id = ?",current_user.company.id)
     else
       cars_ids = Array.new
       current_user.cars.each{|c| cars_ids << c.id}
-      @condition_select = "workorders.car_id in (" + cars_ids.join(",") + ")"
+      @workorders = Workorder.where("car_id in (?)",cars_ids)
     end
-
-    @join_select = ''
 
     unless params[:date_from].empty? && params[:date_to].empty?
       date_f = params[:date_from].to_datetime
       @date_f = params[:date_from]
       date_t = params[:date_to].to_datetime
       @date_t = params[:date_to]
-      @condition_select +=  " AND (workorders.created_at between " + "'" + date_f.in_time_zone.to_s + "'" + " AND " +  "'" + date_t.in_time_zone.next.end_of_day.to_s + "'" + ")"
+      @workorders = @workorders.where("workorders.created_at between ? and ?",date_f.in_time_zone,date_t.in_time_zone)
     else
       @date_f = nil
       @date_t = nil
     end
 
     unless params[:domain].empty?
-      @join_select += " INNER JOIN cars ON cars.id = workorders.car_id"
-      @condition_select +=  " AND cars.domain = " + "'" + params[:domain].upcase + "'"
-      @domain = params[:domain]
+      @workorders= @workorders.includes(:car).where("cars.domain like ?",params[:domain].upcase)
     else
       @domain = nil
     end
 
     unless params[:service_type][:id] == ""
-      @join_select += " INNER JOIN services ON services.workorder_id = workorders.id"
-      @condition_select +=  " AND services.service_type_id = " + params[:service_type][:id]
-      @service_type_id =  params[:service_type][:id].to_i
+      @workorders = @workorders.includes(:services).where("services.service_type_id = ?",params[:service_type][:id])
     end
 
-    @work_orders = Workorder.paginate(:all,
-      :page => page,
-      :per_page=>per_page,
-      :include =>:car,
-      :order =>order_by,
-      :joins => @join_select,
-      :conditions =>[@condition_select])
+    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)  
   end
 
   def index

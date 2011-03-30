@@ -4,9 +4,10 @@
     = csrf_meta_tag
     %title Comunidad Box
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
-    %script{:type => "text/javascript",:src  => "http://maps.google.com/maps/api/js?sensor=true"}
+    -#%script{:type => "text/javascript",:src  => "http://maps.google.com/maps/api/js?sensor=true"}
     -#= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js", "jquery.rails.js"
-    = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails','menu'
+    = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails'
+    = javascript_include_tag 'jquery.ui.datepicker-es','application','menu'
     -# = javascript 'analytics'
     = stylesheet_link_tag 'combox'
     = yield(:head)

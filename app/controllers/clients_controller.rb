@@ -38,7 +38,7 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @clients = []
+    @cars = Car.where("company_id = ?",current_user.company.id).includes(:user)
   end
 
   def search

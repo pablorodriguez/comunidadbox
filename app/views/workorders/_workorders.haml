@@ -1,0 +1,42 @@
+%h1 Listado de Servicios Realizados
+%table#sort_table.comboxtable
+  %thead
+    %tr
+      %th
+        = sortable "cars.domain","Dominio"
+      %th Detalle
+      - unless current_user.company
+        %th Empresa
+      %th
+        = sortable "created_at", "Realizado"
+      %th Total
+      %th Estado
+      %th Calif. empresa
+      %th Calif. usuario
+  - for work_order in @work_orders
+    %tr
+      %td
+        = link_to work_order.car.domain, work_order.car
+      %td
+        = link_to work_order.detail, work_order
+        
+      - unless current_user.company
+        %td
+          = work_order.company.name
+      %td
+        = l work_order.created_at.to_date
+      %td.number
+        = number_to_currency work_order.total_price
+      %td
+        = show_status work_order.status
+        -if work_order.open?
+          = link_to image_tag('edit.png'), edit_workorder_path(work_order)
+        = link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank"
+      %td
+        -if work_order.finish?
+          = get_company_rank(current_user,work_order)
+      %td
+        -if work_order.finish?
+          = get_user_rank(current_user,work_order)
+
+= will_paginate @work_orders

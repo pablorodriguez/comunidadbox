@@ -2,6 +2,7 @@
  * @author Hernan
  */
 jQuery(document).ready( function(){
+   
 	$('#date_from').datepicker({
 			showOn: 'button',
 			buttonImage: '/images/calendar.png',

@@ -1,5 +1,7 @@
 #all_cars
-  %h1 Buscar Auto
+  %h1
+    = vineta 
+    Automóviles
   #my_cars.contentleft
     =render :partial=>"search",:locals =>{:cars=>[],:table_id =>:sort_table}
   #cars.contentright

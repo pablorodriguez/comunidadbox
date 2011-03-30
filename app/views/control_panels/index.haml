@@ -49,10 +49,13 @@
      
   });
 .title  
-  %h1 Tablero de Control
+  %h1
+    = vineta 
+    Panel de Control
 .contentleft
   = render "service_type_list"
 .contentright
+  %h1 Vencimientos de Servicios
   #control_panel{:style=>"display:none"}
     %table.control-panel
       %col{:width=>"60%"}

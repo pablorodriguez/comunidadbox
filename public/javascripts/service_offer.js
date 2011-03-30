@@ -2,7 +2,6 @@
  * @author pablo
  */
 jQuery(document).ready( function(){
-  $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
 
 	$('#service_offer_from').datepicker({
 			showOn: 'button',

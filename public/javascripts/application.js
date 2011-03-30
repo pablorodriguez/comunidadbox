@@ -2,7 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 jQuery(document).ready( function(){
-  
+   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
   $('ul li:has(ul)').hover( 
       function(e) 
       { 
@@ -14,26 +14,13 @@ jQuery(document).ready( function(){
       } 
    ); 
    
-	$('.login').each(function(){
-		$(this).click(toggleLogin);
-		});
-		
 	$("#avatar").click(showGRAvatar);
 	$("#app_msg").ajaxError(function(event,request,settings){
 		$(this).html("Ha ocurrido un error general en la applicación. Por favor intente nuevamente en 5 minutos");
 		$(".ajax_loader").hide();
 	});
 	
-	
-	if ($("#notice").length > 0){
-    $container = $("#msgs").notify();
-    create("sticky",{},{sticky:true});
-  }
 });
-
-function create( template, vars, opts ){
-  return $container.notify("create", template, vars, opts);
-}
 
 function resetStatusMessages(){
   //$("#msgs").fadeOut();

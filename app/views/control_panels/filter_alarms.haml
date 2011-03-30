@@ -1,7 +1,9 @@
 - javascript 'control_panel'
 - stylesheets 'control_panel'
 #error{:style=>"display:none"}
-%h1 Nueva Oferta de Servicio
+%h1
+  = vineta 
+  Nueva Oferta de Servicio
 .contentleft  
   %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
   #filters
@@ -10,7 +12,6 @@
         = render "car_filters",:f=>f
 .contentright  
   #car
-    = vineta
     %h1 Listado de Autos  
     = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
       #cars
