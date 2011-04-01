@@ -30,7 +30,6 @@ h1 {
   color: #CCCC00;
   font-size:24px;
   font-weight:bold;
-  margin-top:15px;
 }
 
 h1.contentright{
@@ -167,7 +166,8 @@ body {
 }
 
 .cuadro{
-  width: 300px;
+  width: 280px;
+  padding: 10px;
 }
 
 .cuadro h1 {
@@ -175,18 +175,15 @@ body {
   font-size:18px;
   color:#4D4D4D;
   font-weight:800;
-  margin-left:25px;
-  margin-top:20px;
-  margin-right:25px;
 }
 .cuadro h2 {
   font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:12px;
   color:#CCCC33;
   font-weight:600;
-  margin-left:25px;
+  margin-left:10px;
   margin-top:0px;
-  margin-right:25px;
+  margin-right:10px;
   margin-bottom:0px;
 }
 .cuadro p {
@@ -205,7 +202,20 @@ body {
   padding:0;
 }
 .cuadro li {
+  margin: 5px;
+  list-style: inside;
 }
+
+.list ul, list li{
+  list-style:none;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.list{
+  
+}
+
 .cuadro li a {
   color:#BDCD00;
   text-decoration:none;
@@ -219,6 +229,7 @@ body {
 #cuadro2 {
   float:left;
   height:400px;
+  background-color: #F2EAB7;
 }
 #cuadro3 {
   background-color:#E6E6E6;

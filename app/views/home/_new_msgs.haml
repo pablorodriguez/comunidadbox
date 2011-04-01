@@ -1,59 +1,10 @@
 #cont3
   #cuadro1.cuadro
-    %h1 Qué es Comunidad Box?
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo est. F'usce tincidunt ultrices consequat. Cras sit amet quam dolor, eu semper dui. Pellentesque vel velit sit amet elit volutpat malesuada. Nullam sodales tortor at sapien semper in iaculis leo iaculis. Donec volutpat bibendum leo, nec laoreet est temppxor quis. Donec interdum suscipit quam, in suscipit nibh pretium sed. Maecenas non eros et ligula pharetra sollicitudin sed quis massa. Nam adipiscing metus tellus, eget fermentum magna. Quisque pulvinar consequat turpis non vestibufds
-    %p
-      %input#sendleermas.btn{:name => "send", :type => "submit", :value => "Leer Mas"}/
+    = render "/home/comunidadbox"    
   #cuadro2.cuadro
-    %h1 Últimas Noticias
-    %h2 12/03/10
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo est. Fusce tincidunt ultrices consequat. Cras sit
-    %h2 12/03/10
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo est. Fusce tincidunt ultrices consequat. Cras sit
-    %h2 12/03/10
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac leo est. Fusce tincidunt ultrices consequat. Cras sit
-    %p
-      %input#sendvernoticias.btn{:name => "send", :type => "submit", :value => "Ver Noticias"}/
+    = render "/home/last_notice"    
   #cuadro3.cuadro
-    %h1 Nuevos Prestadores
-    %ul
-      %li
-        %p
-          %span
-            %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-          %br/
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-      %li
-        %p
-          %a{:href => "#"} Roberto Escapes
-          \/ G. Cruz / Mendoza
-    %p
-      %input#sendprestadores.btn{:name => "send", :type => "submit", :value => "Prestadores"}
+    - if current_user
+      = render "/home/my_events"
+    - unless current_user
+      = render "/home/companies"

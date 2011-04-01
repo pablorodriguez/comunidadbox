@@ -75,6 +75,7 @@ ComunidadBox::Application.routes.draw do
   resources :tasks
   resources :employees
   resources :home
+  resources :event
   
   resources :workorders do
     collection do

@@ -77,10 +77,11 @@ class User < ActiveRecord::Base
   end
   
   
-  def future_events
-    company_cars = Car.find(:all,:conditions=>["user_id = ? ",id])
-    cars_ids = company_cars.each{|c|c.id.to_i}
-    Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids])
+  def future_events(per_page=nil)
+    cars_ids = Car.find(:all,:conditions=>["user_id = ? ",id]).each{|c|c.id.to_i}
+    events = Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids]) unless per_page
+    events = Event.paginate(:all,:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids],:order =>"dueDate desc",:page=>1,:per_page=>per_page) if per_page
+    events
   end
 
   def is_administrator
