@@ -77,10 +77,18 @@ class User < ActiveRecord::Base
   end
   
   
-  def future_events(per_page=nil)
-    cars_ids = Car.find(:all,:conditions=>["user_id = ? ",id]).each{|c|c.id.to_i}
-    events = Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids]) unless per_page
-    events = Event.paginate(:all,:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids],:order =>"dueDate desc",:page=>1,:per_page=>per_page) if per_page
+  def future_events(args={})
+    per_page = args[:per_page]
+    car_id = args[:car_id]
+    service_type_id = args[:service_type_id]
+    
+    cars_ids = cars.each{|c|c.id.to_i} unless car_id
+    cars_ids = [car_id] if car_id
+    events = Event.where("dueDate >= ? and car_id in(?)",Time.now,cars_ids)
+    
+    events = events.includes(:service_type).where("service_types.id = ?",service_type_id) if service_type_id
+    events = events.paginate(:page => 1,:per_page=>per_page) if per_page
+    
     events
   end
 
@@ -126,7 +134,10 @@ class User < ActiveRecord::Base
       logger.debug "Error #{e} (#{e.class})!"
     end
   end
-
+  
+  def service_types
+    current_company.service_type
+  end
  
 end
 

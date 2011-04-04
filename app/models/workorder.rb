@@ -37,12 +37,12 @@ class Workorder < ActiveRecord::Base
   
   def generate_events
     services.each do |service| 
-      delete_event service
       unless service.cancelled
+        delete_event service
         create_event service  
       end
-      
     end
+    update_event_status
   end
   
   def set_status
@@ -69,12 +69,11 @@ class Workorder < ActiveRecord::Base
   
   private
   def create_event service
-    
     service_type = service.service_type
-    
     months = (service_type.kms / car.kmAverageMonthly).to_i
     event = Event.new
     event.car = self.car
+    event.km = self.car.km + service_type.kms
     event.service_type=service_type
     event.service = service
     event.status="Activa"
@@ -82,10 +81,29 @@ class Workorder < ActiveRecord::Base
     event.save
   end
   
-  def delete_event service
+  def update_event_status
+    services.each do |service| 
+      unless service.cancelled
+        events_r = Event.red.car(service.workorder.car.id).service_typed(service.service_type.id).map.each{|e| e.id}
+        events = events_r + Event.yellow.car(service.workorder.car.id).service_typed(service.service_type.id).map.each{|e|e.id}
+        events.each do |id|
+          e = Event.find id
+          unless e.service.workorder.id == service.workorder.id
+            e.status ="Completado"
+            e.service_done = service
+            e.save
+          end
+        end
+      end
+    end
   end
   
-  
+  def delete_event service
+    events = Event.green.car(service.workorder.car.id).service_typed(service.service_type.id)
+    events.each do |e|
+      e.destroy
+    end
+  end
   
   
 end

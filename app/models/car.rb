@@ -13,7 +13,18 @@ class Car < ActiveRecord::Base
   validates_format_of :domain, :with => /^\D{3}\d{3}/
 
   def future_events
-    Event.all(:conditions =>["dueDate >= ? and car_id = ?",Time.now,self.id])
+    Event.where("dueDate >= ? and car_id = ?",Time.now,self.id)
+  end
+  
+  def update_events
+    future_events.each do |event|
+      months = (event.km - km) / kmAverageMonthly
+      #old_date = event.dueDate
+      event.dueDate = months.months.since
+      event.save
+      #puts "Old Date: #{old_date}, KM: #{event.km} , New Date: #{event.dueDate} Months : #{months}"
+    end
+    
   end
 
   def total_spend(company_id = nil,service_type_id = nil)

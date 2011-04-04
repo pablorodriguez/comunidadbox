@@ -15,10 +15,10 @@
       %li.usr_menu_selected.usr_menu_link
         %a{:href=>"#",:id=>"0"} 
           Información Personal
-      %li.usr_menu_link
+      %li#li_info_car.usr_menu_link
         %a{:href=>"#",:id=>"1"} 
           Información de su auto
-      %li.usr_menu_link
+      %li#li_info_ausr.usr_menu_link
         %a{:href=>"#",:id=>"2"}
           Dirección Personal
       %li#li_info_sc.usr_menu_link
@@ -35,12 +35,12 @@
         %table
           %tbody
             = render 'users/user_row',:f => f
-      %h3
+      %h3#h_car_info
         %a{:href=>"#"}Información de su auto
       .car_info
         =f.fields_for :cars do |c|
           = render 'users/car_fields',:f =>c
-      %h3
+      %h3#h_ausr_inf
         %a{:href=>"#"}Direccion Personal
       .personal_address      
         =f.fields_for :address do |a|

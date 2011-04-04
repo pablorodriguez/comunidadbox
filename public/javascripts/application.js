@@ -2,18 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 jQuery(document).ready( function(){
-   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
-  $('ul li:has(ul)').hover( 
-      function(e) 
-      { 
-         $(this).find('ul').css({display: "block"}); 
-      }, 
-      function(e) 
-      { 
-         $(this).find('ul').css({display: "none"}); 
-      } 
-   ); 
-   
+  $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
 	$("#avatar").click(showGRAvatar);
 	$("#app_msg").ajaxError(function(event,request,settings){
 		$(this).html("Ha ocurrido un error general en la applicación. Por favor intente nuevamente en 5 minutos");

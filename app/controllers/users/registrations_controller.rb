@@ -28,6 +28,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     
     if @user.save
         flash[:notice] = "Cliente creado exitosamente"
+        if (@user.current_company &&  (!@user.is_employee))
+          PriceList.copy_default(@user.current_company.id)
+        end
         redirect_to new_user_session_path
     else
       @user.cars.build unless @user.cars[0].domain

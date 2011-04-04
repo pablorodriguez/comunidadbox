@@ -39,7 +39,7 @@ class WorkordersController < ApplicationController
       @date_f = params[:date_from]
       date_t = params[:date_to].to_datetime
       @date_t = params[:date_to]
-      @workorders = @workorders.where("workorders.created_at between ? and ?",date_f.in_time_zone,date_t.in_time_zone)
+      @workorders = @workorders.where("workorders.created_at between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
     else
       @date_f = nil
       @date_t = nil
@@ -126,11 +126,12 @@ class WorkordersController < ApplicationController
       car.company = current_user.current_company
       car.save
       saveAction = @work_order.save
+      @work_order.generate_events
     end
 
     if saveAction
       if @work_order.finish?
-        @work_order.generate_events
+        
         send_notification @work_order.id
       end
 
@@ -171,9 +172,8 @@ class WorkordersController < ApplicationController
       end
       @work_order.company = Company.find company_id
       @work_order.car = car
-      @service_types = CompanyService.find(:all,
-        :conditions=>["company_id= ?",company_service_id],
-        :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+      
+      @service_types = current_user.service_types
     else
       flash[:notice] ="Por favro seleccione un prestador de servicios"
       redirect_to all_companies_path(:car_id =>car_id)

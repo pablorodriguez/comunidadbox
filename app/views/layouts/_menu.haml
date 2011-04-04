@@ -12,9 +12,11 @@
               - if current_user.is_administrator
                 %li 
                   = link_to "Buscar Cliente", clients_path
-      - if user_signed_in? && current_user.is_car_owner
+
+      - if user_signed_in? && current_user.is_administrator        
         %li
-          = link_to "Mis Autos", cars_path
+          = link_to "Panel de control" , control_panels_path
+                  
       - if user_signed_in? && current_user.is_administrator
         %li
           %a{:href=>"#"} Administración
@@ -37,6 +39,10 @@
               = link_to "Mis Empresas", companies_path
             %li
               = link_to "Mis Empleados", employees_path
+
+      - if user_signed_in? && current_user.is_car_owner
+        %li
+          = link_to "Mis Autos", cars_path
   
-        - if user_signed_in? && current_user.is_super_admin
-          %li= link_to "Configuración", conf_path
+      - if user_signed_in? && current_user.is_super_admin
+        %li= link_to "Configuración", conf_path

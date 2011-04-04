@@ -33,6 +33,7 @@ class CarsController < ApplicationController
     car = Car.find_by_domain domain
     car.km = new_value
     car.save
+    car.update_events
     render :text => new_value
   end
 
@@ -42,6 +43,7 @@ class CarsController < ApplicationController
     car = Car.find_by_domain domain
     car.kmAverageMonthly = new_value
     car.save
+    car.update_events
     render :text => new_value
   end
   
@@ -61,7 +63,8 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     page = params[:page] || 1
-    @work_orders = Workorder.paginate(:all,:per_page=>13,:page =>page,:order =>"created_at",:conditions =>["car_id = ?",params[:id]])  
+    @work_orders = Workorder.paginate(:all,:per_page=>13,:page =>page,:order =>"created_at desc",:conditions =>["car_id = ?",params[:id]])
+    @events = @car.future_events.paginate(:per_page=>10,:page =>1)  
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @car }

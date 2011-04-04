@@ -5,22 +5,23 @@ class ControlPanelsController < ApplicationController
     @company_services = company_services(current_user.current_company.id)
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
     @eventos_rojo = Event.count(:all,
-                           :conditions => ["dueDate < ? and service_type_id IN (?)", Time.now.months_since(1),@not_in],
+                           :conditions => ["dueDate < ? and service_type_id IN (?) and status like ?", Time.now.months_since(1),@not_in,"Activa"],
                            :include => ['service_type'],
                            :group => ['service_type'])
     
     @eventos_amarillo = Event.count(:all,
-                    :conditions => ["dueDate > ? AND dueDate < ? and service_type_id IN (?)", Time.now.months_since(1), Time.now.months_since(2),@not_in],
+                    :conditions => ["dueDate > ? AND dueDate < ? and service_type_id IN (?) and status like ?", Time.now.months_since(1),
+                      Time.now.months_since(2),@not_in,"Activa"],
                     :include => ['service_type'],
                     :group => ['service_type'])
     
     @eventos_verde = Event.count(:all,
-                     :conditions => ["dueDate > ? and service_type_id IN (?) ", Time.now.months_since(2),@not_in],
+                     :conditions => ["dueDate > ? and service_type_id IN (?) and status like ? ", Time.now.months_since(2),@not_in,"Activa"],
                      :include => ['service_type'],
                      :group => ['service_type'])
      
     @eventos_total = Event.count(:all,
-                            :conditions => ["service_type_id IN (?)",  @not_in],
+                            :conditions => ["service_type_id IN (?) and status like ?",  @not_in,"Activa"],
                             :include => ['service_type'],
                             :group => ['service_type'])
     
@@ -134,7 +135,7 @@ class ControlPanelsController < ApplicationController
       @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)
     end
     
-    conditions = {}
+    conditions = {"status" =>"Activa"}
     conditions.merge!({"service_type_id" =>  @service_filter.service_type_id}) if  @service_filter.service_type_id
     conditions.merge!({"cars.brand_id" => @service_filter.brand_id}) if @service_filter.brand_id
     conditions.merge!({"cars.model_id" => @service_filter.model_id}) if @service_filter.model_id
@@ -144,14 +145,18 @@ class ControlPanelsController < ApplicationController
     conditions.merge!({"addresses.state_id" => @service_filter.state_id}) if @service_filter.state_id?
     conditions.merge!({"addresses.city" => @service_filter.city}) if @service_filter.city?
     
+    
     @red_cars = Event.red.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
+     
+    
     @yellow_cars = Event.yellow.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
     @green_cars = Event.green.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
     
     @events = @red_cars + @yellow_cars + @green_cars
+    logger.info "### #{conditions} red #{@red_cars.size} yellow #{@yellow_cars.size} green #{@green_cars.size}"
+    logger.info "### Total #{@events.size}"
     current_page = params[:page] || 1
     per_page=10
-    logger.info "###   #{current_page}"
     @page_events = @events.paginate(:page=>current_page,:per_page=>per_page)
     
   end

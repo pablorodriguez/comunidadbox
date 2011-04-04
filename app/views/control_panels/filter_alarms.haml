@@ -21,7 +21,7 @@
             %td{:width=>"20%"}
             %td.dashboard.number{:width=>"10%"}
             %td.dashboard{:width=>"5%"} 
-          - for event in @page_events
+          - @page_events.each do |event|
             - if event.is_red
               %tr.rojo.dashboard
                 = render event

@@ -166,8 +166,10 @@ body {
 }
 
 .cuadro{
-  width: 280px;
+  height:450px;
+  width: 276px;
   padding: 10px;
+  margin: 2px;
 }
 
 .cuadro h1 {
@@ -222,19 +224,16 @@ body {
   font-weight:bold;
 }
 #cuadro1 {
-  float:left;
-  height:400px;
+  float:left;  
   background-color:#E6E6E6;
 }
 #cuadro2 {
   float:left;
-  height:400px;
   background-color: #F2EAB7;
 }
 #cuadro3 {
   background-color:#E6E6E6;
   float:left;
-  height:400px;
 }
 #wrapfooter {
   background-image:url(/images/background_footer.jpg);

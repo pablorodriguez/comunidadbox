@@ -1,5 +1,5 @@
 var sc_hide =["#li_info_sc","#li_info_asc","#h_info_sc","#h_address_sc"];
-
+var usr_hide=["#li_info_car","#li_info_ausr","#h_car_info","#h_ausr_inf"]
 jQuery(document).ready(function(){
   for(var i = 0; i < sc_hide.length; i++)
       $(sc_hide[i]).hide();
@@ -14,12 +14,16 @@ function updateAccountUserType(){
   var id = $(this).attr("id");
   if (id == "sc"){
     $("#company_data").show();
-    for(var i = 0; i < sc_hide.length; i++)
+    for(var i = 0; i < sc_hide.length; i++){
       $(sc_hide[i]).show();
+      $(usr_hide[i]).hide();
+    }
   }else{
     $("#company_data").hide();
-    for(var i = 0; i < sc_hide.length; i++)
+    for(var i = 0; i < sc_hide.length; i++){
       $(sc_hide[i]).hide();
+      $(usr_hide[i]).show();
+    }
   }
   $( "#user_data" ).accordion();
   

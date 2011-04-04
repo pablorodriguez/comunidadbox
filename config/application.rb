@@ -32,7 +32,7 @@ module ComunidadBox
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
  
     # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui-1.8.custom.min rails)
+    # config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui-1.8.custom.min rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

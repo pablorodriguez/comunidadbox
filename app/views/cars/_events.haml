@@ -1,0 +1,18 @@
+%h1
+  Futuros Servicios a Realizar
+%table#sort_table.comboxtable
+  %thead
+    %tr
+      %th Tipo de Servicio
+      %th Fecha a Realizar
+      %th Km
+  - for event in @events
+    %tr
+      %td
+        = link_to event.service_type.name, event
+      %td
+        = l event.dueDate
+      %td
+        = event.km
+%br
+= will_paginate @events

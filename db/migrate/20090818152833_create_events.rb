@@ -4,12 +4,14 @@ class CreateEvents < ActiveRecord::Migration
       t.references :car
       t.references :service_type
       t.references :service
-      t.string :status
+      t.integer :service_done_id
+      t.integer :status
+      t.integer :km
       t.date :dueDate
-
       t.timestamps
     end
-    add_foreign_key(:events,:services,:dependent => :delete)
+    add_foreign_key(:events,:services,:column => :service_id,:dependent => :delete)
+    add_foreign_key(:events,:services,:column => :service_done_id,:dependent => :delete)
   end
 
   def self.down
