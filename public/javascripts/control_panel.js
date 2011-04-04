@@ -77,7 +77,7 @@ function searchModel(event){
   var token = $("input[name='authenticity_token']").val();
   AjaxLoader.enable();
   $.ajax({
-    url: "/cars/find_models",
+    url: "/control_panels/find_models",
       data: {
         'id':brand_id,
         'brand_id':$("#"+brand_id).val(),

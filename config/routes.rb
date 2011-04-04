@@ -139,6 +139,7 @@ ComunidadBox::Application.routes.draw do
   resources :control_panels do
     collection do
       post :filter_alarms
+      post :find_models
       get :filter_alarms
       post :save_filter
     end

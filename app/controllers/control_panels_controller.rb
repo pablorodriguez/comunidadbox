@@ -119,8 +119,8 @@ class ControlPanelsController < ApplicationController
       @service_filter = ServiceFilter.new(params[:service_filter])
     end
     
-    @fuels = Car.all.map(&:fuel).uniq.sort.collect{|p| [p]}
-    @years = Car.all.map(&:year).uniq.sort.collect{|p| p}
+    @fuels = %w(Nafta Diesel Gas)
+    @years = ((Time.now.year) -25)...((Time.now.year) +2)
     
     @states = State.all(:order=>:name)
     if params[:st]
@@ -187,7 +187,8 @@ class ControlPanelsController < ApplicationController
   end
   
   def find_models
-    @models = Model.find_all_by_brand_id(params[:brand_id])
+    @models = Model.find_all_by_brand_id(params[:brand_id],:order =>"name")
+    @brand_id=params[:id]
     respond_to do |format|
       format.js
     end

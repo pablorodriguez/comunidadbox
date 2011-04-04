@@ -2,7 +2,7 @@ class ServiceFiltersController < ApplicationController
   layout "application", :except => [:create] 
   
   def index
-    @filters = ServiceFilter.find(:all)
+    @filters = current_user.service_filters
   end
 
   def create
@@ -19,7 +19,6 @@ class ServiceFiltersController < ApplicationController
     respond_to do |format|
       format.js
       format.html # index.html.erb
-      format.xml  { render :xml => @companies }
     end
     
   end

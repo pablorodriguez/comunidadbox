@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
 
-  has_many :service_filters
+  has_many :service_filters,:order =>'name'
   has_many :cars
   has_many :authentications
   
