@@ -9,10 +9,10 @@
   - for event in @events
     %tr
       %td
-        = link_to event.service_type.name, event
+        = link_to event.service_type.name, event.service.workorder
       %td
         = l event.dueDate
-      %td
+      %td.number
         = event.km
 %br
 = will_paginate @events
