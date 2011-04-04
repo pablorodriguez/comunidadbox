@@ -111,9 +111,7 @@ class WorkordersController < ApplicationController
 
   def edit
     @work_order= Workorder.find(params[:id])
-    @service_types = CompanyService.find(:all,
-      :conditions=>["company_id= ?",current_user.current_company.id],
-      :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+    @service_types = current_user.service_types
   end
 
   def create
