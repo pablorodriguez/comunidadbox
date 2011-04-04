@@ -3,13 +3,13 @@
 %table#sort_table.comboxtable
   %thead
     %tr
-      %th Detalle
-      %th Empresa
-      %th Estado
-      %th Realizado
-      %th Total
-      %th Calif. empresa
-      %th Calif. usuario
+      %th{:width=>"10%"} Detalle
+      %th{:width=>"20%"} Empresa
+      %th{:width=>"10%"} Estado
+      %th{:width=>"10%"} Realizado
+      %th{:width=>"10%"} Total
+      %th{:width=>"5%"} Calif. empresa
+      %th{:width=>"5%"} Calif. usuario
   - for work_order in @work_orders
     %tr
       %td

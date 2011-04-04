@@ -2,17 +2,17 @@
 %table#sort_table.comboxtable
   %thead
     %tr
-      %th
+      %th{:width=>"10%"}
         = sortable "cars.domain","Dominio"
-      %th Detalle
+      %th{:width=>"20%"} Detalle
       - unless current_user.company
         %th Empresa
-      %th
+      %th{:width=>"10%"}
         = sortable "created_at", "Realizado"
-      %th Total
-      %th Estado
-      %th Calif. empresa
-      %th Calif. usuario
+      %th{:width=>"10%"} Total
+      %th{:width=>"10%"} Estado
+      %th{:width=>"5%"} Calif. empresa
+      %th{:width=>"5%"} Calif. usuario
   - for work_order in @work_orders
     %tr
       %td
