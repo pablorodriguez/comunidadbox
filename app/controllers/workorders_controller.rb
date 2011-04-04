@@ -137,8 +137,7 @@ class WorkordersController < ApplicationController
       redirect_to @work_order.car
     else
       flash[:notice] = "No se pudo grabar la Orden de Trabajo"
-      @service_types = CompanyService.find(:all,:conditions=>["company_id= ?",current_user.current_company.id],
-        :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+      @service_types = current_user.service_types
       @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
       render :action => 'new'
     end
