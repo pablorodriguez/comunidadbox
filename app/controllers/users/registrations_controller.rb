@@ -33,8 +33,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
         redirect_to new_user_session_path
     else
-      @user.cars.build unless @user.cars[0].domain
+      @user.cars.build if @user.cars.size == 0
       @user.build_address unless @user.address
+      @company = @user.companies.build if @user.companies.size == 0
+      @company.build_address if @company.address.nil?
       render :action => 'new'
     end
   end
