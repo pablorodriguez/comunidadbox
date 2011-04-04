@@ -169,3 +169,5 @@
   user:
     email: "Correo Eléctronico"
     password: "Clave"
+  car_updated_exit: 'Automovil actualizado con exito.'
+  car_created_exit: 'Automovil fue creado con exito.'    

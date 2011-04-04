@@ -19,7 +19,8 @@
           %td
             %label{ :for => "model_id" }Modelo  
           %td
-            = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model medium_select'})
+            #models
+              = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model medium_select'})
         %tr
           %td
             %label{ :for => "year" }Año

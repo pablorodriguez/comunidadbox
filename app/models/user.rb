@@ -136,7 +136,8 @@ class User < ActiveRecord::Base
   end
   
   def service_types
-    current_company.service_type
+    current_company.service_type if current_company
+    ServiceType.all(:order =>"name") unless current_company
   end
  
 end

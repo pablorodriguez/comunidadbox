@@ -102,7 +102,7 @@ class CarsController < ApplicationController
     end
     respond_to do |format|
       if @car.save
-        flash[:notice] = 'Car was successfully created.'
+        flash[:notice] = t :car_crated_exit
         format.html { redirect_to(@car) }
         format.xml  { render :xml => @car, :status => :created, :location => @car }
       else
@@ -116,10 +116,11 @@ class CarsController < ApplicationController
   # PUT /cars/1.xml
   def update
     @car = Car.find(params[:id])
-
+    
     respond_to do |format|
       if @car.update_attributes(params[:car])
-        flash[:notice] = 'Car was successfully updated.'
+        @car.update_events
+        flash[:notice] = t :car_updated_exit
         format.html { redirect_to(@car) }
         format.xml  { head :ok }
       else

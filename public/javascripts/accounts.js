@@ -6,7 +6,11 @@ jQuery(document).ready(function(){
 	$('.brand').change(searchModel);
 	$( "#user_data" ).accordion();
 	$(".usr_menu_link").click(changeAccountTabs);
-	$('input[name="user_type"]')[0].checked = true;
+	var user_type = $('input[name="user_type"]')[0];
+	if (user_type){
+    user_type.checked = true;	  
+	}
+	
 	$("input[type=radio]").change(updateAccountUserType);
 });
 
