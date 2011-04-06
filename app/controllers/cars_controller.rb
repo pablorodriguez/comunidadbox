@@ -67,7 +67,7 @@ class CarsController < ApplicationController
     @events = @car.future_events.paginate(:per_page=>10,:page =>1)  
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @car }
+      format.js
     end
   end
 
