@@ -1,4 +1,6 @@
-%h1 Ofertas Servicio de Autos
+%h1
+  =vineta 
+  Ofertas Servicio de Autos
 .box
   - if @offers.size > 0
     %table#sort_table.comboxtable
@@ -20,3 +22,5 @@
           %td= link_to image_tag('new.png'), new_workorder_path(:car_id => offer.car.id,:so=>offer.service_offer),{:title =>"Nuevo Servicio"}
   - else
     No hay ofertas de servicios de autos		
+  %br
+  = link_to_back

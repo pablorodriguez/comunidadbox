@@ -7,6 +7,8 @@
   .contentleft
     %h1
       Información
+      .brand_img
+        %img{:src =>"/images/brands/#{@car.brand.name}.png",:width=> 100, :height=>100}
     %table.service_table
       %tr
         %td.label_title Dueño
@@ -54,9 +56,11 @@
               = h number_to_currency @car.total_spend(current_user.company.id) 
         
   
+    = link_to_back
     = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
     -if (@car.user.id == current_user.id)
       = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"}
+          
   .contentright
     #cars_work_orders    
       = render "work_orders"

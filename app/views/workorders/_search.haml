@@ -26,4 +26,4 @@
         %td
           = collection_select(:service_type, :id, ServiceType.all(:order =>:name), :id, :name, {:include_blank=>:true},{:selected => @service_type_id})
           = image_submit_tag("find.png",:class =>"input_img")
-          
+= link_to_back          

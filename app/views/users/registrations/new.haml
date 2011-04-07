@@ -55,7 +55,10 @@
         #d_address_sc.company_address
           = c.fields_for :address do |ad|
             = render 'companies/company_address_fields', :ad => ad      
-    %p= f.submit "Grabar",:class=>"btn"
+    %p
+      .bottoms
+        = f.submit "Grabar",:class=>"btn"
+        = link_to_back root_path
     - if user_signed_in?
       -if devise_mapping.recoverable? && controller_name != 'passwords'
         = link_to t(:forgot_your_password), new_password_path(resource_name)

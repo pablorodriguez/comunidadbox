@@ -1,5 +1,7 @@
 - javascript 'company_service'
-%h1 Listado Tipo de Servicio
+%h1
+  = vineta 
+  Listado Tipo de Servicio
 .box
   #company_services   
     .hide 
@@ -23,3 +25,5 @@
               = check_box_tag "service_type_#{service_type.id}", service_type.id,@company_service_type.include?(service_type),:class =>:service_type_id
             %div.ajax_loader.left{:style=>"display:none"}
             %div{:id=>"msg_#{service_type.id}"}
+
+  = link_to_back

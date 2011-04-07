@@ -2,20 +2,20 @@
 %table.service_table
   %tbody
     %tr
-      %td Nombre
-      %td
+      %td{:colspan=>2} Nombre
+    %tr  
+      %td{:colspan =>2}
         = @company.name
     %tr
       %td
-        Teléfono
+        Sitio Web
+    %tr  
+      %td{:colspan =>2}
+        = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
+    %tr
+      %td Teléfono
       %td
         = h @company.phone
-    %tr
-      %td
-        Sitio Web
-      %td
-        = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
-    
     -if @company.address
       = hidden_field_tag :full_address, @company.address.to_text
       %tr
@@ -45,6 +45,6 @@
   = link_to image_tag("edit.png"),edit_company_path(@company),{:title =>"Modificar"}
   = link_to image_tag("return.png"),companies_path
 - else
-  = link_to image_tag("return.png"),all_companies_path
+  = link_to_back all_companies_path
 
     

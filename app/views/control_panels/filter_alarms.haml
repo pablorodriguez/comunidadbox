@@ -33,6 +33,7 @@
                 = render event
         = will_paginate @page_events
         #offer
-          %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn"}
-          %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn"}
+          %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn_b"}
+          %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b"}
+          =link_to_back
     #msg

@@ -64,7 +64,7 @@ body {
   background-image:url(/images/headerpng.png);
   background-repeat:no-repeat;
   background-position:center;
-  height:140px;
+  height:100px;
   padding:0px;
 }
 #logo {
@@ -74,11 +74,11 @@ body {
   height:140px;
 }
 #logologo {
-  padding-top:30px;
+  padding-top:5px;
 }
 #wrapmenu {
   background-color:#C1BB00;
-  height:45px;
+  height:45px; 
 }
 #menu {
   margin:0 auto 0 auto;
@@ -95,8 +95,8 @@ body {
   margin:0 auto 0 auto;
   margin-top:15px;
   padding:10px;
-  width:900px;
-  min-height:750px;
+  width:900px;  
+  min-height:700px;
 }
 #cont1 {
   margin-bottom:24px;
@@ -239,6 +239,7 @@ body {
   background-image:url(/images/background_footer.jpg);
   height:62px;
   margin-top: 15px;
+  width: 100%;
 }
 #footer {
   margin:0 auto 0 auto;
@@ -315,21 +316,57 @@ form .textarea {
   margin-left:15px;
 }
 
+.btn_b {
+  display: inline-block;
+  width:100px;
+  border:none;
+  background-color:transparent;
+  background-image:url(/images/btns.png);
+  background-position: 303px 0px;
+  width:133px;
+  height:35px;
+  color:#FFF;
+  font-weight:600;
+  float:left;
+}
+
+.btn_b:hover {
+  background-position:303px 35px;
+}
+
 .btn {
   display: inline-block;
   width:100px;
   border:none;
   background-color:transparent;
-  background-image:url(/images/btn_submit.png);
-  background-position:top;
+  background-image:url(/images/btns.png);
+  background-position: 164px 0px;
   width:110px;
+  height:35px;
+  color:#FFF;
+  font-weight:600;
+  float:left;
+}
+
+.btn:hover {
+  background-position:164px 35px;
+}
+
+.btn_back {
+  display: inline-block;
+  width:100px;
+  border:none;
+  background-color:transparent;
+  background-image:url(/images/btns.png);
+  background-position: 46px 0px;
+  width:47px;
   height:35px;
   color:#FFF;
   font-weight:600;
 }
 
-.btn:hover {
-  background-position:bottom;
+.btn_back:hover {
+  background-position:46px 35px;
 }
 
 #sendleermas {
@@ -1404,3 +1441,9 @@ ul.usr_menu li{
   margin-top: 5px;
 }
 
+.brand_img{
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 5px 0px 0px 0px;
+}

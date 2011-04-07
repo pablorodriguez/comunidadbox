@@ -19,5 +19,6 @@
             = link_to image_tag('delete.gif'), filter, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
   - else
     =render(:partial=>'shared/message',:locals =>{:msg =>"No hay filtros creados."})
-  
+  %br
+  =link_to_back
         

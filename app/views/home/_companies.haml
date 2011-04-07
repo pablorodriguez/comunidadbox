@@ -7,4 +7,5 @@
         = c.name
         - if c.address
           =", #{c.address.state.name}"
-%input#sendprestadores.btn{:name => "send", :type => "submit", :value => "Prestadores"}
+#sendprestadores
+  = button_to "Prestadores", all_companies_path,:method =>:get,:class=>"btn"

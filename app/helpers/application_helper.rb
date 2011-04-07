@@ -24,8 +24,12 @@ module ApplicationHelper
   end
   
   def link_to_back(url=nil)    
-    link_to_function image_tag('return.png'),"javascript:history.back(-1)" unless url
-    link_to image_tag('return.png'),url if url
+    unless url
+      return link_to_function "","javascript:history.back(-1)",:class =>"btn_back" unless url  
+    else
+      return link_to "",url,:class =>"btn_back" if url
+    end
+    
   end
  
   def title(title)

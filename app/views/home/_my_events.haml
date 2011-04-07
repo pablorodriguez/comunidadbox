@@ -4,4 +4,5 @@
     %li
       ="#{e.service_type.name} #{e.dueDate}"
 %p
-  %input#sendprestadores.btn{:name => "send", :type => "submit", :value => "Ver"}
+#sendprestadores
+  = button_to "Ver" , control_panels_path,:method =>:get,:class=>"btn"

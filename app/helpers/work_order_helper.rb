@@ -10,7 +10,7 @@ module WorkOrderHelper
               work_order.company == current_user.current_company)
             return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "company")
           else
-            return "No ha calificado aun"
+            return ""
           end
         end
       end
@@ -26,7 +26,7 @@ module WorkOrderHelper
         if !current_user.current_company || work_order.belong_to_user(current_user)
           return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "usr")
         else
-          return "No ha calificado aun"
+          return ""
         end
       end
     end
@@ -57,14 +57,14 @@ module WorkOrderHelper
         rank = Rank.find work_order.user_rank_id
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
       else
-        return "No ha calificado aun"
+        return ""
       end
     else
       if work_order.company_rank_id
         rank = Rank.find work_order.company_rank_id
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"usr")
       else
-        return "No ha calificado aun"
+        return ""
       end
     end
   end
