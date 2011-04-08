@@ -6,12 +6,7 @@ jQuery(document).ready(function(){
 	$('.brand').change(searchModel);
 	$( "#user_data" ).accordion();
 	$(".usr_menu_link").click(changeAccountTabs);
-	var user_type = $('input[name="user_type"]')[0];
-	if (user_type){
-    user_type.checked = true;	  
-	}
 	
-	$("input[type=radio]").change(updateAccountUserType);
 });
 
 function updateAccountUserType(){
@@ -44,7 +39,6 @@ function changeAccountTabs(){
   $( "#user_data" ).accordion({ active: tabId });
 }
 
-
 function showMap(event){
 	var target = event.target;
 	var td =$(target).parent().prev().prev().prev();
@@ -60,6 +54,14 @@ function showMap(event){
 	codeAddress(address,16);
 }
 
+function toggleCheck(event){
+	var ele= event.target;
+	$('.default_check').each(
+		function(){
+			alert(this.checked);
+		}
+	);
+}
 
 function searchModel(event){
 	var brand_id = event.target.id;	
@@ -75,66 +77,4 @@ function searchModel(event){
 		dataType:'script',
 		type:'POST'
 	});
-}
-
-function show_html_callback(code){
-	eval(code);
-}
-
-function remove_fields(link,association){
-    $(link).prev("input[type=hidden]").attr("value", '1');
-    $(link).closest(".fields").hide();
-	if (association=="address"){
-		rowAddNro--;
-	}else{
-		rowCarNro--;
-	}
-}
-
-function add_fields(link, association, content){
-	var msg="";
-	
-	if (association == "user_addresses"){
-		rowAddNro++;
-		rowNro=rowAddNro;
-		msg="Nos se puede ingresar más direcciones";
-	}else{
-		rowCarNro++;
-		rowNro=rowCarNro;
-		msg="No se pueden ingresar más automoviles";
-	}
-	if (rowNro <= 5) {
-		var new_id = new Date().getTime();;
-		var regexp = new RegExp("new_" + association, "g");
-		$(link).parent().parent().find('table tr:last').after(content.replace(regexp, new_id));
-		if (association=="addresses"){
-
-		}else{
-			initModels(new_id);	
-		}
-		
-	}else{
-		if (association == "user_addresses"){
-			rowAddNro--;
-			msg="Nos se puede ingresar más direcciones";
-		}else{
-			rowCarNro--;
-			msg="No se pueden ingresar más automoviles";
-		}
-		alert(msg);
-	}
-}
-
-function initModels(id){
-	var brandId ="brand_" + id;
-	var brand = $('#cars_link').parent().find('table tr:last').find('.brand');
-	brand.attr('id',brandId);
-	brand.change(searchModel);
-}
-
-function initDepartments(id){
-	var stateId ="state_" + id;
-	var state = $('#addresses_link').parent().find('table tr:last').find('.state');
-	state.attr('id',stateId);
-	state.change(searchDepartment);
 }

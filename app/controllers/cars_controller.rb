@@ -20,8 +20,7 @@ class CarsController < ApplicationController
   end
   
   def find_models
-    @models = Model.find_all_by_brand_id(params[:brand_id],:order =>"name")
-    @brand_id=params[:id]
+    @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
     respond_to do |format|
       format.js
     end
@@ -51,7 +50,18 @@ class CarsController < ApplicationController
     domain = params[:car][:domain]
     @company_id = params[:company_id]
     @car_id = params[:car_id]
-    @cars = Car.all(:conditions =>["domain = ?",domain])
+    unless domain == ''
+      @cars = Car.all(:conditions =>["domain = ?",domain])
+    else
+      if current_user.company
+        @cars = Car.all(:conditions =>["company_id = ? or user_id = ?",current_user.company.id,current_user.id])
+      elsif current_user.is_employee
+        @cars = Car.all(:conditions =>["company_id = ? or user_id = ?",current_user.employer.id,current_user.id])
+      else
+        @cars = Car.find(:all,:conditions=>["user_id = ? ",current_user.id])
+      end
+    end
+    
     respond_to do |format|
       format.js
     end

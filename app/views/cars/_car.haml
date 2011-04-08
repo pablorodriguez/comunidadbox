@@ -42,3 +42,4 @@
           %td
             = f.collection_select :fuel, %w(Nafta Diesel Gas),:to_s,:to_s,:prompt=>""
     = f.submit "Grabar",:class=>"btn"
+    = link_to_back cars_path

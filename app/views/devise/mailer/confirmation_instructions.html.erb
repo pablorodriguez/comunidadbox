@@ -1,5 +1,9 @@
-<p>Welcome <%= @resource.email %>!</p>
+<p>Bienvenido <%= @resource.email %>! a Comunidadbox</p>
 
-<p>You can confirm your account through the link below:</p>
+<p>Uds puede confirmar su cuenta con el siguiente link:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<% if @resource.creator %>
+  Su clave temporal es <%=@resource.password%>
+<% end%>

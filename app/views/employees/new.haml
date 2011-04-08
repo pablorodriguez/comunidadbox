@@ -7,3 +7,4 @@
   .box
     = render :partial => 'form',:locals  =>{:f => f}
     = f.submit "Grabar",:class =>"btn"
+    = link_to_back employees_path

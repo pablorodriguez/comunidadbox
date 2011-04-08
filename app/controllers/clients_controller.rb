@@ -1,31 +1,44 @@
 class ClientsController < ApplicationController
-  layout "application", :except => [:search]
+  layout "application", :except => [:search,:find_models]
   
   def edit
-    @user = User.find(params[:id])
+    @client = User.find(params[:id])
     @models = Array.new
   end
 
   def update
     @client = User.find(params[:id])
     @models = Array.new
+    
+    
     if @client.update_attributes(params[:user])
       flash[:notice] = 'Cliente actualizado con exito.'
-      redirect_to :root
+      redirect_to clients_path
     else
       flash[:notice]= 'Error al actualizar los datos'
       render :action => 'edit'
     end
   end
   
+  def find_models
+    @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
+    @brand_id=params[:id]
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def create
     @client = User.new(params[:user])
+    @client.creator = current_user
+    @client.password = @client.first_name + "test"
+    @client.password_confirmation = @client.password
     
     if @client.save
         flash[:notice] = "Cliente creado exitosamente"
         redirect_to  new_workorder_path(:car_id =>@client.cars[0].id)
     else
-      @client.cars.build unless @client.cars[0].domain
+      @client.cars.build if @client.cars.size == 0
       @client.build_address unless @client.address
       render :action => 'new'
     end
@@ -38,27 +51,15 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @cars = Car.where("company_id = ?",current_user.company.id).includes(:user)
+    @cars = Car.where("users.creator_id = ? and confirmed_at is null",current_user.id).includes(:user)
   end
 
   def search
-    @condition = ''
-    unless params[:first_name] == ''
-      @condition += 'first_name=' + "'" + params[:first_name]+ "'"
-    end
-    unless params[:last_name] == ''
-      unless @condition == ''
-        @condition += ' AND '
-      end
-      @condition += 'last_name LIKE ' + "'%" +params[:last_name] + "%'"
-    end
-    unless params[:email] == ''
-      unless @condition == ''
-        @condition += ' AND '
-      end
-      @condition += 'email=' + "'" + params[:email] + "'"
-    end
-    @clients = User.find(:all, :conditions => @condition)
+    email = params[:email] || ""
+    first_name = params[:first_name] || ""
+    last_name = params[:last_name] || ""
+    @cars = Car.where("users.creator_id = ? and confirmed_at is null",current_user.id).includes(:user)
+    @cars = @cars.where("users.first_name like ? and users.last_name like ? and users.email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
 
     respond_to do |format|
       format.js 

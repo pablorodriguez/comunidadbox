@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  layout "application", :except => [:search]
   
   def new
     @employee = User.new
@@ -53,6 +54,9 @@ class EmployeesController < ApplicationController
     @employee = User.new(params[:user])
     @employee.employer = current_user.company
     @employee.creator = current_user
+    @employee.password = @employee.first_name + "test"
+    @employee.password_confirmation = @employee.password
+    
     if @employee.save
       flash[:notice] = "Empleado creado exitosamente!"
       redirect_to employees_path
@@ -61,4 +65,15 @@ class EmployeesController < ApplicationController
     end
   end
     
+   def search
+    email = params[:email] || ""
+    first_name = params[:first_name] || ""
+    last_name = params[:last_name] || ""
+    @employees = User.where("employer_id like ? and first_name like ? and last_name like ? and email like ?",
+      current_user.company.id,"%#{first_name}%","%#{last_name}%","%#{email}%")
+   
+    respond_to do |format|
+      format.js 
+    end
+   end
 end

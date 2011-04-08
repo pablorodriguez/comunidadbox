@@ -73,9 +73,15 @@ ComunidadBox::Application.routes.draw do
   resources :car_filters
   resources :ranks
   resources :tasks
-  resources :employees
   resources :home
   resources :event
+  
+  resources :employees do
+    collection do
+      post :search
+    end
+    
+  end
   
   resources :workorders do
     collection do
@@ -112,8 +118,7 @@ ComunidadBox::Application.routes.draw do
       get :list_service_offer
       get :companies
       get :future_events
-      get :new_client
-      post :create_client
+      post :find_models
     end
   end
   
@@ -129,7 +134,8 @@ ComunidadBox::Application.routes.draw do
       post :search
     end
   end
-    resources :services do
+  
+  resources :services do
     collection do
       post :add_material
       post :add_service

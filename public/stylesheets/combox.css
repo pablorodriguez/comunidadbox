@@ -318,6 +318,7 @@ form .textarea {
 
 .btn_b {
   display: inline-block;
+  letter-spacing:1px;
   width:100px;
   border:none;
   background-color:transparent;
@@ -336,12 +337,13 @@ form .textarea {
 
 .btn {
   display: inline-block;
+  letter-spacing:1px;
   width:100px;
   border:none;
   background-color:transparent;
   background-image:url(/images/btns.png);
-  background-position: 164px 0px;
-  width:110px;
+  background-position: 158px 0px;
+  width:103px;
   height:35px;
   color:#FFF;
   font-weight:600;
@@ -349,7 +351,7 @@ form .textarea {
 }
 
 .btn:hover {
-  background-position:164px 35px;
+  background-position:158px 35px;
 }
 
 .btn_back {
@@ -1345,9 +1347,11 @@ td.number, th.number{
 .notice{
   background-color: #AFFFC9;
   -moz-border-radius: 5px 5px 5px 5px;
-  
   border: 0px solid #099F3A;
-  margin: 0px 4px 10px 1px;
+  margin: 5px;
+  padding:5px;
+  width: 70%;
+  
 }
 
 .errorExplanation h2 {

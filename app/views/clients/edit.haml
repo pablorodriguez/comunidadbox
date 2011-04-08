@@ -1,8 +1,39 @@
-- javascript 'accounts'
-- stylesheets 'jquery.ui.base.css'
-- stylesheets 'jquery.ui.theme.css'
+- javascript 'clients'
 #user_company_address
   %h1
-    Nuevo Cliente
-  = render 'form'
+    = vineta
+    Modificar Cliente
+  = render 'shared/error_messages', :target => @client
+  .contentleft
+    %ul.usr_menu
+      %li.usr_menu_selected.usr_menu_link
+        %a{:href=>"#",:id=>"0"} 
+          Información Personal
+      %li#li_info_car.usr_menu_link
+        %a{:href=>"#",:id=>"1"} 
+          Información de su auto
+      %li#li_info_ausr.usr_menu_link
+        %a{:href=>"#",:id=>"2"}
+          Dirección Personal
+  .contentright
+    = form_for @client, :url => client_path(@client) do |f|
+      #user_data
+        %h3
+          %a{:href=>"#"}Información Personal
+        .personal_info
+          %table
+            %tbody
+              = render 'users/user_row_no_psw',:f => f
+        %h3#h_car_info
+          %a{:href=>"#"}Información de su auto
+        .car_info
+          =f.fields_for :cars do |c|
+            = render 'users/car_fields',:f =>c
+        %h3#h_ausr_inf
+          %a{:href=>"#"}Direccion Personal
+        .personal_address      
+          =f.fields_for :address do |a|
+            = render 'users/user_address_fields', :f =>a
+      = f.submit "Grabar",:class=>"btn"
+      = link_to_back root_path
 

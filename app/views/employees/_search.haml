@@ -1,7 +1,23 @@
 %h1 Buscar
-%table.w
-  %tr
-    %td
+- form_for :employee, :remote =>true, :url => search_employees_path do
+  %table
+    %thead
+      %tr
+        %td Email
+      %tr
+        %td
+          = text_field_tag 'email'
+      %tr
+        %td Nombre
+      %tr
+        %td
+          = text_field_tag 'first_name'
+      %tr
+        %td Apellido
+      %tr
+        %td
+          = text_field_tag 'last_name'
+          = image_submit_tag("find.png",:class =>"input_img")
 
 = link_to_back
 = link_to image_tag('new.png'), new_employee_path,:title =>"Crear nuevo empleado"    
