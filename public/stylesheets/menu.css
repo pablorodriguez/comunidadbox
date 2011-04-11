@@ -121,6 +121,7 @@ body, ul, li {
   -moz-border-radius: 0px 5px 5px 5px;
   -webkit-border-radius: 0px 5px 5px 5px;
   border-radius: 0px 5px 5px 5px;
+  z-index: 1000px;
 }
 
 .dropdown_1column {width: 140px;}
@@ -161,7 +162,8 @@ body, ul, li {
 
 #menu .menu_right {
   float:right;
-  margin-right:0px;
+  margin-right: 0px;
+  z-index: 1000px;
 }
 #menu li .align_right {
   /* Rounded Corners */
