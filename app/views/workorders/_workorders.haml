@@ -23,7 +23,7 @@
       - unless current_user.company
         %td
           = work_order.company.name
-      %td
+      %td.number
         = l work_order.created_at.to_date
       %td.number
         = number_to_currency work_order.total_price
@@ -39,4 +39,4 @@
         -if work_order.finish?
           = get_user_rank(current_user,work_order)
 
-= will_paginate @work_orders
+= will_paginate @work_orders,:params =>@filters

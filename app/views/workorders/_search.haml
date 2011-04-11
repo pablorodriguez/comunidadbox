@@ -1,5 +1,5 @@
 %h1 Buscar
-- form_tag filter_workorders_path,:remote =>true,:id=>:filter do
+- form_tag filter_workorders_path,:remote =>true,:id=>:filter,:method =>:get do
   = hidden_field_tag :direction, @direction
   = hidden_field_tag :sort, @sort_column
   %table

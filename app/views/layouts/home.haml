@@ -6,9 +6,9 @@
     %title Comunidad Box
     = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails'
     = javascript_include_tag 'jquery.ui.datepicker-es','application'
-    = javascript_include_tag 'menu'    
+    -#= javascript_include_tag 'menu'    
     = javascript 'analytics'
-    = stylesheet_link_tag 'combox'
+    = stylesheet_link_tag 'combox','menu'
     = yield(:head)
     %link{:href => "http://fonts.googleapis.com/css?family=Ubuntu", :rel => "stylesheet", :type => "text/css"}
   %body
@@ -17,7 +17,7 @@
         #logologo
           %img{:align => "middle", :alt => "logo", :height => "84", :src => "images/logo.png", :width => "246"}/
           = render "layouts/logininfo"
-    =render "layouts/menu"
+    =render "layouts/n_menu"
     #content
       = render "layouts/msg"
       = yield

@@ -25,36 +25,29 @@ class WorkordersController < ApplicationController
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
+    logger.info "### date from [#{params[:date_from]}] is it null #{params[:date_from].nil?} is it empty #{params[:date_from].empty?}"
+    logger.info "### date to [#{params[:date_to]}] is it null #{params[:date_to].nil?} is it empty #{params[:date_to].empty?}"
     
-    if current_user.company
-      @workorders = Workorder.where("workorders.company_id = ?",current_user.company.id)
-    else
-      cars_ids = Array.new
-      current_user.cars.each{|c| cars_ids << c.id}
-      @workorders = Workorder.where("car_id in (?)",cars_ids)
+    date_from = params[:date_from].empty? ? nil : params[:date_from]
+    date_to = params[:date_to].empty? ? nil : params[:date_fo]
+    service_type_id = nil
+    logger.info "### date from [#{date_from}] date to [#{date_to}]"
+    
+    @filters = Hash.new
+    unless params[:service_type][:id].empty?
+      @filters[:service_type_id] = (params[:service_type][:id])
     end
-
-    unless params[:date_from].empty? && params[:date_to].empty?
-      date_f = params[:date_from].to_datetime
-      @date_f = params[:date_from]
-      date_t = params[:date_to].to_datetime
-      @date_t = params[:date_to]
-      @workorders = @workorders.where("workorders.created_at between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
-    else
-      @date_f = nil
-      @date_t = nil
-    end
-
-    unless params[:domain].empty?
-      @workorders= @workorders.includes(:car).where("cars.domain like ?",params[:domain].upcase)
-    else
-      @domain = nil
-    end
-
-    unless params[:service_type][:id] == ""
-      @workorders = @workorders.includes(:services).where("services.service_type_id = ?",params[:service_type][:id])
-    end
-
+    @filters[:user] = current_user
+    @filters[:domain] = params[:domain]
+    
+    unless params[:date_from].empty?
+       @filters[:date_from] = params[:date_from]
+    end   
+    unless params[:date_to].empty?
+       @filters[:date_to] = params[:date_to]
+    end  
+      
+    @workorders = Workorder.find_by_params(@filters)
     @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)  
   end
 
@@ -64,13 +57,27 @@ class WorkordersController < ApplicationController
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
+    if params[:service_type]
+      service_type_id = params[:service_type][:id]
+    end
     
-    if current_user.company
-      @work_orders = Workorder.paginate(:all,:page => page,:per_page=>per_page,:include =>:car,:order =>order_by,:conditions =>["workorders.company_id = ?",current_user.company.id])
+    if params[:service_type_id]
+      service_type_id = params[:service_type_id]
     else
-      cars_ids = Array.new
-      current_user.cars.each{|c| cars_ids << c.id}
-      @work_orders = Workorder.paginate(:all,:page => page,:per_page=>per_page,:include =>:car,:order =>order_by,:conditions =>["car_id in (?)",cars_ids])
+      service_type_id = nil
+    end
+    
+    logger.info "### date from #{params[:date_from]} is it null #{params[:date_from].nil?}"
+    
+    date_from = params[:date_from] ? nil : params[:date_from]
+    date_to = params[:date_to] ? nil : params[:date_fo]
+      
+    @workorders = Workorder.find_by_params(:date_from => date_from,:date_to =>date_to,
+      :domain => params[:domain], :service_type_id => service_type_id ,:user => current_user)    
+    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)  
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false}
     end
   end
 

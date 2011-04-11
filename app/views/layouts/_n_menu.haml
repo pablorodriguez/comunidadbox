@@ -1,0 +1,92 @@
+#menu_container
+  %ul#menu
+    %li
+      = link_to "Inicio", root_path
+      / Begin Home Item
+      .dropdown_2columns
+        / Begin 2 columns container
+        .col_2
+          %h2 Bienvenido a Comunidad Box
+        .col_2
+          - unless user_signed_in?
+            = render "/home/home_nu"
+          - if (user_signed_in? &&(not current_user.current_company))
+            = render "/home/home_u"
+          - if user_signed_in? && current_user.current_company
+            = render "/home/home_ps"
+        .col_2
+          %h2 Navegadores
+        .col_1
+          %img{:alt => "", :height => "48", :src => "/images/browsers.png", :width => "125"}/
+        .col_1
+          %p Ud. tendrá una mejor experiencia si usa la última version de su navegador preferido
+      / End 2 columns container
+    / End Home Item
+    %li
+      %a.drop{:href => "#"} Buscar
+      / Begin 5 columns Item
+      .dropdown_1column
+        / Begin 5 columns container
+        .col_1
+          %ul.greybox
+            %li
+              = link_to "Prestadores de Servicios", all_companies_path
+      / End 5 columns container
+    / End 5 columns Item
+    - if user_signed_in?
+      %li
+        %a.drop{:href => "#"} Accessos Rápidos
+        / Begin 4 columns Item
+        .dropdown_2columns
+          / Begin 4 columns container
+          .col_1
+            %ul.greybox
+              - if current_user.is_administrator
+                %li 
+                  = link_to "Buscar Automóviles", cars_path
+              - unless current_user.company
+                %li 
+                  = link_to "Mis Automóviles", cars_path
+              - if current_user.is_administrator
+                %li 
+                  = link_to "Buscar Cliente", clients_path
+          .col_1
+            %ul.greybox
+              %li
+                = link_to "Panel de control" , control_panels_path
+              %li
+                = link_to "Servicios Realizados" , workorders_path
+        / End 4 columns container
+      / End 4 columns Item
+    - if user_signed_in? && current_user.is_administrator
+      %li.menu_right
+        %a.drop{:href => "#"} Administración
+        / Begin 3 columns Item
+        .dropdown_3columns.align_right
+          / Begin 3 columns container
+          .col_1
+            %ul.greybox
+              %li 
+                = link_to "Mis Servicios", service_types_companies_path
+              %li
+                = link_to "Servicios Realizados" , workorders_path
+              %li
+                = link_to "Panel de control" , control_panels_path
+          .col_1
+            %ul.greybox
+              %li
+                = link_to "Listado de Filtros" , service_filters_path
+              %li
+                = link_to "Ofertas de Servicio" , service_offers_path
+              %li
+                = link_to "Ofertas de Servicios Enviadas",car_service_offer_index_path
+          .col_1
+            %ul.greybox
+              %li
+                = link_to "Lista de Precios", price_lists_path
+              %li
+                = link_to "Mis Empresas", companies_path
+              %li
+                = link_to "Mis Empleados", employees_path
+      / End 3 columns container
+    / End 3 columns Item

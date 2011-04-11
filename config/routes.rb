@@ -85,7 +85,7 @@ ComunidadBox::Application.routes.draw do
   
   resources :workorders do
     collection do
-      post :filter
+      get :filter
     end
   end
     

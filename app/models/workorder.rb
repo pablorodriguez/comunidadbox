@@ -105,5 +105,44 @@ class Workorder < ActiveRecord::Base
     end
   end
   
+  def self.find_by_params(filters)
+    
+    domain =  filters[:domain] || ""
+    
+    @workorders= Workorder.includes(:car).where("cars.domain like ?","%#{domain.upcase}%")
+    logger.info "### date from [#{filters[:date_from]}] date to [#{filters[:date_to]}]"
+    
+    if ((!filters[:date_from].nil?) && (!filters[:date_to].nil?))
+      logger.info "### entro entre"
+      date_f = filters[:date_from].to_datetime
+      date_t = filters[:date_to].to_datetime.since 1.day
+      @workorders = @workorders.where("workorders.created_at between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
+    end
+    
+    if filters[:date_from].nil? && (!filters[:date_to].nil?)
+      logger.info "### entro hasta"
+      date_from = filters[:date_to].to_datetime.since 1.day
+      @workorders = @workorders.where("workorders.created_at <= ? ",date_from.in_time_zone)
+    end  
+    
+    if ((!filters[:date_from].nil?) && (filters[:date_to].nil?))
+      logger.info "### entro desde"
+      date_from = filters[:date_from].to_datetime
+      @workorders = @workorders.where("workorders.created_at >= ? ",date_from.in_time_zone)
+    end 
+
+    if filters[:service_type_id]
+      @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
+    end
+    
+    if filters[:user].company
+      @workorders = @workorders.where("workorders.company_id = ?",filters[:user].company.id)
+    else
+      @workorders = @workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
+    end
+
+    @workorders.order("workorders.created_at desc")
+  end
+     
   
 end

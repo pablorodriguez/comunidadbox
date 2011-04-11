@@ -13,6 +13,7 @@ jQuery(document).ready( function(){
 			buttonImage: '/images/calendar.png',
 			buttonImageOnly: true
 		});
+	initAjaxPagination();
 });
 
 function submitForm(sort_column,direction){
@@ -20,3 +21,19 @@ function submitForm(sort_column,direction){
 	$("#direction").val(direction);
 	$("#filter").submit();
 }
+
+function initAjaxPagination(){
+  $(".pagination a").click(function(){
+    $.get(this.href,null,null,"script");
+    return false;
+  });
+};
+
+function addParamToUrl(url,elementId){
+  var element = $(elementId);
+  if (element.val()){
+      url = url + element.attr("id") + "=" + element.val() + "&";
+   }
+   return url;
+}
+

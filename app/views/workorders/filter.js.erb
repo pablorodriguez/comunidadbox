@@ -1,5 +1,6 @@
 if (<%=@work_orders.size%> > 0){
   $('#workorders').html("<%=escape_javascript(render(:partial=>'workorders',:locals=>{:clients=>@clients}))%>");
+  initAjaxPagination();
 }else{
   $("#workorders").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún servicio realizado."}))%>");
 }

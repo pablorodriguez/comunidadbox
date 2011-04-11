@@ -3,7 +3,6 @@
   %thead
     %tr
       %th Nombre
-      %th
       %th Dirección
       %th Mapa
       %th Teléfono
@@ -12,8 +11,6 @@
     %tr
       %td
         = link_to company.name,company_path(company),{:title => "Ver"}
-      %td
-        = is_active(company,activate_company_path(company))
       %td
         %label        
           = company.full_address
