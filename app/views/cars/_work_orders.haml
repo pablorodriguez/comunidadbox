@@ -21,8 +21,8 @@
         -if (work_order.open? && ((current_user.current_company == work_order.company) || (work_order.user == current_user)))
           = link_to image_tag('edit.png'), edit_workorder_path(work_order)
         = link_to_pdf work_order  
-      %td        
-        = work_order.created_at.strftime("%d/%m/%Y")
+      %td.number
+        = l work_order.created_at.to_date
       %td.number
         = number_to_currency work_order.total_price
       %td
@@ -31,4 +31,4 @@
         -if work_order.finish?
           = get_user_rank(current_user,work_order)
 %br
-= will_paginate @work_orders
+= will_paginate @work_orders,:params => @pages

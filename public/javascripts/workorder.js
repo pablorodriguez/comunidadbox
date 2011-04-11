@@ -29,11 +29,3 @@ function initAjaxPagination(){
   });
 };
 
-function addParamToUrl(url,elementId){
-  var element = $(elementId);
-  if (element.val()){
-      url = url + element.attr("id") + "=" + element.val() + "&";
-   }
-   return url;
-}
-

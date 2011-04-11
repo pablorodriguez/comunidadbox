@@ -272,7 +272,7 @@ body {
 }
 #navcopy {
   
-  margin-left:45px;
+  margin-left:20px;
   float:left;
 }
 #navmapa{
@@ -284,7 +284,7 @@ body {
 #footer li {
   float:left;
   margin-top:15px;
-  margin-right:20px;  
+  margin-right:5px;  
 
 }
 /*-----------------------------------------##------------------------------------------##-------------------------------*/
@@ -809,7 +809,7 @@ table.comboxtable, .comboxform,table.w{
 
 
 
-.comboxtable th{
+.comboxtable th , .comboxform tr.header{
   border-bottom: thin double black;
   background-color: #F2EAB7;
   text-align: center;
