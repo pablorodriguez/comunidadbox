@@ -35,5 +35,5 @@ production:
   database: comunidadbox_production
   pool: 5
   username: combox
-  password: combox5625
+  password: combox
   host: localhost
