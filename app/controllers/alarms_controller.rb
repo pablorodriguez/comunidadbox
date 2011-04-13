@@ -62,7 +62,7 @@ class AlarmsController < ApplicationController
           alarm.date_alarm = alarm.time.years.since(alarm.date_alarm)
         when 'Meses'
           alarm.date_alarm = alarm.time.months.since(alarm.date_alarm)
-        when 'Días'
+        when 'Dias'
           alarm.date_alarm = alarm.time.days.since(alarm.date_alarm)
         when 'Hs'
           alarm.date_alarm = alarm.time.hours.since(alarm.date_alarm)
