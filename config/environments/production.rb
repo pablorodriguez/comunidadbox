@@ -57,6 +57,5 @@ ComunidadBox::Application.configure do
     :password             => 'info5624',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
-  end
 
 end
