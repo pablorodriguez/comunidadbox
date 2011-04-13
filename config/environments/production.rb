@@ -44,7 +44,19 @@ ComunidadBox::Application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
+  I18n.default_locale = "es-AR"
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+    config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'comunidadbox.com',
+    :user_name            => 'info@comunidadbox.com',
+    :password             => 'info5624',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+  end
+
 end
