@@ -58,7 +58,7 @@ class AlarmsController < ApplicationController
     alarm = Alarm.find(params[:alarm])
     unless alarm.time == 0
       case alarm.time_unit
-        when 'Años'
+        when 'Anos'
           alarm.date_alarm = alarm.time.years.since(alarm.date_alarm)
         when 'Meses'
           alarm.date_alarm = alarm.time.months.since(alarm.date_alarm)
