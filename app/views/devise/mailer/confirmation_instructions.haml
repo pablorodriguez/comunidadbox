@@ -1,9 +1,13 @@
-<p>Bienvenido <%= @resource.email %>! a Comunidadbox</p>
-
-<p>Uds puede confirmar su cuenta con el siguiente link:</p>
-
-<p><%= link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
-
-<% if @resource.creator %>
-  Su clave temporal es <%=@resource.password%>
-<% end%>
+.box
+  %p
+    = image_tag "http://#{ActionMailer::Base::default_url_options[:host]}/images/logo.png"
+  %h1 Confirmación de Cuenta
+  %p
+    Bienvenido #{@resource.full_name} a Comunidad Box !!!
+  %p Uds puede confirmar su cuenta con el siguiente link:
+  %p= link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+  - if @resource.creator
+    Su clave temporal es #{@resource.password}
+  Muchas gracias
+  
+  Equipo de Comunidad Box
