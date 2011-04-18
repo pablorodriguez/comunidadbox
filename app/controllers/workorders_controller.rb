@@ -55,7 +55,7 @@ class WorkordersController < ApplicationController
     page = params[:page] || 1
     
     logger.info "### page #{params[:page]}"
-    per_page = 5
+    per_page = 10
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction

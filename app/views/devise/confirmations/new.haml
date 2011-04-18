@@ -1,12 +1,9 @@
-<h2>Resend confirmation instructions</h2>
-
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
-
-  <p><%= f.submit "Resend confirmation instructions" %></p>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+%h1
+  = vineta
+  Enviar instrucciones de confirmación
+- form_for resource_name, resource, :url => confirmation_path(resource_name) do |f|
+  %p= f.label :email
+  %p= f.text_field :email
+  %p= f.submit "Enviar Instrucciones",:class =>"btn_b"
+.clear
+= render :partial => "devise/shared/links"
