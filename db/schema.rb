@@ -165,12 +165,15 @@ ActiveRecord::Schema.define(:version => 20110228233114) do
     t.integer  "car_id"
     t.integer  "service_type_id"
     t.integer  "service_id"
-    t.string   "status"
+    t.integer  "service_done_id"
+    t.integer  "status"
+    t.integer  "km"
     t.date     "dueDate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "events", ["service_done_id"], :name => "events_service_done_id_fk"
   add_index "events", ["service_id"], :name => "events_service_id_fk"
 
   create_table "material_details", :id => false, :force => true do |t|
@@ -455,6 +458,7 @@ ActiveRecord::Schema.define(:version => 20110228233114) do
   add_foreign_key "company_services", "companies", :name => "company_services_company_id_fk"
   add_foreign_key "company_services", "service_types", :name => "company_services_service_type_id_fk"
 
+  add_foreign_key "events", "services", :name => "events_service_done_id_fk", :column => "service_done_id", :dependent => :delete
   add_foreign_key "events", "services", :name => "events_service_id_fk", :dependent => :delete
 
   add_foreign_key "material_service_types", "materials", :name => "material_service_types_material_id_fk"

@@ -3,20 +3,20 @@
   = vineta 
   Modificar Usuario
 = render 'shared/error_messages', :target => @user  
-= form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f|
+= form_for @user, :url => registration_path(resource_name), :html => { :method => :put } do |f|
   .contentleft
     -unless current_user.company
       %h1 ¿ Que tipo de usuario desea ser ?
-      %input{:type=>:radio,:class=>"radio",:value=>"final_user" ,:name=>"user_type",:id=>:fu,:checked =>"true"}
-      %label{:for =>"fu",:class=>:link}Usuario Final
+      = f.radio_button :type ,"fu",:checked => true,:class=>:radio
+      = f.label :type_fu, "Usuario Final",:class =>"link"
       %br
-      %input{:type=>:radio,:class=>"radio",:value=>"service_center",:name=>"user_type",:id=>:sc}
-      %label{:for =>"sc",:class=>:link} Prestador de Servicio
+      = f.radio_button :type, "sp",:class=>:radio
+      = f.label :type_sp, "Prestado de Servicio",:class =>"link"
     %ul.usr_menu
       %li.usr_menu_selected.usr_menu_link
         %a{:href=>"#",:id=>"0"} 
           Información Personal
-      %li.usr_menu_link
+      %li#li_info_ausr.usr_menu_link
         %a{:href=>"#",:id=>"1"}
           Dirección Personal
       %li#li_info_sc.usr_menu_link
@@ -33,27 +33,32 @@
         %table
           %tbody
             = render 'users/user_edit',:f => f
-      %h3
+      %h3#h_ausr_inf
         %a{:href=>"#"}Direccion Personal
       .personal_address      
         =f.fields_for :address do |a|
           = render 'users/user_address_fields', :f =>a
-      =f.fields_for :companies do |c|
-        %h3#h_info_sc
-          %a{:href=>"#"}Información del Prestador de Servicio
-        #d_info_sc.company_info
-          = render 'companies/form', :f => c
-        %h3#h_address_sc
-          %a{:href=>"#"}Direccion del Prestador de Servicio
-        #d_address_sc.company_address
-          = c.fields_for :address do |ad|
-            = render 'companies/company_address_fields', :ad => ad
-    = f.submit "Actualizar",:class =>"btn"
-    %br
-    %table
-      %tr
-        %td
-          Insatisfecho ? #{link_to "Cancelar mi cuenta", registration_path(resource_name), :confirm => "Esta Uds. seguro?", :method => :delete}.
-      %tr
-        %td    
-          = render :partial => "devise/shared/links"
+      -unless current_user.company
+        =f.fields_for :companies do |c|
+          %h3#h_info_sc
+            %a{:href=>"#"}Información del Prestador de Servicio
+          #d_info_sc.company_info
+            = render 'companies/form', :f => c
+          %h3#h_address_sc
+            %a{:href=>"#"}Direccion del Prestador de Servicio
+          #d_address_sc.company_address
+            = c.fields_for :address do |ad|
+              = render 'companies/company_address_fields', :ad => ad
+    #box
+      = f.submit "Actualizar",:class =>"btn"
+    .clear
+      %table
+        %tr
+          %td
+            Insatisfecho ?
+        %tr
+          %td
+            #{link_to "Cancelar mi cuenta", registration_path(resource_name), :confirm => "Esta Uds. seguro?", :method => :delete}. 
+        %tr
+          %td    
+            = render :partial => "devise/shared/links"

@@ -2,38 +2,42 @@ class ControlPanelsController < ApplicationController
    layout "application", :except => [:find_models]
     
   def index   
-    @company_services = company_services(current_user.current_company.id)
+    @company_services = current_user.company.service_type
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
     @eventos_rojo = Event.count(:all,
-                           :conditions => ["dueDate < ? and service_type_id IN (?) and status like ?", Time.now.months_since(1),@not_in,"Activa"],
+                           :conditions => ["dueDate < ? and service_type_id IN (?) and status = ?", Time.now.months_since(1),@not_in,Status::ACTIVE],
                            :include => ['service_type'],
                            :group => ['service_type'])
     
     @eventos_amarillo = Event.count(:all,
-                    :conditions => ["dueDate > ? AND dueDate < ? and service_type_id IN (?) and status like ?", Time.now.months_since(1),
-                      Time.now.months_since(2),@not_in,"Activa"],
+                    :conditions => ["dueDate > ? AND dueDate < ? and service_type_id IN (?) and status = ?", Time.now.months_since(1),
+                      Time.now.months_since(2),@not_in,Status::ACTIVE],
                     :include => ['service_type'],
                     :group => ['service_type'])
     
     @eventos_verde = Event.count(:all,
-                     :conditions => ["dueDate > ? and service_type_id IN (?) and status like ? ", Time.now.months_since(2),@not_in,"Activa"],
+                     :conditions => ["dueDate > ? and service_type_id IN (?) and status = ? ", Time.now.months_since(2),@not_in,Status::ACTIVE],
                      :include => ['service_type'],
                      :group => ['service_type'])
      
     @eventos_total = Event.count(:all,
-                            :conditions => ["service_type_id IN (?) and status like ?",  @not_in,"Activa"],
+                            :conditions => ["service_type_id IN (?) and status = ?",  @not_in,Status::ACTIVE],
                             :include => ['service_type'],
                             :group => ['service_type'])
     
-    @url_map = map_url_str @company_services,@eventos_rojo,@eventos_amarillo,@eventos_verde
     
-    @services_names= @service_data.inject(""){|result,service| result += "'#{service.name}',"}.chop
+    @services_names= @company_services.inject(""){|result,service| result += "'#{service.name}',"}.chop
     
     g_data="name: '> 2 Meses',data:["
     y_data="name:'1 < Meses < 2',data:["
     r_data="name:'Meses < 1',data:["
     
-    @service_data.each do |service|
+    @no_data=false
+    if (@eventos_verde.size == 0 && @eventos_amarillo.size == 0 && @eventos_rojo.size == 0)
+      @no_data=true
+    end
+    logger.info "### no data #{@no_data}"
+    @company_services.each do |service|
       g_data += "#{@eventos_verde[service] ? @eventos_verde[service]: 0},"
       y_data += "#{@eventos_amarillo[service] ? @eventos_amarillo[service]: 0},"
       r_data += "#{@eventos_rojo[service] ? @eventos_rojo[service] : 0},"
@@ -44,54 +48,8 @@ class ControlPanelsController < ApplicationController
     
     @series_data="[{#{g_data}]},{#{y_data}]},{#{r_data}]}]"
     
-    if @url_map
-      @url_map_json = @url_map + "&chof=json"    
-    end        
-     
   end
   
- 
-  
-  def map_url_str(services,e_r,e_a,e_v)
-    rdata="t:"
-    adata=""
-    vdata=""
-    labels = Array.new
-    @service_data = Array.new
-    services.each do |service|
-      unless (e_r[service].nil? && e_a[service].nil? && e_v[service].nil?)
-        rdata += "#{n(e_r[service])}," 
-        adata += "#{n(e_a[service])}," 
-        vdata += "#{n(e_v[service])}," 
-        labels << service.name 
-        @service_data << service
-      end
-    end
-    url ="http://chart.apis.google.com/chart"
-    if rdata != "t:"
-        @rdata = rdata.chomp!(",") + "|" + adata.chomp!(",") + "|" + vdata.chomp!(",")
-        labels_str = labels.reverse!.join("|")
-        @rdata.chomp!(",")
-        chm="N,FF0000,-1,,12|N,000000,0,,12,,c|N,000000,1,,12,,c|N,000000,2,,12,,c"
-        chco="FF9999,FFFFA0,A0FFA0" 
-        chbh="50,5,15"
-        chs="chs=500x" + ((65 * labels.size)+2).to_s
-        chxl="0:|" + labels_str
-        chxr="1,0,10"
-        chdl="< 1 Mes|1 < Mes < 2|> 2 Meses"
-        chxs="0,FF0000,18"
-        link = "#{url}?#{chs}&chd=#{@rdata}&chbh=#{chbh}&cht=bhs&chco=#{chco}&chm=#{chm}&chds=0,10&chxt=y&chdl=#{chdl}&chxl=#{chxl}&chxr=#{chxr}&chxs=#{chxs}"    
-    end
-    link
-  end
-  
-  def n(value)
-    if value == nil
-      return 0
-    else
-      return value
-    end
-  end
   
   def company_services(company_id)
     CompanyService.find(:all,:conditions=>["company_id= ?",company_id],

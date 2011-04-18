@@ -53,7 +53,9 @@ class WorkordersController < ApplicationController
 
   def index
     page = params[:page] || 1
-    per_page = 10
+    
+    logger.info "### page #{params[:page]}"
+    per_page = 5
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
@@ -67,7 +69,6 @@ class WorkordersController < ApplicationController
       service_type_id = nil
     end
     
-    logger.info "### date from #{params[:date_from]} is it null #{params[:date_from].nil?}"
     
     date_from = params[:date_from] ? nil : params[:date_from]
     date_to = params[:date_to] ? nil : params[:date_fo]

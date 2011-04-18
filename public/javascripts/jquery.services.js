@@ -29,7 +29,13 @@ jQuery(document).ready( function(){
 	
 	$(".status").change(updateWorkOrderTotalPrice);
 	 
+	$("#materials_list table tbody tr").live("click",selectMaterial);
 });
+
+function selectMaterial(){
+  var check = $(this).find(":checkbox");
+  check.attr('checked', !check.attr('checked'));
+}
 
 function addEmptyMaterial(element){
 	var div = $(element).parent().parent().parent().parent().parent()
@@ -187,6 +193,13 @@ function add_fields(link, association, content){
 	}
 	initMaterialItems();
 }
+
+function initMaterialsPagination(){
+  $("#materials .pagination a").click(function(){
+    $.get(this.href,null,null,"script");
+    return false;
+  });
+};
 
 function add_new_material_service_type(){ 
   var serviceTypeDiv= null; 

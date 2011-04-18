@@ -1,6 +1,6 @@
 .box
   %p
-    = image_tag "http://#{ActionMailer::Base::default_url_options[:host]}/images/logo.png"
+    = image_tag "logo.png"
   %h1 Confirmación de Cuenta
   %p
     Bienvenido #{@resource.full_name} a Comunidad Box !!!
@@ -10,5 +10,5 @@
   - if @resource.creator
     Su clave temporal es #{@resource.password}
   Muchas gracias
-  
+  %br
   Equipo de Comunidad Box

@@ -33,7 +33,7 @@
               = link_to "Prestadores de Servicios", all_companies_path
       / End 5 columns container
     / End 5 columns Item
-    - if user_signed_in?
+    - if user_signed_in? 
       %li
         %a.drop{:href => "#"} Accessos Rápidos
         / Begin 4 columns Item
@@ -41,21 +41,20 @@
           / Begin 4 columns container
           .col_1
             %ul.greybox
-              - if current_user.is_administrator
-                %li 
-                  = link_to "Buscar Automóviles", cars_path
-              - unless current_user.company
+              %li 
+                = link_to "Buscar Automóviles", cars_path
+              - if current_user.company
                 %li 
                   = link_to "Mis Automóviles", cars_path
-              - if current_user.is_administrator
                 %li 
                   = link_to "Buscar Cliente", clients_path
-          .col_1
-            %ul.greybox
-              %li
-                = link_to "Panel de control" , control_panels_path
-              %li
-                = link_to "Servicios Realizados" , workorders_path
+          - if current_user.company
+            .col_1
+              %ul.greybox
+                %li
+                  = link_to "Panel de control" , control_panels_path
+                %li
+                  = link_to "Servicios Realizados" , workorders_path
         / End 4 columns container
       / End 4 columns Item
     - if user_signed_in? && current_user.is_administrator

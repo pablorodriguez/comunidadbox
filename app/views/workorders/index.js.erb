@@ -1,6 +1,5 @@
 if (<%=@work_orders.size%> > 0){
   $("#workorders").html("<%=escape_javascript(render(:partial=>'workorders'))%>");
-  initAjaxPagination();
 }else{
   $("#workorders").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna orden de trabajo."}))%>");
 }

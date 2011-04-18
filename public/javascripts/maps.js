@@ -1,7 +1,7 @@
 var map;
 var geocoder;
 
-function initializeMap(zoom_param) {
+function initializeMap(zoom_param,address) {
 	if (zoom_param == null){
 		zoom_param = 8;
 	}
@@ -15,7 +15,11 @@ function initializeMap(zoom_param) {
 	  mapTypeControl: false,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	map = new google.maps.Map($("#map_canvas"), myOptions);
+	if (address){
+	 codeAddress(address,zoom);
+	}
+	 
 }
 
 function codeAddress(address,zoom,callBackFunction) {
@@ -27,13 +31,15 @@ function codeAddress(address,zoom,callBackFunction) {
 	          map: map, 
 	          position: results[0].geometry.location
 	      });
-		  if(zoom){
-			var b = results[0].geometry.location.b;
-			var c = results[0].geometry.location.c;
-			var latlng = new google.maps.LatLng(b,c);
-			map.setZoom(zoom);
-		  }
-		  callBackFunction(results);
+  		  if(zoom){
+    			var b = results[0].geometry.location.b;
+    			var c = results[0].geometry.location.c;
+    			var latlng = new google.maps.LatLng(b,c);
+    			map.setZoom(zoom);
+  		  }
+  		  if  (callBackFunction){
+  		    callBackFunction(results);
+  		  }
 	    } else {
 	      //alert("Geocode was not successful for the following reason: " + status);
 	    }

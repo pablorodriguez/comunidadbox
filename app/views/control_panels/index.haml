@@ -1,6 +1,4 @@
 - stylesheets 'control_panel'
-- stylesheets 'demo_page'
-- stylesheets 'demo_table'
 - javascript 'map_content'
 - javascript 'highcharts'
 
@@ -55,44 +53,9 @@
 .contentleft
   = render "service_type_list"
 .contentright
-  %h1 Vencimientos de Servicios
-  #control_panel{:style=>"display:none"}
-    %table.control-panel
-      %col{:width=>"60%"}
-      %col.rojo{:width=>"10%"}
-      %col.amarillo{:width=>"10%"}
-      %col.verde{:width=>"10%"}
-      %col{:width=>"10%"}
-      %thead
-        %th Tipo de Servicio
-        %th
-        %th
-        %th
-        %th Total        
-      %tbody
-        - links = ""
-        - for service in @service_data
-          %tr
-            - links << filter_alarms_control_panels_path(:st => service) << "|"
-            %td.dashboard=  link_to service.name, filter_alarms_control_panels_path(:st => service)
-            %td.dashboard.number= @eventos_rojo[service]
-            %td.dashboard.number= @eventos_amarillo[service]
-            %td.dashboard.number= @eventos_verde[service]
-            %td.dashboard.number= @eventos_total[service]
-      %tfoot
-        %tr
-          %td.dashboard Total
-          %td.dashboard.number= @eventos_rojo.values.sum
-          %td.dashboard.number= @eventos_amarillo.values.sum
-          %td.dashboard.number= @eventos_verde.values.sum
-          %td.dashboard.number= @eventos_total.values.sum
-  #graph.hide
-    -if @url_map_json	
-      %input{:id=>"json_url",:value=>@url_map_json,:type=>"hidden"}   
-      %input{:id=>"services_url",:value=>links.chomp!("|"),:type=>"hidden"}
-      %img{:src=>@url_map,:usemap=>"#notes"}
-      %map{:id=>"notes",:name=>'notes'}
-    -unless @url_map_json
-      No hay eventos para mostrar
-  #graph_container
+  -unless @no_data
+    %h1 Vencimientos de Servicios
+    #graph_container
+  -else
+    = render 'shared/message', :msg =>"No hay servicios a realizar"
     

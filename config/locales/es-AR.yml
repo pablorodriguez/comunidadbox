@@ -148,7 +148,7 @@
         confirmation: "no coincide con la confirmación"
         accepted: debe ser aceptado
         empty: "no puede estar vacío"
-        blank: no puede estar en blanco
+        blank: "no puede estar en blanco"
         too_long: "es demasiado largo (el máximo es de %{count} caracteres)"
         too_short: "es demasiado corto (el mánimo es de %{count} caracteres)"
         wrong_length: "no posee el largo correcto (debería ser de %{count} caracteres)"

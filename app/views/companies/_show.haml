@@ -1,25 +1,28 @@
 = hidden_field_tag :full_address, @company.full_address
 %table.service_table
   %tbody
+    %tr.header
+      %td{:colspan=>2} Información
     %tr
-      %td{:colspan=>2} Nombre
-    %tr  
-      %td{:colspan =>2}
+      %td Nombre
+      %td
         = @company.name
     %tr
+      %td Sitio Web
       %td
-        Sitio Web
-    %tr  
-      %td{:colspan =>2}
         = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
     %tr
       %td Teléfono
       %td
         = h @company.phone
+    %tr
+      %td Ranking
+      %td
+        = @company.user_rank
     -if @company.address
       = hidden_field_tag :full_address, @company.address.to_text
-      %tr
-        %td.table_header{:colspan=>2}
+      %tr.header
+        %td{:colspan=>2}
           Dirección
       %tr
         %td 
@@ -41,9 +44,10 @@
           %label{ :for => "zip" }Código Postal    
         %td
           = @company.address.zip
-- if user_signed_in? && current_user.company == @company          
-  = link_to image_tag("edit.png"),edit_company_path(@company),{:title =>"Modificar"}
+    
+- if user_signed_in? && current_user.own(@company)          
   = link_to image_tag("return.png"),companies_path
+  = link_to image_tag("edit.png"),edit_company_path(@company),{:title =>"Modificar"}
 - else
   = link_to_back all_companies_path
 

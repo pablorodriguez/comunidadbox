@@ -5,4 +5,7 @@
   #my_cars.contentleft
     =render :partial=>"search",:locals =>{:cars=>[],:table_id =>:sort_table}
   #cars.contentright
-    =render :partial=>"cars",:locals =>{:cars=>@company_cars,:table_id =>:sort_table}
+    - if @company_cars.size > 0
+      =render :partial=>"cars",:locals =>{:cars=>@company_cars,:table_id =>:sort_table}
+    - else
+      = render 'shared/message', :msg =>"No hay ningún automóvil"

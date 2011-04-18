@@ -13,7 +13,6 @@ jQuery(document).ready( function(){
 			buttonImage: '/images/calendar.png',
 			buttonImageOnly: true
 		});
-	initAjaxPagination();
 });
 
 function submitForm(sort_column,direction){

@@ -1,0 +1,17 @@
+table.service_table{
+  width: 100%;
+}
+
+.service_table th , .service_table tr.header{
+  border-bottom: thin double black;
+  background-color: #F2EAB7;
+  text-align: center;
+  padding: 3px;
+  font-weight: bold;
+}
+
+
+
+.service_table td{
+}
+

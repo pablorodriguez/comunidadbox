@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
 
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
-
+  
+  attr :type, true
+  
   has_many :service_filters,:order =>'name'
   has_many :cars
   has_many :authentications
@@ -26,7 +28,7 @@ class User < ActiveRecord::Base
   
   has_many :alarms, :dependent => :destroy
 
-  validates_presence_of :email
+  #validates_presence_of :email
   validates_uniqueness_of :email, :case_sensitive => false
 
   accepts_nested_attributes_for :address,:reject_if =>lambda {|a| a[:street].blank?}
@@ -37,6 +39,19 @@ class User < ActiveRecord::Base
   def current_company
     return company if company
     return employer if employer
+  end
+  
+  def own company
+    if company.id == company.id
+      return true
+    end
+    
+    companies.each do |c|
+      if c.id == company.id
+        return true
+      end
+    end
+    return false
   end
   
   def company

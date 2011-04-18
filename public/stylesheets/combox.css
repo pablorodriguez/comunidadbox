@@ -272,12 +272,12 @@ body {
 }
 #navcopy {
   
-  margin-left:20px;
+  margin-left:90px;
   float:left;
 }
 #navmapa{
   float:right;
-  margin-left:100px;
+  margin-left:15px;
 
 }
 
@@ -475,33 +475,6 @@ ul{
   color:#999;
 }
 
-
-
-
-/*-----------------------------------------##FIN MENSAJE DE ERROR##-------------------------------*/
-
-/*-----------------------------------------##HTML NUEVO USUARIO##-------------------------------*/
-/*-----------------------------------------##LAYOUT##-------------------------------*/
-.nusercontent {
-  width:843px;
-  margin-top:26px;
-  height:500px;
-}
-
-.nuserleft{
-  width:350px;
-  height:500px;
-  float:left;
-  background-image:url(/images/separador3.png);
-  background-position:right;
-  background-repeat:no-repeat;
-}
-
-.nuserright{
-  width:480px;
-  height:500px;
-  float:right;
-}
 
 /*-----------------------------------------##FIN LAYOUT##-------------------------------*/
 /*-----------------------------------------##IMAGENES##-------------------------------*/
@@ -806,9 +779,6 @@ table.comboxtable, .comboxform,table.w{
   width: 100%;
 }
 
-
-
-
 .comboxtable th , .comboxform tr.header{
   border-bottom: thin double black;
   background-color: #F2EAB7;
@@ -983,7 +953,6 @@ table.tabla_datos_automovil tbody tr td p.edit_in_place{
   width:338px;
   height:550px;
   float:left;
-  background-image:url(/images/separador3.png);
   background-repeat:no-repeat;
   background-position:right top;
 }
@@ -1175,8 +1144,11 @@ margin-top:2px;
 .popup #botones {
   width:600px;
   clear:both;
-  margin-left:25px;
-  
+  margin-left:25px; 
+}
+
+.clear{
+  clear:both;
 }
 
 .popup #cancelar{
@@ -1297,6 +1269,8 @@ ol{
   background-color:#F2EAB7;
   margin: 5px;
   padding: 5px;
+  width: 570px;
+  height: 600px;
 }
 
 .input_img{

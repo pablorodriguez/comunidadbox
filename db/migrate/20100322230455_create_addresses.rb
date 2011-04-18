@@ -15,8 +15,8 @@ class CreateAddresses < ActiveRecord::Migration
     end
     
     add_foreign_key(:addresses,:states)
-    add_foreign_key(:addresses,:users)
-    add_foreign_key(:addresses,:companies)
+    add_foreign_key(:addresses,:users,:dependent => :delete)
+    add_foreign_key(:addresses,:companies,:dependent => :delete)
     
   end
 

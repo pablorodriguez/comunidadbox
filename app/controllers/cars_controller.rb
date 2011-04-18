@@ -73,8 +73,14 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     page = params[:page] || 1
-    @work_orders = Workorder.paginate(:all,:per_page=>13,:page =>page,:order =>"created_at desc",:conditions =>["car_id = ?",params[:id]])
-    @events = @car.future_events.paginate(:per_page=>10,:page =>1)  
+    wo_page = params[:wo_page] || 1
+    e_page = params[:e_page] || 1
+    
+    @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>10,:page =>wo_page,:order =>"created_at desc")
+    @events = @car.future_events.paginate(:per_page=>10,:page =>e_page)
+    
+    @pages = {:wo_page => wo_page,:e_page => e_page}
+    
     respond_to do |format|
       format.html # show.html.erb
       format.js

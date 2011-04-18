@@ -39,5 +39,7 @@ module ComunidadBox
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    # Set your environment here.
+    # ENV["RAILS_ENV"] ||= "production"
   end
 end

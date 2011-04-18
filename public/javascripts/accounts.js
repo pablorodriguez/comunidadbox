@@ -1,22 +1,19 @@
 var sc_hide =["#li_info_sc","#li_info_asc","#h_info_sc","#h_address_sc"];
-var usr_hide=["#li_info_car","#li_info_ausr","#h_car_info","#h_ausr_inf"]
+var usr_hide=["#li_info_car","#li_info_ausr","#h_car_info","#h_ausr_inf"];
 jQuery(document).ready(function(){
   for(var i = 0; i < sc_hide.length; i++)
       $(sc_hide[i]).hide();
 	$('.brand').change(searchModel);
 	$( "#user_data" ).accordion();
 	$(".usr_menu_link").click(changeAccountTabs);
-	var user_type = $('input[name="user_type"]')[0];
-	if (user_type){
-    user_type.checked = true;	  
-	}
-	
 	$("input[type=radio]").change(updateAccountUserType);
+	updateAccountUserType();
 });
 
 function updateAccountUserType(){
-  var id = $(this).attr("id");
-  if (id == "sc"){
+  var id = $("input[name='user[type]']:checked").val();
+  
+  if (id == "sp"){
     $("#company_data").show();
     for(var i = 0; i < sc_hide.length; i++){
       $(sc_hide[i]).show();
@@ -28,10 +25,12 @@ function updateAccountUserType(){
       $(sc_hide[i]).hide();
       $(usr_hide[i]).show();
     }
+    //$(".personal_address").find("input").val("");
+    //$(".personal_address").find("select").val("");
   }
-  $( "#user_data" ).accordion();
-  
+  $("#user_data").accordion( "activate" ,0);
 }
+
 function changeAccountTabs(){
   var item = $(this)
   var ul = item.parent();

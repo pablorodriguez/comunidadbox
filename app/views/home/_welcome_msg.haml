@@ -4,6 +4,9 @@
     %span#cont1
       Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Disfrutelo!
       %br
+    - if user_signed_in?
+      - if current_user.company && current_user.company.service_type.empty?
+        = link_to "Por favor registre sus tipos de servicios", service_types_companies_path
     - unless user_signed_in?
       %span
         Si usted ya es usuario por favor    

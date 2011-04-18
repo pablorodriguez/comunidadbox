@@ -1,7 +1,7 @@
-- stylesheets 'jquery.ui.base.css'
-- stylesheets 'jquery.ui.theme.css'
+- stylesheets 'jquery-ui-1.8.11.custom.css'
 - javascript 'workorder'
-
+- javascript 'pagination'
+- javascript 'jquery.ba-url.min'
 %all-workorder
   %h1
     = vineta 
@@ -9,4 +9,7 @@
   .contentleft
     = render 'search'
   #workorders.contentright
-    = render 'workorders'
+    - if @work_orders.size > 0
+      = render 'workorders'
+    - else
+      = render 'shared/message', :msg =>"No hay servicios realizados"

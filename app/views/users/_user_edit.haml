@@ -1,9 +1,29 @@
-= render :partial =>'users/user_row',:locals  =>{:f => f}
-%tr
-  %td Clave Actual
-  %td
-    = f.password_field :current_password
-%tr
-  %td
-  %td
-    <i>(necesitamos su clave actual <br>para confirmar los cambios)</i>
+%tbody
+  %tbody
+    %tr
+      %td
+        %label{ :for => "login" }Nombre
+      %td        
+        = f.text_field :first_name
+    %tr
+      %td
+        %label{ :for => "login" }Apellido
+      %td
+        = f.text_field :last_name
+    %tr
+      %td
+        %label{ :for => "email" }Email *
+      %td
+        = f.text_field :email
+    %tr
+      %td
+        %label{ :for => "password" }Clave *
+      %td
+        = f.password_field :password
+    %tr
+      %td    
+        Confirmar
+        %br
+        Clave *
+      %td
+        = f.password_field :password_confirmation

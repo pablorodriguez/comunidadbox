@@ -76,7 +76,7 @@ class Workorder < ActiveRecord::Base
     event.km = self.car.km + service_type.kms
     event.service_type=service_type
     event.service = service
-    event.status="Activa"
+    event.status= Status::ACTIVE
     event.dueDate = months.month.since
     event.save
   end

@@ -5,12 +5,12 @@
 = render 'shared/error_messages', :target => @user
 = form_for @user, :url => user_registration_path do |f|
   .contentleft
-    %h1 ¿ Que tipo de usuario desea ser ?
-    %input{:type=>:radio,:class=>"radio",:value=>"final_user" ,:name=>"user_type",:id=>:fu,:checked =>"true"}
-    %label{:for =>"fu",:class=>:link}Usuario Final
+    %h1 ¿ Que quieres ser ?
+    = f.radio_button :type ,"fu",:checked => true,:class=>:radio
+    = f.label :type_fu, "Usuario Final",:class =>"link"
     %br
-    %input{:type=>:radio,:class=>"radio",:value=>"service_center",:name=>"user_type",:id=>:sc}
-    %label{:for =>"sc",:class=>:link} Prestador de Servicio
+    = f.radio_button :type, "sp",:class=>:radio
+    = f.label :type_sp, "Prestado de Servicio",:class =>"link"
     %ul.usr_menu
       %li.usr_menu_selected.usr_menu_link
         %a{:href=>"#",:id=>"0"} 
