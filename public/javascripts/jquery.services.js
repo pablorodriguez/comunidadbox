@@ -30,6 +30,12 @@ jQuery(document).ready( function(){
 	$(".status").change(updateWorkOrderTotalPrice);
 	 
 	$("#materials_list table tbody tr").live("click",selectMaterial);
+	
+	$(".pagination a").live("click",function(){
+    $.getScript(this.href);
+    return false;
+  });
+  
 });
 
 function selectMaterial(){
