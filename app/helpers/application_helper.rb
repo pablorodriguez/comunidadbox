@@ -8,6 +8,10 @@ module ApplicationHelper
     link_to_function title,"submitForm('#{column}' ,'#{direction}')",{:class => css_class}
   end
   
+  def current_col_css(column)
+    column == sort_column ? "current_col" : ""
+  end
+  
   def vineta
      image_tag("/images/vineta_4.png", :size => "39x21", :alt => "",:class=>:ordencontentimg)
   end

@@ -3,28 +3,28 @@
 %table.comboxtable
   %thead
     %tr
-      %th Dominio
-      %th Marca
-      %th Modelo
-      %th Año
-      %th Km
-      %th Km Promedio Mensual
-      %th
+      %th{:width=>"10%"} Dominio
+      %th{:width=>"15%"} Marca
+      %th{:width=>"15%"} Modelo
+      %th{:width=>"5%"} Año
+      %th{:width=>"10%"} Km
+      %th{:width=>"10%"} Km Promedio Mensual
+      %th{:width=>"5%"}
   %tbody
-  - for car in cars
-    %tr
-      %td
-        = link_to h(car.domain),car
-      %td
-        = h car.brand.name
-      %td
-        = h car.model.name
-      %td
-        = h car.year
-      %td
-        = h car.km
-      %td
-        = h car.kmAverageMonthly
-      %td
-        = link_to image_tag('new.png'), new_workorder_path(:company_id=>@company_id,:car_id =>car),{:title=>"Nuevo Servicio"}
+    - for car in cars
+      %tr
+        %td
+          = link_to h(car.domain),car
+        %td
+          = h car.brand.name
+        %td
+          = h car.model.name
+        %td.number
+          = h car.year
+        %td.number
+          = h car.km
+        %td.number
+          = h car.kmAverageMonthly
+        %td.center
+          = link_to image_tag('new.png'), new_workorder_path(:company_id=>@company_id,:car_id =>car),{:title=>"Nuevo Servicio"}
 		

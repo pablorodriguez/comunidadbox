@@ -46,6 +46,11 @@ class CarsController < ApplicationController
     render :text => new_value
   end
   
+  def my
+    @cars = current_user.cars
+    logger.info "### car size #{@cars.size}"
+  end
+  
   def search
     domain = params[:car][:domain]
     @company_id = params[:company_id]

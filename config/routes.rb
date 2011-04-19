@@ -109,6 +109,7 @@ ComunidadBox::Application.routes.draw do
       post :search
       post :update_km
       post :update_km_avg
+      get :my
     end
   end
   

@@ -21,10 +21,3 @@ function submitForm(sort_column,direction){
 	$("#filter").submit();
 }
 
-function initAjaxPagination(){
-  $(".pagination a").click(function(){
-    $.get(this.href,null,null,"script");
-    return false;
-  });
-};
-

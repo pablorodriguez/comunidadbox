@@ -1,6 +1,9 @@
 %h1 Listado de Servicios Realizados
 %table#sort_table.comboxtable
   %thead
+    %col{:class=>current_col_css("cars.domain")}
+    %col
+    %col{:class=>current_col_css("workorders.created_at")}
     %tr
       %th{:width=>"10%"}
         = sortable "cars.domain","Dominio"
@@ -8,7 +11,7 @@
       - unless current_user.company
         %th Empresa
       %th{:width=>"10%"}
-        = sortable "created_at", "Realizado"
+        = sortable "workorders.created_at", "Realizado"
       %th{:width=>"10%"} Total
       %th{:width=>"10%"} Estado
       %th{:width=>"5%"} Calif. empresa

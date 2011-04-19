@@ -1,0 +1,4 @@
+- if @cars.size > 0
+  =render :partial=>"cars",:locals =>{:cars=>@cars,:table_id =>:sort_table}
+- else
+  = render 'shared/message', :msg =>"No hay ningún automóvil"

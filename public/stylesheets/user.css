@@ -10,8 +10,32 @@ table.service_table{
   font-weight: bold;
 }
 
-
+td.center{
+  text-align: center;
+}
 
 .service_table td{
+}
+
+.current_col{
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-color: #FCF5CC;
+}
+
+.current{
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-color: #F2EAB7;
+}
+
+.asc{
+  background-image:url(/images/up.gif);
+}
+
+.desc{
+  background-image:url(/images/down.gif);
 }
 

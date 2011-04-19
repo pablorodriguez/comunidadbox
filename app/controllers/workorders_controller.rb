@@ -18,15 +18,14 @@ class WorkordersController < ApplicationController
     @work_order.remove_service @id.to_i
   end
   
-  def filter
+  def filter222
     page = params[:page] || 1
     per_page = 10
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
-    logger.info "### date from [#{params[:date_from]}] is it null #{params[:date_from].nil?} is it empty #{params[:date_from].empty?}"
-    logger.info "### date to [#{params[:date_to]}] is it null #{params[:date_to].nil?} is it empty #{params[:date_to].empty?}"
+    @company_services = current_user.company.company_service
     
     date_from = params[:date_from].empty? ? nil : params[:date_from]
     date_to = params[:date_to].empty? ? nil : params[:date_fo]
@@ -48,34 +47,28 @@ class WorkordersController < ApplicationController
     end  
       
     @workorders = Workorder.find_by_params(@filters)
-    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)  
+    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page).order(order_by)
   end
 
   def index
     page = params[:page] || 1
     
-    logger.info "### page #{params[:page]}"
+    @company_services = current_user.company.company_service.map{|s| s.service_type}
     per_page = 10
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
-    if params[:service_type]
-      service_type_id = params[:service_type][:id]
-    end
     
-    if params[:service_type_id]
-      service_type_id = params[:service_type_id]
-    else
-      service_type_id = nil
-    end
+    logger.info "### service type params #{params[:service_type_id]}"
     
+    service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : nil
     
-    date_from = params[:date_from] ? nil : params[:date_from]
-    date_to = params[:date_to] ? nil : params[:date_fo]
+    date_from = (params[:date_from] && (!params[:date_from].empty?)) ? params[:date_from] : nil
+    date_to = (params[:date_to] && (!params[:date_to].empty?)) ? params[:date_fo] : nil
       
     @workorders = Workorder.find_by_params(:date_from => date_from,:date_to =>date_to,
       :domain => params[:domain], :service_type_id => service_type_id ,:user => current_user)    
-    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)  
+    @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
       format.html
       format.js { render :layout => false}
