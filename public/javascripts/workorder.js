@@ -15,6 +15,10 @@ jQuery(document).ready( function(){
 		});
 });
 
+
+
+
+
 function submitForm(sort_column,direction){
 	$("#sort").val(sort_column);
 	$("#direction").val(direction);

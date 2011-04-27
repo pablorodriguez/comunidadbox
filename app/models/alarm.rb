@@ -17,12 +17,5 @@ class Alarm < ActiveRecord::Base
     [ 'Desactivado' , 'Desactivado' ]
   ]
   
-  RANK_VALUES =[
-    ["Muy Malo (1)" ,1],
-    ["Malo (2)",2],
-    ["Regular (3)",3],
-    ["Muy Bueno (4)",4],
-    ["Excelente (5)",5]
-  ]
 end
 

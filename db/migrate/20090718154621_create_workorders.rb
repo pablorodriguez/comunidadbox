@@ -5,8 +5,6 @@ class CreateWorkorders < ActiveRecord::Migration
       t.references :company
       t.references :car
       t.references :user
-      t.integer :user_rank_id
-      t.integer :company_rank_id
       t.string :status,:limit => 50
       t.timestamps
     end

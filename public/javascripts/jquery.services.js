@@ -3,6 +3,7 @@ var materialCodePattern = /\[\S*\]/;
 var numberPattern = /[0-9]/;
 serviceRow=0;
 jQuery(document).ready( function(){
+  
 	$(".text_lable").each(function(){
 		$(this).disable();
 	});
@@ -16,7 +17,8 @@ jQuery(document).ready( function(){
 	
 	$("#km_actual").editInPlace({
  		url:url_km,
-		params:param_values
+		params:param_values,
+		callback: update_km_avg
  	});
 	
 	$("#km_avg").editInPlace({
@@ -37,7 +39,13 @@ jQuery(document).ready( function(){
   });
   
 });
-
+function update_km_avg(event){
+  var url_km = $("#url_update_km").val();
+  var domain = $("#domain").html().trim();
+  var value = $(this).html().trim();
+  url_km = url_km + "?domain=" + domain + "&update_value=" + value;
+  $.getScript(url_km);
+}
 function selectMaterial(){
   var check = $(this).find(":checkbox");
   check.attr('checked', !check.attr('checked'));

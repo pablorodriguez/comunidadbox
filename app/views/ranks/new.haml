@@ -1,23 +1,8 @@
-%h1= pagetitle
--form_for(@rank) do |f|
-  = render 'shared/error_messages', :target => @rank
-  =hidden_field_tag 'wo_id',@wo_id
-  =hidden_field_tag 'cat', @cat
-  %table
-    %tr
-      %td
-        %label Calificacion:
-      %td
-        = f.select :cal, Alarm::RANK_VALUES
-    %tr
-      %td{:valign=>"top"}
-        %label Comentario:
-      %td
-        = f.text_area :comment , :cols=>30 ,:rows=>5
-    %tr
-      %td
-      %td
-        = f.submit 'Calificar'
-%br
-  = link_to_back
- 
+#rank_info
+  %h1
+    = vineta
+    Calificar servicio realizado
+  .contentleft
+    = render "form"
+  .contentright
+    = render "workorders/show"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110228233114) do
+ActiveRecord::Schema.define(:version => 20110423143341) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -433,15 +433,16 @@ ActiveRecord::Schema.define(:version => 20110228233114) do
     t.string   "status",          :limit => 50
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "km"
   end
 
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
-  add_foreign_key "addresses", "companies", :name => "addresses_company_id_fk"
+  add_foreign_key "addresses", "companies", :name => "addresses_company_id_fk", :dependent => :delete
   add_foreign_key "addresses", "states", :name => "addresses_state_id_fk"
-  add_foreign_key "addresses", "users", :name => "addresses_user_id_fk"
+  add_foreign_key "addresses", "users", :name => "addresses_user_id_fk", :dependent => :delete
 
   add_foreign_key "alarms", "users", :name => "alarms_user_id_fk", :dependent => :delete
 
@@ -453,9 +454,9 @@ ActiveRecord::Schema.define(:version => 20110228233114) do
   add_foreign_key "cars", "users", :name => "cars_user_id_fk", :dependent => :delete
 
   add_foreign_key "companies", "countries", :name => "companies_country_id_fk"
-  add_foreign_key "companies", "users", :name => "companies_user_id_fk"
+  add_foreign_key "companies", "users", :name => "companies_user_id_fk", :dependent => :delete
 
-  add_foreign_key "company_services", "companies", :name => "company_services_company_id_fk"
+  add_foreign_key "company_services", "companies", :name => "company_services_company_id_fk", :dependent => :delete
   add_foreign_key "company_services", "service_types", :name => "company_services_service_type_id_fk"
 
   add_foreign_key "events", "services", :name => "events_service_done_id_fk", :column => "service_done_id", :dependent => :delete

@@ -9,12 +9,20 @@ table.service_table{
   padding: 3px;
   font-weight: bold;
 }
+.total{
+ font-weight: bold;
+ text-align: right;
+}
 
 td.center{
   text-align: center;
 }
 
 .service_table td{
+}
+
+.service_table td.header{
+  background-color: #FCF5CC;
 }
 
 .current_col{
@@ -38,4 +46,36 @@ td.center{
 .desc{
   background-image:url(/images/down.gif);
 }
+
+.star_select{
+  background-image: url(/images/star_select.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  height:16px;
+  width: 16px;
+  float: left;
+}
+
+.star{
+  background-image: url(/images/star.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  height:16px;
+  width: 16px;
+  float: left;
+}
+
+.ajax {
+    float: left;
+    height: 11px;
+    margin-top: 3px;
+    width: 16px;
+}
+
+.usr_rank_stars{
+  float: right;
+}
+
+
+
 

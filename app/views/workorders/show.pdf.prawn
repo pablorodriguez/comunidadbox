@@ -4,7 +4,7 @@ user = car.user
 
 pdf.text "Comunidad Box", :size=>25,:style =>:bold,:align =>:center
 pdf.text "Estimado #{user.full_name}"
-pdf.text "Muchas gracias por usar Comunidad Box, uds a realizado una servicio en nuestra red de prestadores"
+pdf.text "Muchas gracias por usar Comunidad Box, ud. a realizado una servicio en nuestra red de prestadores"
 pdf.move_down(15)
 pdf.text "Prestador de Servicio: #{@work_order.company.name}", :size=>20,:style =>:bold
 pdf.text "Servicio Nro:#{@work_order.id}, Estado :#{@work_order.status}, Realizado: #{l @work_order.created_at.to_date}", :size=>14,:style =>:bold
@@ -15,7 +15,7 @@ pdf.text "Dirección: #{address.street}, #{address.zip}, #{address.name}"
 pdf.text "Operario: #{@work_order.user.full_name}"
 pdf.move_down(20)
 pdf.text "Automovil: #{car.domain}",:size=>20,:style =>:bold
-pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name} ,Año: #{car.year} ,Km: #{car.km}"
+pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name} ,Año: #{car.year} ,Km: #{@work_order.km}, Km. Actual: #{car.km}"
 pdf.text "Usuario: #{user.full_name}" 
 pdf.move_down(15)
 

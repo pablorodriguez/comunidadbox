@@ -3,9 +3,22 @@ class Workorder < ActiveRecord::Base
   belongs_to :car
   belongs_to :company
   belongs_to :user
-  belongs_to :user_rank, :class_name => 'Rank',:foreign_key => 'user_rank_id'
-  belongs_to :company_rank,:class_name =>'Rank', :foreign_key => 'company_rank_id'
-
+  has_many :ranks
+  
+  def type(type)
+    ranks.select{|r| r.type_rank == type}.first
+  end  
+  
+  def user_rank
+    type 1
+  end  
+  
+  def company_rank
+    type 2
+  end
+    
+  
+  
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   #validates_presence_of :services
   
@@ -109,7 +122,7 @@ class Workorder < ActiveRecord::Base
     
     domain =  filters[:domain] || ""
     
-    @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%").joins(:services => :material_services)
+    @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%")
     
     if ((!filters[:date_from].nil?) && (!filters[:date_to].nil?))
       looger.info "### entro en between"

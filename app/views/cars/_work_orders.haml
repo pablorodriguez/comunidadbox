@@ -3,32 +3,30 @@
 %table#sort_table.comboxtable
   %thead
     %tr
-      %th{:width=>"10%"} Detalle
-      %th{:width=>"20%"} Empresa
-      %th{:width=>"10%"} Estado
+      %th{:width=>"32%"} Detalle
+      %th{:width=>"16%"} Empresa
       %th{:width=>"10%"} Realizado
       %th{:width=>"10%"} Total
-      %th{:width=>"5%"} Calif. empresa
-      %th{:width=>"5%"} Calif. usuario
+      %th{:width=>"5%"} Estado
   - for work_order in @work_orders
     %tr
       %td
-        = link_to work_order.detail, work_order
+        - work_order.services.each do |s|
+          = link_to s.service_type.name, work_order
+          %br
+        #rank.rank{:id =>"wo_#{work_order.id}"}          
+          = render 'ranks/rank',:workorder => work_order
       %td
         = work_order.company.name
-      %td
-        = show_status work_order.status
-        -if (work_order.open? && ((current_user.current_company == work_order.company) || (work_order.user == current_user)))
-          = link_to image_tag('edit.png'), edit_workorder_path(work_order)
-        = link_to_pdf work_order  
       %td.number
         = l work_order.created_at.to_date
       %td.number
         = number_to_currency work_order.total_price
       %td
-        = get_company_rank(current_user,work_order)
-      %td
-        -if work_order.finish?
-          = get_user_rank(current_user,work_order)
+        = show_status work_order.status
+        -if (work_order.open? && ((current_user.current_company == work_order.company) || (work_order.user == current_user)))
+          = link_to image_tag('edit.png'), edit_workorder_path(work_order)
+        = link_to_pdf work_order  
+
 %br
 = will_paginate @work_orders,:params => @pages

@@ -118,6 +118,7 @@ class WorkordersController < ApplicationController
   def create
     @work_order = Workorder.new(params[:workorder])
     #@work_order.company = current_user.current_company
+    @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     saveAction =false
     Workorder.transaction do

@@ -1,4 +1,46 @@
 module WorkOrderHelper
+  
+  def show_rank(work_order,rank=:company)
+    html=""
+    title ="Calificacion de Empresa: "
+    if (rank == :company)
+      cssLink = current_user.company ? "link":""
+    else  
+      cssLink = current_user.company.nil? ? "link":""
+    end
+    
+    
+    cssStarSelect = "star_select #{cssLink}"
+    cssStar = "star #{cssLink}"
+    
+    if rank == :company
+      css ="comp_rank_stars"
+      cal = work_order.company_rank ? work_order.company_rank.cal : 0
+    else
+      css ="usr_rank_stars"  
+      cal = work_order.user_rank ? work_order.user_rank.cal : 0
+      title ="Calificacion de Usuario: "
+    end
+    
+    
+    if cal > 0
+      html = content_tag(:div,"",:class =>cssStarSelect,:id =>1,:title =>title + Rank::VALUES[1])
+      (cal-1).times do |n|
+        html << content_tag(:div,"",:class =>cssStarSelect,:id =>n+2,:title =>title + Rank::VALUES[n+2])
+      end
+      (5-cal).times do |n|
+        html << content_tag(:div,"",:class =>cssStar,:id =>n+cal+1,:title =>title + Rank::VALUES[n+cal+1])
+      end
+    else
+      html = content_tag(:div,"",:class =>cssStar,:id =>1,:title =>title + Rank::VALUES[1])
+      4.times do |n|
+        html << content_tag(:div,"",:class =>cssStar,:id =>n+2,:title =>title + Rank::VALUES[n+2])
+      end
+    end
+    
+    return content_tag(:div, html,:class =>css)
+  end
+  
   def get_company_rank(current_user,work_order)
     if work_order.finish?
       if(work_order.company_rank_id)

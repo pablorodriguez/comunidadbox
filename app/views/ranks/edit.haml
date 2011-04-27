@@ -1,19 +1,15 @@
-<h1>Editing rank</h1>
-
-<% form_for(@rank) do |f| %>
-
-  <p>
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
-  </p>
-  <p>
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @rank %> |
-<%= link_to 'Back', ranks_path %>
+%h1 Editing rank
+- form_for(@rank) do |f|
+  %p
+    = f.label :cal
+    %br/
+    = f.text_field :cal
+  %p
+    = f.label :comment
+    %br/
+    = f.text_area :comment
+  %p
+    = f.submit 'Update'
+= link_to 'Show', @rank
+|
+\#{link_to 'Back', ranks_path}

@@ -1,0 +1,20 @@
+-form_for(@rank) do |f|
+  = render 'shared/error_messages', :target => @rank
+  =hidden_field_tag 'wo_id',@work_order.id
+  =hidden_field_tag 'cat', @cat
+  %table
+    %tr
+      %td
+        %label Calificacion
+    %tr
+      %td
+        = f.select :cal, Alarm::RANK_VALUES,{:class =>"input_short"}
+    %tr
+      %td
+        %label Comentario
+    %tr  
+      %td
+        = f.text_area :comment , :cols=>18 ,:rows=>5
+    %tr
+      %td{:colspan=>2}
+        = f.submit 'Calificar',:class =>:btn

@@ -16,6 +16,18 @@ class Car < ActiveRecord::Base
     Event.where("dueDate >= ? and car_id = ?",Time.now,self.id)
   end
   
+  def update_km(new_km)
+    months = ((Time.now.to_i - self.updated_at.to_i).to_f / Event::MONTHS_IN_SEC).round
+    if months > 0
+      km_dif = new_km - self.km
+      new_avg = (km_dif) / months
+      puts "M #{months} KM dif #{km_dif} N Avg #{new_avg}"
+      self.kmAverageMonthly = new_avg
+      self.km = new_km
+      end
+    
+  end
+  
   def update_events
     future_events.each do |event|
       months = (event.km - km) / kmAverageMonthly

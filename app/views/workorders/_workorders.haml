@@ -1,28 +1,32 @@
 %h1 Listado de Servicios Realizados
 %table#sort_table.comboxtable
+  = hidden_field_tag :new_rank_url, ranks_path
+  
   %thead
-    %col{:class=>current_col_css("cars.domain")}
-    %col
-    %col{:class=>current_col_css("workorders.created_at")}
+    %colbroup
+      %col{:class=>current_col_css("cars.domain")}
+      %col
+      %col{:class=>current_col_css("workorders.created_at")}
     %tr
       %th{:width=>"10%"}
         = sortable "cars.domain","Dominio"
-      %th{:width=>"20%"} Detalle
+      %th{:width=>"30%"} Detalle
       - unless current_user.company
         %th Empresa
-      %th{:width=>"10%"}
+      %th{:width=>"12%"}
         = sortable "workorders.created_at", "Realizado"
       %th{:width=>"10%"} Total
-      %th{:width=>"10%"} Estado
-      %th{:width=>"5%"} Calif. empresa
-      %th{:width=>"5%"} Calif. usuario
+      %th{:width=>"8%"} Estado
   - for work_order in @work_orders
     %tr
       %td
         = link_to work_order.car.domain, work_order.car
       %td
-        = link_to work_order.detail, work_order
-        
+        - work_order.services.each do |s|
+          = link_to s.service_type.name ,work_order
+          %br
+        #rank.rank{:id =>"wo_#{work_order.id}"}          
+          = render 'ranks/rank',:workorder => work_order
       - unless current_user.company
         %td
           = work_order.company.name
@@ -35,11 +39,5 @@
         -if work_order.open?
           = link_to image_tag('edit.png'), edit_workorder_path(work_order)
         = link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank"
-      %td
-        -if work_order.finish?
-          = get_company_rank(current_user,work_order)
-      %td
-        -if work_order.finish?
-          = get_user_rank(current_user,work_order)
 
 = will_paginate @work_orders,:params =>@filters

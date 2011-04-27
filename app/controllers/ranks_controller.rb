@@ -1,4 +1,5 @@
 class RanksController < ApplicationController
+  layout "application", :except => [:create]
   # GET /ranks
   # GET /ranks.xml
   def index
@@ -36,7 +37,8 @@ class RanksController < ApplicationController
   # GET /ranks/new.xml
   def new
     @rank = Rank.new
-    @wo_id = params[:wo_id]
+    @work_order = Workorder.find params[:wo_id]
+    @car = @work_order.car
     @cat = params[:cat]
     respond_to do |format|
       format.html # new.html.erb
@@ -53,23 +55,10 @@ class RanksController < ApplicationController
   # POST /ranks.xml
   def create
     @rank = Rank.new(params[:rank])
-    @wo_id = params[:wo_id]
-    @cat = params[:cat]
-    @work_order = Workorder.find(@wo_id);
     respond_to do |format|
-      if @rank.save        
-        if(params[:cat]=="company")
-          @work_order.company_rank_id = @rank.id
-        else
-          @work_order.user_rank_id = @rank.id
-        end
-        if !@work_order.save
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @rank.errors, :status => :unprocessable_entity }        
-        end
-
-        flash[:notice] = 'Calificacion Agregada con exito'
-        format.html {redirect_to @work_order.car}
+      if @rank.save
+        @work_order = @rank.workorder
+        format.js
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @rank.errors, :status => :unprocessable_entity }
@@ -84,7 +73,8 @@ class RanksController < ApplicationController
 
     respond_to do |format|
       if @rank.update_attributes(params[:rank])
-        flash[:notice] = 'Rank was successfully updated.'
+        @work_order = @rank.workorder
+        format.js {render :action =>"create",:layout =>false}
         format.html { redirect_to(@rank) }
         format.xml  { head :ok }
       else

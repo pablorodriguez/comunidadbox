@@ -786,10 +786,22 @@ table.comboxtable, .comboxform,table.w{
   padding: 3px;
 }
 
+.header{
+  border-right: thin double black;
+  padding: 2px 5px 2px 5px;
+}
+
 .comboxtable td{
   border-bottom-width:thin;
   border-bottom-color:#CCC;
   border-bottom-style:double;
+}
+
+.coltable td{
+  border-bottom-width:thin;
+  border-bottom-color:#CCC;
+  border-bottom-style:double;
+  padding-left: 2px;
 }
 
 .comboxtable tbody tr:hover{
