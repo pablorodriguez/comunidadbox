@@ -83,8 +83,8 @@ class CarsController < ApplicationController
     wo_page = params[:wo_page] || 1
     e_page = params[:e_page] || 1
     
-    @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>10,:page =>wo_page,:order =>"created_at desc")
-    @events = @car.future_events.paginate(:per_page=>10,:page =>e_page)
+    @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>wo_page,:order =>"created_at desc")
+    @events = @car.future_events.paginate(:per_page=>5,:page =>e_page)
     
     @pages = {:wo_page => wo_page,:e_page => e_page}
     

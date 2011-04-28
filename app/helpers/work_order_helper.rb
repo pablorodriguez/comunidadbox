@@ -4,7 +4,7 @@ module WorkOrderHelper
     html=""
     title ="Calificacion de Empresa: "
     if (rank == :company)
-      cssLink = current_user.company ? "link":""
+      cssLink = current_user.company && current_user.company == work_order.company ? "link":""
     else  
       cssLink = current_user.company.nil? ? "link":""
     end
