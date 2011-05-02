@@ -15,4 +15,5 @@
       %td.number
         = event.km
 %br
-= will_paginate @events,:params => @pages
+#paginator_event
+  = will_paginate @events,:params => @e_pages

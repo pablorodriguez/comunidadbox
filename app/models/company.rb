@@ -7,6 +7,7 @@ class Company < ActiveRecord::Base
   has_many :service_type, :through => :company_service, :order =>'name'
   has_many :workorders
   has_many :employees,:class_name =>'User',:foreign_key =>'employer_id'
+  has_many :cars
   
   DEFAULT_COMPANY_ID = 1
   
@@ -23,6 +24,7 @@ class Company < ActiveRecord::Base
     self.users.select{|u| u.is_company_admin}[0]
   end
   
+   
   def all_materials
     service_type_materials ={}
     company_service.each do |cst|

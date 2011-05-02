@@ -4,11 +4,15 @@
   %h1 Confirmación de Cuenta
   %p
     Bienvenido #{@resource.full_name} a Comunidad Box !!!
-  %p Uds puede confirmar su cuenta con el siguiente link:
+  %p Ud. puede confirmar su cuenta con el siguiente link:
   %p
     = link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
   - if @resource.creator
-    Su clave temporal es #{@resource.password}
+    Su clave temporal es 
+    %strong
+      @resource.password
+  %br
   Muchas gracias
   %br
   Equipo de Comunidad Box
+  info@comunidadbox.com

@@ -131,7 +131,7 @@ class WorkordersController < ApplicationController
 
     if saveAction
       if @work_order.finish?
-        
+        logger.info "### Work order finished"
         send_notification @work_order.id
       end
 
@@ -185,7 +185,7 @@ class WorkordersController < ApplicationController
     work_order = Workorder.find work_order_id
     message = WorkOrderNotifier.delay.notify(work_order)
     #message.deliver
-    puts "########### work order enviada #{work_order.id} a #{work_order.user.email}"
+    logger.info "############### work order enviada #{work_order.id} a #{work_order.user.email}"
     #worker = MiddleMan.worker(:mailer_worker)
     #worker.async_work_order_notification(:args => work_order_id)
     

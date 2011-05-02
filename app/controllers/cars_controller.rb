@@ -7,11 +7,11 @@ class CarsController < ApplicationController
   # GET /cars.xml
   def index
     if current_user.company
-      @company_cars = Car.all(:conditions =>["company_id = ? or user_id = ?",current_user.company.id,current_user.id])
+      @company_cars = current_user.company.cars
     elsif current_user.is_employee
-      @company_cars = Car.all(:conditions =>["company_id = ? or user_id = ?",current_user.employer.id,current_user.id])
+      @company_cars = current_user.employer.cars
     else
-      @company_cars = Car.find(:all,:conditions=>["user_id = ? ",current_user.id])
+      @company_cars = current_user.cars
     end
     @company_id = params[:company_id]
     respond_to do |format|
@@ -55,19 +55,22 @@ class CarsController < ApplicationController
   
   def search
     domain = params[:car][:domain]
+    if (domain.nil? || domain.empty?)
+      domain = "%"
+    end
+    
+    if current_user.company
+      unless domain == "%"
+        @cars = Car.where("domain like ?",domain)
+      else
+        @cars = current_user.company.cars
+      end
+    else
+      @cars = current_user.cars.where("domain like ?",domain)
+    end
+    
     @company_id = params[:company_id]
     @car_id = params[:car_id]
-    unless domain == ''
-      @cars = Car.all(:conditions =>["domain = ?",domain])
-    else
-      if current_user.company
-        @cars = Car.all(:conditions =>["company_id = ? or user_id = ?",current_user.company.id,current_user.id])
-      elsif current_user.is_employee
-        @cars = Car.all(:conditions =>["company_id = ? or user_id = ?",current_user.employer.id,current_user.id])
-      else
-        @cars = Car.find(:all,:conditions=>["user_id = ? ",current_user.id])
-      end
-    end
     
     respond_to do |format|
       format.js
@@ -80,17 +83,30 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     page = params[:page] || 1
-    wo_page = params[:wo_page] || 1
-    e_page = params[:e_page] || 1
-    
-    @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>wo_page,:order =>"created_at desc")
-    @events = @car.future_events.paginate(:per_page=>5,:page =>e_page)
-    
-    @pages = {:wo_page => wo_page,:e_page => e_page}
+    data = params[:d] || "all"
     
     respond_to do |format|
-      format.html # show.html.erb
-      format.js
+      if data == "all"
+        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"created_at desc")
+        @events = @car.future_events.paginate(:per_page=>5,:page =>page)
+        @wo_pages = {:d=>"wo"}
+        @e_pages = {:d=>"e"}
+        format.html # show.html.erb
+        format.js { render "all",:layout => false} 
+      end
+      if data == "e"
+        @events = @car.future_events.paginate(:per_page=>5,:page =>page)
+        @e_pages = {:d =>"e"}
+        format.js { render "events",:layout => false}        
+      end
+      
+      if data =="wo"
+        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"created_at desc")
+        @wo_pages = {:d => "wo"}      
+        format.js { render "work_orders",:layout => false}
+      end
+
+
     end
   end
 
@@ -125,7 +141,7 @@ class CarsController < ApplicationController
     end
     respond_to do |format|
       if @car.save
-        flash[:notice] = t :car_crated_exit
+        flash[:notice] = t :car_created_exit
         format.html { redirect_to(@car) }
         format.xml  { render :xml => @car, :status => :created, :location => @car }
       else

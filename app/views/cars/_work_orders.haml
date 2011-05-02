@@ -29,4 +29,5 @@
         = link_to_pdf work_order  
 
 %br
-= will_paginate @work_orders,:params => @pages
+#paginator_wo
+  = will_paginate @work_orders,:params => @wo_pages
