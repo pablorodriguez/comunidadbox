@@ -185,7 +185,7 @@ class WorkordersController < ApplicationController
     work_order = Workorder.find work_order_id
     message = WorkOrderNotifier.delay.notify(work_order)
     #message.deliver
-    logger.info "############### work order enviada #{work_order.id} a #{work_order.user.email}"
+    logger.info "############### work order enviada #{work_order.id} a #{work_order.car.user.email}"
     #worker = MiddleMan.worker(:mailer_worker)
     #worker.async_work_order_notification(:args => work_order_id)
     
