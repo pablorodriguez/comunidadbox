@@ -85,15 +85,14 @@ class ControlPanelsController < ApplicationController
       @service_filter.service_type_id = ServiceType.find(params[:st]).id
     end
     
-    @company_services = company_services(current_user.current_company.id)
-    @brands = Brand.all(:order=>:name)
-    
+    @company_services = current_user.current_company.service_type
+    @brands = Brand.all(:order=>:name)    
     @models  = Array.new
     if @service_filter.brand_id
       @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)
     end
     
-    conditions = {"status" =>"Activa"}
+    conditions = {"status" =>Status::ACTIVE}
     conditions.merge!({"service_type_id" =>  @service_filter.service_type_id}) if  @service_filter.service_type_id
     conditions.merge!({"cars.brand_id" => @service_filter.brand_id}) if @service_filter.brand_id
     conditions.merge!({"cars.model_id" => @service_filter.model_id}) if @service_filter.model_id
