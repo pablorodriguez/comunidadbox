@@ -12,7 +12,7 @@ gem "foreigner"
 #config.gem "declarative_authorization", :source =>"http://gemcutter.org"
 gem "chronic"
 gem "packet"
-gem 'prawn'
+gem 'prawn','0.8.4'
 gem "geokit"
 gem "devise",'1.1.5'
 gem "omniauth"
