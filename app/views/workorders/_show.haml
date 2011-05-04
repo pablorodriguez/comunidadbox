@@ -3,7 +3,8 @@
     %tr.header 
       %td{:colspan=>5}
         Order de Trabajo
-        = "[#{@work_order.id}] #{@work_order.status}"
+        = "[#{@work_order.id}]"
+        = icon_status @work_order.status   
       %td.total
         = number_to_currency @work_order.total_price
     %tr

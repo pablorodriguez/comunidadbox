@@ -8,6 +8,11 @@ module ApplicationHelper
     link_to_function title,"submitForm('#{column}' ,'#{direction}')",{:class => css_class}
   end
   
+  def icon_status(status)
+    return image_tag "icon_unlock.png",:class =>"status" if status == "Abierto"  
+    return image_tag "icon_lock.png",:class =>"status" if status == "Terminado"  
+  end
+  
   def current_col_css(column)
     column == sort_column ? "current_col" : ""
   end

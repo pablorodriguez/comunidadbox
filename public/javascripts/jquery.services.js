@@ -7,6 +7,13 @@ jQuery(document).ready( function(){
 	$(".text_lable").each(function(){
 		$(this).disable();
 	});
+	
+	$('#workorder_performed').datepicker({
+      showOn: 'button',
+      buttonImage: '/images/calendar.png',
+      buttonImageOnly: true
+    });
+    
 	initMaterialItems();
 	$("#maxim").click(maxim);
 	var url_km = $("#url_update_km").val();

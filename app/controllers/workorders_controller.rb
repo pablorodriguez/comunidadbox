@@ -59,8 +59,6 @@ class WorkordersController < ApplicationController
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
-    logger.info "### service type params #{params[:service_type_id]}"
-    
     service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : nil
     
     date_from = (params[:date_from] && (!params[:date_from].empty?)) ? params[:date_from] : nil
@@ -169,12 +167,12 @@ class WorkordersController < ApplicationController
       else
         company_service_id = Company::DEFAULT_COMPANY_ID
       end
+
       @work_order.company = Company.find company_id
       @work_order.car = car
-      
       @service_types = current_user.service_types
     else
-      flash[:notice] ="Por favro seleccione un prestador de servicios"
+      flash[:notice] ="Por favor seleccione un prestador de servicios"
       redirect_to all_companies_path(:car_id =>car_id)
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110423143341) do
+ActiveRecord::Schema.define(:version => 20110504160508) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -251,10 +251,12 @@ ActiveRecord::Schema.define(:version => 20110423143341) do
   end
 
   create_table "ranks", :force => true do |t|
+    t.integer  "type_rank"
     t.text     "comment"
     t.integer  "cal"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "workorder_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -428,12 +430,11 @@ ActiveRecord::Schema.define(:version => 20110423143341) do
     t.integer  "company_id"
     t.integer  "car_id"
     t.integer  "user_id"
-    t.integer  "user_rank_id"
-    t.integer  "company_rank_id"
-    t.string   "status",          :limit => 50
+    t.string   "status",     :limit => 50
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "km"
+    t.date     "performed"
   end
 
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"

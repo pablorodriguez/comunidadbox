@@ -76,6 +76,14 @@ td.center{
   float: right;
 }
 
+input.date{
+  width: 70px;
+}
+
+img.status{
+  vertical-align: middle;
+}
+
 
 
 

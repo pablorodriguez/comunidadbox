@@ -16,7 +16,11 @@ class Workorder < ActiveRecord::Base
   def company_rank
     type 2
   end
-    
+  
+  def after_initialize
+    self.performed = I18n.l(Time.now.to_date) if performed.nil?
+    self.status = "Abierto" if status.nil?
+  end  
   
   
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
@@ -128,17 +132,17 @@ class Workorder < ActiveRecord::Base
       looger.info "### entro en between"
       date_f = filters[:date_from].to_datetime
       date_t = filters[:date_to].to_datetime.since 1.day
-      @workorders = @workorders.where("workorders.created_at between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
+      @workorders = @workorders.where("workorders.performed between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
     end
     
     if filters[:date_from].nil? && (!filters[:date_to].nil?)
       date_from = filters[:date_to].to_datetime.since 1.day
-      @workorders = @workorders.where("workorders.created_at <= ? ",date_from.in_time_zone)
+      @workorders = @workorders.where("workorders.performed <= ? ",date_from.in_time_zone)
     end  
     
     if ((!filters[:date_from].nil?) && (filters[:date_to].nil?))
       date_from = filters[:date_from].to_datetime
-      @workorders = @workorders.where("workorders.created_at >= ? ",date_from.in_time_zone)
+      @workorders = @workorders.where("workorders.performed >= ? ",date_from.in_time_zone)
     end 
 
     if filters[:service_type_id]

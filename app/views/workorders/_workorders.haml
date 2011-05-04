@@ -6,7 +6,7 @@
     %colbroup
       %col{:class=>current_col_css("cars.domain")}
       %col
-      %col{:class=>current_col_css("workorders.created_at")}
+      %col{:class=>current_col_css("workorders.performed")}
     %tr
       %th{:width=>"10%"}
         = sortable "cars.domain","Dominio"
@@ -14,7 +14,7 @@
       - unless current_user.company
         %th Empresa
       %th{:width=>"12%"}
-        = sortable "workorders.created_at", "Realizado"
+        = sortable "workorders.performed", "Realizado"
       %th{:width=>"10%"} Total
       %th{:width=>"8%"} Estado
   - for work_order in @work_orders
@@ -31,7 +31,7 @@
         %td
           = work_order.company.name
       %td.number
-        = l work_order.created_at.to_date
+        = l work_order.performed
       %td.number
         = number_to_currency work_order.total_price
       %td
