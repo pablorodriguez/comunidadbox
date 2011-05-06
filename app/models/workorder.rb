@@ -17,9 +17,9 @@ class Workorder < ActiveRecord::Base
     type 2
   end
   
-  def after_initialize
-    self.performed = I18n.l(Time.now.to_date) unless performed
-    self.status = Status.open unless status
+  def after_initialize2
+    performed = I18n.l(Time.now.to_date) unless performed
+    status = Status.open unless status
   end  
   
   
@@ -128,23 +128,23 @@ class Workorder < ActiveRecord::Base
     
     @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%")
     
-    if ((!filters[:date_from].nil?) && (!filters[:date_to].nil?))
+    if ((!filters[:date_from].empty?) && (!filters[:date_to].empty?))
       date_f = filters[:date_from].to_datetime
       date_t = filters[:date_to].to_datetime.since 1.day
       @workorders = @workorders.where("performed between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
     end
     
-    if filters[:date_from].nil? && (!filters[:date_to].nil?)
+    if filters[:date_from].empty? && (!filters[:date_to].empty?)
       date_from = filters[:date_to].to_datetime.since 1.day
       @workorders = @workorders.where("performed <= ? ",date_from.in_time_zone)
     end  
     
-    if ((!filters[:date_from].nil?) && (filters[:date_to].nil?))
+    if ((!filters[:date_from].empty?) && (filters[:date_to].empty?))
       date_from = filters[:date_from].to_datetime
       @workorders = @workorders.where("performed >= ? ",date_from.in_time_zone)
     end 
 
-    if filters[:service_type_id]
+    unless filters[:service_type_id].empty?
       @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
     end
     

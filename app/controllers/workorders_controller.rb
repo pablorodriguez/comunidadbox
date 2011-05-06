@@ -24,13 +24,16 @@ class WorkordersController < ApplicationController
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
-    service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : nil
+    date_from = (params[:date_from] && (!params[:date_from].empty?)) ? params[:date_from] : ""
+    date_to = (params[:date_to] && (!params[:date_to].empty?)) ? params[:date_to] : ""
+    domain = params[:domain] ? params[:domain] : ""
+    service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : ""
     
-    date_from = (params[:date_from] && (!params[:date_from].empty?)) ? params[:date_from] : nil
-    date_to = (params[:date_to] && (!params[:date_to].empty?)) ? params[:date_fo] : nil
-      
-    @workorders = Workorder.find_by_params(:date_from => date_from,:date_to =>date_to,
-      :domain => params[:domain], :service_type_id => service_type_id ,:user => current_user)    
+    @filters = {:date_from => date_from,:date_to =>date_to,:domain => domain, 
+        :service_type_id => service_type_id ,:user => current_user}
+    logger.info "### Filtros #{@filters.inspect}"
+    
+    @workorders = Workorder.find_by_params(@filters)    
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
       format.html
