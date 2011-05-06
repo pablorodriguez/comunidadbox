@@ -9,8 +9,8 @@ module ApplicationHelper
   end
   
   def icon_status(status)
-    return image_tag "icon_unlock.png",:class =>"status" if status == "Abierto"  
-    return image_tag "icon_lock.png",:class =>"status" if status == "Terminado"  
+    return image_tag "icon_unlock.png",:class =>"status" if status == 1  
+    return image_tag "icon_lock.png",:class =>"status" if status == 4  
   end
   
   def current_col_css(column)
@@ -22,7 +22,7 @@ module ApplicationHelper
   end
   
   def show_status status
-    image_tag('ok.png') if status == "Terminado"
+    image_tag('ok.png') if status == 4
   end
   
   def link_to_pdf work_order

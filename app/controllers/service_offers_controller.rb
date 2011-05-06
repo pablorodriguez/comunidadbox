@@ -7,17 +7,12 @@ class ServiceOffersController < ApplicationController
   ]
   
   def index
-    if (params[:status].nil?) || (params[:status] == 'Todos')
-      if current_user.company
-        @offers = ServiceOffer.find(:all,:conditions =>["company_id =?",current_user.company.id])
-      else
-        @offers = ServiceOffer.all
-      end
-      
-      @status = 'Todos'
+    page = params[:page] || 1
+    @company_services = current_user.company.company_service.map{|s| s.service_type}
+    if current_user.is_super_admin
+      @offers = ServiceOffer.all.paginate(:per_page=>5,:page =>page)
     else
-      @offers = ServiceOffer.find(:all, :conditions =>["company_id = ? and status =?",current_user.company.id, params[:status]])
-      @status = params[:status]
+      @offers = current_user.company.service_offers.paginate(:per_page=>5,:page =>page)
     end
   end
 

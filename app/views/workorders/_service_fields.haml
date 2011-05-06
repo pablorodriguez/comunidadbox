@@ -9,7 +9,7 @@
             = f.fields_for :service_type do |st_form|
               %label.header_text_lable
                 = st_form.object.name
-          = f.select(:status,WorkordersController::STATUS,{:selected =>f.object.status},{:class=>'status'})
+          = f.select(:status,Status::WO_STATUS,{:selected =>f.object.status},{:class=>'status'})
           = f.hidden_field :_destroy        
           = link_to_function image_tag('new.png',{:class =>"input_img"}), "addEmptyMaterial(this)",{:class =>:comment}
           = link_to_function image_tag('comment.png',{:class =>"input_img"}), "#"

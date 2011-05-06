@@ -8,6 +8,7 @@ class Company < ActiveRecord::Base
   has_many :workorders
   has_many :employees,:class_name =>'User',:foreign_key =>'employer_id'
   has_many :cars
+  has_many :service_offers
   
   DEFAULT_COMPANY_ID = 1
   

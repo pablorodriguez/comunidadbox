@@ -18,8 +18,8 @@ class Workorder < ActiveRecord::Base
   end
   
   def after_initialize
-    self.performed = I18n.l(Time.now.to_date) if performed.nil?
-    self.status = "Abierto" if status.nil?
+    self.performed = I18n.l(Time.now.to_date) unless performed
+    self.status = Status.open unless status
   end  
   
   
@@ -39,7 +39,7 @@ class Workorder < ActiveRecord::Base
   def total_price
     s_total_price=0
     self.services.each do |s|
-      s_total_price += s.total_price if s.status != "Cancelado"  
+      s_total_price += s.total_price if s.status != Status.cancel  
     end   
     s_total_price
   end
@@ -63,21 +63,21 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    open = services.select{|s| s.status == "Abierto" || s.status == "En Proceso"}
+    open = services.select{|s| s.status == Status.open || s.status == Status.in_progress}
     
     if (open.size > 0 || services.size ==0)
-      self.status = "Abierto"
+      self.status = Status.open
     else
-      self.status = "Terminado"
+      self.status = Status.finish
     end
   end
   
   def finish?
-    status == "Terminado"
+    status == Status.finish
   end
   
   def open?
-    status == "Abierto"
+    status == Status.open
   end
   
   def belong_to_user user
@@ -106,7 +106,7 @@ class Workorder < ActiveRecord::Base
         events.each do |id|
           e = Event.find id
           unless e.service.workorder.id == service.workorder.id
-            e.status ="Completado"
+            e.status = Status.finish
             e.service_done = service
             e.save
           end
@@ -129,24 +129,22 @@ class Workorder < ActiveRecord::Base
     @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%")
     
     if ((!filters[:date_from].nil?) && (!filters[:date_to].nil?))
-      looger.info "### entro en between"
       date_f = filters[:date_from].to_datetime
       date_t = filters[:date_to].to_datetime.since 1.day
-      @workorders = @workorders.where("workorders.performed between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
+      @workorders = @workorders.where("performed between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
     end
     
     if filters[:date_from].nil? && (!filters[:date_to].nil?)
       date_from = filters[:date_to].to_datetime.since 1.day
-      @workorders = @workorders.where("workorders.performed <= ? ",date_from.in_time_zone)
+      @workorders = @workorders.where("performed <= ? ",date_from.in_time_zone)
     end  
     
     if ((!filters[:date_from].nil?) && (filters[:date_to].nil?))
       date_from = filters[:date_from].to_datetime
-      @workorders = @workorders.where("workorders.performed >= ? ",date_from.in_time_zone)
+      @workorders = @workorders.where("performed >= ? ",date_from.in_time_zone)
     end 
 
     if filters[:service_type_id]
-      logger.info "### entro a service type id"
       @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
     end
     

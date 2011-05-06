@@ -3,8 +3,6 @@ class WorkordersController < ApplicationController
 
   layout "application", :except => [:remove_service,:filter]
 
-  STATUS = ['Abierto','En Proceso','Cancelado','Terminado']
-
   helper_method :sort_column,:sort_direction
 
   def destroy
@@ -18,41 +16,8 @@ class WorkordersController < ApplicationController
     @work_order.remove_service @id.to_i
   end
   
-  def filter222
-    page = params[:page] || 1
-    per_page = 10
-    @sort_column = sort_column
-    @direction = sort_direction
-    order_by = @sort_column + " " + @direction
-    
-    @company_services = current_user.company.company_service
-    
-    date_from = params[:date_from].empty? ? nil : params[:date_from]
-    date_to = params[:date_to].empty? ? nil : params[:date_fo]
-    service_type_id = nil
-    logger.info "### date from [#{date_from}] date to [#{date_to}]"
-    
-    @filters = Hash.new
-    unless params[:service_type][:id].empty?
-      @filters[:service_type_id] = (params[:service_type][:id])
-    end
-    @filters[:user] = current_user
-    @filters[:domain] = params[:domain]
-    
-    unless params[:date_from].empty?
-       @filters[:date_from] = params[:date_from]
-    end   
-    unless params[:date_to].empty?
-       @filters[:date_to] = params[:date_to]
-    end  
-      
-    @workorders = Workorder.find_by_params(@filters)
-    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page).order(order_by)
-  end
-
   def index
     page = params[:page] || 1
-    
     @company_services = current_user.company.company_service.map{|s| s.service_type}
     per_page = 10
     @sort_column = sort_column
@@ -180,24 +145,19 @@ class WorkordersController < ApplicationController
   private
   
   def send_notification(work_order_id)
-    work_order = Workorder.find work_order_id
-    message = WorkOrderNotifier.delay.notify(work_order)
-    #message.deliver
-    logger.info "############### work order enviada #{work_order.id} a #{work_order.car.user.email}"
-    #worker = MiddleMan.worker(:mailer_worker)
-    #worker.async_work_order_notification(:args => work_order_id)
-    
+    Resque.enqueue WorkorderJob,work_order_id
+    logger.info "### envio de notificacion"
   end
   
   def sort_column
-    params[:sort] || "cars.domain"
+    params[:sort] || "performed"
   end
 
   def sort_direction
     if params[:direction]
       %[asc desc].include?(params[:direction])? params[:direction] : "asc"
     else
-      "asc"
+      "desc"
     end
   end
 end

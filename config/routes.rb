@@ -154,7 +154,7 @@ ComunidadBox::Application.routes.draw do
   
   resources :service_offers do
     collection do
-      post :send2
+      post :send_notification
     end
   end
 

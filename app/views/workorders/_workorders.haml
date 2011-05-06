@@ -6,7 +6,7 @@
     %colbroup
       %col{:class=>current_col_css("cars.domain")}
       %col
-      %col{:class=>current_col_css("workorders.performed")}
+      %col{:class=>current_col_css("performed")}
     %tr
       %th{:width=>"10%"}
         = sortable "cars.domain","Dominio"
@@ -14,7 +14,7 @@
       - unless current_user.company
         %th Empresa
       %th{:width=>"12%"}
-        = sortable "workorders.performed", "Realizado"
+        = sortable "performed", "Realizado"
       %th{:width=>"10%"} Total
       %th{:width=>"8%"} Estado
   - for work_order in @work_orders
@@ -41,3 +41,4 @@
         = link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank"
 
 = will_paginate @work_orders,:params =>@filters
+= link_to_back   

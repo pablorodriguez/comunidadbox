@@ -1,51 +1,46 @@
+- @offer.car_service_offer.each do |c_s_o|
+  =hidden_field_tag 'car_ids[]', c_s_o.car.id
+= f.hidden_field :service_type_id
+%h1
+  = @title
+  = "[#{@offer.service_type.name}]"
+
 %table.comboxform
-  %tr.table_header
-    %td{:colspan=>4}
-      %h1
-        = @title
-        = "[#{@offer.service_type.name}]"
-        = f.hidden_field :service_type_id
   %tr
-    %td{:colspan=>3}      
-      .cars{:style=>"display:none"}
-        - @offer.car_service_offer.each do |c_s_o|
-          =hidden_field_tag 'car_ids[]', c_s_o.car.id
-  %tr
-    %td
+    %td.current.header
       Titulo
     %td{:colspan=>3}
-      = f.text_field :title
+      = f.text_field :title,:class =>"input_long"
   %tr
-    %td
+    %td.current.header
       Precio
     %td
       = f.text_field :price, :size=>4,:class =>:price
-    %td  
+    %td.current.header
       Descuento %
     %td
       = f.text_field :percent, :size=>4,:class =>:price
   %tr
-    %td  
+    %td.current.header
       Precio Final
     %td      
       = f.text_field :final_price, :size=>4,:class =>:price
-    %td
+    %td.current.header
       Estado
     %td
       = f.select(:status,ServiceOffersController::STATUS,{:selected =>f.object.status},{:class=>'status'})
   %tr
-    %td
+    %td.current.header
       Desde
     %td
       = f.text_field :from ,:size =>10,:class =>:date
-    %td
+    %td.current.header
       Hasta
     %td
       = f.text_field :until,:size=>10,:class =>:date
-  %tr{:class=>:table_header}
-    %td{:colspan=>4}
-      Dias
   %tr
+    %td.current.header
+      Dias
     %td
       %ul
         %li 
@@ -54,16 +49,14 @@
         %li 
           = f.check_box :tuesday,{:class=>"day checkbox"}
           = label_tag :service_offer_tuesday, "Martes",:class => :link
-    %td
-      %ul
         %li
           = f.check_box :wednesday,{:class=>"day checkbox"}
           = label_tag :service_offer_wednesday, "Miercoles",:class => :link
+    %td
+      %ul
         %li
           = f.check_box :thursday,{:class=>"day checkbox"}
           = label_tag :service_offer_thursday, "Jueves",:class => :link
-    %td
-      %ul
         %li
           = f.check_box :friday,{:class=>"day checkbox"}
           = label_tag :service_offer_friday, "Viernes",:class => :link
@@ -78,14 +71,11 @@
         %li
           = check_box_tag :todos,"1",false,{:class=>"day checkbox"}
           = label_tag :todos, "Todos",:class => :link
-  %tr{:class=>:table_header}
-    %td{:colspan=>4}
-      Comentario
   %tr
-    %td{:colspan=>4}
-      = f.text_area :comment, :cols => 70, :rows => 3
-  %tr{:colspan=>4}
-    %td
-      = f.submit 'Grabar',:class=>"btn"
-      = link_to_back
+    %td.current.header
+      Comentario
+    %td{:colspan=>3}
+      = f.text_area :comment, :cols => 50, :rows => 3
+= f.submit 'Grabar',:class=>"btn"
+= link_to_back
 

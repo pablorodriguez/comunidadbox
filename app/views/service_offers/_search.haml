@@ -1,3 +1,33 @@
-Buscar Ofertas Servicios
-%br
-=link_to_back
+%h1 Buscar
+= form_tag service_offers_path,:remote =>true,:id=>:filter,:method =>:get do
+  = hidden_field_tag :direction, @direction
+  = hidden_field_tag :sort, @sort_column
+  %table
+    %thead
+    %tbody
+      %tr
+        %td Desde
+      %tr
+        %td
+          = text_field_tag 'service_offer_from', @date_f,:class =>"input_short"
+      %tr  
+        %td Hasta
+      %tr
+        %td
+          = text_field_tag 'service_offer_until', @date_t,:class =>"input_short"
+      %tr
+        %td Titulo
+      %tr
+        %td
+          = text_field_tag 'domain', @domain, :size=>6,:class =>"input_short"
+      %tr  
+        %td Tipo de Servicio
+      %tr
+        %td
+          = collection_select(:service_type, :id, @company_services, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
+      %tr
+        %td Estado 
+      %tr
+        %td
+          = image_submit_tag("find.png",:class =>"input_img")
+       

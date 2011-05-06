@@ -1,41 +1,8 @@
+- javascript 'service_offer'
 %h1
   = vineta
   Ofertas de Servicio
 .contentleft
-  %h1 Buscar
   = render "search"
 .contentright
-  %h1 Listado de Ofertas de Servicios
-  %table#sort_table.comboxtable
-    %thead
-      %tr
-        -unless current_user.company
-          %th Compañia
-        %th Titulo
-        %th Tipo de Servicio
-        %th Desde
-        %th Hasta  
-        %th Autos    
-        %th Estado
-        - if current_user.company
-          %th
-    - @offers.each do |offer|
-      %tr
-        -unless current_user.company
-          %td 
-            = offer.company.name      
-        %td=link_to offer.title, offer
-        %td=h offer.service_type.name
-        %td
-          = l offer.from unless offer.from.nil? 
-        %td
-          = l offer.until unless offer.until.nil?
-        %td= offer.cars.size
-        %td=h offer.status     
-        - if current_user.company
-          %td
-            = link_to image_tag('delete.gif'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete
-            = link_to image_tag('edit.png'), edit_service_offer_path(offer) if (offer.status == 'Pendiente' || offer.status == 'Abierto')
-  - unless current_user.company
-    = button_to("Enviar Ofertas de Servicio", :action => :send_notification)
-  
+  = render "service_offers"
