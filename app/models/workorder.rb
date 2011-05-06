@@ -4,6 +4,7 @@ class Workorder < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
   has_many :ranks
+  after_initialize :init
   
   def type(type)
     ranks.select{|r| r.type_rank == type}.first
@@ -17,9 +18,9 @@ class Workorder < ActiveRecord::Base
     type 2
   end
   
-  def after_initialize2
-    performed = I18n.l(Time.now.to_date) unless performed
-    status = Status.open unless status
+  def init
+    self.performed = I18n.l(Time.now.to_date) unless self.performed
+    self.status = Status.open unless self.status
   end  
   
   
