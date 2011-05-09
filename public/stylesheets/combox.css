@@ -812,8 +812,20 @@ table.comboxtable, .comboxform,table.w{
 .comboxtable th , .comboxform tr.header{
   border-bottom: thin double black;
   background-color: #F2EAB7;
+  
   text-align: center;
   padding: 3px;
+  
+  font-family: 'Ubuntu', serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  text-shadow: none;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: 0em;
+  word-spacing: 0em;
+  line-height: 1.2;
 }
 
 .header{
@@ -920,7 +932,7 @@ input.amount, input.price{
 }
 
 input.material{
-  width: 250px;
+  width: 98%;
 }
 
 select.status{

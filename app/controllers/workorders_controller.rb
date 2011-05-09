@@ -29,11 +29,11 @@ class WorkordersController < ApplicationController
     domain = params[:domain] ? params[:domain] : ""
     service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : ""
     
-    @filters = {:date_from => date_from,:date_to =>date_to,:domain => domain, 
+    @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain, 
         :service_type_id => service_type_id ,:user => current_user}
-    logger.info "### Filtros #{@filters.inspect}"
+    logger.info "### Filtrosssss #{@filters_params}"
     
-    @workorders = Workorder.find_by_params(@filters)    
+    @workorders = Workorder.find_by_params(@filters_params)    
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
       format.html
@@ -130,6 +130,8 @@ class WorkordersController < ApplicationController
     end
     if company_id
       @work_order = Workorder.new
+      @work_order.performed = I18n.l(Time.now.to_date)
+      logger.debug "### perforemd #{@work_order.performed}"      
       if current_user.company
         company_service_id = current_user.company.id
       else
@@ -153,7 +155,7 @@ class WorkordersController < ApplicationController
   end
   
   def sort_column
-    params[:sort] || "performed"
+    params[:sort] || "workorders.performed"
   end
 
   def sort_direction

@@ -1,4 +1,4 @@
--form_for @work_order do |wo_form|
+= form_for @work_order do |wo_form|
   #services
     = wo_form.hidden_field :car_id
     = wo_form.hidden_field :company_id
@@ -10,7 +10,7 @@
               %h1
                 = icon_status @work_order.status                
                 Realizado
-                = wo_form.text_field :performed,:class =>"date",:value => l(wo_form.object.performed)
+                = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed)
           %td.number{:style=>'width:20%'}
             %h1
               #total_work_order

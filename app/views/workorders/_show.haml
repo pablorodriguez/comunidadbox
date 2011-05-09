@@ -2,9 +2,9 @@
   %table.service_table
     %tr.header 
       %td{:colspan=>5}
+        = icon_status @work_order.status
         Order de Trabajo
         = "[#{@work_order.id}]"
-        = icon_status @work_order.status   
       %td.total
         = number_to_currency @work_order.total_price
     %tr
@@ -19,7 +19,7 @@
         = @work_order.user.full_name
     %tr.header
       %td{:colspan=>6}
-        Vehiculo
+        Vehículo
     %tr
       %td.header Dominio
       %td
@@ -48,10 +48,8 @@
     - for service in @work_order.services
       %tr.header
         %td{:colspan=>3}
+          = icon_status service.status
           = service.service_type.name
-          [Estado: 
-          = service.status
-          ]
       %tr
         %td.header
           Materiales

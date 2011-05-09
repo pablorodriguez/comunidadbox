@@ -32,13 +32,17 @@ jQuery(document).ready( function(){
  		url:url_km_avg,
 		params:param_values
  	});
+ 	
 	$("#service_type_id").change(function(){
 		$("#materials_list").html("");
 	});
 	
 	$(".status").change(updateWorkOrderTotalPrice);
 	 
-	$("#materials_list table tbody tr").live("click",selectMaterial);
+	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
+	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
+	$("#materials_list .checkbox").live("click",checkMaterialHandler);
+	
 	
 	$(".pagination a").live("click",function(){
     $.getScript(this.href);
@@ -46,6 +50,30 @@ jQuery(document).ready( function(){
   });
   
 });
+
+function checkMaterialHandler(event){
+  event.stopPropagation();
+}
+
+function addMaterialServiceTypeHandler(){
+  addMaterialServiceType($(this));
+}
+
+function addMaterialServiceType(element){
+ selectMaterial(element);
+ var check = element.find(":checkbox");
+ add_materials_service_types(check); 
+}
+
+function selectMaterialHandler(){
+  selectMaterial($(this));
+}
+
+function selectMaterial(element){
+  var check = element.find(":checkbox");
+  check.attr('checked', !check.attr('checked'));
+}
+
 function update_km_avg(event){
   var url_km = $("#url_update_km").val();
   var domain = $("#domain").html().trim();
@@ -53,13 +81,10 @@ function update_km_avg(event){
   url_km = url_km + "?domain=" + domain + "&update_value=" + value;
   $.getScript(url_km);
 }
-function selectMaterial(){
-  var check = $(this).find(":checkbox");
-  check.attr('checked', !check.attr('checked'));
-}
+
 
 function addEmptyMaterial(element){
-	var div = $(element).parent().parent().parent().parent().parent()
+	var div = $(element).parent().parent().parent().parent().parent().parent();
 	div.find("#material_services_link").click();
 	var tr = div.find("table tr:last");
 	tr.find(".material").show();		
@@ -259,11 +284,14 @@ function add_new_material_service_type(){
     
   initMaterialItems();
 }
+function add_material_service_type(){ 
+  var checks = $("#materials_list").find("input[type=checkbox]:checked");
+  add_materials_service_types(checks);
+}
 
-function add_material_service_type(){	
-	var checks = $("#materials_list").find("input[type=checkbox]:checked");
+function add_materials_service_types(elements){	
 	var serviceTypeDiv= null;	
-	checks.each(function(){
+	elements.each(function(){
 		var ele = $(this);
 		ele.attr("checked",false)
 		var tr0 = ele.parent().parent();

@@ -9,8 +9,8 @@ module ApplicationHelper
   end
   
   def icon_status(status)
-    return image_tag "icon_unlock.png",:class =>"status" if status == 1  
-    return image_tag "icon_lock.png",:class =>"status" if status == 4  
+    return image_tag "icon_unlock.png",:class =>"status" if [Status::OPEN,Status::IN_PROCESS].include?(status)  
+    return image_tag "icon_lock.png",:class =>"status" if status == Status::FINISHED
   end
   
   def current_col_css(column)

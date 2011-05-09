@@ -4,6 +4,10 @@ class Workorder < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
   has_many :ranks
+  accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
+  validate :service_not_empty
+  
+  before_save :set_status
   after_initialize :init
   
   def type(type)
@@ -19,17 +23,11 @@ class Workorder < ActiveRecord::Base
   end
   
   def init
-    self.performed = I18n.l(Time.now.to_date) unless self.performed
-    self.status = Status.open unless self.status
-  end  
-  
-  
-  accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
-  #validates_presence_of :services
-  
-  before_save :set_status
-  
-  validate :service_not_empty
+    unless @performed
+      @performed = I18n.l(Time.now.to_date)
+      @status = Status::OPEN
+    end
+  end
   
   def service_not_empty
     if services.size == 0
@@ -64,21 +62,21 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    open = services.select{|s| s.status == Status.open || s.status == Status.in_progress}
+    open = services.select{|s| s.status == Status::OPEN || s.status == Status::IN_PROCESS}
     
     if (open.size > 0 || services.size ==0)
-      self.status = Status.open
+      self.status = Status::OPEN
     else
-      self.status = Status.finish
+      self.status = Status::FINISHED
     end
   end
   
   def finish?
-    status == Status.finish
+    status == Status::FINISHED
   end
   
   def open?
-    status == Status.open
+    status == Status::OPEN
   end
   
   def belong_to_user user
@@ -144,16 +142,17 @@ class Workorder < ActiveRecord::Base
       date_from = filters[:date_from].to_datetime
       @workorders = @workorders.where("performed >= ? ",date_from.in_time_zone)
     end 
-
-    unless filters[:service_type_id].empty?
-      @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
-    end
     
     if filters[:user].company
       @workorders = @workorders.where("workorders.company_id = ?",filters[:user].company.id)
     else
       @workorders = @workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     end
+   
+    unless filters[:service_type_id].empty?
+      @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
+    end
+
 
     @workorders
   end
