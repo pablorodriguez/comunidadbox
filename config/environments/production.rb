@@ -12,6 +12,7 @@ ComunidadBox::Application.configure do
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
   config.action_mailer.default_url_options = { :host => 'www.comunidadbox.com' }
+  config.action_mailer.asset_host = "http://dev.comunidadbox.com"
 
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
