@@ -2,6 +2,24 @@
 %html
   %head
     %meta{"content" =>"text/html; charset=UTF-8", "http-equiv"=>"Content-Type"}
+    :css
+      .box {
+        overflow: auto;
+        z-index: 2; 
+        float: left;
+        width: 98%;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        border: 1px solid #DDDDDD;
+        margin-left: 5px;
+        padding: 5px 5px 5px 5px;
+      }
+
   %body
-    = image_tag attachments['company-logo.png'].url,:alt =>"ComunidadBox"
-    = yield
+    .box
+      = image_tag "logo.png"
+      = yield
+      %p Muchas gracias por usar ComunidadBox.
+      %h3 Equipo de ComunidadBox
+      %h3 Para comunicarse con nosotros por favor escribir a info@comunidadbox.com

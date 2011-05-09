@@ -5,8 +5,6 @@ class WorkOrderNotifier < ActionMailer::Base
   def notify(work_order)
     @work_order = work_order
     @user = work_order.car.user
-    attachments.inline["company-logo.png"] = File.read(Rails.root.join('public', 'images', 'logo.png'))
     mail(:to => @user.email,:subject => "notificacion de servicios realizados")
-    logger.info "### #{work_order.car.user.email}"
   end
 end
