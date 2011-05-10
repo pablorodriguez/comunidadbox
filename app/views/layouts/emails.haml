@@ -1,7 +1,11 @@
-.box{:style=>"-moz-border-radius: 5px 5px 5px 5px; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px;border: 2px solid #DDDDDD; padding: 5px 5px 5px 5px;"}
-  #hedaer{:style=>"background-image: url('www.comunidadbox.com/images/headerpng.png');background-position: center center;background-color:#A8AA3A;height:100px;background-repeat:no-repeat;padding:0"}
-    = image_tag "logo.png",:alt =>"company logo"
-  = yield
-  %p Muchas gracias por usar ComunidadBox.
-  %h3 Equipo de ComunidadBox
-  %h3 Para comunicarse con nosotros por favor escribir a info@comunidadbox.com
+!!!
+%html
+  %head
+  %body
+    .box{:style=>"-moz-border-radius: 5px 5px 5px 5px; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px;border: 2px solid #DDDDDD; padding: 5px 5px 5px 5px;"}
+      #header{:style=>"background-image: url('www.comunidadbox.com/images/headerpng.png');background-position: center center;background-color:#A8AA3A;height:100px;background-repeat:no-repeat;padding:0"}
+        = image_tag "logo.png",:alt =>"company logo"
+      = yield
+      %p Muchas gracias por usar ComunidadBox.
+      %h3 Equipo de ComunidadBox
+      %h3 Para comunicarse con nosotros por favor escribir a info@comunidadbox.com
