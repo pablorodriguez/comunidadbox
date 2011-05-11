@@ -1,21 +1,59 @@
-%h3 Notificación de Servicio Realizado
-%p
-  Estimado #{@user.full_name}
-  Muchas gracias por confiar en ComunidadBox.
-  %br
-  Ud. acaba de realizar los siguientes servicios
-%ul
-  - for service in @work_order.services
-    %li
-      = service.service_type.name
--if @user.future_events.size > 0      
-  Sus proximos servicios de mantenimiento a realizar son
-  %ul
-  - for car in @user.cars
-    %li
-      = "Auto: #{car.domain}"
-    -for event in car.future_events
-      %li
-        = "#{event.service_type.name} #{event.dueDate}"
-    
-    
+#service{:style=>"margin:5px"}
+  %h3{:style=>"margin:0px"}
+    Notificación de Servicio Realizado
+    = link_to image_tag('pdf.png',:style=>"border-style:hidden;"),workorder_path(@work_order,:format =>'pdf'),:target => "_blank"
+  %p
+    Estimado #{@user.full_name},
+    Muchas gracias por confiar en ComunidadBox.
+    %br
+    Ud. acaba de realizar los siguientes servicios
+  %table{:style=>"width:80%;margin:0 auto"}
+    %thead
+      %tr{:style=>"background-color:#F2EAB7;padding:5px"}
+        %th{:colspan=>2} Detalle de los servicios realizados
+    %tr      
+      %td
+        Prestador de Servicio
+      %td  
+        = link_to @work_order.company.name, company_path(@work_order.company),:target =>"_blank"
+    %tr
+      %td
+        Realizado
+      %td
+        = l @work_order.performed
+    %tr
+      %td
+        Operario
+      %td
+        = @work_order.user.full_name
+    %tr
+      %td
+        Total
+      %td
+        = number_to_currency @work_order.total_price
+    - for service in @work_order.services
+      %tr
+        %td
+          = service.service_type.name
+        %td
+          = number_to_currency service.total_price
+  -if @user.future_events.size > 0      
+    %br
+    Sus proximos servicios de mantenimiento a realizar son
+    - for car in @user.cars        
+      - if car.future_events.size > 0
+        %br
+        %h4{:style=>"margin: 2px 2px 0px 2px"}
+          = "Auto: #{car.domain}"
+        %table{:style=>"width:80%;margin:0 auto"}
+          %thead
+            %tr{:style=>"background-color:#F2EAB7;padding:5px"}
+              %th Vencimiento
+              %th Tipo de Servicio         
+          -for event in car.future_events
+            %tr
+              %td
+                =event.dueDate
+              %td
+                = event.service_type.name
+  

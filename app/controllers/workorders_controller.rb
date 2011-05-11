@@ -47,8 +47,16 @@ class WorkordersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf { render :layout => false }
+    end   
+  end
+  
+  def notify
+    @work_order = Workorder.find params[:id]
+    @user = @work_order.car.user
+    @car = @work_order.car
+    respond_to do |format|
+      format.html { render :file=>"work_order_notifier/notify",:layout => "emails" }
     end
-    
   end
 
   # PUT /brands/1

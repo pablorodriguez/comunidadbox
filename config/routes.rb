@@ -87,6 +87,9 @@ ComunidadBox::Application.routes.draw do
     collection do
       get :filter
     end
+    member do
+      get :notify
+    end
   end
     
  resources :companies do
