@@ -106,7 +106,7 @@ class WorkordersController < ApplicationController
     if saveAction
       if @work_order.finish?
         logger.info "### Work order finished"
-        send_notification @work_order.id
+        #send_notification @work_order.id
       end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
