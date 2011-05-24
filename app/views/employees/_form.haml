@@ -22,4 +22,14 @@
         - for role in Role.all :conditions =>["id >= ?",1] 
           #div
             = check_box_tag "user[role_ids][]",role.id,f.object.roles.include?(role),:class =>:checkbox
-            = role.detail            
+            = role.detail
+    %tr
+      %td
+        %label{ :for => "password" }Clave *
+      %td
+        = f.password_field :password
+    %tr
+      %td    
+        Confirmar Clave *
+      %td
+        = f.password_field :password_confirmation            

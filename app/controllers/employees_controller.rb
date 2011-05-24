@@ -54,8 +54,6 @@ class EmployeesController < ApplicationController
     @employee = User.new(params[:user])
     @employee.employer = current_user.company
     @employee.creator = current_user
-    @employee.password = @employee.first_name + "test"
-    @employee.password_confirmation = @employee.password
     
     if @employee.save
       flash[:notice] = "Empleado creado exitosamente!"

@@ -7,9 +7,26 @@ class UsersController < ApplicationController
     redirect_to(:action => 'signup') unless user_signed_in? || User.count > 0
   end
   
-  def edit2
-    @user = current_user
-    @user.address = Address.new if @user.address.nil?
+  def mail_confirmation
+    @resource = current_user
+    respond_to do |format|
+      format.html { render :file=>"devise/mailer/confirmation_instructions",:layout => false }
+    end
+  end
+  
+  def reset_password
+    @resource = current_user
+    respond_to do |format|
+      format.html { render :file=>"devise/mailer/reset_password_instructions",:layout => false }
+    end
+  end
+  
+  def unlock
+    @resource = current_user
+    #@resource.unlock_token="sdfsdfsadfds"
+    respond_to do |format|
+      format.html { render :file=>"devise/mailer/unlock_instructions",:layout => false }
+    end
   end
   
   def show

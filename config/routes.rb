@@ -123,6 +123,9 @@ ComunidadBox::Application.routes.draw do
       get :companies
       get :future_events
       post :find_models
+      get :mail_confirmation
+      get :reset_password
+      get :unlock
     end
   end
   

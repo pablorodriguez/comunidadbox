@@ -6,6 +6,10 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.xml
   def index
+    page = params[:page] || 1
+    domain = params[:domain] || "%"
+    @user = current_user
+    per_page = 15
     if current_user.company
       @company_cars = current_user.company.cars
     elsif current_user.is_employee
@@ -13,9 +17,12 @@ class CarsController < ApplicationController
     else
       @company_cars = current_user.cars
     end
+    @company_cars = @company_cars.where("domain like ?",domain) unless domain.empty?
     @company_id = params[:company_id]
+    @company_cars = @company_cars.order("domain asc").paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
       format.html # index.html.erb
+      format.js { render :layout => false}
     end
   end
   
@@ -49,33 +56,14 @@ class CarsController < ApplicationController
   end
   
   def my
-    @cars = current_user.cars
-    logger.info "### car size #{@cars.size}"
-  end
-  
-  def search
-    domain = params[:car][:domain]
-    if (domain.nil? || domain.empty?)
-      domain = "%"
-    end
-    
-    if current_user.company
-      unless domain == "%"
-        @cars = Car.where("domain like ?",domain)
-      else
-        @cars = current_user.company.cars
-      end
+    page = params[:page] || 1
+    if params[:id]
+      @user = User.find params[:id]
     else
-      @cars = current_user.cars.where("domain like ?",domain)
+      @user = current_user
     end
-    
-    @company_id = params[:company_id]
-    @car_id = params[:car_id]
-    
-    respond_to do |format|
-      format.js
-    end
-    
+    @cars = @user.cars.paginate(:per_page=>5,:page =>page)
+    logger.info "### car size #{@cars.size}"
   end
   
   # GET /cars/1
@@ -113,12 +101,14 @@ class CarsController < ApplicationController
   # GET /cars/new
   # GET /cars/new.xml
   def new
-    new_user=current_user
-    unless params[:user_id].nil?
-      new_user = User.find params[:user_id]
+    if params[:user_id]
+      user = User.find params[:user_id]
+    else
+      user=current_user
     end
+    
     @car = Car.new
-    @car.user = new_user
+    @car.user = user
     @models = Array.new
     respond_to do |format|
       format.html # new.html.erb

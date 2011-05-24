@@ -51,15 +51,30 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @cars = Car.where("users.creator_id = ? and confirmed_at is null",current_user.id).includes(:user)
+    page = params[:page] || 1
+    per_page = 15
+    email = params[:email] || ""
+    first_name = params[:first_name] || ""
+    last_name = params[:last_name] || ""
+    ids = current_user.employees.map{|emp| emp.id}
+    @cars = Car.where("users.creator_id IN (?) and confirmed_at is null",ids).includes(:user)
+    @cars = @cars.where("users.first_name like ? and users.last_name like ? and users.email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
+    @cars = @cars.order("users.first_name,users.last_name").paginate(:page =>page,:per_page =>per_page)
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false}
+    end
   end
 
-  def search
+  def search2
+    page = params[:page] || 1
+    per_page = 15
     email = params[:email] || ""
     first_name = params[:first_name] || ""
     last_name = params[:last_name] || ""
     @cars = Car.where("users.creator_id = ? and confirmed_at is null",current_user.id).includes(:user)
     @cars = @cars.where("users.first_name like ? and users.last_name like ? and users.email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
+    @cars = @cars.paginate(:page =>page,:per_page =>per_page)
 
     respond_to do |format|
       format.js 

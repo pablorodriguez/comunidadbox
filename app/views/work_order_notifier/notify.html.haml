@@ -1,7 +1,7 @@
 #service{:style=>"margin:5px"}
   %h3{:style=>"margin:0px"}
     Notificación de Servicio Realizado
-    = link_to image_tag('pdf.png',:style=>"border-style:hidden;"),workorder_path(@work_order,:format =>'pdf'),:target => "_blank"
+    = link_to image_tag('pdf.png',:style=>"border-style:hidden;"),workorder_url(@work_order,:format =>'pdf'),:target => "_blank"
   %p
     Estimado #{@user.full_name},
     Muchas gracias por confiar en ComunidadBox.
@@ -15,7 +15,7 @@
       %td
         Prestador de Servicio
       %td  
-        = link_to @work_order.company.name, company_path(@work_order.company),:target =>"_blank"
+        = link_to @work_order.company.name, company_url(@work_order.company),:target =>"_blank"
     %tr
       %td
         Realizado

@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
     return false
   end
   
+  def employees
+    User.where("employer_id",self.id)
+  end
+  
   def company
     return company_active if companies.size > 0 
     return employer if employer

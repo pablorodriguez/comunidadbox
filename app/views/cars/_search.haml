@@ -1,6 +1,6 @@
 %h1 Buscar
 #car_search.left
-  - form_for :car,:remote =>true, :url => search_cars_path,:loading =>'AjaxLoader.enable()',:html=>{:id=>:car_search}  do |f|
+  - form_tag cars_path, :remote =>true,:method =>:get do |f|
     = hidden_field_tag :car_id,@car_id
     = hidden_field_tag :company_id,@company_id
     %table
@@ -8,11 +8,11 @@
         %td Dominio 
       %tr
         %td
-          = f.text_field :domain
+          = text_field_tag 'domain'
           = image_submit_tag("find.png",:class =>"input_img")
   - if current_user.has_company?
     = button_to "Nuevo cliente", new_client_path,{:method =>:get,:class =>"btn_b"}
   = link_to_back
-  = link_to image_tag('new.png'), new_car_path,  {:title =>"Nuevo Automóvil"}
+  = link_to image_tag('new.png'), new_car_path(:user_id=>@user.id),  {:title =>"Nuevo Automóvil"}
   
   #ajax_loader.ajax_loader.left{:style=>"display:none"}        
