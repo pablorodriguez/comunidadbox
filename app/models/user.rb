@@ -41,13 +41,15 @@ class User < ActiveRecord::Base
     return employer if employer
   end
   
-  def own company
-    if company.id == company.id
+  def own(comp)
+    if company_id == comp.id
+      puts "aca id"
       return true
     end
     
     companies.each do |c|
-      if c.id == company.id
+      if c.id == comp.id
+        puts "aca each #{c.id} #{company.id}"
         return true
       end
     end

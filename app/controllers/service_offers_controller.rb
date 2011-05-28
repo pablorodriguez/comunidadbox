@@ -10,9 +10,9 @@ class ServiceOffersController < ApplicationController
     page = params[:page] || 1
     @company_services = current_user.company.company_service.map{|s| s.service_type}
     if current_user.is_super_admin
-      @offers = ServiceOffer.all.paginate(:per_page=>5,:page =>page)
+      @offers = ServiceOffer.all.paginate(:per_page=>10,:page =>page)
     else
-      @offers = current_user.company.service_offers.paginate(:per_page=>5,:page =>page)
+      @offers = current_user.company.service_offers.paginate(:per_page=>10,:page =>page)
     end
   end
 

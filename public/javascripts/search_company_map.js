@@ -2,12 +2,14 @@ jQuery(document).ready(function(){
   initializeMap();
   $("#search_map").hide();  
   $("#search_map").dialog({
-    height: 600,
+    height: 550,
     width:570,
+    title:'Ver en el Mapa',
     autoOpen: false,
     draggable: false,
     resizable:false,
     modal: true});
+    
 	  var address = $("#full_address").val();
     search_companies_near_to_me(address);
 	  $("#address_map").val(address);
@@ -28,6 +30,7 @@ function search_address_text(){
 }
 
 function search_companies_near_to_me(address){
+  $("#address_map").val(address);
 	codeAddress(address,16);
 }
 

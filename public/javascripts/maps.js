@@ -15,7 +15,7 @@ function initializeMap(zoom_param,address) {
 	  mapTypeControl: false,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-	map = new google.maps.Map($("#map_canvas"), myOptions);
+	map = new google.maps.Map($("#map_canvas")[0], myOptions);
 	if (address){
 	 codeAddress(address,zoom);
 	}
