@@ -7,4 +7,5 @@
   .contentleft
     = render 'show'
   .contentright
-    #map_canvas.map
+    #map_container{:style=>"margin:0 auto; width:90%"}
+      #map_canvas.map

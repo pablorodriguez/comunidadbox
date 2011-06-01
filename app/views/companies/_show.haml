@@ -2,14 +2,14 @@
 %table.service_table
   %tbody
     %tr.header
-      %td{:colspan=>2} Información
+      %td{:colspan=>2} Nombre
     %tr
-      %td Nombre
-      %td
+      %td{:colspan=>2}
         = @company.name
+    %tr.header
+      %td{:colspan=>2} Sitio Web
     %tr
-      %td Sitio Web
-      %td
+      %td{:colspan=>2}
         = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
     %tr
       %td Teléfono
@@ -24,7 +24,6 @@
       %tr.header
         %td{:colspan=>2}
           Dirección
-          = @company.id
       %tr
         %td 
           %label{ :for => "state" }Provincia

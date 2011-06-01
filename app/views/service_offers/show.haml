@@ -1,11 +1,12 @@
 %h1 
   = vineta
-  Oferta de Servicio
+  Oferta de Servicio :
+  = @offer.company.name
 .contentleft
   = render "list_cars"
 .contentright
   %h1 
-    = " Servicio [#{@offer.service_type.name}]"  
+    = " Servicio : #{@offer.service_type.name}"  
   %table.comboxform
     %tr
       %td.current.header Titulo
@@ -28,10 +29,10 @@
     %tr
       %td.current.header Desde
       %td
-        =h @offer.from
+        = (l @offer.from) if @offer.from
       %td.current.header Hasta
       %td
-        =h @offer.until    
+        = (l @offer.until) if @offer.until    
     %tr
       %td.current.header Dias
       %td.label_title{:colspan=>3}

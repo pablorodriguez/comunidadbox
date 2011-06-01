@@ -161,7 +161,10 @@ ComunidadBox::Application.routes.draw do
   resources :service_offers do
     collection do
       post :send_notification
+      get :notify_email
+      get :notify
     end
+    
   end
 
   resources :car_service_offer do

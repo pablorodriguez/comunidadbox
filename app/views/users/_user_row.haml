@@ -7,9 +7,14 @@
         = f.text_field :first_name
     %tr
       %td
-        %label{ :for => "login" }Apellido
+        Apellido
       %td
         = f.text_field :last_name
+    %tr
+      %td
+        Teléfono
+      %td
+        = f.text_field :phone
     %tr
       %td
         %label{ :for => "email" }Email *

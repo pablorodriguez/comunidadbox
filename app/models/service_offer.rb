@@ -18,15 +18,15 @@ class ServiceOffer < ActiveRecord::Base
 
   def self.get_service_offer_by_user
     users = Hash.new
-    service_offers = ServiceOffer.all(:conditions=>["status ='Confirmado'"])
+    service_offers = ServiceOffer.where(["status ='Confirmado'"])
     
     service_offers.each do |s|
       s.status ="Enviado"
-      s.save
+      # s.save
       
       s.car_service_offer.each do |cs|
         cs.status ="Enviado"
-        cs.save
+        #cs.save
       end
       
       s.cars.each do |c|
@@ -40,19 +40,17 @@ class ServiceOffer < ActiveRecord::Base
     users
   end
 
-  def self.send_notification
+  def self.notify
     users = get_service_offer_by_user
     users.each do |key,value|
-      send_service_offer(key,value)
+      self.notify_service_offer(key,value)
     end
   end
   
   private
   
-  def self.send_service_offer(car,service_offers)
-     email = ServiceOfferMailer.create_send_service_offer(car,service_offers)
-     email.set_content_type("text/html")
-     ServiceOfferMailer.deliver email  
+  def self.notify_service_offer(car,service_offers)
+    message = ServiceOfferMailer.notify(car,service_offers).deliver
   end
 end
 

@@ -42,7 +42,7 @@ class ServiceOffersController < ApplicationController
   end
   
   def get_offer_confirmerd
-    ServiceOffer.all(:conditions =>["company_id = ? and status= ?",current_user.company,:Confirmado])  
+    ServiceOffer.where(["company_id = ? and status= ?",current_user.company,:Confirmado])  
   end
   
   def send_service_offers    
@@ -96,9 +96,20 @@ class ServiceOffersController < ApplicationController
   end
   
     
-  def send_notification
-    ServiceOffer.send_notification
+  def notify      
+    Resque.enqueue ServiceOfferJob
+    logger.info "### envio de notificacion service offer"
     redirect_to :action => :index
+  end
+  
+  def notify_email
+    users = ServiceOffer.get_service_offer_by_user
+    @car = users.keys[0]
+    @user = @car.user
+    @service_offers = users[@car]
+    respond_to do |format|
+      format.html { render :file=>"service_offer_mailer/notify",:layout => "emails" }
+    end
   end
  
 end

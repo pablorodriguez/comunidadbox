@@ -1,0 +1,29 @@
+#service_offers{:style=>"margin:5px"}  
+  %p
+    Estimado #{@user.full_name}:
+    Las siguientes empresas le envian estas ofertas de servicios a realizar a su autómovil.
+    %br
+    Por favor seleccione la más conveniente.  
+  %h3 Listado de Ofertas de Servicios
+  #list{:style=>"margin:5px 5px 20px 5px"}
+    %table{:style=>"width:90%;margin:0 auto"}    
+      %thead{:style=>"background-color:#F2EAB7;padding:5px"}
+        %th{:width=>"20%"}
+          Nombre
+        %th{:width=>"30%"}
+          Empresa
+        %th{:width=>"30%"}
+          Comentario
+        %th{:width=>"20%"}
+          Precio
+      %tbody
+        - for service in @service_offers
+          %tr
+            %td
+              = link_to service.title, service_offer_url(service),:target =>"_blank"
+            %td
+              = link_to service.company.name, company_url(service.company),:target =>"_blank"
+            %td
+              = service.comment
+            %td{:style=>"text-align: right;"}
+              = number_to_currency(service.final_price)

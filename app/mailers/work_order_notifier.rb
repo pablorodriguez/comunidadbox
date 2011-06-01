@@ -1,5 +1,5 @@
 class WorkOrderNotifier < ActionMailer::Base
-  default :from => "ComunidadBox <info@lincar.com.ar>"
+  default :from => "ComunidadBox <info@comunidadbox.com>"
   layout "emails"
   
   def notify(work_order)

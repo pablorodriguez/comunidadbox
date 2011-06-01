@@ -17,7 +17,7 @@ ComunidadBox::Application.configure do
   config.action_mailer.asset_host = "http://www.comunidadbox.com"
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -30,8 +30,8 @@ ComunidadBox::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'comunidadbox.com',
-    :user_name            => 'info@comunidadbox.com',
-    :password             => 'info5624',
+    :user_name            => 'mail@comunidadbox.com',
+    :password             => 'mail5624',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
   end
