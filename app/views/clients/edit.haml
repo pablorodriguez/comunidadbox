@@ -9,11 +9,8 @@
       %li.usr_menu_selected.usr_menu_link
         %a{:href=>"#",:id=>"0"} 
           Información Personal
-      %li#li_info_car.usr_menu_link
-        %a{:href=>"#",:id=>"1"} 
-          Información de su auto
       %li#li_info_ausr.usr_menu_link
-        %a{:href=>"#",:id=>"2"}
+        %a{:href=>"#",:id=>"1"}
           Dirección Personal
   .contentright
     = form_for @client, :url => client_path(@client) do |f|
@@ -24,16 +21,11 @@
           %table
             %tbody
               = render 'users/user_row_no_psw',:f => f
-        %h3#h_car_info
-          %a{:href=>"#"}Información de su auto
-        .car_info
-          =f.fields_for :cars do |c|
-            = render 'users/car_fields',:f =>c
         %h3#h_ausr_inf
           %a{:href=>"#"}Direccion Personal
         .personal_address      
           =f.fields_for :address do |a|
             = render 'users/user_address_fields', :f =>a
       = f.submit "Grabar",:class=>"btn"
-      = link_to_back root_path
+      = link_to_back clients_path
 

@@ -5,6 +5,8 @@ class Car < ActiveRecord::Base
   belongs_to :brand
   belongs_to :user
   belongs_to :company
+  has_many :car_service_offer
+  has_many :service_offers,:through =>  :car_service_offer,:order =>'created_at'
   #has_and_belongs_to_many :offers
   
   validates_presence_of :model,:domain,:year,:km

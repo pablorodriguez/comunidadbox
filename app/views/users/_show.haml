@@ -1,17 +1,24 @@
-%table
+%table.comboxform
   %tbody
-  %tr
-    %td
-      %label{ :for => "login" }Nombre
-    %td
-      = @user.first_name
-  %tr
-    %td
-      %label{ :for => "login" }Apellido
-    %td
-      = @user.last_name
-  %tr
-    %td
-      %label{ :for => "email" }Email *
-    %td
-      = @user.email
+    %tr
+      %td.current.header
+        Nombre
+      %td
+        = @user.first_name
+    %tr
+      %td.current.header
+        Apellido
+      %td
+        = @user.last_name
+    %tr
+      %td.current.header
+        Email
+      %td
+        = @user.email
+    %tr
+      %td.current.header
+        Teléfono
+      %td
+        = @user.phone
+  
+= link_to_back

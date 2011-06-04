@@ -88,5 +88,25 @@ img.status{
   float: right;
 }
 
+.service_offer_row{
+  overflow: auto;
+  border: 1px;
+  border-style: solid;
+  border-color: white;
+ 
+}
+
+.row_over{
+  background-color:#F2EAB7;
+  border: 1px outset #AFAFAF;  
+}
+
+.row{
+  border-bottom-width:thin;
+  border-bottom-color:#CCC;
+  border-bottom-style:double;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 
 

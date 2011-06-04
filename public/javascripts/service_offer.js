@@ -17,8 +17,24 @@ jQuery(document).ready( function(){
 	$('#todos').click(function(){checkAll(this);});
 	$("#service_offer_final_price").blur(calculateValues);
 	$("#service_offer_percent").blur(calculateValues);
+	$(".service_offer_row").mouseover(showActionButtons).mouseleave(hideActionButtons);
+	$(".row").live("click",viewRow);
 });
 
+function viewRow(){
+  var href = $(this).find(".view").attr("href");
+  window.location=href;
+}
+
+function showActionButtons(){
+  $(this).find(".serivce_offer_actions").show();
+  $(this).addClass("link").addClass("row_over");  
+}
+
+function hideActionButtons(){
+  $(this).find(".serivce_offer_actions").hide();
+  $(this).removeClass("link").removeClass("row_over");
+}
 
 function checkAll(element){	
 	var value = element.checked;

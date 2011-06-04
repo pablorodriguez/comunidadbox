@@ -33,11 +33,11 @@
     %td.current.header
       Desde
     %td
-      = f.text_field :from ,:size =>10,:class =>:date
+      = f.text_field :from ,:size =>10,:class =>:date,:value => l(f.object.from)
     %td.current.header
       Hasta
     %td
-      = f.text_field :until,:size=>10,:class =>:date
+      = f.text_field :until,:size=>10,:class =>:date,:value => l(f.object.until)
   %tr
     %td.current.header
       Dias

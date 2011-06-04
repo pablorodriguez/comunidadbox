@@ -17,8 +17,10 @@
         #logologo
           %img{:align => "middle", :alt => "logo", :height => "84", :src => "images/logo.png", :width => "246"}/
           = render "layouts/logininfo"
-    =render "layouts/n_menu"
+    = render "layouts/n_menu"
     #content
       = render "layouts/msg"
       = yield
-    = render :partial => "/layouts/footer"
+    = render "layouts/footer"
+    -#= render "layouts/mediabar"
+    

@@ -8,11 +8,20 @@ class ServiceOffersController < ApplicationController
   
   def index
     page = params[:page] || 1
-    @company_services = current_user.company.company_service.map{|s| s.service_type}
-    if current_user.is_super_admin
-      @offers = ServiceOffer.all.paginate(:per_page=>10,:page =>page)
-    else
-      @offers = current_user.company.service_offers.paginate(:per_page=>10,:page =>page)
+    @service_types = current_user.service_types
+    params[:from]
+    from = (params[:from] && (!params[:from].empty?)) ? params[:from] : ""
+    until_d = (params[:until] && (!params[:until].empty?)) ? params[:until] : ""
+    service_type_id = (params[:service_type_id] && (!params[:service_type_id].empty?)) ? params[:service_type_id] : ""
+          
+    filters ={:form => from,:until=>until_d,:service_type_id=>service_type_id,:status=>""}
+    
+    @offers = current_user.find_service_offers(filters)
+    @offers = @offers.paginate(:per_page=>10,:page =>page)
+    
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false}
     end
   end
 

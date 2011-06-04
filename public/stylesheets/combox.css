@@ -555,7 +555,7 @@ input{
 
 select{
   height:30px;
-  width:186px;
+  width:175px;
   padding: 5px;
 }
 
@@ -696,6 +696,29 @@ select{
   border: 1px solid #DDDDDD;
   padding: 5px 5px 5px 5px;
 }
+
+.contentleft_n{
+  width:250px;
+  float:left;
+  overflow:auto;
+  background-repeat:repeat-y;
+  background-position:right;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DDDDDD;
+  padding: 5px 5px 5px 5px;
+}
+
+.contentleft_n h2 {
+  font-size:16px;
+  font-weight:bold;
+  color:#B3B3B3;
+  margin:0px;
+  margin-bottom:10px;
+  margin-left:5px;
+}
+
 
 .contentleft{
   width:250px;
@@ -848,7 +871,6 @@ table.comboxtable, .comboxform,table.w{
 
 .comboxtable tbody tr:hover{
   background-color:#F2EAB7;
-
 }
 
 
@@ -1489,4 +1511,35 @@ ul.usr_menu li{
   height: 100px;
   margin: 0 auto;
   padding: 5px 0px 0px 0px;
+}
+
+.service_offer_info{
+  padding: 5px;
+  width: 94%;
+  float: left;
+}
+
+.service_offer_actions{
+}
+.sevice_offer_detail{
+  float: left;
+  margin-right: 15px;  
+  width: 70%;
+}
+.service_offer_dates{
+  float: right;
+  text-align: right;
+}
+.date_from{
+}
+.date_until{
+}
+
+.service_offer_data{
+  overflow: auto;
+}
+.serivce_offer_actions{
+  float: right;
+  display: none;
+  overflow: auto;
 }

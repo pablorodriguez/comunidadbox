@@ -41,6 +41,43 @@ class User < ActiveRecord::Base
     return employer if employer
   end
   
+  def find_service_offers(filters)
+    
+    if self.is_super_admin
+      offers = ServiceOffer.all
+    elsif self.is_administrator
+      offers = self.company.service_offers
+    else
+      offers = self.service_offers("Enviado")
+    end
+
+    offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
+    offers = offers.where("from >= ?",filters[:form]) unless filters[:form].empty?
+    offers = offres.where("until >= ?",filters[:unitl]) unless filters[:until].empty?
+    offers = offers.where("status = ?",filters[:status]) unless filters[:status].empty?
+    offers
+  end
+  
+  def service_types
+    if company
+      return company.service_type
+    else
+      return ServiceType.all
+    end
+  end
+  
+  def service_offers(status=nil)
+    services = []
+    cars.each do |c|
+      so = ServiceOffer.where("car_service_offers.car_id = ?",c.id).includes(:car_service_offer)
+      if status
+        so = so.where("service_offers.status = ?","Enviado")
+      end        
+      services << so
+    end
+    services.flatten
+  end
+  
   def own(comp)
     if company_id == comp.id
       puts "aca id"

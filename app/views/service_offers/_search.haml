@@ -6,28 +6,32 @@
     %thead
     %tbody
       %tr
-        %td Desde
+        %td 
+          Desde
       %tr
         %td
-          = text_field_tag 'service_offer_from', @date_f,:class =>"input_short"
+          = text_field_tag 'from', @date_f,:class =>"input_short"
       %tr  
-        %td Hasta
+        %td 
+          Hasta
       %tr
         %td
-          = text_field_tag 'service_offer_until', @date_t,:class =>"input_short"
+          = text_field_tag 'until', @date_t,:class =>"input_short"
       %tr
-        %td Titulo
+        %td 
+          Titulo
       %tr
         %td
-          = text_field_tag 'domain', @domain, :size=>6,:class =>"input_short"
+          = text_field_tag 'title', @title, :size=>6,:class =>"input_short"
       %tr  
-        %td Tipo de Servicio
+        %td 
+          Tipo de Servicio
       %tr
         %td
-          = collection_select(:service_type, :id, @company_services, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
+          = collection_select(:service_type, :id, @service_types, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
       %tr
-        %td Estado 
+        %td 
+          Estado 
       %tr
         %td
           = image_submit_tag("find.png",:class =>"input_img")
-       

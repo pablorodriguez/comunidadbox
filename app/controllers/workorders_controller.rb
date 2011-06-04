@@ -31,7 +31,6 @@ class WorkordersController < ApplicationController
     
     @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain, 
         :service_type_id => service_type_id ,:user => current_user}
-    logger.info "### Filtrosssss #{@filters_params}"
     
     @workorders = Workorder.find_by_params(@filters_params)    
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)

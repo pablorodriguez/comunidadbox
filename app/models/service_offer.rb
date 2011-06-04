@@ -22,11 +22,11 @@ class ServiceOffer < ActiveRecord::Base
     
     service_offers.each do |s|
       s.status ="Enviado"
-      # s.save
+      s.save
       
       s.car_service_offer.each do |cs|
         cs.status ="Enviado"
-        #cs.save
+        cs.save
       end
       
       s.cars.each do |c|
@@ -41,9 +41,11 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def self.notify
-    users = get_service_offer_by_user
-    users.each do |key,value|
-      self.notify_service_offer(key,value)
+    ServiceOffer.transaction do
+      users = get_service_offer_by_user
+      users.each do |key,value|
+        self.notify_service_offer(key,value)
+      end
     end
   end
   
