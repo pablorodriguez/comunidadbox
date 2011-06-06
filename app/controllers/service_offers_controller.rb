@@ -10,11 +10,11 @@ class ServiceOffersController < ApplicationController
     page = params[:page] || 1
     @service_types = current_user.service_types
     params[:from]
-    from = (params[:from] && (!params[:from].empty?)) ? params[:from] : ""
-    until_d = (params[:until] && (!params[:until].empty?)) ? params[:until] : ""
+    from = (params[:service_offer_since] && (!params[:service_offer_since].empty?)) ? params[:service_offer_since] : ""
+    until_d = (params[:service_offer_until] && (!params[:service_offer_until].empty?)) ? params[:service_offer_until] : ""
     service_type_id = (params[:service_type_id] && (!params[:service_type_id].empty?)) ? params[:service_type_id] : ""
-          
-    filters ={:form => from,:until=>until_d,:service_type_id=>service_type_id,:status=>""}
+    title = (params[:title] && (!params[:title].empty?)) ? params[:title] : ""   
+    filters ={:form => from,:until=>until_d,:service_type_id=>service_type_id,:status=>params[:status],:title =>title}
     
     @offers = current_user.find_service_offers(filters)
     @offers = @offers.paginate(:per_page=>10,:page =>page)

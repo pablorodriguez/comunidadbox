@@ -52,9 +52,10 @@ class User < ActiveRecord::Base
     end
 
     offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
-    offers = offers.where("from >= ?",filters[:form]) unless filters[:form].empty?
-    offers = offres.where("until >= ?",filters[:unitl]) unless filters[:until].empty?
-    offers = offers.where("status = ?",filters[:status]) unless filters[:status].empty?
+    offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
+    offers = offers.where("until <= ?",filters[:until].to_datetime.in_time_zone) unless filters[:until].empty?
+    offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
+    offers = offers.where("status in (?)",filters[:status]) if filters[:status]
     offers
   end
   

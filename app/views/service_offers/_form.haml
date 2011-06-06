@@ -3,7 +3,7 @@
 = f.hidden_field :service_type_id
 %h1
   = @title
-  = "[#{@offer.service_type.name}]"
+  = ": #{@offer.service_type.name}"
 
 %table.comboxform
   %tr
@@ -33,11 +33,11 @@
     %td.current.header
       Desde
     %td
-      = f.text_field :from ,:size =>10,:class =>:date,:value => l(f.object.from)
+      = f.text_field :since ,:size =>10,:class =>:date,:value => (l(f.object.since) if f.object.since)
     %td.current.header
       Hasta
     %td
-      = f.text_field :until,:size=>10,:class =>:date,:value => l(f.object.until)
+      = f.text_field :until,:size=>10,:class =>:date,:value => (l(f.object.until) if f.object.until)
   %tr
     %td.current.header
       Dias

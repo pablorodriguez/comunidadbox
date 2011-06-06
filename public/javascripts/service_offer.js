@@ -3,7 +3,7 @@
  */
 jQuery(document).ready( function(){
 
-	$('#service_offer_from').datepicker({
+	$('#service_offer_since').datepicker({
 			showOn: 'button',
 			buttonImage: '/images/calendar.png',
 			buttonImageOnly: true
@@ -17,7 +17,7 @@ jQuery(document).ready( function(){
 	$('#todos').click(function(){checkAll(this);});
 	$("#service_offer_final_price").blur(calculateValues);
 	$("#service_offer_percent").blur(calculateValues);
-	$(".service_offer_row").mouseover(showActionButtons).mouseleave(hideActionButtons);
+	$(".service_offer_row").live("mouseover",showActionButtons).live("mouseleave",hideActionButtons);
 	$(".row").live("click",viewRow);
 });
 

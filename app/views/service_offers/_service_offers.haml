@@ -6,6 +6,11 @@
         %tr
           %td.row
             .service_offer_row
+              .serivce_offer_actions
+                #d
+                  = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar" if current_user.company
+                #e
+                  = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar" if (offer.status == 'Pendiente' || offer.status == 'Abierto')
               .service_offer_info
                 -unless current_user.company
                   .company_name        
@@ -18,7 +23,7 @@
                 .service_offer_dates
                   Valido
                   .date_from         
-                    = l offer.from unless offer.from.nil?
+                    = l offer.since unless offer.since.nil?
                   .date_until 
                     = l offer.until unless offer.until.nil?          
                 -if current_user.company && offer.company == current_user.company
@@ -28,12 +33,8 @@
                       = offer.cars.size
                     .status
                       Estado:
-                      =h offer.status     
-              .serivce_offer_actions
-                #d
-                  = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar" if current_user.company
-                #e
-                  = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar" if (offer.status == 'Pendiente' || offer.status == 'Abierto')
+                      =h offer.status
+                      
 #paginator_wo
   = will_paginate @offers
 #buttons  
