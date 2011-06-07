@@ -1,39 +1,37 @@
 %h1 Listado de Ofertas de Servicios
 #service_offers
-  %table#sort_table1.w
-    %tbody
-      - @offers.each do |offer|
-        %tr
-          %td.row
-            .service_offer_row
-              .serivce_offer_actions
-                #d
-                  = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar" if current_user.company
-                #e
-                  = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar" if (offer.status == 'Pendiente' || offer.status == 'Abierto')
-              .service_offer_info
-                -unless current_user.company
-                  .company_name        
-                    = offer.company.name
-                .sevice_offer_detail
-                  .service_offer_title      
-                    =link_to offer.title, offer,:class =>"view"
-                  .service_offer_name
-                    =h offer.service_type.name
-                .service_offer_dates
-                  Valido
-                  .date_from         
-                    = l offer.since unless offer.since.nil?
-                  .date_until 
-                    = l offer.until unless offer.until.nil?          
-                -if current_user.company && offer.company == current_user.company
-                  .service_offer_data
-                    .cars
-                      Autos:
-                      = offer.cars.size
-                    .status
-                      Estado:
-                      =h offer.status
+  - @offers.each do |offer|
+    #div{:id=>"row_#{offer.id}",:class=>"service_offer_row link"}
+      .service_offer_info
+        -unless current_user.company
+          .company_name        
+            = offer.company.name
+        .sevice_offer_detail
+          .service_offer_title      
+            =link_to offer.title, offer,:class =>"view"
+          .service_offer_name
+            =h offer.service_type.name
+        .service_offer_dates
+          Valido
+          .date_from         
+            = l offer.since unless offer.since.nil?
+          .date_until 
+            = l offer.until unless offer.until.nil?          
+        -if current_user.company && offer.company == current_user.company
+          .service_offer_data
+            .cars
+              Autos:
+              = offer.cars.size
+            .status
+              Estado:
+              =h offer.status
+      .serivce_offer_actions
+        -if current_user.company
+          #d
+            = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
+        - if (offer.status == 'Pendiente' || offer.status == 'Abierto')
+          #e
+            = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
                       
 #paginator_wo
   = will_paginate @offers

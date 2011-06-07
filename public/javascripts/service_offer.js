@@ -17,8 +17,8 @@ jQuery(document).ready( function(){
 	$('#todos').click(function(){checkAll(this);});
 	$("#service_offer_final_price").blur(calculateValues);
 	$("#service_offer_percent").blur(calculateValues);
-	$(".service_offer_row").live("mouseover",showActionButtons).live("mouseleave",hideActionButtons);
-	$(".row").live("click",viewRow);
+	$(".service_offer_row").live("click",viewRow).live("mouseover",showActionButtons).live("mouseleave",hideActionButtons);
+	
 });
 
 function viewRow(){
@@ -27,13 +27,13 @@ function viewRow(){
 }
 
 function showActionButtons(){
-  $(this).find(".serivce_offer_actions").show();
-  $(this).addClass("link").addClass("row_over");  
+  $(this).children().last().show();
+  $(this).addClass("row_over");  
 }
 
 function hideActionButtons(){
-  $(this).find(".serivce_offer_actions").hide();
-  $(this).removeClass("link").removeClass("row_over");
+  $(this).children().last().hide();
+  $(this).removeClass("row_over");
 }
 
 function checkAll(element){	

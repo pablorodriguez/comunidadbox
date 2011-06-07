@@ -6,7 +6,7 @@ class CreateServiceOffers < ActiveRecord::Migration
       t.float :discount
       t.float :percent
       t.string :status
-      t.date :from
+      t.date :since
       t.date :until
       t.boolean :monday, :default => false
       t.boolean :tuesday, :default => false
