@@ -10,14 +10,12 @@ class CarsController < ApplicationController
     domain = params[:domain] || "%"
     @user = current_user
     per_page = 15
-    if current_user.company
-      @company_cars = current_user.company.cars
-    elsif current_user.is_employee
-      @company_cars = current_user.employer.cars
-    else
-      @company_cars = current_user.cars
+    
+    @company_cars = Car.where("domain like ?",domain) unless domain.empty?
+    unless current_user.company            
+      @company_cars = @company_cars.where("id in (?)",current_user.cars.map{|c| c.id})
     end
-    @company_cars = @company_cars.where("domain like ?",domain) unless domain.empty?
+        
     @company_id = params[:company_id]
     @company_cars = @company_cars.order("domain asc").paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|

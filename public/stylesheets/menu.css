@@ -16,6 +16,10 @@ body, ul, li {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));
 }
 
+#menu_container a{
+  font-weight: bold;
+}
+
 #menu {
   list-style:none;
   width:940px;

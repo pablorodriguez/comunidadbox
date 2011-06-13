@@ -3,3 +3,4 @@ if (<%=@offers.size%> > 0){
 }else{
   $("#service_offers").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna oferta de servicio."}))%>");
 }
+initDaysColumn();

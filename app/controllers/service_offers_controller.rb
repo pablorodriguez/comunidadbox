@@ -18,7 +18,7 @@ class ServiceOffersController < ApplicationController
     
     @offers = current_user.find_service_offers(filters)
     @offers = @offers.paginate(:per_page=>10,:page =>page)
-    
+        
     respond_to do |format|
       format.html
       format.js { render :layout => false}
@@ -27,6 +27,13 @@ class ServiceOffersController < ApplicationController
 
   def show
     @offer = ServiceOffer.find(params[:id])
+    if current_user.is_administrator
+      @cars = @offer.car_service_offer
+    end
+    
+    unless current_user.company
+      @cars = @offer.my_cars current_user
+    end
   end
 
   def new
@@ -44,6 +51,7 @@ class ServiceOffersController < ApplicationController
         @offer.car_service_offer << car_service_offer
       end
     end
+    @cars = @offer.car_service_offer
   end
   
   def list_offer_confirmed
@@ -85,7 +93,7 @@ class ServiceOffersController < ApplicationController
   def edit
     @title ="Editar Oferta de Servicio"
     @offer = ServiceOffer.find(params[:id])
-    @cars = @offer.cars
+    @cars = @offer.car_service_offer
   end
 
   def update

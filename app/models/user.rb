@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
     if self.is_super_admin
       offers = ServiceOffer.all
     elsif self.is_administrator
-      offers = self.company.service_offers
+      offers = ServiceOffer.where("company_id = ?",company.id)
     else
-      offers = self.service_offers("Enviado")
+      offers = ServiceOffer.where("status like 'Enviado'")
     end
 
     offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?

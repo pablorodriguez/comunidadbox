@@ -6,7 +6,12 @@
         Información del Autómovil
   %tr
     %td 
-    - @offer.car_service_offer.each do |car_service|
+    - @cars.each do |car_s|
       %tr
         %td{:colspan=>4}
-          =h car_service.car.info
+          =h car_s.car.info
+          = "[#{car_s.status}]"
+          -if current_user.cars.include?(car_s.car)
+            - if car_s.status == "Enviado"
+              = link_to "C",confirm_car_service_offer_path(car_s),:title =>"Confirmar"
+              = link_to "R",reject_car_service_offer_path(car_s),:title =>"Rechazar"

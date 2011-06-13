@@ -13,13 +13,24 @@ jQuery(document).ready( function(){
 			buttonImage: '/images/calendar.png',
 			buttonImageOnly: true
 		});
-		
+	
+  initDaysColumn();
 	$('#todos').click(function(){checkAll(this);});
 	$("#service_offer_final_price").blur(calculateValues);
 	$("#service_offer_percent").blur(calculateValues);
 	$(".service_offer_row").live("click",viewRow).live("mouseover",showActionButtons).live("mouseleave",hideActionButtons);
 	
 });
+
+function initDaysColumn(){
+  $(".days").each(function(){
+    if ($(this).find("li").size() > 3){
+      $(this).columnize({ columns: 2 });
+    }else{
+      $(this).addClass("days_col1");
+    }    
+  });
+}
 
 function viewRow(){
   var href = $(this).find(".view").attr("href");

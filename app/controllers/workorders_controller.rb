@@ -68,7 +68,7 @@ class WorkordersController < ApplicationController
         flash[:notice] = 'Orden de Trabajo actualizada'
         if @work_order.finish?
           @work_order.generate_events
-          send_notification @work_order.id          
+          #send_notification @work_order.id          
         end
         format.html { redirect_to(@work_order) }
         format.xml  { head :ok }
@@ -118,9 +118,14 @@ class WorkordersController < ApplicationController
     end
   end
   
+  def find_car_service_offer car_id
+    CarServiceOffer.where("car_id = ? and status = ?",car_id,'Aceptado')
+  end
+  
   def new
     company_id = params[:company_id]
     car_id = params[:car_id]
+    @car_service_offers = find_car_service_offer(car_id)
     if (car_id)
       car =Car.find(params[:car_id])
     else

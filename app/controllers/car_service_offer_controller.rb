@@ -5,8 +5,8 @@ class CarServiceOfferController < ApplicationController
   end
   
   def index
-    @offers = CarServiceOffer.find(:all,:conditions=>["service_offers.company_id = ? and car_service_offers.status in (?)",current_user.company.id,
-    ['Aceptado']],:include =>[:service_offer ,:car])
+    @offers = CarServiceOffer.where("service_offers.company_id = ? and car_service_offers.status in (?)",current_user.company.id,
+    ['Aceptado']).includes(:service_offer).includes(:car)
   end
   
   def confirm
@@ -21,6 +21,6 @@ class CarServiceOfferController < ApplicationController
     car_service_offer = CarServiceOffer.find params[:id]
     car_service_offer.status=new_status
     car_service_offer.save
-    redirect_to list_service_offer_users_path
+    redirect_to service_offer_path(car_service_offer.service_offer)
   end
 end

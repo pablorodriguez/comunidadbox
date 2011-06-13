@@ -144,13 +144,20 @@ function updateItemTotalPrice(element){
 function updateTotalService(service_element){
 	var total= 0;
 	var element =$(service_element);
-	element.find(".total_item").each(function(){
-		var elem = $(this).parent().parent()[0];
-		if(elem.style.display != 'none'){
-			total += $(this).asNumber();
-		}
-		
-	});
+	var st_id = parseInt(element.find(".service_type_id").val());
+	var so_id = parseInt($("#st_id_o").val());
+	
+	if ((so_id == st_id)){
+	 total = $("#service_offer_price").val();
+	}else{
+  	element.find(".total_item").each(function(){
+  		var elem = $(this).parent().parent()[0];
+  		if(elem.style.display != 'none'){
+  			total += $(this).asNumber();
+  		}
+  		
+  	});
+	}
 	total_service = element.find(".total_service");
 	total_service.html(total);
 	total_service.formatCurrency();

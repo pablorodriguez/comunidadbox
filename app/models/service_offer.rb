@@ -16,6 +16,18 @@ class ServiceOffer < ActiveRecord::Base
     [ 'Enviado' , 'Enviado' ]
   ]
 
+  def valid_dates
+      dates = []
+      dates << "Lunes" if monday
+      dates << "Martes" if tuesday
+      dates << "Miercoles" if wednesday
+      dates << "Jueves" if thursday
+      dates << "Viernes" if friday
+      dates << "Sabado" if saturday
+      dates << "Domingo" if sunday
+      dates
+  end
+
   def self.get_service_offer_by_user
     users = Hash.new
     service_offers = ServiceOffer.where(["status ='Confirmado'"])
@@ -38,6 +50,10 @@ class ServiceOffer < ActiveRecord::Base
     end
     
     users
+  end
+  
+  def my_cars user
+    car_service_offer.select{|cs| cs.car.user.id == user.id}
   end
 
   def self.notify
