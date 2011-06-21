@@ -55,7 +55,7 @@ ComunidadBox::Application.configure do
     :port                 => 587,
     :domain               => 'comunidadbox.com',
     :user_name            => 'mail1@comunidadbox.com',
-    :password             => 'mail15624',
+    :password             => '5624mail',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 
