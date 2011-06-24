@@ -1,5 +1,6 @@
 class ServiceOffer < ActiveRecord::Base
-  
+
+
   has_many :car_service_offer
   has_many :cars, :through => :car_service_offer
   belongs_to :service_type
