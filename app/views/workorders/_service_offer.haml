@@ -1,16 +1,17 @@
 #service_offer_info.barradatos
   %h1
-    Oferta de Servicios
+    Ofertas de Servicios
   #service_offer_data
     %table
       -@car_service_offers.each do |cso|
         %tr
           %td
-            = hidden_field_tag :st_id_o, cso.service_offer.service_type.id
+            = hidden_field_tag "st_id[]", cso.service_offer.service_type.id,:id =>"st_id_#{cso.service_offer.service_type.id}"
+            = hidden_field_tag "cso_ids[]", cso.id,:id =>"cso_ids_#{cso.service_offer.service_type.id}"
             = cso.service_offer.service_type.name
           %td
             %span
               = number_to_currency cso.service_offer.final_price        
-              = hidden_field_tag "service_offer_price", cso.service_offer.final_price          
+              = hidden_field_tag "so_p_#{cso.service_offer.service_type.id}", cso.service_offer.final_price          
         
     

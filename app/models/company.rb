@@ -1,7 +1,7 @@
 class Company < ActiveRecord::Base
   has_one :address
   belongs_to :user
-  has_many :price_list
+  has_many :price_lists
   has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   has_many :company_service
   has_many :service_type, :through => :company_service, :order =>'name'
@@ -14,8 +14,8 @@ class Company < ActiveRecord::Base
   
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
   
-  def current_price_list
-    priceLists.detect{|pl| pl.active}
+  def is_employee user
+    return (self.user == user || employees.select{|e| e.id == user.id}.size > 0) ? true : false
   end
   
   def full_address

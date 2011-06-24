@@ -5,7 +5,7 @@ class CreateWorkorders < ActiveRecord::Migration
       t.references :company
       t.references :car
       t.references :user
-      t.string :status,:limit => 50
+      t.integer :status,:limit => 2
       t.timestamps
     end
     add_foreign_key(:workorders,:cars)

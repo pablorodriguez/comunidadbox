@@ -1,20 +1,27 @@
 class ServiceOffer < ActiveRecord::Base
+  
   has_many :car_service_offer
   has_many :cars, :through => :car_service_offer
   belongs_to :service_type
   belongs_to :company
 
   validates_numericality_of :price,:final_price,:percent
-
   validates_presence_of :title, :price, :final_price, :percent
-
-  STATUS_TYPES = [
-    [ 'Abierto' , 'Abierto' ],
-    [ 'Pendiente' , 'Pendiente' ],
-    [ 'Confirmado' , 'Confirmado' ],
-    [ 'Cancelado' , 'Cancelado' ],
-    [ 'Enviado' , 'Enviado' ]
+  
+  scope :sended ,where("service_offers.status = ?",Status::SENT)
+  scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
+  scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offer)}
+  
+  
+  STATUS = [
+      [ Status.status(Status::OPEN),Status::OPEN ],
+      [ Status.status(Status::CONFIRMED), Status::CONFIRMED ],
+      [ Status.status(Status::CANCELLED), Status::CANCELLED ]
   ]
+  
+  def confirmed?
+    status == Status::CONFIRMED
+  end
 
   def valid_dates
       dates = []
@@ -30,14 +37,14 @@ class ServiceOffer < ActiveRecord::Base
 
   def self.get_service_offer_by_user
     users = Hash.new
-    service_offers = ServiceOffer.where(["status ='Confirmado'"])
+    service_offers = ServiceOffer.where(["status = ?",Status::CONFIRMED])
     
     service_offers.each do |s|
-      s.status ="Enviado"
+      s.status = Status::SENT
       s.save
       
       s.car_service_offer.each do |cs|
-        cs.status ="Enviado"
+        cs.status = Status::SENT
         cs.save
       end
       

@@ -3,7 +3,7 @@ class CreateCarServiceOffers < ActiveRecord::Migration
     create_table :car_service_offers do |t|
       t.references :car
       t.references :service_offer
-      t.string  :status
+      t.integer :status,:limit => 2
       t.timestamps
     end
     

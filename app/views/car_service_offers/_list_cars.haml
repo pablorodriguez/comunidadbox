@@ -15,6 +15,6 @@
           = icon_status car_s.status
         %td
           -if current_user.cars.include?(car_s.car)
-            - if car_s.status == "Enviado"
+            - if car_s.status == Status::SENT
               = link_to "C",confirm_car_service_offer_path(car_s),:title =>"Confirmar"
               = link_to "R",reject_car_service_offer_path(car_s),:title =>"Rechazar"

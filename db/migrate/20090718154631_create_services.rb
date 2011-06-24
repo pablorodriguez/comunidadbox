@@ -3,9 +3,10 @@ class CreateServices < ActiveRecord::Migration
     create_table :services do |t|
       t.string  :comment
       t.references :workorder
+      t.references :service_offer
       t.references :service_type
       t.string :material,:limit =>250
-      t.string :status,:limit => 50
+      t.integer :status,:limit => 2
       t.timestamps
     end
     add_foreign_key(:services,:workorders,:dependent => :delete)

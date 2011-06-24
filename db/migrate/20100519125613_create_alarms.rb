@@ -5,7 +5,7 @@ class CreateAlarms < ActiveRecord::Migration
       t.text :description
       t.integer :time
       t.string :time_unit
-      t.string :status
+      t.integer :status,:limit => 2
       t.datetime :date_ini
       t.datetime :date_end
       t.datetime :date_alarm

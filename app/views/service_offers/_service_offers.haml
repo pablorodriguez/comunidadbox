@@ -8,11 +8,14 @@
             .company_name        
               = offer.company.name
           .service_offer_title      
-            =link_to offer.title, offer,:class =>"view"
+            = link_to offer.title, offer,:class =>"view"
           .service_offer_name
             =h offer.service_type.name
           .status
-            = offer.status
+            - if current_user.company
+              = icon_status offer.status
+            - else
+              = "offer.car_service_offer.status"
           -if current_user.company && offer.company == current_user.company
             .cars
               Autos:
@@ -41,10 +44,10 @@
                   %li
                     =day
       .serivce_offer_actions
-        -if current_user.company
+        -if current_user.company && offer.status != Status::SENT
           #d
             = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
-        - if (offer.status == 'Pendiente' || offer.status == 'Abierto')
+        - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
           #e
             = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
 #paginator_wo

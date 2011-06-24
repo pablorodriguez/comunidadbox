@@ -41,21 +41,23 @@ class User < ActiveRecord::Base
     return employer if employer
   end
   
-  def find_service_offers(filters)
+  def find_service_offers(filters = nil)
     
     if self.is_super_admin
-      offers = ServiceOffer.all
+      offers = ServiceOffer.confirmed
     elsif self.is_administrator
-      offers = ServiceOffer.where("company_id = ?",company.id)
+      offers = company.service_offers
     else
-      offers = ServiceOffer.where("status like 'Enviado'")
+      offers = ServiceOffer.cars(cars.map(&:id)).sended
     end
 
-    offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
-    offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
-    offers = offers.where("until <= ?",filters[:until].to_datetime.in_time_zone) unless filters[:until].empty?
-    offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
-    offers = offers.where("status in (?)",filters[:status]) if filters[:status]
+    if filters
+      offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
+      offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
+      offers = offers.where("until <= ?",filters[:until].to_datetime.in_time_zone) unless filters[:until].empty?
+      offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
+      offers = offers.where("status in (?)",filters[:status]) if filters[:status]    
+    end
     offers
   end
   
@@ -81,10 +83,8 @@ class User < ActiveRecord::Base
   
   def own(comp)
     if company_id == comp.id
-      puts "aca id"
       return true
     end
-    
     companies.each do |c|
       if c.id == comp.id
         puts "aca each #{c.id} #{company.id}"
@@ -94,8 +94,12 @@ class User < ActiveRecord::Base
     return false
   end
   
+  def own_car car
+    cars.select{|c| c.id = car.id}.size > 0
+  end
+  
   def employees
-    User.where("employer_id",self.id)
+    User.where("employer_id = ? ",id)
   end
   
   def company

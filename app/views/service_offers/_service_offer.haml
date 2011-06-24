@@ -1,0 +1,55 @@
+%h1 
+  = " Servicio : #{service_offer.service_type.name}"  
+%table.comboxform
+  %tr
+    %td.current.header{:width=>"25%"}
+      Titulo
+    %td{:width=>"25%"}
+      = h service_offer.title
+    %td.current.header{:width=>"25%"}
+      Prestador de Servicios
+    %td{:width=>"25%"}
+      = service_offer.company.name
+  %tr
+    %td.current.header Precio
+    %td
+      =h number_to_currency(service_offer.price)
+    %td.current.header Descuento %
+    %td
+      = h service_offer.percent
+  %tr
+    %td.current.header Precio Final
+    %td
+      =h number_to_currency(service_offer.final_price)
+    %td.current.header Estado
+    %td
+      =icon_status service_offer.status
+  %tr
+    %td.current.header Desde
+    %td
+      = (l service_offer.since) if service_offer.since
+    %td.current.header Hasta
+    %td
+      = (l service_offer.until) if service_offer.until    
+  %tr
+    %td.current.header Comentario
+    %td
+      =h service_offer.comment
+    %td.current.header Dias
+    %td.label_title{:colspan=>3}
+      =h service_offer.monday ? "Lunes" : " "
+      =h service_offer.tuesday ? "Martes" : " "
+      =h service_offer.wednesday ? "Miercoles" : " "
+      =h service_offer.thursday ? "Jueves" : " "
+      =h service_offer.friday ? "Viernes" : " "
+      =h service_offer.saturday ? "Sabado" : " "
+      =h service_offer.sunday ? "Domingo" : " "
+
+%p
+  = link_to_back
+  - if (service_offer.status == Status::PENDING || service_offer.status == Status::OPEN)
+    = link_to image_tag('edit.png'), edit_service_offer_path(service_offer),:title =>"Modificar"
+  -if current_user.company && service_offer.status != Status::SENT
+    = link_to image_tag('delete.png'), service_offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
+      
+      

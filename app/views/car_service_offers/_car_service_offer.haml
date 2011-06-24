@@ -1,0 +1,55 @@
+%h1 
+  = " Servicio : #{@car_service_offer.service_offer.service_type.name}"  
+%table.comboxform
+  %tr
+    %td.current.header{:width=>"25%"}
+      Titulo
+    %td{:width=>"25%"}
+      = h @car_service_offer.service_offer.title
+    %td.current.header{:width=>"25%"}
+      Prestador de Servicios
+    %td{:width=>"25%"}
+      = @car_service_offer.service_offer.company.name
+  %tr
+    %td.current.header Precio
+    %td
+      =h number_to_currency(@car_service_offer.service_offer.price)
+    %td.current.header Descuento %
+    %td
+      = h @car_service_offer.service_offer.percent
+  %tr
+    %td.current.header Precio Final
+    %td
+      =h number_to_currency(@car_service_offer.service_offer.final_price)
+    %td.current.header Estado
+    %td
+      = icon_status @car_service_offer.status
+  %tr
+    %td.current.header Desde
+    %td
+      = (l @car_service_offer.service_offer.since) if @car_service_offer.service_offer.since
+    %td.current.header Hasta
+    %td
+      = (l @car_service_offer.service_offer.until) if @car_service_offer.service_offer.until    
+  %tr
+    %td.current.header Comentario
+    %td
+      =h @car_service_offer.service_offer.comment
+    %td.current.header Dias
+    %td.label_title{:colspan=>3}
+      =h @car_service_offer.service_offer.monday ? "Lunes" : " "
+      =h @car_service_offer.service_offer.tuesday ? "Martes" : " "
+      =h @car_service_offer.service_offer.wednesday ? "Miercoles" : " "
+      =h @car_service_offer.service_offer.thursday ? "Jueves" : " "
+      =h @car_service_offer.service_offer.friday ? "Viernes" : " "
+      =h @car_service_offer.service_offer.saturday ? "Sabado" : " "
+      =h @car_service_offer.service_offer.sunday ? "Domingo" : " "
+  -if @car_service_offer.service
+    %tr
+      %td
+        = link_to "Servicio", @car_service_offer.service.workorder
+%p
+  = link_to_back
+  - if current_user.company
+    - if (@car_service_offer.service_offer.status == 'Pendiente' || @car_service_offer.service_offer.status == 'Abierto')
+      = link_to image_tag('edit.png'), edit_service_offer_path(@car_service_offer.service_offer) 

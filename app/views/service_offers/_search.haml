@@ -28,14 +28,17 @@
           Estado
       %tr
         %td          
+          #sended
+            = check_box_tag("status[]",Status::SENT,false,:class=>"checkbox",:id=>"status_sended")
+            = label_tag 'status_sended',"Enviado",:class =>"link"
           #open
-            = check_box_tag("status[]","Abierto",false,:class=>"checkbox",:id=>"status_open")
+            = check_box_tag("status[]",Status::OPEN,false,:class=>"checkbox",:id=>"status_open")
             = label_tag 'status_open',"Abierto",:class =>"link"
           #confirm
-            = check_box_tag("status[]","Confirmado",false,:class=>"checkbox",:id=>"status_confirm")
+            = check_box_tag("status[]",Status::CONFIRMED,false,:class=>"checkbox",:id=>"status_confirm")
             = label_tag 'status_confirm',"Confirmado",:class =>"link" 
           #cancel
-            = check_box_tag("status[]","Cancelado",false,:class=>"checkbox",:id=>"status_cancel")
+            = check_box_tag("status[]",Status::CANCELLED,false,:class=>"checkbox",:id=>"status_cancel")
             = label_tag 'status_cancel',"Cancelado",:class =>"link"
       %tr  
         %td 

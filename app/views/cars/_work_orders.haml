@@ -1,33 +1,35 @@
 %h1
-  Servicios Realizados
+  Servicios Realizados AAAA
 %table#sort_table.comboxtable
   %thead
     %tr
       %th{:width=>"32%"} Detalle
-      %th{:width=>"16%"} Empresa
-      %th{:width=>"10%"} Realizado
       %th{:width=>"10%"} Total
-      %th{:width=>"5%"} Estado
   - for work_order in @work_orders
     %tr
       %td
-        - work_order.services.each do |s|
-          = link_to s.service_type.name, work_order
-          %br
-        #rank.rank{:id =>"wo_#{work_order.id}"}          
-          = render 'ranks/rank',:workorder => work_order
-      %td
-        = work_order.company.name
-      %td.number
-        = l work_order.created_at.to_date
+        .wo_detail
+          .services
+            - work_order.services.each do |s|
+              = link_to s.service_type.name, work_order
+              %br
+          .actions
+            = show_status work_order.status
+            -if (work_order.can_edit?(current_user))
+              = link_to image_tag('edit.png'), edit_workorder_path(work_order),:title =>"Modificar"
+            = link_to_pdf work_order
+          .rank.rank{:id =>"wo_#{work_order.id}"}          
+            = render 'ranks/rank',:workorder => work_order
+          .company
+            = work_order.company.name
+            %br
+            = work_order.company.is_employee(work_order.user) ? "Operario:" : "Usuario:"
+            = "#{work_order.user.first_name} #{work_order.user.last_name}"
+          .performed
+            Realizado:
+            = l work_order.created_at.to_date
       %td.number
         = number_to_currency work_order.total_price
-      %td
-        = show_status work_order.status
-        -if (work_order.open? && ((current_user.current_company == work_order.company) || (work_order.user == current_user)))
-          = link_to image_tag('edit.png'), edit_workorder_path(work_order)
-        = link_to_pdf work_order  
-
 %br
 #paginator_wo
   = will_paginate @work_orders,:params => @wo_pages

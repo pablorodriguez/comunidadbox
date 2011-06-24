@@ -5,7 +5,7 @@ class CreateServiceOffers < ActiveRecord::Migration
       t.float :final_price
       t.float :discount
       t.float :percent
-      t.string :status
+      t.integer :status,:limit => 2
       t.date :since
       t.date :until
       t.boolean :monday, :default => false

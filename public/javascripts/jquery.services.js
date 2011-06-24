@@ -145,10 +145,11 @@ function updateTotalService(service_element){
 	var total= 0;
 	var element =$(service_element);
 	var st_id = parseInt(element.find(".service_type_id").val());
-	var so_id = parseInt($("#st_id_o").val());
+	var so_id = parseInt($("#st_id_" + st_id).val());
+	var cso_id = parseInt($("#cso_ids_" + st_id).val());
 	
 	if ((so_id == st_id)){
-	 total = $("#service_offer_price").val();
+	 total = $("#so_p_" + st_id).val();
 	}else{
   	element.find(".total_item").each(function(){
   		var elem = $(this).parent().parent()[0];
@@ -304,6 +305,7 @@ function add_materials_service_types(elements){
 		var tr0 = ele.parent().parent();
 		
 		var serviceTypeId = $("#service_type_id").val();
+		
 		var serviceType = $("#service_type_id option:selected").text();
 		var materialServiceTypeId = this.id;
 		var material =$.trim(tr0.find("td:eq(1)").html());

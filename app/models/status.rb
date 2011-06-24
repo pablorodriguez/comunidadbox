@@ -1,31 +1,32 @@
 class Status
   
-  OPEN=1
-  IN_PROCESS=2
-  CANCELLED=3
-  FINISHED=4
-  COMPLETED=5
-  ACTIVE =6
+  OPEN = 1
+  IN_PROCESS = 2
+  CANCELLED = 3
+  FINISHED =4
+  COMPLETED = 5
+  ACTIVE = 6
+  CONFIRMED = 7
+  PERFORMED = 8
+  SENT = 9
+  PENDING = 10
+  REJECTED = 11
   
-  WO_STATUS = {OPEN=>'Abierto',IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',FINISHED=>'Terminado'}
+  WO_STATUS = {
+    OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
+    }
+  
+  STATUS = {
+    OPEN=>'Abierto',IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
+    FINISHED=>'Terminado',COMPLETED=>'Completado',ACTIVE =>'Activo',
+    CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>"Enviado",PENDING=>'Pendiente',
+    REJECTED =>'Rechazado'
+    }
+  
     
   def self.status st
-    WO_STATUS[st]
+    STATUS[st]
   end
   
-  def self.open
-    status OPEN
-  end
   
-  def self.finish
-    status FINISHED
-  end
-    
-  def self.cancel
-    status CANCELLED
-  end
-  
-  def self.in_process
-    status IN_PROCESS
-  end
 end

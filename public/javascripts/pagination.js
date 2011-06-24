@@ -1,10 +1,18 @@
 jQuery(document).ready(function(){
 	$(".pagination a").live("click",function(){
-	  $.setFragment({"page" : $.queryString(this.href).page,	
-	  "date_from" : $.queryString(this.href).date_from,
-	  "date_to": $.queryString(this.href).date_to,
-	  "domain": $.queryString(this.href).domain,
-	  "service_type_id" : $.queryString(this.href).service_type_id}); 	
+	  
+	  var date_from = $.queryString(this.href).date_from ? $.queryString(this.href).date_from : "";
+	  var date_to = $.queryString(this.href).date_to ? $.queryString(this.href).date_to : "";
+	  var domain = $.queryString(this.href).domain ? $.queryString(this.href).domain : "";
+	  var service_type_id = $.queryString(this.href).service_type_id ? $.queryString(this.href).service_type_id : "";
+	  
+	  $.setFragment({
+	     "page" : $.queryString(this.href).page,	
+	     "date_from" : date_from ,
+	     "date_to": date_to,
+	     "domain": domain,
+	     "service_type_id" : service_type_id
+	     }); 	
 		return false;
 	});
 	

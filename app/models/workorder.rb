@@ -35,10 +35,23 @@ class Workorder < ActiveRecord::Base
     end
   end
   
+  def find_car_service_offer(company_id,status= Status::CONFIRMED)
+    car_service_offer = CarServiceOffer.cars(car.id).company(company_id).by_status(status)
+    car_service_offer.each do |cso|
+      service = services.select{|s| s.service_type.id == cso.service_offer.service_type.id}.first
+      service.car_service_offer = cso if service
+    end
+    car_service_offer
+  end
+  
+  def car_service_offers
+    services.map{|s| s.car_service_offer}.delete_if{|cso| cso == nil}
+  end
+  
   def total_price
     s_total_price=0
     self.services.each do |s|
-      s_total_price += s.total_price if s.status != Status.cancel  
+      s_total_price += s.total_price if s.status != Status::CANCELLED  
     end   
     s_total_price
   end
@@ -69,18 +82,32 @@ class Workorder < ActiveRecord::Base
     else
       self.status = Status::FINISHED
     end
+    logger.info "### #{self.status} #{Status.status(self.status)}"
   end
   
   def finish?
     status == Status::FINISHED
   end
-  
+   
   def open?
     status == Status::OPEN
   end
   
   def belong_to_user user
     user.cars.include?(car)
+  end
+  
+  def can_edit? user
+    if ((self.user.id == user.id) && open?)
+        return true
+    else
+      if (user.is_administrator && company == user.company && company.is_employee(self.user) && open?)
+        return true
+      else
+        return false   
+      end
+    end
+      
   end
   
   private
@@ -100,12 +127,12 @@ class Workorder < ActiveRecord::Base
   def update_event_status
     services.each do |service| 
       unless service.cancelled
-        events_r = Event.red.car(service.workorder.car.id).service_typed(service.service_type.id).map.each{|e| e.id}
-        events = events_r + Event.yellow.car(service.workorder.car.id).service_typed(service.service_type.id).map.each{|e|e.id}
+        events_r = Event.red.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
+        events = events_r + Event.yellow.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
         events.each do |id|
           e = Event.find id
           unless e.service.workorder.id == service.workorder.id
-            e.status = Status.finish
+            e.status = Status::FINISHED
             e.service_done = service
             e.save
           end
@@ -152,10 +179,7 @@ class Workorder < ActiveRecord::Base
     unless filters[:service_type_id].empty?
       @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
     end
-
-
     @workorders
   end
-     
   
 end

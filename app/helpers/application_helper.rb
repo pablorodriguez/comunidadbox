@@ -9,8 +9,13 @@ module ApplicationHelper
   end
   
   def icon_status(status)
-    return image_tag "icon_unlock.png",:class =>"status" if [Status::OPEN,Status::IN_PROCESS].include?(status)  
-    return image_tag "icon_lock.png",:class =>"status" if status == Status::FINISHED
+    return image_tag("icon_unlock.png",:class =>"status",:title =>Status.status(status)) if [Status::OPEN,Status::IN_PROCESS].include?(status)  
+    return image_tag("icon_lock.png",:class =>"status",:title =>Status.status(status)) if status == Status::FINISHED
+    return image_tag("confirmed.png",:class =>"status",:title =>Status.status(status)) if status == Status::CONFIRMED
+    return image_tag("sent.png",:class =>"status",:title =>Status.status(status)) if status == Status::SENT
+    return image_tag("cancelled.png",:class =>"status",:title =>Status.status(status)) if status == Status::CANCELLED
+    return image_tag("performed.png",:class =>"status",:title =>Status.status(status)) if status == Status::PERFORMED
+    return image_tag("active.png",:class =>"status",:title =>Status.status(status)) if status == Status::ACTIVE
   end
   
   def current_col_css(column)
@@ -22,14 +27,11 @@ module ApplicationHelper
   end
   
   def show_status status
-    image_tag('ok.png') if status == 4
+    image_tag('ok.png',{:title => Status.status(status)}) if status == Status::FINISHED
   end
   
   def link_to_pdf work_order
-    if (work_order.company == current_user.company ||
-      work_order.car.user == current_user)
-      link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank"
-    end
+    link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Ver PDF"
   end
   
   def link_to_back(url=nil)    

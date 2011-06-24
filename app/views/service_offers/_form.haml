@@ -28,7 +28,7 @@
     %td.current.header
       Estado
     %td
-      = f.select(:status,ServiceOffersController::STATUS,{:selected =>f.object.status},{:class=>'status'})
+      = f.select(:status,ServiceOffer::STATUS,{:selected =>f.object.status},{:class=>'status'})
   %tr
     %td.current.header
       Desde

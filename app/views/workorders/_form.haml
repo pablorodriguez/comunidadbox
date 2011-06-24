@@ -14,8 +14,6 @@
   #work_order
     #car_info.barradatos
       = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}
-    -#- if @car_service_offers
-    -#  = render 'service_offer'
   #materials.contentleft
     = render :partial=>'materials'
   #work_order_form.contentright

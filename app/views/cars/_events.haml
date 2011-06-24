@@ -3,13 +3,16 @@
 %table#sort_table.comboxtable
   %thead
     %tr
+      %th
       %th Tipo de Servicio
       %th Fecha a Realizar
       %th Km
   - for event in @events
     %tr
       %td
-        = link_to event.service_type.name, event.service.workorder
+        = icon_status event.status
+      %td
+        = link_to event.service_type.name, event        
       %td
         = l event.dueDate
       %td.number

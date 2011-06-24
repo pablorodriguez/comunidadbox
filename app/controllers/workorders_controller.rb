@@ -18,8 +18,13 @@ class WorkordersController < ApplicationController
   
   def index
     page = params[:page] || 1
-    @company_services = current_user.company.company_service.map{|s| s.service_type}
-    per_page = 10
+    if current_user.company
+      @company_services = current_user.company.company_service.map{|s| s.service_type}
+    else
+      @company_services = current_user.service_types
+    end
+    
+    per_page = 8
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
@@ -62,23 +67,28 @@ class WorkordersController < ApplicationController
   # PUT /brands/1.xml
   def update
     @work_order = Workorder.find(params[:id])
+    cso_ids = params["cso_ids"] || []
     
     respond_to do |format|
-      if @work_order.update_attributes(params[:workorder])
-        flash[:notice] = 'Orden de Trabajo actualizada'
-        if @work_order.finish?
-          @work_order.generate_events
-          #send_notification @work_order.id          
+      Workorder.transaction do
+        if @work_order.update_attributes(params[:workorder])
+          flash[:notice] = 'Orden de Trabajo actualizada'
+          
+          CarServiceOffer.update_with_services(@work_order.services,cso_ids)
+          if @work_order.finish?
+            @work_order.generate_events
+            #send_notification @work_order.id          
+          end
+          format.html { redirect_to(@work_order) }
+          format.xml  { head :ok }
+        else
+          @service_types = CompanyService.find(:all,
+            :conditions=>["company_id= ?",current_user.company.id],
+            :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+  
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
         end
-        format.html { redirect_to(@work_order) }
-        format.xml  { head :ok }
-      else
-        @service_types = CompanyService.find(:all,
-          :conditions=>["company_id= ?",current_user.company.id],
-          :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
-
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -86,9 +96,16 @@ class WorkordersController < ApplicationController
   def edit
     @work_order= Workorder.find(params[:id])
     @service_types = current_user.service_types
+    @car_service_offers = @work_order.car_service_offers
+    logger.info "### car service offer #{@car_service_offers.size}"
+    if @car_service_offers.size == 0
+      @car_service_offers = @work_order.find_car_service_offer(current_user.company.id)
+    end
+    
   end
 
   def create
+    cso_ids = params["cso_ids"] || []
     @work_order = Workorder.new(params[:workorder])
     #@work_order.company = current_user.current_company
     @work_order.km = Car.find(@work_order.car.id).km
@@ -98,6 +115,7 @@ class WorkordersController < ApplicationController
       car = @work_order.car
       car.company = current_user.current_company
       car.save
+      CarServiceOffer.update_with_services(@work_order.services,cso_ids)
       saveAction = @work_order.save
       @work_order.generate_events
     end
@@ -118,14 +136,10 @@ class WorkordersController < ApplicationController
     end
   end
   
-  def find_car_service_offer car_id
-    CarServiceOffer.where("car_id = ? and status = ?",car_id,'Aceptado')
-  end
-  
   def new
     company_id = params[:company_id]
     car_id = params[:car_id]
-    @car_service_offers = find_car_service_offer(car_id)
+    
     if (car_id)
       car =Car.find(params[:car_id])
     else
@@ -140,6 +154,7 @@ class WorkordersController < ApplicationController
     if current_user.company
       company_id = current_user.company.id
     end
+
     if company_id
       @work_order = Workorder.new
       @work_order.performed = I18n.l(Time.now.to_date)
@@ -149,10 +164,10 @@ class WorkordersController < ApplicationController
       else
         company_service_id = Company::DEFAULT_COMPANY_ID
       end
-
       @work_order.company = Company.find company_id
       @work_order.car = car
       @service_types = current_user.service_types
+      @car_service_offers = @work_order.find_car_service_offer(company_id)
     else
       flash[:notice] ="Por favor seleccione un prestador de servicios"
       redirect_to all_companies_path(:car_id =>car_id)

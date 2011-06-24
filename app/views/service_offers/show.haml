@@ -1,55 +1,8 @@
 %h1 
   = vineta
   Oferta de Servicio :
-  = @offer.company.name
+  = @service_offer.company.name
 .contentleft
   = render "list_cars"
 .contentright
-  %h1 
-    = " Servicio : #{@offer.service_type.name}"  
-  %table.comboxform
-    %tr
-      %td.current.header Titulo
-      %td
-        = h @offer.title
-    %tr
-      %td.current.header Precio
-      %td
-        =h number_to_currency(@offer.price)
-      %td.current.header Descuento %
-      %td
-        = h @offer.percent
-    %tr
-      %td.current.header Precio Final
-      %td
-        =h number_to_currency(@offer.final_price)
-      %td.current.header Estado
-      %td
-        =h @offer.status
-    %tr
-      %td.current.header Desde
-      %td
-        = (l @offer.since) if @offer.since
-      %td.current.header Hasta
-      %td
-        = (l @offer.until) if @offer.until    
-    %tr
-      %td.current.header Dias
-      %td.label_title{:colspan=>3}
-        =h @offer.monday ? "Lunes" : " "
-        =h @offer.tuesday ? "Martes" : " "
-        =h @offer.wednesday ? "Miercoles" : " "
-        =h @offer.thursday ? "Jueves" : " "
-        =h @offer.friday ? "Viernes" : " "
-        =h @offer.saturday ? "Sabado" : " "
-        =h @offer.sunday ? "Domingo" : " "
-    %tr
-      %td.current.header Comentario
-      %td{:colspan=>3}
-        =h @offer.comment
-  
-  %p
-    = link_to_back
-    - if current_user.company
-      - if (@offer.status == 'Pendiente' || @offer.status == 'Abierto')
-        = link_to image_tag('edit.png'), edit_service_offer_path(@offer) 
+  = render @service_offer

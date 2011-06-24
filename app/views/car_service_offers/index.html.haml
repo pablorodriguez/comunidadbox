@@ -1,25 +1,23 @@
 %h1
   =vineta 
-  Ofertas Servicio de Autos
+  Ofertas Servicio
 .box
   - if @offers.size > 0
     %table#sort_table.comboxtable
       %thead
         %tr
-          %th Titulo        
+          %th Prestador de Servicio
+          %th Titulo
           %th Tipo de Servicio
           %th Dominio
-          %th Usuario
           %th Estado
-          %th
       - @offers.each do |offer|
         %tr
+          %td= offer.service_offer.company.name
           %td=link_to offer.service_offer.title, offer
           %td= offer.service_offer.service_type.name
           %td=h offer.car.domain
-          %td=h offer.car.user.full_name
-          %td=h offer.status
-          %td= link_to image_tag('new.png'), new_workorder_path(:car_id => offer.car.id,:so=>offer.service_offer),{:title =>"Nuevo Servicio"}
+          %td= icon_status offer.status
   - else
     No hay ofertas de servicios de autos		
   %br

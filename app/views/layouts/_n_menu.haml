@@ -45,20 +45,19 @@
                 = link_to "Mis Automóviles", my_cars_path
               - unless current_user.company
                 %li 
-                  = link_to "Ofertas de Servicio", service_offers_path                
+                  = link_to "Ofertas de Servicio", car_service_offers_path
               - if current_user.company
                 %li 
                   = link_to "Buscar Automóviles", cars_path                
                 %li 
                   = link_to "Buscar Cliente", clients_path
-                  
-          - if current_user.company
-            .col_1
-              %ul.greybox
+          .col_1
+            %ul.greybox
+              - if current_user.company
                 %li
                   = link_to "Panel de control" , control_panels_path
-                %li
-                  = link_to "Servicios Realizados" , workorders_path
+              %li
+                = link_to "Servicios Realizados" , workorders_path
         / End 4 columns container
       / End 4 columns Item
     - if user_signed_in? && current_user.is_administrator
@@ -81,8 +80,6 @@
                 = link_to "Listado de Filtros" , service_filters_path
               %li
                 = link_to "Ofertas de Servicio" , service_offers_path
-              %li
-                = link_to "Ofertas de Servicios Enviadas",car_service_offer_index_path
           .col_1
             %ul.greybox
               %li

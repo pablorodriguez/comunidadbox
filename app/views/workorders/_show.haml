@@ -8,7 +8,7 @@
       %td.total
         = number_to_currency @work_order.total_price
     %tr
-      %td.header Empresa
+      %td.header Prestador de Servicio
       %td
         = @work_order.company.name
       %td.header Realizado
@@ -41,26 +41,41 @@
       %td.header
         Km Promedio Mensual
       %td
-        = @work_order.car.kmAverageMonthly
+        = @work_order.car.kmAverageMonthly  
   %table.service_table
     %tr.header
-      %td{:colspan=>3} Servicios Realizados
+      %td{:colspan=>5} Servicios Realizados
     - for service in @work_order.services
+      - if service.car_service_offer
+        %tr.header
+          %td{:colspan=>5}
+            = link_to "Oferta de Servicio",service.car_service_offer
+        %tr
+          %td.header
+            Prestador de Servicio
+          %td
+            = service.car_service_offer.service_offer.company.name
+          %td.header
+            Detalle
+          %td
+            = service.car_service_offer.service_offer.title
+            = number_to_currency service.car_service_offer.service_offer.final_price
       %tr.header
-        %td{:colspan=>3}
+        %td{:colspan=>5}
           = icon_status service.status
           = service.service_type.name
-      %tr
-        %td.header
+      %tr        
+        %td.header{:colspan=>2}
           Materiales
         %td.header.number
           Cantidad
         %td.header.number
-          Precio
-      
-      - for ms in service.material_services
+          Precio Unitario
+        %td.header.number
+          Total
+      - for ms in service.material_services        
         %tr
-          %td
+          %td{:colspan=>2}
             - if ms.material_service_type
               = ms.material_service_type.material.name
             - unless ms.material_service_type
@@ -69,12 +84,14 @@
             = ms.amount
           %td.number
             = number_to_currency ms.price
+          %td.number
+            = number_to_currency ms.total_price
       - if service.service_type.tasks.size >0
         %tr.table_header
-          %td{:colspan=>2} Tareas
+          %td{:colspan=>4} Tareas
           %td Comentario
         %tr
-          %td{:colspan=>2}
+          %td{:colspan=>3}
             %ul.tasks
               - for task in service.service_type.tasks
                 %li{:class=>service.tasks.include?(task)?"":"red"}
@@ -83,12 +100,12 @@
           %td
             = service.comment
       %tr
-        %td.header.number{:colspan=>2}
+        %td.header.number{:colspan=>4}
           Total
         %td.number.total.header
           = number_to_currency service.total_price
     %tr
-      %td.header.number{:colspan=>2}
+      %td.header.number{:colspan=>4}
         Total Orden de Trabajo
       %td.number.total.header
         = number_to_currency @work_order.total_price

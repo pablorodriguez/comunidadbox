@@ -5,7 +5,7 @@ class CreateEvents < ActiveRecord::Migration
       t.references :service_type
       t.references :service
       t.integer :service_done_id
-      t.integer :status
+      t.integer :status,:limit => 2
       t.integer :km
       t.date :dueDate
       t.timestamps

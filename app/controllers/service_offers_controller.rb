@@ -1,15 +1,8 @@
 class ServiceOffersController < ApplicationController
   
-  STATUS = [
-      [ 'Abierto' , 'Abierto' ],
-      [ 'Confirmado' , 'Confirmado' ],
-      [ 'Cancelado' , 'Cancelado' ]
-  ]
-  
   def index
     page = params[:page] || 1
     @service_types = current_user.service_types
-    params[:from]
     from = (params[:service_offer_since] && (!params[:service_offer_since].empty?)) ? params[:service_offer_since] : ""
     until_d = (params[:service_offer_until] && (!params[:service_offer_until].empty?)) ? params[:service_offer_until] : ""
     service_type_id = (params[:service_type_id] && (!params[:service_type_id].empty?)) ? params[:service_type_id] : ""
@@ -18,7 +11,7 @@ class ServiceOffersController < ApplicationController
     
     @offers = current_user.find_service_offers(filters)
     @offers = @offers.paginate(:per_page=>10,:page =>page)
-        
+    logger.info "### offers size #{@offers.size}"    
     respond_to do |format|
       format.html
       format.js { render :layout => false}
@@ -26,13 +19,13 @@ class ServiceOffersController < ApplicationController
   end
 
   def show
-    @offer = ServiceOffer.find(params[:id])
+    @service_offer = ServiceOffer.find(params[:id])
     if current_user.is_administrator
-      @cars = @offer.car_service_offer
+      @cars = @service_offer.car_service_offer
     end
     
     unless current_user.company
-      @cars = @offer.my_cars current_user
+      @cars = @service_offer.my_cars(current_user)
     end
   end
 
@@ -76,7 +69,11 @@ class ServiceOffersController < ApplicationController
     @offer.company = current_user.company
     params[:car_ids].each do |car_id|
       car_service_offer = CarServiceOffer.new
-      car_service_offer.status = @offer.status
+      car_service_offer.status = Status::OPEN
+      if @offer.confirmed?
+        car_service_offer.status = Status::CONFIRMED
+      end
+      
       car_service_offer.car = Car.find(car_id.to_i)
       car_service_offer.service_offer = @offer
       @offer.car_service_offer << car_service_offer      
@@ -94,6 +91,10 @@ class ServiceOffersController < ApplicationController
     @title ="Editar Oferta de Servicio"
     @offer = ServiceOffer.find(params[:id])
     @cars = @offer.car_service_offer
+    if @offer.status != Status::OPEN
+      flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"
+      redirect_to service_offers_path
+    end 
   end
 
   def update
@@ -114,7 +115,8 @@ class ServiceOffersController < ApplicationController
   
     
   def notify      
-    Resque.enqueue ServiceOfferJob
+    #Resque.enqueue ServiceOfferJob
+    ServiceOffer.notify
     logger.info "### envio de notificacion service offer"
     redirect_to :action => :index
   end

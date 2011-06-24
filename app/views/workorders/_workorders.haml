@@ -6,39 +6,39 @@
     %colbroup
       %col{:class=>current_col_css("cars.domain")}
       %col
-      %col{:class=>current_col_css("performed")}
+      %col{:class=>current_col_css("workorders.performed")}
     %tr
       %th{:width=>"10%"}
         = sortable "cars.domain","Dominio"
       %th{:width=>"30%"} Detalle
-      - unless current_user.company
-        %th Empresa
       %th{:width=>"12%"}
-        = sortable "performed", "Realizado"
+        = sortable "workorders.performed", "Realizado"
       %th{:width=>"10%"} Total
-      %th{:width=>"8%"} Estado
   - for work_order in @work_orders
     %tr
       %td
         = link_to work_order.car.domain, work_order.car
       %td
-        - work_order.services.each do |s|
-          = link_to s.service_type.name ,work_order
-          %br
-        #rank.rank{:id =>"wo_#{work_order.id}"}          
-          = render 'ranks/rank',:workorder => work_order
-      - unless current_user.company
-        %td
-          = work_order.company.name
+        .wo_detail
+          .services
+            %ul
+              - work_order.services.each do |s|
+                %li
+                  = link_to s.service_type.name ,work_order
+          .actions
+            = show_status work_order.status
+            - if work_order.can_edit?(current_user)
+              = link_to(image_tag('edit.png'), edit_workorder_path(work_order),:title =>"Modificar")
+              = link_to image_tag('delete.png'), workorder_path(work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
+            = link_to_pdf work_order              
+          .company
+            = work_order.company.name
+          #rank.rank{:id =>"wo_#{work_order.id}"}          
+            = render 'ranks/rank',:workorder => work_order
       %td.number
         = l work_order.performed
       %td.number
         = number_to_currency work_order.total_price
-      %td
-        = show_status work_order.status
-        -if work_order.open?
-          = link_to image_tag('edit.png'), edit_workorder_path(work_order)
-        = link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank"
 
 = will_paginate @work_orders,:params =>@filters
 = link_to_back   

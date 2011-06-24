@@ -74,7 +74,7 @@ ComunidadBox::Application.routes.draw do
   resources :ranks
   resources :tasks
   resources :home
-  resources :event
+  resources :events
   
   resources :employees do
     collection do
@@ -167,7 +167,7 @@ ComunidadBox::Application.routes.draw do
     
   end
 
-  resources :car_service_offer do
+  resources :car_service_offers do
     member do
       get :confirm
       get :reject
