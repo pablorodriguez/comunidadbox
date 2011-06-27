@@ -77,7 +77,7 @@ class WorkordersController < ApplicationController
           CarServiceOffer.update_with_services(@work_order.services,cso_ids)
           if @work_order.finish?
             @work_order.generate_events
-            #send_notification @work_order.id          
+            send_notification @work_order.id          
           end
           format.html { redirect_to(@work_order) }
           format.xml  { head :ok }
@@ -123,7 +123,7 @@ class WorkordersController < ApplicationController
     if saveAction
       if @work_order.finish?
         logger.info "### Work order finished"
-        #send_notification @work_order.id
+        send_notification @work_order.id
       end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
