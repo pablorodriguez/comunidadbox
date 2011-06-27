@@ -18,7 +18,7 @@ gem "devise",'1.1.5'
 gem "omniauth"
 gem 'jquery-rails', '>= 0.2.6'
 #gem 'delayed_job'
-gem 'resque'
+gem 'resque', :require =>"resque/server"
 gem 'resque-scheduler'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
