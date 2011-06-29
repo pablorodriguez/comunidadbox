@@ -11,14 +11,9 @@
           %h4 Confirmación de Cuenta
           %p
             Bienvenido #{@resource.full_name} a Comunidad Box !!!
-          %p Ud. puede confirmar su cuenta con el siguiente link:
-          %p
-            = link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
-          - if @resource.creator
-            Su clave temporal es 
-            %strong
-              @resource.password
-    
+          %p 
+            Ud. puede confirmar su cuenta con el siguiente link:
+            = link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)    
         #footer{:style=>"background:-moz-linear-gradient(center top , #DBDB39, #C9C20D) repeat scroll 0 0 transparent;background-color:#DBDB39"}
           #bar{:style=>"background-color:#DDDDDD;height:5px"}
           #fotter_txt{:style=>"padding:5px;color: black"}

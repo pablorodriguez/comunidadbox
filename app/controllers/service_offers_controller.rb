@@ -55,15 +55,6 @@ class ServiceOffersController < ApplicationController
     ServiceOffer.where(["company_id = ? and status= ?",current_user.company,:Confirmado])  
   end
   
-  def send_service_offers    
-    @service_confiramdos = get_offer_confirmerd
-    @service_confirmados.each do |s|
-      s.status ="Enviado"
-      s.send_at = Time.now
-      s.save
-    end
-  end
-
   def create
     @offer = ServiceOffer.new(params[:service_offer])
     @offer.company = current_user.company
