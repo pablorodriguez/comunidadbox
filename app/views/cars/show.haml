@@ -59,7 +59,7 @@
               = h number_to_currency @car.total_spend(current_user.company.id) 
         
   
-    = link_to_back
+    = link_to_back cars_path
     = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
     -if (@car.user.id == current_user.id)
       = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"}

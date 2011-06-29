@@ -12,7 +12,7 @@
           = image_submit_tag("find.png",:class =>"input_img")
   - if current_user.has_company?
     = button_to "Nuevo cliente", new_client_path,{:method =>:get,:class =>"btn_b"}
-  = link_to_back
+  = link_to_back root_path
   = link_to image_tag('new.png'), new_car_path(:user_id=>@user.id),  {:title =>"Nuevo Automóvil"}
   
   #ajax_loader.ajax_loader.left{:style=>"display:none"}        

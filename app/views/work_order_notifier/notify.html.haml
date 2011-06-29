@@ -26,17 +26,17 @@
         Operario
       %td
         = @work_order.user.full_name
-    %tr
-      %td
-        Total
-      %td
-        = number_to_currency @work_order.total_price
     - for service in @work_order.services
       %tr
         %td
           = service.service_type.name
         %td
           = number_to_currency service.total_price
+    %tr
+      %td
+        Total
+      %td
+        = number_to_currency @work_order.total_price          
   -if @user.future_events.size > 0      
     %br
     Sus proximos servicios de mantenimiento a realizar son
