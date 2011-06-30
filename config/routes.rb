@@ -207,8 +207,6 @@ ComunidadBox::Application.routes.draw do
     end
   end  
   
-  mount Resque::Server,:at => "/resque"
-  
   root :to => "home#welcome"
   
 end

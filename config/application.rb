@@ -42,5 +42,6 @@ module ComunidadBox
     config.filter_parameters += [:password]
     # Set your environment here.
     # ENV["RAILS_ENV"] ||= "production"
+    ENV['AUTH'] = "maverick"
   end
 end
