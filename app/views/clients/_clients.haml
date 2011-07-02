@@ -3,16 +3,20 @@
   %table.comboxtable
     %thead
       %tr
-        %th{:width=>"35%"} Cliente
-        %th{:width=>"10%"} Email
-        %th{:width=>"40%"} Auto
-        %th{:width=>"15%"}
+        %th{:width=>"25%"} Cliente
+        %th{:width=>"20%"} Email
+        %th{:widht=>"10%"}
+        %th{:width=>"35%"} Auto
+        %th{:width=>"20%"}
     - for car in @cars
       %tr
         %td= car.user.full_name
         %td=link_to h(car.user.email), user_path(car.user)
+        %td
+          = link_to image_tag('new.png'), new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio"}
         %td= car.info
         %td
           = link_to image_tag("edit.png"),edit_client_path(car.user),{:title=>"Modificar"}
           = link_to image_tag("new.png"),my_cars_path(:id=>car.user),{:title=>"Autos"}
+          
 = will_paginate @cars

@@ -48,9 +48,15 @@ class WorkordersController < ApplicationController
   def show
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
+    
     respond_to do |format|
       format.html
-      format.pdf { render :layout => false }
+      format.pdf {
+        prawnto :prawn =>[:page_size => Prwan::Document::A4]
+        prawnto :filename =>"Orden_de_Trabajo"
+        prawnto :inline =>false
+        render :layout => false 
+        }
     end   
   end
   

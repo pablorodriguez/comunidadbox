@@ -55,8 +55,8 @@ class ClientsController < ApplicationController
     email = params[:email] || ""
     first_name = params[:first_name] || ""
     last_name = params[:last_name] || ""
-    ids = current_user.employees.map(&:id)
-    ids << current_user.id
+    ids = current_user.company.employees.map(&:id)
+    ids << current_user.company.user.id
     @cars = Car.where("users.creator_id IN (?) and confirmed_at is null",ids).includes(:user)
     @cars = @cars.where("users.first_name like ? and users.last_name like ? and users.email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
     @cars = @cars.order("users.first_name,users.last_name").paginate(:page =>page,:per_page =>per_page)
