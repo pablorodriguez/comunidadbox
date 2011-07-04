@@ -1,6 +1,8 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
 
+  prawnto :prawn => {:page_size => "A4"}
+  
   layout "application", :except => [:remove_service,:filter]
 
   helper_method :sort_column,:sort_direction
@@ -52,9 +54,8 @@ class WorkordersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
-        prawnto :prawn =>[:page_size => Prwan::Document::A4]
+        
         prawnto :filename =>"Orden_de_Trabajo"
-        prawnto :inline =>false
         render :layout => false 
         }
     end   
