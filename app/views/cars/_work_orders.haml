@@ -17,6 +17,7 @@
             = show_status work_order.status
             -if (work_order.can_edit?(current_user))
               = link_to image_tag('edit.png'), edit_workorder_path(work_order),:title =>"Modificar"
+              = link_to image_tag('delete.png'), workorder_path(work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
             = link_to_pdf work_order
           .rank.rank{:id =>"wo_#{work_order.id}"}          
             = render 'ranks/rank',:workorder => work_order

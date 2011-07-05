@@ -97,17 +97,12 @@ class Workorder < ActiveRecord::Base
     user.cars.include?(car)
   end
   
-  def can_edit? user
-    if ((self.user.id == user.id) && open?)
-        return true
+  def can_edit?(user)
+    if (company == user.company && company.is_employee(self.user) && open?)
+      return true
     else
-      if (user.is_administrator && company == user.company && company.is_employee(self.user) && open?)
-        return true
-      else
-        return false   
-      end
+      return false   
     end
-      
   end
   
   private

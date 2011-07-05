@@ -31,10 +31,14 @@
               = link_to(image_tag('edit.png'), edit_workorder_path(work_order),:title =>"Modificar")
               = link_to image_tag('delete.png'), workorder_path(work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
             = link_to_pdf work_order              
+          #rank.rank{:id =>"wo_#{work_order.id}"}
+            = render 'ranks/rank',:workorder => work_order
           .company
             = work_order.company.name
-          #rank.rank{:id =>"wo_#{work_order.id}"}          
-            = render 'ranks/rank',:workorder => work_order
+            %br
+            = work_order.company.is_employee(work_order.user) ? "Operario:" : "Usuario:"
+            = "#{work_order.user.first_name} #{work_order.user.last_name}"
+          
       %td.number
         = l work_order.performed
       %td.number
