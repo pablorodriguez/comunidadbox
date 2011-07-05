@@ -2,7 +2,7 @@ company = @work_order.company
 car =@work_order.car
 user = car.user
 
-pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>:center,:scale =>0.8
+pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>:center,:scale =>0.75
 pdf.move_down(15)
 pdf.text "Estimado #{user.full_name}"
 pdf.text "Muchas gracias por usar Comunidad Box, Ud. ha realizado una servicio en nuestra red de prestadores"
