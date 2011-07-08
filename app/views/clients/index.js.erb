@@ -1,4 +1,4 @@
-if (<%=@cars.size%> > 0){
+if (<%=@clients.size%> > 0){
   $("#clients").html("<%=escape_javascript(render(:partial=>'clients'))%>");
 }else{
   $("#clients").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún cliente."}))%>");

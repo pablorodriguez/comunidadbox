@@ -18,6 +18,10 @@ class Car < ActiveRecord::Base
     Event.where("dueDate >= ? and car_id = ?",Time.now,self.id)
   end
   
+  def can_edit?(usr)
+    (user == usr) || (company == usr.company && user.confirmed_at == nil) 
+  end
+  
   def update_km(new_km)
     months = ((Time.now.to_i - self.updated_at.to_i).to_f / Event::MONTHS_IN_SEC).round
     if months > 0

@@ -1619,6 +1619,53 @@ ul.usr_menu li{
   float: right;
 }
 
+.client .actions{
+  float:right;
+}
+
+.top{
+  vertical-align: top;
+}
+
+.car , .client_car{
+  overflow: auto;
+}
+.domain{
+}
+
+.car .detail{
+  float: left;
+  width: 83%;
+}
+
+.client_car .detail{
+  float: left;
+  width: 70%;
+}
+.client_car .actions {
+  width: 10%;
+}
+
+.car .actions{
+  width: 5%;
+}
+
+.logo{
+  float: left;
+  margin: 0px 5px 0px 5px;
+}
+
+.car .km{
+  clear: both;
+}
+.actions{
+  float: right;
+}
+
+.line{
+  border-bottom: thin double #CCCCCC;
+}
+
 .wo_detail .company{
   float: left;
   clear: both;

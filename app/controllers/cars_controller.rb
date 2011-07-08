@@ -67,7 +67,6 @@ class CarsController < ApplicationController
       @user = current_user
     end
     @cars = @user.cars.paginate(:per_page=>5,:page =>page)
-    logger.info "### car size #{@cars.size}"
   end
   
   # GET /cars/1
@@ -110,7 +109,7 @@ class CarsController < ApplicationController
     else
       user=current_user
     end
-    
+        
     @car = Car.new
     @car.user = user
     @models = Array.new
@@ -130,9 +129,9 @@ class CarsController < ApplicationController
   # POST /cars.xml
   def create
     @car = Car.new(params[:car])
-    if @car.user.nil?
-      @car.user = current_user
-    end
+    @car.user = current_user if @car.user
+    @car.company = current_user.company if current_user.company
+    
     respond_to do |format|
       if @car.save
         flash[:notice] = t :car_created_exit
