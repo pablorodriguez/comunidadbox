@@ -1407,7 +1407,7 @@ td.number, th.number{
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;  
-  border: 0px solid #099F3A;
+  border: 1px solid #099F3A;
   margin: 5px;
   padding:5px;
   width: 98%;

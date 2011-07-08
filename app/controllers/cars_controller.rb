@@ -129,7 +129,6 @@ class CarsController < ApplicationController
   # POST /cars.xml
   def create
     @car = Car.new(params[:car])
-    @car.user = current_user if @car.user
     @car.company = current_user.company if current_user.company
     
     respond_to do |format|
