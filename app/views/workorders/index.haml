@@ -10,8 +10,9 @@
   .contentleft_s
     .contentleft
       = render 'search'
-    #totals.contentleft
-      = render 'totals'
+    - if current_user.is_administrator
+      #totals.contentleft
+        = render 'totals'
 
   .contentright
     - if @work_orders.size > 0
