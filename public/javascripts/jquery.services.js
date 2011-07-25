@@ -1,6 +1,8 @@
 var priceNumberPattern = /[0-9]+\.*[0-9]+$/;
 var materialCodePattern = /\[\S*\]/;
 var numberPattern = /[0-9]/;
+var commentDialog;
+var comment;
 serviceRow=0;
 jQuery(document).ready( function(){
   
@@ -41,8 +43,20 @@ jQuery(document).ready( function(){
 	 
 	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
-	$("#materials_list .checkbox").live("click",checkMaterialHandler);
-	
+	$("#materials_list .checkbox").live("click",checkMaterialHandler);	
+	$(".comments").live("click",showModalComment);
+	commentDialog = $("#comment").dialog({
+	  autoOpen: false ,
+	  modal: true,
+	  draggable:false,
+	  open: function(event, ui) {
+	    $("#comment").val("");
+	    $("#comment").val(comment.val());
+	  },
+	  close: function(event, ui) {
+	    comment.val($("#comment").val());
+	  }
+	});
 	
 	$(".pagination a").live("click",function(){
     $.getScript(this.href);
@@ -118,7 +132,7 @@ function maxim(element){
 function initMaterialItems(){
 	$(".amount").blur(updateItemTotalPrice);
 	$(".price").blur(updateItemTotalPrice);
-	$(".comments").click(showModalComment);
+	
 }
 
 function updateItemTotalPrice(element){
@@ -353,20 +367,8 @@ function add_materials_service_types(elements){
 	});
 }
 
-function showModalComment(link){
-	$(link.target).next().modal({
-		onOpen: function (dialog) {
-			dialog.overlay.fadeIn('slow', function () {
-				dialog.data.hide();
-				dialog.container.fadeIn('slow', function () {
-				dialog.data.fadeIn('slow');
-				});
-			});
-		},
-		onClose:function(){
-			var comment = $(this.d.data).find(':textarea').val();
-			$.modal.close();
-			}
-		});
+function showModalComment(link){	
+	comment = $(this).next().children().first();
+	commentDialog.dialog("open");
 }
 

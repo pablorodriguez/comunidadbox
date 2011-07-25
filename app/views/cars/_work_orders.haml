@@ -1,36 +1,12 @@
 %h1
   Servicios Realizados
 %table#sort_table.comboxtable
-  %thead
-    %tr
-      %th{:width=>"32%"} Detalle
-      %th{:width=>"10%"} Total
+  %tr
+    %td
   - for work_order in @work_orders
     %tr
       %td
-        .wo_detail
-          .services
-            - work_order.services.each do |s|
-              = link_to s.service_type.name, work_order
-              %br
-          .actions
-            = show_status work_order.status
-            -if (work_order.can_edit?(current_user))
-              = link_to image_tag('edit.png'), edit_workorder_path(work_order),:title =>"Modificar"
-              = link_to image_tag('delete.png'), workorder_path(work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
-            = link_to_pdf work_order
-          .rank.rank{:id =>"wo_#{work_order.id}"}          
-            = render 'ranks/rank',:workorder => work_order
-          .company
-            = work_order.company.name
-            %br
-            = work_order.company.is_employee(work_order.user) ? "Operario:" : "Usuario:"
-            = "#{work_order.user.first_name} #{work_order.user.last_name}"
-          .performed
-            Realizado:
-            = l work_order.created_at.to_date
-      %td.number
-        = number_to_currency work_order.total_price
+        = render :partial =>"workorders/work_order_row",:object => work_order
 %br
 #paginator_wo
   = will_paginate @work_orders,:params => @wo_pages

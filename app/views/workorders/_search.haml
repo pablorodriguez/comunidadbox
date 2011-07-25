@@ -20,9 +20,15 @@
       %tr
         %td
           = text_field_tag 'domain', @domain, :size=>6,:class =>"input_short"
+      %tr
+        %td Estado
+      %tr
+        %td
+          = select_tag(:wo_status_id,options_for_select(Status::WO_STATUS.collect{|v,k| [k,v]}),{:selected =>@status_id,:include_blank =>:true})
       %tr  
         %td Tipo de Servicio
       %tr
         %td
           = collection_select(:service_type, :id, @company_services, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
           = image_submit_tag("find.png",:class =>"input_img")
+

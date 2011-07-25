@@ -1,5 +1,6 @@
 if (<%=@work_orders.size%> > 0){
-  $("#workorders").html("<%=escape_javascript(render(:partial=>'workorders'))%>");
+  $("#workorders").html("<%=escape_javascript(render(:partial=>'workorders'))%>");  
 }else{
-  $("#workorders").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna orden de trabajo."}))%>");
+  $("#workorders").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna orden de trabajo."}))%>");  
 }
+$("#totals").html("<%=escape_javascript(render(:partial=>'totals'))%>");

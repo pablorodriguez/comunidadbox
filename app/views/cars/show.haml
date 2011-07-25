@@ -17,7 +17,16 @@
         %td.header{:width=>"50%"} Dueño
         %td{:width=>"50%"}
           = h @car.user.full_name
-      %tr  
+      %tr
+        %td.header 
+          Correo Eléctronico
+        %td
+          = @car.user.email
+      %tr
+        %td.header Teléfono
+        %td
+          = @car.user.phone
+      %tr
         %td.header Año
         %td
           = h @car.year

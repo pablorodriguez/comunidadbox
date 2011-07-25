@@ -41,10 +41,22 @@ td.center{
 
 .asc{
   background-image:url(/images/up.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 12px;
+  width: 12px;
+  margin: 5px;
+  float: left;
 }
 
 .desc{
   background-image:url(/images/down.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 12px;
+  width: 12px;
+  margin: 5px;
+  float: left;
 }
 
 .star_select{

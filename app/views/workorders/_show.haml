@@ -41,7 +41,13 @@
       %td.header
         Km Promedio Mensual
       %td
-        = @work_order.car.kmAverageMonthly  
+        = @work_order.car.kmAverageMonthly
+    -if @work_order.payment_method
+      %tr
+        %td.header
+          Forma de Pago
+        %td
+          = @work_order.payment_method.name
   %table.service_table
     %tr.header
       %td{:colspan=>5} Servicios Realizados
@@ -62,8 +68,12 @@
             = number_to_currency service.car_service_offer.service_offer.final_price
       %tr.header
         %td{:colspan=>5}
-          = icon_status service.status
-          = service.service_type.name
+          .service.left
+            = icon_status service.status
+            = service.service_type.name
+          - unless service.comment.empty?
+            .right
+              ="Comentario: #{service.comment}"
       %tr        
         %td.header{:colspan=>2}
           Materiales
@@ -110,7 +120,7 @@
       %td.number.total.header
         = number_to_currency @work_order.total_price
 .buttons        
-  = link_to_back workorders_path
+  = link_to_back
   -if can_edit? @work_order
     = link_to image_tag('edit.png'), edit_workorder_path(@work_order)
   = link_to_pdf @work_order

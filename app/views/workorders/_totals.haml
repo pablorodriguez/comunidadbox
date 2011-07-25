@@ -1,0 +1,16 @@
+.left
+  %h1
+    Detalle del Listado
+%table.coltable
+  %col.current{:width=>"40%"}
+  %col{:width=>"60%"}
+  %tr
+    %td.header Cantidad
+    %td.number
+      %strong
+        = @count
+  %tr
+    %td.header Total
+    %td.number
+      %strong
+        = number_to_currency @amount  

@@ -35,12 +35,23 @@ class WorkordersController < ApplicationController
     date_to = (params[:date_to] && (!params[:date_to].empty?)) ? params[:date_to] : ""
     domain = params[:domain] ? params[:domain] : ""
     service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : ""
+    wo_status_id = (params[:wo_status_id] && !(params[:wo_status_id].empty?)) ?  params[:wo_status_id] : ""
+    
     
     @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain, 
-        :service_type_id => service_type_id ,:user => current_user}
-    
-    @workorders = Workorder.find_by_params(@filters_params)    
+        :service_type_id => service_type_id ,:user => current_user,:wo_status_id => wo_status_id}
+        
+    @filters = @filters_params.clone()
+    @filters.delete_if{|k,v| k == :user}
+        
+    logger.debug "### filters params #{@filters_params}"
+    logger.debug "### filters #{@filters}"
+    @workorders = Workorder.find_by_params(@filters_params)
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
+    
+    @count= @workorders.count()
+    @amount= @workorders.sum("price * amount")
+
     respond_to do |format|
       format.html
       format.js { render :layout => false}
@@ -86,7 +97,7 @@ class WorkordersController < ApplicationController
             @work_order.generate_events
             send_notification @work_order.id          
           end
-          format.html { redirect_to(@work_order) }
+          format.html { redirect_to(@work_order.car)}
           format.xml  { head :ok }
         else
           @service_types = CompanyService.find(:all,
@@ -103,8 +114,7 @@ class WorkordersController < ApplicationController
   def edit
     @work_order= Workorder.find(params[:id])
     @service_types = current_user.service_types
-    @car_service_offers = @work_order.car_service_offers
-    logger.info "### car service offer #{@car_service_offers.size}"
+    @car_service_offers = @work_order.car_service_offers    
     if @car_service_offers.size == 0
       @car_service_offers = @work_order.find_car_service_offer(current_user.company.id)
     end

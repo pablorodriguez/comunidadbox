@@ -1,48 +1,9 @@
-%h1 Listado de Servicios Realizados
 %table#sort_table.comboxtable
-  = hidden_field_tag :new_rank_url, ranks_path
-  
-  %thead
-    %colbroup
-      %col{:class=>current_col_css("cars.domain")}
-      %col
-      %col{:class=>current_col_css("workorders.performed")}
-    %tr
-      %th{:width=>"10%"}
-        = sortable "cars.domain","Dominio"
-      %th{:width=>"30%"} Detalle
-      %th{:width=>"12%"}
-        = sortable "workorders.performed", "Realizado"
-      %th{:width=>"10%"} Total
+  %tr
+    %td  
   - for work_order in @work_orders
     %tr
       %td
-        = link_to work_order.car.domain, work_order.car
-      %td
-        .wo_detail
-          .services
-            %ul
-              - work_order.services.each do |s|
-                %li
-                  = link_to s.service_type.name ,work_order
-          .actions
-            = show_status work_order.status
-            - if work_order.can_edit?(current_user)
-              = link_to(image_tag('edit.png'), edit_workorder_path(work_order),:title =>"Modificar")
-              = link_to image_tag('delete.png'), workorder_path(work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
-            = link_to_pdf work_order              
-          #rank.rank{:id =>"wo_#{work_order.id}"}
-            = render 'ranks/rank',:workorder => work_order
-          .company
-            = work_order.company.name
-            %br
-            = work_order.company.is_employee(work_order.user) ? "Operario:" : "Usuario:"
-            = "#{work_order.user.first_name} #{work_order.user.last_name}"
-          
-      %td.number
-        = l work_order.performed
-      %td.number
-        = number_to_currency work_order.total_price
-
+        = render :partial =>"work_order_row",:object => work_order
 = will_paginate @work_orders,:params =>@filters
 = link_to_back   

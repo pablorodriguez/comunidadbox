@@ -8,7 +8,7 @@
   .cont1
     %h1 
       = vineta
-      Nueva Orden de Trabajo
+      Ingrese Servicios Realizados
       = ": #{@work_order.company.name}"
   = render 'shared/error_messages', :target => @work_order
   #work_order
@@ -17,4 +17,8 @@
   #materials.contentleft
     = render :partial=>'materials'
   #work_order_form.contentright
-    = render :partial=>'services_list',:locals =>{:work_order=>@work_order}
+    = render :partial=>'services_list',:locals =>{:work_order=>@work_order}  
+  #coment{:style =>"display:none"}            
+    Por favor ingrese un comentario
+    %br
+    = text_area_tag :comment,"", :rows => 3,:cols=>"20"

@@ -10,14 +10,12 @@
               %label.header_text_lable
                 = st_form.object.name
           .service_status
-            = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status'})
+            = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status'})            
             = f.hidden_field :_destroy        
-            = link_to_function image_tag('new.png',{:class =>"input_img"}), "addEmptyMaterial(this)",{:class =>:comment}
-            = link_to_function image_tag('comment.png',{:class =>"input_img"}), "#"
-          #coment{:style =>"display:none"}
-            Por favor ingrese un comentario
-            %br
-            = f.text_area :comment, :rows => 3,:cols=>"30"
+            = link_to_function(image_tag('new.png',{:class =>"input_img"}), "addEmptyMaterial(this)",{:class =>:comment})
+            = link_to_function(image_tag('comment.png',{:class =>"input_img"}), "",{:class =>:comments})
+            .hide
+              = f.text_area :comment, :rows => 3,:cols=>"30"
         %th{:style=>'width:10%'}Cantidad
         %th{:style=>'width:10%'}Precio
         %th.number{:style=>'width:15%'}

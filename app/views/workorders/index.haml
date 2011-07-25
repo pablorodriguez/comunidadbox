@@ -7,10 +7,18 @@
   %h1
     = vineta 
     Servicios Realizados
-  .contentleft
-    = render 'search'
-  #workorders.contentright
+  .contentleft_s
+    .contentleft
+      = render 'search'
+    #totals.contentleft
+      = render 'totals'
+
+  .contentright
     - if @work_orders.size > 0
-      = render 'workorders'
+      #sort_by
+        %h1.left Listado de Servicios Realizados
+        = render 'sort_by'
+      #workorders
+        = render 'workorders'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"

@@ -3,8 +3,10 @@ class Workorder < ActiveRecord::Base
   belongs_to :car
   belongs_to :company
   belongs_to :user
+  belongs_to :payment_method
   has_many :ranks
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :payment_method
   validate :service_not_empty
   
   before_save :set_status
@@ -23,9 +25,10 @@ class Workorder < ActiveRecord::Base
   end
   
   def init
-    unless @performed
-      @performed = I18n.l(Time.now.to_date)
-      @status = Status::OPEN
+    unless self.id
+      self.performed = I18n.l(Time.now.to_date) 
+      self.status = Status::OPEN 
+      self.payment_method = PaymentMethod.find 1       
     end
   end
   
@@ -75,14 +78,20 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    open = services.select{|s| s.status == Status::OPEN || s.status == Status::IN_PROCESS}
-    
-    if (open.size > 0 || services.size ==0)
-      self.status = Status::OPEN
-    else
-      self.status = Status::FINISHED
+    in_progress = services.select{|s| s.status == Status::IN_PROCESS}
+    if (in_progress.size > 0)
+      self.status = Status::IN_PROCESS
+      return
     end
-    logger.info "### #{self.status} #{Status.status(self.status)}"
+    
+    open = services.select{|s| s.status == Status::OPEN}    
+    if (open.size > 0)
+      self.status = Status::OPEN
+      return  
+    end
+    
+    self.status = Status::FINISHED
+    
   end
   
   def finish?
@@ -92,13 +101,17 @@ class Workorder < ActiveRecord::Base
   def open?
     status == Status::OPEN
   end
+
+  def in_progress?
+    status == Status::IN_PROCESS
+  end
   
   def belong_to_user user
     user.cars.include?(car)
   end
   
   def can_edit?(user)
-    if (company == user.company && company.is_employee(self.user) && open?)
+    if (company == user.company && company.is_employee(self.user) && (open? || in_progress?))
       return true
     else
       return false   
@@ -148,6 +161,7 @@ class Workorder < ActiveRecord::Base
     domain =  filters[:domain] || ""
     
     @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%")
+    @workorders =@workorders.includes(:services => :material_services)
     
     if ((!filters[:date_from].empty?) && (!filters[:date_to].empty?))
       date_f = filters[:date_from].to_datetime
@@ -170,10 +184,15 @@ class Workorder < ActiveRecord::Base
     else
       @workorders = @workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     end
-   
-    unless filters[:service_type_id].empty?
-      @workorders = @workorders.includes(:services).where("services.service_type_id = ?",filters[:service_type_id])
+
+    unless filters[:wo_status_id].empty?
+      @workorders = @workorders.where("workorders.status = ?", filters[:wo_status_id])
     end
+    
+    unless filters[:service_type_id].empty?
+      @workorders = @workorders.where("services.service_type_id = ?",filters[:service_type_id])
+    end
+    
     @workorders
   end
   

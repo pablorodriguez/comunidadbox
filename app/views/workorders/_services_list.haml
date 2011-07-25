@@ -10,12 +10,13 @@
           %td{:style=>'width:80%'}
             %label.left 
               %h1
-                = icon_status @work_order.status                
+                = icon_status @work_order.status
+                = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select'})                
                 Realizado
-                = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed)
+                = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed)                
           %td.number{:style=>'width:20%'}
             %h1
-              #total_work_order
+              #total_work_order              
                 = number_to_currency @work_order.total_price
           %td{:style=>'width:5%'}
     #services_list.ordencontent
@@ -24,4 +25,5 @@
     #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     = wo_form.submit "Grabar",:class =>"btn"
+    = link_to_back @work_order.car
             
