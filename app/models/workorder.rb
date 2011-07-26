@@ -24,12 +24,12 @@ class Workorder < ActiveRecord::Base
     type 2
   end
   
-  def init
-    unless self.id
-      self.performed = I18n.l(Time.now.to_date) 
-      self.status = Status::OPEN       
-
+  def init  
+    self.performed = I18n.l(Time.now.to_date) unless self.performed
+    if self.attributes.has_key?('status')
+      self.status = Status::OPEN unless self.status  
     end
+          
     self.payment_method = PaymentMethod.find 1 unless self.payment_method        
   end
   
