@@ -25,7 +25,10 @@ class Workorder < ActiveRecord::Base
   end
   
   def init  
-    self.performed = I18n.l(Time.now.to_date) unless self.performed
+    if self.attributes.has_key?('performed')
+      self.performed = I18n.l(Time.now.to_date) unless self.performed  
+    end
+    
     if self.attributes.has_key?('status')
       self.status = Status::OPEN unless self.status  
     end
