@@ -13,7 +13,10 @@
             = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status'})            
             = f.hidden_field :_destroy        
             = link_to_function(image_tag('new.png',{:class =>"input_img"}), "addEmptyMaterial(this)",{:class =>:comment})
-            = link_to_function(image_tag('comment.png',{:class =>"input_img"}), "",{:class =>:comments})
+            - if f.object.comment != ''
+              = link_to_function(image_tag('edit_comment.png',{:class =>"input_img"}), "",{:class =>:comments})
+            - if f.object.comment == ''
+              = link_to_function(image_tag('add_comment.png',{:class =>"input_img"}), "",{:class =>:comments})
             .hide
               = f.text_area :comment, :rows => 3,:cols=>"30"
         %th{:style=>'width:10%'}Cantidad

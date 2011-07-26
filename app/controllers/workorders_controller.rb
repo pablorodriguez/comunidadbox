@@ -44,8 +44,6 @@ class WorkordersController < ApplicationController
     @filters = @filters_params.clone()
     @filters.delete_if{|k,v| k == :user}
         
-    logger.debug "### filters params #{@filters_params}"
-    logger.debug "### filters #{@filters}"
     @workorders = Workorder.find_by_params(@filters_params)
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
     

@@ -18,7 +18,7 @@
     = render :partial=>'materials'
   #work_order_form.contentright
     = render :partial=>'services_list',:locals =>{:work_order=>@work_order}  
-  #coment{:style =>"display:none"}            
+  #comment_modal{:style =>"display:none"}            
     Por favor ingrese un comentario
     %br
-    = text_area_tag :comment,"", :rows => 3,:cols=>"20"
+    = text_area_tag :comment,"test", :rows => 3,:cols=>"30"

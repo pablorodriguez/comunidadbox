@@ -45,17 +45,23 @@ jQuery(document).ready( function(){
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
 	$("#materials_list .checkbox").live("click",checkMaterialHandler);	
 	$(".comments").live("click",showModalComment);
-	commentDialog = $("#comment").dialog({
+	commentDialog = $("#comment_modal").dialog({
 	  autoOpen: false ,
 	  modal: true,
 	  draggable:false,
+	  resizable:false,
 	  open: function(event, ui) {
 	    $("#comment").val("");
 	    $("#comment").val(comment.val());
 	  },
 	  close: function(event, ui) {
 	    comment.val($("#comment").val());
-	  }
+	  },
+	  buttons: [{
+          text: "Grabar",
+          click: function() { $(this).dialog("close"); }
+          }
+        ]
 	});
 	
 	$(".pagination a").live("click",function(){

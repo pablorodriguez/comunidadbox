@@ -315,6 +315,11 @@ form .textarea {
   margin-left:15px;
 }
 
+.textarea{
+  border-style: inset;
+  border-width: 1px;
+}
+
 .btn_b {
   display: inline-block;
   width:100px;
