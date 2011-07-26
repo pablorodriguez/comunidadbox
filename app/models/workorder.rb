@@ -27,9 +27,10 @@ class Workorder < ActiveRecord::Base
   def init
     unless self.id
       self.performed = I18n.l(Time.now.to_date) 
-      self.status = Status::OPEN 
-      self.payment_method = PaymentMethod.find 1       
+      self.status = Status::OPEN       
+
     end
+    self.payment_method = PaymentMethod.find 1 unless self.payment_method        
   end
   
   def service_not_empty
