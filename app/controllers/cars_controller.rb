@@ -78,7 +78,7 @@ class CarsController < ApplicationController
     
     respond_to do |format|
       if data == "all"
-        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"created_at desc")
+        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"performed desc")
         @events = @car.future_events.paginate(:per_page=>5,:page =>page)
         @wo_pages = {:d=>"wo"}
         @e_pages = {:d=>"e"}
@@ -92,7 +92,7 @@ class CarsController < ApplicationController
       end
       
       if data =="wo"
-        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"created_at desc")
+        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"performed desc")
         @wo_pages = {:d => "wo"}      
         format.js { render "work_orders",:layout => false}
       end

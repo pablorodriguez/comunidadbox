@@ -13,7 +13,7 @@
         = @work_order.company.name
       %td.header Realizado
       %td
-        = l @work_order.created_at.to_date
+        = l @work_order.performed.to_date
       %td.header Operario
       %td
         = @work_order.user.full_name
