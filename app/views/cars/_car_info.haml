@@ -5,34 +5,30 @@
         %h3 Nombre
       %td
         = car.user.full_name
+      %td
+        %h3 Dominio
+      %td
+        %p#domain
+          = car.domain
+      %td
+        %h3 Año
+      %td
+        = car.year
     %tr  
       %td
         %h3 Email
       %td
         = car.user.email
+      %td
+        %h3 Marca y Modelo
+      %td
+        = "#{car.brand.name} #{car.model.name}"
+        
     %tr
       %td
         %h3 Teléfono
       %td
         = car.user.phone
-.datos_automovil
-  %table.tabla_datos_automovil
-    %tr
-      %td{:width=>"20%"}
-        %h3 Dominio
-      %td{:width=>"35%"}
-        %p#domain
-          = car.domain
-      %td{:width=>"25%"}
-        %h3 Año
-      %td{:width=>"21%"}
-        = car.year
-    %tr
-      %td
-        %h3 Marca y Modelo
-      %td{:colspan=>"0"}
-        = "#{car.brand.name} #{car.model.name}"
-    %tr  
       %td 
         %h3 Km Actual
       %td

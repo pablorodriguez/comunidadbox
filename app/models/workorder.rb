@@ -154,6 +154,7 @@ class Workorder < ActiveRecord::Base
   end
   
   def delete_event service
+    logger.debug "### #{service.id} #{service.workorder}"
     events = Event.green.car(service.workorder.car.id).service_typed(service.service_type.id)
     events.each do |e|
       e.destroy

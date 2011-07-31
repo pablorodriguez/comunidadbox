@@ -2,6 +2,7 @@ var priceNumberPattern = /[0-9]+\.*[0-9]+$/;
 var materialCodePattern = /\[\S*\]/;
 var numberPattern = /[0-9]/;
 var commentDialog;
+var materialDialog;
 var comment;
 serviceRow=0;
 jQuery(document).ready( function(){
@@ -26,8 +27,7 @@ jQuery(document).ready( function(){
 	
 	$("#km_actual").editInPlace({
  		url:url_km,
-		params:param_values,
-		callback: update_km_avg
+		params:param_values
  	});
 	
 	$("#km_avg").editInPlace({
@@ -45,11 +45,49 @@ jQuery(document).ready( function(){
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
 	$("#materials_list .checkbox").live("click",checkMaterialHandler);	
 	$(".comments").live("click",showModalComment);
+	$("#material_dialog").click(showMaterialDialog);
+	
+	materialDialog = $("#materials").dialog({
+	  autoOpen: false ,
+    modal: true,
+    draggable:false,
+    resizable:false,
+    position: [500,150],
+    width:650,
+    title:"Buscador de Materiales",
+    close:function(){
+      $("#materials_list").html("");
+      $("#material_erros").hide();
+      $("#new_material").val("");
+      $("#service_type_id").val("");
+      $("#detail").val("");
+    },
+    buttons: [{
+          text: "Agregar",
+          click: function() {
+              if (($("#service_type_id").val() == "")
+                    && ($("#new_material").val() != "")){
+                $("#material_erros").show();
+              }else{
+                if ($("#new_material").val() != ""){
+                  add_new_material_service_type();  
+                }
+                
+                add_material_service_type();
+                $("#material_erros").hide();
+                $(this).dialog("close");  
+              }
+            }
+          }
+        ]
+	});
+	
 	commentDialog = $("#comment_modal").dialog({
 	  autoOpen: false ,
 	  modal: true,
 	  draggable:false,
 	  resizable:false,
+	  title:"Comentario",
 	  open: function(event, ui) {
 	    $("#comment").val("");
 	    $("#comment").val(comment.val());
@@ -69,7 +107,26 @@ jQuery(document).ready( function(){
     return false;
   });
   
+  $(document).keypress(function(e) {
+    if (e.ctrlKey && e.which == 109){
+      showMaterialDialog();
+    }
+    });
+  
+  $("#detail").keyup(function(e){
+    $("#material_erros").hide();
+    var detail = $.trim($("#detail").val());
+    if (detail != ""){
+      //$("#detail").val(detail);
+      $("#material_form").submit();
+    }
+  });
+  
 });
+
+function showMaterialDialog(){
+  materialDialog.dialog("open");
+}
 
 function checkMaterialHandler(event){
   event.stopPropagation();
@@ -299,7 +356,7 @@ function add_new_material_service_type(){
   }
   serviceTypeDiv.show();
   var table = serviceTypeDiv.find("table");
-  table.find("thead tr a.comment").click();
+  table.find("thead tr a.new_material").click();
   table.find("thead th:last").find("input").attr("value","0");
   serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
   var tr = table.find("tr:last");

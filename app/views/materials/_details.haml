@@ -1,15 +1,9 @@
 %table.comboxtable
   %thead
     %tr
-      %th{:colspan=>3} Material Nuevo
-    %tr
-      %th{:colspan=>3}
-        %input{:id=>"new_material"}
-        = link_to_function image_tag('add.png',:class=>:input_img,:title =>"Agregar Materiales"),"add_new_material_service_type()"
-    %tr
       %th{:colspan=>3}
         Materiales Encontrados
-        = link_to_function image_tag('add.png',:class=>"input_img",:style=>"margin-left:30px;",:title =>"Agregar Materiales"),"add_material_service_type()"
+        -#= link_to_function image_tag('add.png',:class=>"input_img",:style=>"margin-left:30px;",:title =>"Agregar Materiales"),"add_material_service_type()"
   - for material in @materials
     %tr.link
       %td{:width =>"10%"}

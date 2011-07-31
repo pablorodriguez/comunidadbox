@@ -6,7 +6,7 @@
   - for work_order in @work_orders
     %tr
       %td
-        = render :partial =>"workorders/work_order_row",:object => work_order
+        = render :partial =>"work_order_row",:object => work_order
 %br
 #paginator_wo
   = will_paginate @work_orders,:params => @wo_pages

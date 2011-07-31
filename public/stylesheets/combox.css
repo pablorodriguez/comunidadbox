@@ -332,6 +332,7 @@ form .textarea {
   color:#FFF;
   font-weight:bold;
   float:left;
+  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
 }
 
 .btn2 {  
@@ -371,6 +372,7 @@ text-decoration: none;
   color:#FFF;
   font-weight:bold;
   float:left;
+  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
 }
 
 .btn:hover {
@@ -563,6 +565,11 @@ select{
   width:100px;
 }
 
+
+.input_medium{
+  width: 200px;
+}
+
 .input_long{
   width:420px;
 }
@@ -660,14 +667,10 @@ select{
 
 .contentright {
   overflow: auto;
-  z-index: 2; 
-  float: left;
-  width: 620px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
-  margin-left: 5px;
   padding: 5px 5px 5px 5px;
 }
 
@@ -966,7 +969,7 @@ table.comboxtable, .comboxform,table.w{
 }
 
 .datos_personales{
-  width:257px;
+  width:100%;
   float:left;
 }
 
@@ -1002,19 +1005,28 @@ select.status{
   font-size:13px;
   color:#B3B3B3;
   font-weight:bold;
-  margin:0px;
-  margin-bottom:5px;
-  margin-top:5px;
 }
 
+.inplace_field{
+  background-color: white;
+  width: 50px;
+  height: 14px;
+}
+
+td p{
+  margin: 0px;
+  width: 50px;  
+}
+
+.edit_in_place{
+  padding: 0px 0px 0px 5px;
+}
 
 .tabla_datos_personales h3 {
   font-size:13px;
   color:#B3B3B3;
   font-weight:normal;
-  margin:0px;
-  margin-bottom:5px;
-  margin-top:5px;
+  margin: 0px;
 }
 
 .datos_automovil{
@@ -1333,6 +1345,7 @@ margin-top:2px;
 
 img{
   border-style: hidden;
+  vertical-align: text-bottom;
 }
 
 #address_map{
@@ -1823,4 +1836,20 @@ dl {
 .dropdown dd ul li{
 }
 
+.materials{
+  width: 100%;
+  overflow: auto;
+}
+
+#materials_list{
+  width: 98%;
+}
+
+.comment{
+  background-image: url(/images/edit_comment.png);
+}
+
+.no_comment{
+  background-image: url(/images/add_comment.png);
+}
 

@@ -20,10 +20,7 @@ jQuery(document).ready( function(){
   
   
   $(".dropdown dd ul li a").live("click",function() {
-    var text = $(this).html();
-    $(".dropdown dt a span").html(text);
-    $(".dropdown dd ul").hide();
-    changeSort();
+    setSort($(this));        
   }); 
   
   $(document).bind('click', function(e) {
@@ -32,12 +29,20 @@ jQuery(document).ready( function(){
         $(".dropdown dd ul").hide();
   });
   
+  
 });
 
 function changeSort() {
   var order = $("#order_by").find("dt a span.order").html();
   var by = $("#order_by").find("dt a span.value").html();
   submitForm(by,order);
+}
+
+function setSort(element){
+    var text = element.html();
+    $(".dropdown dt a span").html(text);
+    $(".dropdown dd ul").hide();
+    changeSort();
 }
 
 

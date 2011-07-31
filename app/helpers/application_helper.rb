@@ -136,8 +136,8 @@ module ApplicationHelper
      (s==nil or s.size==0) ? false:true 
   end
   
-  def link_to_remove_fields(f,association)
-    f.hidden_field(:_destroy) + link_to_function(image_tag('delete.png'),"remove_fields(this,\'#{association}\')")
+  def link_to_remove_fields(f,association,title = "")
+    f.hidden_field(:_destroy) + link_to_function(image_tag('delete.png',:title=>title),"remove_fields(this,\'#{association}\')")
   end
   
   

@@ -14,11 +14,12 @@
   #work_order
     #car_info.barradatos
       = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}
-  #materials.contentleft
-    = render :partial=>'materials'
+  #materials.hide
+    .materials
+      = render :partial=>'materials'
   #work_order_form.contentright
     = render :partial=>'services_list',:locals =>{:work_order=>@work_order}  
-  #comment_modal{:style =>"display:none"}            
+  #comment_modal.hide         
     Por favor ingrese un comentario
     %br
     = text_area_tag :comment,"test", :rows => 3,:cols=>"30"

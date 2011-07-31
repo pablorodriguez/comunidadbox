@@ -1,1 +1,6 @@
-$("#materials_list").html("<%=escape_javascript(render(:partial=>'details', :locals =>{:material =>@materials}))%>");
+if (<%=@materials.size%> > 0){
+  $("#materials_list").html("<%=escape_javascript(render(:partial=>'details', :locals =>{:material =>@materials}))%>");  
+}else{
+  $("#materials_list").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún material."}))%>");
+}
+

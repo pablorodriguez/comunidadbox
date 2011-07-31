@@ -84,7 +84,7 @@ class WorkordersController < ApplicationController
   def update
     @work_order = Workorder.find(params[:id])
     cso_ids = params["cso_ids"] || []
-    
+    company_id =  current_user.company ? current_user.company.id : params[:company_id]
     respond_to do |format|
       Workorder.transaction do
         if @work_order.update_attributes(params[:workorder])
@@ -98,9 +98,8 @@ class WorkordersController < ApplicationController
           format.html { redirect_to(@work_order.car)}
           format.xml  { head :ok }
         else
-          @service_types = CompanyService.find(:all,
-            :conditions=>["company_id= ?",current_user.company.id],
-            :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}
+          @car_service_offers = @work_order.find_car_service_offer(company_id)
+          @service_types = current_user.service_types
   
           format.html { render :action => "edit" }
           format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
@@ -120,6 +119,7 @@ class WorkordersController < ApplicationController
   end
 
   def create
+    company_id =  current_user.company ? current_user.company.id : params[:company_id]
     cso_ids = params["cso_ids"] || []
     @work_order = Workorder.new(params[:workorder])
     #@work_order.company = current_user.current_company
@@ -131,10 +131,11 @@ class WorkordersController < ApplicationController
       car.company = current_user.current_company
       car.save
       CarServiceOffer.update_with_services(@work_order.services,cso_ids)
+      logger.debug "### antes de save"
       saveAction = @work_order.save
       @work_order.generate_events
     end
-
+    
     if saveAction
       if @work_order.finish?
         logger.info "### Work order finished"
@@ -144,15 +145,17 @@ class WorkordersController < ApplicationController
       flash[:notice] = "Orden de Trabajo creada correctamente"
       redirect_to @work_order.car
     else
-      flash[:notice] = "No se pudo grabar la Orden de Trabajo"
       @service_types = current_user.service_types
       @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
+      @car_service_offers = @work_order.find_car_service_offer(company_id)
       render :action => 'new'
     end
   end
   
   def new
-    company_id = params[:company_id]
+    
+    company_id =  current_user.company ? current_user.company.id : params[:company_id]
+    
     car_id = params[:car_id]
     
     if (car_id)
@@ -164,10 +167,6 @@ class WorkordersController < ApplicationController
         flash[:notice] = "Por favor seleccione un automovil"
         redirect_to cars_path(:company_id =>company_id)
       end
-    end
-    
-    if current_user.company
-      company_id = current_user.company.id
     end
 
     if company_id

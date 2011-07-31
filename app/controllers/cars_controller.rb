@@ -39,14 +39,12 @@ class CarsController < ApplicationController
   
   def update_km
     domain = params[:domain]
-    new_km = params[:update_value].to_i
+    new_value = params[:update_value].to_i
     @car = Car.where("domain like ?",domain).first
-    @car.update_km new_km
+    @car.km = new_value
     @car.save
     @car.update_events
-    respond_to do |format|
-      format.js
-    end
+    render :text => new_value
   end
 
   def update_km_avg

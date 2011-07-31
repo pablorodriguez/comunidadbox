@@ -1,5 +1,7 @@
 class MaterialsController < ApplicationController
+  
   layout "application" ,:except =>[:details,:save_service_type]
+  
   def index
     page = params[:page] || 1
     if params[:codigo] || params[:nombre]
@@ -38,12 +40,14 @@ class MaterialsController < ApplicationController
     if current_user.company_id
       @company_id = current_user.company_id
     end
-    @detail = params[:detail]
+    logger.debug "### #{params[:detail].size}"
+    
+    @detail = params[:detail] != "" ? params[:detail].gsub(/\s/,"%").upcase : "NUL"
     @service_type_id = params[:service_type][:id].to_i
-    @detail = @detail.gsub(/\s/,"%").upcase
     @page = params[:page] || 1
     @per_page = params[:per_page] || 10
-    @materials = MaterialDetail.paginate(:all,:per_page=>@per_page,:page => @page,:conditions=>['detail_upper LIKE ? and service_type_id = ? and company_id = ?',"%#{@detail}%",@service_type_id,@company_id])
+    @materials = MaterialDetail.search(@company_id,@service_type_id,@detail)
+    @materials = @materials.paginate(:per_page=>@per_page,:page => @page)
 
     respond_to do |format|
       format.js

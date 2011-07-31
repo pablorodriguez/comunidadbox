@@ -5,11 +5,11 @@ class MaterialService < ActiveRecord::Base
   validates_numericality_of :amount,:price
   
   validates_presence_of :amount, :greater_than_or_equal_to => 0.01
-  #validates_presence_of :price, :greater_than_or_equal_to => 0.01
+  validates_presence_of :price, :greater_than_or_equal_to => 0.01
   
   accepts_nested_attributes_for :material_service_type
   
-  validate :validate_number
+  #validate :validate_number
   
   def validate_number
     if amount <= 0
