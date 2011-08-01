@@ -10,11 +10,18 @@
           %td{:style=>'width:80%'}
             %label.left 
               %h1
-                = icon_status @work_order.status
-                = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select'})                
+                = icon_status @work_order.status                                
                 Realizado
                 = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed)
-                = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link
+            %label.left
+              %h1
+                = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select'})
+            %label.left
+              %h1
+                = collection_select :new,:service_type,@service_types,:id,:name,{:include_blank => true},{:class=>"input_medium"}
+            %label.left
+              %h1
+                = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link               
           %td.number{:style=>'width:20%'}
             %h1
               #total_work_order              

@@ -46,6 +46,7 @@ jQuery(document).ready( function(){
 	$("#materials_list .checkbox").live("click",checkMaterialHandler);	
 	$(".comments").live("click",showModalComment);
 	$("#material_dialog").click(showMaterialDialog);
+	$("#new_service_type").change(addNewServiceType);
 	
 	materialDialog = $("#materials").dialog({
 	  autoOpen: false ,
@@ -369,9 +370,37 @@ function add_new_material_service_type(){
     
   initMaterialItems();
 }
+
+function addNewServiceType(){
+  getServiceTypeDiv("#new_service_type").show();
+}
+
 function add_material_service_type(){ 
   var checks = $("#materials_list").find("input[type=checkbox]:checked");
   add_materials_service_types(checks);
+}
+
+function getServiceTypeDiv(serviceTypeIdElement){
+  
+  var serviceTypeId = $(serviceTypeIdElement).val();
+  var serviceType = $(serviceTypeIdElement +" option:selected").text();
+  
+  var serviceTypeDiv = null;
+  $(".service_type_id").each(function(){
+      if($(this).val()== serviceTypeId){
+        serviceTypeDiv =  $(this).parent().parent().parent().parent().parent().parent();
+      }
+    });
+  
+  if (serviceTypeDiv==null){      
+      $("#services_link").click();
+      var serviceTypes = $(".service_type");
+      serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
+      serviceTypeDiv.find("#serviceType").text(serviceType);
+      serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;  
+  }
+  
+  return serviceTypeDiv;
 }
 
 function add_materials_service_types(elements){	
@@ -388,24 +417,13 @@ function add_materials_service_types(elements){
 		var material =$.trim(tr0.find("td:eq(1)").html());
 		var price = tr0.find("td:eq(2)").asNumber();
 		
-		$(".service_type_id").each(function(){
-			if($(this).val()== serviceTypeId){
-				serviceTypeDiv = $(this).parent().parent().parent().parent().parent().parent();
-			}
-		});
-	
-		if (serviceTypeDiv==null){
-			$("#services_link").click();
-			var serviceTypes = $(".service_type");
-			serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
-			serviceTypeDiv.find("#serviceType").text(serviceType);	
-		}
+		serviceTypeDiv = getServiceTypeDiv("#service_type_id");
+		
 		serviceTypeDiv.show();
 		serviceTypeDiv.find("table thead th:last").find("input").attr("value","0");
 		var materialButton = serviceTypeDiv.find("#material_services_link");
 		materialButton.click();
-		
-		serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
+				
 		var tr = serviceTypeDiv.find("table tr:last");
 		tr = $(tr[0]);
 		tr.find("td:eq(0) :input").val(materialServiceTypeId);
