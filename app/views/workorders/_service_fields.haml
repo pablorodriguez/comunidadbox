@@ -19,13 +19,16 @@
               = link_to_function(image_tag('add_comment.png',{:class =>"input_img",:title=>"Agregar comentario"}), "",{:class =>:comments})
             .hide
               = f.text_area :comment, :rows => 3,:cols=>"30"
-        %th{:style=>'width:10%'}Cantidad
-        %th{:style=>'width:10%'}Precio
+        %th{:style=>'width:10%'}
+          %label.right Cantidad
+        %th{:style=>'width:10%'}
+          %label.right Precio
         %th.number{:style=>'width:15%'}
           .total_service
             = number_to_currency(f.object.total_price)
         %th.number{:style=>'width:5%'}
-          = link_to_remove_fields f,:services,"Borrar Servicio"
+          .remove_service
+            = link_to_remove_fields f,:services,"Borrar Servicio"
     = f.fields_for :material_services do |ms_form|
       =render "material_service_fields",:f => ms_form
   #n_s.hide

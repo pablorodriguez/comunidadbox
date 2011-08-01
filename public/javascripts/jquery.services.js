@@ -295,8 +295,8 @@ function hideServiceTypeAjaxLoader(){
 function remove_fields(link,association){
 	if (association=="services"){
 		$(link).prev("input[type=hidden]").attr("value", '1');
-		$(link).parent().parent().parent().parent().parent().hide();
-		var trs = $(link).parent().parent().parent().parent().find("tbody tr");
+		$(link).parent().parent().parent().parent().parent().parent().hide();
+		var trs = $(link).parent().parent().parent().parent().parent().find("tbody tr");
 		trs.each(function(){
 		  var tr = $(this);
 		  tr.find("a").prev().attr("value", '1');
@@ -306,7 +306,7 @@ function remove_fields(link,association){
 		$(link).prev("input[type=hidden]").attr("value", '1');
 		$(link).parent().parent().hide()
 	}
-	var serviceDiv = $(link).parent().parent().parent().parent().parent();
+	var serviceDiv = $(link).parent().parent().parent().parent().parent().parent();
 	updateTotalService(serviceDiv);
 	updateWorkOrderTotalPrice();
     
@@ -373,6 +373,7 @@ function add_new_material_service_type(){
 
 function addNewServiceType(){
   getServiceTypeDiv("#new_service_type").show();
+  $("#new_service_type").val("");
 }
 
 function add_material_service_type(){ 
@@ -388,6 +389,7 @@ function getServiceTypeDiv(serviceTypeIdElement){
   var serviceTypeDiv = null;
   $(".service_type_id").each(function(){
       if($(this).val()== serviceTypeId){
+        $(this).first().parent().parent().parent().find(".remove_service").children().first().val("false");
         serviceTypeDiv =  $(this).parent().parent().parent().parent().parent().parent();
       }
     });

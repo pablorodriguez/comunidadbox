@@ -9,10 +9,10 @@
       = f.text_field :material,:class=>:material
     - if f.object.material.nil?
       = f.text_field :material,:class=>:material,:style =>"display:none"
+  %td.number    
+    = f.text_field :amount,:class =>"amount right"
   %td.number
-    = f.text_field :amount,:class =>:amount
-  %td.number
-    = f.text_field :price ,:class =>:price
+    = f.text_field :price ,:class =>"price right"
   %td.number
     .total_item
       = number_to_currency(f.object.total_price) if f.object.amount
