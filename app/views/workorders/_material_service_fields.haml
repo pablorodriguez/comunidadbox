@@ -5,10 +5,10 @@
     = f.fields_for :material_service_type do |mst_form|
       = mst_form.fields_for :material do |m_form|
         = m_form.object.detail
-    - unless f.object.material.blank?    
+    - if f.object.material_service_type_id.nil?    
       = f.text_field :material,:class=>:material
-    - if f.object.material.nil?
-      = f.text_field :material,:class=>:material,:style =>"display:none"
+    -#- if f.object.material.nil?
+    -#  = f.text_field :material,:class=>:material,:style =>"display:none"
   %td.number    
     = f.text_field :amount,:class =>"amount right"
   %td.number
