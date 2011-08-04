@@ -37,6 +37,9 @@ jQuery(document).ready( function(){
  	
 	$("#service_type_id").change(function(){
 		$("#materials_list").html("");
+		if ($("#detail").val() != ""){
+		  autoCompleteMaterial();
+		}
 	});
 	
 	$(".status").change(updateWorkOrderTotalPrice);
@@ -63,23 +66,29 @@ jQuery(document).ready( function(){
       $("#service_type_id").val("");
       $("#detail").val("");
     },
-    buttons: [{
-          text: "Agregar",
-          click: function() {
+    buttons: [              
+          {
+            text: "Agregar Material",
+            click: function() {
               if (($("#service_type_id").val() == "")
                     && ($("#new_material").val() != "")){
                 $("#material_erros").show();
               }else{
+                add_material_service_type();
+                
                 if ($("#new_material").val() != ""){
                   add_new_material_service_type();  
                 }
                 
-                add_material_service_type();
-                $("#material_erros").hide();
-                $(this).dialog("close");  
+                
+                $("#material_erros").hide();             
               }
             }
-          }
+          },
+          {
+            text:"Listo",
+            click:function(){$(this).dialog("close");}
+          }          
         ]
 	});
 	
@@ -115,15 +124,19 @@ jQuery(document).ready( function(){
     });
   
   $("#detail").keyup(function(e){
-    $("#material_erros").hide();
+    autoCompleteMaterial();
+  });
+  
+});
+
+function autoCompleteMaterial(){
+  $("#material_erros").hide();
     var detail = $.trim($("#detail").val());
     if (detail != ""){
       //$("#detail").val(detail);
       $("#material_form").submit();
     }
-  });
-  
-});
+}
 
 function showMaterialDialog(){
   materialDialog.dialog("open");
@@ -165,6 +178,8 @@ function addEmptyMaterial(element){
 	var div = $(element).parent().parent().parent().parent().parent().parent();
 	div.find("#material_services_link").click();
 	var tr = div.find("table tr:last");
+	tr.find("td:eq(2)").find("input").val("1");
+	tr.find("td:eq(3)").find("input").val("0.0");
 	tr.find(".material").show();		
 }
 
@@ -203,16 +218,24 @@ function updateItemTotalPrice(element){
 	var amount=0;
 	var price=0;
 	var totalLabel ;
-	if ($(element.target).hasClass("amount")){
-		amount = $(element.target).asNumber();
-		price = $(element.target).parent().next().find("input").val();
-		totalLabel = $(element.target).parent().next().next().find(".total_item");
+	var ele = $(element.target);
+	
+	if (ele.hasClass("amount")){
+	  if (ele.val().trim() == ""){
+	    ele.val("1");
+	  }
+		amount = ele.asNumber();
+		price = ele.parent().next().find("input").val();
+		totalLabel = ele.parent().next().next().find(".total_item");
 	}else{
-		amount = $(element.target).parent().prev().find("input").val();
-		price =  $(element.target).val();
-		totalLabel = $(element.target).parent().next().find(".total_item");
+	  if (ele.val().trim() == ""){
+	    ele.val("0.0");
+	  }
+		amount = ele.parent().prev().find("input").val();
+		price =  ele.val();
+		totalLabel = ele.parent().next().find(".total_item");
 	}
-	var serviceDiv = $(element.target).parent().parent().parent().parent().parent();
+	var serviceDiv = ele.parent().parent().parent().parent().parent();
 	totalLabel.html(amount * price);
 	totalLabel.formatCurrency();
 	updateTotalService(serviceDiv);
@@ -335,9 +358,6 @@ function initMaterialsPagination(){
 
 function add_new_material_service_type(){ 
   var serviceTypeDiv= null; 
-  var ele = $(this);
-  ele.attr("checked",false)
-  var tr0 = ele.parent().parent();
   
   var serviceTypeId = $("#service_type_id").val();
   var serviceType = $("#service_type_id option:selected").text();
@@ -357,8 +377,8 @@ function add_new_material_service_type(){
   }
   serviceTypeDiv.show();
   var table = serviceTypeDiv.find("table");
-  table.find("thead tr a.new_material").click();
-  table.find("thead th:last").find("input").attr("value","0");
+  table.find("tr a.new_material").click();
+  table.find("tr:first").find("td:last").find("input").val("0");
   serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
   var tr = table.find("tr:last");
   tr = $(tr[0]);
@@ -432,6 +452,12 @@ function add_materials_service_types(elements){
 				
 		var tr = serviceTypeDiv.find("table tr:last");
 		tr = $(tr[0]);
+
+    if (materialServiceTypeId != null){
+      tr.find("td:eq(1) :input").hide();  
+    }		
+		
+		
 		tr.find("td:eq(0) :input").val(materialServiceTypeId);
 		tr.find("td:eq(1)").append("<label>"+ material + "</label>");
 		tr.find("td:eq(2) :input").val(1)

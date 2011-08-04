@@ -2,7 +2,7 @@
   %table.w
     %tbody
       %tr
-        %th{:colspan=>2,:style=>'width:60%'}
+        %td{:colspan=>2,:style=>'width:60%'}
           %h2.inline
             %label{:id=>"serviceType"}
             = f.hidden_field :service_type_id,:class=>:service_type_id
@@ -19,14 +19,14 @@
               = link_to_function(image_tag('add_comment.png',{:class =>"input_img",:title=>"Agregar comentario"}), "",{:class =>:comments})
             .hide
               = f.text_area :comment, :rows => 3,:cols=>"30"
-        %th{:style=>'width:10%'}
+        %td{:style=>'width:10%'}
           %label.right Cantidad
-        %th{:style=>'width:10%'}
+        %td{:style=>'width:10%'}
           %label.right Precio
-        %th.number{:style=>'width:15%'}
+        %td.number{:style=>'width:15%'}
           .total_service
             = number_to_currency(f.object.total_price)
-        %th.number{:style=>'width:5%'}
+        %td.number{:style=>'width:5%'}
           .remove_service
             = link_to_remove_fields f,:services,"Borrar Servicio"
     = f.fields_for :material_services do |ms_form|
