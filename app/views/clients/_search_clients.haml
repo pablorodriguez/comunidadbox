@@ -1,24 +1,21 @@
-%h1 Buscar
-- form_tag clients_path, :remote =>true, :method =>:get do
-  %table
-    %thead
-      %tr
-        %td Email
-      %tr
-        %td
-          = text_field_tag 'email'
-      %tr
-        %td Nombre
-      %tr
-        %td
-          = text_field_tag 'first_name'
-      %tr
-        %td Apellido
-      %tr
-        %td
-          = text_field_tag 'last_name'
-          = image_submit_tag("find.png",:class =>"input_img")
-
-= button_to "Nuevo cliente", new_client_path,{:method =>:get,:class =>"btn_b"}
-= link_to_back
-
+#client_search
+  %h1 Buscar Clientes
+  - form_tag clients_path, :remote =>true, :method =>:get do
+    %table
+      %thead
+        %tr
+          %td Email
+        %tr
+          %td
+            = text_field_tag 'email'
+        %tr
+          %td Nombre
+        %tr
+          %td
+            = text_field_tag 'first_name'
+        %tr
+          %td Apellido
+        %tr
+          %td
+            = text_field_tag 'last_name'
+            = image_submit_tag("find.png",:class =>"input_img")
