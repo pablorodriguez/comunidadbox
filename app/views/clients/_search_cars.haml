@@ -1,0 +1,14 @@
+#car_search
+  %h1 Buscar Automóviles
+  #car_search.left
+    - form_tag cars_path, :remote =>true,:method =>:get do |f|
+      = hidden_field_tag :car_id,@car_id
+      = hidden_field_tag :company_id,@company_id
+      %table
+        %tr
+          %td Dominio 
+        %tr
+          %td
+            = text_field_tag 'domain'
+            = image_submit_tag("find.png",:class =>"input_img")
+

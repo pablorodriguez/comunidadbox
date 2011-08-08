@@ -22,8 +22,8 @@
             .logo
               = brand_logo car.brand.name,true
             .detail
+              = link_to h(car.domain),car
               %strong
-                = car.domain
               = car.brand.name
               = car.model.name
               = car.year

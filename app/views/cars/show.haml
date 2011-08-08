@@ -13,13 +13,22 @@
     %table.coltable
       %col.current
       %col
+      - if @car.user.company_name
+        %tr
+          %td.header Razón Social
+          %td
+            = @car.user.company_name
+      - if @car.user.cuit  
+        %tr
+          %td.header CUIT
+          %td
+            = @car.user.cuit
       %tr
         %td.header{:width=>"50%"} Dueño
         %td{:width=>"50%"}
           = h @car.user.full_name
       %tr
-        %td.header 
-          Correo Eléctronico
+        %td.header Correo Eléctronico
         %td
           = @car.user.email
       %tr

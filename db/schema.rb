@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110723214622) do
+ActiveRecord::Schema.define(:version => 20110807152444) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -427,6 +427,8 @@ ActiveRecord::Schema.define(:version => 20110723214622) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "company_name"
+    t.string   "cuit"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

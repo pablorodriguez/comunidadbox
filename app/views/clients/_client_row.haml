@@ -1,0 +1,33 @@
+%tbody
+  %tbody
+    %tr
+      %td
+        %label{ :for => "login" }Nombre
+      %td
+        = f.text_field :first_name,:class=>"input_medium"
+    %tr
+      %td
+        %label{ :for => "login" }Apellido
+      %td
+        = f.text_field :last_name,:class=>"input_medium"
+    %tr
+      %td
+        %label{ :for => "email" }Email *
+      %td
+        = f.text_field :email,:class=>"input_medium"
+    %tr
+      %td
+        %label{ :for => "email" } Razón Social
+      %td
+        = f.text_field :company_name,:class=>"input_medium"
+    %tr
+      %td
+        %label{ :for => "email" }CUIT
+      %td
+        = f.text_field :cuit
+    %tr
+      %td
+        %label{ :for => "phone" }Teléfono
+      %td
+        = f.text_field :phone
+        

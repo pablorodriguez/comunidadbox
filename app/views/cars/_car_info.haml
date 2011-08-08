@@ -5,6 +5,12 @@
         %h3 Nombre
       %td
         = car.user.full_name
+        - if car.user.company_name
+          %label{:title=>"Razón Social"}
+            = "[#{car.user.company_name}]" 
+        - if car.user.cuit
+          %label{:title=>"CUIT"}
+            = "[#{car.user.cuit}]" 
       %td
         %h3 Dominio
       %td

@@ -567,7 +567,7 @@ select{
 
 
 .input_medium{
-  width: 200px;
+  width: 250px;
 }
 
 .input_long{
@@ -737,6 +737,7 @@ select{
 .contentleft_s{
   width:260px;
   float:left;
+  margin-right: 5px;
 }
 
 .contentleft{
@@ -749,19 +750,9 @@ select{
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
   padding: 5px 5px 5px 5px;
+  margin-right:5px;
+  margin-bottom:5px;
   overflow: hidden;
-}
-
-#totals{
-  width:250px;
-  float:left;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid #DDDDDD;
-  padding: 5px 5px 5px 5px;
-  overflow: hidden;
-  margin-top: 5px;
 }
 
 
@@ -1016,10 +1007,6 @@ select.status{
 td p{
   margin: 0px;
   width: 50px;  
-}
-
-.edit_in_place{
-  padding: 0px 0px 0px 5px;
 }
 
 .tabla_datos_personales h3 {
