@@ -61,9 +61,8 @@ class ClientsController < ApplicationController
     per_page = 15
     email = params[:email] || ""
     first_name = params[:first_name] || ""
-    last_name = params[:last_name] || ""
-    @clients = User.where("confirmed_at is null").includes(:cars)    
-    @clients = @clients.where("cars.company_id = ?",current_user.company.id)     
+    last_name = params[:last_name] || ""       
+    @clients = User.where("cars.company_id = ?",current_user.company.id).includes(:cars)     
     @clients = @clients.where("first_name like ? and last_name like ? and email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
     @clients = @clients.order("first_name,last_name").paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
