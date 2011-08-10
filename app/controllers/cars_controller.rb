@@ -8,6 +8,7 @@ class CarsController < ApplicationController
   def index
     page = params[:page] || 1
     domain = params[:domain] || "%"
+    @user = current_user
     per_page = 15
     
     if current_user.company

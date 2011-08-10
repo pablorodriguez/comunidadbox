@@ -12,7 +12,7 @@ class ClientsController < ApplicationController
     
     if @client.update_attributes(params[:user])
       flash[:notice] = 'Cliente actualizado con exito.'
-      redirect_to clients_path
+      redirect_to cars_path
     else
       flash[:notice]= 'Error al actualizar los datos'
       render :action => 'edit'
@@ -39,7 +39,7 @@ class ClientsController < ApplicationController
           @client.cars.each do |car|
             car.company = current_user.current_company
             car.save
-          end
+          end          
           redirect_to  new_workorder_path(:car_id =>@client.cars[0].id)
       else
         @client.cars.build if @client.cars.size == 0

@@ -18,7 +18,7 @@
           %td.header Razón Social
           %td
             = @car.user.company_name
-      - if @car.user.cuit  
+      - if @car.user.cuit
         %tr
           %td.header CUIT
           %td
@@ -80,7 +80,7 @@
     = link_to_back cars_path
     = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
     = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
-          
+    = link_to image_tag("edit.png"),edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)
   .contentright
     #cars_work_orders    
       = render "work_orders"
