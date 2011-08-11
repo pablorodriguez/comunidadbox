@@ -132,7 +132,8 @@ class Workorder < ActiveRecord::Base
     event.service_type=service_type
     event.service = service
     event.status= Status::ACTIVE
-    event.dueDate = months.month.since
+    event.dueDate = service.workorder.performed + months.month
+    logger.debug "### DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months}"
     event.save
   end
   

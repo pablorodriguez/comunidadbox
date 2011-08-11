@@ -8,8 +8,10 @@ class WorkordersController < ApplicationController
   helper_method :sort_column,:sort_direction
 
   def destroy
-    Workorder.find(params[:id]).destroy
-    redirect_to :action => 'index'
+    wo = Workorder.find(params[:id])
+    car = wo.car
+    wo.destroy
+    redirect_to car
   end
 
   def remove_service
@@ -139,7 +141,7 @@ class WorkordersController < ApplicationController
     if saveAction
       if @work_order.finish?
         logger.info "### Work order finished"
-        send_notification @work_order.id
+        #send_notification @work_order.id
       end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
