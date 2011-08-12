@@ -82,7 +82,15 @@
     = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
     = link_to image_tag("edit.png"),edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)
   .contentright
-    #cars_work_orders    
-      = render "work_orders"
-    #cars_future_events
-      = render "events"
+    #service-tabs
+      %ul
+        %li
+          %a{:href => "#tabs-1"} Servicios Realizados
+        %li
+          %a{:href => "#tabs-2"} Futuros Servicios a Realizar
+      #tabs-1
+        #cars_work_orders
+          = render "work_orders"
+      #tabs-2
+        #cars_future_events
+          = render "events"

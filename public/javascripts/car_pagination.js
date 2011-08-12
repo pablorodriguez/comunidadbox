@@ -15,8 +15,6 @@ jQuery(document).ready(function(){
     return false;
   });
   
-  
-  
   $.fragmentChange(true);
   $(document).bind("fragmentChange.page",function(){
     $.getScript($.queryString(document.location.href,{
@@ -28,4 +26,6 @@ jQuery(document).ready(function(){
    if ($.fragment().page){
      $(document).trigger("fragmentChange.page");
    }
+   
+   $("#service-tabs").tabs();
 });
