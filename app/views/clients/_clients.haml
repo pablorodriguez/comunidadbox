@@ -10,7 +10,7 @@
         .client_car
           .actions
             = link_to image_tag("edit.png"),edit_client_path(client),{:title=>"Modificar"} if client.confirmed_at.nil?
-            = link_to image_tag("new.png"),my_cars_path(:id=>client),{:title=>"Autos"} 
+            = link_to image_tag('new.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
           = client.full_name
           %br
           =link_to h(client.email), user_path(client)
