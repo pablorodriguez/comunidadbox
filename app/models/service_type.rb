@@ -14,5 +14,11 @@ class ServiceType < ActiveRecord::Base
   validates_presence_of :name,:kms
   validates_uniqueness_of :name
   validates_numericality_of :kms
+  
+  COLORS ={1=>"#4572A7",2=>"#AA4643",3=>"#89A54E",4=>"#80699B",5=>"#3D96AE",7=>"#DB843D",8=>"",9=>""}
+  
+  def color
+    COLORS[self.id]
+  end
 end
 

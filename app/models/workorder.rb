@@ -162,28 +162,29 @@ class Workorder < ActiveRecord::Base
     end
   end
   
+  def self.group_by_service_type(filters,price=true)
+    wo = self.find_by_params(filters)
+    wo = wo.group("service_type_id")
+    if price
+      wo = wo.sum("amount * price")
+    else
+      wo = wo.count("services.id")
+    end
+    wo
+  end
+  
   def self.find_by_params(filters)
     
     domain =  filters[:domain] || ""
+    logger.debug "### Filters #{filters}"
     
     @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%")
     @workorders =@workorders.includes(:services => :material_services)
     
-    if ((!filters[:date_from].empty?) && (!filters[:date_to].empty?))
-      date_f = filters[:date_from].to_datetime
-      date_t = filters[:date_to].to_datetime.since 1.day
-      @workorders = @workorders.where("performed between ? and ? ",date_f.in_time_zone,date_t.in_time_zone)
-    end
+    @workorders = @workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
     
-    if filters[:date_from].empty? && (!filters[:date_to].empty?)
-      date_from = filters[:date_to].to_datetime.since 1.day
-      @workorders = @workorders.where("performed <= ? ",date_from.in_time_zone)
-    end  
-    
-    if ((!filters[:date_from].empty?) && (filters[:date_to].empty?))
-      date_from = filters[:date_from].to_datetime
-      @workorders = @workorders.where("performed >= ? ",date_from.in_time_zone)
-    end 
+    @workorders = @workorders.where("performed <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
+    @workorders = @workorders.where("performed >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
     if filters[:user].company
       @workorders = @workorders.where("workorders.company_id = ?",filters[:user].company.id)
@@ -191,13 +192,9 @@ class Workorder < ActiveRecord::Base
       @workorders = @workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     end
 
-    unless filters[:wo_status_id].empty?
-      @workorders = @workorders.where("workorders.status = ?", filters[:wo_status_id])
-    end
+    @workorders = @workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
     
-    unless filters[:service_type_id].empty?
-      @workorders = @workorders.where("services.service_type_id = ?",filters[:service_type_id])
-    end
+    @workorders = @workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
     
     @workorders
   end

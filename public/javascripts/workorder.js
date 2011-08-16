@@ -1,6 +1,7 @@
 /**
  * @author Hernan
  */
+ var chart;
 jQuery(document).ready( function(){
    
 	$('#date_from').datepicker({
@@ -20,7 +21,7 @@ jQuery(document).ready( function(){
   
   
   $(".dropdown dd ul li a").live("click",function() {
-    setSort($(this));        
+    setSort($(this));
   }); 
   
   $(document).bind('click', function(e) {
@@ -29,6 +30,7 @@ jQuery(document).ready( function(){
         $(".dropdown dd ul").hide();
   });
   
+  $("#workorder_tabs").tabs();
   
 });
 
@@ -52,3 +54,34 @@ function submitForm(sort_column,direction){
 	$("#filter").submit();
 }
 
+function build_graph(data,container,title) {
+   $("#" + container).html("");
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: container,
+         margin: [50, 10, 0, 0],
+         plotBackgroundColor: 'none',
+         plotBorderWidth: 0,
+         plotShadow: false            
+      },
+      title: {
+         text: title
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+ 
+               this.point.name +': $ '+ this.y;
+         }
+      },
+       series: [{
+         type: 'pie',
+         name: '',
+         size: '65%',
+         innerSize: '40%',
+         data: data,
+         dataLabels: {
+            enabled: true
+         }
+      }]
+   });
+};

@@ -3,6 +3,7 @@ body, ul, li {
   font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
   line-height:21px;
   text-align:left;
+  padding: 0px;
 }
 
 /* Navigation Bar */

@@ -1,5 +1,6 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
+  include ActionView::Helpers::NumberHelper
 
   prawnto :prawn => {:page_size => "A4"}
   
@@ -23,7 +24,7 @@ class WorkordersController < ApplicationController
   def index
     page = params[:page] || 1
     if current_user.company
-      @company_services = current_user.company.company_service.map{|s| s.service_type}
+      @company_services = current_user.company.service_type
     else
       @company_services = current_user.service_types
     end
@@ -33,31 +34,41 @@ class WorkordersController < ApplicationController
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     
-    date_from = (params[:date_from] && (!params[:date_from].empty?)) ? params[:date_from] : ""
-    date_to = (params[:date_to] && (!params[:date_to].empty?)) ? params[:date_to] : ""
-    domain = params[:domain] ? params[:domain] : ""
-    service_type_id = (params[:service_type_id] && !(params[:service_type_id].empty?)) ? params[:service_type_id] : ""
-    wo_status_id = (params[:wo_status_id] && !(params[:wo_status_id].empty?)) ?  params[:wo_status_id] : ""
+    @filters_params ={}
     
-    
-    @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain, 
-        :service_type_id => service_type_id ,:user => current_user,:wo_status_id => wo_status_id}
+    @filters_params[:date_from] = params[:date_from] if (params[:date_from] && (!params[:date_from].empty?))        
+    @filters_params[:date_to] = params[:date_to] if (params[:date_to] && (!params[:date_to].empty?))
+    @filters_params[:domain] = params[:domain] || ""
+    @filters_params[:service_type_ids] = params["service_type_ids"] if (params["service_type_ids"] && !(params["service_type_ids"].empty?))
+    @filters_params[:wo_status_id] = params[:wo_status_id] if (params[:wo_status_id] && !(params[:wo_status_id].empty?))
+
+#   @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain,:service_type_id => service_type_id ,:user => current_user,:wo_status_id => wo_status_id}
         
     @filters = @filters_params.clone()
-    @filters.delete_if{|k,v| k == :user}
+
+    @filters_params[:user] = current_user
         
     @workorders = Workorder.find_by_params(@filters_params)
+    
+    @price_data = build_graph_data(Workorder.group_by_service_type(@filters_params))
+    amt = Workorder.group_by_service_type(@filters_params,false)
+    @amt_data = build_graph_data(amt)
+    
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
     
     @count= @workorders.count()
-    @amount= @workorders.sum("price * amount")
+    @workorder_amount= @workorders.sum("price * amount")
+    @services_amount =0 
+    amt.each{|key,value| @services_amount += value}
+      
 
     respond_to do |format|
       format.html
       format.js { render :layout => false}
     end
   end
-
+  
+  
   def show
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
@@ -212,6 +223,16 @@ class WorkordersController < ApplicationController
     else
       "desc"
     end
+  end
+  
+  def build_graph_data service_data
+    data_str =""
+    service_data.each do |key,value|
+      service_type = ServiceType.find(key)
+      logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} color: #{service_type.color}"
+      data_str = data_str + "{ name: '#{service_type.name}', y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")}, color: '#{service_type.color}' },"
+    end
+    data_str.chop
   end
 end
 

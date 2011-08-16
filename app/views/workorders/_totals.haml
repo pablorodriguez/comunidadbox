@@ -2,15 +2,21 @@
   %h1
     Detalle del Listado
 %table.coltable
-  %col.current{:width=>"40%"}
-  %col{:width=>"60%"}
+  %col.current{:width=>"60%"}
+  %col{:width=>"40%"}
   %tr
-    %td.header Cantidad
+    %td.header Cantidad Ordenes de Trabajo
     %td.number
       %strong
         = @count
   %tr
-    %td.header Total
+    %td.header Tipos de Servicio
     %td.number
       %strong
-        = number_to_currency @amount  
+        = number_with_precision @services_amount,:precision=>0
+  %tr
+    %td.header Ordenes de Trabajo
+    %td.number
+      %strong
+        = number_to_currency @workorder_amount
+        

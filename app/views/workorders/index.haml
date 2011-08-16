@@ -1,8 +1,8 @@
-- stylesheets 'jquery-ui-1.8.11.custom.css'
 - javascript 'workorder'
 - javascript 'pagination'
 - javascript 'rank'
 - javascript 'jquery.ba-url.min'
+- javascript 'highcharts'
 %all-workorder
   %h1
     = vineta 
@@ -13,13 +13,25 @@
     - if current_user.is_administrator
       #totals.contentleft
         = render 'totals'
-
+    = link_to_back
   .contentright
     - if @work_orders.size > 0
-      #sort_by
-        %h1.left Listado de Servicios Realizados
-        = render 'sort_by'
-      #workorders
+      - if current_user.is_administrator
+        #workorder_tabs
+          %ul
+            %li
+              %a{:href => "#tabs-1"} Listado Servicios Realizados
+            %li
+              %a{:href => "#tabs-2"} Reporte Grafico
+          #tabs-1
+            #data{:style=>"overflow: auto;"}
+              #sort_by      
+                = render 'sort_by'
+              #workorders
+                = render 'workorders'
+          #tabs-2
+            = render 'graphics'          
+      - else  
         = render 'workorders'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"
