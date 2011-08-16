@@ -5,11 +5,11 @@
     %link{:rel=>"shortcut icon",:href=>"/favicon.ico"}
     = csrf_meta_tag
     %title Comunidad Box
-    = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"                             
+    -#= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"                             
     = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails'
     = javascript_include_tag 'jquery.ui.datepicker-es','application','autocolumn.min'
     = javascript 'analytics'
-    = stylesheet_link_tag 'combox','menu','jquery-ui-1.8.11.custom','user'
+    = stylesheet_link_tag 'combox','menu','jquery-ui-1.8.15.custom','user'
     = yield(:head)
     %link{:href => "http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic", :rel => "stylesheet", :type => "text/css"}
     
