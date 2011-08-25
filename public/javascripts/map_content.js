@@ -44,9 +44,9 @@ function buildControlPanelChart(service_names,data){
         },
         series: data,
         colors: [
-          '#62F76F', 
-          '#FEFF8F', 
-          '#FF795F', 
+          '#33CC00', 
+          '#FFFF33', 
+          '#F70C47', 
         ]
      });
      return chart;

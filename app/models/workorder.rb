@@ -178,7 +178,7 @@ class Workorder < ActiveRecord::Base
     domain =  filters[:domain] || ""
     logger.debug "### Filters #{filters}"
     
-    @workorders= Workorder.includes(:car =>:user).where("cars.domain like ?","%#{domain.upcase}%").includes(:payment_method,:company,:user)
+    @workorders= Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
     @workorders =@workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     
     @workorders = @workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
