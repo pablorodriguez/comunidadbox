@@ -228,9 +228,11 @@ class WorkordersController < ApplicationController
   def build_graph_data service_data
     data_str =""
     service_data.each do |key,value|
-      service_type = ServiceType.find(key)
-      logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} color: #{service_type.color}"
-      data_str = data_str + "{ name: '#{service_type.name}', y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")}, color: '#{service_type.color}' },"
+      if key
+        service_type = ServiceType.find(key)
+        logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} color: #{service_type.color}"
+        data_str = data_str + "{ name: '#{service_type.name}', y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")}, color: '#{service_type.color}' },"        
+      end
     end
     data_str.chop
   end

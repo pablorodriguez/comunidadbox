@@ -62,10 +62,7 @@ function build_graph(data,container,title) {
          margin: [50, 10, 0, 0],
          plotBackgroundColor: 'none',
          plotBorderWidth: 0,
-         plotShadow: false,
-         events:{
-          click:function(e){alert("click");}     
-         }         
+         plotShadow: false                
       },      
       title: {
          text: title
@@ -80,18 +77,11 @@ function build_graph(data,container,title) {
          name: '',
          size: '65%',
          innerSize: '40%',
-         data: data,
-         point: {
-                events: {
-                    click: function() {
-                        alert ('Category: '+ this.name +', value: '+ this.y);
-                    }
-                }
-         },
+         data: data,         
          dataLabels: {
             enabled: true,
             formatter: function() {
-              return '<b>'+ this.point.name +'</b><br>'+ this.y +'';
+              return '<b>'+ this.point.name +'</b>'+ this.y +'';
             }
          }
       }]

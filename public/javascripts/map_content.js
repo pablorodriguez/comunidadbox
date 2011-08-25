@@ -2,7 +2,8 @@ function buildControlPanelChart(service_names,data){
      chart1 = new Highcharts.Chart({
         chart: {
            renderTo: 'graph_container',
-           defaultSeriesType: 'bar'
+           defaultSeriesType: 'bar',
+           height:600,
         },
         title: {
            text: ''
