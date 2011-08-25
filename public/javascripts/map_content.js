@@ -1,35 +1,52 @@
-var axisPatter = /^axis/;
-
-function get_json_map(){
-	var json_url = jQuery("#json_url").val();
-	jQuery.ajax({
-		url: json_url,
-		success: set_json_map,
-		dataType: "jsonp",
-		type:'GET'
-		})
+function buildControlPanelChart(service_names,data){
+     chart1 = new Highcharts.Chart({
+        chart: {
+           renderTo: 'graph_container',
+           defaultSeriesType: 'bar'
+        },
+        title: {
+           text: ''
+        },
+        xAxis: {
+           categories: service_names
+        },
+        yAxis: {
+           min: 0,
+           title: {
+              text: 'Cantidad de Eventos Futuros'
+           }
+        },
+        legend: {         
+           backgroundColor: '#F2F2F2',
+           reversed: true
+        },
+        tooltip: {
+           formatter: function() {
+              return ''+
+                  this.series.name +': <b>'+ this.y +'</b>';
+           }
+        },
+        plotOptions: {
+           series: {
+              cursor: 'pointer',
+              stacking: 'normal',
+              pointWidth:30,              
+              point: {
+                events: {
+                    click: function() {               
+                        var st = this.options.st;         
+                        location.href = url + "?st=" + st;
+                    }
+                }
+            }
+           }
+        },
+        series: data,
+        colors: [
+          '#62F76F', 
+          '#FEFF8F', 
+          '#FF795F', 
+        ]
+     });
+     return chart;
 }
-
-function set_json_map(jsonObj){
-	mapString = "";
-	var serviceUrl = jQuery("#services_url").val().split("|").reverse();
-	var urlIndex=0;
-	var area = false;
-	var chart = jsonObj.chartshape;
-	for (var i = 0; i < chart.length; i++) {
-		area = chart[i];
-		if (area.name.match(axisPatter)) {
-			mapString += "<area name='" + area.name + "' shape='" + area.type +
-			"' coords='" +
-			area.coords.join(",") +
-			"' href='" + serviceUrl[urlIndex] + "' title=''>";
-			urlIndex++;
-		}
-	}	
-	jQuery("#notes")[0].innerHTML=mapString;
-}
-
-
-jQuery(document).ready( function(){
-	get_json_map();
-});

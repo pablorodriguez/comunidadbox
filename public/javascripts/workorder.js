@@ -62,15 +62,17 @@ function build_graph(data,container,title) {
          margin: [50, 10, 0, 0],
          plotBackgroundColor: 'none',
          plotBorderWidth: 0,
-         plotShadow: false            
-      },
+         plotShadow: false,
+         events:{
+          click:function(e){alert("click");}     
+         }         
+      },      
       title: {
          text: title
       },
       tooltip: {
          formatter: function() {
-            return '<b>'+ this.series.name +'</b><br/>'+ 
-               this.point.name +': $ '+ this.y;
+            return this.point.name +': <b>$ '+ this.y + '</b>';
          }
       },
        series: [{
@@ -79,8 +81,18 @@ function build_graph(data,container,title) {
          size: '65%',
          innerSize: '40%',
          data: data,
+         point: {
+                events: {
+                    click: function() {
+                        alert ('Category: '+ this.name +', value: '+ this.y);
+                    }
+                }
+         },
          dataLabels: {
-            enabled: true
+            enabled: true,
+            formatter: function() {
+              return '<b>'+ this.point.name +'</b><br>'+ this.y +'';
+            }
          }
       }]
    });

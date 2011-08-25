@@ -4,58 +4,21 @@
 
 :javascript
   var chart;
+  var url;
   $(document).ready(function() {
-     chart = new Highcharts.Chart({
-        chart: {
-           renderTo: 'graph_container',
-           defaultSeriesType: 'bar'
-        },
-        title: {
-           text: ''
-        },
-        xAxis: {
-           categories: [#{@services_names}]
-        },
-        yAxis: {
-           min: 0,
-           title: {
-              text: 'Cantidad de Eventos Futuros'
-           }
-        },
-        legend: {         
-           backgroundColor: '#F2F2F2',
-           reversed: true
-        },
-        tooltip: {
-           formatter: function() {
-              return ''+
-                  this.series.name +': '+ this.y +'';
-           }
-        },
-        plotOptions: {
-           series: {
-              stacking: 'normal'
-           }
-        },
-        series: #{@series_data},
-        colors: [
-          '#62F76F', 
-          '#FEFF8F', 
-          '#FF795F', 
-        ]
-     });
-     
+    var data = #{@series_data};
+    var service_names = [#{@services_names}];
+    url = "#{filter_alarms_control_panels_path}";
+    chart = buildControlPanelChart(service_names,data);             
   });
 .title  
   %h1
     = vineta 
-    Panel de Control
-.contentleft
-  = render "service_type_list"
+    Panel de Control 
 .contentright
   -unless @no_data
     %h1 Vencimientos de Servicios
     #graph_container
   -else
     = render 'shared/message', :msg =>"No hay servicios a realizar"
-    
+= link_to_back root_path    

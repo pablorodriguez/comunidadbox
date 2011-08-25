@@ -36,11 +36,11 @@ class ControlPanelsController < ApplicationController
     if (@eventos_verde.size == 0 && @eventos_amarillo.size == 0 && @eventos_rojo.size == 0)
       @no_data=true
     end
-    logger.info "### no data #{@no_data}"
+    
     @company_services.each do |service|
-      g_data += "#{@eventos_verde[service] ? @eventos_verde[service]: 0},"
-      y_data += "#{@eventos_amarillo[service] ? @eventos_amarillo[service]: 0},"
-      r_data += "#{@eventos_rojo[service] ? @eventos_rojo[service] : 0},"
+      g_data += "{y:#{@eventos_verde[service] ? @eventos_verde[service]: 0},st:#{service.id}},"
+      y_data += "{y:#{@eventos_amarillo[service] ? @eventos_amarillo[service]: 0},st:#{service.id}},"
+      r_data += "{y:#{@eventos_rojo[service] ? @eventos_rojo[service] : 0},st:#{service.id}},"
     end
     g_data.chop!  
     y_data.chop!
