@@ -227,11 +227,18 @@ class WorkordersController < ApplicationController
   
   def build_graph_data service_data
     data_str =""
+    total = 0 
+    service_data.values.each{|v| total = total + v.to_f}
     service_data.each do |key,value|
       if key
+        percentage = ((value * 100) / total)
         service_type = ServiceType.find(key)
-        logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} color: #{service_type.color}"
-        data_str = data_str + "{ name: '#{service_type.name}', y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")}, color: '#{service_type.color}' },"        
+        logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} %: #{percentage} total: #{total}"
+        data_str = data_str + "{ 
+          name: '#{service_type.name}', 
+          y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
+          p: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
+          color: '#{service_type.color}' },"        
       end
     end
     data_str.chop

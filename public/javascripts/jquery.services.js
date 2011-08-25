@@ -260,9 +260,7 @@ function updateTotalService(service_element){
   		
   	});
 	}
-	total_service = element.find(".total_service");
-	total_service.html(total);
-	total_service.formatCurrency();
+	element.find(".total_service").html(total).formatCurrency();	
 }
 
 function updateWorkOrderTotalPrice(){
@@ -276,8 +274,7 @@ function updateWorkOrderTotalPrice(){
 		}
 		
 	});
-	$("#total_work_order").html(total);
-	$("#total_work_order").formatCurrency();
+	$("#total_work_order").html(total).formatCurrency();	
 }
 
 function search_sub_category(){

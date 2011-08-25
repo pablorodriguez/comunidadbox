@@ -164,7 +164,7 @@ class Workorder < ActiveRecord::Base
   
   def self.group_by_service_type(filters,price=true)
     wo = self.find_by_params(filters)
-    wo = wo.group("service_type_id")
+    wo = wo.group("services.service_type_id")
     if price
       wo = wo.sum("amount * price")
     else
@@ -178,8 +178,8 @@ class Workorder < ActiveRecord::Base
     domain =  filters[:domain] || ""
     logger.debug "### Filters #{filters}"
     
-    @workorders= Workorder.joins(:car).where("cars.domain like ?","%#{domain.upcase}%")
-    @workorders =@workorders.includes(:services => :material_services)
+    @workorders= Workorder.includes(:car =>:user).where("cars.domain like ?","%#{domain.upcase}%").includes(:payment_method,:company,:user)
+    @workorders =@workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     
     @workorders = @workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
     
