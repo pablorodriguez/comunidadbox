@@ -106,7 +106,7 @@ class WorkordersController < ApplicationController
           if @work_order.finish?
             #@work_order.generate_events
             @work_order.regenerate_events
-            #send_notification @work_order.id          
+            send_notification @work_order.id          
           end
           format.html { redirect_to(@work_order.car)}
           format.xml  { head :ok }
@@ -149,7 +149,7 @@ class WorkordersController < ApplicationController
       if @work_order.finish?
         #@work_order.generate_events
         @work_order.regenerate_events
-        #send_notification @work_order.id
+        send_notification @work_order.id
       end
       
     end
