@@ -23,9 +23,9 @@
               %h1
                 = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link               
           %td.number{:style=>'width:20%'}
-          - if current_user.company
-            %h1
-              = wo_form.collection_select(:operator_id,current_user.company.operators,:id,:full_name,{:include_blank => true,:selected =>wo_form.object.operator},{:class=>'operator',:title=>"Operario"})
+            - if current_user.company
+              %h1
+                = wo_form.collection_select(:operator_id,current_user.company.operators,:id,:full_name,{:include_blank => true,:selected =>wo_form.object.operator},{:class=>'operator',:title=>"Operario"})
           %td{:style=>'width:5%'}
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|

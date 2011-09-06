@@ -7,13 +7,23 @@ pdf.move_down(15)
 pdf.text "Estimado #{user.full_name}"
 pdf.text "Muchas gracias por usar Comunidad Box, Ud. ha realizado una servicio en nuestra red de prestadores"
 pdf.move_down(15)
-pdf.text "Prestador de Servicio: #{@work_order.company.name}", :size=>20,:style =>:bold
-pdf.text "Servicio Nro: #{@work_order.id}, Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}", :size=>14,:style =>:bold
+if @work_order.company
+  pdf.text "Prestador de Servicio: #{@work_order.company.name}", :size=>20,:style =>:bold
+  address = company.address
+  pdf.text "Pais: #{address.state.country.name}, Provincia: #{address.state.name}, Ciudad: #{address.city}"
+  pdf.text "Dirección: #{address.street}, #{address.zip}, #{address.name}"
+end
 
-address = company.address
-pdf.text "Pais: #{address.state.country.name}, Provincia: #{address.state.name}, Ciudad: #{address.city}"
-pdf.text "Dirección: #{address.street}, #{address.zip}, #{address.name}"
-pdf.text "Operario: #{@work_order.user.full_name}"
+if @work_order.company_info
+  pdf.text "Prestador de Servicio: #{@work_order.company_info}", :size=>20,:style =>:bold
+end
+
+
+pdf.text "Servicio Nro: #{@work_order.id}, Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}", :size=>14,:style =>:bold
+if @work_order.operator
+  pdf.text "Operario: #{@work_order.operator.full_name}"
+end
+pdf.text "Usuario: #{@work_order.user.full_name}"
 pdf.text "Forma de Pago: #{@work_order.payment_method.name}"
 pdf.move_down(20)
 pdf.text "Automovil: #{car.domain}",:size=>20,:style =>:bold
