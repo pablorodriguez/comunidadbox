@@ -208,9 +208,8 @@ ComunidadBox::Application.routes.draw do
     end
   end  
   
-  mount Resque::Server,:at => "/resque"
-  
   root :to => "home#index"
+  mount Resque::Server,:at => "/resque"
   
 end
 
