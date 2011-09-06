@@ -47,7 +47,7 @@ function createNewService(car_id){
   
   $(".new_service_link").each(function(){
     var href = $(this).attr("href");
-    href = href + "?car_id=" + car_id;
+    href = href + "&car_id=" + car_id;
     $(this).attr("href",href);
   });
   
