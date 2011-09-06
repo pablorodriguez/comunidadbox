@@ -15,7 +15,8 @@ class Car < ActiveRecord::Base
   validates_format_of :domain, :with => /^\D{3}\d{3}/
 
   def future_events
-    Event.where("dueDate >= ? and car_id = ?",Time.now,self.id)
+    #Event.future(Time.now).car(self.id).order("dueDate desc")
+    Event.car(self.id).order("dueDate desc")
   end
   
   def can_edit?(usr)
@@ -27,7 +28,6 @@ class Car < ActiveRecord::Base
     if months > 0
       km_dif = new_km - self.km
       new_avg = (km_dif) / months
-      puts "M #{months} KM dif #{km_dif} N Avg #{new_avg}"
       self.kmAverageMonthly = new_avg
       self.km = new_km
       end
@@ -35,11 +35,12 @@ class Car < ActiveRecord::Base
   end
   
   def update_events
-    future_events.each do |event|
+    future_events.active.each do |event|
       months = (event.km - km) / kmAverageMonthly
       #old_date = event.dueDate
-      event.dueDate = months.months.since
-      event.save
+      e = Event.find event.id
+      e.dueDate = months.months.since
+      e.save
       #puts "Old Date: #{old_date}, KM: #{event.km} , New Date: #{event.dueDate} Months : #{months}"
     end
     

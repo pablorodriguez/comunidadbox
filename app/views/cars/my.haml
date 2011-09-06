@@ -1,3 +1,5 @@
+- javascript 'jquery.ba-url.min'
+- javascript 'car_pagination'
 #all_cars
   %h1
     = vineta 
@@ -9,3 +11,5 @@
       =render :partial=>"cars",:locals =>{:cars=>@cars,:table_id =>:sort_table}
     - else
       = render 'shared/message', :msg =>"No hay ningún automóvil"
+    #company-selector
+      = render 'company_selector'

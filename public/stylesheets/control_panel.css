@@ -60,20 +60,7 @@ table.control-panel caption{
 	padding:5px;
 }
 
-.rojo{
-	border: 1px solid red;
-	background-color: #FF9999;
-}
 
-.amarillo{
-	background-color:#FFFFA0;
-	border: 1px solid #FF8057 ;
-}
-
-.verde{
-	background-color:#A0FFA0 ;
-	border: 1px solid green;
-}
 
 .short_select{
 	width:100px

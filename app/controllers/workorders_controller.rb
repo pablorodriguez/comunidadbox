@@ -1,6 +1,5 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
-  include ActionView::Helpers::NumberHelper
 
   prawnto :prawn => {:page_size => "A4"}
   
@@ -50,9 +49,9 @@ class WorkordersController < ApplicationController
         
     @workorders = Workorder.find_by_params(@filters_params)
     
-    @price_data = build_graph_data(Workorder.group_by_service_type(@filters_params))
+    @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(@filters_params))
     amt = Workorder.group_by_service_type(@filters_params,false)
-    @amt_data = build_graph_data(amt)
+    @amt_data = Workorder.build_graph_data(amt)
     
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
     
@@ -105,8 +104,9 @@ class WorkordersController < ApplicationController
           
           CarServiceOffer.update_with_services(@work_order.services,cso_ids)
           if @work_order.finish?
-            @work_order.generate_events
-            send_notification @work_order.id          
+            #@work_order.generate_events
+            @work_order.regenerate_events
+            #send_notification @work_order.id          
           end
           format.html { redirect_to(@work_order.car)}
           format.xml  { head :ok }
@@ -124,9 +124,10 @@ class WorkordersController < ApplicationController
   def edit
     @work_order= Workorder.find(params[:id])
     @service_types = current_user.service_types
-    @car_service_offers = @work_order.car_service_offers    
-    if @car_service_offers.size == 0
-      @car_service_offers = @work_order.find_car_service_offer(current_user.company.id)
+    @car_service_offers = @work_order.car_service_offers
+    @company = @work_order.company
+    if ((@car_service_offers.size == 0) && (@company))
+      @car_service_offers = @work_order.find_car_service_offer(@company.id)
     end
     
   end
@@ -144,16 +145,16 @@ class WorkordersController < ApplicationController
       car.company = current_user.current_company
       car.save
       CarServiceOffer.update_with_services(@work_order.services,cso_ids)
-      logger.debug "### antes de save"
       saveAction = @work_order.save
-      @work_order.generate_events
+      if @work_order.finish?
+        #@work_order.generate_events
+        @work_order.regenerate_events
+        #send_notification @work_order.id
+      end
+      
     end
     
     if saveAction
-      if @work_order.finish?
-        logger.info "### Work order finished"
-        #send_notification @work_order.id
-      end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
       redirect_to @work_order.car
@@ -166,39 +167,18 @@ class WorkordersController < ApplicationController
   end
   
   def new
-    
-    company_id =  current_user.company ? current_user.company.id : params[:company_id]
-    
+    @company_id =  current_user.company ? current_user.company.id : params[:company_id]
     car_id = params[:car_id]
     
-    if (car_id)
-      car =Car.find(params[:car_id])
-    else
-      if current_user.cars.size == 1
-        car = current_user.cars[0]
-      else
-        flash[:notice] = "Por favor seleccione un automovil"
-        redirect_to cars_path(:company_id =>company_id)
-      end
-    end
-
-    if company_id
-      @work_order = Workorder.new
-      @work_order.performed = I18n.l(Time.now.to_date)
-      logger.debug "### perforemd #{@work_order.performed}"      
-      if current_user.company
-        company_service_id = current_user.company.id
-      else
-        company_service_id = Company::DEFAULT_COMPANY_ID
-      end
-      @work_order.company = Company.find company_id
-      @work_order.car = car
-      @service_types = current_user.service_types
-      @car_service_offers = @work_order.find_car_service_offer(company_id)
-    else
-      flash[:notice] ="Por favor seleccione un prestador de servicios"
-      redirect_to all_companies_path(:car_id =>car_id)
-    end
+    @work_order = Workorder.new
+    @work_order.performed = I18n.l(Time.now.to_date)
+    @work_order.company_info  = params[:c] if params[:c]
+    
+    @work_order.company = Company.find @company_id if @company_id
+    @work_order.car = Car.find(params[:car_id]) if params[:car_id]
+    
+    @service_types = current_user.service_types
+    @car_service_offers = @work_order.find_car_service_offer(@company_id)
   end
 
   private
@@ -225,23 +205,6 @@ class WorkordersController < ApplicationController
     end
   end
   
-  def build_graph_data service_data
-    data_str =""
-    total = 0 
-    service_data.values.each{|v| total = total + v.to_f}
-    service_data.each do |key,value|
-      if key
-        percentage = ((value * 100) / total)
-        service_type = ServiceType.find(key)
-        logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} %: #{percentage} total: #{total}"
-        data_str = data_str + "{ 
-          name: '#{service_type.name}', 
-          y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
-          p: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
-          color: '#{service_type.color}' },"        
-      end
-    end
-    data_str.chop
-  end
+  
 end
 

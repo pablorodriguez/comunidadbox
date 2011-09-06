@@ -47,7 +47,7 @@ jQuery(document).ready( function(){
 	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
 	$("#materials_list .checkbox").live("click",checkMaterialHandler);	
-	$(".comments").live("click",showModalComment);
+	$(".comment").live("click",showModalComment);
 	$("#material_dialog").click(showMaterialDialog);
 	$("#new_service_type").change(addNewServiceType);
 	
@@ -104,6 +104,12 @@ jQuery(document).ready( function(){
 	  },
 	  close: function(event, ui) {
 	    comment.val($("#comment").val());
+	    if (comment.val() != ""){
+	      comment.parent().prev().prev().toggleClass("add_comment edit_comment").attr("title","Agregar Comentario");
+	    }else{
+	      comment.parent().prev().prev().toggleClass("edit_comment add_comment").attr("title","Modificar Comentario"); 
+	    }
+	    
 	  },
 	  buttons: [{
           text: "Grabar",
@@ -478,7 +484,12 @@ function add_materials_service_types(elements){
 }
 
 function showModalComment(link){	
-	comment = $(this).next().children().first();
+	comment = $(this).next().next().children().first();
 	commentDialog.dialog("open");
+}
+
+function searchServiceTypeMaterial(link){
+  materialDialog.dialog("open");
+  $("#service_type_id").val($(link).parent().prev().find("input").val());
 }
 

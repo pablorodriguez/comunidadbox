@@ -16,13 +16,13 @@
     = link_to_back
   .contentright
     - if @work_orders.size > 0
-      - if current_user.is_administrator
+      - unless current_user.is_employee
         #workorder_tabs
           %ul
             %li
               %a{:href => "#tabs-1"} Listado Servicios Realizados
             %li
-              %a{:href => "#tabs-2"} Reporte Grafico
+              %a{:href => "#tabs-2"} Reporte Gráfico
           #tabs-1
             #data{:style=>"overflow: auto;"}
               #sort_by      
@@ -32,6 +32,10 @@
           #tabs-2
             = render 'graphics'          
       - else  
-        = render 'workorders'
+        #data{:style=>"overflow: auto;"}
+          #sort_by      
+            = render 'sort_by'
+          #workorders
+            = render 'workorders'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"

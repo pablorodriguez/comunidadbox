@@ -92,26 +92,13 @@ class ControlPanelsController < ApplicationController
       @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)
     end
     
-    conditions = {"status" =>Status::ACTIVE}
-    conditions.merge!({"service_type_id" =>  @service_filter.service_type_id}) if  @service_filter.service_type_id
-    conditions.merge!({"cars.brand_id" => @service_filter.brand_id}) if @service_filter.brand_id
-    conditions.merge!({"cars.model_id" => @service_filter.model_id}) if @service_filter.model_id
-    conditions.merge!({"cars.fuel" => @service_filter.fuel}) unless @service_filter.fuel.blank?
-    conditions.merge!({"cars.year" => @service_filter.year}) if @service_filter.year
+    events = Event.find_by_params @service_filter
     
-    conditions.merge!({"addresses.state_id" => @service_filter.state_id}) if @service_filter.state_id?
-    conditions.merge!({"addresses.city" => @service_filter.city}) if @service_filter.city?
-    
-    
-    @red_cars = Event.red.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
-     
-    
-    @yellow_cars = Event.yellow.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
-    @green_cars = Event.green.all(:conditions => conditions, :include => {:car =>[:user =>:address]})
+    @red_cars = events.red
+    @yellow_cars = events.yellow
+    @green_cars = events.green
     
     @events = @red_cars + @yellow_cars + @green_cars
-    logger.info "### #{conditions} red #{@red_cars.size} yellow #{@yellow_cars.size} green #{@green_cars.size}"
-    logger.info "### Total #{@events.size}"
     current_page = params[:page] || 1
     per_page=10
     @page_events = @events.paginate(:page=>current_page,:per_page=>per_page)

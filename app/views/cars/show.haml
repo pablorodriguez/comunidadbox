@@ -1,86 +1,13 @@
 - javascript 'jquery.ba-url.min'
 - javascript 'car_pagination'
 - javascript 'rank'
+- javascript 'highcharts'
 #car_info
   %h1
     = vineta 
     Automóvil
   .contentleft
-    %h1
-      Información
-      .brand_img
-        = brand_logo @car.brand.name
-    %table.coltable
-      %col.current
-      %col
-      - if @car.user.company_name
-        %tr
-          %td.header Razón Social
-          %td
-            = @car.user.company_name
-      - if @car.user.cuit
-        %tr
-          %td.header CUIT
-          %td
-            = @car.user.cuit
-      %tr
-        %td.header{:width=>"50%"} Dueño
-        %td{:width=>"50%"}
-          = h @car.user.full_name
-      %tr
-        %td.header Correo Eléctronico
-        %td
-          = @car.user.email
-      %tr
-        %td.header Teléfono
-        %td
-          = @car.user.phone
-      %tr
-        %td.header Año
-        %td
-          = h @car.year
-      %tr
-        %td.header Dominio
-        %td
-          = h @car.domain
-      %tr  
-        %td.header Km
-        %td
-          = h @car.km
-      %tr
-        %td.header Marca
-        %td
-          = h @car.brand.name
-      %tr  
-        %td.header Combustible
-        %td
-          = h @car.fuel
-      %tr
-        %td.header Modelo
-        %td
-          = h @car.model.name        
-      %tr  
-        %td.header Promedio Km Mensual
-        %td
-          = h @car.kmAverageMonthly
-      %tr
-        %td.header Total Consumido
-        %td
-          %strong
-            = h number_to_currency @car.total_spend
-      - if current_user.company
-        %tr
-          %td.header 
-            Total Consumido en tu empresa
-          %td
-            %strong
-              = h number_to_currency @car.total_spend(current_user.company.id) 
-        
-  
-    = link_to_back cars_path
-    = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),{:title=>"Nuevo Servicio"}
-    = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
-    = link_to image_tag("edit.png"),edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)
+    = render "car_detail"
   .contentright
     #service-tabs
       %ul
@@ -88,9 +15,16 @@
           %a{:href => "#tabs-1"} Servicios Realizados
         %li
           %a{:href => "#tabs-2"} Futuros Servicios a Realizar
+        %li
+          %a{:href => "#tabs-3"} Reporte Gráfico
+          
       #tabs-1
-        #cars_work_orders
+        #cars_work_orders.overflow
           = render "work_orders"
       #tabs-2
-        #cars_future_events
-          = render "events"
+        #cars_future_events.overflow
+          = render "events"        
+      #tabs-3
+        = render 'graphics'          
+    #company-selector
+      = render 'company_selector'

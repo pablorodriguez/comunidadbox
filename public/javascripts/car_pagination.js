@@ -28,4 +28,44 @@ jQuery(document).ready(function(){
    }
    
    $("#service-tabs").tabs();
+   
+   $("#company-selector").dialog({
+    height: 570,
+    width:650,
+    title:'Seleccionar Prestador de Servicio',
+    autoOpen: false,
+    draggable: false,
+    resizable:false,
+    modal: true});
+    
+
 });
+
+function createNewService(car_id){
+  $("#company-selector").dialog('open');
+  $("#company-selector #car_id").val(car_id);
+  
+  $(".new_service_link").each(function(){
+    var href = $(this).attr("href");
+    href = href + "?car_id=" + car_id;
+    $(this).attr("href",href);
+  });
+  
+}
+
+function newCompany(target){
+  $("#all_companies").hide();
+  $("#new_company").show();  
+}
+
+function cancelNewCompany(target){
+  $("#all_companies").show();
+  $("#new_company").hide();
+}
+
+function newServiceNewCompany(){
+  var url = $("#new_service_url").val();
+  var comp_info =$("#company_info").val();$
+  window.location=url + "&c="+comp_info;
+}
+

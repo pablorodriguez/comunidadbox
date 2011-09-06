@@ -1,8 +1,4 @@
-%table#sort_table.comboxtable
-  %tr
-    %td  
-  - for work_order in @work_orders
-    %tr
-      %td
-        = render :partial =>"work_order_row",:object => work_order
+.row
+- for work_order in @work_orders
+  = render :partial =>"work_order_row",:object => work_order
 = will_paginate @work_orders,:params =>@filters

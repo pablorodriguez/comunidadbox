@@ -1,8 +1,13 @@
+include ActionView::Helpers::NumberHelper
+
 class Workorder < ActiveRecord::Base
+  
+    
   has_many :services, :dependent => :destroy
   belongs_to :car
   belongs_to :company
   belongs_to :user
+  belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
   belongs_to :payment_method
   has_many :ranks
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
@@ -14,6 +19,12 @@ class Workorder < ActiveRecord::Base
   
   def type(type)
     ranks.select{|r| r.type_rank == type}.first
+  end
+  
+  def company_name
+    return company.name if company
+    return company_info if company_info
+    return ""
   end  
   
   def user_rank
@@ -74,11 +85,45 @@ class Workorder < ActiveRecord::Base
   def generate_events
     services.each do |service| 
       unless service.cancelled
-        delete_event service
-        create_event service  
+        new_event = create_event(service)
+        
+        #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
+        service_future = Service.find_future(service).last
+        if service_future
+          logger.debug "### encontro eventos futuros #{service_future.workorder.id}"
+          # si hay , cancelo el evento con el servicio a futuro realizado
+          new_event.status =Status::CANCELLED
+          new_event.service_done = service_future
+          #grabo el evento en la base de datos y no hago nada mas
+          new_event.save          
+        else
+          # si no hay servicios del mismo tipo en el futuro
+          # busco los eventos y actualizo su estado a CANCELLED por este nuevo servicio
+          
+          Event.transaction do
+            
+            #actualizo el estado de eventos futuros o pasados
+            Workorder.update_event_status service
+            #grabo el evento en la base de datos
+            new_event.save
+            logger.debug "### Entro a grabar nuevo evento creado #{new_event.id}"
+          end        
+        end
       end
     end
-    update_event_status
+    
+  end
+  
+  def regenerate_events
+    Event.transaction do
+      services.each do |service|        
+        service.events.each do |e|
+          logger.debug "### Borro evento #{e.id}" 
+          e.destroy
+        end
+      end
+      generate_events      
+    end
   end
   
   def set_status
@@ -115,7 +160,7 @@ class Workorder < ActiveRecord::Base
   end
   
   def can_edit?(user)
-    if (company == user.company && company.is_employee(self.user) && (open? || in_progress?))
+    if ((company == user.company && company.is_employee(self.user) || (self.user == user)) && (open? || in_progress?))
       return true
     else
       return false   
@@ -133,33 +178,37 @@ class Workorder < ActiveRecord::Base
     event.service = service
     event.status= Status::ACTIVE
     event.dueDate = service.workorder.performed + months.month
-    logger.debug "### DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months}"
-    event.save
+    logger.debug "###Event created DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months}"
+    event
   end
   
-  def update_event_status
-    services.each do |service| 
-      unless service.cancelled
-        events_r = Event.red.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
-        events = events_r + Event.yellow.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
-        events.each do |id|
-          e = Event.find id
-          unless e.service.workorder.id == service.workorder.id
-            e.status = Status::FINISHED
-            e.service_done = service
-            e.save
-          end
-        end
-      end
-    end
-  end
   
   def delete_event service
     logger.debug "### #{service.id} #{service.workorder}"
     events = Event.green.car(service.workorder.car.id).service_typed(service.service_type.id)
     events.each do |e|
-      e.destroy
+      e.status = Status::CANCELLED
+      e.save
     end
+  end
+  
+  def self.build_graph_data service_data
+    data_str =""
+    total = 0 
+    service_data.values.each{|v| total = total + v.to_f}
+    service_data.each do |key,value|
+      if key
+        percentage = ((value.to_f * 100) / total)
+        service_type = ServiceType.find(key)
+        logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} %: #{percentage} total: #{total}"
+        data_str = data_str + "{ 
+          name: '#{service_type.name}', 
+          y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
+          p: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
+          color: '#{service_type.color}' },"        
+      end
+    end
+    data_str.chop
   end
   
   def self.group_by_service_type(filters,price=true)
@@ -178,25 +227,45 @@ class Workorder < ActiveRecord::Base
     domain =  filters[:domain] || ""
     logger.debug "### Filters #{filters}"
     
-    @workorders= Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
-    @workorders =@workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
+    workorders= Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
+    workorders =workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     
-    @workorders = @workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
+    workorders = workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
     
-    @workorders = @workorders.where("performed <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
-    @workorders = @workorders.where("performed >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
+    workorders = workorders.where("performed <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
+    workorders = workorders.where("performed >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
     if filters[:user].company
-      @workorders = @workorders.where("workorders.company_id = ?",filters[:user].company.id)
+      workorders = workorders.where("workorders.company_id = ?",filters[:user].company.id)
     else
-      @workorders = @workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
+      workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     end
 
-    @workorders = @workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
+    workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
     
-    @workorders = @workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
+    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
     
-    @workorders
+    workorders
   end
   
+  def self.update_event_status service
+    unless service.cancelled
+      #busco los servicios rojos y amarillos
+      events_r = Event.red.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
+      events = events_r + Event.yellow.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
+      events.each do |id|
+        
+        e = Event.find id
+        # Valido que el evento no sea de la misma Workorder
+        unless e.service.workorder.id == service.workorder.id
+          logger.debug "### encontro eventos futuros para cancelar con este nuevo creado #{e.id}"
+          #cambio su esado a finished
+          e.status = Status::CANCELLED
+          #seteo cual fuel el servicio que cancelo este evento 
+          e.service_done = service
+          e.save
+        end
+      end
+    end
+  end
 end

@@ -20,23 +20,14 @@ class CompaniesController < ApplicationController
   end
   
   def search
-    name =params[:name] || ""
-    city = params[:city] || ""
-    state_id =params[:company][:state_id]
-    street = params[:street]
-    
-    @companies = Company.where("companies.name like ?","%#{name}%").includes(:address =>[:state]).where("addresses.city like ? and addresses.street like ?","%#{city}%","%#{street}%")
-    unless state_id == ""
-      @companies = @companies.where(" states.id = ?",state_id.to_i)
-    end
-        
+    @companies = Company.search params
     respond_to do |format|
       format.js
     end
   end
   
   def all
-    @companies = Company.find(:all,:conditions=>["id >1"])
+    @companies = Company.best
     @car_id = params[:car_id]
     respond_to do |format|
       format.html # index.html.erb

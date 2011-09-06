@@ -25,7 +25,7 @@ a.link_w{
 }
 
 h1 {
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   color: #CCCC00;
   font-size:24px;
   font-weight:bold;
@@ -36,14 +36,14 @@ h1.contentright{
 }
 
 h2 {
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:14px;
   font-style:normal;
   color:#B3B3B3;
   font-weight:400;
 }
 h2 a {
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:14px;
   color:#CCCC00;
   text-decoration:none;
@@ -83,7 +83,7 @@ body {
   margin:0 auto 0 auto;
   width:900px;
   height:45px;
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:18px;
   color:#FFF;
 }
@@ -113,7 +113,7 @@ body {
   float:left;
   margin:0px;
   padding:0px;
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
 }
 #part1 {
   width:157px;
@@ -172,26 +172,23 @@ body {
 }
 
 .cuadro h1 {
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:18px;
   color:#4D4D4D;
-  font-weight:800;
 }
 .cuadro h2 {
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:12px;
   color:#CCCC33;
-  font-weight:600;
   margin-left:10px;
   margin-top:0px;
   margin-right:10px;
   margin-bottom:0px;
 }
 .cuadro p {
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:12px;
   color:#4D4D4D;
-  font-weight:400;
   margin:25px;
   margin-top:0px;
   margin-bottom:10px;
@@ -288,7 +285,7 @@ body {
 }
 /*-----------------------------------------##------------------------------------------##-------------------------------*/
 /*#cont1 h1 {
-  font-family:Ubuntu;
+  font-family:Open Sans;
   font-size:12px;
   font-weight:bold;
   color:#F00;
@@ -332,7 +329,7 @@ form .textarea {
   color:#FFF;
   font-weight:bold;
   float:left;
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
 }
 
 .btn2 {  
@@ -372,7 +369,7 @@ text-decoration: none;
   color:#FFF;
   font-weight:bold;
   float:left;
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
 }
 
 .btn:hover {
@@ -528,7 +525,7 @@ margin:0px;
   white-space:nowrap;
   display:inline;
   text-align:left;
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:20px;
   font-weight:bold;
   color:#B3B3B3;
@@ -540,7 +537,7 @@ margin:0px;
   margin-top:5px;
   margin-bottom:2px;
   text-align:left;
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:13px;
   font-weight:normal;
   color:#B3B3B3;
@@ -638,7 +635,7 @@ select{
   
 
 #msj_error h6{
-  font-family:Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:14px;
   color:#B3B3B3;
   font-weight:normal;
@@ -740,11 +737,19 @@ select{
   margin-right: 5px;
 }
 
+.content{
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DDDDDD;
+  padding: 5px 5px 5px 5px;
+  margin-right:5px;
+  margin-bottom:5px;
+}
+
 .contentleft{
   width:250px;
   float:left;
-  background-repeat:repeat-y;
-  background-position:right;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
@@ -767,7 +772,7 @@ td.number input{
   float:left; 
 }
 
-.contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1 {
+.contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1 {
   font-size:20px;
   color:#75787A;
   margin:0px;
@@ -862,7 +867,7 @@ table.comboxtable, .comboxform,table.w{
   text-align: center;
   padding: 3px;
   
-  font-family: 'Ubuntu', serif;
+  font-family: 'Open Sans', serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -883,6 +888,18 @@ table.comboxtable, .comboxform,table.w{
   border-bottom-width:thin;
   border-bottom-color:#CCC;
   border-bottom-style:double;
+}
+
+.row{
+  border-bottom-width:thin;
+  border-bottom-color:#CCC;
+  border-bottom-style:double;
+  float: left;
+  width: 100%;
+}
+
+.row:hover{
+  background-color:#F2EAB7;
 }
 
 .coltable{
@@ -1440,12 +1457,11 @@ td.number, th.number{
   border: 1px solid #099F3A;
   margin: 5px;
   padding:5px;
-  width: 98%;
-  
+  width: auto;
 }
 
 .errorExplanation h2 {
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:14px;
   font-style:normal;
   color:black;
@@ -1612,6 +1628,11 @@ ul.usr_menu li{
   float: left;
 }
 
+.center{
+  width: 100%;
+  margin:auto;
+}
+
 .right{
   float: right;
 }
@@ -1626,20 +1647,15 @@ ul.usr_menu li{
 
 .wo_detail{
   float: left;
-  width: 100%;
-  
+  width: 100%; 
+}
+
+.wo_detail .services{
+  max-width: 69%;
 }
 
 .wo_detail .performed{
   float: right;
-}
-.wo_detail .services a{
-  clear: both;
-}
-
-.wo_detail .services{
-  float: left;
-  width: 65%;
 }
 
 .wo_detail .status{
@@ -1719,13 +1735,17 @@ ul.usr_menu li{
 .wo_detail .company{
   float: left;
   clear: both;
-  width: 100%;
+  width: 80%;
 }
 
 .wo_detail .rank{
   float: left;
   clear: both;
   width: 100%;
+}
+
+.service_status a{
+  margin-top: 3px;
 }
 
 .service{
@@ -1740,11 +1760,18 @@ ul.usr_menu li{
 
 .service a{
   text-decoration: none;
+  margin-left: 3px;
 }
 
 .services ul{
   padding: 0px;
   margin: 3px;
+}
+
+.services{
+  max-width: 80%;
+  float: left;
+  overflow: auto;
 }
 
 .services ul li{
@@ -1832,11 +1859,93 @@ dl {
   width: 98%;
 }
 
-.comment{
-  background-image: url(/images/edit_comment.png);
+.add_comment{
+  background: url(/images/add_comment.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float: right;
 }
 
-.no_comment{
-  background-image: url(/images/add_comment.png);
+.new{
+  background: url(/images/new.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float: right;
 }
 
+.edit_comment{
+  background: url(/images/edit_comment.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float: right;
+}
+
+#company-selector{
+  margin-top: 5px;
+}
+
+.company_detail .actions{
+  width: 25px;
+  float: right;
+}
+.company_detail .address{
+  float: left;
+  width: 90%;
+}
+
+.event{
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+.km{
+  margin-right: 15px;
+}
+.event .status{
+  margin: 2px 5px;
+}
+.overflow{
+  overflow: auto;
+}
+
+.rojo{
+  border: 1px solid red;
+  background-color: #FF9999;
+}
+
+.amarillo{
+  background-color:#FFFFA0;
+  border: 1px solid #FF8057 ;
+}
+
+.verde{
+  background-color:#A0FFA0 ;
+  border: 1px solid green;
+}
+.dueDate label{
+  padding: 3px;
+}
+
+#total_work_order{
+  float: right;
+  margin-right: 53px;
+  font-size: 20px;
+  font-weight:bold;
+  color:black;
+}
+
+.service_event{
+  border-radius: 5px 5px 5px 5px;
+  border-style: solid;
+  border-width: 1px;
+  margin: 5px 9px;
+  padding: 5px;
+  width: 30%;
+}
+
+.events{
+  margin: auto;
+  overflow: auto;
+  width: 100%;
+}

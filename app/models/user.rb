@@ -212,6 +212,11 @@ class User < ActiveRecord::Base
     end
    sp
   end
+  
+  def state
+    return address.state if address && address.state
+    return nil
+  end
  
  def can_edit? user
    self.confirmed_at.nil?   

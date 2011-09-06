@@ -1,6 +1,6 @@
 body, ul, li {
   font-size:14px;
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   line-height:21px;
   text-align:left;
   padding: 0px;
@@ -75,7 +75,7 @@ body, ul, li {
 }
 
 #menu li a {
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:16px;
   color: #EEEEEE;
   display:block;
@@ -186,7 +186,7 @@ body, ul, li {
 
 #menu p, #menu h2, #menu h3, #menu ul li {
   color:#161616;
-  font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif;
+  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   line-height:21px;
   font-size:14px;
   text-align:left;

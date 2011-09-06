@@ -110,6 +110,7 @@ ComunidadBox::Application.routes.draw do
     collection do
       post :find_models
       post :search
+      post :search_companies
       post :update_km
       post :update_km_avg
       get :my

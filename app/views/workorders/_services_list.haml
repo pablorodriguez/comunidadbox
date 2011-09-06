@@ -4,6 +4,7 @@
   #services
     = wo_form.hidden_field :car_id
     = wo_form.hidden_field :company_id
+    = wo_form.hidden_field :company_info
     %table
       %theader
         %th
@@ -11,21 +12,20 @@
             %label.left 
               %h1
                 = icon_status @work_order.status                                
-                Realizado
-                = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed)
+                = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado"
+            %label.left
+              %h1            
+                = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select',:title=>"Forma de Pago"})
             %label.left
               %h1
-                = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select'})
-            %label.left
-              %h1
-                = collection_select :new,:service_type,@service_types,:id,:name,{:include_blank => true},{:class=>"input_medium"}
+                = collection_select :new,:service_type,@service_types,:id,:name,{:include_blank => true},{:class=>"input_medium",:title=>"Agregar nuevo tipo de servicio"}
             %label.left
               %h1
                 = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link               
           %td.number{:style=>'width:20%'}
+          - if current_user.company
             %h1
-              #total_work_order              
-                = number_to_currency @work_order.total_price
+              = wo_form.collection_select(:operator_id,current_user.company.operators,:id,:full_name,{:include_blank => true,:selected =>wo_form.object.operator},{:class=>'operator',:title=>"Operario"})
           %td{:style=>'width:5%'}
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|
@@ -33,5 +33,6 @@
     #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     = wo_form.submit "Grabar",:class =>"btn"
-    = link_to_back @work_order.car
-            
+    = link_to_back @work_order.car            
+    #total_work_order
+      = number_to_currency @work_order.total_price

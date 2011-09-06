@@ -1,30 +1,39 @@
-.wo_detail
+.row
+  %strong.left
+    = work_order_row.id
   .services
-    - work_order_row.services.each do |s|
+    - work_order_row.services.each do |s|      
       .service
         = link_to s.service_type.name ,work_order_row
-  - if work_order_row.company == current_user.company
+        - unless s.comment.empty?
+          %a{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+  - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
     .actions
       = icon_status work_order_row.status
-      - if work_order_row.can_edit?(current_user)
-        = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
-        = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
+      -# if work_order_row.can_edit?(current_user)
+      = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
+      = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
       = link_to_pdf work_order_row
               
-  #rank.rank{:id =>"wo_#{work_order_row.id}"}
-    - if work_order_row.company == current_user.company
+  #rank.rank.clear{:id =>"wo_#{work_order_row.id}"}
+    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
       = render 'ranks/rank',:workorder => work_order_row
-  .company
+  .company.clear
     .left
-      = work_order_row.company.name        
-      - if work_order_row.company == current_user.company
+      = work_order_row.company_name        
+      - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
         - if work_order_row.payment_method
-          = ", Forma de Pago: #{work_order_row.payment_method.name}"
+          = ", #{work_order_row.payment_method.name}"
         %br
-        = work_order_row.company.is_employee(work_order_row.user) ? "Operario:" : "Usuario:"
+        -if work_order_row.operator
+          %strong
+            Operario:
+          = "#{work_order_row.operator.first_name} #{work_order_row.operator.last_name}"
+        %strong
+          Usuario:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
-    .right
-      = l work_order_row.performed
-      - if work_order_row.company == current_user.company
-        .price_b
-          = number_to_currency work_order_row.total_price
+  .right
+    = l work_order_row.performed
+    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
+      .price_b
+        = number_to_currency work_order_row.total_price

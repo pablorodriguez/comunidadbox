@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
   initializeMap();
   $("#search_map").hide();  
   $("#search_map").dialog({
-    height: 550,
+    height: 540,
     width:570,
     title:'Ver en el Mapa',
     autoOpen: false,
@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
 });
 
 function search_address(target){
-	var address = $(target).parent().prev().find("label").html().trim();	
+	var address = $(target).parent().parent().find(".address").html().trim();
 	$("#address_map").val(address);
 	$("#search_map").dialog('open')
   initializeMap(8);    

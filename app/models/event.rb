@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   MONTH_YELLOW=2
   MONTH_GREEN=2
  
-  scope :red, lambda {{:conditions => ["dueDate <= ?", Time.now.months_since(Event::MONTH_RED)]} }
+  scope :red, lambda {{:conditions => ["dueDate <= ? AND status = ?", Time.now.months_since(Event::MONTH_RED),Status::ACTIVE]}}
   scope :yellow, lambda {{:conditions => ["dueDate > ? AND dueDate <= ?",Time.now.months_since(Event::MONTH_RED), Time.now.months_since(Event::MONTH_YELLOW)]} }
   scope :green, lambda {{:conditions => ["dueDate > ? ",Time.now.months_since(Event::MONTH_GREEN)]} }
 
@@ -18,7 +18,10 @@ class Event < ActiveRecord::Base
   scope :yeared, lambda { |year| { :joins => :car, :conditions => ["cars.year = ?", year] } }
   scope :fueled, lambda { |fuel| { :joins => :car, :conditions => ["cars.fuel = ?", fuel] } }
   scope :service_typed, lambda { |service_type| { :conditions => ["service_type_id = ?", service_type] } }
+  scope :work_ordered,lambda{|work_order_id|{:joins =>[:service =>:workorder],:conditions =>["workorders.id = ?",work_order_id]}}
   scope :car,lambda{|car_id| {:joins=>:car,:conditions =>["cars.id = ?",car_id]}}
+  scope :active, lambda { {:conditions =>  ["status = ?", Status::ACTIVE]}}
+  scope :future, lambda { |day| {:conditions =>  ["dueDate >= ?", day]}}
   
   def is_green
     dueDate > Time.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
@@ -30,6 +33,19 @@ class Event < ActiveRecord::Base
   
   def is_red
     dueDate <= Time.now.months_since(Event::MONTH_RED).to_date ? true : false 
+  end
+  
+  def self.find_by_params service_filter
+    events = Event.includes(:car => {:user => :address}).order("cars.domain")
+    events = events.where("status = ?",Status::ACTIVE)
+    events = events.where("service_type_id = ?",service_filter.service_type_id) if  service_filter.service_type_id
+    events = events.where("cars.brand_id = ?",service_filter.brand_id) if service_filter.brand_id
+    events = events.where("cars.model_id = ?",service_filter.model_id) if service_filter.model_id
+    events = events.where("cars.fuel = ? ",service_filter.fuel) unless service_filter.fuel.blank?
+    events = events.where("cars.year = ?",service_filter.year) if service_filter.year
+    events = events.where("addresses.state_id = ?",service_filter.state_id) if service_filter.state_id?
+    events = events.where("addresses.city = ? ",service_filter.city) if service_filter.city?
+    events
   end
 
 end

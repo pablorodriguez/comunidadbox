@@ -3,17 +3,11 @@
   %head
   %body
     #box{:style=>"padding: 5px;font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif"}
-      #mail{:style=>"width:95%;margin:0 auto;-moz-border-radius: 5px 5px 5px 5px; -webkit-border-radius: 5px 5px 5px 5px; border-radius: 5px 5px 5px 5px;border: 5px solid #DDDDDD"}
-        #cabecera{:style=>"background:-moz-linear-gradient(center top , #DBDB39, #C9C20D) repeat scroll 0 0 transparent;background-color:#DBDB39"}
-          = image_tag "logo.png",:alt =>"company logo"
-        #bar{:style=>"background-color:#DDDDDD;height:5px"}
-        = yield
-        #footer{:style=>"background:-moz-linear-gradient(center top , #DBDB39, #C9C20D) repeat scroll 0 0 transparent;background-color:#DBDB39"}
-          #bar{:style=>"background-color:#DDDDDD;height:5px"}
-          #fotter_txt{:style=>"padding:5px;color: black"}
-            %p{:style=>"margin: 2px 2px 0px 2px"} 
-              Muchas gracias por usar ComunidadBox.
-            %h4{:style=>"margin: 2px 2px 0px 2px"} 
-              Equipo de ComunidadBox
-            %h5{:style=>"margin: 2px 2px 0px 2px"}
-              Para comunicarse con nosotros por favor escribir a info@comunidadbox.com
+      #mail{:style=>"width:800px;margin:0 auto"}
+        #cabecera
+          = image_tag "header.png",:alt =>"company logo"
+        #content{:style=>"5px solid #DDDDDD; border-color: #C1BC00;border-style: solid; margin-top:-5px"}         
+          = yield
+        #footer          
+          #fotter_txt{:style=>"color: black"}
+            = image_tag "footer.png"

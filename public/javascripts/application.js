@@ -59,3 +59,74 @@ AjaxLoader={
 	}
 };
 
+
+function build_amt_graph(data,container,title) {
+   $("#" + container).html("");
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: container,
+         margin: [50, 10, 0, 0],
+         plotBackgroundColor: 'none',
+         plotBorderWidth: 0,
+         plotShadow: false                
+      },      
+      title: {
+         text: title
+      },
+      tooltip: {
+         formatter: function() {
+            return this.point.name +': <b> '+ this.y + '</b>';
+         }
+      },
+       series: [{
+         type: 'pie',
+         name: '',
+         size: '65%',
+         innerSize: '40%',
+         data: data,         
+         dataLabels: {
+            enabled: true,
+            formatter: function() {
+              return '<b>'+ this.point.name +'</b>'+ this.point.p +' %';
+            }
+         }
+      }]
+   });
+};
+
+
+function build_price_graph(data,container,title) {
+   $("#" + container).html("");
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: container,
+         margin: [50, 10, 0, 0],
+         plotBackgroundColor: 'none',
+         plotBorderWidth: 0,
+         plotShadow: false                
+      },      
+      title: {
+         text: title
+      },
+      tooltip: {
+         formatter: function() {
+            return this.point.name +': <b>$ '+ this.y + '</b>';
+         }
+      },
+       series: [{
+         type: 'pie',
+         name: '',
+         size: '65%',
+         innerSize: '40%',
+         data: data,         
+         dataLabels: {
+            enabled: true,
+            formatter: function() {
+              return '<b>'+ this.point.name +'</b>'+ this.point.p +' %';
+            }
+         }
+      }]
+   });
+};
+
+

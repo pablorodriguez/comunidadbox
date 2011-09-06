@@ -2,13 +2,14 @@
 - javascript 'jquery.formatCurrency.es-AR'
 - javascript 'jquery.services'
 - javascript 'jquery.editinplace'
-- stylesheets 'jquery-ui-1.8.11.custom.css'
 #work_order_info
   .cont1
     %h1 
       = vineta
-      Ingrese Servicios Realizados
-      = ": #{@work_order.company.name}"
+      Ingrese Servicios Realizados:
+      = @work_order.company.name if @work_order.company
+      = @work_order.company_info if @work_order.company_info
+        
   = render 'shared/error_messages', :target => @work_order
   #work_order
     #car_info.barradatos

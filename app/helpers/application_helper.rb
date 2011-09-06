@@ -18,6 +18,13 @@ module ApplicationHelper
     return image_tag("active.png",:class =>"status",:title =>Status.status(status)) if status == Status::ACTIVE
   end
   
+  def event_class event
+    css = "verde" if event.is_green
+    css = "rojo" if event.is_red
+    css ="amarillo" if event.is_yellow
+    return label_tag(l(event.dueDate), nil, :class => css)
+  end
+  
   def brand_logo brand_name,thumb=false
     return image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name) if thumb
     return image_tag("/images/brands/#{brand_name}.png",:size =>"100x100",:atl=>brand_name,:title =>brand_name)

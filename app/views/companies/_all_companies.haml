@@ -1,33 +1,25 @@
 -if @companies && @companies.size > 0
-  %h1 Listado de Prestadores de Servicios
+  %h1 Prestadores de Servicios
   %table.comboxtable  
     %thead
       %tr
-        %th Nombre
-        %th Dirección
-        %th Mapa
-        %th Teléfono
-        %th Reputación (1..5)
-        - if user_signed_in? && current_user.company.nil?
-          %th
     - for company in @companies
       %tr
         %td
-          = link_to company.name,company_path(company),{:title => "Ver"}
-        %td
-          %label        
-            = company.full_address
-        %td
-          - if company.address
-            = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"}
-        %td
-          = company.phone
-        %td
-          ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{company.user_rank}]"
-        - if user_signed_in? && current_user.company.nil?
-          %td
-            = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio"}
-    
+          .company_detail
+            .actions
+              - if company.address
+                = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"} 
+
+              - if user_signed_in? && current_user.company.nil?
+                = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}    
+            .nombre
+              = link_to company.name,company_path(company),{:title => "Ver"}
+            .address
+              = company.full_address
+            .phone
+              = company.phone              
+              ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{company.user_rank}]"
 -else
   %label
     No hay empresas registradas        

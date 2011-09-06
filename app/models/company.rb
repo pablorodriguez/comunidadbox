@@ -25,6 +25,9 @@ class Company < ActiveRecord::Base
     self.users.select{|u| u.is_company_admin}[0]
   end
   
+  def operators
+    User.where("employer_id = ? and roles.name = ?", self.id,Role::OPERATOR).includes(:roles).order("users.last_name,users.first_name")
+  end
    
   def all_materials
     service_type_materials ={}
@@ -68,10 +71,26 @@ class Company < ActiveRecord::Base
     total
   end
   
+  def self.search params
+    name =params[:name] || ""
+    city = params[:city] || ""
+    state_id =params[:company][:state_id]
+    street = params[:street]
+    companies = Company.where("companies.name like ?","%#{name}%").includes(:address =>[:state]).where("addresses.city like ? and addresses.street like ?","%#{city}%","%#{street}%")
+    unless state_id == ""
+      companies = companies.where(" states.id = ?",state_id.to_i)
+    end
+    return companies
+  end
+  
   def future_events
     company_cars = Car.all(:conditions =>["company_id = ?",id])
     cars_ids = company_cars.each{|c|c.id.to_i}
     Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids])
   end
   
+  def self.best(state_id = nil)    
+    return Company.includes(:address).where("addresses.state_id = ? and companies.id > 1",state_id) if state_id
+    return Company.where("companies.id > 1") unless state_id
+  end
 end

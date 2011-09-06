@@ -1,16 +1,19 @@
-.wo_detail
+.wo_detail.row
   .domain
     = link_to work_order_row.car.domain, work_order_row.car
   .services
     - work_order_row.services.each do |s|
-      .service
+      .service     
         = link_to s.service_type.name ,work_order_row
+        - unless s.comment.empty?
+          %a{:class=>"edit_comment comment link",:title=>"#{s.comment}"}
+
   - if work_order_row.company == current_user.company
     .actions
       = icon_status work_order_row.status
-      - if work_order_row.can_edit?(current_user)
-        = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
-        = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
+      -# if work_order_row.can_edit?(current_user)
+      = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
+      = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
       = link_to_pdf work_order_row
               
   #rank.rank{:id =>"wo_#{work_order_row.id}"}
@@ -18,15 +21,19 @@
       = render 'ranks/rank',:workorder => work_order_row
   .company
     .left
-      = work_order_row.company.name        
       - if work_order_row.company == current_user.company
-        - if work_order_row.payment_method
-          = ", Forma de Pago: #{work_order_row.payment_method.name}"
-        %br
-        = work_order_row.company.is_employee(work_order_row.user) ? "Operario:" : "Usuario:"
+        -if work_order_row.operator
+          %strong
+            Operario:
+          = "#{work_order_row.operator.first_name} #{work_order_row.operator.last_name}"
+        %strong
+          Usuario:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
-    .right
-      = l work_order_row.performed
-      - if work_order_row.company == current_user.company
-        .price_b
-          = number_to_currency work_order_row.total_price
+        
+        - if work_order_row.payment_method
+          = ",#{work_order_row.payment_method.name}"
+  .right
+    = l work_order_row.performed
+    - if work_order_row.company == current_user.company
+      .price_b
+        = number_to_currency work_order_row.total_price

@@ -114,11 +114,14 @@ class ServiceOffersController < ApplicationController
   
   def notify_email
     users = ServiceOffer.get_service_offer_by_user
-    @car = users.keys[0]
-    @user = @car.user
-    @service_offers = users[@car]
-    respond_to do |format|
-      format.html { render :file=>"service_offer_mailer/notify",:layout => "emails" }
+    if users.size > 0
+      @car = users.keys[0]
+      @user = @car.user
+      @service_offers = users[@car]
+      respond_to do |format|
+        format.html { render :file=>"service_offer_mailer/notify",:layout => "emails" }
+      end
+      
     end
   end
  

@@ -1,20 +1,22 @@
-%table#sort_table.comboxtable
-  %thead
-    %tr
-      %th
-      %th Tipo de Servicio
-      %th Fecha a Realizar
-      %th Km
-  - for event in @events
-    %tr
-      %td
-        = icon_status event.status
-      %td
-        = link_to event.service_type.name, event        
-      %td
-        = l event.dueDate
-      %td.number
-        = event.km
+.event.row
+- for event in @events  
+  .event.row
+    .status.left
+      = icon_status event.status
+    .service.left
+      = link_to event.service_type.name, event        
+    .workorder.left.clear
+      %br
+      = link_to "Generado por ... #{event.service.workorder.id}", event.service.workorder      
+      - if event.service_done
+        %br
+        = link_to "#{Status.status(event.status)} por ... #{event.service.workorder.id}", event.service_done.workorder
+    .dueDate.right
+      = event_class event
+    .km.right      
+      %strong
+        Km:
+      = event.km
 %br
 #paginator_event
-  = will_paginate @events,:params => @e_pages
+  = will_paginate @events,:params => @e_pages  

@@ -1,13 +1,13 @@
 class CarsController < ApplicationController
   
-  layout "application", :except => [:search,:update_km,:update_km_avg,:find_models] 
+  layout "application", :except => [:search,:update_km,:update_km_avg,:find_models,:search_companies] 
   skip_before_filter :authenticate_user!,:only => [:find_models]
  
   # GET /cars
   # GET /cars.xml
   def index
     page = params[:page] || 1
-    domain = params[:domain] || "%"
+    domain = (params[:domain].strip if params[:domain]) || "%"
     domain = "%" if domain.empty?
      
     @user = current_user
@@ -41,17 +41,17 @@ class CarsController < ApplicationController
   
   def update_km
     domain = params[:domain]
-    new_value = params[:update_value].to_i
-    @car = Car.where("domain like ?",domain).first
-    @car.km = new_value
-    @car.save
-    @car.update_events
+    new_value = params[:update_value].to_i    
+    car = Car.find_by_domain domain
+    car.km = new_value
+    car.save
+    car.update_events
     render :text => new_value
   end
 
   def update_km_avg
     domain = params[:domain]
-    new_value = params[:update_value]
+    new_value = params[:update_value].to_i
     car = Car.find_by_domain domain
     car.kmAverageMonthly = new_value
     car.save
@@ -61,6 +61,7 @@ class CarsController < ApplicationController
   
   def my
     page = params[:page] || 1
+    @companies = Company.best current_user.state
     if params[:id]
       @user = User.find params[:id]
     else
@@ -73,13 +74,23 @@ class CarsController < ApplicationController
   # GET /cars/1.xml
   def show
     @car = Car.find(params[:id])
+    @car_id = params[:id]
     page = params[:page] || 1
     data = params[:d] || "all"
-    
+    @filters_params ={}
     respond_to do |format|
       if data == "all"
-        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"performed desc")
-        @events = @car.future_events.paginate(:per_page=>5,:page =>page)
+        @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",params[:id]).order("performed desc")
+        logger.debug "### #{@work_orders.to_sql}"
+        
+        @work_orders = @work_orders.paginate(:all,:per_page=>5,:page =>page)
+        
+        @filters_params[:domain] = @car.domain
+        @filters_params[:user] = current_user
+        @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(@filters_params))
+        @companies = Company.best current_user.state 
+        
+        @events = @car.future_events.paginate(:per_page=>10,:page =>page)
         @wo_pages = {:d=>"wo"}
         @e_pages = {:d=>"e"}
         format.html # show.html.erb
@@ -98,6 +109,13 @@ class CarsController < ApplicationController
       end
 
 
+    end
+  end
+  def search_companies   
+    @companies = Company.search params
+    @car_id = params[:car_id]
+    respond_to do |format|
+      format.js
     end
   end
 
