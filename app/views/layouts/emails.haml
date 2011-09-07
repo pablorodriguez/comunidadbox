@@ -4,7 +4,7 @@
   %body
     #box{:style=>"padding: 5px;font-family: Ubuntu,Trebuchet MS,Arial,Helvetica,sans-serif"}
       #mail{:style=>"width:800px;margin:0 auto"}
-        .cabecera{:style=>"height: 150px;"}
+        .cabecera{:style=>"max-height: 150px; min-height:150px"}
           = image_tag "header.png",:alt =>"company logo"
         .content{:style=>"5px solid #DDDDDD; border-color: #C1BC00;border-style: solid;"}         
           = yield
