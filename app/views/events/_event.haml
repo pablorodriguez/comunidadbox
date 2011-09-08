@@ -28,11 +28,12 @@
   .right{:title=>"Improte gastado en total"}
     = number_to_currency(event.car.total_spend(nil,event.service_type.id))
   -if event.service.workorder.company.id == current_user.company.id
-    .left
+    .left.clear
       = event.car.user.full_name
     .left
       = event.car.user.email
-    .left.clear
-      %strong
-        Tel:
-      = event.car.user.phone  
+    -if event.car.user.phone
+      .left.clear
+        %strong
+          Tel:
+        = event.car.user.phone  
