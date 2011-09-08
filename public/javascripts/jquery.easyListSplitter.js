@@ -1,5 +1,5 @@
 /*
- * 	easyListSplitter 1.0.1 - jQuery plugin
+ * 	easyListSplitter 1.0.2 - jQuery Plugin
  *	written by Andrea Cima Serniotti	
  *	http://www.madeincima.eu
  *
@@ -15,7 +15,7 @@
  /*
 	To activate the plugin add the following code to your own js file:
 	
-	jQuery('.your-list-class-name').listColumnizer({ 
+	$('.your-list-class-name').easyListSplitter({ 
 			colNumber: 3,
 			direction: 'horizontal'
 	});
@@ -36,7 +36,7 @@ var j = 1;
 		
 		var obj = jQuery(this);
 		var settings = jQuery.extend(defaults, options);
-		var totalListElements = jQuery(this).find('li').size();
+		var totalListElements = jQuery(this).children('li').size();
 		var baseColItems = Math.ceil(totalListElements / settings.colNumber);
 		var listClass = jQuery(this).attr('class');
 		
@@ -60,7 +60,7 @@ var j = 1;
 		
 		if(settings.direction == 'vertical'){ // -------- Append List Elements to the respective listCol  - Vertical -------------------------------
 			
-			jQuery(this).find('li').each(function(){
+			jQuery(this).children('li').each(function(){
 				listItem = listItem+1;
 				if (listItem > baseColItems*(settings.colNumber-1) ){
 					jQuery(this).parents('.listContainer'+j).find('.listCol'+settings.colNumber).append(this);
@@ -84,7 +84,7 @@ var j = 1;
 			
 		} else{  // -------- Append List Elements to the respective listCol  - Horizontal ----------------------------------------------------------
 			
-			jQuery(this).find('li').each(function(){
+			jQuery(this).children('li').each(function(){
 				l = l+1;
 
 				if(l <= settings.colNumber){

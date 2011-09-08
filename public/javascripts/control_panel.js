@@ -114,13 +114,22 @@ jQuery(document).ready( function(){
 		$('#filter_label').hide();		
 	}
 	
-	$("select.change").each(function(){
-		$(this).change(filter_change);
-		});
-	$("input.change").each(function(){
-		$(this).blur(filter_change);
-	});
+	$("#events").easyListSplitter({ colNumber: 7,direction: 'horizontal' });
+	$("#cars_events ul").delegate(".small_event","click",showBigEvent);
+	$("#cars_events ul").delegate(".big_event","click",hideBigEvent);
+	$("#cars_events ul").delegate(".my_big_event","click",hideBigEvent);
+	
 });
+
+function hideBigEvent(){
+  $(this).hide();
+}
+
+function showBigEvent(){
+  var top =$(this).offset().top -30;
+  var left = $(this).offset().left -30;
+  $(this).next().offset({top:top,left:left}).show();
+}
 
 function toggleSearchFilter(){
 	if ($('#sf').is(':visible')){
@@ -150,8 +159,6 @@ function filter_change(){
 }
 
 function clear_filter(){
-	$(".clear").each(function(){
-		$(this).val('');
-		});
+	$(".clear").val('');
 }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110807152444) do
+ActiveRecord::Schema.define(:version => 20110827180015) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20110807152444) do
     t.text     "description"
     t.integer  "time"
     t.string   "time_unit"
-    t.integer  "status"
+    t.string   "status"
     t.datetime "date_ini"
     t.datetime "date_end"
     t.datetime "date_alarm"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20110807152444) do
   end
 
   add_index "car_service_offers", ["car_id"], :name => "car_service_offers_car_id_fk"
+  add_index "car_service_offers", ["service_id"], :name => "car_service_offers_idfk_3"
   add_index "car_service_offers", ["service_offer_id"], :name => "car_service_offers_service_offer_id_fk"
 
   create_table "cars", :force => true do |t|
@@ -170,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20110807152444) do
     t.integer  "service_done_id"
     t.integer  "km"
     t.integer  "status"
+    t.string   "status_o"
     t.date     "dueDate"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -446,10 +448,13 @@ ActiveRecord::Schema.define(:version => 20110807152444) do
     t.date     "performed"
     t.integer  "status"
     t.integer  "payment_method_id"
+    t.integer  "operator_id"
+    t.string   "company_info"
   end
 
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
+  add_index "workorders", ["operator_id"], :name => "workorders_operator_id_fk"
   add_index "workorders", ["payment_method_id"], :name => "workorders_payment_method_id_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
@@ -461,6 +466,7 @@ ActiveRecord::Schema.define(:version => 20110807152444) do
 
   add_foreign_key "car_service_offers", "cars", :name => "car_service_offers_ibfk_1", :dependent => :delete
   add_foreign_key "car_service_offers", "service_offers", :name => "car_service_offers_ibfk_2", :dependent => :delete
+  add_foreign_key "car_service_offers", "services", :name => "car_service_offers_idfk_3", :dependent => :nullify
 
   add_foreign_key "cars", "brands", :name => "cars_ibfk_1"
   add_foreign_key "cars", "models", :name => "cars_ibfk_2"
@@ -514,5 +520,6 @@ ActiveRecord::Schema.define(:version => 20110807152444) do
   add_foreign_key "workorders", "companies", :name => "workorders_ibfk_2"
   add_foreign_key "workorders", "payment_methods", :name => "workorders_payment_method_id_fk"
   add_foreign_key "workorders", "users", :name => "workorders_ibfk_3"
+  add_foreign_key "workorders", "users", :name => "workorders_operator_id_fk", :column => "operator_id"
 
 end

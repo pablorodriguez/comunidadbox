@@ -12,7 +12,8 @@
         %br
         = link_to "#{Status.status(event.status)} por ... #{event.service.workorder.id}", event.service_done.workorder
     .dueDate.right
-      = event_class event
+      %label{:class=>"#{event_class(event)}"}
+        =event.dueDate
     .km.right      
       %strong
         Km:

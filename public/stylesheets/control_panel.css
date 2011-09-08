@@ -1,9 +1,3 @@
-#car_filter{
-	width:97%;
-	float:left;
-	margin: 15px 5px 5px 5px;
-}
-
 #service_offers{
 	display:inline;
 }
@@ -15,51 +9,46 @@
 #control_panel{
 	margin-left:0px;
 }
-#car{
-  float: left;
-  margin-top: 18px;
-  width: 97%;
-  padding:5px;
+
+.cars{
+	float: left;
+	width: 90px;
+}
+.small_event{
+ height: 40px;
+ padding: 2px 5px;
+ width: 80px;
 }
 
-#cars{
-	margin-top:10px;
-	margin-left:5px;
-	margin-right:10px;	
+.big_event{
+  width: 160px;
+  height:110px;
+  position:absolute;
+  display:none;
+  padding: 3px;
 }
+
+.my_big_event{
+  width: 210px;
+  height:165px;
+  position:absolute;
+  display:none;
+  padding: 3px;
+}
+
+#cars_events ul{
+  padding: 0px;
+}
+
+#events li:hover .dropdown_5columns {
+  left:-1px;
+  top:auto;
+}
+
 
 #departments{
 	display:inline;
 }
-
-table.control-panel{
-	width:100%;
-	border-collapse:collapse;
-	margin:6px;
-}
-
-table.control-panel th{
-	font-size:12px;
-	color:black;
-	font-family:verdana;
-	font-size:20px;
-}
-
-table.control-panel col{
-	margin:5px;
-}
-
-table.control-panel caption{
-	color: white;
-	background:url("../images/img07.gif") repeat-x scroll 0 0 #F7F7F7;
-	font-family:verdana;
-	font-size:20px;
-	font-weight:bold;
-	height:45px;
-	text-align:left;
-	padding:5px;
-}
-
 
 
 .short_select{
@@ -86,9 +75,7 @@ table.control-panel caption{
 	margin-top:10px;
 }
 
-#img{
-	float:right;
-	margin-right:30px;
+.cp_event{
 }
 
 .link {

@@ -1,11 +1,3 @@
-body, ul, li {
-  font-size:14px;
-  font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
-  line-height:21px;
-  text-align:left;
-  padding: 0px;
-}
-
 /* Navigation Bar */
 
 #menu_container{
@@ -141,7 +133,7 @@ body, ul, li {
 #menu li:hover .dropdown_4columns,
 #menu li:hover .dropdown_5columns {
   left:-1px;
-    top:auto;
+  top:auto;
 }
 
 /* Columns */

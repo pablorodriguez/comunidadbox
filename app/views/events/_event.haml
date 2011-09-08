@@ -1,11 +1,38 @@
-%td
-  = event.car.info
-  %br
-  = l event.dueDate
-%td
-  %strong
-    = number_to_currency(event.car.total_spend(current_user.current_company.id,event.service_type.id))
-  =number_to_currency(event.car.total_spend(nil,event.service_type.id))
-%td
+%div{:class=>"#{event_class(event)} #{my_event_class(event)} small_event link"}
+  .left
+    %strong
+      =event.car.domain
   -unless event.is_green
-    = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})  
+    .right
+      = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
+  .left.clear
+    = l event.dueDate
+%div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
+  .left
+    %strong
+      =event.car.info
+  .left 
+    %lable{:title=>"Km actual"}   
+      %strong
+        Km:
+      = event.car.km
+  .right    
+    %lable{:title=>"Km Promedio Mensual"}
+      %strong
+        Km: 
+      = event.car.kmAverageMonthly
+  .left.clear{:title=>"Fecha a Realizar"}
+    = l event.dueDate
+  %strong.left.clear{:title=>"Improte gastado en tu empresa"}
+    = number_to_currency(event.car.total_spend(current_user.current_company.id,event.service_type.id))
+  .right{:title=>"Improte gastado en total"}
+    = number_to_currency(event.car.total_spend(nil,event.service_type.id))
+  -if event.service.workorder.company.id == current_user.company.id
+    .left
+      = event.car.user.full_name
+    .left
+      = event.car.user.email
+    .left.clear
+      %strong
+        Tel:
+      = event.car.user.phone  

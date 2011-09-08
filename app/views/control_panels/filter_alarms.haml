@@ -1,39 +1,29 @@
 - javascript 'control_panel'
+- javascript 'jquery.easyListSplitter'
 - stylesheets 'control_panel'
+
 #error{:style=>"display:none"}
 %h1
   = vineta 
   Nueva Oferta de Servicio
-.contentleft  
+.contentleft_s{:style=>"width:23%"}
   %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
-  #filters
-    = form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
-      #car_filter
-        = render "car_filters",:f=>f
-.contentright  
-  #car
+  = form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
+    = render "car_filters",:f=>f
+.contentright{:style=>"width:75%"}
+  #cars_events
     %h1 Listado de Autos  
     = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
-      #cars
-        = hidden_field("service_offer","service_type_id")
-        %table.control-panel
-          %tr
-            %td{:width=>"20%"}
-            %td.dashboard.number{:width=>"10%"}
-            %td.dashboard{:width=>"5%"} 
-          - @page_events.each do |event|
-            - if event.is_red
-              %tr.rojo.dashboard
-                = render event
-            - if event.is_yellow
-              %tr.amarillo.dashboard
-                = render event
-            - if event.is_green
-              %tr.verde.dashboard.number    
-                = render event
-        = will_paginate @page_events
-        #offer
-          %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn_b"}
-          %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b"}
-          =link_to_back
+      = hidden_field("service_offer","service_type_id")
+      %ul#events.cars
+        - @page_events.each do |event|
+          %li
+            .cp_event            
+              = render event
+  .clear
+    = will_paginate @page_events
+  #offer
+    %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn_b"}
+    %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b"}
+    =link_to_back
     #msg

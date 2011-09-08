@@ -22,7 +22,7 @@ class CarsController < ApplicationController
     if  domain != "%"
       @company_cars = Car.where("domain like ?",domain)  
     end
-    
+
     @company_id = params[:company_id]
     @company_cars = @company_cars.order("domain asc").paginate(:page =>page,:per_page =>per_page)
     

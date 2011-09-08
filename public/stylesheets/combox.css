@@ -293,9 +293,6 @@ body {
 
 /*-----------------------------------------##FORMULARIO##-------------------------------*/
 
-form {
-  padding:0px;
-}
 form h3 {
   margin-left:2px;
   margin-top:15px;
@@ -663,12 +660,22 @@ select{
 }
 
 .contentright {
-  overflow: auto;
+  width:69%;
+  float: left;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
   padding: 5px 5px 5px 5px;
+}
+
+#work_order_form{
+  width:100%;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #F2EAB7;
+  border: 1px solid #AFAFAF;
 }
 
 .contentright_n {
@@ -772,7 +779,7 @@ td.number input{
   float:left; 
 }
 
-.contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1 {
+.box h1,.contentleft_s h1, .contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1, #work_order_form h1{
   font-size:20px;
   color:#75787A;
   margin:0px;
@@ -1435,11 +1442,6 @@ td.number, th.number{
   vertical-align: middle;
 }
 
-#work_order_form{
-  background-color: #F2EAB7;
-  border: 1px solid #AFAFAF;
-}
-
 .errorExplanation, .alert{
   background-color: #FFAFAF;
   -moz-border-radius: 5px 5px 5px 5px;
@@ -1677,8 +1679,6 @@ ul.usr_menu li{
 .car , .client_car{
   overflow: auto;
 }
-.domain{
-}
 
 .car .detail{
   float: left;
@@ -1894,8 +1894,6 @@ dl {
 }
 
 .event{
-  float: left;
-  clear: both;
   width: 100%;
 }
 
@@ -1912,17 +1910,39 @@ dl {
 .rojo{
   border: 1px solid red;
   background-color: #FF9999;
+  overflow: auto;
+}
+
+.mi_rojo{
+  border: 1px solid red;
+  background-color: #F77979;
+  overflow: auto;
 }
 
 .amarillo{
   background-color:#FFFFA0;
   border: 1px solid #FF8057 ;
+  overflow: auto;
+}
+
+.mi_amarillo{
+  background-color:#F7F774;
+  border: 1px solid #FF8057 ;
+  overflow: auto;
 }
 
 .verde{
   background-color:#A0FFA0 ;
   border: 1px solid green;
+  overflow: auto;
 }
+
+.mi_verde{
+  background-color:#69F469 ;
+  border: 1px solid green;
+  overflow: auto;
+}
+
 .dueDate label{
   padding: 3px;
 }
@@ -1949,3 +1969,4 @@ dl {
   overflow: auto;
   width: 100%;
 }
+

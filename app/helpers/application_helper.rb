@@ -22,7 +22,21 @@ module ApplicationHelper
     css = "verde" if event.is_green
     css = "rojo" if event.is_red
     css ="amarillo" if event.is_yellow
-    return label_tag(l(event.dueDate), nil, :class => css)
+    return css
+  end
+  
+  def big_event_class event
+    if event.service.workorder.company.id == current_user.company.id
+      return "my_big_event"  
+    else
+      return "big_event"  
+    end
+  end
+  
+  def my_event_class event
+    css = event_class event
+    css = "mi_" + css if event.service.workorder.company.id == current_user.company.id
+    return css
   end
   
   def brand_logo brand_name,thumb=false
