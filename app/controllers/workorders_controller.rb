@@ -75,8 +75,14 @@ class WorkordersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
+        prawnto :prawn => {
+        :page_size => 'A6',
+        :left_margin => 20,
+        :right_margin => 20,
+        :top_margin => 15,
+        :bottom_margin => 15},
+        :filename=>"orden_de_trabajo_#{@work_order.id}.pdf" 
         
-        prawnto :filename =>"Orden_de_Trabajo"
         render :layout => false 
         }
     end   
