@@ -32,7 +32,7 @@
         = render "service_fields",:f => s_form
     #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
-    = wo_form.submit "Grabar",:class =>"btn"
+    = wo_form.submit "Grabar",:class =>"btn",:disable_with => 'Grabando...'
     = link_to_back @work_order.car            
     #total_work_order
       = number_to_currency @work_order.total_price
