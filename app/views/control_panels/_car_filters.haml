@@ -1,4 +1,4 @@
-.contentleft{:style=>"width:190px"}
+#filters.contentleft{:style=>"width:190px"}
   %h1 Filtros
   %table
     %tr
@@ -13,9 +13,14 @@
         #img
           = image_tag('save.png',{:id=>:save_filter,:class=>:link})
           = image_tag('find.png',{:id=>:find_filter,:class=>:link})
-.contentleft{:style=>"width:190px"}
+#search.contentleft{:style=>"width:190px"}
   %h1 Buscar
-  %table        
+  %table
+    %tr
+      %td Tipo de servicio
+    %tr
+      %td
+        =f.collection_select(:service_type_id, @company_services,:id,:name,{},{:class=>"change long_select"})
     %tr
       %td Provincia
     %tr
@@ -26,11 +31,6 @@
     %tr  
       %td
         =f.text_field :city,{:class=>"clear change",:style=>"width:174px"}
-    %tr
-      %td Tipo de servicio
-    %tr
-      %td
-        =f.collection_select(:service_type_id, @company_services,:id,:name,{},{:class=>"change long_select"})
     %tr
       %td Marca
     %tr

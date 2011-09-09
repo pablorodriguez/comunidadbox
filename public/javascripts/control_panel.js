@@ -7,28 +7,12 @@ function checkAll(element,css){
 }
 
 function submitServiceOffer(){
-	var checked=false;
-	$('.red').each(function(){
-		if (this.checked){
-			checked=true;
-			return;			
-		}
-	});
-	
-	if (!checked){
-		$('.yellow').each(function(){
-			if (this.checked){
-				checked=true;
-				return;			
-			}
-		});
-	}
-	
-	if (checked){
+	if ($("#cars_events input:checkbox:checked").size() > 0){
 		$('#service_offer_service_type_id').val($('#service_filter_service_type_id') .val());
 		$('#service_offer_form').submit();		
 	}else{
-		$('#error').text("Debe elegir al menos un automovil");
+		$('#error h2').text("Debe elegir al menos un automovil");
+		$('#error').addClass("notice").addClass("errorExplanation");
 		$('#error').show();
 		return false;
 	}

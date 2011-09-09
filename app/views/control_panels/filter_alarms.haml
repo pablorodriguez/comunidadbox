@@ -3,6 +3,7 @@
 - stylesheets 'control_panel'
 
 #error{:style=>"display:none"}
+  %h2
 %h1
   = vineta 
   Nueva Oferta de Servicio
@@ -24,6 +25,6 @@
     = will_paginate @page_events
   #offer
     %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn_b"}
-    %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b"}
+    %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b hide"}
     =link_to_back
     #msg

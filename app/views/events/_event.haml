@@ -1,12 +1,13 @@
+-unless event.is_green
+  .right
+    = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
 %div{:class=>"#{event_class(event)} #{my_event_class(event)} small_event link"}
   .left
     %strong
       =event.car.domain
-  -unless event.is_green
-    .right
-      = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
   .left.clear
     = l event.dueDate
+
 %div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
   .left
     %strong
