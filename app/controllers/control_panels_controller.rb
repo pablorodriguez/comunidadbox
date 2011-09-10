@@ -102,7 +102,7 @@ class ControlPanelsController < ApplicationController
     @page = params[:page] || 1
     per_page=84
     
-    @page_events = @events.paginate(:page=>page,:per_page=>per_page)
+    @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
     
   end
   

@@ -17,7 +17,7 @@
     %h1 Listado de Autos  
     = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
       = hidden_field("service_offer","service_type_id")
-      = hidden_field("page",@page)
+      = hidden_field_tag("page",@page)
       %ul#events.cars
         - @page_events.each do |event|
           %li
