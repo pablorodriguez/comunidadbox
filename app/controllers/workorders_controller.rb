@@ -98,7 +98,7 @@ class WorkordersController < ApplicationController
         :page_size => 'A4',
         :left_margin => 20,
         :right_margin => 20,
-        :top_margin => 15,
+        :top_margin => 35,
         :bottom_margin => 15,
         :page_layout => :landscape},
         :filename=>"orden_de_trabajo_#{@work_order.id}.pdf" 
