@@ -1,17 +1,16 @@
--unless event.is_green
-  .right
-    = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
-%div{:class=>"#{event_class(event)} #{my_event_class(event)} small_event link"}
-  .left
-    %strong
+%div{:class=>"#{event_class(event)} #{my_event_class(event)}"}
+  -unless event.is_green
+    .right
+      = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
+  .link.small_event
+    .left.domain
       =event.car.domain
-  .left.clear
-    = l event.dueDate
+    .left.clear
+      = l event.dueDate
 
 %div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
-  .left
-    %strong
-      =event.car.info
+  .left.domain
+    =event.car.info
   .left 
     %lable{:title=>"Km actual"}   
       %strong

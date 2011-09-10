@@ -13,8 +13,8 @@
       -# if work_order_row.can_edit?(current_user)
       = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
       = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
-      = link_to_pdf work_order_row
-              
+      = link_to_pdf work_order_row unless current_user.company
+      = print_to_pdf work_order_row if current_user.company              
   #rank.rank.clear{:id =>"wo_#{work_order_row.id}"}
     - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
       = render 'ranks/rank',:workorder => work_order_row

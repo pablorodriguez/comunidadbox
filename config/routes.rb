@@ -89,6 +89,7 @@ ComunidadBox::Application.routes.draw do
     end
     member do
       get :notify
+      get :print
     end
   end
     

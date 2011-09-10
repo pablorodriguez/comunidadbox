@@ -99,9 +99,10 @@ class ControlPanelsController < ApplicationController
     @green_cars = events.green
     
     @events = @red_cars + @yellow_cars + @green_cars
-    current_page = params[:page] || 1
+    @page = params[:page] || 1
     per_page=84
-    @page_events = @events.paginate(:page=>current_page,:per_page=>per_page)
+    
+    @page_events = @events.paginate(:page=>page,:per_page=>per_page)
     
   end
   

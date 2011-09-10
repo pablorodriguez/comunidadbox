@@ -1,4 +1,4 @@
 .row
 - for work_order in @work_orders
   = render :partial =>"work_order_row",:object => work_order
-= will_paginate @work_orders,:params =>@filters
+= will_paginate @work_orders

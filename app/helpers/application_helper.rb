@@ -57,7 +57,11 @@ module ApplicationHelper
   end
   
   def link_to_pdf work_order
-    link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Ver PDF"
+    link_to image_tag('pdf.png'),workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+  end
+  
+  def print_to_pdf work_order
+    link_to image_tag('pdf.png'),print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Formulario"
   end
   
   def link_to_back(url=nil)    

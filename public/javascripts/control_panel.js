@@ -103,7 +103,50 @@ jQuery(document).ready( function(){
 	$("#cars_events ul").delegate(".big_event","click",hideBigEvent);
 	$("#cars_events ul").delegate(".my_big_event","click",hideBigEvent);
 	
+	
+	$(".pagination a").live("click",function(){
+    
+    var service_filter_service_type_id = $.queryString(this.href).service_filter_service_type_id ? $.queryString(this.href).service_filter_service_type_id : "";
+    var service_filter_state_id = $.queryString(this.href).service_filter_state_id ? $.queryString(this.href).service_filter_state_id : "";
+    var service_filter_city = $.queryString(this.href).service_filter_city ? $.queryString(this.href).service_filter_city : "";
+    var service_filter_brand_id = $.queryString(this.href).service_filter_brand_id ? $.queryString(this.href).service_filter_brand_id : "";
+    var service_filter_model_id = $.queryString(this.href).service_filter_model_id ? $.queryString(this.href).sservice_filter_model_id : "";
+    var service_filter_fuel = $.queryString(this.href).service_filter_fuel ? $.queryString(this.href).service_filter_fuel : "";
+    var service_filter_year = $.queryString(this.href).service_filter_year ? $.queryString(this.href).service_filter_year: "";
+
+    $.setFragment({
+       "page" : $.queryString(this.href).page,  
+       "service_filter_service_type_id" : service_filter_service_type_id ,
+       "service_filter_state_id": service_filter_state_id,
+       "service_filter_city": service_filter_city,
+       "service_filter_brand_id":service_filter_brand_id,
+       "service_filter_model_id" : service_filter_model_id,
+       "service_filter_fuel" : service_filter_fuel,
+       "service_filter_year" : service_filter_year       
+       });  
+    return false;
+  });
+  
+  $.fragmentChange(true);
+  $(document).bind("fragmentChange.page",function(){
+    $.getScript($.queryString(document.location.href,{
+      "page" : $.fragment().page,
+      "service_filter_service_type_id" : $.fragment().service_filter_service_type_id,
+      "service_filter_state_id": $.fragment().service_filter_state_id,
+      "service_filter_city":$.fragment().service_filter_city,
+      "service_filter_brand_id":$.fragment().service_filter_brand_id,      
+      "service_filter_model_id":$.fragment().service_filter_model_id,
+      "service_filter_fuel":$.fragment().service_filter_fuel,
+      "service_filter_year":$.fragment().service_filter_year      
+      }));
+   });
+   
+   if ($.fragment().page){
+     $(document).trigger("fragmentChange.page");
+   }
+	
 });
+
 
 function hideBigEvent(){
   $(this).hide();
@@ -112,7 +155,7 @@ function hideBigEvent(){
 function showBigEvent(){
   var top =$(this).offset().top -30;
   var left = $(this).offset().left -30;
-  $(this).next().offset({top:top,left:left}).show();
+  $(this).parent().next().offset({top:top,left:left}).show();
 }
 
 function toggleSearchFilter(){

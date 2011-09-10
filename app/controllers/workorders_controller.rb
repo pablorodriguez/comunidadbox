@@ -88,6 +88,26 @@ class WorkordersController < ApplicationController
     end   
   end
   
+  def print
+    @work_order = Workorder.find params[:id]
+    @car = @work_order.car
+    
+    respond_to do |format|
+      format.pdf {
+        prawnto :prawn => {
+        :page_size => 'A4',
+        :left_margin => 20,
+        :right_margin => 20,
+        :top_margin => 15,
+        :bottom_margin => 15,
+        :page_layout => :landscape},
+        :filename=>"orden_de_trabajo_#{@work_order.id}.pdf" 
+        
+        render :layout => false 
+        }
+    end
+  end
+  
   def notify
     @work_order = Workorder.find params[:id]
     @user = @work_order.car.user

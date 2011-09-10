@@ -437,7 +437,9 @@ text-decoration: none;
 
 ul{
   list-style:none;
+  padding: 1px;
 }
+
 #submenu li a{
   float:none;
   width:180px;
@@ -1427,10 +1429,6 @@ td.number, th.number{
 
 .inline{
   display: inline;
-}
-
-.right{
-  text-align: right;
 }
 
 .link{

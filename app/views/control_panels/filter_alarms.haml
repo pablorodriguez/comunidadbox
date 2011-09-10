@@ -1,5 +1,6 @@
 - javascript 'control_panel'
 - javascript 'jquery.easyListSplitter'
+- javascript 'jquery.ba-url.min'
 - stylesheets 'control_panel'
 
 #error{:style=>"display:none"}
@@ -16,13 +17,14 @@
     %h1 Listado de Autos  
     = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
       = hidden_field("service_offer","service_type_id")
+      = hidden_field("page",@page)
       %ul#events.cars
         - @page_events.each do |event|
           %li
             .cp_event            
               = render event
   .clear
-    = will_paginate @page_events
+    = will_paginate @page_events,:params =>@filters_params
   #offer
     %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"btn_b"}
     %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b hide"}
