@@ -2,13 +2,15 @@ company = @work_order.company
 car =@work_order.car
 user = car.user
 table_w = 380
-fs=8
+fs=10
 
 pdf.define_grid(:columns => 2, :rows => 1, :gutter => 20)
 
 pdf.grid(0,0).bounding_box do
   pdf.font_size fs
+  
   pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>270,:scale =>0.40
+  pdf.text "Nro: #{@work_order.id}",:size => fs +6,:style =>:bold
   pdf.text @work_order.company.name,:size => fs +4,:style =>:bold
   pdf.text "Comprobante para Administración"
   pdf.move_down(15)
@@ -29,7 +31,7 @@ pdf.grid(0,0).bounding_box do
     pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
   end
   
-  pdf.text "Servicio Nro: #{@work_order.id}, Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
+  pdf.text "Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
   pdf.text "Forma de Pago: #{@work_order.payment_method.name}"
   pdf.move_down(5)
   
@@ -99,7 +101,9 @@ end
 pdf.grid(0,1).bounding_box do
  
  pdf.font_size fs
+  
   pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>270,:scale =>0.40
+  pdf.text "Nro: #{@work_order.id}",:size => fs +6,:style =>:bold
   pdf.text @work_order.company.name,:size => fs +4,:style =>:bold
   pdf.text "Comprobante para Operario"
   pdf.move_down(15)
@@ -114,7 +118,7 @@ pdf.grid(0,1).bounding_box do
     pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
   end
   
-  pdf.text "Servicio Nro: #{@work_order.id}, Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
+  pdf.text "Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
   pdf.move_down(5)
   
   @work_order.services.each do |service|
