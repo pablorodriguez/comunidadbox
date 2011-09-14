@@ -1,5 +1,4 @@
 - javascript 'control_panel'
-- javascript 'jquery.easyListSplitter'
 - javascript 'jquery.ba-url.min'
 - stylesheets 'control_panel'
 
@@ -11,18 +10,19 @@
 .contentleft_s{:style=>"width:23%"}
   %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
   = form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
+    = hidden_field_tag("page",@page)
+    = hidden_field_tag("events_ids",@events_id)
     = render "car_filters",:f=>f
 .contentright{:style=>"width:75%"}
   #cars_events
     %h1 Listado de Autos  
     = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
       = hidden_field("service_offer","service_type_id")
-      = hidden_field_tag("page",@page)
-      %ul#events.cars
+      
+      #events.cars
         - @page_events.each do |event|
-          %li
-            .cp_event            
-              = render event
+          .cp_event.left            
+            = render event
   .clear
     = will_paginate @page_events,:params =>@filters_params
   #offer

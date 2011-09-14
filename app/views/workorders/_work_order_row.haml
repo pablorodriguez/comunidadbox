@@ -11,9 +11,9 @@
   - if work_order_row.company == current_user.company
     .actions
       = icon_status work_order_row.status
-      -# if work_order_row.can_edit?(current_user)
-      = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
-      = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
+       if work_order_row.can_edit?(current_user)
+        = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
+        = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
       = link_to_pdf work_order_row unless current_user.company
       = print_to_pdf work_order_row if current_user.company
   #rank.rank{:id =>"wo_#{work_order_row.id}"}
@@ -22,13 +22,13 @@
   .company
     .left
       - if work_order_row.company == current_user.company
-        -if work_order_row.operator
-          %strong
-            Operario:
-          = "#{work_order_row.operator.first_name} #{work_order_row.operator.last_name}"
         %strong
           Usuario:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
+        -if work_order_row.operator
+          %strong
+            Vendedor:
+          = "#{work_order_row.operator.first_name} #{work_order_row.operator.last_name}"
         
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"

@@ -4,16 +4,18 @@ user = car.user
 table_w = 380
 fs=10
 
-pdf.define_grid(:columns => 2, :rows => 1, :gutter => 20)
+pdf.define_grid(:columns => 2, :rows => 1, :gutter => 30)
 
 pdf.grid(0,0).bounding_box do
   pdf.font_size fs
   
   pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>270,:scale =>0.40
-  pdf.text "Nro: #{@work_order.id}",:size => fs +6,:style =>:bold
+  pdf.move_down(-20)  
   pdf.text @work_order.company.name,:size => fs +4,:style =>:bold
   pdf.text "Comprobante para Administración"
-  pdf.move_down(15)
+  pdf.move_down(5)
+  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold
+  pdf.move_down(5)
   
   pdf.text "Cliente: #{user.full_name}",:style =>:bold
   pdf.text "Teléfono: #{user.phone}" if user.phone
@@ -23,28 +25,29 @@ pdf.grid(0,0).bounding_box do
   end
   pdf.move_down(5)
   pdf.text "Automovil: #{car.domain}",:style =>:bold
-  pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year} ,Km: #{@work_order.km}, Km. Actual: #{car.km}"
+  pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year}"
+  pdf.text "Km. Actual: #{@work_order.km}, Km. Promedio Mensual: #{car.kmAverageMonthly}"
   
   pdf.move_down(5)  
-  pdf.text "Usuario: #{@work_order.user.full_name}"
+  pdf.text "Vendedor: #{@work_order.user.full_name}"
   if @work_order.operator
     pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
   end
   
-  pdf.text "Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
+  pdf.text "Estado: #{Status.status(@work_order.status)},    Realizado: #{l @work_order.performed.to_date}",:style =>:bold
   pdf.text "Forma de Pago: #{@work_order.payment_method.name}"
   pdf.move_down(5)
   
   @work_order.services.each do |service|
   	data =[[
   			"Servicio: #{service.service_type.name} \n Estado: #{Status.status service.status}",
-  			"Total:  #{number_to_currency(service.total_price)}"
+  			"Sub Total:  #{number_to_currency(service.total_price)}"
   			]]
     
     if service.car_service_offer
       cso =[
        "Oferta de Servicio: #{service.car_service_offer.service_offer.company.name}, #{service.car_service_offer.service_offer.title}",
-       "Total:  #{number_to_currency(service.car_service_offer.service_offer.final_price)}"
+       "Precio:  #{number_to_currency(service.car_service_offer.service_offer.final_price)}"
        ]
       data << cso  
     end			
@@ -103,22 +106,30 @@ pdf.grid(0,1).bounding_box do
  pdf.font_size fs
   
   pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>270,:scale =>0.40
-  pdf.text "Nro: #{@work_order.id}",:size => fs +6,:style =>:bold
+  pdf.move_down(-20)    
   pdf.text @work_order.company.name,:size => fs +4,:style =>:bold
-  pdf.text "Comprobante para Operario"
-  pdf.move_down(15)
+  pdf.text "Comprobante para Playa Servicios"
+  pdf.move_down(5)
+  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold
+  pdf.move_down(5)
   
   pdf.text "Cliente: #{user.full_name}",:style =>:bold
+  pdf.text " "
+  pdf.text " "
+  pdf.text " "
+  pdf.move_down(4)
   pdf.text "Automovil: #{car.domain}",:style =>:bold
-  pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year} ,Km: #{@work_order.km}, Km. Actual: #{car.km}"
+  pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year}"
+  pdf.text "Km. Actual: #{@work_order.km}, Km. Promedio Mensual: #{car.kmAverageMonthly}"
   
   pdf.move_down(5)  
-  pdf.text "Usuario: #{@work_order.user.full_name}"
+  pdf.text "Vendedor: #{@work_order.user.full_name}"
   if @work_order.operator
     pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
   end
   
   pdf.text "Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
+  pdf.text " "
   pdf.move_down(5)
   
   @work_order.services.each do |service|

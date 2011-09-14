@@ -24,15 +24,16 @@
             %li
               %a{:href => "#tabs-2"} Reporte Gráfico
           #tabs-1
-            #data{:style=>"overflow: auto;"}
+            #data.overflow
               #sort_by      
                 = render 'sort_by'
               #workorders
                 = render 'workorders'
           #tabs-2
-            = render 'graphics'          
+            #data{:style=>"overflow-x: hidden;"}
+              = render 'graphics'          
       - else  
-        #data{:style=>"overflow: auto;"}
+        #data.overflow
           #sort_by      
             = render 'sort_by'
           #workorders

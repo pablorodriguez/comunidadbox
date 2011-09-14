@@ -1,21 +1,21 @@
-#filters.contentleft{:style=>"width:190px"}
+#filters.contentleft.hide{:style=>"width:190px"}
   %h1 Filtros
-  %table
+  %table.w
     %tr
       %td Nombre
     %tr
-      %td 
-        = f.text_field 'name',{:class=>"short_text"}
-        %label{:id=>'filter_label',:class=>:link,:style=>"display:none"}
-        #service_offers
-        = collection_select(:service_offer,:service_type, @filters,:id,:name,{:include_blank=>:true},{:class=>"change medium_select",:id=>:sf,:name=>:sf,:selected=>@sf,:style=>"display:none"})
-      %td  
-        #img
+      %td
+        .left
+          = f.text_field 'name',{:class=>"short_text"}
+          %label{:id=>'filter_label',:class=>:link,:style=>"display:none"}
+          #service_offers
+          = collection_select(:service_offer,:service_type, @filters,:id,:name,{:include_blank=>:true},{:class=>"change medium_select",:id=>:sf,:name=>:sf,:selected=>@sf,:style=>"display:none"})
+        .right
           = image_tag('save.png',{:id=>:save_filter,:class=>:link})
           = image_tag('find.png',{:id=>:find_filter,:class=>:link})
 #search.contentleft{:style=>"width:190px"}
   %h1 Buscar
-  %table
+  %table.w
     %tr
       %td Tipo de servicio
     %tr
@@ -52,5 +52,39 @@
     %tr
       %td
         =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>:true},{:class=>"clear change short_select"})
-        = image_tag('find.png',{:id=>:reload,:class=>:link})
+    %tr      
+      %td
+        .e
+          .left
+            Eventos Tipos
+          .rojo.left
+            = check_box_tag :red,:red,@event_types[:red],:class =>:checkbox
+          .amarillo.left
+            = check_box_tag :yellow,:yellow,@event_types[:yellow],:class =>:checkbox
+          .verde.left
+            = check_box_tag :green,:green,@event_types[:green],:class =>:checkbox
+        .e.clear
+          .left
+            Mis Clientes
+          .left
+            = check_box_tag :my_clients,true,@my_clients,:class =>:checkbox
+        .e.clear
+          .left
+            Otros Clientes
+          .left
+            = check_box_tag :others,true,@others,:class =>:checkbox
+        .right
+          = image_tag('find.png',{:id=>:reload,:class=>:link})
 
+#select.contentleft{:style=>"width:190px"}
+  %h1 Seleccionar
+  .right
+    .rojo.left
+      = check_box_tag :select_red,:rojo,false,:class =>:checkbox
+    .amarillo.left
+      = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
+  .right.clear
+    .mi_rojo.left
+      = check_box_tag :select_red,:mi_rojo,false,:class =>:checkbox
+    .mi_amarillo.left
+      = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox

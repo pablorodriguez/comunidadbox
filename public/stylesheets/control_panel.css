@@ -12,12 +12,11 @@
 
 .cars{
 	float: left;
-	width: 95px;
 }
 .small_event{
   height: 40px;
   padding: 2px 5px;
-  width: 75px;
+  width: 80px;
 }
 
 .small_event .domain, .my_big_event .domain, .big_event .domain{

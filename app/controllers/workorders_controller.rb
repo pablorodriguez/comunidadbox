@@ -96,8 +96,8 @@ class WorkordersController < ApplicationController
       format.pdf {
         prawnto :prawn => {
         :page_size => 'A4',
-        :left_margin => 20,
-        :right_margin => 20,
+        :left_margin => 10,
+        :right_margin => 10,
         :top_margin => 35,
         :bottom_margin => 15,
         :page_layout => :landscape},

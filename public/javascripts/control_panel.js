@@ -98,64 +98,65 @@ jQuery(document).ready( function(){
 		$('#filter_label').hide();		
 	}
 	
-	$("#events").easyListSplitter({ colNumber: 7,direction: 'horizontal' });
-	$("#cars_events ul").delegate(".small_event","click",showBigEvent);
-	$("#cars_events ul").delegate(".big_event","click",hideBigEvent);
-	$("#cars_events ul").delegate(".my_big_event","click",hideBigEvent);
+	$("#events").delegate(".small_event","click",showBigEvent);
+	$("#events").delegate(".big_event","click",hideBigEvent);
+	$("#events").delegate(".my_big_event","click",hideBigEvent);
 	
 	
 	$(".pagination a").live("click",function(){
-    
-    var service_filter_service_type_id = $.queryString(this.href).service_filter_service_type_id ? $.queryString(this.href).service_filter_service_type_id : "";
-    var service_filter_state_id = $.queryString(this.href).service_filter_state_id ? $.queryString(this.href).service_filter_state_id : "";
-    var service_filter_city = $.queryString(this.href).service_filter_city ? $.queryString(this.href).service_filter_city : "";
-    var service_filter_brand_id = $.queryString(this.href).service_filter_brand_id ? $.queryString(this.href).service_filter_brand_id : "";
-    var service_filter_model_id = $.queryString(this.href).service_filter_model_id ? $.queryString(this.href).sservice_filter_model_id : "";
-    var service_filter_fuel = $.queryString(this.href).service_filter_fuel ? $.queryString(this.href).service_filter_fuel : "";
-    var service_filter_year = $.queryString(this.href).service_filter_year ? $.queryString(this.href).service_filter_year: "";
-
-    $.setFragment({
-       "page" : $.queryString(this.href).page,  
-       "service_filter_service_type_id" : service_filter_service_type_id ,
-       "service_filter_state_id": service_filter_state_id,
-       "service_filter_city": service_filter_city,
-       "service_filter_brand_id":service_filter_brand_id,
-       "service_filter_model_id" : service_filter_model_id,
-       "service_filter_fuel" : service_filter_fuel,
-       "service_filter_year" : service_filter_year       
-       });  
+	   var page = $.queryString(this.href).page
+     $("#page").val(page);
+     $("#service_filter_form").submit(); 
     return false;
   });
   
-  $.fragmentChange(true);
-  $(document).bind("fragmentChange.page",function(){
-    $.getScript($.queryString(document.location.href,{
-      "page" : $.fragment().page,
-      "service_filter_service_type_id" : $.fragment().service_filter_service_type_id,
-      "service_filter_state_id": $.fragment().service_filter_state_id,
-      "service_filter_city":$.fragment().service_filter_city,
-      "service_filter_brand_id":$.fragment().service_filter_brand_id,      
-      "service_filter_model_id":$.fragment().service_filter_model_id,
-      "service_filter_fuel":$.fragment().service_filter_fuel,
-      "service_filter_year":$.fragment().service_filter_year      
-      }));
-   });
+  //$("#view input:checkbox").click(view);
+  $("#select input:checkbox").click(select);
    
-   if ($.fragment().page){
-     $(document).trigger("fragmentChange.page");
-   }
-	
 });
+
+function view(){
+  $("#view input:checkbox").each(function(){
+    var value = $(this).attr("value");      
+    if (this.checked){
+      $("#events ." + value).each(function(){
+        $(this).parent().show();
+      });
+    }else{
+      $("#events ." + value).each(function(){
+        $(this).parent().hide();
+      });      
+    }
+    
+  });
+  
+}
+
+function select(){
+   $("#select input:checkbox").each(function(){
+    var value = $(this).attr("value");      
+    if (this.checked){
+      $("#events ." + value).each(function(){        
+        $(this).find("input:checkbox").attr("checked","checked");
+      });
+    }else{
+      $("#events ." + value).each(function(){
+        $(this).find("input:checkbox").attr("checked","");
+      });      
+    }
+    
+  });
+}
 
 
 function hideBigEvent(){
-  $(this).hide();
+  $(this).fadeOut();
 }
 
 function showBigEvent(){
   var top =$(this).offset().top -30;
   var left = $(this).offset().left -30;
-  $(this).parent().next().offset({top:top,left:left}).show();
+  $(this).parent().next().offset({top:top,left:left}).fadeIn();
 }
 
 function toggleSearchFilter(){

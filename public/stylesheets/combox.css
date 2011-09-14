@@ -1779,6 +1779,7 @@ ul.usr_menu li{
 #workorders{
   float: left;
   width: 100%;
+  overflow-y: hidden;
 }
 
 /* General dropdown styles */       
@@ -1968,3 +1969,6 @@ dl {
   width: 100%;
 }
 
+#view input, #select input{
+  margin :2px 15px;
+}

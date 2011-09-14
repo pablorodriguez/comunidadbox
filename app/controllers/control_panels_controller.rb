@@ -67,7 +67,20 @@ class ControlPanelsController < ApplicationController
   end
   
   def filter_alarms
+    logger.debug "### entro"
     @filters = ServiceFilter.find(:all,:order => :name)
+    
+    #search all event type (et = event type)
+    @event_types = {}    
+    @event_types={:red =>:red,:yellow =>:yellow,:green =>:gree} if params[:et] == "all"        
+    @event_types[:red] = :red if params[:red]
+    @event_types[:yellow] = :yellow if params[:yellow]
+    @event_types[:green] = :green if params[:green]
+    
+    #search all my events (me=my events)
+    @my_clients = params[:my_client] || false
+    @others = params[:others] || false    
+    
     @sf = params[:sf]
     unless @sf.blank?
       @sf=@sf.to_i
@@ -91,18 +104,15 @@ class ControlPanelsController < ApplicationController
     if @service_filter.brand_id
       @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)
     end
+  
+    logger.debug "### #{params}"
+    @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,current_user.company.id
     
-    events = Event.find_by_params @service_filter
-    
-    @red_cars = events.red
-    @yellow_cars = events.yellow
-    @green_cars = events.green
-    
-    @events = @red_cars + @yellow_cars + @green_cars
     @page = params[:page] || 1
     per_page=84
     
     @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
+    logger.info "### salio"
     
   end
   

@@ -36,7 +36,7 @@ function buildControlPanelChart(service_names,data){
                 events: {
                     click: function() {               
                         var st = this.options.st;         
-                        location.href = url + "?st=" + st;
+                        location.href = url + "?st=" + st+"&et=all";
                     }
                 }
             }
