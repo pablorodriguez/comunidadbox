@@ -20,7 +20,8 @@ pdf.grid(0,0).bounding_box do
   pdf.text "Cliente: #{user.full_name}",:style =>:bold
   pdf.text "Teléfono: #{user.phone}" if user.phone
   pdf.text "Email: #{user.email}" if user.email
-  pdf.text "Dirección: #{user.address.to_text}"
+  address = @user.address ? @user.address.to_text : ""
+  pdf.text "Dirección: #{address}"
 
   pdf.move_down(5)
   pdf.text "Automovil: #{car.domain}",:style =>:bold
