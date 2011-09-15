@@ -8,24 +8,13 @@
     %table
       %theader
         %th
-          %td{:style=>'width:80%'}
-            %label.left 
-              %h1
-                = icon_status @work_order.status                                
-                = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado"
-            %label.left
-              %h1            
-                = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select',:title=>"Forma de Pago"})
-            %label.left
-              %h1
-                = collection_select :new,:service_type,@service_types,:id,:name,{:include_blank => true},{:class=>"input_medium",:title=>"Agregar nuevo tipo de servicio"}
-            %label.left
-              %h1
-                = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link               
-          %td.number{:style=>'width:20%'}
-            - if current_user.company
-              %h1
-                = wo_form.collection_select(:operator_id,current_user.company.operators,:id,:full_name,{:include_blank => true,:selected =>wo_form.object.operator},{:class=>'operator',:title=>"Operario"})
+          %td{:style=>'width:100%'}
+            .right 
+              = icon_status @work_order.status                                
+              = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado"
+              = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select',:title=>"Forma de Pago"})
+              = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium",:title=>"Agregar nuevo tipo de servicio"}
+              = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link               
           %td{:style=>'width:5%'}
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|

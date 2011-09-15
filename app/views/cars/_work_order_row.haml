@@ -1,19 +1,24 @@
 .row
-  %strong.left
-    = work_order_row.id
   .services
     - work_order_row.services.each do |s|      
       .service
-        = link_to s.service_type.name ,work_order_row
         - unless s.comment.empty?
-          %a{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+          .left
+            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+        = link_to s.service_type.name ,work_order_row
+        -if s.operator
+          .operator
+            %strong
+              Operario:
+            %label
+              = "#{s.operator.first_name} #{s.operator.last_name}"
   - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
     .actions
       = icon_status work_order_row.status
       - if work_order_row.can_edit?(current_user)
         = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
         = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
-      = link_to_pdf work_order_row unless current_user.company
+      = link_to_pdf work_order_row if current_user.company
       = print_to_pdf work_order_row if current_user.company              
   #rank.rank.clear{:id =>"wo_#{work_order_row.id}"}
     - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
@@ -28,10 +33,6 @@
         %strong
           Vendedor:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
-        -if work_order_row.operator
-          %strong
-            Operario:
-          = "#{work_order_row.operator.first_name} #{work_order_row.operator.last_name}"
   .right
     = l work_order_row.performed
     - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))

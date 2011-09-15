@@ -20,9 +20,8 @@ pdf.grid(0,0).bounding_box do
   pdf.text "Cliente: #{user.full_name}",:style =>:bold
   pdf.text "Teléfono: #{user.phone}" if user.phone
   pdf.text "Email: #{user.email}" if user.email
-  if user.address
-    pdf.text "Dirección: #{user.address.to_text}"
-  end
+  pdf.text "Dirección: #{user.address.to_text}"
+
   pdf.move_down(5)
   pdf.text "Automovil: #{car.domain}",:style =>:bold
   pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year}"
@@ -30,18 +29,17 @@ pdf.grid(0,0).bounding_box do
   
   pdf.move_down(5)  
   pdf.text "Vendedor: #{@work_order.user.full_name}"
-  if @work_order.operator
-    pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
-  end
   
   pdf.text "Estado: #{Status.status(@work_order.status)},    Realizado: #{l @work_order.performed.to_date}",:style =>:bold
   pdf.text "Forma de Pago: #{@work_order.payment_method.name}"
   pdf.move_down(5)
   
   @work_order.services.each do |service|
+    operario = service.operator ? "Operario: #{service.operator.full_name} \n" :""
+  
   	data =[[
-  			"Servicio: #{service.service_type.name} \n Estado: #{Status.status service.status}",
-  			"Sub Total:  #{number_to_currency(service.total_price)}"
+  			"Servicio: #{service.service_type.name}\n Estado: #{Status.status service.status}",
+  			"#{operario} Sub Total:  #{number_to_currency(service.total_price)}"
   			]]
     
     if service.car_service_offer
@@ -78,7 +76,7 @@ pdf.grid(0,0).bounding_box do
   	pdf.move_down(10)
   	
   	unless service.comment.empty?
-  	 pdf.text "Comentarios: #{service.comment}",:size=>fs
+  	 pdf.text "Comentario: #{service.comment}",:size=>fs
   	end
   	  
   	
@@ -117,25 +115,24 @@ pdf.grid(0,1).bounding_box do
   pdf.text " "
   pdf.text " "
   pdf.text " "
-  pdf.move_down(4)
+  pdf.move_down(5)
   pdf.text "Automovil: #{car.domain}",:style =>:bold
   pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year}"
   pdf.text "Km. Actual: #{@work_order.km}, Km. Promedio Mensual: #{car.kmAverageMonthly}"
   
   pdf.move_down(5)  
   pdf.text "Vendedor: #{@work_order.user.full_name}"
-  if @work_order.operator
-    pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
-  end
   
   pdf.text "Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}",:style =>:bold
   pdf.text " "
   pdf.move_down(5)
   
   @work_order.services.each do |service|
+    operario = service.operator ? "Operario: #{service.operator.full_name} " : ""
+    
     data =[[
-        "Servicio: #{service.service_type.name} \n Estado: #{Status.status service.status}",
-        ""
+        "Servicio: #{service.service_type.name}\n Estado: #{Status.status service.status}",
+        operario
         ]]
     
     if service.car_service_offer
@@ -170,7 +167,7 @@ pdf.grid(0,1).bounding_box do
     pdf.move_down(10)
     
     unless service.comment.empty?
-     pdf.text "Comentarios: #{service.comment}",:size=>fs
+     pdf.text "Comentario: #{service.comment}",:size=>fs
     end
       
     

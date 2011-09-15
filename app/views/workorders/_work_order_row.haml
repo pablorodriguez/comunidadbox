@@ -4,9 +4,16 @@
   .services
     - work_order_row.services.each do |s|
       .service     
+        .left
+          - unless s.comment.empty?
+            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
         = link_to s.service_type.name ,work_order_row
-        - unless s.comment.empty?
-          %a{:class=>"edit_comment comment link",:title=>"#{s.comment}"}
+        .operator
+          -if s.operator
+            %strong
+              Operario:
+            = "#{s.operator.first_name} #{s.operator.last_name}"
+
 
   - if work_order_row.company == current_user.company
     .actions
@@ -21,15 +28,10 @@
       = render 'ranks/rank',:workorder => work_order_row
   .company
     .left
-      - if work_order_row.company == current_user.company
+      - if work_order_row.company == current_user.company       
         %strong
-          Usuario:
+          Vendedor:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
-        -if work_order_row.operator
-          %strong
-            Vendedor:
-          = "#{work_order_row.operator.first_name} #{work_order_row.operator.last_name}"
-        
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
   .right

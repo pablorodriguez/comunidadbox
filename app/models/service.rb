@@ -1,8 +1,11 @@
 class Service < ActiveRecord::Base
   belongs_to :workorder
   belongs_to :service_type
+  belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
+  
   has_one :car_service_offer
   has_many :material_services
+  
   has_many :events
   has_and_belongs_to_many :tasks
    

@@ -22,20 +22,21 @@ end
 
 
 pdf.text "Servicio Nro: #{@work_order.id}, Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}", :size=>fs,:style =>:bold
-if @work_order.operator
-  pdf.text "Operario: #{@work_order.operator.full_name}",:size=>fs
-end
-pdf.text "Usuario: #{@work_order.user.full_name}",:size=>fs
+pdf.text "Vendedor: #{@work_order.user.full_name}",:size=>fs
 pdf.text "Forma de Pago: #{@work_order.payment_method.name}",:size=>fs
 pdf.move_down(5)
 pdf.text "Automovil: #{car.domain}",:size=>20,:style =>:bold,:size=>fs
 pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year} ,Km: #{@work_order.km}, Km. Actual: #{car.km}",:size=>fs
 pdf.move_down(5)
 
+
+
+
 @work_order.services.each do |service|
+  operator = service.operator ? "Operario: #{service.operator.full_name} \n" : ""
 	data =[[
 			"Servicio: #{service.service_type.name} \n Estado: #{Status.status service.status}",
-			"Total:  #{number_to_currency(service.total_price)}"
+			"#{operator} Total:  #{number_to_currency(service.total_price)}"
 			]]
   
   if service.car_service_offer
