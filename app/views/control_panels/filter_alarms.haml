@@ -1,6 +1,5 @@
 - javascript 'control_panel'
 - javascript 'jquery.ba-url.min'
-- stylesheets 'control_panel'
 
 #error{:style=>"display:none"}
   %h2
@@ -16,13 +15,15 @@
 .contentright{:style=>"width:75%"}
   #cars_events
     %h1 Listado de Autos  
-    = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
-      = hidden_field("service_offer","service_type_id")
-      
-      #events.cars
-        - @page_events.each do |event|
-          .cp_event.left            
-            = render event
+    - if @page_events.size > 0      
+      = form_tag new_service_offer_path,{:method=>:get,:id=>:service_offer_form} do
+        = hidden_field("service_offer","service_type_id")
+        #events.cars
+          - @page_events.each do |event|
+            .cp_event.left            
+              = render event
+    - if @page_events.size == 0
+      = render(:partial=>'shared/message',:locals =>{:msg =>"No se encontraron eventos."})
   .clear
     = will_paginate @page_events,:params =>@filters_params
   #offer

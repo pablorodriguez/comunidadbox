@@ -36,25 +36,23 @@ class Event < ActiveRecord::Base
   end
   
   def self.find_by_params(service_filter,event_types,my_clients=true,others=true,company_id=nil)
-    events = Event.includes(:car => {:user => :address},:service =>{:workorder =>:company}).order("cars.domain")
+    events = Event.includes(:car => {:user => :address},:service =>{:workorder =>:company}).order("events.dueDate desc")
     events = events.where("events.status = ?",Status::ACTIVE)
     events = events.where("events.service_type_id = ?",service_filter.service_type_id) if  service_filter.service_type_id
     if service_filter.brand_id
-      events = events.includes(:brand)
       events = events.where("cars.brand_id = ?",service_filter.brand_id)  
     end
     
     if service_filter.model_id
-      events = events.includes(:model)
       events = events.where("cars.model_id = ?",service_filter.model_id)        
     end
     
-    logger.debug "### company id #{company_id} #{my_clients}"    
+    logger.debug "### my clients id #{my_clients}"    
     if my_clients    
       events = events.where("workorders.company_id = ?",company_id)
     end
     
-    logger.debug "### company id #{company_id} #{others}"
+    logger.debug "### other events #{others}"
     if others
       events = events.where("workorders.company_id != ?",company_id)
     end

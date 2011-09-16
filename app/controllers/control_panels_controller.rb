@@ -78,7 +78,7 @@ class ControlPanelsController < ApplicationController
     @event_types[:green] = :green if params[:green]
     
     #search all my events (me=my events)
-    @my_clients = params[:my_client] || false
+    @my_clients = params[:my_clients] || false
     @others = params[:others] || false    
     
     @sf = params[:sf]
