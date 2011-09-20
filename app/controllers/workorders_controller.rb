@@ -174,7 +174,10 @@ class WorkordersController < ApplicationController
       saveAction = @work_order.save
       if @work_order.finish?
         #@work_order.generate_events
-        @work_order.regenerate_events
+        if car.kmAverageMonthly > 0
+          @work_order.regenerate_events  
+        end
+        
         send_notification @work_order.id
       end
       
@@ -210,9 +213,9 @@ class WorkordersController < ApplicationController
   private
   
   def send_notification(work_order_id)
-    work_order = Workorder.find work_order_id
-    logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
+    work_order = Workorder.find work_order_id    
     if work_order.car.domain == "HRJ549"
+      logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
       #message = WorkOrderNotifier.notify(work_order).deliver
       Resque.enqueue WorkorderJob,work_order_id     
     end
