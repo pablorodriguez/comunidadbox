@@ -56,7 +56,8 @@ body {
   padding:0px;
   margin:0px;
   color:#707070;
-  font:14px/18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size:14px;
+  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
 }
 #header {
   background-color:#a8aa3a;       
@@ -331,13 +332,12 @@ form .textarea {
 
 .btn2 {  
   background-color:#CAC30F;
-  margin:2px;
   color:white;
-  font-weight:bold;
+  font-size:14px;
   float:left;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
-  padding: 5px 10px 5px 10px;
+  padding-bottom: 3px;
 }
 
 .btn2:hover{
@@ -1752,7 +1752,7 @@ dl {
 .small_event{
   height: 40px;
   padding: 2px 5px;
-  width: 80px;
+  width: 82px;
 }
 
 .small_event .domain, .my_big_event .domain, .big_event .domain{
@@ -1826,4 +1826,9 @@ dl {
 
 .link {
   cursor:pointer;
+}
+
+#send_passowrd{
+  width: 90%;
+  padding: 10px;
 }
