@@ -131,7 +131,10 @@ class WorkordersController < ApplicationController
           CarServiceOffer.update_with_services(@work_order.services,cso_ids)
           if @work_order.finish?
             #@work_order.generate_events
-            @work_order.regenerate_events
+            if (car.kmAverageMonthly && (car.kmAverageMonthly > 0))
+              @work_order.regenerate_events  
+            end
+            
             send_notification @work_order.id          
           end
           format.html { redirect_to(@work_order.car)}
@@ -174,7 +177,7 @@ class WorkordersController < ApplicationController
       saveAction = @work_order.save
       if @work_order.finish?
         #@work_order.generate_events
-        if car.kmAverageMonthly > 0
+        if (car.kmAverageMonthly && (car.kmAverageMonthly > 0))
           @work_order.regenerate_events  
         end
         
