@@ -35,7 +35,7 @@ class MaterialServiceType < ActiveRecord::Base
     #data = MaterialServiceType.find(:all,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str)
     
     if (page >=0)  
-      return MaterialServiceType.paginate(:all,:per_page=>13,:page =>page,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str,:order =>"st.name,m.name")  
+      return MaterialServiceType.paginate(:per_page=>13,:page =>page,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str,:order =>"st.name,m.name")  
     else
       return MaterialServiceType.find(:all,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str)
     end

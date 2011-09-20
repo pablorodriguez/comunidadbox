@@ -83,7 +83,7 @@ class CarsController < ApplicationController
         @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",params[:id]).order("performed desc")
         logger.debug "### #{@work_orders.to_sql}"
         
-        @work_orders = @work_orders.paginate(:all,:per_page=>5,:page =>page)
+        @work_orders = @work_orders.paginate(:per_page=>5,:page =>page)
         
         @filters_params[:domain] = @car.domain
         @filters_params[:user] = current_user
@@ -103,7 +103,7 @@ class CarsController < ApplicationController
       end
       
       if data =="wo"
-        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:all,:per_page=>5,:page =>page,:order =>"performed desc")
+        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:per_page=>5,:page =>page,:order =>"performed desc")
         @wo_pages = {:d => "wo"}      
         format.js { render "work_orders",:layout => false}
       end
