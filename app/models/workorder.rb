@@ -82,35 +82,36 @@ class Workorder < ActiveRecord::Base
   end
   
   def generate_events
-    services.each do |service| 
-      unless service.cancelled
-        new_event = create_event(service)
-        
-        #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
-        service_future = Service.find_future(service).last
-        if service_future
-          logger.debug "### encontro eventos futuros #{service_future.workorder.id}"
-          # si hay , cancelo el evento con el servicio a futuro realizado
-          new_event.status =Status::CANCELLED
-          new_event.service_done = service_future
-          #grabo el evento en la base de datos y no hago nada mas
-          new_event.save          
-        else
-          # si no hay servicios del mismo tipo en el futuro
-          # busco los eventos y actualizo su estado a CANCELLED por este nuevo servicio
+    if (self.car.kmAverageMonthly && (self.car.kmAverageMonthly > 0))
+      services.each do |service| 
+        unless service.cancelled
+          new_event = create_event(service)
           
-          Event.transaction do
+          #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
+          service_future = Service.find_future(service).last
+          if service_future
+            logger.debug "### encontro eventos futuros #{service_future.workorder.id}"
+            # si hay , cancelo el evento con el servicio a futuro realizado
+            new_event.status =Status::CANCELLED
+            new_event.service_done = service_future
+            #grabo el evento en la base de datos y no hago nada mas
+            new_event.save          
+          else
+            # si no hay servicios del mismo tipo en el futuro
+            # busco los eventos y actualizo su estado a CANCELLED por este nuevo servicio
             
-            #actualizo el estado de eventos futuros o pasados
-            Workorder.update_event_status service
-            #grabo el evento en la base de datos
-            new_event.save
-            logger.debug "### Entro a grabar nuevo evento creado #{new_event.id}"
-          end        
+            Event.transaction do
+              
+              #actualizo el estado de eventos futuros o pasados
+              Workorder.update_event_status service
+              #grabo el evento en la base de datos
+              new_event.save
+              logger.debug "### Entro a grabar nuevo evento creado #{new_event.id}"
+            end        
+          end
         end
       end
     end
-    
   end
   
   def regenerate_events
