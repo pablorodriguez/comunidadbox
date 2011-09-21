@@ -44,5 +44,9 @@ module ComunidadBox
     # Set your environment here.
     # ENV["RAILS_ENV"] ||= "production"
     ENV['AUTH'] = "maverick"
+    
+    config.to_prepare do
+      Devise::Mailer.layout "emails" # email.haml or email.erb
+    end
   end
 end

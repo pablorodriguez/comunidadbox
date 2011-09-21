@@ -1,9 +1,15 @@
 %h1
   = vineta
   Enviar instrucciones de confirmación
-- form_for resource_name, resource, :url => confirmation_path(resource_name) do |f|
-  %p= f.label :email
-  %p= f.text_field :email
-  %p= f.submit "Enviar Instrucciones",:class =>"btn_b"
-.clear
-= render :partial => "devise/shared/links"
+.contentleft
+  %h1 Ir a
+  = render :partial => "devise/shared/links"
+.contentright
+  %h1
+    Enviar confirmación a:
+  = form_for resource,:as => resource_name, :url => confirmation_path(resource_name) do |f|
+    %p
+      = f.label :email,"Correo Electrónico"
+      %br/
+      = f.text_field :email,:class=>:input_long
+    %p= f.submit "Enviar Instrucciones",:class =>"btn2"

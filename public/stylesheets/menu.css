@@ -6,7 +6,15 @@
 
   background: #C9C20D;
   background: -moz-linear-gradient(top, #DBDB39, #C9C20D);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));  
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#DBDB39), to(#C9C20D));
+  background-image: -webkit-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: -moz-linear-gradient(top,  #DBDB39, #C9C20D);
+  background-image: -ms-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: -o-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: linear-gradient(top, #DBDB39, #C9C20D);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#DBDB39', EndColorStr='#C9C20D');
+  
 }
 
 #menu_container a{
@@ -31,6 +39,14 @@
   background: #C9C20D;
   background: -moz-linear-gradient(top, #DBDB39, #C9C20D);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));
+  
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#DBDB39), to(#C9C20D));
+  background-image: -webkit-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: -moz-linear-gradient(top,  #DBDB39, #C9C20D);
+  background-image: -ms-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: -o-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: linear-gradient(top, #DBDB39, #C9C20D);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#DBDB39', EndColorStr='#C9C20D');
 
   /* Borders */
 

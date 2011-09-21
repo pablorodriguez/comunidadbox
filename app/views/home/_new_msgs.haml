@@ -1,9 +1,9 @@
 #cont3
-  #cuadro1.cuadro
+  .cuadro.gray
     = render "/home/comunidadbox"    
-  #cuadro2.cuadro
+  .cuadro.orange
     = render "/home/last_notice"    
-  #cuadro3.cuadro
+  .cuadro.gray
     - if current_user
       = render "/home/my_events"
     - unless current_user

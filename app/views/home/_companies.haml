@@ -7,5 +7,5 @@
         = c.name
         - if c.address
           =", #{c.address.state.name}"
-#sendprestadores
-  = button_to "Prestadores", all_companies_path,:method =>:get,:class=>"btn_b"
+
+= link_to "Prestadores", all_companies_path,:method =>:get,:class=>"button"

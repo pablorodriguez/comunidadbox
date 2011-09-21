@@ -1,7 +1,7 @@
 company = @work_order.company
 car =@work_order.car
 user = car.user
-table_w = 380
+table_w = 390
 fs=10
 
 pdf.define_grid(:columns => 2, :rows => 1, :gutter => 30)
@@ -51,13 +51,19 @@ pdf.grid(0,0).bounding_box do
       data << cso  
     end			
   	
-  	pdf.table data,:width =>table_w,
-  		:border_width =>0,
-  		:font_size => fs,
-  		:align => {0=>:left,1=>:right}
+    pdf.table data do
+      width = table_w
+      column_widths = [195,195]
+      column(1).style{|c| c.align = :right}
+      [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
+    end
+    
+
   	pdf.move_down(5)
   	
-  	materials = service.material_services.map do |ms|
+    materials  = [["Material","Cantidad","Precio","Total"]]
+
+  	materials +=  service.material_services.map do |ms|
   		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
   		[
   			mat,
@@ -67,31 +73,29 @@ pdf.grid(0,0).bounding_box do
   		]	
   	end
   	
-  	pdf.table materials,
-  		:width => table_w,
-  		:font_size => fs,
-  		:border_style =>:grid,
-  		:row_colors =>["FFFFFF","DDDDDD"],
-  		:headers =>["Material","Cantidad","Precio","Total"],
-  		:align =>{0=>:left,1=>:right,2=>:right,3=>:right}
+    column_widths = [222,58,57,58]
+  	pdf.table materials do
+      
+      width = table_w      
+      [1,2,3].each do |c1|
+        column(c1).style{|c| c.align = :right}        
+      end
+
+      column_widths.each_index{|i| column(i).width = column_widths[i] }
+      
+    end
+    
+
   	pdf.move_down(10)
   	
   	unless service.comment.empty?
   	 pdf.text "Comentario: #{service.comment}",:size=>fs
   	end
-  	  
-  	
   end
+
   pdf.move_down(5)
-  total =[[    
-  		"Total: #{number_to_currency(@work_order.total_price)}"
-  		]]
-  		
-  pdf.table total,:width =>table_w,
-  		:border_width =>0,
-  		:font_size => fs +2,
-  		:style => :bold,
-  		:align => {0=>:right}
+  pdf.text "Total: #{number_to_currency(@work_order.total_price)}",:align =>:right
+
 end		
 
 
@@ -144,13 +148,15 @@ pdf.grid(0,1).bounding_box do
       data << cso  
     end     
         
-    pdf.table data,:width =>table_w,
-      :border_width =>0,
-      :font_size => fs,
-      :align => {0=>:left,1=>:right}
+    pdf.table data do
+      width = table_w
+      column_widths =[293,97]
+      [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
+    end
     pdf.move_down(5)
     
-    materials = service.material_services.map do |ms|
+    materials = [["Material","Cantidad"]]
+    materials += service.material_services.map do |ms|
       mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
       [
         mat,
@@ -158,13 +164,8 @@ pdf.grid(0,1).bounding_box do
       ] 
     end
     
-    pdf.table materials,
-      :width => table_w,
-      :font_size => fs,
-      :border_style =>:grid,
-      :row_colors =>["FFFFFF","DDDDDD"],
-      :headers =>["Material","Cantidad"],
-      :align =>{0=>:left,1=>:right,2=>:right,3=>:right}
+    pdf.table materials,:column_widths =>[293,97]
+
     pdf.move_down(10)
     
     unless service.comment.empty?

@@ -3,11 +3,11 @@
 
 body {
   background-color: #F2F2F2;
-}
-
-body, td, th {
-  color: #000;
-  text-align: left;
+  padding:0px;
+  margin:0px;
+  color:#707070;
+  font-size:14px;
+  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
 }
         
 a{
@@ -52,13 +52,7 @@ h2 a {
 h2 a:hover {
   color:#CCCC33;
 }
-body {
-  padding:0px;
-  margin:0px;
-  color:#707070;
-  font-size:14px;
-  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
-}
+
 #header {
   background-color:#a8aa3a;       
   background-image:url(/images/headerpng.png);
@@ -107,14 +101,10 @@ body {
 #cont2 {
   height:110px;
   background-color:#808080;
-  margin-bottom:0px;
 }
 .part {
   height:92px;
   float:left;
-  margin:0px;
-  padding:0px;
-  font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
 }
 #part1 {
   width:157px;
@@ -166,10 +156,11 @@ body {
 }
 
 .cuadro{
-  height:450px;
-  width: 276px;
+  height:470px;
+  width: 30%;
   padding: 10px;
   margin: 2px;
+  float: left;
 }
 
 .cuadro h1 {
@@ -220,18 +211,14 @@ body {
   text-decoration:none;
   font-weight:bold;
 }
-#cuadro1 {
-  float:left;  
+.gray {
   background-color:#E6E6E6;
 }
-#cuadro2 {
-  float:left;
+
+.orange {
   background-color: #F2EAB7;
 }
-#cuadro3 {
-  background-color:#E6E6E6;
-  float:left;
-}
+
 #wrapfooter {
   background-image:url(/images/background_footer.jpg);
   height:62px;
@@ -390,51 +377,6 @@ text-decoration: none;
   background-position:46px 35px;
 }
 
-#sendleermas {
-  margin-top:20px;
-  float:right;
-}
-#sendvernoticias {
-  margin-top:30px;
-  float:right;
-}
-#sendprestadores {
-  margin-top:25px;
-  float:right;
-}
-/*-----------------------------------------##FIN FORMULARIO##-------------------------------*/
-
-/*-----------------------------------------##MENU##-------------------------------*/
-/*
-#menu ul {
-  list-style:none;
-  margin:0;
-  padding:0;
-  position:absolute;
-  z-index:999;
-
-}
-#menu li {
-  float:left;
-  position: relative;
-}
-
-
-#menu li a {
-  text-decoration: none;
-  color:#FFF;
-  line-height:2em;
-  display: block;
-  padding: 3px 10px;
-  text-align: center;
-  height:39px;
-}
-
-#menu li a:hover {
-   background-color:#CCCC33;
-}
-*/
-
 ul{
   list-style:none;
   padding: 1px;
@@ -544,11 +486,6 @@ margin:0px;
 }
 #formuser {
   width:843px;
-}
-
-input{
-  height:25px;
-  width:180px;
 }
 
 select{
@@ -1832,3 +1769,8 @@ dl {
   width: 90%;
   padding: 10px;
 }
+
+#sort_by{
+  margin-right: 1px;
+}
+

@@ -8,41 +8,37 @@
     #part1.part
       INICIAR SESIÓN
     #part2.part
-      %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "556"}
+      %table
         %tr
-          %td{:height => "30", :width => "229"}
+          %td
             %h3
               = f.label :email,t('user.email')
-          %td{:height => "30", :width => "200"}
+          %td
             %h3
               = f.label :password,t('user.password')
-          %td{:width => "127"}          
+          %td          
         %tr
-          %td{:height => "30", :width => "229"}
+          %td
             = f.text_field :email, {:class =>"textarea"}
-          %td{:height => "30", :width => "200"}
+          %td
             = f.password_field :password, {:class =>"textarea"}
           %td
-            %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"btn"}
-        %tr
-          %td{:height => "2", :width => "229"}  
-          %td{:height => "2", :width => "200"}  
-          %td{:width => "127"}  
+            %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}
     #part22.part
-      %table{:align => "center", :valign => "center", :width => "200"}
+      %table
         %tr
-          %td{:align => "center", :height => "50%", :valign => "middle", :width => "20%"}
+          %td
             %h4
               - if devise_mapping.rememberable?
                 = f.check_box :remember_me,:class=>"checkbox"
-          %td{:width => "80%"}
+          %td
             %h4
               - if devise_mapping.rememberable?
                 = f.label :remember_me
         %tr
-          %th{:align => "center", :height => "50%", :nowrap => "nowrap", :valign => "middle", :width => "20%"}
-            %img.sgn{:height => "20", :src => "/images/sgn_pass.png", :width => "20"}
-          %td{:width => "80%"}
+          %th
+            %img.sgn{:src => "/images/sgn_pass.png"}
+          %td
             %h4
               = render :partial => "devise/shared/links"
 = render "home/new_msgs"
