@@ -5,21 +5,22 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2','< 0.3'
+gem 'mysql2','<= 0.2.6'
 gem "haml"
 gem "will_paginate", "~> 3.0.pre2"
 gem "foreigner"
 #config.gem "declarative_authorization", :source =>"http://gemcutter.org"
 gem "chronic"
 gem "packet"
-gem 'prawn','0.8.4'
+gem 'prawn'
 gem "geokit"
-gem "devise",'1.1.5'
+gem "devise"
 gem "omniauth"
 gem 'jquery-rails', '>= 0.2.6'
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
 gem 'resque-scheduler'
+gem 'rails3-jquery-autocomplete'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Use unicorn as the web server

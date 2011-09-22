@@ -77,9 +77,7 @@ pdf.grid(0,0).bounding_box do
   	pdf.table materials do
       
       width = table_w      
-      [1,2,3].each do |c1|
-        column(c1).style{|c| c.align = :right}        
-      end
+      [1,2,3].each{|c1|column(c1).style{|c| c.align = :right}}
 
       column_widths.each_index{|i| column(i).width = column_widths[i] }
       
@@ -147,10 +145,10 @@ pdf.grid(0,1).bounding_box do
        ]
       data << cso  
     end     
-        
+      
     pdf.table data do
       width = table_w
-      column_widths =[293,97]
+      
       [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
     end
     pdf.move_down(5)
@@ -164,7 +162,13 @@ pdf.grid(0,1).bounding_box do
       ] 
     end
     
-    pdf.table materials,:column_widths =>[293,97]
+    column_widths = [293,97]
+    pdf.table materials do
+      width = table_w
+      column_widths.each_index{|i| column(i).width = column_widths[i] }
+      column(1).style{|c| c.align = :right}
+    end
+    
 
     pdf.move_down(10)
     
