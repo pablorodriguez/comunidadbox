@@ -1,7 +1,7 @@
 - javascript 'maps'
 - javascript 'search_company_map'
 
-.content.left
+.company_selector
   %h1 Buscar
   - form_for :company, :remote =>true, :url => search_companies_cars_path do |f|
     %table.w
@@ -28,17 +28,16 @@
             = hidden_field_tag "car_id",@car_id
             = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"state medium_select"})
             = image_submit_tag("find.png",:class =>"input_img")
-    
-  = link_to_function "Nuevo Prestador de Servicio", "newCompany(this);",{:class =>"btn2"}
-#companies.contentright
+#companies.all_companies
   #all_companies
     = render "/companies/all_companies"
+    = link_to_function "Prestador de Servicio", "newCompany(this);",{:class =>"button add"}
   #new_company.hide
     %h1 Nuevo Prestador de Servicio
     Por favor ingrese Nombre, Dirección y Teléfono
     = text_area_tag :company_info,"",:rows => 5, :cols => 37
     = hidden_field_tag :new_service_url,new_workorder_path(:car_id =>@car_id)
-    = link_to_function "Seleccionar", "newServiceNewCompany(this);",{:class =>"btn2"}
-    = link_to_function "Cancelar", "cancelNewCompany(this);",{:class =>"btn2"}
+    = link_to_function "Seleccionar", "newServiceNewCompany(this);",{:class =>"button"}
+    = link_to_function "Cancelar", "cancelNewCompany(this);",{:class =>"button"}
   #company_map
     = render "/companies/maps"

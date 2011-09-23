@@ -105,9 +105,9 @@ jQuery(document).ready( function(){
 	  close: function(event, ui) {
 	    comment.val($("#comment").val());
 	    if (comment.val() != ""){
-	      comment.parent().parent().find("a.comment").first().toggleClass("add_comment edit_comment").attr("title","Agregar Comentario");
+	      comment.parent().prev().toggleClass("add_comment edit_comment").attr("title","Agregar Comentario");
 	    }else{
-	      comment.parent().parent().find("a.comment").first().toggleClass("edit_comment add_comment").attr("title","Modificar Comentario"); 
+	      comment.parent().prev().toggleClass("edit_comment add_comment").attr("title","Modificar Comentario"); 
 	    }
 	    
 	  },
@@ -484,7 +484,7 @@ function add_materials_service_types(elements){
 }
 
 function showModalComment(link){	
-	comment = $(this).parent().find("textarea.comment");
+	comment = $(this).next().children().first();
 	commentDialog.dialog("open");
 }
 

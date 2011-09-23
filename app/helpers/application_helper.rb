@@ -66,9 +66,9 @@ module ApplicationHelper
   
   def link_to_back(url=nil)    
     unless url
-      return link_to_function "","javascript:history.back(-1)",:class =>"btn_back" unless url  
+      return link_to_function "<","javascript:history.back(-1)",:class =>"button" unless url  
     else
-      return link_to "",url,:class =>"btn_back" if url
+      return link_to "<",url,:class =>"button" if url
     end
     
   end

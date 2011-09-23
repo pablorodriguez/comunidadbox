@@ -160,11 +160,17 @@ class Workorder < ActiveRecord::Base
   end
   
   def can_edit?(user)
-    if ((company == user.company && company.is_employee(self.user) || (self.user == user)) && (open? || in_progress?))
+    if ((self.company == user.company && self.company.is_employee(self.user) || (self.user == user)) && (open? || in_progress?))
       return true
     else
       return false   
     end
+  end
+
+  def can_show?(user)
+    return true if user.own_car(self.car)
+    return true if (self.user == user)
+    return false
   end
   
   private

@@ -29,31 +29,34 @@ pdf.text "Automovil: #{car.domain}",:size=>20,:style =>:bold,:size=>fs
 pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year} ,Km: #{@work_order.km}, Km. Actual: #{car.km}",:size=>fs
 pdf.move_down(5)
 
-
-
-
 @work_order.services.each do |service|
-  operator = service.operator ? "Operario: #{service.operator.full_name} \n" : ""
+	
+	operator = service.operator ? "Operario: #{service.operator.full_name} \n" : ""
 	data =[[
 			"Servicio: #{service.service_type.name} \n Estado: #{Status.status service.status}",
 			"#{operator} Total:  #{number_to_currency(service.total_price)}"
 			]]
   
-  if service.car_service_offer
-    cso =[
-     "Oferta de Servicio: #{service.car_service_offer.service_offer.company.name}, #{service.car_service_offer.service_offer.title}",
-     "Total:  #{number_to_currency(service.car_service_offer.service_offer.final_price)}"
-     ]
-    data << cso  
-  end			
+	if service.car_service_offer
+		cso =[
+		 "Oferta de Servicio: #{service.car_service_offer.service_offer.company.name}, #{service.car_service_offer.service_offer.title}",
+		 "Total:  #{number_to_currency(service.car_service_offer.service_offer.final_price)}"
+		 ]
+		data << cso  
+	end			
 			
-	pdf.table data,:width =>250,
-		:border_width =>0,
-		:font_size => fs,
-		:align => {0=>:left,1=>:right}
+	pdf.table data,:cell_style => {:size => fs} do		
+		width = 250
+		column(1).style{|c| c.align = :right}
+		[0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
+	end
+		
 	pdf.move_down(5)
-	
-	materials = service.material_services.map do |ms|
+
+	column_widths = [100,50,50,50]
+
+	materials = [["Material","Cantidad","Precio","Total"]]
+	materials += service.material_services.map do |ms|
 		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
 		[
 			mat,
@@ -63,13 +66,12 @@ pdf.move_down(5)
 		]	
 	end
 	
-	pdf.table materials,
-		:width => 250,
-		:font_size => fs,
-		:border_style =>:grid,
-		:row_colors =>["FFFFFF","DDDDDD"],
-		:headers =>["Material","Cantidad","Precio","Total"],
-		:align =>{0=>:left,1=>:right,2=>:right,3=>:right}
+	pdf.table materials, :cell_style => {:size => fs} do
+		width = 250		
+		[1,2,3].each{|c1| column(c1).style{|c| c.align = :right}}
+      	column_widths.each_index{|i| column(i).width = column_widths[i] }
+	end		
+		
 	pdf.move_down(10)
 	
 	unless service.comment.empty?
@@ -83,9 +85,8 @@ total =[[
 		"Total: #{number_to_currency(@work_order.total_price)}"
 		]]
 		
-pdf.table total,:width =>250,
-		:border_width =>0,
-		:font_size => fs,
-		:style => :bold,
-		:align => {0=>:right}
-		
+pdf.table total,:cell_style => {:size => fs},:width =>250 do
+	column(0).style{|c| c.align = :right}
+	column(0).style{|c| c.border_width = 0 }
+end
+

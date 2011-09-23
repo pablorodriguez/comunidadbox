@@ -68,15 +68,15 @@
         %strong
           = h number_to_currency @car.total_spend(current_user.company.id) 
     
-
-= link_to_back cars_path
-= hidden_field_tag 'car_id',@car.id
-- if current_user.company
-  = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),:id=>"create_new_service"
-- unless current_user.company
-  = link_to_function image_tag('new.png'),"createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
-  .hide
-    = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
-  
-= link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
-= link_to image_tag("edit.png"),edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)
+.buttons
+  = link_to_back cars_path
+  = hidden_field_tag 'car_id',@car.id
+  - if current_user.company
+    = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),:id=>"create_new_service"
+  - unless current_user.company
+    = link_to_function image_tag('new.png'),"createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
+    .hide
+      = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
+    
+  = link_to image_tag('edit.png'),edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
+  = link_to image_tag("edit.png"),edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)

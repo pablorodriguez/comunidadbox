@@ -52,7 +52,7 @@ pdf.grid(0,0).bounding_box do
     end			
   	
     pdf.table data do
-      width = table_w
+      width = table_w      
       column_widths = [195,195]
       column(1).style{|c| c.align = :right}
       [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}

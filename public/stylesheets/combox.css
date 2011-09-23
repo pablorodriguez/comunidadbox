@@ -494,6 +494,10 @@ select{
   padding: 5px;
 }
 
+input{
+  height:25px;
+}
+
 .input_short{
   width:100px;
 }
@@ -600,7 +604,17 @@ select{
 
 .contentright {
   width:69%;
-  float: left;
+  float: right;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DDDDDD;
+  padding: 5px 5px 5px 5px;
+}
+
+.all_companies {
+  width:63%;
+  float: right;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
@@ -706,6 +720,19 @@ select{
   overflow: hidden;
 }
 
+.company_selector{
+  width:200px;
+  float:left;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DDDDDD;
+  padding: 5px 5px 5px 5px;
+  margin-right:5px;
+  margin-bottom:5px;
+  overflow: hidden;
+}
+
 
 td.number input{
   text-align:right;
@@ -718,7 +745,8 @@ td.number input{
   float:left; 
 }
 
-.box h1,.contentleft_s h1, .contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1, #work_order_form h1{
+.box h1,.contentleft_s h1, .contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1, 
+#work_order_form h1, .company_selector h1, .all_companies h1{
   font-size:20px;
   color:#75787A;
   margin:0px;
@@ -986,6 +1014,7 @@ td p{
 
 .ordencontent {
   margin-top:10px;
+  clear: both;
 }
 .ordencontent h1{
   font-size:20px;
@@ -1560,7 +1589,7 @@ dl {
   background: url(/images/add_comment.png) no-repeat scroll;
   height: 21px;
   width: 21px;
-  float: right;
+  float: left;
 }
 
 .new{
@@ -1574,7 +1603,7 @@ dl {
   background: url(/images/edit_comment.png) no-repeat scroll;
   height: 21px;
   width: 21px;
-  float: right;
+  float:left;
 }
 
 #company-selector{
@@ -1773,4 +1802,23 @@ dl {
 #sort_by{
   margin-right: 1px;
 }
+
+.buttons{
+  width:80%;
+  float:left;
+}
+.buttons a.button{
+  vertical-align: middle;
+}
+
+#wo-actions{
+  overflow: auto;
+  margin:5px 0px;
+  width:100%;
+}
+
+#wo-actions select{
+  margin:0px 2px;
+}
+
 

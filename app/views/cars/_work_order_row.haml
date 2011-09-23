@@ -12,8 +12,11 @@
               Operario:
             %label
               = "#{s.operator.first_name} #{s.operator.last_name}"
-  - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
-    .actions
+  .actions
+    - if work_order_row.comment
+      .left
+        %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
+    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
       = icon_status work_order_row.status
       - if work_order_row.can_edit?(current_user)
         = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
