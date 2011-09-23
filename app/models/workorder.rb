@@ -197,7 +197,7 @@ class Workorder < ActiveRecord::Base
     total = 0 
     service_data.values.each{|v| total = total + v.to_f}
     service_data.each do |key,value|
-      if key
+      if (key && total > 0)
         percentage = ((value.to_f * 100) / total)
         service_type = ServiceType.find(key)
         logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} %: #{percentage} total: #{total}"
