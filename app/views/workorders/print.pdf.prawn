@@ -15,8 +15,9 @@ pdf.grid(0,0).bounding_box do
   pdf.move_down(5)
   pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold  
   
+  address = user.address ? user.address.to_text : ""
   data_info = [[
-    "Cliente: #{user.full_name}\nTeléfono: #{user.phone}\nEmail: #{user.email}\n#{user.address.to_text}",
+    "Cliente: #{user.full_name}\nTeléfono: #{user.phone}\nEmail: #{user.email}\n#{address}",
     "Automovil: #{car.domain}\n#{car.brand.name}, #{car.model.name.strip!}, #{car.year}\nKm. Actual: #{@work_order.km}\nKm. Promedio Mensual: #{car.kmAverageMonthly}"
     ]]
 
