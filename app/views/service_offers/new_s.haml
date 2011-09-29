@@ -1,0 +1,10 @@
+- javascript 'jquery.ui.datepicker-es'
+- javascript 'service_offer'
+
+%h1
+  = vineta 
+  Nueva Oferta de Servicio
+.box
+  #service_offer
+    - form_for(@offer) do |f|
+      = render :partial => 'form', :locals => {:f => f}
