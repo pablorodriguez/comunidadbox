@@ -32,7 +32,6 @@ class Service < ActiveRecord::Base
   
   def self.find_future service
     Service.includes(:service_type,:workorder).where("service_types.id = ? and car_id = ? and performed > ? 
-      and workorders.status = ? and services.id != ?",service.service_type.id,service.workorder.car.id,service.workorder.performed,Status::FINISHED,
-      service.id).order("performed desc")
+      and services.id != ?",service.service_type.id,service.workorder.car.id,service.workorder.performed,service.id).order("performed desc")
   end
 end

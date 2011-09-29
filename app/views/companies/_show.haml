@@ -46,8 +46,8 @@
           = @company.address.zip
     
 - if user_signed_in? && current_user.own(@company)          
-  = link_to image_tag("return.png"),companies_path
-  = link_to image_tag("edit.png"),edit_company_path(@company),{:title =>"Modificar"}
+  = link_to_back companies_path
+  = link_to "Modificar",edit_company_path(@company),{:title =>"Modificar",:class=>:button}
 - else
   = link_to_back all_companies_path
 

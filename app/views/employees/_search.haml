@@ -19,5 +19,6 @@
           = text_field_tag 'last_name'
           = image_submit_tag("find.png",:class =>"input_img")
 
-= link_to_back
-= link_to image_tag('new.png'), new_employee_path,:title =>"Crear nuevo empleado"    
+.buttons
+  = link_to_back
+  = link_to "Nuevo Empleado", new_employee_path,:class =>:button

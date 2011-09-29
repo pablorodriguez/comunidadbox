@@ -9,7 +9,8 @@ class Event < ActiveRecord::Base
   MONTH_YELLOW=2
   MONTH_GREEN=2
  
-  scope :red, lambda {{:conditions => ["dueDate <= ? AND events.status = ?", Time.now.months_since(Event::MONTH_RED),Status::ACTIVE]}}
+  scope :red, lambda {{:conditions => ["dueDate <= ? AND dueDate >= ? AND events.status = ?", 
+    Time.now.months_since(Event::MONTH_RED),Time.now.months_ago(Event::MONTH_RED),Status::ACTIVE]}}
   scope :yellow, lambda {{:conditions => ["dueDate > ? AND dueDate <= ?",Time.now.months_since(Event::MONTH_RED), Time.now.months_since(Event::MONTH_YELLOW)]} }
   scope :green, lambda {{:conditions => ["dueDate > ? ",Time.now.months_since(Event::MONTH_GREEN)]} }
 

@@ -1,7 +1,3 @@
-%h1
-  Información
-  .brand_img
-    = brand_logo @car.brand.name
 %table.coltable
   %col.current
   %col
@@ -41,8 +37,8 @@
       = h @car.km
   %tr
     %td.header Marca
-    %td
-      = h @car.brand.name
+    %td      
+      = brand_logo @car.brand.name
   %tr  
     %td.header Combustible
     %td
@@ -72,7 +68,7 @@
   = link_to_back cars_path
   = hidden_field_tag 'car_id',@car.id
   - if current_user.company
-    = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),:id=>"create_new_service"
+    = link_to image_tag('new.png'),new_workorder_path(:car_id =>@car),:id=>"create_new_service",:title=>"Nuevo Servicio"
   - unless current_user.company
     = link_to_function image_tag('new.png'),"createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
     .hide

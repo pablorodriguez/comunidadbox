@@ -80,10 +80,8 @@ class CarsController < ApplicationController
     @filters_params ={}
     respond_to do |format|
       if data == "all"
-        @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",params[:id]).order("performed desc")
-        logger.debug "### #{@work_orders.to_sql}"
-        
-        @work_orders = @work_orders.paginate(:per_page=>5,:page =>page)
+        @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
+          .paginate(:per_page=>5,:page =>page)
         
         @filters_params[:domain] = @car.domain
         @filters_params[:user] = current_user
@@ -93,17 +91,18 @@ class CarsController < ApplicationController
         @events = @car.future_events.paginate(:per_page=>10,:page =>page)
         @wo_pages = {:d=>"wo"}
         @e_pages = {:d=>"e"}
+        logger.debug  "### Events #{@events.size}"
         format.html # show.html.erb
         format.js { render "all",:layout => false} 
       end
       if data == "e"
-        @events = @car.future_events.paginate(:per_page=>5,:page =>page)
+        @events = @car.future_events.paginate(:per_page=>10,:page =>page)
         @e_pages = {:d =>"e"}
         format.js { render "events",:layout => false}        
       end
       
       if data =="wo"
-        @work_orders = Workorder.where("car_id = ?",params[:id]).paginate(:per_page=>5,:page =>page,:order =>"performed desc")
+        @work_orders = Workorder.where("car_id = ?",@car_id).paginate(:per_page=>5,:page =>page,:order =>"performed desc")
         @wo_pages = {:d => "wo"}      
         format.js { render "work_orders",:layout => false}
       end

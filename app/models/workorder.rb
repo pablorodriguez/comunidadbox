@@ -1,7 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
-  
+  normalize_attributes :comment
     
   has_many :services, :dependent => :destroy
   belongs_to :car
@@ -90,7 +90,7 @@ class Workorder < ActiveRecord::Base
           #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
           service_future = Service.find_future(service).last
           if service_future
-            logger.debug "### encontro eventos futuros #{service_future.workorder.id}"
+            logger.debug "### Encontro servicio futuro #{service_future.id}"
             # si hay , cancelo el evento con el servicio a futuro realizado
             new_event.status =Status::CANCELLED
             new_event.service_done = service_future
@@ -99,15 +99,10 @@ class Workorder < ActiveRecord::Base
           else
             # si no hay servicios del mismo tipo en el futuro
             # busco los eventos y actualizo su estado a CANCELLED por este nuevo servicio
-            
-            Event.transaction do
-              
-              #actualizo el estado de eventos futuros o pasados
-              Workorder.update_event_status service
-              #grabo el evento en la base de datos
-              new_event.save
-              logger.debug "### Entro a grabar nuevo evento creado #{new_event.id}"
-            end        
+            #actualizo el estado de eventos futuros o pasados
+            Workorder.update_event_status service
+            #grabo el evento en la base de datos
+            new_event.save
           end
         end
       end
@@ -118,29 +113,25 @@ class Workorder < ActiveRecord::Base
     Event.transaction do
       services.each do |service|        
         service.events.each do |e|
-          logger.debug "### Borro evento #{e.id}" 
+          logger.debug "### Borro evento #{e.id} service #{service.id}" 
           e.destroy
         end
       end
-      generate_events      
+      generate_events
     end
+    
   end
   
   def set_status
-    in_progress = services.select{|s| s.status == Status::IN_PROCESS}
-    if (in_progress.size > 0)
-      self.status = Status::IN_PROCESS
-      return
+    n_status = Status::FINISHED
+    self.services.each do |s|
+      logger.debug "### Status #{s.status} Destroy #{s._destroy}"
+      if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
+        n_status = Status::OPEN
+      end
     end
-    
-    open = services.select{|s| s.status == Status::OPEN}    
-    if (open.size > 0)
-      self.status = Status::OPEN
-      return  
-    end
-    
-    self.status = Status::FINISHED
-    
+    logger.debug "### New Status #{n_status}"
+    self.status = n_status    
   end
   
   def finish?
@@ -176,7 +167,7 @@ class Workorder < ActiveRecord::Base
   private
   def create_event service
     service_type = service.service_type
-    months = (service_type.kms / car.kmAverageMonthly).to_i
+    months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i
     event = Event.new
     event.car = self.car
     event.km = self.car.km + service_type.kms
@@ -184,7 +175,7 @@ class Workorder < ActiveRecord::Base
     event.service = service
     event.status= Status::ACTIVE
     event.dueDate = service.workorder.performed + months.month
-    logger.debug "###Event created DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months}"
+    logger.debug "### Event created DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months} Service #{event.service_id}"
     event
   end
   
@@ -257,13 +248,13 @@ class Workorder < ActiveRecord::Base
   def self.update_event_status service
     unless service.cancelled
       #busco los servicios rojos y amarillos
-      events_r = Event.red.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
-      events = events_r + Event.yellow.car(service.workorder.car.id).service_typed(service.service_type.id).map(&:id)
+      events =  Event.car(service.workorder.car.id).service_typed(service.service_type.id).active.map(&:id)
       events.each do |id|
         
         e = Event.find id
-        # Valido que el evento no sea de la misma Workorder
-        unless e.service.workorder.id == service.workorder.id
+        # Valido que el evento no pertenezca a la misma Workorder
+        logger.debug "### #{e.service.workorder.id} #{service.workorder.id}"
+        if e.service.workorder.id != service.workorder.id
           logger.debug "### encontro eventos futuros para cancelar con este nuevo creado #{e.id}"
           #cambio su esado a finished
           e.status = Status::CANCELLED

@@ -492,6 +492,7 @@ select{
   height:30px;
   width:175px;
   padding: 5px;
+  margin: 0px 3px;
 }
 
 input{
@@ -1274,8 +1275,8 @@ ul.usr_menu li{
 }
 
 .brand_img{
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   margin: 0 auto;
   padding: 5px 0px 0px 0px;
 }
@@ -1373,7 +1374,7 @@ ul.usr_menu li{
 }
 
 .wo_detail .services{
-  max-width: 69%;
+  max-width: 90%;
 }
 
 .wo_detail .performed{
@@ -1386,6 +1387,8 @@ ul.usr_menu li{
 
 .wo_detail .actions{
   float: right;
+  text-align:right;
+  width:50px;
 }
 
 .client .actions{
@@ -1433,7 +1436,7 @@ ul.usr_menu li{
   font-size: 20px;
   font-weight: bold;
   float: left;
-  margin: 5px;
+  margin: -2px 5px 5px 5px;
 }
 
 .price{
@@ -1453,15 +1456,16 @@ ul.usr_menu li{
 }
 
 .wo_detail .company{
-  float: left;
-  clear: both;
-  width: 80%;
+  float: left;  
+  width: 68%;
+  margin-top:4px;
 }
 
 .wo_detail .rank{
   float: left;
   clear: both;
   width: 100%;
+  margin: 0px 2px 4px 2px;
 }
 
 .service_status a{
@@ -1476,6 +1480,7 @@ ul.usr_menu li{
   float: left;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
+  min-width:180px;
 }
 
 .service .operator{
@@ -1717,8 +1722,8 @@ dl {
 }
 .small_event{
   height: 40px;
-  padding: 2px 5px;
-  width: 82px;
+  padding: 2px 2px;
+  width: 86px;
 }
 
 .small_event .domain, .my_big_event .domain, .big_event .domain{
@@ -1821,4 +1826,11 @@ dl {
   margin:0px 2px;
 }
 
+.select_event{
+  width:100%;
+  overflow: auto;
+}
 
+.select_event .color{
+  margin:3px;
+}

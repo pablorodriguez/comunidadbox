@@ -1,31 +1,4 @@
-.row
-  .services
-    - work_order_row.services.each do |s|      
-      .service
-        - unless s.comment.empty?
-          .left
-            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-        = link_to s.service_type.name ,work_order_row
-        -if s.operator
-          .operator
-            %strong
-              Operario:
-            %label
-              = "#{s.operator.first_name} #{s.operator.last_name}"
-  .actions
-    - if work_order_row.comment
-      .left
-        %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
-    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
-      = icon_status work_order_row.status
-      - if work_order_row.can_edit?(current_user)
-        = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
-        = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
-      = link_to_pdf work_order_row unless current_user.company
-      = print_to_pdf work_order_row if current_user.company              
-  #rank.rank.clear{:id =>"wo_#{work_order_row.id}"}
-    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
-      = render 'ranks/rank',:workorder => work_order_row
+.wo_detail.row
   .company.clear
     .left
       = work_order_row.company_name        
@@ -41,3 +14,31 @@
     - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
       .price_b
         = number_to_currency work_order_row.total_price
+  #rank.rank.clear{:id =>"wo_#{work_order_row.id}"}
+    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
+      = render 'ranks/rank',:workorder => work_order_row  
+  .services
+    - work_order_row.services.each do |s|      
+      .service
+        - unless s.comment.empty?
+          .left
+            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+        = link_to s.service_type.name ,work_order_row
+        -if s.operator
+          .operator
+            %strong
+              Operario:
+            %label
+              = "#{s.operator.first_name} #{s.operator.last_name}"
+  .actions
+    - if work_order_row.comment
+      %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
+    - if (work_order_row.company == current_user.company) || (current_user.own_car(work_order_row.car))
+      
+      - if work_order_row.can_edit?(current_user)
+        = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
+        = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
+      = link_to_pdf work_order_row unless current_user.company
+      = print_to_pdf work_order_row if current_user.company              
+    = icon_status work_order_row.status
+  

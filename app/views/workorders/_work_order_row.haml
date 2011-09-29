@@ -1,6 +1,24 @@
-.wo_detail.row
-  .domain
+.wo_detail.row  
+  - can_show = work_order_row.can_show?(current_user)            
+  .domain.clear
     = link_to work_order_row.car.domain, work_order_row.car
+  .company
+    .left
+      - if can_show
+        %strong
+          Vendedor:
+        = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
+        - if work_order_row.payment_method
+          = ",#{work_order_row.payment_method.name}"
+    .right
+      = l work_order_row.performed
+  .right    
+    - if can_show
+      .price_b
+        = number_to_currency work_order_row.total_price
+  #rank.rank{:id =>"wo_#{work_order_row.id}"}
+    - if can_show
+      = render 'ranks/rank',:workorder => work_order_row
   .services
     - work_order_row.services.each do |s|
       .service     
@@ -13,30 +31,17 @@
             %strong
               Operario:
             = "#{s.operator.first_name} #{s.operator.last_name}"
-
-  - can_show = work_order_row.can_show?(current_user)            
+  
   - if can_show
     .actions
-      = icon_status work_order_row.status
+      - if work_order_row.comment
+        %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
+
       - if work_order_row.can_edit?(current_user)
         = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
         = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
       = link_to_pdf work_order_row unless current_user.company
       = print_to_pdf work_order_row if current_user.company
+      = icon_status work_order_row.status  
   
-  #rank.rank{:id =>"wo_#{work_order_row.id}"}
-    - if can_show
-      = render 'ranks/rank',:workorder => work_order_row
-  .company
-    .left
-      - if can_show
-        %strong
-          Vendedor:
-        = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
-        - if work_order_row.payment_method
-          = ",#{work_order_row.payment_method.name}"
-  .right
-    = l work_order_row.performed
-    - if can_show
-      .price_b
-        = number_to_currency work_order_row.total_price
+  

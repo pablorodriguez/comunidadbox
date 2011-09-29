@@ -54,7 +54,7 @@
         =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>:true},{:class=>"clear change short_select"})
     %tr      
       %td
-        .e
+        .select_event
           .left
             Eventos Tipos
           .right  
@@ -64,34 +64,33 @@
               = check_box_tag :yellow,:yellow,@event_types[:yellow],:class =>:checkbox
             .verde.left
               = check_box_tag :green,:green,@event_types[:green],:class =>:checkbox
-        .e.clear
+        .select_event
           .left
-            Mis Clientes
-          .left
+            = label_tag :my_clients,"Mis Clientes",:class=>:link
+          .right
             = check_box_tag :my_clients,true,@my_clients,:class =>:checkbox
-        .e.clear
+        .select_event
           .left
-            Otros Clientes
-          .left
+            = label_tag :others,"Otros Clientes",:class=>:link
+          .right
             = check_box_tag :others,true,@others,:class =>:checkbox
         .right
           = image_tag('find.png',{:id=>:reload,:class=>:link})
 
 #select.contentleft{:style=>"width:190px"}
-  %h1 Seleccionar
-  .left
+  %h1 Seleccionar Clientes
+  .select_event
     .left
-      Mis Clientes
-    .right
-      .mi_rojo
-        = check_box_tag :select_red,:mi_rojo,false,:class =>:checkbox
-      .mi_amarillo
-        = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox
-  .left
+      Mios
+    .mi_amarillo.color.right
+      = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox
+    .mi_rojo.color.right
+      = check_box_tag :select_red,:mi_rojo,false,:class =>:checkbox
+    
+  .select_event
     .left
-      Otros Clientes
-    .right
-      .rojo
-        = check_box_tag :select_red,:rojo,false,:class =>:checkbox
-      .amarillo
-        = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
+      Otros
+    .amarillo.color.right
+      = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
+    .rojo.color.right
+      = check_box_tag :select_red,:rojo,false,:class =>:checkbox

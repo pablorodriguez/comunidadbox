@@ -1,3 +1,4 @@
 =render :partial=>"search_car",:locals =>{:cars=>[],:table_id =>:sort_table}          
-= link_to_back root_path
-= link_to image_tag('new.png'), new_car_path(:user_id=>@user.id),  {:title =>"Nuevo Automóvil"}
+.buttons
+	= link_to_back root_path
+	= link_to "Nuevo Automóvil", new_car_path(:user_id=>@user.id),  {:title =>"Nuevo Automóvil",:class=>"button"}

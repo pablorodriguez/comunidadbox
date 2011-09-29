@@ -1,4 +1,4 @@
-%div{:class=>"#{event_class(event)} #{my_event_class(event)}"}
+%div{:class=>"#{my_event_class(event)}"}
   -unless event.is_green
     .right
       = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})

@@ -163,6 +163,7 @@ ComunidadBox::Application.routes.draw do
   resources :service_offers do
     collection do
       post :send_notification
+      post :new_s
       get :notify_email
       get :notify
     end

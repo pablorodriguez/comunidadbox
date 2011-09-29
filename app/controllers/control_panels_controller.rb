@@ -4,21 +4,12 @@ class ControlPanelsController < ApplicationController
   def index   
     @company_services = current_user.company.service_type
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
-    @eventos_rojo = Event.count(:all,
-                           :conditions => ["dueDate < ? and service_type_id IN (?) and status = ?", Time.now.months_since(1),@not_in,Status::ACTIVE],
-                           :include => ['service_type'],
-                           :group => ['service_type'])
+
+    @eventos_rojo = Event.red.group(:service_type_id).count
     
-    @eventos_amarillo = Event.count(:all,
-                    :conditions => ["dueDate > ? AND dueDate < ? and service_type_id IN (?) and status = ?", Time.now.months_since(1),
-                      Time.now.months_since(2),@not_in,Status::ACTIVE],
-                    :include => ['service_type'],
-                    :group => ['service_type'])
+    @eventos_amarillo = Event.yellow.group(:service_type_id).count
     
-    @eventos_verde = Event.count(:all,
-                     :conditions => ["dueDate > ? and service_type_id IN (?) and status = ? ", Time.now.months_since(2),@not_in,Status::ACTIVE],
-                     :include => ['service_type'],
-                     :group => ['service_type'])
+    @eventos_verde = Event.green.group(:service_type_id).count
      
     @eventos_total = Event.count(:all,
                             :conditions => ["service_type_id IN (?) and status = ?",  @not_in,Status::ACTIVE],
@@ -38,9 +29,9 @@ class ControlPanelsController < ApplicationController
     end
     
     @company_services.each do |service|
-      g_data += "{y:#{@eventos_verde[service] ? @eventos_verde[service]: 0},st:#{service.id}},"
-      y_data += "{y:#{@eventos_amarillo[service] ? @eventos_amarillo[service]: 0},st:#{service.id}},"
-      r_data += "{y:#{@eventos_rojo[service] ? @eventos_rojo[service] : 0},st:#{service.id}},"
+      g_data += "{y:#{@eventos_verde[service.id] ? @eventos_verde[service.id]: 0},st:#{service.id}},"
+      y_data += "{y:#{@eventos_amarillo[service.id] ? @eventos_amarillo[service.id]: 0},st:#{service.id}},"
+      r_data += "{y:#{@eventos_rojo[service.id] ? @eventos_rojo[service.id] : 0},st:#{service.id}},"
     end
     g_data.chop!  
     y_data.chop!

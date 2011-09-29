@@ -104,11 +104,11 @@ jQuery(document).ready( function(){
 	
 	
 	$(".pagination a").live("click",function(){
-	   var page = $.queryString(this.href).page
-     $("#page").val(page);
-     $("#service_filter_form").submit(); 
-    return false;
-  });
+	   	var page = $.queryString(this.href).page
+     	$("#page").val(page);
+     	$("#service_filter_form").submit(); 
+    	return false;
+  	});
   
   //$("#view input:checkbox").click(view);
   $("#select input:checkbox").click(select);
@@ -133,7 +133,7 @@ function view(){
 }
 
 function select(){
-   $("#select input:checkbox").each(function(){
+   
     var value = $(this).attr("value");      
     if (this.checked){
       $("#events ." + value).each(function(){        
@@ -144,8 +144,7 @@ function select(){
         $(this).find("input:checkbox").attr("checked","");
       });      
     }
-    
-  });
+      
 }
 
 

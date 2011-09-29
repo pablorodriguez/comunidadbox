@@ -10,10 +10,10 @@
       = link_to "Generado por ... #{event.service.workorder.id}", event.service.workorder      
       - if event.service_done
         %br
-        = link_to "#{Status.status(event.status)} por ... #{event.service.workorder.id}", event.service_done.workorder
+        = link_to "#{Status.status(event.status)} por ... #{event.service_done.workorder.id}", event.service_done.workorder
     .dueDate.right
       %label{:class=>"#{event_class(event)}"}
-        =event.dueDate
+        = l event.dueDate
     .km.right      
       %strong
         Km:

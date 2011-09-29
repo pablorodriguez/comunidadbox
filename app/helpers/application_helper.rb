@@ -41,7 +41,7 @@ module ApplicationHelper
   
   def brand_logo brand_name,thumb=false
     return image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name) if thumb
-    return image_tag("/images/brands/#{brand_name}.png",:size =>"100x100",:atl=>brand_name,:title =>brand_name)
+    return image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name)
     
   end
   def current_col_css(column)

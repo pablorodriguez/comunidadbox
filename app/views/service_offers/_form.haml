@@ -76,6 +76,8 @@
       Comentario
     %td{:colspan=>3}
       = f.text_area :comment, :cols => 50, :rows => 3
-= f.submit 'Grabar',:class=>"btn"
-= link_to_back
+.buttons
+  = link_to_back
+  = f.submit 'Grabar',:class=>"button"
+
 

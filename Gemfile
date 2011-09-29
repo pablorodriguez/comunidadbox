@@ -45,3 +45,4 @@ gem 'resque-scheduler'
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem 'attribute_normalizer'

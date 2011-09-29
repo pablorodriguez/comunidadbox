@@ -3,6 +3,8 @@
     = vineta 
     Modificar Empleado
   - form_for  @employee, :url => employee_path(@employee)  do |f|  
-    = render 'form',:f => f
-    = f.submit "Actualizar",:class =>"btn"
-
+    .box
+      = render 'form',:f => f
+      .buttons
+        = link_to_back employees_path
+        = f.submit "Actualizar",:class =>"button"

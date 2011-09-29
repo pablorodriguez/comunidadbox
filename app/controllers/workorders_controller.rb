@@ -124,26 +124,27 @@ class WorkordersController < ApplicationController
     cso_ids = params["cso_ids"] || []
     company_id =  current_user.company ? current_user.company.id : params[:company_id]
     respond_to do |format|
-      Workorder.transaction do
-        if @work_order.update_attributes(params[:workorder])
-          flash[:notice] = 'Orden de Trabajo actualizada'
-          
-          CarServiceOffer.update_with_services(@work_order.services,cso_ids)
-          if @work_order.finish?
-            #@work_order.generate_events
-            @work_order.regenerate_events              
-            send_notification @work_order.id          
-          end
-          format.html { redirect_to(@work_order.car)}
-          format.xml  { head :ok }
-        else
-          @car_service_offers = @work_order.find_car_service_offer(company_id)
-          @service_types = current_user.service_types
-  
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
-        end
+      
+    if @work_order.update_attributes(params[:workorder])
+      flash[:notice] = 'Orden de Trabajo actualizada'
+      
+      CarServiceOffer.update_with_services(@work_order.services,cso_ids)
+      if @work_order.finish?
+        #@work_order.generate_events
+        @work_order.reload
+        @work_order.regenerate_events              
+        send_notification @work_order.id          
       end
+      format.html { redirect_to(@work_order.car)}
+      format.xml  { head :ok }
+    else
+      @car_service_offers = @work_order.find_car_service_offer(company_id)
+      @service_types = current_user.service_types
+
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
+    end
+  
     end
   end
 
@@ -166,20 +167,19 @@ class WorkordersController < ApplicationController
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     saveAction =false
-    Workorder.transaction do
-      car = @work_order.car
-      car.company = current_user.current_company
-      car.save
-      CarServiceOffer.update_with_services(@work_order.services,cso_ids)
-      saveAction = @work_order.save
-      if @work_order.finish?
-        #@work_order.generate_events
-        @work_order.regenerate_events  
-        send_notification @work_order.id
-      end
-      
-    end
     
+    car = @work_order.car
+    car.company = current_user.current_company
+    car.save
+    CarServiceOffer.update_with_services(@work_order.services,cso_ids)
+    saveAction = @work_order.save
+    if @work_order.finish?
+      #@work_order.generate_events
+      @work_order.reload
+      @work_order.regenerate_events  
+      send_notification @work_order.id
+    end
+  
     if saveAction
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
@@ -214,7 +214,7 @@ class WorkordersController < ApplicationController
     if work_order.car.domain == "HRJ549"
       logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
       #message = WorkOrderNotifier.notify(work_order).deliver
-      Resque.enqueue WorkorderJob,work_order_id     
+      #Resque.enqueue WorkorderJob,work_order_id     
     end
     
   end

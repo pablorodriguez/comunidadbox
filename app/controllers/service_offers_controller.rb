@@ -29,8 +29,8 @@ class ServiceOffersController < ApplicationController
     end
   end
 
-  def new
-    @title ="Nueva Oferta de Servicio"
+  def new_s
+    @title ="Oferta de Servicio"
     @offer = ServiceOffer.new(params[:service_offer])
     if params[:checked_ids].nil?
       flash[:error] = 'Debe elegir al menos un automovil'
