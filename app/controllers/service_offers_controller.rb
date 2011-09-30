@@ -75,7 +75,9 @@ class ServiceOffersController < ApplicationController
       @offer.car_service_offer << car_service_offer      
     end
 
+    @cars = @offer.car_service_offer
     if @offer.save
+
       flash[:notice] = 'Se ha creado la oferta!'
       redirect_to service_offers_path
     else

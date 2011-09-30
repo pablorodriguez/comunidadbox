@@ -7,14 +7,15 @@ function checkAll(element,css){
 }
 
 function submitServiceOffer(){
-	if ($("#cars_events input:checkbox:checked").size() > 0){
-		setEventsIds();
-		$("#events_ids_chk").val($("#events_ids").val());		
+	setEventsIds();
+	$("#events_ids_chk").val($("#events_ids").val());
+
+	if ($("#events_ids_chk").val() != ""){
 		$('#service_offer_service_type_id').val($('#service_filter_service_type_id') .val());
 		$('#service_offer_form').submit();		
 	}else{
 		$('#error h2').text("Debe elegir al menos un automovil");
-		$('#error').addClass("notice").addClass("errorExplanation");
+		$('#error').addClass("errorExplanation");
 		$('#error').show();
 		return false;
 	}
