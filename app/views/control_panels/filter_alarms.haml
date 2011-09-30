@@ -10,7 +10,7 @@
   %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
   = form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
     = hidden_field_tag("page",@page)
-    = hidden_field_tag("events_ids",@events_id)
+    = hidden_field_tag("events_ids",@events_ids)
     = render "car_filters",:f=>f
 .contentright{:style=>"width:75%"}
   #cars_events
@@ -18,6 +18,7 @@
     - if @page_events.size > 0      
       = form_tag new_s_service_offers_path,{:method=>:post,:id=>:service_offer_form} do
         = hidden_field("service_offer","service_type_id")
+        = hidden_field_tag("events_ids_chk")
         #events.cars
           - @page_events.each do |event|
             .cp_event.left            
@@ -28,7 +29,7 @@
     = will_paginate @page_events,:params =>@filters_params
   #offer.buttons
     =link_to_back
-    %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta",:class=>"button"}
-    %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"btn_b hide"}
+    %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta de Servicio",:class=>"button"}
+    %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"hide"}
     
     #msg

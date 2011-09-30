@@ -1373,8 +1373,9 @@ ul.usr_menu li{
   width: 100%; 
 }
 
-.wo_detail .services{
-  max-width: 90%;
+.wo_detail .services{  
+  margin: 2px 0px;
+  float:left;
 }
 
 .wo_detail .performed{
@@ -1386,9 +1387,9 @@ ul.usr_menu li{
 }
 
 .wo_detail .actions{
-  float: right;
+  float: right;  
   text-align:right;
-  width:50px;
+  width:70px;
 }
 
 .client .actions{
@@ -1436,7 +1437,7 @@ ul.usr_menu li{
   font-size: 20px;
   font-weight: bold;
   float: left;
-  margin: -2px 5px 5px 5px;
+  margin: 2px 5px 2px 0px;
 }
 
 .price{
@@ -1449,6 +1450,9 @@ ul.usr_menu li{
   font-size: 20px;
   font-weight: bold;
   color: black;
+  margin: 2px 5px;
+  text-align:right;
+  width:120px;
 }
 
 .line{
@@ -1457,15 +1461,15 @@ ul.usr_menu li{
 
 .wo_detail .company{
   float: left;  
-  width: 68%;
-  margin-top:4px;
+  width: 100%;
+  margin:2px 4px;
 }
 
 .wo_detail .rank{
   float: left;
   clear: both;
   width: 100%;
-  margin: 0px 2px 4px 2px;
+  margin: 2px 0px;
 }
 
 .service_status a{
@@ -1480,17 +1484,20 @@ ul.usr_menu li{
   float: left;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
-  min-width:180px;
+  min-width:150px;
+  min-height:36px;
 }
 
 .service .operator{
   font-size: 11px;
-  text-align: right;
+  float:left;
+  clear:both;  
 }
 
 .service a{
   text-decoration: none;
   margin-left: 3px;
+  float:left;
 }
 
 .services ul{
@@ -1499,7 +1506,7 @@ ul.usr_menu li{
 }
 
 .services{
-  max-width: 80%;
+  max-width: 88%;
   float: left;
   overflow: auto;
 }
@@ -1809,7 +1816,7 @@ dl {
 }
 
 .buttons{
-  width:80%;
+  width:100%;
   float:left;
 }
 .buttons a.button{
@@ -1833,4 +1840,17 @@ dl {
 
 .select_event .color{
   margin:3px;
+}
+
+.contentright .ui-widget-content {
+  background: url("") repeat-x scroll 50% 50% #FFFFFF;
+  border: 0px solid #AAAAAA;
+  color: #222222;
+}
+
+.contentright .ui-widget-header {   
+  background: url("") repeat-x scroll 50% 50% #FFFFFF;    
+  border: 0px solid #929090;
+  color: #222222;
+  font-weight: bold;
 }

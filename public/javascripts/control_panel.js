@@ -8,6 +8,8 @@ function checkAll(element,css){
 
 function submitServiceOffer(){
 	if ($("#cars_events input:checkbox:checked").size() > 0){
+		setEventsIds();
+		$("#events_ids_chk").val($("#events_ids").val());		
 		$('#service_offer_service_type_id').val($('#service_filter_service_type_id') .val());
 		$('#service_offer_form').submit();		
 	}else{
@@ -105,15 +107,53 @@ jQuery(document).ready( function(){
 	
 	$(".pagination a").live("click",function(){
 	   	var page = $.queryString(this.href).page
+	   	var eventIds = "";
+	   	setEventsIds();
+	   	
      	$("#page").val(page);
      	$("#service_filter_form").submit(); 
     	return false;
   	});
+
+	checkEventsIds();
   
   //$("#view input:checkbox").click(view);
   $("#select input:checkbox").click(select);
    
 });
+
+function checkEventsIds(){
+  //Si hay datos en events id, busco los checkbox y los selecciono
+  var events_ids = $("#events_ids").val();
+  var remove_ids ="";
+  if (events_ids != ""){
+  	var ids = events_ids.substr(1,events_ids.length).split("#");
+  	for(var x=0,n = ids.length;x < n;x++){
+  		var checkbox = $("#events input:checkbox[value='" + ids[x] + "']");
+  		if (checkbox.size() > 0){
+  			checkbox.attr("checked","checked");
+  			remove_ids += "#" + ids[x];
+  		}
+  	}
+  	if (remove_ids != ""){
+  		$("#events_ids").val(events_ids.replace(remove_ids,""));
+  	}
+  	
+  }
+	
+}
+
+function setEventsIds(){
+	var eventIds ="";
+	$("#events input:checked").each(function(){
+	   		eventIds += "#" + $(this).val();
+	});
+	var history_ids =  $("#events_ids").val();
+   	if (eventIds != "") {
+   		$("#events_ids").val(history_ids + eventIds);
+   		console.debug( "Envio estos ids " + $("#events_ids").val());
+   	}	
+}
 
 function view(){
   $("#view input:checkbox").each(function(){

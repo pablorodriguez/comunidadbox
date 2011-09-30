@@ -62,6 +62,7 @@ class ControlPanelsController < ApplicationController
     @filters = ServiceFilter.find(:all,:order => :name)
     
     #search all event type (et = event type)
+    @events_ids = params[:events_ids] || ""
     @event_types = {}    
     @event_types={:red =>:red,:yellow =>:yellow,:green =>:gree} if params[:et] == "all"        
     @event_types[:red] = :red if params[:red]
@@ -103,7 +104,7 @@ class ControlPanelsController < ApplicationController
     per_page=84
     
     @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
-    logger.info "### salio"
+    logger.info "### salio Eventos IDS #{@events_ids}"
     
   end
   

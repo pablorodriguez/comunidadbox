@@ -102,20 +102,16 @@ jQuery(document).ready( function(){
 	    $("#comment").val("");
 	    $("#comment").val(comment.val());
 	  },
-	  close: function(event, ui) {
-	    comment.val($("#comment").val());
+	});
+
+	$("#save_comment").click(function(){
+		comment.val($("#comment").val());
 	    if (comment.val() != ""){
 	      comment.parent().prev().toggleClass("add_comment edit_comment").attr("title","Agregar Comentario");
 	    }else{
 	      comment.parent().prev().toggleClass("edit_comment add_comment").attr("title","Modificar Comentario"); 
 	    }
-	    
-	  },
-	  buttons: [{
-          text: "Grabar",
-          click: function() { $(this).dialog("close"); }
-          }
-        ]
+	    commentDialog.dialog("close");
 	});
 	
 	$(".pagination a").live("click",function(){

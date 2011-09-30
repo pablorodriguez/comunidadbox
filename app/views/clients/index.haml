@@ -8,8 +8,10 @@
     .contentleft
       = render "search_cars"
     .contentleft
-      - if current_user.company_id
-        = button_to "Nuevo cliente", new_client_path,{:method =>:get,:class =>"btn_b"}
-      = link_to_back root_path
+      .buttons
+        = link_to_back root_path
+        - if current_user.company_id
+          = link_to "Nuevo cliente", new_client_path,{:class =>"button"}
+      
   #data.contentright
     = render "clients"

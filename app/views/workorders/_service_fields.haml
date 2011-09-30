@@ -17,9 +17,9 @@
             = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
             .left
               - if f.object.comment
-                %a{:class=>"add_comment comment link",:title=>"Modificar Comentario"}
+                %a{:class=>"edit_comment comment link",:title=>"Modificar Comentario"}
               - unless f.object.comment
-                %a{:class=>"edit_comment comment link",:title=>"Agregar Comentario"}              
+                %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}              
                 -#= link_to_function(image_tag('add_comment.png',{:class =>"input_img",:title=>"Agregar comentario"}), "",{:class =>:comments})   
               .hide
                 = f.text_area :comment, :rows => 3,:cols=>"30",:class=>"comment"

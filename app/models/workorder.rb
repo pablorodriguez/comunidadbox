@@ -1,7 +1,6 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
-  normalize_attributes :comment
     
   has_many :services, :dependent => :destroy
   belongs_to :car
@@ -15,7 +14,9 @@ class Workorder < ActiveRecord::Base
   
   before_save :set_status
   after_initialize :init
-  
+
+  normalize_attributes :comment
+
   def type(type)
     ranks.select{|r| r.type_rank == type}.first
   end

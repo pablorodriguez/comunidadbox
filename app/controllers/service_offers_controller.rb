@@ -32,14 +32,19 @@ class ServiceOffersController < ApplicationController
   def new_s
     @title ="Oferta de Servicio"
     @offer = ServiceOffer.new(params[:service_offer])
+    @events_ids = params[:events_ids_chk] || []
+    @events_ids.slice!(0) if @events_ids
+    @events_ids = @events_ids.split("#")
+
     if params[:checked_ids].nil?
       flash[:error] = 'Debe elegir al menos un automovil'
       redirect_to :back
     else
       @offer.car_service_offer = Set.new
-      params[:checked_ids].each do |car_id|
+      logger.debug "### Cars IDS #{@events_ids}"
+      @events_ids.each do |car_id|
         car_service_offer = CarServiceOffer.new
-        car_service_offer.car = Car.find(car_id)
+        car_service_offer.car_id = car_id
         car_service_offer.service_offer = @offer
         @offer.car_service_offer << car_service_offer
       end

@@ -13,6 +13,8 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :car_service_offer
   accepts_nested_attributes_for :service_type
   
+  normalize_attributes :comment
+  
   def total_price
     m_total_price=0
     if car_service_offer

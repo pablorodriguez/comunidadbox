@@ -1,8 +1,8 @@
 .wo_detail.row  
   - can_show = work_order_row.can_show?(current_user)            
-  .domain.clear
-    = link_to work_order_row.car.domain, work_order_row.car
   .company
+    .domain
+      = link_to work_order_row.car.domain, work_order_row.car
     .left
       - if can_show
         %strong
@@ -10,20 +10,20 @@
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
+    .right    
+      - if can_show
+        .price_b
+          = number_to_currency work_order_row.total_price
     .right
       = l work_order_row.performed
-  .right    
-    - if can_show
-      .price_b
-        = number_to_currency work_order_row.total_price
   #rank.rank{:id =>"wo_#{work_order_row.id}"}
     - if can_show
       = render 'ranks/rank',:workorder => work_order_row
   .services
     - work_order_row.services.each do |s|
-      .service     
-        .left
-          - unless s.comment.empty?
+      .service             
+        - if s.comment
+          .left
             %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
         = link_to s.service_type.name ,work_order_row
         .operator
