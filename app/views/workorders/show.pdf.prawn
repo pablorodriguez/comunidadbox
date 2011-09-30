@@ -74,7 +74,7 @@ pdf.move_down(5)
 		
 	pdf.move_down(10)
 	
-	unless service.comment.empty?
+	unless service.comment
 	 pdf.text "Comentarios: #{service.comment}",:size=>fs
 	end
 	  
