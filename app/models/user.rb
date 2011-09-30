@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   end
   
   def own_car car
-    cars.select{|c| c.id = car.id}.size > 0
+    cars.select{|c| c.id == car.id}.size > 0
   end
   
   def employees
