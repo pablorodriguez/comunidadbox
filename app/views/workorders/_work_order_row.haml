@@ -8,11 +8,12 @@
         %strong
           Vendedor:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
+        %br
+        %strong
+          Cliente:
+        = "#{work_order_row.car.user.first_name} #{work_order_row.car.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
-      .left.clear
-        = work_order_row.car.user.first_name
-        = work_order_row.car.user.last_name
     .right
       = l work_order_row.performed
   - if can_show
