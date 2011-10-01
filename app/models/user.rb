@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   
   def belongs_to_company comp
     if (self.companies.size > 0)
-        return self.companies.elect{|c| c.id == comp.id}.size > 0
+        return self.companies.select{|c| c.id == comp.id}.size > 0
     end
 
     return (self.company.id == comp.id)
