@@ -23,11 +23,11 @@
       Operario:
       %strong
         = @event.service.workorder.user.full_name
-    -if @event.service.workorder.operator
+    -if @event.service.workorder.user
       %label.left.clear
         Usuario:
         %strong
-          = @event.service.workorder.operator.full_name
+          = @event.service.workorder.user.full_name
   .event_detail.service_event.left
     %label.left.clear
       Evento:
@@ -41,7 +41,7 @@
     %label.left.clear
       Estado:
       = icon_status @event.status  
-  -if @event.service_done.workorder.id
+  -if @event.service_done
     .service_event.right  
       Servicio Cancelado
       = @event.service_done.workorder.id

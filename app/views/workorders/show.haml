@@ -2,4 +2,6 @@
   %h1
     = vineta
     Orden de Trabajo 
-  = render "show"       
+  - can_show = @work_order.can_show? current_user
+  = render "show" if can_show
+  = render "s_show" unless can_show

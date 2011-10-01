@@ -41,6 +41,14 @@ class User < ActiveRecord::Base
     NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
   end
   
+  def belongs_to_company comp
+    if (self.companies.size > 0)
+        return self.companies.elect{|c| c.id == comp.id}.size > 0
+    end
+
+    return (self.company.id == comp.id)
+    
+  end
   
   def current_company
     return company if company

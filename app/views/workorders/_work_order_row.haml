@@ -3,19 +3,23 @@
   .company
     .domain
       = link_to work_order_row.car.domain, work_order_row.car
-    .left
-      - if can_show
+    - if can_show
+      .left
         %strong
           Vendedor:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
-    .right    
-      - if can_show
-        .price_b
-          = number_to_currency work_order_row.total_price
+      .left.clear
+        = work_order_row.car.user.first_name
+        = work_order_row.car.user.last_name
     .right
       = l work_order_row.performed
+  - if can_show
+    .right          
+      .price_b
+        = number_to_currency work_order_row.total_price
+
   #rank.rank{:id =>"wo_#{work_order_row.id}"}
     - if can_show
       = render 'ranks/rank',:workorder => work_order_row

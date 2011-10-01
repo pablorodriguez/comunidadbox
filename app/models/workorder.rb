@@ -162,6 +162,7 @@ class Workorder < ActiveRecord::Base
   def can_show?(user)
     return true if user.own_car(self.car)
     return true if (self.user == user)
+    return true if user.belongs_to_company(company)
     return false
   end
   
