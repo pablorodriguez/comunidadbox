@@ -1397,7 +1397,7 @@ ul.usr_menu li{
 .wo_detail .actions{
   float: right;  
   text-align:right;
-  width:70px;
+  width:45px;
 }
 
 .actions ul li{
@@ -1648,7 +1648,7 @@ dl {
   background: url(/images/pdf.png) no-repeat scroll;
   height: 21px;
   width: 21px;
-  float:left3; 
+  float:left; 
 }
 
 #company-selector{
