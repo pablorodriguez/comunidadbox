@@ -22,35 +22,37 @@ class WorkordersController < ApplicationController
   
   def index
     page = params[:page] || 1
-    if current_user.company
-      @company_services = current_user.company.service_type
-    else
-      @company_services = current_user.service_types
-    end
+
+    @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
     
     per_page = 8
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
-    
-    @filters_params ={}
-    
-    @filters_params[:date_from] = params[:date_from] if (params[:date_from] && (!params[:date_from].empty?))        
-    @filters_params[:date_to] = params[:date_to] if (params[:date_to] && (!params[:date_to].empty?))
-    @filters_params[:domain] = params[:domain] || ""
-    @filters_params[:service_type_ids] = params["service_type_ids"] if (params["service_type_ids"] && !(params["service_type_ids"].empty?))
-    @filters_params[:wo_status_id] = params[:wo_status_id] if (params[:wo_status_id] && !(params[:wo_status_id].empty?))
+    @service_type_ids =  params["service_type_ids"] || []
+    @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?)
+    logger.debug "### Service Type IDS #{@service_type_ids} Status ID #{@wo_status_id}"
+    filters_params ={}
+    @date_f = params[:date_from]
+    @date_t =params[:date_to]
+    @domain = params[:domain] || ""
 
+    filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
+    filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
+    filters_params[:domain] = @domain
+    filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
+    filters_params[:wo_status_id] = @status_id if @status_id
+    filters_params[:company_id] = current_user.company.id if current_user.company
 #   @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain,:service_type_id => service_type_id ,:user => current_user,:wo_status_id => wo_status_id}
         
-    @filters = @filters_params.clone()
+    #@filters = @filters_params.clone()
 
-    @filters_params[:user] = current_user
+    filters_params[:user] = current_user
         
-    @workorders = Workorder.find_by_params(@filters_params)
+    @workorders = Workorder.find_by_params(filters_params)
     
-    @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(@filters_params))
-    amt = Workorder.group_by_service_type(@filters_params,false)
+    @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters_params))
+    amt = Workorder.group_by_service_type(filters_params,false)
     @amt_data = Workorder.build_graph_data(amt)
     
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)

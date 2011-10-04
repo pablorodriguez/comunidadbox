@@ -1,6 +1,7 @@
 #msgs
-  - if flash.size > 0
-    #default.errorExplanation.notice
-      - flash.each do |key,msg|
-        %h2 
-          = msg
+  - if flash.notice
+    .notice
+      %h2= flash.notice
+  -if flash.alert
+    .alert
+      %h2= flash.alert    

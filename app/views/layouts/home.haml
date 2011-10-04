@@ -15,8 +15,8 @@
   %body
     #header
       #logo
-        #logologo
-          %img{:align => "middle", :alt => "logo", :height => "84", :src => "images/logo.png", :width => "246"}/
+        #logologo          
+          = link_to image_tag("logo.png"),root_path
           = render "layouts/logininfo"
     = render "layouts/n_menu"
     #content

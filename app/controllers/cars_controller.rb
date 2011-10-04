@@ -77,21 +77,22 @@ class CarsController < ApplicationController
     @car_id = params[:id]
     page = params[:page] || 1
     data = params[:d] || "all"
-    @filters_params ={}
+    filters ={}
     respond_to do |format|
+
       if data == "all"
         @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
           .paginate(:per_page=>5,:page =>page)
-        
-        @filters_params[:domain] = @car.domain
-        @filters_params[:user] = current_user
-        @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(@filters_params))
+        filters[:domain] = @car.domain
+        filters[:user] = current_user
+        #filters[:company_id] = current_user.company.id if current_user.company
+        @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
         @companies = Company.best current_user.state 
         
         @events = @car.future_events.paginate(:per_page=>10,:page =>page)
         @wo_pages = {:d=>"wo"}
         @e_pages = {:d=>"e"}
-        logger.debug  "### Events #{@events.size}"
+        logger.debug  "### Events #{@events.size} #{@price_data} "
         format.html # show.html.erb
         format.js { render "all",:layout => false} 
       end

@@ -210,8 +210,8 @@ class Workorder < ActiveRecord::Base
     data_str.chop
   end
   
-  def self.group_by_service_type(filters,price=true)
-    wo = self.find_by_params(filters)
+  def self.group_by_service_type(params,price=true)
+    wo = self.find_by_params(params)
     wo = wo.group("services.service_type_id")
     if price
       wo = wo.sum("amount * price")
@@ -224,7 +224,7 @@ class Workorder < ActiveRecord::Base
   def self.find_by_params(filters)
     
     domain =  filters[:domain] || ""
-    logger.debug "### Filters #{filters}"
+    
     
     workorders= Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
     workorders =workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
@@ -234,16 +234,16 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("performed <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
     workorders = workorders.where("performed >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
-    if filters[:user].company
-      workorders = workorders.where("workorders.company_id = ?",filters[:user].company.id)
+    if filters[:company_id]
+      workorders = workorders.where("workorders.company_id = ?",filters[:company_id])
     else
-      workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
+      #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     end
 
     workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
     
     workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
-    
+    logger.debug "### Filters SQL #{workorders.to_sql}"
     workorders
   end
   

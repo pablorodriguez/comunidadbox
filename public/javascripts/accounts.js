@@ -8,7 +8,12 @@ jQuery(document).ready(function(){
 	$(".usr_menu_link").click(changeAccountTabs);
 	$("input[type=radio]").change(updateAccountUserType);
 	updateAccountUserType();
+
 });
+
+var RecaptchaOptions = {
+    	theme : 'clean'
+};
 
 function updateAccountUserType(){
   var id = $("input[name='user[type]']:checked").val();

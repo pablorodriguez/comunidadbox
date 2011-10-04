@@ -1,20 +1,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   
   def new
-    @user = User.new
-    @user.type ="fu"
-    resource.address = Address.new if resource.address.nil?
-    resource.cars.build if resource.cars.empty?
-    @company = resource.companies.build
-    @company.build_address if @company.address.nil?
+    build_resource({})
+    resource.type ="fu"
+    set_default_data resource
   end
   
-  def edit    
-    resource.build_address if resource.address.nil?
+  def edit
+    resource.build_address unless resource.address
     unless resource.company
-      @company = resource.companies.build
-      @company.active=1
-      @company.build_address if @company.address.nil?
+      company = resource.companies.build
+      company.active=1
+      company.build_address unless company.address
     end
     
   end
@@ -48,33 +45,45 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   def create
-    @user = User.new(params[:user])
-    @user.type = params[:user][:type]
+    build_resource
+    resource.type = params[:user][:type]    
     
-    @user.companies @user.type == "fs"
-    
-    if @user.companies.size > 0
-       @user.companies[0].active=1
-       @user.roles << Role.find_by_name(Role::ADMINISTRATOR) 
+    if resource.companies.size > 0
+       resource.companies[0].active=1
+       resource.roles << Role.find_by_name(Role::ADMINISTRATOR) 
     end
-    
-    if @user.save
-        flash[:notice] = "Cliente creado exitosamente"
-        if (@user.current_company &&  (!@user.is_employee))
-          PriceList.copy_default(@user.current_company.id)
-        end
-        redirect_to new_user_session_path
-    else
-      @user.cars.build if @user.cars.size == 0
-      @user.build_address unless @user.address
-      @user.companies.build unless @user.companies
-      
-      if @user.companies.size == 0
-        @company = @user.companies.build
-        @company.build_address if @company.address.nil?
+        
+    if verify_recaptcha  
+      if resource.save
+          flash[:notice] = "Cliente creado exitosamente"
+          if (resource.current_company &&  (!resource.is_employee))
+            PriceList.copy_default(resource.current_company.id)
+          end
+          redirect_to new_user_session_path
+      else
+        set_default_data resource
+        render :action => 'new'
       end
-      render :action => 'new'
+    else 
+      set_default_data resource     
+      flash.delete(:recaptcha_error)
+      flash.now.alert = "Hubo un error en la validacion del codigo de reCaptcha. Por favor ingreselo nuevamente."
+      render_with_scope :new
+    end
+   
+  end
+
+  private
+
+  #Set User entity with default data
+  def set_default_data user
+    user.cars.build if user.cars.empty?
+    user.build_address unless user.address
+    user.companies.build unless user.companies
+    
+    if user.companies.empty?
+      company = user.companies.build
+      company.build_address if company.address.nil?
     end
   end
-  
 end

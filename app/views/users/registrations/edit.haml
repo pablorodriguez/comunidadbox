@@ -49,16 +49,7 @@
           #d_address_sc.company_address
             = c.fields_for :address do |ad|
               = render 'companies/company_address_fields', :ad => ad
-    #box
-      = f.submit "Actualizar",:class =>"btn"
-    .clear
-      %table
-        %tr
-          %td
-            Insatisfecho ?
-        %tr
-          %td
-            #{link_to "Cancelar mi cuenta", registration_path(resource_name), :confirm => "Esta Uds. seguro?", :method => :delete}. 
-        %tr
-          %td    
-            = render :partial => "devise/shared/links"
+    .buttons
+      = link_to_back root_path
+      = f.submit "Actualizar",:class =>"button"
+      = link_to "Cancelar mi cuenta", registration_path(resource_name), :confirm => "Esta Uds. seguro?", :method => :delete,:class=>:button

@@ -28,15 +28,16 @@
             %ul
               -@company_services.each do |service|
                 %li
-                  = check_box_tag 'service_type_ids[]', service.id,checked=false,:class=>:checkbox,:id=>"service_type_#{service.id}"
+                  = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>:checkbox,:id=>"service_type_#{service.id}"
                   %label.link{:for=>"service_type_#{service.id}"}
                     =service.name
           -#= collection_select(:service_type, :id, @company_services, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
       %tr
-        %td Estado
+        %td 
+          Estado
       %tr
         %td
-          = select_tag(:wo_status_id,options_for_select(Status::WO_STATUS.collect{|v,k| [k,v]}),{:selected =>@status_id,:include_blank =>:true})
+          = select_tag(:wo_status_id,options_for_select(Status::WO_STATUS.collect{|v,k| [k,v]},@status_id),{:include_blank =>:true})
           = image_submit_tag("find.png",:class =>"input_img")          
           
 

@@ -1163,13 +1163,21 @@ td.number, th.number{
   vertical-align: middle;
 }
 
-.errorExplanation, .alert{
+.alert{
   background-color: #FFAFAF;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DF0000;
-  margin: 0px 2px 10px 4px;
+  margin: 5px;
+  padding: 5px;
+  width: auto;
+}
+
+.notice h2, .alert h2{
+  color: black;
+  font-weight:bold;
+  margin:5px;
 }
 
 .notice{
@@ -1390,6 +1398,10 @@ ul.usr_menu li{
   float: right;  
   text-align:right;
   width:70px;
+}
+
+.actions ul li{
+  float: left;
 }
 
 .client .actions{
@@ -1616,6 +1628,27 @@ dl {
   height: 21px;
   width: 21px;
   float:left;
+}
+
+.edit2{
+  background: url(/images/edit.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float:left3;
+}
+
+.delete2{
+  background: url(/images/delete.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float:left3;
+}
+
+.pdf{
+  background: url(/images/pdf.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float:left3; 
 }
 
 #company-selector{
