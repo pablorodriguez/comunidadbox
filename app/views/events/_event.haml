@@ -1,11 +1,16 @@
 %div{:class=>"#{my_event_class(event)}"}
-  -unless event.is_green
-    .right
-      = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
-  .link.small_event
+  - oe = @other_events[event.car_id]
+  - css = oe ? "other_event qtip":""
+  .small_event
+    -unless event.is_green
+      .right
+        = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
     .left.domain
-      =event.car.domain
-    .left.clear
+      %div{:class=>css}
+        - st = create_service_type_tool_tip oe
+        %label{:title =>"#{st}"}
+          = link_to event.car.domain, event.car
+    .left.clear.link.due_date{:title =>"Mas Detalle"}
       = l event.dueDate
 
 %div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
@@ -23,9 +28,9 @@
       = event.car.kmAverageMonthly
   .left.clear{:title=>"Fecha a Realizar"}
     = l event.dueDate
-  %strong.left.clear{:title=>"Improte gastado en tu empresa"}
+  %strong.left.clear{:title=>"Importe gastado en tu empresa"}
     = number_to_currency(event.car.total_spend(current_user.current_company.id,event.service_type.id))
-  .right{:title=>"Improte gastado en total"}
+  .right{:title=>"Importe gastado en total"}
     = number_to_currency(event.car.total_spend(nil,event.service_type.id))
   -if event.service.workorder.company.id == current_user.company.id
     .left.clear

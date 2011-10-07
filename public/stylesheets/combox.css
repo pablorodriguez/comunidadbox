@@ -1678,40 +1678,50 @@ dl {
   overflow: auto;
 }
 
+.select_event .rojo, .select_event .amarillo, .select_event .verde, .select_event .mi_rojo, .select_event .mi_amarillo{
+  height:20px;  
+}
+
 .rojo{
   border: 1px solid red;
   background-color: #FF9999;
   overflow: auto;
+  height:50px;
 }
 
 .mi_rojo{
   border: 1px solid red;
   background-color: #F77979;
   overflow: auto;
+  height:50px;
 }
 
 .amarillo{
   background-color:#FFFFA0;
   border: 1px solid #FF8057 ;
   overflow: auto;
+  height:50px;
 }
 
 .mi_amarillo{
   background-color:#F7F774;
   border: 1px solid #FF8057 ;
   overflow: auto;
+  height:50px;
 }
 
 .verde{
   background-color:#A0FFA0 ;
   border: 1px solid green;
   overflow: auto;
+  height:50px;
 }
 
 .mi_verde{
   background-color:#69F469 ;
   border: 1px solid green;
   overflow: auto;
+  height:50px;
 }
 
 .dueDate label{
@@ -1760,10 +1770,25 @@ dl {
 .cars{
   float: left;
 }
+
+.cars a{
+  color:black;
+  text-decoration:none;
+}
+
 .small_event{
   height: 40px;
   padding: 2px 2px;
-  width: 86px;
+  width: 100px;
+}
+
+.other_event{
+  background-color: #99D9FF;
+  border-color: black;
+  border-style: outset;
+  border-width: 1px;
+  padding: 0 2px;
+  z-index:1000;
 }
 
 .small_event .domain, .my_big_event .domain, .big_event .domain{
@@ -1777,6 +1802,10 @@ dl {
 .big_event{
   width: 160px;
   height:110px;
+  border-radius:5px;
+  box-shadow: 10px 10px 5px #888;
+  -moz-box-shadow: 10px 10px 5px #888;
+  -webkit-box-shadow: 10px 10px 5px #888;
   position:absolute;
   display:none;
   padding: 3px;
@@ -1833,6 +1862,7 @@ dl {
 
 .cp_event{
   margin: 1px;
+  width:110px;
 }
 
 .link {

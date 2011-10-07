@@ -101,7 +101,7 @@ jQuery(document).ready( function(){
 		$('#filter_label').hide();		
 	}
 	
-	$("#events").delegate(".small_event","click",showBigEvent);
+	$("#events").delegate(".due_date","click",showBigEvent);
 	$("#events").delegate(".big_event","click",hideBigEvent);
 	$("#events").delegate(".my_big_event","click",hideBigEvent);
 	
@@ -196,7 +196,7 @@ function hideBigEvent(){
 function showBigEvent(){
   var top =$(this).offset().top -30;
   var left = $(this).offset().left -30;
-  $(this).parent().next().offset({top:top,left:left}).fadeIn();
+  $(this).parent().parent().next().offset({top:top,left:left}).fadeIn();
 }
 
 function toggleSearchFilter(){

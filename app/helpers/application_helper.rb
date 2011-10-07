@@ -204,4 +204,16 @@ module ApplicationHelper
     model
   end
 
+  def create_service_type_tool_tip oe    
+    st=""
+    if (oe && oe.respond_to?(:length))
+      st = ServiceType.find(oe).map(&:name).join(",")
+    elsif oe      
+      st = ServiceType.find(oe).name
+    end
+    logger.debug "### search id #{oe} #{st}"
+    return st
+  end
+   
+
 end

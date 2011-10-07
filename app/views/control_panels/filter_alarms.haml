@@ -1,5 +1,6 @@
 - javascript 'control_panel'
 - javascript 'jquery.ba-url.min'
+- javascript 'jquery.qtip.min'
 
 #error{:style=>"display:none"}
   %h2
@@ -14,14 +15,16 @@
     = render "car_filters",:f=>f
 .contentright{:style=>"width:75%"}
   #cars_events
-    %h1 Listado de Autos  
+    %h1
+      Listado de Autos  
+      = "[#{@events_count}]"
     - if @page_events.size > 0      
       = form_tag new_s_service_offers_path,{:method=>:post,:id=>:service_offer_form} do
         = hidden_field("service_offer","service_type_id")
         = hidden_field_tag("events_ids_chk")
         #events.cars
           - @page_events.each do |event|
-            .cp_event.left            
+            .cp_event.left
               = render event
     - if @page_events.size == 0
       = render(:partial=>'shared/message',:locals =>{:msg =>"No se encontraron eventos."})
