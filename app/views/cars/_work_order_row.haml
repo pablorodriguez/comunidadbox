@@ -33,19 +33,29 @@
             %label
               = "#{s.operator.first_name} #{s.operator.last_name}"
   .actions
-    %ul
-      - if work_order_row.comment
-        %li
-          %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
-      - if can_show     
-        - if work_order_row.can_edit?(current_user)
-          %li
-            = link_to("",edit_workorder_path(work_order_row),:title =>"Modificar",:class=>:edit2)
-          %li
-            = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>:delete2    
-        %li
-          = link_to_pdf work_order_row unless current_user.company
-          = print_to_pdf work_order_row if current_user.company              
-        %li
-          = icon_status work_order_row.status
+    - if work_order_row.comment
+      .action
+        %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
+    - if can_show     
+      - if work_order_row.can_edit?(current_user)
+        .action
+          = link_to("",edit_workorder_path(work_order_row),:title =>"Modificar",:class=>:edit2)
+        .action
+          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>:delete2    
+      .action
+        = link_to_pdf work_order_row unless current_user.company
+      .action
+        = print_to_pdf work_order_row if current_user.company              
+      .action
+        = icon_status work_order_row.status
+      .action
+        = link_to_function "","new_note(this)",:class=>:new_note_link,:title=>"Crear una nota"
+      .action
+        = link_to_function "","show_notes(this)",:class =>:notes_link,:title=>"Ver notas"  
+
+  %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
+    .new_note.hide
+      = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}
+    %div{:id=>"notes-#{work_order_row.id}",:class=>"notes hide"}      
+      = render :partial =>'notes/notes_small_view',:collection => work_order_row.notes,:as=>:note
     

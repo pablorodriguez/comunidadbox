@@ -14,5 +14,6 @@
             %h1 Dirección
         = f.fields_for :address do |a|
           = render 'company_address_fields', :ad => a
-    = f.submit "Actualizar",:class=>"btn" 
-    = link_to_back companies_path
+    .buttons    
+      = link_to_back companies_path
+      = f.submit "Actualizar",:class=>"button" 

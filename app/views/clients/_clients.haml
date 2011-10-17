@@ -1,34 +1,35 @@
 %h1 Listado de Clientes
-%table.comboxtable
-  %thead
-    %tr
-      %th{:width=>"50%"} Cliente
-      %th{:width=>"50%"} Auto
-  - for client in @clients
-    %tr
-      %td.top
-        .client_car
-          .actions
-            = link_to image_tag("edit.png"),edit_client_path(client),{:title=>"Modificar"} if client.confirmed_at.nil?
-            = link_to image_tag('new.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
-          = client.full_name
-          %br
-          =link_to h(client.email), user_path(client)
-      %td.top
-        - client.cars.each_with_index do |car,index|
-          - if client.cars.size  > 1 && index > 0
-            .line
-          .client_car
-            .logo
-              = brand_logo car.brand.name,true
-            .detail
-              = link_to h(car.domain),car
-              %strong
+.row
+- for client in @clients
+  .client_car.row
+    .client
+      %strong
+        = link_to h(client.full_name), user_path(client),:title=>"Ver"
+      = client.email
+      %strong
+        = client.phone
+      .actions
+        .action
+          = link_to image_tag("edit.png"),edit_client_path(client),{:title=>"Modificar"} if client.confirmed_at.nil?
+        .action
+          = link_to image_tag('new.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
+
+    - client.cars.each_with_index do |car,index|
+      .client_car.note
+        .logo
+          = brand_logo car.brand.name,true
+        .detail
+          .domain
+            = link_to h(car.domain),car
+          .clear
+            %strong
               = car.brand.name
               = car.model.name
               = car.year
-            .actions
-              = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)
-              = link_to image_tag('new.png'), new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio"}
+        .actions
+          .action
+            = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)
+          .action
+            = link_to image_tag('new.png'), new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio"}
    
 = will_paginate @clients

@@ -31,6 +31,9 @@ jQuery(document).ready( function(){
   });
   
   $("#workorder_tabs").tabs();
+  $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
+  $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
+  
   
 });
 
@@ -52,4 +55,12 @@ function submitForm(sort_column,direction){
 	$("#sort").val(sort_column);
 	$("#direction").val(direction);
 	$("#filter").submit();
+}
+
+function show_notes(element){
+  $(element).parent().parent().parent().find(".notes").slideToggle();
+}
+
+function new_note(element){
+  $(element).parent().parent().parent().find(".new_note").slideToggle();
 }

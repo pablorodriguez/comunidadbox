@@ -1,39 +1,35 @@
 %h1
-  Listado de Automóviles 
-%table.comboxtable
-  %thead
-    %tr
-      %th Dominio
-      %th Auto
-  %tbody
-    - for car in cars
-      %tr
-        %td
-          = link_to h(car.domain),car
-        %td
-          .car
-            .logo
-              = brand_logo car.brand.name,true
-            .detail  
-              .name                               
-                = h car.brand.name
-                = h car.model.name
-                %strong
-                  Modelo:
-                = h car.year
-              .km
-                %strong
-                  Km:
-                = h car.km
-                %strong
-                  Km Promedio Mensual:
-                = h car.kmAverageMonthly
-            .actions
-              = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)
-              - if current_user.company
-                = link_to image_tag('new.png'), new_workorder_path(:company_id=>@company_id,:car_id =>car),{:title=>"Nuevo Servicio"}
-              - unless current_user.company
-                = link_to_function image_tag('new.png'),"createNewService(#{car.id})",{:title=>"Nuevo Servicio"}
+  Listado de Automóviles
+.row  
+- for car in cars
+  .car.row
+    .logo
+      = brand_logo car.brand.name,true
+    .domain
+      = link_to h(car.domain),car
+    .detail  
+      .name                               
+        = h car.brand.name
+        = h car.model.name
+        %strong
+          Modelo:
+        = h car.year
+      .km
+        %strong
+          Km:
+        = h car.km
+        %strong
+          Km Promedio Mensual:
+        = h car.kmAverageMonthly
+    .actions
+      .action
+        = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)
+      - if current_user.company
+        .action
+          = link_to image_tag('new.png'), new_workorder_path(:company_id=>@company_id,:car_id =>car),{:title=>"Nuevo Servicio"}
+      - unless current_user.company
+        .action
+          = link_to_function image_tag('new.png'),"createNewService(#{car.id})",{:title=>"Nuevo Servicio"}
             
 
 = will_paginate cars

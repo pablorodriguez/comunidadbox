@@ -491,8 +491,7 @@ margin:0px;
 select{
   height:30px;
   width:175px;
-  padding: 5px;
-  margin: 0px 3px;
+  padding: 5px;  
 }
 
 input{
@@ -503,6 +502,9 @@ input{
   width:100px;
 }
 
+.input_date{
+  width:70px; 
+}
 
 .input_medium{
   width: 250px;
@@ -1145,6 +1147,10 @@ td.number, th.number{
   border: 1px outset #AFAFAF;
 }
 
+.service_type select{
+  margin:0px 3px;
+}
+
 .comments{
   width: 24px;
   height: 24px;
@@ -1395,16 +1401,15 @@ ul.usr_menu li{
 }
 
 .wo_detail .actions{
-  float: right;  
-  text-align:right;
+  float: right;    
   width:45px;
 }
-
-.actions ul li{
-  float: left;
+.wo_detail .actions .action{
+  width:22px;
+  float:right;
 }
 
-.client .actions{
+.actions{
   float:right;
 }
 
@@ -1412,25 +1417,18 @@ ul.usr_menu li{
   vertical-align: top;
 }
 
-.car , .client_car{
-  overflow: auto;
+.client_car{
+  width:40%;
 }
 
 .car .detail{
   float: left;
-  width: 83%;
+  width: 60%;
 }
 
 .client_car .detail{
   float: left;
-  width: 70%;
-}
-.client_car .actions {
-  width: 10%;
-}
-
-.car .actions{
-  width: 5%;
+  width: 60%;
 }
 
 .logo{
@@ -1440,9 +1438,6 @@ ul.usr_menu li{
 
 .car .km{
   clear: both;
-}
-.actions{
-  float: right;
 }
 
 .domain{
@@ -1495,7 +1490,7 @@ ul.usr_menu li{
   padding:2px 5px;
   float: left;
   border-radius: 5px 5px 5px 5px;
-  border: 1px solid #DDDDDD;
+  border: 1px outset #636262;
   min-width:150px;
   min-height:36px;
 }
@@ -1655,10 +1650,6 @@ dl {
   margin-top: 5px;
 }
 
-.company_detail .actions{
-  width: 25px;
-  float: right;
-}
 .company_detail .address{
   float: left;
   width: 90%;
@@ -1787,8 +1778,9 @@ dl {
   border-color: black;
   border-style: outset;
   border-width: 1px;
-  padding: 0 2px;
+  padding: 0 5px;
   z-index:1000;
+
 }
 
 .small_event .domain, .my_big_event .domain, .big_event .domain{
@@ -1916,4 +1908,87 @@ dl {
   border: 0px solid #929090;
   color: #222222;
   font-weight: bold;
+}
+
+.new_note{
+  border-top:thin double #CCCCCC;
+  float:left;
+}
+
+.new_note_form{
+  overflow:auto;
+  float:left;
+  margin:10px 0px;
+  padding-left:10px;
+  overflow: auto;
+  background: none repeat scroll 0 0 #FFFFCC;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  margin: 5px 10px;
+  min-height: 21px;
+  padding: 10px 5px;
+  position: relative;
+  width:95%;
+}
+
+.notes_actions{
+  float:right;
+}
+
+.notes{
+  width:100%;
+  text-align:left;
+  border-top: thin double #CCCCCC;
+  float:left;
+}
+
+.wo_notes{
+  text-align:right;
+}
+
+.note{
+  padding-left:10px;
+  overflow: auto;
+  background: none repeat scroll 0 0 #FFFFCC;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  display: block;
+  margin: 5px 10px;
+  min-height: 21px;
+  padding: 5px 5px;
+  position: relative;
+  z-index: 10;
+}
+.note .info .date{
+  font-size:0.8em;
+  float:left;
+}
+
+.note .info .user{
+  font-size:0.8em;
+  float:right;
+}
+
+.note .info{
+  width:100%;
+  float:left;
+}
+
+.notes_link{
+  background: url(/images/notes.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float: right;
+}
+
+.new_note_link{
+  background: url(/images/note-add.png) no-repeat scroll;
+  height: 21px;
+  width: 21px;
+  float: right;
+}
+
+input.labelHighlight,textarea.labelHighlight {
+  color: #999999; 
+  font-style:oblique;
 }

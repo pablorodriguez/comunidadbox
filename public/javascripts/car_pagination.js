@@ -37,6 +37,9 @@ jQuery(document).ready(function(){
     draggable: false,
     resizable:false,
     modal: true});
+
+  $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
+  $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
     
 
 });
@@ -69,3 +72,10 @@ function newServiceNewCompany(){
   window.location=url + "&c="+comp_info;
 }
 
+function show_notes(element){
+  $(element).parent().parent().parent().find(".notes").slideToggle();
+}
+
+function new_note(element){
+  $(element).parent().parent().parent().find(".new_note").slideToggle();
+}

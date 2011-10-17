@@ -1,5 +1,7 @@
 ComunidadBox::Application.routes.draw do
   
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -75,6 +77,7 @@ ComunidadBox::Application.routes.draw do
   resources :tasks
   resources :home
   resources :events
+  resources :notes
   
   resources :employees do
     collection do

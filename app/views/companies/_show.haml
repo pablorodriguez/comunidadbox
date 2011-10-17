@@ -44,7 +44,7 @@
           %label{ :for => "zip" }Código Postal    
         %td
           = @company.address.zip
-    
+.buttons   
 - if user_signed_in? && current_user.own(@company)          
   = link_to_back companies_path
   = link_to "Modificar",edit_company_path(@company),{:title =>"Modificar",:class=>:button}

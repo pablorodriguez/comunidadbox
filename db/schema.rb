@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110827180015) do
+ActiveRecord::Schema.define(:version => 20111008024234) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -171,7 +171,6 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
     t.integer  "service_done_id"
     t.integer  "km"
     t.integer  "status"
-    t.string   "status_o"
     t.date     "dueDate"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -233,6 +232,24 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
   end
 
   add_index "models", ["brand_id"], :name => "models_brand_id_fk"
+
+  create_table "notes", :force => true do |t|
+    t.text     "message"
+    t.datetime "due_date"
+    t.datetime "recall"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "status"
+    t.integer  "user_id"
+    t.integer  "workorder_id"
+    t.integer  "note_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notes", ["note_id"], :name => "notes_note_id_fk"
+  add_index "notes", ["user_id"], :name => "notes_user_id_fk"
+  add_index "notes", ["workorder_id"], :name => "notes_workorder_id_fk"
 
   create_table "payment_methods", :force => true do |t|
     t.string   "name"
@@ -348,8 +365,10 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status"
+    t.integer  "operator_id"
   end
 
+  add_index "services", ["operator_id"], :name => "services_operator_id_fk"
   add_index "services", ["service_type_id"], :name => "services_service_type_id_fk"
   add_index "services", ["workorder_id"], :name => "services_workorder_id_fk"
 
@@ -448,13 +467,11 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
     t.date     "performed"
     t.integer  "status"
     t.integer  "payment_method_id"
-    t.integer  "operator_id"
     t.string   "company_info"
   end
 
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
-  add_index "workorders", ["operator_id"], :name => "workorders_operator_id_fk"
   add_index "workorders", ["payment_method_id"], :name => "workorders_payment_method_id_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
@@ -478,7 +495,7 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
   add_foreign_key "company_services", "companies", :name => "company_services_ibfk_1"
   add_foreign_key "company_services", "service_types", :name => "company_services_ibfk_2"
 
-  add_foreign_key "events", "services", :name => "events_ibfk_1", :dependent => :delete
+  add_foreign_key "events", "services", :name => "events_ibfk_122", :dependent => :delete
 
   add_foreign_key "material_service_types", "materials", :name => "material_service_types_ibfk_1"
   add_foreign_key "material_service_types", "service_types", :name => "material_service_types_ibfk_2"
@@ -487,6 +504,10 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
   add_foreign_key "material_services", "services", :name => "material_services_ibfk_2", :dependent => :delete
 
   add_foreign_key "models", "brands", :name => "models_ibfk_1"
+
+  add_foreign_key "notes", "notes", :name => "notes_note_id_fk", :dependent => :delete
+  add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete
+  add_foreign_key "notes", "workorders", :name => "notes_workorder_id_fk", :dependent => :delete
 
   add_foreign_key "price_list_items", "material_service_types", :name => "price_list_items_ibfk_1"
   add_foreign_key "price_list_items", "price_lists", :name => "price_list_items_ibfk_2", :dependent => :delete
@@ -504,6 +525,7 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
   add_foreign_key "service_types_tasks", "tasks", :name => "service_types_tasks_ibfk_2", :dependent => :delete
 
   add_foreign_key "services", "service_types", :name => "services_ibfk_1"
+  add_foreign_key "services", "users", :name => "services_operator_id_fk", :column => "operator_id"
   add_foreign_key "services", "workorders", :name => "services_ibfk_2", :dependent => :delete
 
   add_foreign_key "services_tasks", "services", :name => "services_tasks_ibfk_1"
@@ -520,6 +542,5 @@ ActiveRecord::Schema.define(:version => 20110827180015) do
   add_foreign_key "workorders", "companies", :name => "workorders_ibfk_2"
   add_foreign_key "workorders", "payment_methods", :name => "workorders_payment_method_id_fk"
   add_foreign_key "workorders", "users", :name => "workorders_ibfk_3"
-  add_foreign_key "workorders", "users", :name => "workorders_operator_id_fk", :column => "operator_id"
 
 end

@@ -6,24 +6,16 @@
     %thead
     %tbody
       %tr
-        %td Desde
+        %td
+          = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>"Desde"
+          = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>"Hasta"
       %tr
         %td
-          = text_field_tag 'date_from', @date_f,:class =>"input_short"
-      %tr  
-        %td Hasta
+          = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date",:title=>"Dominio"
       %tr
         %td
-          = text_field_tag 'date_to', @date_t,:class =>"input_short"
-      %tr
-        %td Dominio
-      %tr
-        %td
-          = text_field_tag 'domain', @domain, :size=>6,:class =>"input_short"
-      %tr  
-        %td Tipo de Servicio
-      %tr
-        %td
+          %label
+            Tipo de Servicio
           #service_types
             %ul
               -@company_services.each do |service|
@@ -37,7 +29,7 @@
           Estado
       %tr
         %td
-          = select_tag(:wo_status_id,options_for_select(Status::WO_STATUS.collect{|v,k| [k,v]},@status_id),{:include_blank =>:true})
+          = select_tag(:wo_status_id,options_for_select(Status::WO_STATUS.collect{|v,k| [k,v]},@status_id),{:prompt=>"true",:include_blank=>true})
           = image_submit_tag("find.png",:class =>"input_img")          
           
 

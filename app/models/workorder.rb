@@ -3,6 +3,7 @@ include ActionView::Helpers::NumberHelper
 class Workorder < ActiveRecord::Base
     
   has_many :services, :dependent => :destroy
+  has_many :notes,:dependent => :destroy
   belongs_to :car
   belongs_to :company
   belongs_to :user  

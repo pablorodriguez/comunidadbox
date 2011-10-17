@@ -47,4 +47,5 @@ gem 'resque-scheduler'
 # end
 gem 'attribute_normalizer'
 gem 'recaptcha', :require => 'recaptcha/rails'
+#gem 'newrelic_rpm'
 #gem "exception_notification", :git => "https://github.com/sickill/exception_notification.git", :require => 'exception_notifier'
