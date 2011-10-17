@@ -1,3 +1,4 @@
 $("#notes-<%=@note.workorder_id%>").append("<%=escape_javascript(render(:partial=>'notes_small_view',:locals=>{:note=>@note}))%>");  
 $("#wo-notes-<%=@note.workorder_id%> form")[0].reset();
 $("#notes-<%=@note.workorder_id%> .note").last().effect("highlight", {color:"#F7DE4F"}, 3000);
+$("#wo_<%=@note.workorder_id%> .notes_link").show().parent().show();
