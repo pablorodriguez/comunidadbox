@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Message:</b>
+  <%= @note.message %>
+</p>
+
+<p>
+  <b>Due date:</b>
+  <%= @note.due_date %>
+</p>
+
+<p>
+  <b>Recal:</b>
+  <%= @note.recall %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @note.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @note.end_date %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @note.user_id %>
+</p>
+
+<p>
+  <b>Workorder:</b>
+  <%= @note.workorder_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @note.status %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @note.note_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>
