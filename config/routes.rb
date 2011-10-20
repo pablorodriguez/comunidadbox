@@ -119,6 +119,14 @@ ComunidadBox::Application.routes.draw do
       post :update_km_avg
       get :my
     end
+    member do
+      get :services_done
+      get :future_events
+      get :report_graph
+      get :notes
+      get :alarms
+      get :messages
+    end
   end
   
   resources :users do 

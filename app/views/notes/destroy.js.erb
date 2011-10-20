@@ -1,2 +1,7 @@
 $("#note-<%=@note_id%>").fadeOut();
 $("#note-<%=@note_id%>").remove();
+
+if ($("#notes-<%=@wo_id%>").children().size() == 0){
+	$("#wo_<%=@wo_id%>").find(".notes_link").hide().parent().hide();
+	$("#notes-<%=@wo_id%>").hide();
+}

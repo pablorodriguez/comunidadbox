@@ -4,29 +4,17 @@
 
 - javascript 'rank'
 - javascript 'highcharts'
-#car_info
-  %h1
-    = vineta 
-    Automóvil
-  .contentleft
-    = render "car_detail"
-  .contentright
-    #service-tabs
-      %ul
-        %li
-          %a{:href => "#tabs-1"} Servicios Realizados
-        %li
-          %a{:href => "#tabs-2"} Futuros Servicios a Realizar
-        %li
-          %a{:href => "#tabs-3"} Reporte Gráfico
-          
-      #tabs-1
-        #cars_work_orders.overflow
-          = render "work_orders"
-      #tabs-2
-        #cars_future_events.overflow
-          = render "events"        
-      #tabs-3
-        = render 'graphics'          
-    #company-selector
-      = render 'company_selector'
+#contenttop
+  #car_detail
+    = render "car_detail"              
+.vertical_menu
+  = render "car_menu"    
+.contentright_s
+  #cars_work_orders.overflow
+    = render "work_orders"
+  #cars_future_events.overflow.hide
+    = render "events"        
+  #cars_report_graphics.hide
+    = render 'graphics'          
+  #company-selector
+    = render 'company_selector'

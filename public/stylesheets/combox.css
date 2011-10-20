@@ -489,13 +489,13 @@ margin:0px;
 }
 
 select{
-  height:30px;
+  height:26px;
   width:175px;
-  padding: 5px;  
+  padding: 2px;  
 }
 
 input{
-  height:25px;
+  height:20px;
 }
 
 .input_short{
@@ -615,6 +615,16 @@ input{
   padding: 5px 5px 5px 5px;
 }
 
+.contentright_s {
+  width:677px;
+  margin-left:210px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 2px solid #B2AC0C;
+  padding: 5px 5px 5px 5px;
+}
+
 .all_companies {
   width:63%;
   float: right;
@@ -708,6 +718,12 @@ input{
   padding: 5px 5px 5px 5px;
   margin-right:5px;
   margin-bottom:5px;
+}
+
+.vertical_menu{
+  width:211px;
+  float:left;  
+  overflow: hidden;
 }
 
 .contentleft{
@@ -1991,4 +2007,41 @@ dl {
 input.labelHighlight,textarea.labelHighlight {
   color: #999999; 
   font-style:oblique;
+}
+
+.client_expend{
+  float:right;
+  text-align: right;
+}
+
+.car_info{
+  overflow: auto;
+  float:left;
+}
+
+#menu_options li.selected{
+  background:#B2AC0C;
+  color:white;
+  font-weight: bold;
+  padding: 10px 5px;
+  -moz-border-radius: 5px 0px 0px 5px;
+  -webkit-border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+#menu_options li{  
+  padding: 10px 5px;
+  -moz-border-radius: 5px 0px 0px 5px;
+  -webkit-border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+
+#menu_options li.selected a{
+  color:white;
+  text-decoration:none;  
+}
+
+#menu_options li a{
+  text-decoration:none;  
 }

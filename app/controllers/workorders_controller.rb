@@ -62,6 +62,7 @@ class WorkordersController < ApplicationController
     @services_amount =0 
     amt.each{|key,value| @services_amount += value}
       
+    @status = {-1=>"-- Estado --"}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
 
     respond_to do |format|
       format.html

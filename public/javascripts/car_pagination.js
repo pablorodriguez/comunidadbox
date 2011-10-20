@@ -27,8 +27,6 @@ jQuery(document).ready(function(){
      $(document).trigger("fragmentChange.page");
    }
    
-   $("#service-tabs").tabs();
-   
    $("#company-selector").dialog({
     height: 570,
     width:650,
@@ -40,9 +38,40 @@ jQuery(document).ready(function(){
 
   $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
   $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
-    
+  $("#service_done").click(showServiceDone);
+  $("#future_event").click(showFutureEvent);
+  $("#report_graph").click(showReportGraph);
+  $("#notes").click(showNotes);
+  $("#alarms").click(showAlarms);
+  $("#messages").click(showMessages);
 
 });
+
+function showServiceDone(){
+  
+}
+
+function showFutureEvent(){
+  
+}
+
+function showReportGraph(){
+  $("#cars_work_orders").hide();
+  $("#cars_future_events").hide();
+  $("#cars_report_graphics").show();
+}
+
+function showNotes(){
+  
+}
+
+function showAlarms(){
+  
+}
+
+function showMessages(){
+  
+}
 
 function createNewService(car_id){
   $("#company-selector").dialog('open');

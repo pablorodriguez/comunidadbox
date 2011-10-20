@@ -31,6 +31,9 @@ class CarsController < ApplicationController
       format.js { render :layout => false}
     end
   end
+
+  def service_done
+  end
   
   def find_models
     @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
