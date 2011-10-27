@@ -3,6 +3,23 @@
   .company
     .domain
       = link_to work_order_row.car.domain, work_order_row.car
+    .right
+      = l work_order_row.performed
+    .services
+      - work_order_row.services.each do |s|
+        .service             
+          = link_to s.service_type.name ,work_order_row
+          .operator
+            -if s.operator
+              %strong
+                Operario:
+              = "#{s.operator.first_name} #{s.operator.last_name}"
+          .service_more_info.hide    
+            - if s.comment
+              .left
+                %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+
+  .hide_info.hide
     - if can_show
       .left
         %strong
@@ -14,28 +31,13 @@
         = "#{work_order_row.car.user.first_name} #{work_order_row.car.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
-    .right
-      = l work_order_row.performed
-  - if can_show
-    .right          
-      .price_b
-        = number_to_currency work_order_row.total_price
+    #rank.rank{:id =>"wo_#{work_order_row.id}"}
+      - if can_show
+        = render 'ranks/rank',:workorder => work_order_row
 
-  #rank.rank{:id =>"wo_#{work_order_row.id}"}
-    - if can_show
-      = render 'ranks/rank',:workorder => work_order_row
-  .services
-    - work_order_row.services.each do |s|
-      .service             
-        - if s.comment
-          .left
-            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-        = link_to s.service_type.name ,work_order_row
-        .operator
-          -if s.operator
-            %strong
-              Operario:
-            = "#{s.operator.first_name} #{s.operator.last_name}"
+  - if can_show
+    .price_b.left
+      = number_to_currency work_order_row.total_price
   
   - if can_show
     .actions

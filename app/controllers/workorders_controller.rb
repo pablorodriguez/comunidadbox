@@ -1,5 +1,9 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
+  
+  add_breadcrumb "Buscar", :all_companies_path
+  add_breadcrumb "Autos", :cars_path
+  add_breadcrumb "Panel de Control", :control_panels_path
 
   prawnto :prawn => {:page_size => "A4"}
   
@@ -25,7 +29,7 @@ class WorkordersController < ApplicationController
 
     @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
     
-    per_page = 8
+    per_page = 5
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
@@ -72,9 +76,15 @@ class WorkordersController < ApplicationController
   
   
   def show
+
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
     
+    add_breadcrumb "Automoviles", cars_path
+    add_breadcrumb "Servicios", workorders_path
+    add_breadcrumb "Automovil", car_path(@work_order.car)
+
+
     respond_to do |format|
       format.html
       format.pdf {

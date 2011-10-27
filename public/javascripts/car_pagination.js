@@ -38,40 +38,50 @@ jQuery(document).ready(function(){
 
   $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
   $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
-  $("#service_done").click(showServiceDone);
-  $("#future_event").click(showFutureEvent);
-  $("#report_graph").click(showReportGraph);
-  $("#notes").click(showNotes);
-  $("#alarms").click(showAlarms);
-  $("#messages").click(showMessages);
+
+  
+  $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
+  $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
+  $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
+  $("#notes").click(function(){showHideContent($(this),"#cars_notes");});
+  $("#alarms").click(function(){showHideContent($(this),"#cars_alarms");});
+  $("#messages").click(function(){showHideContent($(this),"#cars_messages");});
+
+  $(".contentright_s .labelify").labelify({ labelledClass: "labelHighlight" });
+
+  $("form.note_form").bind("ajax:success", function(evt, data, status, xhr){
+      var $form = $(this);
+      this.reset();
+      $(xhr.responseText).insertBefore($form.parent().next().find(".note").first());
+      $form.parent().next().find(".note").first().effect("highlight", {color:"#F7DE4F"}, 3000);
+    })
+
+    $("#car_domain").mouseenter(function(){
+      $("#client_info").fadeIn();
+    }).mouseleave(function(){
+      $("#client_info").fadeOut();
+    });
 
 });
 
-function showServiceDone(){
-  
+function createNewNote(){
+  $("#notes_form_container").slideToggle();
 }
 
-function showFutureEvent(){
+function showHideContent(link,data){
+  $(".contentright_s .data").hide();  
+  $("#menu_options li.selected").removeClass("selected");
+  link.parent().addClass("selected");
   
+  $(data).show();
+  //$("#menu_actions").animate({'left':'210px'}); 
+
+  $(".menu_data.showed").hide().removeClass("showed"); 
+  $(data + "_menu").show().addClass("showed"); 
+  
+  //$("#menu_actions").animate({'left':'0px'}); 
 }
 
-function showReportGraph(){
-  $("#cars_work_orders").hide();
-  $("#cars_future_events").hide();
-  $("#cars_report_graphics").show();
-}
-
-function showNotes(){
-  
-}
-
-function showAlarms(){
-  
-}
-
-function showMessages(){
-  
-}
 
 function createNewService(car_id){
   $("#company-selector").dialog('open');

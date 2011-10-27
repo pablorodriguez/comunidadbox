@@ -21,11 +21,12 @@
         #logo
           #logologo
             = link_to image_tag("logo_n.png"),root_path
-            = render "layouts/logininfo"            
+            = render "layouts/logininfo"
+            -#=render "layouts/n_menu"
         #menu_container
           #menu        
             #breadcrums_menu
-              =render "layouts/menu"
+              = render_breadcrumbs
             #other_menu
               = link_to "Administración",admin_path            
       #body

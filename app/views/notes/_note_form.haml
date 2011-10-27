@@ -1,6 +1,9 @@
 .new_note_form
-  - form_for :note,:remote=>true,:url => notes_path do |f|    
-    = f.text_area :message,:cols=>64,:rows=>1,:class =>"left labelify",:title =>"Por favor ingrese el texto de la nota"
-    = f.hidden_field :workorder_id,:value => wo
-    = f.hidden_field :user_id
-    = f.submit "Grabar",:class=>:button,:disable_with => 'Grabando...'
+  - form_for :note,:remote=>true,:url => notes_path,:html=>{:class=>:note_form} do |f|    
+    .left
+      = f.text_area :message,:cols=>64,:rows=>2,:class =>"left labelify",:title =>"Por favor ingrese el texto de la nota"
+      - if wo
+        = f.hidden_field :workorder_id,:value => wo      
+      = f.hidden_field :user_id,:value => @usr
+    .right.clear
+      = f.submit "Grabar",:class=>:button

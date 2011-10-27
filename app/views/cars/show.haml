@@ -1,20 +1,24 @@
 - javascript 'jquery.ba-url.min'
 - javascript 'jquery.labelify'
 - javascript 'car_pagination'
-
 - javascript 'rank'
 - javascript 'highcharts'
-#contenttop
-  #car_detail
-    = render "car_detail"              
 .vertical_menu
+  #car_detail
+    = render "car_detail"
   = render "car_menu"    
 .contentright_s
-  #cars_work_orders.overflow
+  #cars_work_orders.overflow.data
     = render "work_orders"
-  #cars_future_events.overflow.hide
+  #cars_future_events.overflow.hide.data
     = render "events"        
-  #cars_report_graphics.hide
+  #cars_report_graphics.hide.data
     = render 'graphics'          
-  #company-selector
+  #cars_notes.data.hide
+    = render 'notes'
+  #cars_alarms.data.hide
+    = render 'alarms'
+  #cars_messages.data.hide
+    = render 'messages'
+  #company-selector.data.hide
     = render 'company_selector'

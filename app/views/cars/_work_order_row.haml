@@ -39,9 +39,9 @@
     - if can_show     
       - if work_order_row.can_edit?(current_user)
         .action
-          = link_to("",edit_workorder_path(work_order_row),:title =>"Modificar",:class=>:edit2)
+          = link_to(image_tag('edit.png'),edit_workorder_path(work_order_row),:title =>"Modificar")
         .action
-          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>:delete2    
+          = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>:delete2    
       .action
         = link_to_pdf work_order_row unless current_user.company
       .action
@@ -56,7 +56,7 @@
 
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
     .new_note.hide
-      = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}
+      = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id,:usr => nil }
     %div{:id=>"notes-#{work_order_row.id}",:class=>"notes hide"}      
       = render :partial =>'notes/notes_small_view',:collection => work_order_row.notes,:as=>:note
     

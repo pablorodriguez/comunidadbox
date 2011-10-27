@@ -33,6 +33,14 @@ jQuery(document).ready( function(){
   $("#workorder_tabs").tabs();
   $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
   $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
+
+  $("form.note_form").bind("ajax:success", function(evt, data, status, xhr){
+      var $form = $(this);
+      this.reset();
+      $form.parent().parent().next().append(xhr.responseText);  
+      $form.parent().parent().parent().parent().find(".notes_link").show().parent().show()
+      $form.parent().parent().next().find(".note").last().effect("highlight", {color:"#F7DE4F"}, 3000);
+    })
   
   
 });

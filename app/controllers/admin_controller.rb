@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
-  #layout "application"
-  layout 'home'
+  layout 'application'
+  
   def show
   end
 end

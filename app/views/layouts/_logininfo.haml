@@ -1,6 +1,5 @@
 - if user_signed_in?
-  #avatar_login
-    %img{:src=>"/images/avatar.png",:width=>"70", :height=>"70", :align=>"right"}
+  #avatar_login    
     %h1
       = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"
     %h3

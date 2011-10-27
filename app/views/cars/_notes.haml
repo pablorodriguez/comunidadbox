@@ -1,0 +1,9 @@
+.notes_container
+  %h1
+    Notas
+  .row    
+  #notes_form_container.hide  
+    = render :partial =>"notes/note_form",:locals=>{:wo => nil, :usr=> @car.user.id}  
+    .row
+  .row
+    = render :partial =>'notes/notes_small_view',:collection => @notes,:as=>:note    

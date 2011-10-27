@@ -1,8 +1,9 @@
 %div{:id=>"note-#{note.id}",:class=>"note clear"}
 	.left
 		= note.message
-	.right
-		= link_to image_tag('delete.png'), note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true  
+	-if note.creator_id == current_user.id
+		.right
+			= link_to image_tag('delete.png'), note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true  
 	.info
 		.date
 			%lable{:title =>"Creado el"}

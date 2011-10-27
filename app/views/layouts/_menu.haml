@@ -1,0 +1,7 @@
+#menu_container
+  #menu
+    = link_to "Buscar", all_companies_path
+    - if user_signed_in? 
+      = link_to "Automóviles", my_cars_path
+      = link_to "Servicios", workorders_path      
+

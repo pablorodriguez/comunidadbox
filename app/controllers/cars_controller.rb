@@ -1,4 +1,7 @@
 class CarsController < ApplicationController
+
+  add_breadcrumb "Buscar", :all_companies_path
+  add_breadcrumb "Autos", :cars_path  
   
   layout "application", :except => [:search,:update_km,:update_km_avg,:find_models,:search_companies] 
   skip_before_filter :authenticate_user!,:only => [:find_models]
@@ -78,9 +81,14 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     @car_id = params[:id]
+    @usr = @car.user.id
     page = params[:page] || 1
     data = params[:d] || "all"
     filters ={}
+
+    add_breadcrumb "Servicios", workorders_path
+    add_breadcrumb "Panel de Control", control_panels_path if current_user.company
+
     respond_to do |format|
 
       if data == "all"
@@ -91,6 +99,7 @@ class CarsController < ApplicationController
         #filters[:company_id] = current_user.company.id if current_user.company
         @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
         @companies = Company.best current_user.state 
+        @notes = Note.where("user_id = ?",@car.user.id).order("created_at desc")
         
         @events = @car.future_events.paginate(:per_page=>10,:page =>page)
         @wo_pages = {:d=>"wo"}
