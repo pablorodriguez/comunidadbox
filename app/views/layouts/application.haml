@@ -7,12 +7,12 @@
     = csrf_meta_tag
     %title Comunidad Box
     = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails'
-    = javascript_include_tag 'jquery.ui.datepicker-es','application','autocolumn.min'
+    = javascript_include_tag 'jquery.ui.datepicker-es','application','autocolumn.min','jquery.labelify'    
     -#= javascript 'analytics'
     -#= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
     = stylesheet_link_tag 'combox','jquery-ui-1.8.15.custom','user','buttons'
     = yield(:head)
-    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800", :rel => "stylesheet", :type => "text/css"}
+    -#%link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800", :rel => "stylesheet", :type => "text/css"}
     -#%link{:href => "http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic", :rel => "stylesheet", :type => "text/css"}
     
   %body
@@ -22,12 +22,6 @@
           #logologo
             = link_to image_tag("logo_n.png"),root_path
             = render "layouts/logininfo"            
-        #menu_container
-          #menu        
-            #breadcrums_menu
-              =render "layouts/menu"
-            #other_menu
-              = link_to "Administración",admin_path            
       #body
         = render "layouts/msg"
         = yield

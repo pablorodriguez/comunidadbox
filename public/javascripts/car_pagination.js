@@ -52,8 +52,8 @@ jQuery(document).ready(function(){
   $("form.note_form").bind("ajax:success", function(evt, data, status, xhr){
       var $form = $(this);
       this.reset();
-      $(xhr.responseText).insertBefore($form.parent().next().find(".note").first());
-      $form.parent().next().find(".note").first().effect("highlight", {color:"#F7DE4F"}, 3000);
+      $(xhr.responseText).insertBefore($form.parent().parent().next().find(".note").first());
+      $form.parent().parent().next().find(".note").first().effect("highlight", {color:"#F7DE4F"}, 3000);
     })
 
     $("#car_domain").mouseenter(function(){
@@ -62,25 +62,19 @@ jQuery(document).ready(function(){
       $("#client_info").fadeOut();
     });
 
+    $(".wo_info_detail").mouseenter(function(){
+      $(this).parent().parent().parent().parent().next().show();
+    }).mouseleave(function(){
+      $(this).parent().parent().parent().parent().next().hide();
+    });
+
 });
 
 function createNewNote(){
   $("#notes_form_container").slideToggle();
 }
 
-function showHideContent(link,data){
-  $(".contentright_s .data").hide();  
-  $("#menu_options li.selected").removeClass("selected");
-  link.parent().addClass("selected");
-  
-  $(data).show();
-  //$("#menu_actions").animate({'left':'210px'}); 
 
-  $(".menu_data.showed").hide().removeClass("showed"); 
-  $(data + "_menu").show().addClass("showed"); 
-  
-  //$("#menu_actions").animate({'left':'0px'}); 
-}
 
 
 function createNewService(car_id){

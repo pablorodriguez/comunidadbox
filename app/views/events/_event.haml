@@ -5,7 +5,7 @@
     -unless event.is_green
       .right
         = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
-    .left.domain
+    %div
       %div{:class=>css}
         - st = create_service_type_tool_tip oe
         %label{:title =>"#{st}"}

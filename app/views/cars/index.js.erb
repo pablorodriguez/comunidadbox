@@ -1,5 +1,7 @@
-if (<%=@company_cars.size%> > 0){
-  $("#data").html("<%=escape_javascript(render(:partial=>'cars',:locals =>{:cars=>@company_cars}))%>");
+
+if (<%=@company_cars.size%> > 0){  
+  $("#cars").html("<%=escape_javascript(render(:partial=>'cars',:locals =>{:cars=>@company_cars}))%>");
+  showHideContent($("#cars_link"),"#cars");
 }else{
-  $("#data").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún autómovil."}))%>");
+  $("#cars").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún autómovil."}))%>");
 }

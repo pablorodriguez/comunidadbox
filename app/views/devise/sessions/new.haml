@@ -1,9 +1,6 @@
 #cont1
   %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
-  %h2
-    %span#cont1
-      Por favor ingrese su correo electronico y su clave..
-#cont2
+#login_c
   = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     #part1.part
       INICIAR SESIÓN
@@ -11,34 +8,21 @@
       %table
         %tr
           %td
-            %h3
-              = f.label :email,t('user.email')
+            = f.text_field :email, {:class =>"textarea labelify",:title=>"Correo Eléctronico"}
           %td
-            %h3
-              = f.label :password,t('user.password')
-          %td          
-        %tr
-          %td
-            = f.text_field :email, {:class =>"textarea"}
-          %td
-            = f.password_field :password, {:class =>"textarea"}
+            = f.password_field :password, {:class =>"textarea labelify",:title=>"Clave "}
           %td
             %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}
     #part22.part
-      %table
-        %tr
-          %td
+      %ul
+        - if devise_mapping.rememberable?
+          %li
             %h4
-              - if devise_mapping.rememberable?
-                = f.check_box :remember_me,:class=>"checkbox"
-          %td
-            %h4
-              - if devise_mapping.rememberable?
-                = f.label :remember_me
-        %tr
-          %th
+              = f.check_box :remember_me,:class=>"checkbox"
+              = f.label :remember_me
+        %li          
+          %h4.left
+            = render :partial => "devise/shared/links"
+          .right
             %img.sgn{:src => "/images/sgn_pass.png"}
-          %td
-            %h4
-              = render :partial => "devise/shared/links"
 = render "home/new_msgs"

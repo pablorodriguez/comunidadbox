@@ -29,12 +29,12 @@ class WorkordersController < ApplicationController
 
     @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
     
-    per_page = 5
+    per_page = 13
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     @service_type_ids =  params["service_type_ids"] || []
-    @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?)
+    @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
     logger.debug "### Service Type IDS #{@service_type_ids} Status ID #{@wo_status_id}"
     filters_params ={}
     @date_f = params[:date_from]

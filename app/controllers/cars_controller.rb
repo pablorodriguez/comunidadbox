@@ -14,7 +14,7 @@ class CarsController < ApplicationController
     domain = "%" if domain.empty?
      
     @user = current_user
-    per_page = 15
+    per_page = 12
     
     if current_user.company
       @company_cars = current_user.company.cars
@@ -93,7 +93,7 @@ class CarsController < ApplicationController
 
       if data == "all"
         @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
-          .paginate(:per_page=>5,:page =>page)
+          .paginate(:per_page=>13,:page =>page)
         filters[:domain] = @car.domain
         filters[:user] = current_user
         #filters[:company_id] = current_user.company.id if current_user.company
@@ -115,7 +115,7 @@ class CarsController < ApplicationController
       end
       
       if data =="wo"
-        @work_orders = Workorder.where("car_id = ?",@car_id).paginate(:per_page=>5,:page =>page,:order =>"performed desc")
+        @work_orders = Workorder.where("car_id = ?",@car_id).paginate(:per_page=>13,:page =>page,:order =>"performed desc")
         @wo_pages = {:d => "wo"}      
         format.js { render "work_orders",:layout => false}
       end

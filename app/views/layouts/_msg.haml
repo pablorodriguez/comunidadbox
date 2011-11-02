@@ -5,3 +5,6 @@
   -if flash.alert
     .alert
       %h2= flash.alert    
+:javascript
+  $(".notice").delay(5000).fadeOut();
+  $(".alert").delay(5000).fadeOut();

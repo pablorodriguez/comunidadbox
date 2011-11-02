@@ -1,5 +1,7 @@
 if (<%=@clients.size%> > 0){
-  $("#data").html("<%=escape_javascript(render(:partial=>'clients'))%>");
+  $("#clients").html("<%=escape_javascript(render(:partial=>'clients'))%>");
+   showHideContent($("#clients_link"),"#clients");
 }else{
-  $("#data").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún cliente."}))%>");
+  $("#clients").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún cliente."}))%>");
 }
+$(".labelify").labelify({ labelledClass: "labelHighlight" });

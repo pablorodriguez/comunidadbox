@@ -1,24 +1,48 @@
 .wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
   - can_show = work_order_row.can_show?(current_user)            
-  .company
+  .info
     .domain
       = link_to work_order_row.car.domain, work_order_row.car
-    .right
-      = l work_order_row.performed
+  
     .services
       - work_order_row.services.each do |s|
         .service             
           = link_to s.service_type.name ,work_order_row
-          .operator
-            -if s.operator
-              %strong
-                Operario:
-              = "#{s.operator.first_name} #{s.operator.last_name}"
-          .service_more_info.hide    
-            - if s.comment
-              .left
-                %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+          .service_info.hide
+            .operator
+              -if s.operator
+                %strong
+                  Operario:
+                = "#{s.operator.first_name} #{s.operator.last_name}"
+            .service_more_info.hide    
+              - if s.comment
+                .left
+                  %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
 
+    .wo_info
+      .left
+        = l work_order_row.performed
+      - if can_show
+        .price_b.right
+          = number_to_currency work_order_row.total_price
+      - if can_show
+        .actions.clear
+          .action
+            = link_to_pdf work_order_row unless current_user.company
+          .action
+            = print_to_pdf work_order_row if current_user.company
+          .action
+            = link_to_function "","new_note(this)",:class=>:new_note_link,:title=>"Crear una nota"
+          - n_css = work_order_row.notes.empty? ? "hide" : ""
+          .action{:class=>"#{n_css}"}
+            = link_to_function "","show_notes(this)",:class =>"notes_link #{n_css}",:title=>"Ver notas"  
+          - if work_order_row.can_edit?(current_user)
+            .action
+              = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
+            .action
+              = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
+    
+  
   .hide_info.hide
     - if can_show
       .left
@@ -31,36 +55,17 @@
         = "#{work_order_row.car.user.first_name} #{work_order_row.car.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
+        - if work_order_row.comment
+          .action
+            %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
+
     #rank.rank{:id =>"wo_#{work_order_row.id}"}
       - if can_show
         = render 'ranks/rank',:workorder => work_order_row
 
-  - if can_show
-    .price_b.left
-      = number_to_currency work_order_row.total_price
   
-  - if can_show
-    .actions
-      - if work_order_row.comment
-        .action
-          %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
-
-      - if work_order_row.can_edit?(current_user)
-        .action
-          = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
-        .action
-          = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
-      .action
-        = link_to_pdf work_order_row unless current_user.company
-      .action
-        = print_to_pdf work_order_row if current_user.company
-      .action
-        = icon_status work_order_row.status  
-      .action
-        = link_to_function "","new_note(this)",:class=>:new_note_link,:title=>"Crear una nota"
-      - n_css = work_order_row.notes.empty? ? "hide" : ""
-      .action{:class=>"#{n_css}"}
-        = link_to_function "","show_notes(this)",:class =>"notes_link #{n_css}",:title=>"Ver notas"  
+  
+  
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
     .new_note.hide
       = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}

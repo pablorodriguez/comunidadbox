@@ -104,7 +104,7 @@ jQuery(document).ready( function(){
 	$("#events").delegate(".due_date","click",showBigEvent);
 	$("#events").delegate(".big_event","click",hideBigEvent);
 	$("#events").delegate(".my_big_event","click",hideBigEvent);
-	
+	$(".labelify").labelify({ labelledClass: "labelHighlight" });
 	
 	$(".pagination a").live("click",function(){
 	   	var page = $.queryString(this.href).page
@@ -122,6 +122,10 @@ jQuery(document).ready( function(){
   $("#select input:checkbox").click(select);
    
 });
+
+function createNewService(){
+	$("#save_offer").click();
+}
 
 function checkEventsIds(){
   //Si hay datos en events id, busco los checkbox y los selecciono

@@ -31,12 +31,12 @@
     %td{:colspan=>3}Inicio
   %tr
     %td{:colspan=>3}
-      = f.datetime_select :date_ini, :default => Time.zone.now
+      = f.text_field :date_ini, :default => Time.zone.now
   %tr
     %td{:colspan=>3}Fin
   %tr
     %td{:colspan=>3}
-      = f.datetime_select :date_end, :default => Time.zone.now
+      = f.text_field :date_end, :default => Time.zone.now
   %tr
     %td{:colspan=>3}
       = f.submit "Grabar"

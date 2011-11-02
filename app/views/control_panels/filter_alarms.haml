@@ -1,19 +1,17 @@
 - javascript 'control_panel'
 - javascript 'jquery.ba-url.min'
 - javascript 'jquery.qtip.min'
+- javascript 'jquery.labelify'
 
 #error{:style=>"display:none"}
   %h2
-%h1
-  = vineta 
-  Nueva Oferta de Servicio
-.contentleft_s{:style=>"width:23%"}
+.vertical_menu
   %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
   = form_for :service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
     = hidden_field_tag("page",@page)
     = hidden_field_tag("events_ids",@events_ids)
     = render "car_filters",:f=>f
-.contentright{:style=>"width:75%"}
+.contentright_s
   #cars_events
     %h1
       Listado de Autos  
@@ -30,8 +28,7 @@
       = render(:partial=>'shared/message',:locals =>{:msg =>"No se encontraron eventos."})
   .clear
     = will_paginate @page_events,:params =>@filters_params
-  #offer.buttons
-    =link_to_back
+  #offer.buttons.hide    
     %input{:type=>"button",:id=>'save_offer',:value=>"Crear Oferta de Servicio",:class=>"button"}
     %input{:type=>"button",:id=>"clear_filter",:value=>"Limpiar Filtro",:class=>"hide"}
     

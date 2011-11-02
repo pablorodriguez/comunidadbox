@@ -1,8 +1,34 @@
-- if user_signed_in?
-  #avatar_login    
-    %h1
-      = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"
-    %h3
-      = current_user.company.name if current_user.company
-    %h3
-      = link_to "Salir", destroy_user_session_path,:class =>"link_w"
+#avatar_login
+  - unless user_signed_in?
+    %ul
+      %li
+        %h3
+          = link_to "Ingresar",new_user_session_path
+    .clear
+      %ul  
+        %li
+          %h3
+            = link_to "Registrarse",new_user_registration_path      
+  - if user_signed_in?  
+    %ul  
+      %li
+        %h3
+          = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"    
+      %li
+        %h3
+          = current_user.company.name if current_user.company
+    .clear
+      %ul  
+        %li
+          %h3
+            = link_to "Inicio", root_path,:class =>"link_w",:id=>"home_link"
+        %li{:class=>"down_icon link",:id=>"popup_menu"}
+          = image_tag("down.gif",:id=>"down_menu")
+          #home_menu.hide
+            %ul
+              %li
+                = link_to "Administración",admin_path    
+              %li
+                = link_to "Salir", destroy_user_session_path
+
+            

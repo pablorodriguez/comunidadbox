@@ -1,2 +1,41 @@
-= render "home/welcome_msg"
-= render "home/new_msgs"
+- javascript 'maps'
+- javascript 'search_company_map'
+- javascript 'jquery.shuffleLetters.js'
+
+.vertical_menu
+  - if user_signed_in?   
+    = render "menu"
+  - unless user_signed_in?     
+    #menu_options.box_bottom
+      %li
+        #service_center_link.menu
+          = image_tag "find.png"
+          = link_to_function "Prestadores de Servicios", "searchCompany()"
+      %li
+        #service_center_link.menu
+          = image_tag "help.png"
+          = link_to "Ayuda", "#"
+    #menu_actions
+      #service_center_menu.menu_data.hide      
+        =render :partial=>"companies/search"
+  
+.contentright_s
+  #default.data
+    = render "home/welcome_msg"    
+    = render "home/new_msgs"    
+  #cars.data
+  #clients.data
+  #workorders.data
+  #control_panel.data
+  #alarms.data
+  #messages.data    
+  #all_companies.data.hide
+    #comp_map
+      #companies        
+      = render "companies/maps"
+
+:javascript
+  $(document).ready(function(){
+    $("#comunidadbox h1").shuffleLetters("Comunidad Box");
+  })
+  

@@ -8,20 +8,17 @@
       = client.email
       %strong
         = client.phone
-      .actions
+      .actions.right
         .action
           = link_to image_tag("edit.png"),edit_client_path(client),{:title=>"Modificar"} if client.confirmed_at.nil?
         .action
           = link_to image_tag('new.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
 
     - client.cars.each_with_index do |car,index|
-      .client_car.note
-        .logo
-          = brand_logo car.brand.name,true
+      .client_car.left
         .detail
-          .domain
+          .left
             = link_to h(car.domain),car
-          .clear
             %strong
               = car.brand.name
               = car.model.name
