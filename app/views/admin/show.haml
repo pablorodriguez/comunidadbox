@@ -1,28 +1,36 @@
 .vertical_menu
   #menu_options.box_bottom
     %ul
-      %li 
-        = image_tag "my_services.png"
-        = link_to "Mis Servicios", service_types_companies_path
       %li
-        = image_tag "service.png"
-        = link_to "Servicios Realizados" , workorders_path
+        #my_services.link.menu
+          = image_tag "my_services.png"
+          = link_to "Mis Servicios", service_types_companies_path
       %li
-        = image_tag "control-panel.png"
-        = link_to "Panel de control" , control_panels_path
+        #services_done.link.menu
+          = image_tag "service.png"
+          = link_to "Servicios Realizados" , workorders_path
       %li
-        = image_tag "filters2.gif"
-        = link_to "Listado de Filtros" , service_filters_path
+        #control-panel.link.menu
+          = image_tag "control-panel.png"
+          = link_to "Panel de control" , control_panels_path
       %li
-        = image_tag "service_offer.png"
-        = link_to "Administración Ofertas de Servicio" , service_offers_path
+        #filters_services.link.menu
+          = image_tag "filters2.gif"
+          = link_to "Listado de Filtros" , service_filters_path
       %li
-        = image_tag "price.png"
-        = link_to "Lista de Precios", price_lists_path
+        #service_offer.link.menu
+          = image_tag "service_offer.png"
+          = link_to "Administración Ofertas de Servicio" , service_offers_path
       %li
-        = image_tag "company.png"
-        = link_to "Mis Empresas", companies_path
+        #price.link.menu
+          = image_tag "price.png"
+          = link_to "Lista de Precios", price_lists_path
       %li
-        = image_tag "employee.png"
-        = link_to "Mis Empleados", employees_path
+        #company.link.menu
+          = image_tag "company.png"
+          = link_to "Mis Empresas", companies_path
+      %li
+        #employee.link.menu
+          = image_tag "employee.png"
+          = link_to "Mis Empleados", employees_path
 .contentright_s    

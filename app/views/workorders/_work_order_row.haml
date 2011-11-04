@@ -1,32 +1,31 @@
 .wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
   - can_show = work_order_row.can_show?(current_user)            
   .info
-    .domain
-      = link_to work_order_row.car.domain, work_order_row.car
-  
     .services
+      .clear.left.domain
+        = link_to work_order_row.car.domain, work_order_row.car
       - work_order_row.services.each do |s|
         .service             
-          = link_to s.service_type.name ,work_order_row
-          .service_info.hide
-            .operator
-              -if s.operator
-                %strong
-                  Operario:
-                = "#{s.operator.first_name} #{s.operator.last_name}"
-            .service_more_info.hide    
-              - if s.comment
-                .left
-                  %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-
+          - if s.comment
+            .left
+              %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+          .left
+            = link_to s.service_type.name ,work_order_row
+          .operator
+            -if s.operator
+              %strong
+                Operario:
+              = "#{s.operator.first_name} #{s.operator.last_name}"
     .wo_info
-      .left
+      .right
         = l work_order_row.performed
       - if can_show
-        .price_b.right
+        .clear.price_b.right
           = number_to_currency work_order_row.total_price
       - if can_show
         .actions.clear
+          .action
+            = image_tag "info.png",:class=>:wo_info_detail
           .action
             = link_to_pdf work_order_row unless current_user.company
           .action
@@ -42,7 +41,7 @@
             .action
               = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
     
-  
+
   .hide_info.hide
     - if can_show
       .left
@@ -62,10 +61,6 @@
     #rank.rank{:id =>"wo_#{work_order_row.id}"}
       - if can_show
         = render 'ranks/rank',:workorder => work_order_row
-
-  
-  
-  
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
     .new_note.hide
       = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}

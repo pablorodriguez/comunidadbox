@@ -3,38 +3,41 @@
     %li
       #cars_link.menu
         = image_tag "cars.png"
-        = link_to("Autómoviles", cars_path,{:remote=>true})
-      .ajax_loader.right
-    %li
-      #clients_link.menu
-        = image_tag "customers.png"
-        =link_to("Clientes",clients_path,{:remote=>true})
+        - if current_user.company
+          = link_to "Autómoviles", cars_path
+        - unless current_user.company  
+          = link_to "Autómoviles", my_cars_path
       .ajax_loader.right
     %li
       #service_done_link.menu
         = image_tag "service.png"
-        = link_to("Servicios Realizados",workorders_path)
-    %li
-      #control_panel_link.menu
-        = image_tag "control-panel.png"
-        = link_to "Panel de Control",control_panels_path
-    %li.hide
-      #alarms_link
-        = image_tag "alarm.png"
-        Alarmas
-    %li.hide
-      #messages_link
-        = image_tag "message.png"
-        Mensajes
+        = link_to "Servicios Realizados",workorders_path
+    - if current_user.company
+      %li
+        #clients_link.menu
+          = image_tag "customers.png"
+          =link_to "Clientes",clients_path
+        .ajax_loader.right
+      %li
+        #control_panel_link.menu
+          = image_tag "control-panel.png"
+          = link_to "Panel de Control",control_panels_path
+    .hide
+      %li
+        #alarms_link.menu
+          = image_tag "alarm.png"
+          Alarmas
+      %li
+        #messages_link.menu
+          = image_tag "message.png"
+          Mensajes
     %li
       #service_center_link.menu
         = image_tag "find.png"        
-        = link_to_function "Prestadores de Servicios", "searchCompany()"
+        = link_to "Prestadores de Servicios", all_companies_path
       .ajax_loader.right
 #menu_actions
   #cars_menu.menu_data.hide.box_bottom    
     =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
   #clients_menu.menu_data.hide.box_bottom
     = render "clients/search_clients"
-  #service_center_menu.menu_data.hide.box_bottom    
-    =render :partial=>"companies/search"

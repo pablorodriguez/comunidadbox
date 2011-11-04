@@ -8,9 +8,3 @@
       = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state"})
       = image_submit_tag("find.png",:class =>"input_img")
   .ajax_loader.right
-  
--if current_user && current_user.company
-  .clear.actions
-    %h3 Acciones
-    =link_to "Nueva Empresa", new_company_path
-  

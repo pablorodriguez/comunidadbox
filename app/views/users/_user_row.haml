@@ -1,34 +1,35 @@
-%tbody
-  %tbody
-    %tr
-      %td
-        %label{ :for => "login" }Nombre
-      %td
-        = f.text_field :first_name
-    %tr
-      %td
-        Apellido
-      %td
-        = f.text_field :last_name
-    %tr
-      %td
-        Teléfono
-      %td
-        = f.text_field :phone
-    %tr
-      %td
-        %label{ :for => "email" }Email *
-      %td
-        = f.text_field :email
-    %tr
-      %td
-        %label{ :for => "password" }Clave *
-      %td
-        = f.password_field :password
-    %tr
-      %td    
-        Confirmar
-        %br
-        Clave *
-      %td
-        = f.password_field :password_confirmation
+%tr
+  %td{:style=>"width:100px"}
+    %label{ :for => "login" }Nombre
+  %td
+    = f.text_field :first_name,:class=>"input_medium"  
+%tr
+  %td
+    Apellido
+  %td
+    = f.text_field :last_name,:class=>"input_medium"  
+%tr
+  %td
+    Teléfono
+  %td
+    = f.text_field :phone,:class=>"input_medium"  
+%tr
+  %td
+    %label{ :for => "email" }Email *
+  %td
+    = f.text_field :email,:class=>"input_medium"  
+%tr
+%tr
+  %td
+    %label{ :for => "password" }Clave *
+  %td
+    = f.password_field :password,:class=>"input_medium"  
+%tr
+%tr
+  %td    
+    Confirmar
+    %br
+    Clave *
+  %td
+    = f.password_field :password_confirmation,:class=>"input_medium"  
+%tr

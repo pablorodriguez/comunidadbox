@@ -1,38 +1,38 @@
 %table
   %tbody
     %tr
+      %td{:style=>"width:100px"}
+        %label{ :for => "domain" }Dominio
       %td
-        %label{ :for => "domain" }Dominio (XXX999)
-      %td
-        = f.text_field :domain,:size=>8, :maxlength =>6
+        = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"labelify input_short",:title=>"XXX999"
     %tr
       %td
         %label{ :for => "brand_id" }Marca
       %td
         = f.collection_select(:brand_id, Brand.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"brand medium_select"})
+      %td{:style=>"width:20px"}
+      %td
+        %label{ :for => "year" }Año
+      %td
+        = f.text_field :year,:size=>6,:maxlength =>4,:class=>"input_short"
+    %tr
+      %td
+        %label{ :for => "fuel" }Combustible
+      %td
+        = f.collection_select :fuel, %w(Nafta Diesel Gas),:to_s,:to_s,{:prompt=>""},{:class=>"medium_select"}
+      %td{:style=>"width:20px"}
+      %td
+        %label{ :for => "km" }Kilometraje
+      %td
+        = f.text_field :km,:size=>10,:class=>"input_short"
     %tr
       %td
         %label{ :for => "model_id" }Modelo  
       %td
         #models
           = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model medium_select'})
-    %tr
-      %td
-        %label{ :for => "year" }Año
-      %td
-        = f.text_field :year,:size=>6,:maxlength =>4
-    %tr
-      %td
-        %label{ :for => "km" }Kilometraje
-      %td
-        = f.text_field :km,:size=>10
-    %tr
+      %td{:style=>"width:20px"}
       %td
         %label{ :for => "email" }Kilometraje promedio mensual
       %td
-        = f.text_field :kmAverageMonthly,:size=>6
-    %tr
-      %td
-        %label{ :for => "fuel" }Combustible
-      %td
-        = f.collection_select :fuel, %w(Nafta Diesel Gas),:to_s,:to_s,:prompt=>""
+        = f.text_field :kmAverageMonthly,:size=>6,:class=>"input_short"

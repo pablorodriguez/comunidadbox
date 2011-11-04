@@ -25,7 +25,7 @@ function searchCompany(){
 }
 
 function search_address(target){
-	var address = $(target).parent().parent().find(".address").html().trim();
+	var address = $(target).parent().parent().parent().find(".address").html().trim();
 	$("#address_map").val(address);
 	$("#search_map").dialog('open')
   initializeMap(8);    

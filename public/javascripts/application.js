@@ -1,6 +1,8 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-
+var RecaptchaOptions = {
+      theme : 'white'
+};
 var showMenu =false;
 jQuery(document).ready( function(){
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
@@ -18,6 +20,7 @@ jQuery(document).ready( function(){
     $(this).parent().next().show();
   }).bind('ajax:complete',function(){
     $(this).parent().next().hide();
+    $(".labelify").labelify({ labelledClass: "labelHighlight" });
   });
 
   $(document).bind('click', function(e) {
@@ -29,8 +32,37 @@ jQuery(document).ready( function(){
       }
     }
   });
+
+  $('.brand').live("change",searchModel);
+  $("#user_type").live("click",setUserType);
   		
 });
+
+function setUserType(){
+  if ($("#user_type").val() == "u"){
+    $("#user_data").show();
+    $("#company_data").hide();
+  }else{
+    $("#user_data").hide();
+    $("#company_data").show();
+  }
+}
+
+function searchModel(event){
+  var brand_id = event.target.id; 
+  var token = $("input[name='authenticity_token']")[0];
+  //AjaxLoader.enable();
+  $.ajax({
+    url: "/cars/find_models",
+      data: {
+        'id':brand_id,
+        'brand_id':$("#"+brand_id).val(),
+        'authenticity_token':encodeURIComponent(token)
+      },
+    dataType:'script',
+    type:'POST'
+  });
+}
 
 function showHideContent(link,data){
   $(".contentright_s .data").hide();  

@@ -28,8 +28,8 @@ jQuery(document).ready(function(){
    }
    
    $("#company-selector").dialog({
-    height: 570,
-    width:650,
+    height: 600,
+    width:850,
     title:'Seleccionar Prestador de Servicio',
     autoOpen: false,
     draggable: false,

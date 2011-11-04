@@ -29,11 +29,12 @@ class WorkordersController < ApplicationController
 
     @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
     
-    per_page = 13
+    per_page = 10
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     @service_type_ids =  params["service_type_ids"] || []
+    @all_service_type = @service_type_ids.size > 0 ? true : false
     @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
     logger.debug "### Service Type IDS #{@service_type_ids} Status ID #{@wo_status_id}"
     filters_params ={}
@@ -214,6 +215,9 @@ class WorkordersController < ApplicationController
     @work_order.company_info  = params[:c] if params[:c]
     
     @work_order.company = Company.find @company_id if @company_id
+    unless car_id && current_user.cars.size == 1
+      @work_order.car = current_user.cars.first
+    end
     @work_order.car = Car.find(params[:car_id]) if params[:car_id]
     
     @service_types = current_user.service_types

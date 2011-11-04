@@ -100,8 +100,7 @@ class User < ActiveRecord::Base
       return true
     end
     companies.each do |c|
-      if c.id == comp.id
-        puts "aca each #{c.id} #{company.id}"
+      if c.id == comp.id        
         return true
       end
     end

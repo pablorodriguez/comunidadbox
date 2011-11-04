@@ -1,13 +1,10 @@
 var sc_hide =["#li_info_sc","#li_info_asc","#h_info_sc","#h_address_sc"];
 var usr_hide=["#li_info_car","#li_info_ausr","#h_car_info","#h_ausr_inf"];
 jQuery(document).ready(function(){
-  for(var i = 0; i < sc_hide.length; i++)
-      $(sc_hide[i]).hide();
 	$('.brand').change(searchModel);
-	$( "#user_data" ).accordion();
-	$(".usr_menu_link").click(changeAccountTabs);
-	$("input[type=radio]").change(updateAccountUserType);
-	updateAccountUserType();
+	//$(".usr_menu_link").click(changeAccountTabs);
+	//$("input[type=radio]").change(updateAccountUserType);
+	//updateAccountUserType();
 
 });
 
@@ -65,21 +62,7 @@ function showMap(event){
 }
 
 
-function searchModel(event){
-	var brand_id = event.target.id;	
-	var token = $("input[name='authenticity_token']")[0];
-	//AjaxLoader.enable();
-	$.ajax({
-		url: "/cars/find_models",
-			data: {
-				'id':brand_id,
-				'brand_id':$("#"+brand_id).val(),
-				'authenticity_token':encodeURIComponent(token)
-			},
-		dataType:'script',
-		type:'POST'
-	});
-}
+
 
 function show_html_callback(code){
 	eval(code);

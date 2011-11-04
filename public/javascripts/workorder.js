@@ -56,6 +56,12 @@ jQuery(document).ready( function(){
     $(this).parent().parent().parent().find(":checkbox[id='all_service_type']").attr("checked",'');
   })
 
+  $(".wo_info_detail").live("mouseenter",function(){
+      $(this).parent().parent().parent().parent().next().show();
+    }).live("mouseleave",function(){
+      $(this).parent().parent().parent().parent().next().hide();
+    });
+
   
 });
 

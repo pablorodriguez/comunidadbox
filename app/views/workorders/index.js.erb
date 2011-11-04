@@ -1,5 +1,5 @@
 if (<%=@work_orders.size%> > 0){
-  $("#workorders").html("<%=escape_javascript(render(:partial=>'workorders'))%>");  
+  $("#workorders").html("<%=escape_javascript(render(:partial=>'workorders'))%>");
 }else{
   $("#workorders").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna orden de trabajo."}))%>");  
 } 
@@ -10,3 +10,4 @@ if ($("#price_graph").size() >0){
 if ($("#amt_graph").size() > 0){
   build_amt_graph([<%=@amt_data%>],"amt_graph","Cantidad por Tipo de Servicio");
 }
+$(".labelify").labelify({ labelledClass: "labelHighlight" });

@@ -1,6 +1,5 @@
-%h1 
-  Servicios Realizados
-.row    
+.box_bottom
+  %h1 Servicios Realizados
 - for work_order in @work_orders
   = render :partial =>"work_order_row",:object => work_order
 %br

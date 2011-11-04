@@ -1,4 +1,5 @@
-=render :partial=>"search_car",:locals =>{:cars=>[],:table_id =>:sort_table}          
-.buttons
-	= link_to_back root_path
-	= link_to "Nuevo Automóvil", new_car_path(:user_id=>@user.id),  {:title =>"Nuevo Automóvil",:class=>"button"}
+.box_bottom
+  =render :partial=>"search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
+.box_bottom
+  %h3 Acciones
+  = link_to "Nuevo Automóvil", new_car_path(:user_id=>@user.id)

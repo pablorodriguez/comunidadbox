@@ -20,6 +20,14 @@ body {
   width: 16px;
   display:none;
 }
+#service_center_actions .form{  
+  width:80%;
+  float:left;
+}
+
+#service_center_actions .ajax_loader{
+  margin-top:36px;
+}
 
 #car_search{
   width:100%;
@@ -740,9 +748,9 @@ input{
 }
 
 .contentright_s {
-  width:74%;
+  width:73%;
   margin-left:3px;
-  padding-left:3px;
+  padding-left:10px;
   float:left;  
   border-left:thin double #CCCCCC;
   min-height:810px;
@@ -836,7 +844,7 @@ input{
 .vertical_menu{
   width:25%;
   float:left;
-  margin-top:20px;
+  margin-top:0px;
 }
 
 .contentleft{
@@ -1047,7 +1055,7 @@ table.comboxtable, .comboxform,table.w{
 
 #avatar_login h3 {
   color:#FFF;
-  font-size:12px;
+  font-size:14px;
   text-align:right;
   margin:0px;
   float:left;
@@ -1298,9 +1306,27 @@ td.number, th.number{
   margin: 5px;
   padding: 5px;
   width: auto;
+  position: absolute;
+  width: 210px;
+  top:0px;
 }
 
-.notice h2, .alert h2{
+.error_msg{
+  background-color: #FFAFAF;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #DF0000;
+  margin: 5px;
+  padding: 5px;
+  width: auto;
+}
+
+.error_msg ul{
+  margin-left:40px;
+}
+
+.notice h2, .alert h2, .error_msg h2{
   color: black;
   font-weight:bold;
   margin:5px;
@@ -1325,7 +1351,19 @@ td.number, th.number{
   top:500px;
 }
 
-.errorExplanation h2 {
+.messages{
+  background-color: #DEF9D4;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;  
+  border: 1px solid #099F3A;
+  margin: 5px;
+  padding:5px;
+  width: auto;
+  padding: 5px;
+
+}
+.messages h2 {
   font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:14px;
   font-style:normal;
@@ -1471,16 +1509,30 @@ td.number, th.number{
 .wo_detail{
   float: left;
   width: 100%; 
+  position:relative;
+}
+
+.wo_detail .hide_info{
+  position:absolute;
+  right:0px;
+  top:63px;
+  z-index:100;
+  background-color: #E6E6E6;
+  border: 1px solid #AFAFAF;
+  border-radius: 5px 5px 5px 5px;
+  margin: 0 auto 10px;
+  overflow: auto;
+  padding: 5px;
 }
 
 .wo_detail .services{  
   margin: 2px 0px;
   float:left;
-  width:60%;
+  width:84%;
 }
 
 .wo_detail .wo_info{
-  width:24%;
+  width:16%;
   float:right;
 }
 
@@ -1522,8 +1574,7 @@ td.number, th.number{
   font-size: 20px;
   font-weight: bold;
   float: left;
-  margin: 2px 5px 2px 0px;
-  width:12%;
+  margin: 2px 5px 2px 2px;
 }
 
 .price{
@@ -1557,7 +1608,8 @@ td.number, th.number{
   padding:2px 5px;
   float: left;
   border-radius: 5px 5px 5px 5px;
-  border: 1px outset #636262;  
+  border: 1px outset #636262; 
+  min-height:35px;
 }
 
 .service .operator{
@@ -1874,17 +1926,6 @@ dl {
   padding: 0px;
 }
 
-#events li:hover .dropdown_5columns {
-  left:-1px;
-  top:auto;
-}
-
-
-#departments{
-  display:inline;
-}
-
-
 .short_select{
   width:100px
 }
@@ -2007,6 +2048,14 @@ dl {
   text-align:right;
 }
 
+#wo_form{
+  float:left;
+}
+
+#wo_form .ajax_loader{
+  margin-top:5px;
+}
+
 .note{
   padding-left:10px;
   overflow: auto;
@@ -2059,14 +2108,11 @@ input.labelHighlight,textarea.labelHighlight {
   text-align: right;
 }
 
-.car_info{
-  overflow: auto;
-  float:left;
-}
 .down_icon{
   overflow: auto;
   text-align: center;
   width: 20px;
+  height: 24px;
 }
 
 .down_icon:hover{
@@ -2119,6 +2165,7 @@ input.labelHighlight,textarea.labelHighlight {
   margin:2px;
   padding:1px;
   overflow: auto;
+  list-style:none outside none;
 }
 
 #menu_options li a:over{  
@@ -2188,4 +2235,21 @@ input.labelHighlight,textarea.labelHighlight {
   margin-left:10px;
   overflow:auto;
   width:90%;
+}
+
+.pagination .current{
+  background-color: #F2EAB7;
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding: 0px 3px;
+}
+
+#personal_info{
+  position:relative;
+}
+
+#personal_info .recpatcha{
+  position:absolute;
+  right:0px;
+  top:35px;
 }

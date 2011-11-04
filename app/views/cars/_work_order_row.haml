@@ -4,23 +4,21 @@
     .services
       - work_order_row.services.each do |s|
         .service             
-          = link_to s.service_type.name ,work_order_row
-          .service_info
-            .operator
-              -if s.operator
-                %strong
-                  Operario:
-                = "#{s.operator.first_name} #{s.operator.last_name}"
-            .service_more_info.hide    
-              - if s.comment
-                .left
-                  %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-
+          - if s.comment
+            .left
+              %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+          .left
+            = link_to s.service_type.name ,work_order_row
+          .operator
+            -if s.operator
+              %strong
+                Operario:
+              = "#{s.operator.first_name} #{s.operator.last_name}"
     .wo_info
-      .left
+      .right
         = l work_order_row.performed
       - if can_show
-        .price_b.right
+        .clear.price_b.right
           = number_to_currency work_order_row.total_price
       - if can_show
         .actions.clear
@@ -40,31 +38,17 @@
               = link_to(image_tag('edit.png'), edit_workorder_path(work_order_row),:title =>"Modificar")
             .action
               = link_to image_tag('delete.png'), workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
-    
-  
   .hide_info.hide
     - if can_show
       .left
         %strong
           Vendedor:
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
-        %br
-        %strong
-          Cliente:
-        = "#{work_order_row.car.user.first_name} #{work_order_row.car.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
-        - if work_order_row.comment
-          .action
-            %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
-
     #rank.rank{:id =>"wo_#{work_order_row.id}"}
       - if can_show
         = render 'ranks/rank',:workorder => work_order_row
-
-  
-  
-  
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
     .new_note.hide
       = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}

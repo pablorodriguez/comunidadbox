@@ -62,6 +62,7 @@ class CompaniesController < ApplicationController
     @company.user = current_user
     @company.build_address if @company.address.nil?
     respond_to do |format|
+      format.js { render :layout => false}
       format.html # new.html.erb
       format.xml  { render :xml => @company }
     end
@@ -103,8 +104,10 @@ class CompaniesController < ApplicationController
         PriceList.copy_default @company.id
         format.html { redirect_to(@company) }
         format.xml  { render :xml => @company, :status => :created, :location => @company }
+        format.js { render :action => "show" }
       else
         format.html { render :action => "new" }
+        format.js { render :action => "new" }
         format.xml  { render :xml => @company.errors, :status => :unprocessable_entity }
       end
     end
