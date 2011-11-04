@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  
+
   # Include default devise modules. Others available are:
 	# :http_authenticatable, :token_authenticatable, :confirmable,:lockable, :timeoutable and :activatable
   devise :registerable, :database_authenticatable, :recoverable,:rememberable, :trackable, :validatable
@@ -8,24 +8,26 @@ class User < ActiveRecord::Base
 
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
-  
+
   attr :type, true
-  
+
   has_many :service_filters,:order =>'name'
   has_many :cars
   has_many :authentications
-  
+
   belongs_to :creator,:class_name=>'User'
   has_many :companies
-  
+  has_many :companies_users
+  has_many :service_centers, :through => :companies_users, :source => :company
+
   belongs_to :supplier, :class_name => 'Company', :foreign_key => 'supplier_id'
   has_many :user_roles
-  has_many :roles ,:through => :user_roles
-  
+  has_many :roles, :through => :user_roles
+
   has_one :address
   has_one :company_active,:class_name=>"Company",:conditions=>"active=1"
   belongs_to :employer,:class_name =>"Company",:foreign_key=>'employer_id'
-  
+
   has_many :alarms, :dependent => :destroy
 
   validates_uniqueness_of :email, :case_sensitive => false
@@ -33,30 +35,30 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address,:reject_if =>lambda {|a| a[:street].blank?}
   accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
   accepts_nested_attributes_for :cars,:reject_if =>lambda {|a| a[:domain].blank?}
-  
+
   NULL_ATTRS = %w( company_name cuit )
   before_save :nil_if_blank
-  
+
   def nil_if_blank
     NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
   end
-  
+
   def belongs_to_company comp
     if (self.companies.size > 0)
         return self.companies.select{|c| c.id == comp.id}.size > 0
     end
 
     return (self.company.id == comp.id)
-    
+
   end
-  
+
   def current_company
     return company if company
     return employer if employer
   end
-  
+
   def find_service_offers(filters = nil)
-    
+
     if self.is_super_admin
       offers = ServiceOffer.confirmed
     elsif self.is_administrator
@@ -70,11 +72,11 @@ class User < ActiveRecord::Base
       offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
       offers = offers.where("until <= ?",filters[:until].to_datetime.in_time_zone) unless filters[:until].empty?
       offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
-      offers = offers.where("status in (?)",filters[:status]) if filters[:status]    
+      offers = offers.where("status in (?)",filters[:status]) if filters[:status]
     end
     offers
   end
-  
+
   def service_types
     if company
       return company.service_type
@@ -82,19 +84,19 @@ class User < ActiveRecord::Base
       return ServiceType.all
     end
   end
-  
+
   def service_offers(status=nil)
     services = []
     cars.each do |c|
       so = ServiceOffer.where("car_service_offers.car_id = ?",c.id).includes(:car_service_offer)
       if status
         so = so.where("service_offers.status = ?","Enviado")
-      end        
+      end
       services << so
     end
     services.flatten
   end
-  
+
   def own(comp)
     if company_id == comp.id
       return true
@@ -107,30 +109,30 @@ class User < ActiveRecord::Base
     end
     return false
   end
-  
+
   def own_car car
     cars.select{|c| c.id == car.id}.size > 0
   end
-  
+
   def employees
     User.where("employer_id = ? ",id)
   end
-  
+
   def company
-    return company_active if companies.size > 0 
+    return company_active if companies.size > 0
     return employer if employer
   end
-  
+
   def after_initialize2
     self.build_address if self.address.nil?
     self.cars.build if self.cars.empty?
     #- @user.user_addresses[0].address = Address.new
   end
-  
+
   def has_company?
     companies.size > 0
   end
-  
+
   def company_id
     if company
       return company.id
@@ -148,24 +150,24 @@ class User < ActiveRecord::Base
       return self.employer.address
     end
   end
-  
+
   def address_text
     current_address ? current_address.to_text : ""
   end
-  
-  
+
+
   def future_events(args={})
     per_page = args[:per_page]
     car_id = args[:car_id]
     service_type_id = args[:service_type_id]
-    
+
     cars_ids = cars.each{|c|c.id.to_i} unless car_id
     cars_ids = [car_id] if car_id
     events = Event.where("dueDate >= ? and car_id in(?)",Time.now,cars_ids)
-    
+
     events = events.includes(:service_type).where("service_types.id = ?",service_type_id) if service_type_id
     events = events.paginate(:page => 1,:per_page=>per_page) if per_page
-    
+
     events
   end
 
@@ -176,11 +178,11 @@ class User < ActiveRecord::Base
   def is_super_admin
     find_role Role::SUPER_ADMIN
   end
-  
+
   def is_employee
-    employer != nil 
+    employer != nil
   end
-  
+
   def is_car_owner
     car_owner = true
     if has_company? || is_employee
@@ -194,7 +196,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    (first_name.blank? && last_name.blank?) ? email : "#{first_name.capitalize} #{last_name.capitalize}"  
+    (first_name.blank? && last_name.blank?) ? email : "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
   def price_list
@@ -211,7 +213,7 @@ class User < ActiveRecord::Base
       logger.debug "Error #{e} (#{e.class})!"
     end
   end
-  
+
   def service_types
     if current_company
       sp = current_company.service_type
@@ -220,14 +222,14 @@ class User < ActiveRecord::Base
     end
    sp
   end
-  
+
   def state
     return address.state if address && address.state
     return nil
   end
- 
+
  def can_edit? user
-   self.confirmed_at.nil?   
+   self.confirmed_at.nil?
  end
 end
 

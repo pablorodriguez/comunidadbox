@@ -1,6 +1,8 @@
 class Company < ActiveRecord::Base
   has_one :address
   belongs_to :user
+  has_many :companies_users
+  has_many :customers, :through => :companies_users, :source => :user
   has_many :price_lists
   has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   has_many :company_service
@@ -9,26 +11,26 @@ class Company < ActiveRecord::Base
   has_many :employees,:class_name =>'User',:foreign_key =>'employer_id'
   has_many :cars
   has_many :service_offers
-  
+
   DEFAULT_COMPANY_ID = 1
-  
+
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
-  
+
   def is_employee user
     return (self.user == user || employees.select{|e| e.id == user.id}.size > 0) ? true : false
   end
-  
+
   def full_address
     address ? "#{address.street} #{address.city} #{address.state.name}" : ""
   end
   def admin_user
     self.users.select{|u| u.is_company_admin}[0]
   end
-  
+
   def operators
     User.where("employer_id = ? and roles.name = ?", self.id,Role::OPERATOR).includes(:roles).order("users.last_name,users.first_name")
   end
-   
+
   def all_materials
     service_type_materials ={}
     company_service.each do |cst|
@@ -37,40 +39,40 @@ class Company < ActiveRecord::Base
     end
     service_type_materials
   end
-  
+
   def user_rank
     total_wo = self.workorders.size
     rank = 0
     self.workorders.each do |wo|
       if wo.user_rank
-        rank += wo.user_rank.cal  
+        rank += wo.user_rank.cal
       end
-      
+
     end
     if total_wo == 0
        return 0
     else
       (rank.to_f / total_wo)
     end
-    
+
   end
-  
+
   def total_work_order
     self.workorders.size
   end
-  
+
   def total_user_ranked
     total = 0
     if self.workorders
       self.workorders.each do |wo|
         if wo.user_rank
-          total +=1  
-        end      
+          total +=1
+        end
       end
     end
     total
   end
-  
+
   def self.search params
     name =params[:name] || ""
     city = params[:city] || ""
@@ -82,15 +84,16 @@ class Company < ActiveRecord::Base
     end
     return companies
   end
-  
+
   def future_events
     company_cars = Car.all(:conditions =>["company_id = ?",id])
     cars_ids = company_cars.each{|c|c.id.to_i}
     Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids])
   end
-  
-  def self.best(state_id = nil)    
+
+  def self.best(state_id = nil)
     return Company.includes(:address).where("addresses.state_id = ? and companies.id > 1",state_id) if state_id
     return Company.where("companies.id > 1") unless state_id
   end
 end
+
