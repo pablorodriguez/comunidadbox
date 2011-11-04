@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   layout "application", :except => [:search,:find_models]
-  
+
   def edit
     @client = User.find(params[:id])
     @models = Array.new
@@ -9,7 +9,7 @@ class ClientsController < ApplicationController
   def update
     @client = User.find(params[:id])
     @models = Array.new
-    
+
     if @client.update_attributes(params[:user])
       flash[:notice] = 'Cliente actualizado con exito.'
       redirect_to cars_path
@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def find_models
     @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
     @brand_id=params[:id]
@@ -26,30 +26,30 @@ class ClientsController < ApplicationController
       format.js
     end
   end
-  
+
   def create
     @client = User.new(params[:user])
     @client.creator = current_user
     @client.password = @client.first_name + "test"
     @client.password_confirmation = @client.password
-    
+
     User.transaction do
       if @client.save
           flash[:notice] = "Cliente creado exitosamente"
           @client.cars.each do |car|
             car.company = current_user.current_company
             car.save
-          end          
+          end
           redirect_to  new_workorder_path(:car_id =>@client.cars[0].id)
       else
         @client.cars.build if @client.cars.size == 0
         @client.build_address unless @client.address
         render :action => 'new'
       end
-      
+
     end
   end
-  
+
   def new
     @client = User.new
     @client.address = Address.new
@@ -61,8 +61,11 @@ class ClientsController < ApplicationController
     per_page = 15
     email = params[:email] || ""
     first_name = params[:first_name] || ""
-    last_name = params[:last_name] || ""       
-    @clients = User.where("cars.company_id = ?",current_user.company.id).includes(:cars)     
+    last_name = params[:last_name] || ""
+
+#    @clients = User.where("cars.company_id = ?",current_user.company.id).includes(:cars)
+    @clients = current_user.company.customers
+
     @clients = @clients.where("first_name like ? and last_name like ? and email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
     @clients = @clients.order("first_name,last_name").paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
@@ -82,7 +85,7 @@ class ClientsController < ApplicationController
     @cars = @cars.paginate(:page =>page,:per_page =>per_page)
 
     respond_to do |format|
-      format.js 
+      format.js
     end
   end
 end
