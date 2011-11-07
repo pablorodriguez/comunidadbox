@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @guest.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @guest.email %>
+</p>
+
+<p>
+  <b>Domain:</b>
+  <%= @guest.domain %>
+</p>
+
+<p>
+  <b>Brand:</b>
+  <%= @guest.brand %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @guest.model %>
+</p>
+
+<p>
+  <b>Km:</b>
+  <%= @guest.km %>
+</p>
+
+<p>
+  <b>Kmavg:</b>
+  <%= @guest.kmavg %>
+</p>
+
+
+<%= link_to 'Edit', edit_guest_path(@guest) %> |
+<%= link_to 'Back', guests_path %>

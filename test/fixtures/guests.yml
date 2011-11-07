@@ -4,7 +4,6 @@ one:
   name: MyString
   email: MyString
   domain: MyString
-  year: 1
   brand: MyString
   model: MyString
   km: 1
@@ -14,7 +13,6 @@ two:
   name: MyString
   email: MyString
   domain: MyString
-  year: 1
   brand: MyString
   model: MyString
   km: 1

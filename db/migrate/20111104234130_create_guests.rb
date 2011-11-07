@@ -4,11 +4,11 @@ class CreateGuests < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :domain
-      t.integer :year
       t.string :brand
       t.string :model
       t.integer :km
       t.integer :kmavg
+      t.integer :year
 
       t.timestamps
     end

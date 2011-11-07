@@ -1,6 +1,7 @@
 ComunidadBox::Application.routes.draw do
   
 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -64,7 +65,7 @@ ComunidadBox::Application.routes.draw do
   
   devise_for :users,:controllers => { :registrations => "users/registrations" }
 
-  resources :guest
+  resources :guests
   resources :authentications
   resources :service_filters
   resources :states
