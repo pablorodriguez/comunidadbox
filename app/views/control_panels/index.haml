@@ -10,11 +10,9 @@
     url = "#{filter_alarms_control_panels_path}";
     chart = buildControlPanelChart(service_names,data);             
   });
-.title  
-  %h1
-    = vineta 
-    Panel de Control 
-.box
+.title.box_bottom  
+  %h1 Panel de Control 
+.box_bottom
   -unless @no_data
     %h1 Vencimientos de Servicios
     #graph_container

@@ -1,9 +1,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  
+  layout 'application'
   def new
     build_resource({})
     resource.type ="fu"
     set_default_data resource
+    respond_to do |format|
+      format.js { render :layout => false}
+      format.html # new.html.erb
+    end
   end
   
   def edit
@@ -67,7 +71,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else 
       set_default_data resource     
       flash.delete(:recaptcha_error)
-      flash.now.alert = "Hubo un error en la validacion del codigo de reCaptcha. Por favor ingreselo nuevamente."
+      resource.errors.add "Validacion", "Hubo un error en la validacion del codigo de reCaptcha. Por favor ingreselo nuevamente."
       render_with_scope :new
     end
    

@@ -1,0 +1,38 @@
+#menu_options.box_bottom
+  %ul
+    %li
+      #cars_link.menu
+        = image_tag "cars.png"
+        - if current_user.company
+          = link_to "Autómoviles", cars_path
+        - unless current_user.company  
+          = link_to "Autómoviles", my_cars_path
+      .ajax_loader.right
+    %li
+      #service_done_link.menu
+        = image_tag "service.png"
+        = link_to "Servicios Realizados",workorders_path
+    - if current_user.company
+      %li
+        #control_panel_link.menu
+          = image_tag "control-panel.png"
+          = link_to "Panel de Control",control_panels_path
+    .hide
+      %li
+        #alarms_link.menu
+          = image_tag "alarm.png"
+          Alarmas
+      %li
+        #messages_link.menu
+          = image_tag "message.png"
+          Mensajes
+    %li
+      #service_center_link.menu
+        = image_tag "find.png"        
+        = link_to "Prestadores de Servicios", all_companies_path
+      .ajax_loader.right
+#menu_actions
+  #cars_menu.menu_data.hide.box_bottom    
+    =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
+  #clients_menu.menu_data.hide.box_bottom
+    = render "clients/search_clients"

@@ -1,73 +1,12 @@
-- javascript 'accounts'
-%h1
-  = vineta 
-  Nuevo Usuario
-= render 'shared/error_messages', :target => @user
-= form_for resource, :url => user_registration_path do |f|
-  .contentleft
-    %h1 ¿ Que quieres ser ?
-    = f.radio_button :type ,"fu",:checked => true,:class=>:radio
-    = f.label :type_fu, "Usuario Final",:class =>"link"
-    %br
-    = f.radio_button :type, "sp",:class=>:radio
-    = f.label :type_sp, "Prestado de Servicio",:class =>"link"
-    %ul.usr_menu
-      %li.usr_menu_selected.usr_menu_link
-        %a{:href=>"#",:id=>"0"} 
-          Información Personal
-      %li#li_info_car.usr_menu_link
-        %a{:href=>"#",:id=>"1"} 
-          Información de su auto
-      %li#li_info_ausr.usr_menu_link
-        %a{:href=>"#",:id=>"2"}
-          Dirección Personal
-      %li#li_info_sc.usr_menu_link
-        %a{:href=>"#",:id=>"3"}
-          Información de Prestador de Servicios
-      %li#li_info_asc.usr_menu_link
-        %a{:href=>"#",:id=>"4"} 
-          Dirección de Prestado de Servicios
-  .contentright
-    #user_data
-      %h3
-        %a{:href=>"#"}Información Personal
-      .personal_info
-        %table
-          %tbody
-            = render 'users/user_row',:f => f
-            %tr
-              %td
-                Soy un humano *
-              %td
-                = recaptcha_tags
-      %h3#h_car_info
-        %a{:href=>"#"}Información de su auto
-      .car_info
-        =f.fields_for :cars do |c|
-          = render 'users/car_fields',:f =>c
-      %h3#h_ausr_inf
-        %a{:href=>"#"}Direccion Personal
-      .personal_address      
-        =f.fields_for :address do |a|
-          = render 'users/user_address_fields', :f =>a
-      =f.fields_for :companies do |c|
-        %h3#h_info_sc
-          %a{:href=>"#"}Información del Prestador de Servicio
-        #d_info_sc.company_info
-          = render 'companies/form', :f => c
-        %h3#h_address_sc
-          %a{:href=>"#"}Direccion del Prestador de Servicio
-        #d_address_sc.company_address
-          = c.fields_for :address do |ad|
-            = render 'companies/company_address_fields', :ad => ad      
-    %p
-      .buttons
-        = link_to_back root_path
-        = f.submit "Grabar",:class=>"button"
-        
-    - if user_signed_in?
-      -if devise_mapping.recoverable? && controller_name != 'passwords'
-        = link_to t(:forgot_your_password), new_password_path(resource_name)
-        %br
-      -if devise_mapping.confirmable? && controller_name != 'confirmations'
-        = link_to t(:not_receive_confirmation_instruction), new_confirmation_path(resource_name)
+.vertical_menu
+  = render "home/nu_menu"  
+.contentright_s
+  .left
+    %h1 Nuevo Usuario
+  .right
+    %h1
+      =  select_tag "user_type", "<option value='u'>Usuario</option><option value='ps'>Prestador de Servicio</option>".html_safe,:class=>"long_select"
+  .clear.box_bottom
+  = form_for resource, :url => user_registration_path do |f|
+    = render "form", :f => f,:recaptcha => true
+

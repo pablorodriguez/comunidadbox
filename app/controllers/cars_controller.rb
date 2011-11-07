@@ -1,4 +1,7 @@
 class CarsController < ApplicationController
+
+  add_breadcrumb "Buscar", :all_companies_path
+  add_breadcrumb "Autos", :cars_path  
   
   layout "application", :except => [:search,:update_km,:update_km_avg,:find_models,:search_companies] 
   skip_before_filter :authenticate_user!,:only => [:find_models]
@@ -11,7 +14,7 @@ class CarsController < ApplicationController
     domain = "%" if domain.empty?
      
     @user = current_user
-    per_page = 15
+    per_page = 12
     
     if current_user.company
       @company_cars = current_user.company.cars
@@ -20,7 +23,7 @@ class CarsController < ApplicationController
     end
     
     if  domain != "%"
-      @company_cars = Car.where("domain like ?",domain)  
+      @company_cars = @company_cars.where("domain like ?",domain)  
     end
 
     @company_id = params[:company_id]
@@ -30,6 +33,9 @@ class CarsController < ApplicationController
       format.html # index.html.erb
       format.js { render :layout => false}
     end
+  end
+
+  def service_done
   end
   
   def find_models
@@ -75,21 +81,27 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     @car_id = params[:id]
+    @usr = @car.user.id
     page = params[:page] || 1
     data = params[:d] || "all"
     filters ={}
+
+    add_breadcrumb "Servicios", workorders_path
+    add_breadcrumb "Panel de Control", control_panels_path if current_user.company
+    per_page = 10
     respond_to do |format|
 
       if data == "all"
         @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
-          .paginate(:per_page=>5,:page =>page)
+          .paginate(:per_page=>per_page,:page =>page)
         filters[:domain] = @car.domain
         filters[:user] = current_user
         #filters[:company_id] = current_user.company.id if current_user.company
         @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
         @companies = Company.best current_user.state 
+        @notes = Note.where("user_id = ?",@car.user.id).order("created_at desc")
         
-        @events = @car.future_events.paginate(:per_page=>10,:page =>page)
+        @events = @car.future_events.paginate(:per_page=>per_page,:page =>page)
         @wo_pages = {:d=>"wo"}
         @e_pages = {:d=>"e"}
         logger.debug  "### Events #{@events.size} #{@price_data} "
@@ -103,7 +115,7 @@ class CarsController < ApplicationController
       end
       
       if data =="wo"
-        @work_orders = Workorder.where("car_id = ?",@car_id).paginate(:per_page=>5,:page =>page,:order =>"performed desc")
+        @work_orders = Workorder.where("car_id = ?",@car_id).paginate(:per_page=>per_page,:page =>page,:order =>"performed desc")
         @wo_pages = {:d => "wo"}      
         format.js { render "work_orders",:layout => false}
       end

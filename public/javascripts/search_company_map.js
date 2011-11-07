@@ -15,9 +15,17 @@ jQuery(document).ready(function(){
 	  $("#address_map").val(address);
 	
 });
+function searchCompany(){
+
+  $("#menu_options .selected").removeClass("selected");
+  $("#service_center_link").addClass("selected");
+
+  $(".menu_data.showed").hide().removeClass("showed"); 
+  $("#service_center_menu").show().addClass("showed"); 
+}
 
 function search_address(target){
-	var address = $(target).parent().parent().find(".address").html().trim();
+	var address = $(target).parent().parent().parent().find(".address").html().trim();
 	$("#address_map").val(address);
 	$("#search_map").dialog('open')
   initializeMap(8);    

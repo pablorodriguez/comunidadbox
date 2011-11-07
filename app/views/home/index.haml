@@ -1,2 +1,29 @@
-= render "home/welcome_msg"
-= render "home/new_msgs"
+- javascript 'jquery.shuffleLetters.js'
+
+.vertical_menu
+  - if user_signed_in?   
+    = render "menu"
+  - unless user_signed_in?     
+    = render "nu_menu"  
+.contentright_s
+  #default.data
+    = render "home/welcome_msg"    
+    = render "home/new_msgs"    
+  #cars.data
+  #clients.data
+  #workorders.data
+  #control_panel.data
+  #alarms.data
+  #messages.data    
+  #all_companies.data.hide
+    #comp_map
+      #companies        
+      = render "companies/maps"
+  #new_company.data.hide
+  #user_registration.data.hide
+      
+:javascript
+  $(document).ready(function(){
+    $("#comunidadbox h1").shuffleLetters("Comunidad Box");
+  })
+  

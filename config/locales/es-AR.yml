@@ -124,7 +124,7 @@
           gb: "GB"
           tb: "TB"
     format:
-      precision: 3
+      precision: 2
       separator: ","
       delimiter: .
     currency:

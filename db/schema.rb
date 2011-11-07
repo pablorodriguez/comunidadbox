@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111008024234) do
+ActiveRecord::Schema.define(:version => 20111104234130) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -178,6 +178,18 @@ ActiveRecord::Schema.define(:version => 20111008024234) do
 
   add_index "events", ["service_id"], :name => "events_service_id_fk"
 
+  create_table "guests", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "domain"
+    t.string   "brand"
+    t.string   "model"
+    t.integer  "km"
+    t.integer  "kmavg"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "material_details", :id => false, :force => true do |t|
     t.integer "material_id",                             :default => 0, :null => false
     t.integer "category_id"
@@ -245,6 +257,7 @@ ActiveRecord::Schema.define(:version => 20111008024234) do
     t.integer  "note_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id",   :null => false
   end
 
   add_index "notes", ["note_id"], :name => "notes_note_id_fk"

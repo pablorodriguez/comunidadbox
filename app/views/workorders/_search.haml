@@ -1,35 +1,37 @@
-%h1 Buscar
-= form_tag workorders_path,:remote =>true,:id=>:filter,:method =>:get do
-  = hidden_field_tag :direction, @direction
-  = hidden_field_tag :sort, @sort_column
-  %table
-    %thead
-    %tbody
-      %tr
-        %td
-          = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>"Desde"
-          = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>"Hasta"
-      %tr
-        %td
-          = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date",:title=>"Dominio"
-      %tr
-        %td
-          %label
-            Tipo de Servicio
-          #service_types
-            %ul
-              -@company_services.each do |service|
-                %li
-                  = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>:checkbox,:id=>"service_type_#{service.id}"
-                  %label.link{:for=>"service_type_#{service.id}"}
-                    =service.name
-          -#= collection_select(:service_type, :id, @company_services, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
-      %tr
-        %td 
-          Estado
-      %tr
-        %td
-          = select_tag(:wo_status_id,options_for_select(Status::WO_STATUS.collect{|v,k| [k,v]},@status_id),{:prompt=>"true",:include_blank=>true})
-          = image_submit_tag("find.png",:class =>"input_img")          
+#wo_form
+  .form
+    %h3 Buscar
+    = form_tag workorders_path,:remote =>true,:id=>:filter,:method =>:get do
+      = hidden_field_tag :direction, @direction
+      = hidden_field_tag :sort, @sort_column
+      %table
+        %tbody
+          %tr
+            %td
+              %label
+                Tipo de Servicio
+              #service_types
+                %ul
+                  %li
+                    = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
+                    %label.link{:for => 'all_service_type'}
+                      Todos
+                  -@company_services.each do |service|
+                    %li
+                      = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>:checkbox,:id=>"service_type_#{service.id}"
+                      %label.link{:for=>"service_type_#{service.id}"}
+                        =service.name
+          %tr
+            %td
+              = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>"Desde"
+              = text_field_tag 'date_to', @date_t,:class =>"input_date labelify",:title=>"Hasta"
+          %tr
+            %td
+              = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>"Dominio"
+              = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
+      .left
+        = image_submit_tag("find.png",:class =>"input_img")
+  .ajax_loader.right
+          
           
 

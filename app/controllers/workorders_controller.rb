@@ -1,5 +1,9 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
+  
+  add_breadcrumb "Buscar", :all_companies_path
+  add_breadcrumb "Autos", :cars_path
+  add_breadcrumb "Panel de Control", :control_panels_path
 
   prawnto :prawn => {:page_size => "A4"}
   
@@ -25,12 +29,13 @@ class WorkordersController < ApplicationController
 
     @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
     
-    per_page = 8
+    per_page = 10
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
     @service_type_ids =  params["service_type_ids"] || []
-    @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?)
+    @all_service_type = @service_type_ids.size > 0 ? true : false
+    @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
     logger.debug "### Service Type IDS #{@service_type_ids} Status ID #{@wo_status_id}"
     filters_params ={}
     @date_f = params[:date_from]
@@ -62,6 +67,7 @@ class WorkordersController < ApplicationController
     @services_amount =0 
     amt.each{|key,value| @services_amount += value}
       
+    @status = {-1=>"-- Estado --"}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
 
     respond_to do |format|
       format.html
@@ -71,9 +77,15 @@ class WorkordersController < ApplicationController
   
   
   def show
+
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
     
+    add_breadcrumb "Automoviles", cars_path
+    add_breadcrumb "Servicios", workorders_path
+    add_breadcrumb "Automovil", car_path(@work_order.car)
+
+
     respond_to do |format|
       format.html
       format.pdf {
@@ -203,6 +215,9 @@ class WorkordersController < ApplicationController
     @work_order.company_info  = params[:c] if params[:c]
     
     @work_order.company = Company.find @company_id if @company_id
+    unless car_id && current_user.cars.size == 1
+      @work_order.car = current_user.cars.first
+    end
     @work_order.car = Car.find(params[:car_id]) if params[:car_id]
     
     @service_types = current_user.service_types

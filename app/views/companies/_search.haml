@@ -1,31 +1,10 @@
-%h1 Buscar
-- form_for :company, :remote =>true, :url => search_companies_path do |f|
-  %table.w
-    %thead
-      %tr
-        %td Nombre
-      %tr
-        %td
-          = text_field_tag 'name'
-      %tr
-        %td Dirección
-      %tr
-        %td
-          = text_field_tag 'street'
-      %tr
-        %td Ciudad
-      %tr
-        %td
-          = text_field_tag 'city'
-      %tr
-        %td Provincia
-      %tr
-        %td
-          = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"state medium_select"})
-          = image_submit_tag("find.png",:class =>"input_img")
-
-.buttons
-  = link_to_back root_path
-  -if current_user
-    = link_to "Nueva Empresa", new_company_path,{:class =>"button"}
-  
+%h3 Buscar
+#service_center.box_bottom
+  .form
+    - form_for :company, :remote =>true, :url => search_companies_path do |f|
+      = text_field_tag 'name',"",:class=>"labelify",:title=>"Nombre"
+      = text_field_tag 'street',"",:class=>"labelify",:title=>"Dirección"
+      = text_field_tag 'city',"",:class=>"labelify",:title=>"Ciudad"
+      = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state"})
+      = image_submit_tag("find.png",:class =>"input_img")
+  .ajax_loader.right

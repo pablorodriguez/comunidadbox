@@ -27,8 +27,7 @@
     #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     #total_work_order
-      = number_to_currency @work_order.total_price
+      = number_to_currency @work_order.total_price    
     .buttons
-      = link_to_back @work_order.car      
       = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
-      
+    

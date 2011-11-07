@@ -1,5 +1,6 @@
 #cont1
-  %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
+  #comunidadbox
+    %h1 ¡BIENVENIDO A COMUNIDAD BOX!
   %h2
     %span#cont1
       Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Disfrutelo!
@@ -7,8 +8,3 @@
     - if user_signed_in?
       - if current_user.company && current_user.company.service_type.empty?
         = link_to "Por favor registre sus tipos de servicios", service_types_companies_path
-    - unless user_signed_in?
-      %span
-        Si usted ya es usuario por favor    
-        = link_to "Ingrese al Sitio",new_user_session_path
-        , si no es usuario aún, lo invitamos a que se #{link_to "Registrarse", new_user_registration_path}.

@@ -1,37 +1,30 @@
 - javascript 'maps'
 - javascript 'search_company_map'
 
-.company_selector
-  %h1 Buscar
-  - form_for :company, :remote =>true, :url => search_companies_cars_path do |f|
-    %table.w
-      %thead
-        %tr
-          %td Nombre
-        %tr
-          %td
-            = text_field_tag 'name'
-        %tr
-          %td Dirección
-        %tr
-          %td
-            = text_field_tag 'street'
-        %tr
-          %td Ciudad
-        %tr
-          %td
-            = text_field_tag 'city'
-        %tr
-          %td Provincia
-        %tr
-          %td
-            = hidden_field_tag "car_id",@car_id
-            = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"state medium_select"})
-            = image_submit_tag("find.png",:class =>"input_img")
-#companies.all_companies
+.vertical_menu
+  .box_bottom
+    %h1 Buscar
+    - form_for :company, :remote =>true, :url => search_companies_cars_path do |f|
+      %table.w
+        %thead
+          %tr
+            %td
+              = text_field_tag 'name',"",{:class=>"labelify",:title =>"Nombre"}
+          %tr
+            %td
+              = text_field_tag 'street',"",{:class=>"labelify",:title =>"Dirección"}
+          %tr
+            %td
+              = text_field_tag 'city',"",{:class=>"labelify",:title =>"Ciudad"}
+          %tr
+            %td
+              = hidden_field_tag "car_id",@car_id
+              = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state medium_select"})
+              = image_submit_tag("find.png",:class =>"input_img")
+.contentright_s
   #all_companies
     = render "/companies/all_companies"
-    = link_to_function "Prestador de Servicio", "newCompany(this);",{:class =>"button add"}
+    = link_to_function "Nuevo Prestador de Servicio", "newCompany(this);"
   #new_company.hide
     %h1 Nuevo Prestador de Servicio
     Por favor ingrese Nombre, Dirección y Teléfono

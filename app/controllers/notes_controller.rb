@@ -77,6 +77,7 @@ class NotesController < ApplicationController
   def destroy
     @note = Note.find(params[:id])
     @note_id = @note.id
+    @wo_id = @note.workorder_id
     @note.destroy
 
     respond_to do |format|

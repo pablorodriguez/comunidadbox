@@ -1,4 +1,4 @@
-#filters.contentleft.hide{:style=>"width:190px"}
+#filters.hide
   %h1 Filtros
   %table.w
     %tr
@@ -13,45 +13,31 @@
         .right
           = image_tag('save.png',{:id=>:save_filter,:class=>:link})
           = image_tag('find.png',{:id=>:find_filter,:class=>:link})
-#search.contentleft{:style=>"width:190px"}
-  %h1 Buscar
+#search.box_bottom
+  %h3 Buscar
   %table.w
     %tr
-      %td Tipo de servicio
+      %td
+        =f.collection_select(:service_type_id, @company_services,:id,:name,{:prompt=>"-- Tipo de Servicio --"},{:class=>"change long_select"})
     %tr
       %td
-        =f.collection_select(:service_type_id, @company_services,:id,:name,{},{:class=>"change long_select"})
-    %tr
-      %td Provincia
-    %tr
-      %td
-        = f.collection_select(:state_id, @states, 'id', 'name', {:include_blank=>:true},{:class=>"clear change long_select"})
-    %tr
-      %td Ciudad
+        = f.collection_select(:state_id, @states, 'id', 'name', {:prompt=>"-- Provincia --"},{:class=>"clear change long_select"})
     %tr  
       %td
-        =f.text_field :city,{:class=>"clear change",:style=>"width:174px"}
-    %tr
-      %td Marca
+        =f.text_field :city,{:class=>"clear change labelify",:style=>"width:174px",:title=>"Ciudad"}
     %tr
       %td
-        = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>:true},{:class=>"clear change long_select"})
-    %tr
-      %td Modelo
+        = f.collection_select(:brand_id, @brands, :id, :name, {:prompt=>"-- Marca --"},{:class=>"clear change long_select"})
     %tr
       %td
         #models
-          = f.collection_select(:model_id, @models, 'id', 'name', {:include_blank=>:true},{:class=>'model clear change long_select'})  
-    %tr
-      %td Combustible
+          = f.collection_select(:model_id, @models, 'id', 'name', {:prompt=>"-- Modelo --"},{:class=>'model clear change long_select'})  
     %tr
       %td
-        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:include_blank=>:true},{:class=>"clear change long_select"})
-    %tr
-      %td Año
+        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:prompt=>"-- Comustible --"},{:class=>"clear change long_select"})
     %tr
       %td
-        =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>:true},{:class=>"clear change short_select"})
+        =f.collection_select(:year,@years,:to_i,:to_i,{:prompt=>"-- Año --"},{:class=>"clear change short_select"})
     %tr      
       %td
         .select_event
@@ -77,8 +63,8 @@
         .right
           = image_tag('find.png',{:id=>:reload,:class=>:link})
 
-#select.contentleft{:style=>"width:190px"}
-  %h1 Seleccionar Clientes
+#select.box_bottom
+  %h3 Seleccionar Clientes
   .select_event
     .left
       Mios
@@ -94,3 +80,8 @@
       = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
     .rojo.color.right
       = check_box_tag :select_red,:rojo,false,:class =>:checkbox
+#menu_actions
+  #menu_actions
+    #service_offer_menu.box_bottom
+      %h3 Acciones
+      = link_to_function "Crear Oferta de Servicio","createNewService();"

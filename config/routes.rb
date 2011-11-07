@@ -62,9 +62,11 @@ ComunidadBox::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   match "admin" => "admin#show"
   match "conf" => "conf#show"
+  match "vgneumaticos"=>"guests#new"
   
   devise_for :users,:controllers => { :registrations => "users/registrations" }
 
+  resources :guests
   resources :authentications
   resources :service_filters
   resources :states
@@ -118,6 +120,14 @@ ComunidadBox::Application.routes.draw do
       post :update_km
       post :update_km_avg
       get :my
+    end
+    member do
+      get :services_done
+      get :future_events
+      get :report_graph
+      get :notes
+      get :alarms
+      get :messages
     end
   end
   

@@ -1,5 +1,7 @@
+$(".data").hide();
 if (<%=@companies.size%> > 0){
-  $("#companies").html("<%=escape_javascript(render(:partial=>'companies'))%>")
+  $("#companies").html("<%=escape_javascript(render(:partial=>'all_companies'))%>");  
+  $("#companies").show();
 }else{
   $("#companies").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna empresa"}))%>");
 }

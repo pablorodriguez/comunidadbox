@@ -42,11 +42,11 @@ class User < ActiveRecord::Base
   end
   
   def belongs_to_company comp
-    if (self.companies.size > 0)
+    unless (self.companies.empty?)
         return self.companies.select{|c| c.id == comp.id}.size > 0
     end
 
-    return (self.company.id == comp.id)
+    return (self.company && self.company.id == comp.id)
     
   end
   
@@ -100,8 +100,7 @@ class User < ActiveRecord::Base
       return true
     end
     companies.each do |c|
-      if c.id == comp.id
-        puts "aca each #{c.id} #{company.id}"
+      if c.id == comp.id        
         return true
       end
     end

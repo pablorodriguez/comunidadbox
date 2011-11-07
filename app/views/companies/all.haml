@@ -1,12 +1,17 @@
+
 - javascript 'maps'
 - javascript 'search_company_map'
-%h1
-  =vineta 
-  Prestadores de Servicios
-#filtro.contentleft
-  = render "search"
-#all_companies.contentright
-  #comp_map
-    #companies
-      = render "all_companies"
-    = render "maps"
+.vertical_menu
+  - if current_user
+    = render "home/menu"
+  -unless current_user
+    = render "home/nu_menu"
+  .box_buttom
+    = render "search"
+.contentright_s  
+  #companies.data
+    = render "all_companies"
+    .hide
+      = render "maps"
+  #new_company.data.hide
+  #cars.data.hide
