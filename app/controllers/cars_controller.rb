@@ -95,7 +95,9 @@ class CarsController < ApplicationController
         @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
           .paginate(:per_page=>per_page,:page =>page)
         filters[:domain] = @car.domain
-        filters[:user] = current_user
+        unless current_user.company
+          filters[:user] = current_user
+        end
         #filters[:company_id] = current_user.company.id if current_user.company
         @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
         @companies = Company.best current_user.state 

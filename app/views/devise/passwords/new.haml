@@ -1,18 +1,15 @@
-%h1
-  = vineta 
-  Envio de Nueva Clave  
-.contentleft
-  %h1 Ir a
-  = render :partial => "devise/shared/links"
-.contentright
-  %h1
-    Enviar instrucciones para cambiar la clave a:
-  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-    = devise_error_messages!
-    %p
-      = f.label :email, "Correo Electónico"
-      %br/ 
-      = f.text_field :email,:class =>:input_long
-    %p
-      = f.submit "Enviar nueva clave",:class=>"btn2"
+.vertical_menu  
+  #menu_psw.box_bottom
+    = render :partial => "devise/shared/links"
+.contentright_s
+  .box_bottom
+    %h1 Enviar instrucciones para cambiar la clave a
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+      = devise_error_messages!
+      %p
+        = f.label :email, "Correo Electónico"
+        %br/ 
+        = f.text_field :email,:class =>:input_long
+      .box_bottom
+      = f.submit "Enviar nueva clave",:class=>"button"
   

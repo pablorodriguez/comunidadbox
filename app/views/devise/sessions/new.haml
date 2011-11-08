@@ -1,28 +1,41 @@
-#cont1
-  %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
-#login_c
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-    #part1.part
-      INICIAR SESIÓN
-    #part2.part
-      %table
-        %tr
-          %td
-            = f.text_field :email, {:class =>"textarea labelify",:title=>"Correo Eléctronico"}
-          %td
-            = f.password_field :password, {:class =>"textarea labelify",:title=>"Clave "}
-          %td
-            %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}
-    #part22.part
-      %ul
-        - if devise_mapping.rememberable?
-          %li
-            %h4
-              = f.check_box :remember_me,:class=>"checkbox"
-              = f.label :remember_me
-        %li          
-          %h4.left
-            = render :partial => "devise/shared/links"
-          .right
-            %img.sgn{:src => "/images/sgn_pass.png"}
-= render "home/new_msgs"
+.vertical_menu
+  #menu_options.box_bottom
+    %li
+      #register_link.menu
+        = image_tag "sign-up.png"
+        = link_to "Registrarse",new_user_registration_path
+      .ajax_loader.right
+      - if devise_mapping.recoverable? && controller_name != 'passwords'
+        %li
+          #password_link.menu
+            = image_tag "sgn_pass.png"
+            = link_to t(:forgot_your_password), new_password_path(resource_name)
+    %li
+      #service_center_link.menu
+        = image_tag "help.png"
+        = link_to "Ayuda", "#"
+.contentright_s
+  #cont1
+    %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
+  #login_c
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      #part2.part
+        %table
+          %tr
+            %td{:colspan=>2}
+              %h2
+                INICIAR SESIÓN
+            %td
+              - if devise_mapping.rememberable?
+                #part22
+                  %h4
+                    = f.check_box :remember_me,:class=>"checkbox"
+                    = f.label :remember_me
+          %tr
+            %td
+              = f.text_field :email, {:class =>"textarea labelify",:title=>"Correo Eléctronico"}
+            %td
+              = f.password_field :password, {:class =>"textarea labelify",:title=>"Clave "}
+            %td
+              %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}
+  = render "home/new_msgs"
