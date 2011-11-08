@@ -1,7 +1,6 @@
-%h1 Listado de Ofertas de Servicios
 #service_offers
   - @offers.each do |offer|
-    #div{:id=>"row_#{offer.id}",:class=>"service_offer_row link"}
+    #div{:id=>"row_#{offer.id}",:class=>"service_offer_row link row"}
       .service_offer_info
         .service_offer_detail
           - unless current_user.company
@@ -50,9 +49,8 @@
         - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
           #e
             = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
-#paginator_wo
-  = will_paginate @offers
-#buttons  
-  =link_to_back
+  #paginator_wo
+    = will_paginate @offers
   - if current_user.is_super_admin
-    = link_to "Enviar Ofertas de Servicio", notify_service_offers_path,:class =>"btn2"
+    .box_bottom    
+      = link_to "Enviar Ofertas de Servicio", notify_service_offers_path,:class =>"btn2"

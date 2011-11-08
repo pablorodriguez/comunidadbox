@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :service_filters,:order =>'name'
   has_many :cars
   has_many :authentications
+  has_many :notes
   
   belongs_to :creator,:class_name=>'User'
   has_many :companies

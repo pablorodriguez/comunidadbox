@@ -1,8 +1,10 @@
-%h1 
-  = vineta
-  Oferta de Servicio :
-  = @service_offer.company.name
-.contentleft
-  = render "list_cars"
-.contentright
-  = render @service_offer
+.vertical_menu
+	= render "home/menu"
+	#service_offer_menu
+	= render "list_cars"
+.contentright_s
+	.box_bottom
+		%h1
+			Oferta de Servicio :
+			= @service_offer.company.name
+	= render @service_offer

@@ -1655,11 +1655,6 @@ td.number, th.number{
 
 /* DT styles for sliding doors */
 
-dl {
-  margin: 0px;
-  float: right;
-}
-
 .dropdown dt a {
   background:#F7F28C url(/images/arrow.png) no-repeat scroll right center;
   display:block; 
@@ -1968,6 +1963,11 @@ dl {
   margin-right: 1px;
 }
 
+#sort_by dl {
+  margin: 0px;
+  float: right;
+}
+
 .buttons{
   width:100%;
   float:left;
@@ -2030,7 +2030,7 @@ dl {
 }
 
 .contentright_s .new_note_form textarea{
-  width:117%;
+  width:98%;
 }
 
 .notes_actions{
@@ -2224,11 +2224,18 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
-.ui-timepicker-div dl { text-align: left; }
+
+.ui-timepicker-div dl {
+ text-align: left; 
+}
+
 .ui-timepicker-div dl dt { height: 25px; }
 .ui-timepicker-div dl dd { margin: -25px 10px 10px 65px; }
 .ui-timepicker-div td { font-size: 90%; }
 .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+#ui-datepicker-div {
+    font-size: 90%;
+}
 
 .chart{
   padding:5px;
@@ -2252,4 +2259,20 @@ input.labelHighlight,textarea.labelHighlight {
   position:absolute;
   right:0px;
   top:35px;
+}
+
+.dates{
+  margin:0px 15px;
+}
+
+.alarm_info{
+  width:20%;
+}
+
+.dates{
+  width:69%;
+}
+
+#new_service_offer{
+  width:98%;
 }

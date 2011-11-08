@@ -86,9 +86,9 @@ function submitForm(sort_column,direction){
 }
 
 function show_notes(element){
-  $(element).parent().parent().parent().find(".notes").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().find(".new_note").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".new_note").slideToggle();
 }

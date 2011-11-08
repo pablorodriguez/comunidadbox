@@ -53,6 +53,7 @@ jQuery(document).ready(function(){
       var $form = $(this);
       this.reset();
       $(xhr.responseText).insertBefore($form.parent().parent().next().find(".note").first());
+      $form.parent().parent().parent().parent().find(".notes_link").show().parent().show()
       $form.parent().parent().next().find(".note").first().effect("highlight", {color:"#F7DE4F"}, 3000);
     })
 
@@ -106,9 +107,9 @@ function newServiceNewCompany(){
 }
 
 function show_notes(element){
-  $(element).parent().parent().parent().find(".notes").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().find(".new_note").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".new_note").slideToggle();
 }

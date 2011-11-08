@@ -12,4 +12,7 @@ jQuery(document).ready(function(){
 			$('#alarm_date_ini').datetimepicker('option', 'maxDate', new Date(end.getTime()) );
 		}
 	});	
+
+	$('#alarm_date_alarm').datetimepicker();
+
 });

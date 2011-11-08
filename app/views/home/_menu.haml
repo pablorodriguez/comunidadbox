@@ -17,15 +17,19 @@
         #control_panel_link.menu
           = image_tag "control-panel.png"
           = link_to "Panel de Control",control_panels_path
-    .hide
       %li
         #alarms_link.menu
           = image_tag "alarm.png"
-          Alarmas
+          = link_to "Alarmas",alarms_path
       %li
-        #messages_link.menu
-          = image_tag "message.png"
-          Mensajes
+        #notes.link.link.menu
+          = image_tag "notes.png"
+          = link_to "Notas",notes_path
+      .hide
+        %li
+          #messages_link.menu
+            = image_tag "message.png"
+            Mensajes
     %li
       #service_center_link.menu
         = image_tag "find.png"        

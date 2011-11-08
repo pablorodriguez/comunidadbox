@@ -13,8 +13,8 @@ class Alarm < ActiveRecord::Base
   ]
 
   STATUS_TYPES = [
-    [ 'Activado' , 'Activado' ],
-    [ 'Desactivado' , 'Desactivado' ]
+    [ 'Activado' , 'Active' ],
+    [ 'Desactivado' , 'DeActive' ]
   ]
   
 end

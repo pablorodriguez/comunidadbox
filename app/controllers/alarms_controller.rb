@@ -1,6 +1,6 @@
 class AlarmsController < ApplicationController
   def index
-    @alarms = current_user.alarms.all
+    @alarms = current_user.alarms
   end
 
   def show
@@ -31,7 +31,7 @@ class AlarmsController < ApplicationController
     @alarm = current_user.alarms.find(params[:id])
     if @alarm.update_attributes(params[:alarm])
       flash[:notice] = 'Alarma actualizada'
-      redirect_to(@alarm)
+      redirect_to alarms_path
     else
       render :action => "edit"
     end

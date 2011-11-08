@@ -20,13 +20,12 @@
     %td
       = f.select :time_unit, Alarm::TIME_UNIT_TYPES
     %td
-      = f.select :status, Alarm::STATUS_TYPES
+      = f.select :status, Status::ALARMS_STATUS
   %tr
-    %td
-      Alarma
+    %td Fecha Alarma
   %tr
     %td{:colspan=>3}
-      = f.datetime_select :date_alarm, :default => Time.zone.now
+      = f.text_field :date_alarm, :default => Time.zone.now
   %tr
     %td{:colspan=>3}Inicio
   %tr
@@ -37,8 +36,7 @@
   %tr
     %td{:colspan=>3}
       = f.text_field :date_end, :default => Time.zone.now
-  %tr
-    %td{:colspan=>3}
-      = f.submit "Grabar"
-      = link_to_back
 
+.box_bottom
+= f.submit "Grabar",:class=>"button"      
+.box_bottom

@@ -23,6 +23,9 @@ class Status
     REJECTED =>'Rechazado'
     }
   
+  ALARMS_STATUS ={
+    'Activo' =>ACTIVE,'Cancelado' =>CANCELLED
+  }
     
   def self.status st
     STATUS[st]
