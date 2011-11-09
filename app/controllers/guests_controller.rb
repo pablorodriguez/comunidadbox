@@ -49,7 +49,7 @@ class GuestsController < ApplicationController
 
     respond_to do |format|
       if @guest_n.save
-        format.html { render :action => "new", :notice => 'Muchas gracias por ingresar sus datos'}
+        format.html { redirect_to vgneumaticos_path, :notice => 'Muchas gracias por ingresar sus datos'}
         format.xml  { render :xml => @guest_n, :status => :created, :location => @guest }
       else
         format.html { render :action => "new" }

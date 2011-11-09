@@ -14,6 +14,10 @@
     
   %body    
     #content
+      - if flash.notice
+        .notice
+          %h2{:style=>"margin:10px;"}
+            = flash.notice
       #header  
         #header_text
           Valle Grande Neumáticos te invita a la inaguración de nuestra nueva sucursal en la ciudad de mendoza. te esperamos el día 09 de Noviembre

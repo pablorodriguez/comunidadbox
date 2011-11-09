@@ -23,7 +23,7 @@ class CarsController < ApplicationController
     end
     
     if  domain != "%"
-      @company_cars = @company_cars.where("domain like ?",domain)  
+      @company_cars = Car.where("domain like ?",domain)  
     end
 
     @company_id = params[:company_id]
