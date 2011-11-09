@@ -43,8 +43,7 @@ jQuery(document).ready(function(){
   $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
   $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
   $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
-  $("#notes").click(function(){showHideContent($(this),"#cars_notes");});
-  $("#alarms").click(function(){showHideContent($(this),"#cars_alarms");});
+  $("#notes").click(function(){showHideContent($(this),"#cars_notes");});  
   $("#messages").click(function(){showHideContent($(this),"#cars_messages");});
 
   $(".contentright_s .labelify").labelify({ labelledClass: "labelHighlight" });

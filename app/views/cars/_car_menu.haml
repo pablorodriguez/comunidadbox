@@ -19,7 +19,7 @@
     %li
       #alarms.link.menu
         = image_tag "alarm.png"
-        Alarmas
+        = link_to "Alarmas",alarms_path
     .hide
       %li
         #messages.link.menu
@@ -50,10 +50,6 @@
       %ul
         %li
           = link_to_function "Nueva Nota","createNewNote(#{@car.id})",{:title=>"Nueva Nota"}
-    #cars_alarms_menu.menu_data.hide
-      %ul
-        %li
-          = link_to_function "Nueva Alarma","createNewAlarm(#{@car.id})",{:title=>"Nueva Alarma"}
     #cars_messages_menu.menu_data.hide
       %ul
         %li
