@@ -85,17 +85,18 @@ pdf.grid(0,0).bounding_box do
   		]	
   	end
 
-    materials += [[
-      "","","Sub Total","#{number_to_currency(service.total_price)}"
-    ]]
-  	
-   
-  	pdf.table materials do      
-      cells.padding= [1,5]       
-      [1,2,3].each{|c1|column(c1).style{|c| c.align = :right}}
-      column_widths.each_index{|i| column(i).width = column_widths[i] }
+    if materials.size > 0
+      materials += [[
+        "","","Sub Total","#{number_to_currency(service.total_price)}"
+      ]]
+    	
+     
+    	pdf.table materials do      
+        cells.padding= [1,5]       
+        [1,2,3].each{|c1|column(c1).style{|c| c.align = :right}}
+        column_widths.each_index{|i| column(i).width = column_widths[i] }
+      end
     end
-    
 
   	pdf.move_down(10)
   	
@@ -185,10 +186,12 @@ pdf.grid(0,1).bounding_box do
     end
     
     column_widths = [293,97]
-    pdf.table materials do
-      column_widths.each_index{|i| column(i).width = column_widths[i] }
-      column(1).style{|c| c.align = :right}      
-      cells.padding= [1,5]      
+    if materials.size > 0
+      pdf.table materials do
+        column_widths.each_index{|i| column(i).width = column_widths[i] }
+        column(1).style{|c| c.align = :right}      
+        cells.padding= [1,5]      
+      end
     end
 
     pdf.move_down(10)
