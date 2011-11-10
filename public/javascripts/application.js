@@ -16,7 +16,7 @@ jQuery(document).ready( function(){
 
   $(".labelify").labelify({ labelledClass: "labelHighlight" });
 
-  $("[data-remote='true']").bind('ajax:before', function(){
+  $(".vertical_menu [data-remote='true']").bind('ajax:before', function(){
     $(this).parent().next().show();
   }).bind('ajax:complete',function(){
     $(this).parent().next().hide();

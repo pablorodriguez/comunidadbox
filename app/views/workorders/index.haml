@@ -16,18 +16,20 @@
           #service_done.link.menu.selected
             = image_tag "service.png"
             Servicios Realizados        
-        %li
-          #report_amount.link.menu
-            = image_tag "graph.png"
-            Reporte Importes
-        %li
-          #report_quantiy.link.menu
-            = image_tag "graph.png"
-            Reporte Cantidad
-        %li
-          #report_detail.link.menu
-            = image_tag "report.png"
-            Reporte Detalle
+        - unless current_user.is_employee
+          %li
+            #report_amount.link.menu
+              = image_tag "graph.png"
+              Reporte Importes
+          %li
+            #report_quantiy.link.menu
+              = image_tag "graph.png"
+              Reporte Cantidad
+          - if current_user.is_administrator
+            %li
+              #report_detail.link.menu
+                = image_tag "report.png"
+                Reporte Detalle
 
 
     #menu_actions.box_bottom
@@ -51,7 +53,7 @@
           #report_data.data.hide                      
             = render 'totals'
       - else  
-        #data.overflow
+        #workorders_c.data
           #sort_by      
             = render 'sort_by'
           #workorders
