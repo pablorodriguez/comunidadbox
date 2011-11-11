@@ -135,6 +135,13 @@ ActiveRecord::Schema.define(:version => 20111104234130) do
   add_index "companies", ["country_id"], :name => "companies_country_id_fk"
   add_index "companies", ["user_id"], :name => "companies_user_id_fk"
 
+  create_table "companies_users", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "company_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "company_services", :force => true do |t|
     t.integer "company_id"
     t.integer "service_type_id"
@@ -188,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20111104234130) do
     t.integer  "kmavg"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "year"
   end
 
   create_table "material_details", :id => false, :force => true do |t|
