@@ -1,0 +1,15 @@
+-unless address.company.name.blank?
+  %h1
+    = link_to address.company.name, company_path(address.company)
+
+-unless address.city.blank? && address.street.blank?
+  Direccion:
+  = address.city + ', ' +	address.street
+  %br
+-unless address.company.phone.blank?
+  Tel:
+  = address.company.phone
+%br
+Distancia:
+= @distance_km
+

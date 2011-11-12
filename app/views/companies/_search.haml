@@ -24,8 +24,24 @@
           = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"state medium_select"})
           = image_submit_tag("find.png",:class =>"input_img")
 
+%h1 Buscar por cercania
+- form_for :company, :url => search_distance_companies_path do |f|
+  %table.w
+    %thead
+      %tr
+        %td Dirección de origen
+      %tr
+        %td
+          = text_field_tag 'street', @street
+      %tr
+        %td A un radio de (en km)
+      %tr
+        %td
+          = text_field_tag 'distance', @distance
+          = image_submit_tag("find.png",:class =>"input_img")
+
 .buttons
   = link_to_back root_path
-  -if current_user
+  - if current_user
     = link_to "Nueva Empresa", new_company_path,{:class =>"button"}
-  
+

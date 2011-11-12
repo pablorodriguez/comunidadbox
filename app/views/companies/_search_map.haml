@@ -1,0 +1,8 @@
+%h1 Prestadores de Servicios
+= gmaps("map_options" => {"type" => "SATELLITE" },"markers" => {"data" => @json, "options" => {"list_container" => "markers_list" }},"circles" => { "data" => @circles_json })
+%h2
+  A un radio de
+  = @distance
+  km
+%ul#markers_list
+

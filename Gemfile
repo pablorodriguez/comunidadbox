@@ -15,8 +15,14 @@ gem "chronic"
 gem "packet"
 gem 'prawn'
 gem "geokit"
+
+# GEOLOCALIZACION Y MAPAS
+gem 'geocoder'
+gem 'gmaps4rails'
+
 gem "devise"
-gem "omniauth"
+# EN EL OMNIAUTH 1.0 CAMBIA TODO
+gem "omniauth", "~> 0.3.2"
 gem 'jquery-rails', '>= 0.2.6'
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
