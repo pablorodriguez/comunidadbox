@@ -3,16 +3,21 @@
  */
 jQuery(document).ready( function(){
 
-	$('#service_offer_since').datepicker({
-			showOn: 'button',
-			buttonImage: '/images/calendar.png',
-			buttonImageOnly: true
-		});
-	$('#service_offer_until').datepicker({
-			showOn: 'button',
-			buttonImage: '/images/calendar.png',
-			buttonImageOnly: true
-		});
+    var dates = $( "#service_offer_since, #service_offer_until" ).datepicker({
+      defaultDate: "",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onSelect: function( selectedDate ) {
+        var option = this.id == "service_offer_since" ? "minDate" : "maxDate",
+          instance = $( this ).data( "datepicker" ),
+          date = $.datepicker.parseDate(
+            instance.settings.dateFormat ||
+            $.datepicker._defaults.dateFormat,
+            selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+      }
+    });
+
 	
   initDaysColumn();
 	$('#todos').click(function(){checkAll(this);});

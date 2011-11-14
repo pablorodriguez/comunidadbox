@@ -1,7 +1,7 @@
 - @offer.car_service_offer.each do |c_s_o|
   =hidden_field_tag 'car_ids[]', c_s_o.car.id
 = f.hidden_field :service_type_id
-%h1
+%h3
   = @title
   = ": #{@offer.service_type.name}"
 
@@ -76,8 +76,8 @@
       Comentario
     %td{:colspan=>3}
       = f.text_area :comment, :cols => 50, :rows => 3
-.buttons
-  = link_to_back
-  = f.submit 'Grabar',:class=>"button"
+.buttons.box_bottom  
+= f.submit 'Grabar',:class=>"button"
+.buttons.box_bottom  
 
 

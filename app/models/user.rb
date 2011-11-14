@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   has_many :service_filters,:order =>'name'
   has_many :cars
   has_many :authentications
-
+  has_many :notes
+  
   belongs_to :creator,:class_name=>'User'
   has_many :companies
   has_many :companies_users
@@ -44,12 +45,10 @@ class User < ActiveRecord::Base
   end
 
   def belongs_to_company comp
-    if (self.companies.size > 0)
+    unless (self.companies.empty?)
         return self.companies.select{|c| c.id == comp.id}.size > 0
     end
-
-    return (self.company.id == comp.id)
-
+    return (self.company && self.company.id == comp.id)
   end
 
   def current_company
@@ -102,8 +101,7 @@ class User < ActiveRecord::Base
       return true
     end
     companies.each do |c|
-      if c.id == comp.id
-        puts "aca each #{c.id} #{company.id}"
+      if c.id == comp.id        
         return true
       end
     end

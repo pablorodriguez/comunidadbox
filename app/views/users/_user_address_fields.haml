@@ -1,7 +1,7 @@
 %table
   %tbody
     %tr
-      %td 
+      %td{:style=>"width:100px"} 
         %label{ :for => "state" }Provincia
       %td
         = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:id=>@state_id,:class=>"state medium_select"})
@@ -12,14 +12,14 @@
       %td
         %label{ :for => "city" }Ciudad    
       %td
-        = f.text_field :city,:size=>20  
+        = f.text_field :city,:size=>20,:class=>"input_medium"  
     %tr
       %td
         %label{ :for => "street" }Calle
       %td
-        = f.text_field :street,:size=>20
+        = f.text_field :street,:size=>20,:class=>"input_medium"
     %tr
       %td
         %label{ :for => "zip" }Código Postal    
       %td
-        = f.text_field :zip,:size=>5
+        = f.text_field :zip,:size=>5,:class=>"input_short"

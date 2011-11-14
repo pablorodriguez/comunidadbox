@@ -6,6 +6,8 @@ class CreateCompaniesUsers < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    Company.update_customer
   end
 
   def self.down

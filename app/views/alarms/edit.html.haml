@@ -1,6 +1,9 @@
 - javascript 'service_offer'
-%h1
-  Modificar Alarma
-- form_for @alarm do |f|
-  = render :partial => 'form', :locals => {:f => f}
+.vertical_menu  
+  = render "home/menu"
+.contentright_s
+  .box_bottom
+    %h1 Modificar Alarma
+  - form_for @alarm do |f|
+    = render :partial => 'form', :locals => {:f => f}
 

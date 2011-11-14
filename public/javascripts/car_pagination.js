@@ -27,11 +27,9 @@ jQuery(document).ready(function(){
      $(document).trigger("fragmentChange.page");
    }
    
-   $("#service-tabs").tabs();
-   
    $("#company-selector").dialog({
-    height: 570,
-    width:650,
+    height: 600,
+    width:850,
     title:'Seleccionar Prestador de Servicio',
     autoOpen: false,
     draggable: false,
@@ -40,9 +38,44 @@ jQuery(document).ready(function(){
 
   $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
   $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
-    
+
+  
+  $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
+  $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
+  $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
+  $("#notes").click(function(){showHideContent($(this),"#cars_notes");});  
+  $("#messages").click(function(){showHideContent($(this),"#cars_messages");});
+
+  $(".contentright_s .labelify").labelify({ labelledClass: "labelHighlight" });
+
+  $("form.note_form").bind("ajax:success", function(evt, data, status, xhr){
+      var $form = $(this);
+      this.reset();
+      $(xhr.responseText).insertBefore($form.parent().parent().next().find(".note").first());
+      $form.parent().parent().parent().parent().find(".notes_link").show().parent().show()
+      $form.parent().parent().next().find(".note").first().effect("highlight", {color:"#F7DE4F"}, 3000);
+    })
+
+    $("#car_domain").mouseenter(function(){
+      $("#client_info").fadeIn();
+    }).mouseleave(function(){
+      $("#client_info").fadeOut();
+    });
+
+    $(".wo_info_detail").mouseenter(function(){
+      $(this).parent().parent().parent().parent().next().show();
+    }).mouseleave(function(){
+      $(this).parent().parent().parent().parent().next().hide();
+    });
 
 });
+
+function createNewNote(){
+  $("#notes_form_container").slideToggle();
+}
+
+
+
 
 function createNewService(car_id){
   $("#company-selector").dialog('open');
@@ -73,9 +106,9 @@ function newServiceNewCompany(){
 }
 
 function show_notes(element){
-  $(element).parent().parent().parent().find(".notes").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().find(".new_note").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".new_note").slideToggle();
 }

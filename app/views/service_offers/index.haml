@@ -1,8 +1,10 @@
 - javascript 'service_offer'
-%h1
-  = vineta
-  Ofertas de Servicio
-.contentleft
-  = render "search"
-#service_offers.contentright
-  = render "service_offers"
+.vertical_menu
+  = render "home/menu"
+  .service_offer_search  
+    = render "search"
+.contentright_s
+  .box_bottom
+    %h1 Ofertas de Servicio
+  #service_offers.box_bottom
+    = render "service_offers"

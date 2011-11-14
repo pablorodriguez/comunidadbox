@@ -5,8 +5,7 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'mysql2', '<0.3'
-gem 'mysql'
+gem 'mysql2'
 gem "haml"
 gem "will_paginate", "~> 3.0.pre2"
 gem "foreigner"
@@ -54,5 +53,5 @@ gem 'resque-scheduler'
 # end
 gem 'attribute_normalizer'
 gem 'recaptcha', :require => 'recaptcha/rails'
-gem 'newrelic_rpm'
 #gem "exception_notification", :git => "https://github.com/sickill/exception_notification.git", :require => 'exception_notifier'
+gem "breadcrumbs_on_rails"

@@ -1,10 +1,11 @@
 #cont3
-  .cuadro.gray
-    = render "/home/comunidadbox"    
-  .cuadro.orange
-    = render "/home/last_notice"    
-  .cuadro.gray
-    - if current_user
-      = render "/home/my_events"
-    - unless current_user
-      = render "/home/companies"
+  .new_msgs
+    .cuadro.left.gray
+      = render "/home/comunidadbox"    
+    .cuadro.right.gray
+      - if current_user
+        = render "/home/my_events"
+      - unless current_user
+        = render "/home/companies"
+    .cuadro.middle.orange
+      = render "/home/last_notice"    

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  email: MyString
+  domain: MyString
+  brand: MyString
+  model: MyString
+  km: 1
+  kmavg: 1
+
+two:
+  name: MyString
+  email: MyString
+  domain: MyString
+  brand: MyString
+  model: MyString
+  km: 1
+  kmavg: 1

@@ -1,0 +1,78 @@
+!!!
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %link{:rel=>"shortcut icon",:href=>"/favicon.ico"}/
+    = csrf_meta_tag
+    %title Valle Grande Neumáticos
+    = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails'
+    = javascript 'analytics'    
+    = stylesheet_link_tag 'vg'
+    = yield(:head)    
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800", :rel => "stylesheet", :type => "text/css"}
+    
+  %body    
+    #content
+      - if flash.notice
+        .notice
+          %h2{:style=>"margin:10px;"}
+            = flash.notice
+      #header  
+        #header_text
+          Valle Grande Neumáticos te invita a la inaguración de nuestra nueva sucursal en la ciudad de mendoza. te esperamos el día 09 de Noviembre
+          a las 20 hs. en las instalaciones del salón de ventas y espacio temático Bridgestone, donde contaremos con la presencia de presidente
+          de latinoamérica, vicepresidente y directores de ventas y marketing de Bridgestone de Argentina.
+      #form
+        #text
+          A fin de contarte más de este nuevo empredimiento y todos nuestros servicios, te pedimos nos completes los siguietens datos de tu vehículo:
+        #form_table
+        - form_for(@guest) do |f|
+          %table
+            %tr
+              %td
+                APELLIDO Y NOMBRE
+              %td
+                = f.text_field :name
+              %td
+                EMAIL
+              %td
+                = f.text_field :email
+            %tr
+              %td
+                DOMINIO(XXX999)
+              %td
+                = f.text_field :domain
+              %td
+                AÑO
+              %td
+                = f.text_field :year
+            %tr
+              %td
+                MARCA
+              %td
+                = f.text_field :brand
+              %td
+                KILOMETRAJE
+              %td
+                = f.text_field :km
+            %tr
+              %td
+                MODELO                
+              %td
+                = f.text_field :model
+              %td
+                KM PROMEDIO MENSUAL
+              %td
+                = f.text_field :kmavg
+            %tr
+              %td{:colspan=>4}
+                = f.submit "Enviar"
+        #comunidad_logo
+          = image_tag("vg/com_box_logo.png")
+      #footer
+        #text
+          Coronel Plaza 72(esquina 9 de Julio). // Código de vestimenta: Elegante Sport
+        #company_logos
+          = image_tag("vg/web.png")
+          = image_tag("vg/facebook.png")

@@ -1,49 +1,41 @@
-%h1 Buscar
-= form_tag service_offers_path,:remote =>true,:id=>:filter,:method =>:get do
-  = hidden_field_tag :direction, @direction
-  = hidden_field_tag :sort, @sort_column
-  %table
-    %thead
-    %tbody
-      %tr
-        %td 
-          Desde
-      %tr
-        %td
-          = text_field_tag 'service_offer_since', @date_f,:class =>"input_short"
-      %tr  
-        %td 
-          Hasta
-      %tr
-        %td
-          = text_field_tag 'service_offer_until', @date_t,:class =>"input_short"
-      %tr
-        %td 
-          Titulo
-      %tr
-        %td
-          = text_field_tag 'title', @title, :size=>6
-      %tr
-        %td 
-          Estado
-      %tr
-        %td          
-          #sended
-            = check_box_tag("status[]",Status::SENT,false,:class=>"checkbox",:id=>"status_sended")
-            = label_tag 'status_sended',"Enviado",:class =>"link"
-          #open
-            = check_box_tag("status[]",Status::OPEN,false,:class=>"checkbox",:id=>"status_open")
-            = label_tag 'status_open',"Abierto",:class =>"link"
-          #confirm
-            = check_box_tag("status[]",Status::CONFIRMED,false,:class=>"checkbox",:id=>"status_confirm")
-            = label_tag 'status_confirm',"Confirmado",:class =>"link" 
-          #cancel
-            = check_box_tag("status[]",Status::CANCELLED,false,:class=>"checkbox",:id=>"status_cancel")
-            = label_tag 'status_cancel',"Cancelado",:class =>"link"
-      %tr  
-        %td 
-          Tipo de Servicio
-      %tr
-        %td
-          = collection_select(:service_type, :id, @service_types, :id, :name, {:include_blank=>:true,:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
-          = image_submit_tag("find.png",:class =>"input_img")
+.box_bottom
+  %h3 Buscar
+  .form
+    = form_tag service_offers_path,:remote =>true,:id=>:filter,:method =>:get do
+      = hidden_field_tag :direction, @direction
+      = hidden_field_tag :sort, @sort_column
+      %table
+        %thead
+        %tbody
+          %tr
+            %td
+              = text_field_tag 'service_offer_since', @date_f,:class =>"input_short labelify",:title =>"Desde"
+          %tr
+            %td
+              = text_field_tag 'service_offer_until', @date_t,:class =>"input_short labelify",:title =>"Hasta"
+          %tr
+            %td
+              = text_field_tag 'title', @title,:class=>"labelify",:title =>"Nombre"
+          %tr
+            %td 
+              Estado
+          %tr
+            %td          
+              #sended
+                = check_box_tag("status[]",Status::SENT,false,:class=>"checkbox",:id=>"status_sended")
+                = label_tag 'status_sended',"Enviado",:class =>"link"
+              #open
+                = check_box_tag("status[]",Status::OPEN,false,:class=>"checkbox",:id=>"status_open")
+                = label_tag 'status_open',"Abierto",:class =>"link"
+              #confirm
+                = check_box_tag("status[]",Status::CONFIRMED,false,:class=>"checkbox",:id=>"status_confirm")
+                = label_tag 'status_confirm',"Confirmado",:class =>"link" 
+              #cancel
+                = check_box_tag("status[]",Status::CANCELLED,false,:class=>"checkbox",:id=>"status_cancel")
+                = label_tag 'status_cancel',"Cancelado",:class =>"link"
+          %tr
+            %td
+              = collection_select(:service_type, :id, @service_types, :id, :name, {:prompt=>"-- Tipo de Servicio --",:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
+      .left
+        = image_submit_tag("find.png",:class =>"input_img")
+  .ajax_loader.right

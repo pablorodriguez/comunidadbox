@@ -3,4 +3,5 @@ if (<%=@materials.size%> > 0){
 }else{
   $("#materials_list").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún material."}))%>");
 }
+$("#materials_list").show();
 

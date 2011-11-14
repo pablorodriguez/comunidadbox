@@ -226,9 +226,11 @@ class Workorder < ActiveRecord::Base
     
     domain =  filters[:domain] || ""
     
-    
     workorders= Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
     workorders =workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
+    if filters[:user] && filters[:user].company.nil?
+      workorders = workorders.where("workorders.car_id IN (?)", filters[:user].cars.map(&:id))
+    end
     
     workorders = workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
     

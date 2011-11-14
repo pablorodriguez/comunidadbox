@@ -1,5 +1,6 @@
+$(".data").hide();
 if (<%=@clients.size%> > 0){
-  $("#data").html("<%=escape_javascript(render(:partial=>'clients'))%>");
+  $("#clients").html("<%=escape_javascript(render(:partial=>'clients'))%>").show();   
 }else{
-  $("#data").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún cliente."}))%>");
+  $("#clients").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún cliente."}))%>").show();
 }

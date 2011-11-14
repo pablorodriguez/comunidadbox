@@ -2,6 +2,11 @@ var map;
 var geocoder;
 
 function initializeMap(zoom_param,address) {
+
+	if (typeof google == "undefined"){
+		return;
+	}
+
 	if (zoom_param == null){
 		zoom_param = 8;
 	}
@@ -46,6 +51,7 @@ function codeAddress(address,zoom,callBackFunction) {
 	  });
 	}
 }
+
 
 
 

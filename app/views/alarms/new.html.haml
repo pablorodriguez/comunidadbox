@@ -1,5 +1,10 @@
-- javascript 'service_offer'
-%h1 Nueva Alarma
-- form_for @alarm do |f|
-  = render :partial => 'form', :locals => {:f => f}
+- javascript 'alarms'
+- javascript 'jquery-ui-timepicker-addon'
+.vertical_menu
+  = render "home/menu"
+.contentright_s
+  %h1 Nueva Alarma
+  .box_bottom
+  - form_for @alarm do |f|
+    = render :partial => 'form', :locals => {:f => f}
 

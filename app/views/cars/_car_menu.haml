@@ -1,0 +1,57 @@
+#menu_options.box_bottom
+  %ul
+    %li{:class=>"selected"}
+      #service_done.link.menu
+        = image_tag "service.png"
+        Servicios Realizados        
+    %li
+      #future_event.link.menu
+        = image_tag "calendar.png"
+        Servicios a Realizar
+    %li
+      #report_graph.link.menu
+        = image_tag "graph.png"
+        Reporte Gráfico
+    %li
+      #notes.link.link.menu
+        = image_tag "notes.png"
+        Notas
+    %li
+      #alarms.link.menu
+        = image_tag "alarm.png"
+        = link_to "Alarmas",alarms_path
+    .hide
+      %li
+        #messages.link.menu
+          = image_tag "message.png"
+          Mensajes
+
+#menu_actions
+  %h3 
+    Acciones
+  #menu_actions.box_bottom
+    #cars_work_orders_menu.menu_data
+      = hidden_field_tag 'car_id',@car.id
+      %ul
+        - if current_user.company
+          %li
+            = link_to "Nuevo Servicio",new_workorder_path(:car_id =>@car),:id=>"create_new_service",:title=>"Nuevo Servicio"
+      - unless current_user.company
+        %li
+          = link_to_function "Nuevo Servicio","createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
+        .hide      
+          = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
+        %li  
+          = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
+        -if current_user.company
+          %li
+            = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)
+    #cars_notes_menu.menu_data.hide
+      %ul
+        %li
+          = link_to_function "Nueva Nota","createNewNote(#{@car.id})",{:title=>"Nueva Nota"}
+    #cars_messages_menu.menu_data.hide
+      %ul
+        %li
+          = link_to_function "Nuevo Mensaje","createNewMessage(#{@car.id})",{:title=>"Nuev Mensaje"}
+

@@ -95,5 +95,20 @@ class Company < ActiveRecord::Base
     return Company.includes(:address).where("addresses.state_id = ? and companies.id > 1",state_id) if state_id
     return Company.where("companies.id > 1") unless state_id
   end
+
+  def self.update_customer
+    Company.best.each do |c|
+      c.workorders.each do |wo|
+        car = wo.car
+        unless car.user.service_centers.include?(c)
+          car.user.service_centers << c
+        end
+        logger.info "### Car ID: #{car.id} WO: #{wo.id} Company: #{c.name}"
+        car.save
+
+      end
+    end
+  end
+
 end
 

@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.xml
   def index
-    @notes = Note.all
+    @notes = current_user.notes
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class NotesController < ApplicationController
     t = params[:t] || :b
     respond_to do |format|
       #format.html # new.html.erb
-      format.html { render :file=>"notes/notes_form"} if (t == :b)
+      format.html
       format.xml  { render :xml => @note }
     end
   end
@@ -77,6 +77,7 @@ class NotesController < ApplicationController
   def destroy
     @note = Note.find(params[:id])
     @note_id = @note.id
+    @wo_id = @note.workorder_id
     @note.destroy
 
     respond_to do |format|

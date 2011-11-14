@@ -1,40 +1,59 @@
 - javascript 'workorder'
--# javascript 'pagination'
-- javascript 'jquery.labelify'
 - javascript 'rank'
 - javascript 'jquery.ba-bbq.min'
 - javascript 'highcharts'
+:javascript
+  $(document).ready(function() {;
+    build_price_graph([#{@price_data}],"price_graph","Facturación por Tipo de Servicio");
+    build_amt_graph([#{@amt_data}],"amt_graph","Cantidad por Tipo de Servicio");
+  })
+
 %all-workorder
-  %h1
-    = vineta 
-    Servicios Realizados
-  .contentleft_s
-    .contentleft
+  .vertical_menu
+    #menu_options.box_bottom
+      %ul
+        %li
+          #service_done.link.menu.selected
+            = image_tag "service.png"
+            Servicios Realizados        
+        - unless current_user.is_employee
+          %li
+            #report_amount.link.menu
+              = image_tag "graph.png"
+              Reporte Importes
+          %li
+            #report_quantiy.link.menu
+              = image_tag "graph.png"
+              Reporte Cantidad
+          - if current_user.is_administrator
+            %li
+              #report_detail.link.menu
+                = image_tag "report.png"
+                Reporte Detalle
+
+
+    #menu_actions.box_bottom
       = render 'search'
-    - if current_user.is_administrator
-      #totals.contentleft
-        = render 'totals'
-    = link_to_back
-  .contentright
+
+  .contentright_s
     - if @work_orders.size > 0
       - unless current_user.is_employee
-        #workorder_tabs
-          %ul
-            %li
-              %a{:href => "#tabs-1"} Listado Servicios Realizados
-            %li
-              %a{:href => "#tabs-2"} Reporte Gráfico
-          #tabs-1
-            #data.overflow
-              #sort_by      
-                = render 'sort_by'
-              #workorders
-                = render 'workorders'
-          #tabs-2
-            #data{:style=>"overflow-x: hidden;"}
-              = render 'graphics'          
+        #workorders_c.data
+          #sort_by      
+            = render 'sort_by'
+          #workorders
+            = render 'workorders'     
+        #price_graph_c.data.hide.chart
+          %h1 Importes por Tipo de Servicios
+          #price_graph
+        #amt_graph_c.data.hide.chart
+          %h1 Cantidad por Tipo de Servicios
+          #amt_graph
+        - if current_user.is_administrator
+          #report_data.data.hide                      
+            = render 'totals'
       - else  
-        #data.overflow
+        #workorders_c.data
           #sort_by      
             = render 'sort_by'
           #workorders

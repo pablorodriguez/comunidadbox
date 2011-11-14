@@ -101,7 +101,7 @@ class ControlPanelsController < ApplicationController
     @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,current_user.company.id
     
     @page = params[:page] || 1
-    per_page=84
+    per_page=90
     @events_count = @events.count
     @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
     logger.info "### salio Eventos IDS #{@events_ids}"

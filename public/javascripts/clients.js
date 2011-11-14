@@ -4,7 +4,6 @@ jQuery(document).ready(function(){
   for(var i = 0; i < sc_hide.length; i++)
       $(sc_hide[i]).hide();
 	$('.brand').change(searchModel);
-	$( "#user_data" ).accordion();
 	$(".usr_menu_link").click(changeAccountTabs);
 	
 });

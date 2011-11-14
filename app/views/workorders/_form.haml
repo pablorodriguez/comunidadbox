@@ -3,9 +3,8 @@
 - javascript 'jquery.services'
 - javascript 'jquery.editinplace'
 #work_order_info
-  .cont1
+  .cont1.box_bottom
     %h1 
-      = vineta
       Ingrese Servicios Realizados:
       = @work_order.company.name if @work_order.company
       = @work_order.company_info if @work_order.company_info
