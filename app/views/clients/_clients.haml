@@ -1,10 +1,11 @@
-%h1 Listado de Clientes
-.row
+.box_bottom
+  %h1 Listado de Clientes
+
 - for client in @clients
-  .client_car.row
+  .row
     .client
       %strong
-        = link_to h(client.full_name), user_path(client),:title=>"Ver"
+        = link_to h(client.full_name), client_path(client),:title=>"Ver"
       = client.email
       %strong
         = client.phone

@@ -2,9 +2,20 @@
 #service_center.box_bottom
   .form
     - form_for :company, :remote =>true, :url => search_companies_path do |f|
-      = text_field_tag 'name',"",:class=>"labelify",:title=>"Nombre"
-      = text_field_tag 'street',"",:class=>"labelify",:title=>"Dirección"
-      = text_field_tag 'city',"",:class=>"labelify",:title=>"Ciudad"
-      = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state"})
-      = image_submit_tag("find.png",:class =>"input_img")
+      %table
+        %tr
+          %td
+            = text_field_tag 'name',"",:class=>"labelify",:title=>"Nombre"
+          %tr
+            %td
+              = text_field_tag 'street',"",:class=>"labelify",:title=>"Dirección"
+          %tr
+            %td
+              = text_field_tag 'city',"",:class=>"labelify",:title=>"Ciudad"
+          %tr
+            %td
+              = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state"})
+          %tr
+            %td
+              = image_submit_tag("find.png",:class =>"input_img")
   .ajax_loader.right

@@ -1,82 +1,80 @@
 - @offer.car_service_offer.each do |c_s_o|
   =hidden_field_tag 'car_ids[]', c_s_o.car.id
 = f.hidden_field :service_type_id
-%h3
-  = @title
-  = ": #{@offer.service_type.name}"
 
-%table.comboxform
-  %tr
-    %td.current.header
-      Titulo
-    %td{:colspan=>3}
-      = f.text_field :title,:class =>"input_long"
-  %tr
-    %td.current.header
-      Precio
-    %td
-      = f.text_field :price, :size=>4,:class =>:price
-    %td.current.header
-      Descuento %
-    %td
-      = f.text_field :percent, :size=>4,:class =>:price
-  %tr
-    %td.current.header
-      Precio Final
-    %td      
-      = f.text_field :final_price, :size=>4,:class =>:price
-    %td.current.header
-      Estado
-    %td
-      = f.select(:status,ServiceOffer::STATUS,{:selected =>f.object.status},{:class=>'status'})
-  %tr
-    %td.current.header
-      Desde
-    %td
-      = f.text_field :since ,:size =>10,:class =>:date,:value => (l(f.object.since) if f.object.since)
-    %td.current.header
-      Hasta
-    %td
-      = f.text_field :until,:size=>10,:class =>:date,:value => (l(f.object.until) if f.object.until)
-  %tr
-    %td.current.header
-      Dias
-    %td
-      %ul
-        %li 
-          = f.check_box :monday,{:class=>"day checkbox"}
-          = label_tag :service_offer_monday, "Lunes",:class => :link
-        %li 
-          = f.check_box :tuesday,{:class=>"day checkbox"}
-          = label_tag :service_offer_tuesday, "Martes",:class => :link
-        %li
-          = f.check_box :wednesday,{:class=>"day checkbox"}
-          = label_tag :service_offer_wednesday, "Miercoles",:class => :link
-    %td
-      %ul
-        %li
-          = f.check_box :thursday,{:class=>"day checkbox"}
-          = label_tag :service_offer_thursday, "Jueves",:class => :link
-        %li
-          = f.check_box :friday,{:class=>"day checkbox"}
-          = label_tag :service_offer_friday, "Viernes",:class => :link
-        %li
-          = f.check_box :saturday,{:class=>"day checkbox"}
-          = label_tag :service_offer_saturday, "Sabado",:class => :link
-    %td
-      %ul
-        %li
-          = f.check_box :sunday,{:class=>"day checkbox"}
-          = label_tag :service_offer_domingo, "Domingo",:class => :link
-        %li
-          = check_box_tag :todos,"1",false,{:class=>"day checkbox"}
-          = label_tag :todos, "Todos",:class => :link
-  %tr
-    %td.current.header
-      Comentario
-    %td{:colspan=>3}
-      = f.text_area :comment, :cols => 50, :rows => 3
-.buttons.box_bottom  
+%h3 Información
+.box_bottom
+  %table.w
+    %tr
+      %td Titulo
+      %td
+        = f.text_field :title,:class =>"input_long"
+      %td Estado
+      %td
+        = f.select(:status,ServiceOffer::STATUS,{:selected =>f.object.status},{:class=>'status'})
+    %tr
+      %td Comentario
+      %td{:colspan=>3}
+        = f.text_area :comment, :cols => 50, :rows => 3      
+
+%h3 Precio
+.box_bottom
+  %table.w  
+    %tr
+      %td Precio
+      %td
+        = f.text_field :price, :size=>4,:class =>:price
+      %td Descuento %
+      %td
+        = f.text_field :percent, :size=>4,:class =>:price
+      %td Precio Final
+      %td      
+        = f.text_field :final_price, :size=>4,:class =>:price
+
+%h3 Valido
+.box_bottom  
+  %table.w
+    %tr
+      %td Desde
+      %td
+        = f.text_field :since ,:size =>10,:class =>:date,:value => (l(f.object.since) if f.object.since)
+      %td Hasta
+      %td
+        = f.text_field :until,:size=>10,:class =>:date,:value => (l(f.object.until) if f.object.until)
+    %tr
+      %td Dias
+      %td
+        %ul
+          %li 
+            = f.check_box :monday,{:class=>"day checkbox"}
+            = label_tag :service_offer_monday, "Lunes",:class => :link
+          %li 
+            = f.check_box :tuesday,{:class=>"day checkbox"}
+            = label_tag :service_offer_tuesday, "Martes",:class => :link
+          %li
+            = f.check_box :wednesday,{:class=>"day checkbox"}
+            = label_tag :service_offer_wednesday, "Miercoles",:class => :link
+      %td
+        %ul
+          %li
+            = f.check_box :thursday,{:class=>"day checkbox"}
+            = label_tag :service_offer_thursday, "Jueves",:class => :link
+          %li
+            = f.check_box :friday,{:class=>"day checkbox"}
+            = label_tag :service_offer_friday, "Viernes",:class => :link
+          %li
+            = f.check_box :saturday,{:class=>"day checkbox"}
+            = label_tag :service_offer_saturday, "Sabado",:class => :link
+      %td
+        %ul
+          %li
+            = f.check_box :sunday,{:class=>"day checkbox"}
+            = label_tag :service_offer_domingo, "Domingo",:class => :link
+          %li
+            = check_box_tag :todos,"1",false,{:class=>"day checkbox"}
+            = label_tag :todos, "Todos",:class => :link
+ 
+.buttons
 = f.submit 'Grabar',:class=>"button"
 .buttons.box_bottom  
 

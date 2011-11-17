@@ -1,7 +1,6 @@
 $(".data").hide();
 if (<%=@companies.size%> > 0){
-  $("#companies").html("<%=escape_javascript(render(:partial=>'all_companies'))%>");  
-  $("#companies").show();
+  $("#companies").html("<%=escape_javascript(render(:partial=>'all_companies'))%>").show();  
 }else{
-  $("#companies").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna empresa"}))%>");
+  $("#companies").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún prestado de servicio"}))%>").show();
 }

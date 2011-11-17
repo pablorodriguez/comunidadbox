@@ -1,33 +1,23 @@
 - javascript 'clients'
-#user_company_address
-  %h1
-    = vineta
-    Modificar Cliente
-  = render 'shared/error_messages', :target => @client
-  .contentleft
-    %ul.usr_menu
-      %li.usr_menu_selected.usr_menu_link
-        %a{:href=>"#",:id=>"0"} 
-          Información Personal
-      %li#li_info_ausr.usr_menu_link
-        %a{:href=>"#",:id=>"1"}
-          Dirección Personal
-  .contentright
+.vertical_menu
+  = render "home/menu"
+.contentright_s
+  #user_company_address
+    .box_bottom
+      %h1 Modificar Cliente
+    = render 'shared/error_messages', :target => @client
     = form_for @client, :url => client_path(@client) do |f|
       #user_data
-        %h3
-          %a{:href=>"#"}Información Personal
-        .personal_info
+        %h3 Información Personal
+        .personal_info.box_bottom
           %table
             %tbody
               = render 'client_row',:f => f
-        %h3#h_ausr_inf
-          %a{:href=>"#"}Direccion Personal
-        .personal_address      
+        %h3 Direccion Personal
+        .personal_address.box_bottom      
           =f.fields_for :address do |a|
             = render 'users/user_address_fields', :f =>a
-      .buttons
-        = link_to_back clients_path
+      .buttons.box_bottom        
         = f.submit "Grabar",:class=>:button
       
 

@@ -16,9 +16,10 @@
       = render "car_filters",:f=>f
 .contentright_s
   #cars_events
-    %h1
-      Listado de Autos  
-      = "[#{@events_count}]"
+    .box_bottom
+      %h1
+        Listado de Autos  
+        = "[#{@events_count}]"
     - if @page_events.size > 0      
       = form_tag new_s_service_offers_path,{:method=>:post,:id=>:service_offer_form} do
         = hidden_field("service_offer","service_type_id")
@@ -27,7 +28,7 @@
           - @page_events.each do |event|
             .cp_event.left
               = render event
-    - if @page_events.size == 0
+    - if @page_events.empty?
       = render(:partial=>'shared/message',:locals =>{:msg =>"No se encontraron eventos."})
   .clear
     = will_paginate @page_events,:params =>@filters_params

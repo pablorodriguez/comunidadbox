@@ -64,7 +64,7 @@ class ControlPanelsController < ApplicationController
     #search all event type (et = event type)
     @events_ids = params[:events_ids] || ""
     @event_types = {}    
-    @event_types={:red =>:red,:yellow =>:yellow,:green =>:gree} if params[:et] == "all"        
+    @event_types={:red =>:red,:yellow =>:yellow,:green =>:green} if params[:et] == "all"        
     @event_types[:red] = :red if params[:red]
     @event_types[:yellow] = :yellow if params[:yellow]
     @event_types[:green] = :green if params[:green]

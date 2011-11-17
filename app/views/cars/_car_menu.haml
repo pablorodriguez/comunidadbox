@@ -36,16 +36,19 @@
         - if current_user.company
           %li
             = link_to "Nuevo Servicio",new_workorder_path(:car_id =>@car),:id=>"create_new_service",:title=>"Nuevo Servicio"
+        - if @car.user.can_edit?(current_user)              
+          %li
+            = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} 
+        - if @car.can_edit?(current_user)
+          %li  
+            = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} 
+
       - unless current_user.company
         %li
           = link_to_function "Nuevo Servicio","createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
         .hide      
           = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
-        %li  
-          = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} if @car.can_edit?(current_user)
-        -if current_user.company
-          %li
-            = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} if @car.user.can_edit?(current_user)
+  
     #cars_notes_menu.menu_data.hide
       %ul
         %li

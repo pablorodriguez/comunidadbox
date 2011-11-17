@@ -35,7 +35,7 @@ body {
 
 #car_search form, #client_search form, #service_center form{
   float:left;
-  width:80%;
+  width:100%;
 }
 
 #car_search input, #client_search input, #service_center input{
@@ -48,10 +48,10 @@ body {
 }
 
 #service_center .ajax_loader{
-  margin-top:100px; 
+  margin-top:-20px; 
 }
-#client_search .ajax_loader{
-  margin-top:80px;
+#client_search .ajax_loader, #car_search .ajax_loader{
+  margin-top:-20px;
 }
 
 #container{
@@ -60,12 +60,12 @@ body {
 }
 
 #body{
-  padding-bottom:44px;
+  padding-bottom:10px;
   overflow: auto;
   margin:0 auto;
   width:960px;  
-  margin-top:15px;
-  min-height:545px;
+  margin-top:10px;
+  min-height:776px;
 }
 
 #header {
@@ -564,17 +564,7 @@ ul{
 
 /*-----------------------------------------##FIN LAYOUT##-------------------------------*/
 /*-----------------------------------------##IMAGENES##-------------------------------*/
-#nuserimg1{
 
-  
-}
-#nuserimg2{
-
-  
-}
-#nuserimg3{
-  
-}
 #borderright{
 float:right;
 margin:0px;
@@ -662,8 +652,6 @@ input{
 #formnuser #nuser_send:hover {
   background-position:bottom;
 }
-
-
     
 #nusertable1 {
   margin-top:0px;
@@ -742,7 +730,7 @@ input{
   padding-left:10px;
   float:left;  
   border-left:thin double #CCCCCC;
-  min-height:810px;
+  min-height:807px;
 }
 
 .all_companies {
@@ -755,13 +743,17 @@ input{
   padding: 5px 5px 5px 5px;
 }
 
-#work_order_form{
-  width:100%;
+
+#work_order_form{  
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   background-color: #F2EAB7;
   border: 1px solid #AFAFAF;
+}
+
+#work_order_form form{  
+  padding:5px;
 }
 
 .contentright_n {
@@ -834,6 +826,10 @@ input{
   width:25%;
   float:left;
   margin-top:0px;
+}
+
+.vertical_menu .input{
+  width:180px;
 }
 
 .contentleft{
@@ -1002,6 +998,7 @@ table.comboxtable, .comboxform,table.w{
   border-bottom-style:double;
   float: left;
   width: 100%;
+  padding:3px;
 }
 
 .row:hover{
@@ -1247,7 +1244,11 @@ ol{
   height: 600px;
 }
 
-.input_img{
+.vertical_menu .checkbox ,.vertical_menu .radio{
+  height:12px;
+  width:15px;
+}
+.vertical_menu .input_img{
   width: 21px;
   height: 21px;
   vertical-align: middle;
@@ -1505,13 +1506,12 @@ td.number, th.number{
 .wo_detail .hide_info{
   position:absolute;
   right:0px;
-  top:63px;
+  top:75px;
+  margin-right:1px;
   z-index:100;
   background-color: #E6E6E6;
   border: 1px solid #AFAFAF;
   border-radius: 5px 5px 5px 5px;
-  margin: 0 auto 10px;
-  overflow: auto;
   padding: 5px;
 }
 
@@ -1524,6 +1524,12 @@ td.number, th.number{
 .wo_detail .wo_info{
   width:16%;
   float:right;
+  
+}
+
+.actions{
+  float:right;
+  padding:0px 0px 5px 0px;
 }
 
 .wo_detail .performed{
@@ -1541,8 +1547,7 @@ td.number, th.number{
 }
 
 .client_car{
-  width:65%;
-  margin:0px 10px 0px 0px;
+  width:80%;
 }
 
 .car .detail{
@@ -1628,11 +1633,6 @@ td.number, th.number{
   margin: 0px;
 }
 
-#workorders{
-  float: left;
-  width:99%;
-}
-
 /* General dropdown styles */       
 .dropdown dd, .dropdown dt, .dropdown ul { 
   margin:0px; 
@@ -1640,16 +1640,16 @@ td.number, th.number{
 }
 
 .dropdown dd { 
-  position:relative; 
+  position:relative;
+  z-index:1000;
 }
 
 /* DT styles for sliding doors */
 
 .dropdown dt a {
-  background:#F7F28C url(/images/arrow.png) no-repeat scroll right center;
+  background: url(/images/arrow.png) no-repeat scroll right center;
   display:block; 
   padding-right:20px; 
-  border:1px solid #B2AC0C; 
 }
     
 .dropdown dt a span {
@@ -1676,9 +1676,9 @@ td.number, th.number{
   list-style:none; 
   padding:5px 0px; 
   position:absolute; 
-  left:0px; top:2px; 
+  left:0px; top:-1px; 
   width:auto; 
-  min-width:99%;
+  min-width:98%;
 }
 
 .dropdown span.value {
@@ -1775,7 +1775,7 @@ td.number, th.number{
 
 .rojo{
   border: 1px solid red;
-  background-color: #FF9999;
+  background-color: #F7C8C8;
   overflow: auto;
 }
 
@@ -1786,13 +1786,13 @@ td.number, th.number{
 }
 
 .amarillo{
-  background-color:#FFFFA0;
+  background-color:#FCFCCF;
   border: 1px solid #FF8057 ;
   overflow: auto;
 }
 
 .mi_amarillo{
-  background-color:#F7F774;
+  background-color:#F4F133;
   border: 1px solid #FF8057 ;
   overflow: auto;
 }
@@ -1854,6 +1854,7 @@ td.number, th.number{
 
 .cars{
   float: left;
+  margin-top:5px;
 }
 
 .cars a{
@@ -1951,6 +1952,9 @@ td.number, th.number{
 
 #sort_by{
   margin-right: 1px;
+  margin-top: 8px;
+  float:right;
+  width:40%;
 }
 
 #sort_by dl {
@@ -2125,17 +2129,18 @@ input.labelHighlight,textarea.labelHighlight {
   box-shadow: 2px 2px 5px #888888;
   margin-top:-2px;
   margin-right:1px;
+  z-index:1000;
 }
 
 
 #home_menu ul li{
-  width:110px;
+  width:120px;
 }
 
 #menu_options .menu{
   padding:3px 2px 3px 10px;
   float:left;
-  width:80%;
+  width:88%;
 }
 
 #menu_options .selected ,#menu_options .menu:hover {
@@ -2148,7 +2153,7 @@ input.labelHighlight,textarea.labelHighlight {
   -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
   -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
   box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
-  width:80%;
+  width:88%;
 }
 
 #menu_options li{    
@@ -2176,9 +2181,8 @@ input.labelHighlight,textarea.labelHighlight {
 
 .box_bottom{
   border-bottom:thin double #CCCCCC;
-  margin:3px;
-  padding:5px;
   overflow:auto;
+  padding-bottom:5px;
 }
 
 #breadcrums_menu{
@@ -2229,9 +2233,7 @@ input.labelHighlight,textarea.labelHighlight {
 
 .chart{
   padding:5px;
-  margin-left:10px;
   overflow:auto;
-  width:90%;
 }
 
 .pagination .current{

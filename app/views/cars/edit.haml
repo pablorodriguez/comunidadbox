@@ -1,4 +1,28 @@
-%h1
-  = vineta
-  Modificar Auto
-= render :partial=>'car'
+.vertical_menu
+  =render "home/menu"
+.contentright_s
+  .box_bottom
+    %h1 Modificar Auto
+  .box_bottom
+    %h3 Información Cliente
+    %table.w
+      %tbody
+        %tr
+          %td{:width=>"100px"}
+            Nombre
+          %td
+            = @car.user.first_name
+        %tr
+          %td Apellido
+          %td
+            = @car.user.last_name
+        %tr
+          %td Email
+          %td
+            = @car.user.email
+        %tr
+          %td Teléfono
+          %td
+            = @car.user.phone  
+  %h3 Información Autómovil
+  = render :partial=>'car'

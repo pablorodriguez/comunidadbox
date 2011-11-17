@@ -5,7 +5,9 @@
   = render "home/menu"
 .contentright_s
   .box_bottom
-    %h1 Nueva Oferta de Servicio  
+    %h1 
+      Nueva Oferta de Servicio:  
+      =@offer.service_type.name
   #service_offer
     - form_for(@offer) do |f|
       = render :partial => 'form', :locals => {:f => f}

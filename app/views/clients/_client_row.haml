@@ -1,7 +1,7 @@
 %tbody
   %tbody
     %tr
-      %td
+      %td{:style=>"width:100px"}
         %label{ :for => "login" }Nombre
       %td
         = f.text_field :first_name,:class=>"input_medium"
@@ -24,10 +24,10 @@
       %td
         %label{ :for => "email" }CUIT
       %td
-        = f.text_field :cuit
+        = f.text_field :cuit,:class=>"input_medium"
     %tr
       %td
         %label{ :for => "phone" }Teléfono
       %td
-        = f.text_field :phone
+        = f.text_field :phone,:class=>"input_medium"
         

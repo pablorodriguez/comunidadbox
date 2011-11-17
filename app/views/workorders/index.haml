@@ -39,18 +39,18 @@
     - if @work_orders.size > 0
       - unless current_user.is_employee
         #workorders_c.data
-          #sort_by      
-            = render 'sort_by'
           #workorders
             = render 'workorders'     
         #price_graph_c.data.hide.chart
-          %h1 Importes por Tipo de Servicios
-          #price_graph
+          .box_bottom
+            %h1 Importes por Tipo de Servicios
+          #price_graph.box_bottom
         #amt_graph_c.data.hide.chart
-          %h1 Cantidad por Tipo de Servicios
-          #amt_graph
+          .box_bottom
+            %h1 Cantidad por Tipo de Servicios
+          #amt_graph.box_bottom
         - if current_user.is_administrator
-          #report_data.data.hide                      
+          #report_data.data.box_bottom.hide
             = render 'totals'
       - else  
         #workorders_c.data

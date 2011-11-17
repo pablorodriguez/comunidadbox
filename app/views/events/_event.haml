@@ -9,7 +9,7 @@
       %div{:class=>css}
         - st = create_service_type_tool_tip oe
         %label{:title =>"#{st}"}
-          = link_to event.car.domain, event.car
+          = event.belongs_to_company(current_user.company) ? link_to(event.car.domain, event.car) : event.car.domain
     .left.clear.link.due_date{:title =>"Mas Detalle"}
       = l event.dueDate
 

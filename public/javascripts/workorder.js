@@ -34,8 +34,7 @@ jQuery(document).ready( function(){
     if (! $clicked.parents().hasClass("dropdown"))
         $(".dropdown dd ul").hide();
   });
-  
-  $("#workorder_tabs").tabs();
+    
   $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
   $(".labelify").labelify({ labelledClass: "labelHighlight" });  
 
@@ -56,10 +55,16 @@ jQuery(document).ready( function(){
     $(this).parent().parent().parent().find(":checkbox[id='all_service_type']").attr("checked",'');
   })
 
-  $(".wo_info_detail").live("mouseenter",function(){
-      $(this).parent().parent().parent().parent().next().show();
-    }).live("mouseleave",function(){
-      $(this).parent().parent().parent().parent().next().hide();
+  $("#service_types #all_service_type").change(function(){
+    if ($("#all_service_type").attr("checked")){
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",'checked');  
+    }else{
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",'');  
+    }
+  })
+
+  $(".wo_info_detail").live("click",function(){
+      $(this).parent().parent().parent().next().toggle();
     });
 
   
@@ -86,9 +91,9 @@ function submitForm(sort_column,direction){
 }
 
 function show_notes(element){
-  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
+  $(element).parent().parent().parent().parent().find(".notes").slideToggle();
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().parent().parent().find(".new_note").slideToggle();
+  $(element).parent().parent().parent().parent().find(".new_note").slideToggle();
 }

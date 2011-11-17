@@ -3,11 +3,16 @@ class ClientsController < ApplicationController
 
   def edit
     @client = User.find(params[:id])
+    @client.address = Address.new if @client.address.nil?
     @models = Array.new
   end
 
-  def update
+  def show
     @client = User.find(params[:id])
+  end
+
+  def update
+    @client = User.find(params[:id])    
     @models = Array.new
 
     if @client.update_attributes(params[:user])
@@ -62,12 +67,17 @@ class ClientsController < ApplicationController
     email = params[:email] || ""
     first_name = params[:first_name] || ""
     last_name = params[:last_name] || ""
+    company_name = params[:company_name] || ""
 
 #    @clients = User.where("cars.company_id = ?",current_user.company.id).includes(:cars)
     @clients = current_user.company.customers
-
-    @clients = @clients.where("first_name like ? and last_name like ? and email like ?","%#{first_name}%","%#{last_name}%","%#{email}%")
+    @clients = @clients.where("first_name like ?","%#{first_name}%") unless first_name.empty?
+    @clients = @clients.where("last_name like ?","%#{last_name}%") unless last_name.empty?
+    @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
+    @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?
     @clients = @clients.order("first_name,last_name").paginate(:page =>page,:per_page =>per_page)
+    logger.debug "### #{@clients.to_sql}"
+
     respond_to do |format|
       format.html
       format.js { render :layout => false}

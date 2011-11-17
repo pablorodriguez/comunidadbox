@@ -6,8 +6,7 @@
         - if current_user.company
           = link_to "Autómoviles", cars_path
         - unless current_user.company  
-          = link_to "Autómoviles", my_cars_path
-      .ajax_loader.right
+          = link_to "Autómoviles", my_cars_path      
     %li
       #service_done_link.menu
         = image_tag "service.png"
@@ -16,7 +15,7 @@
       %li
         #control_panel_link.menu
           = image_tag "control-panel.png"
-          = link_to "Panel de Control",control_panels_path
+          = link_to "Panel de Control",control_panels_path      
       %li
         #alarms_link.menu
           = image_tag "alarm.png"
@@ -31,10 +30,14 @@
             = image_tag "message.png"
             Mensajes
     %li
+      #service_offer.link.menu
+        = image_tag "service_offer.png"
+        = link_to "Ofertas de Servicio" , service_offers_path
+    %li
       #service_center_link.menu
         = image_tag "find.png"        
-        = link_to "Prestadores de Servicios", all_companies_path
-      .ajax_loader.right
+        = link_to "Prestadores de Servicios", all_companies_path      
+    
 #menu_actions
   #cars_menu.menu_data.hide.box_bottom    
     =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}

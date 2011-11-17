@@ -101,16 +101,5 @@ img.status{
   margin-right: 5px;
 }
 
-.row_over{
-  background-color:#F2EAB7;  
-}
-
-.row{
-  border-bottom-width:thin;
-  border-bottom-color:#CCC;
-  border-bottom-style:double;
-  padding: 2px;  
-  width:99%;
-}
 
 

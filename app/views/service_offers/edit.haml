@@ -1,8 +1,11 @@
 - javascript 'service_offer'
-%h1 Modificar Oferta de Servicio
-.contentleft
-  = render 'list_cars'
-.contentright
+.vertical_menu
+  = render "home/menu"  
+.contentright_s
+  .box_bottom
+    %h1 
+      Modificar Oferta de Servicio:
+      = @offer.service_type.name
   - form_for @offer do |f|
     = render :partial => 'form', :locals => {:f => f}
-
+  = render 'list_cars'

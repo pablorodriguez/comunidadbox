@@ -34,52 +34,58 @@
           = f.collection_select(:model_id, @models, 'id', 'name', {:prompt=>"-- Modelo --"},{:class=>'model clear change long_select'})  
     %tr
       %td
-        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:prompt=>"-- Comustible --"},{:class=>"clear change long_select"})
+        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:prompt=>"-- Combustible --"},{:class=>"clear change long_select"})
     %tr
       %td
-        =f.collection_select(:year,@years,:to_i,:to_i,{:prompt=>"-- Año --"},{:class=>"clear change short_select"})
+        =f.collection_select(:year,@years,:to_i,:to_i,{:prompt=>"-- Año --"},{:class=>"clear change long_select"})
+#event_types.box_bottom
+  %h3 Seleccione Eventos  
+  %table.w  
     %tr      
       %td
-        .select_event
-          .left
-            Eventos Tipos
-          .right  
-            .rojo.left
-              = check_box_tag :red,:red,@event_types[:red],:class =>:checkbox
-            .amarillo.left
-              = check_box_tag :yellow,:yellow,@event_types[:yellow],:class =>:checkbox
-            .verde.left
-              = check_box_tag :green,:green,@event_types[:green],:class =>:checkbox
-        .select_event
-          .left
-            = label_tag :my_clients,"Mis Clientes",:class=>:link
-          .right
-            = check_box_tag :my_clients,true,@my_clients,:class =>:checkbox
-        .select_event
-          .left
-            = label_tag :others,"Otros Clientes",:class=>:link
-          .right
-            = check_box_tag :others,true,@others,:class =>:checkbox
-        .right
-          = image_tag('find.png',{:id=>:reload,:class=>:link})
+        Eventos Tipos
+      %td
+        .rojo.left
+          = check_box_tag :red,:red,@event_types[:red],:class =>:checkbox
+        .amarillo.left
+          = check_box_tag :yellow,:yellow,@event_types[:yellow],:class =>:checkbox
+        .verde.left
+          = check_box_tag :green,:green,@event_types[:green],:class =>:checkbox
+    %tr
+      %td
+        = label_tag :my_clients,"Mis Clientes",:class=>:link
+      %td  
+        = check_box_tag :my_clients,true,@my_clients,:class =>:checkbox
+    %tr
+      %td
+        = label_tag :others,"Otros Clientes",:class=>:link
+      %td  
+        = check_box_tag :others,true,@others,:class =>:checkbox
+    %tr
+      %td    
+        = image_tag('find.png',{:id=>:reload,:class=>:link})
 
 #select.box_bottom
-  %h3 Seleccionar Clientes
-  .select_event
-    .left
-      Mios
-    .mi_amarillo.color.right
-      = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox
-    .mi_rojo.color.right
-      = check_box_tag :select_red,:mi_rojo,false,:class =>:checkbox
-    
-  .select_event
-    .left
-      Otros
-    .amarillo.color.right
-      = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
-    .rojo.color.right
-      = check_box_tag :select_red,:rojo,false,:class =>:checkbox
+  %h3 Seleccione Clientes
+  %table.w
+    %tr
+      %td
+        Mios
+      %td
+        .mi_amarillo.color
+          = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox
+      %td
+        .mi_rojo.color
+          = check_box_tag :select_red,:mi_rojo,false,:class =>:checkbox
+    %tr
+      %td
+        Otros
+      %td
+        .amarillo.color
+          = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
+      %td
+        .rojo.color
+          = check_box_tag :select_red,:rojo,false,:class =>:checkbox
 #menu_actions
   #menu_actions
     #service_offer_menu.box_bottom

@@ -1,0 +1,63 @@
+.vertical_menu
+  = render "home/menu"
+  #menua_ctions
+    %h3 Acciones
+    #menu_actions
+      %ul
+        %li
+          = link_to "Modificar",edit_client_path(@client)  
+.contentright_s
+  .box_bottom
+    %h1 Cliente
+  .box_bottom
+    %h3 Información Personal
+    %table.w
+      %tbody
+        %tr
+          %td{:width=>"100px"}
+            Nombre
+          %td
+            = @client.first_name
+        %tr
+          %td Apellido
+          %td
+            = @client.last_name
+        %tr
+          %td Email
+          %td
+            = @client.email
+        %tr
+          %td Razón Social
+          %td
+            = @client.company_name
+        %tr
+          %td CUIT
+          %td
+            = @client.cuit
+        %tr
+          %td Teléfono
+          %td
+            = @client.phone
+  - if @client.address
+    .box_bottom
+      %h3 Dirección
+      %table.w
+        %tbody
+          %tr
+            %td{:width=>"100px"} Provincia
+            %td
+              = @client.address.state.name
+          %tr
+            %td Ciudad
+            %td
+              = @client.address.city
+          %tr
+            %td Calle
+            %td
+              = @client.address.street
+          %tr
+            %td Código Postal
+            %td
+              = @client.address.zip
+              
+          

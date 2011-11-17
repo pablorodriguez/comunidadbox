@@ -28,6 +28,10 @@ class Event < ActiveRecord::Base
   def is_green
     dueDate > Time.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
   end
+
+  def belongs_to_company company
+    service.workorder.company.id == company.id
+  end
   
   def is_yellow
     dueDate > Time.now.months_since(Event::MONTH_RED).to_date && dueDate <= Time.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
