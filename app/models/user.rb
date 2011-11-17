@@ -227,7 +227,7 @@ class User < ActiveRecord::Base
   end
 
  def can_edit? user
-   self.confirmed_at.nil?
+   confirmed_at.nil? && user.company.is_employee(creator)
  end
 end
 
