@@ -343,7 +343,9 @@ function add_fields(link, association, content){
 		var lastTr = div.find('table tr:last');
 		lastTr.after(content.replace(regexp, new_id));
 	}else if (association =="services"){
+		content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
 		$("#services").find("#services_list").append(content.replace(regexp, new_id));
+		
 	}
 	initMaterialItems();
 }

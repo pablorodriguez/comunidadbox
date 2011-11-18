@@ -1,1 +1,1 @@
-$('#task_list').html("<%=escape_javascript(render(:partial=>'task_list', :locals=>{:service_type_so => @service_type}))%>");
+$('#task_list_<%=@service_type.id%>').html("<%=escape_javascript(render(:partial=>'task_list', :locals=>{:service_type_so => @service_type}))%>");
