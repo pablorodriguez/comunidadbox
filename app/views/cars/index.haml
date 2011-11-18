@@ -2,19 +2,15 @@
 -javascript "jquery.ba-url.min"
 #all_cars
   .vertical_menu  
-    = render "home/menu"
+    = render "home/menu",:s=>:cars
     .box_bottom
       =render :partial=>"search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
     -if current_user.company
       .box_bottom
         = render "search_clients"      
     - if current_user.company_id      
-      .box_bottom
-        %h3 Acciones
-        %ul
-          %li
-            = link_to "Nuevo cliente", new_client_path
-  
+      .menu_actions
+        = render "home/default_actions"
   .contentright_s
     #cars.data
       - if @company_cars.size > 0

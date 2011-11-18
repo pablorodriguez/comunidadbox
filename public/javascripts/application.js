@@ -66,13 +66,13 @@ function searchModel(event){
 
 function showHideContent(link,data){
   $(".contentright_s .data").hide();  
-  $("#menu_options .selected").removeClass("selected");
-  link.addClass("selected");
+  //$("#menu_options .selected").removeClass("selected");
+  //link.addClass("selected");
   
   $(data).show();
   //$("#menu_actions").animate({'left':'210px'}); 
 
-  $(".menu_data.showed").hide().removeClass("showed"); 
+  //$(".menu_data.showed").hide().removeClass("showed"); 
   $(data + "_menu").show().addClass("showed"); 
   
   //$("#menu_actions").animate({'left':'0px'}); 

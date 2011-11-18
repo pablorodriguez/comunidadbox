@@ -152,8 +152,8 @@ class Workorder < ActiveRecord::Base
     user.cars.include?(car)
   end
   
-  def can_edit?(user)
-    if ((self.company == user.company && self.company.is_employee(self.user) || (self.user == user)) && (open? || in_progress?))
+  def can_edit?(usr)
+    if ((company.id == usr.company.id && company.is_employee(user) || (user.id == usr.id)) && (open? || in_progress?))
       return true
     else
       return false   

@@ -42,7 +42,7 @@ body {
   margin:2px;
 }
 
-#car_search select, #client_search select, #service_center select{
+#car_search select, #client_search select{
   margin:2px;
   width:140px;
 }
@@ -2195,8 +2195,12 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 
-#menu_actions a{
+.menu_actions a{
   margin-left: 40px;
+}
+
+.menu_actions li{
+  padding: 2px 0px;
 }
 
 .car_detail .domain{
@@ -2267,4 +2271,8 @@ input.labelHighlight,textarea.labelHighlight {
 
 #new_service_offer{
   width:98%;
+}
+
+.menu_data{
+  padding:10px 5px;
 }

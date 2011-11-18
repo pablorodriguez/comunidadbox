@@ -4,7 +4,10 @@
   - if user_signed_in?   
     = render "menu"
   - unless user_signed_in?     
-    = render "nu_menu"  
+    = render "nu_menu"
+  - if user_signed_in?
+    .menu_actions    
+      = render "home/default_actions" 
 .contentright_s
   #default.data
     = render "home/welcome_msg"    

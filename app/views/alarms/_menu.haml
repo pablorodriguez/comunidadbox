@@ -1,0 +1,8 @@
+= render "home/menu"
+.menu_actions.box_bottom    
+  %ul
+    %li
+      = link_to "Nueva Alarma", new_alarm_path
+    - if current_user.company
+      %li
+        = link_to "Nuevo Cliente", new_client_path      

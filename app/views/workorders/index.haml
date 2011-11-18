@@ -2,18 +2,26 @@
 - javascript 'rank'
 - javascript 'jquery.ba-bbq.min'
 - javascript 'highcharts'
-:javascript
-  $(document).ready(function() {;
-    build_price_graph([#{@price_data}],"price_graph","Facturación por Tipo de Servicio");
-    build_amt_graph([#{@amt_data}],"amt_graph","Cantidad por Tipo de Servicio");
-  })
+- unless current_user.is_employee
+  :javascript
+    $(document).ready(function() {;
+      build_price_graph([#{@price_data}],"price_graph","Facturación por Tipo de Servicio");
+      build_amt_graph([#{@amt_data}],"amt_graph","Cantidad por Tipo de Servicio");
+    })
 
 %all-workorder
   .vertical_menu
     #menu_options.box_bottom
       %ul
         %li
-          #service_done.link.menu.selected
+          #cars_link.menu
+            = image_tag "cars.png"
+            - if current_user.company
+              = link_to_unless_current "Autómoviles", cars_path
+            - unless current_user.company  
+              = link_to "Autómoviles", my_cars_path 
+        %li
+          #service_done.link.menu
             = image_tag "service.png"
             Servicios Realizados        
         - unless current_user.is_employee
@@ -30,10 +38,13 @@
               #report_detail.link.menu
                 = image_tag "report.png"
                 Reporte Detalle
-
-
-    #menu_actions.box_bottom
+    .box_bottom
       = render 'search'
+    .menu_actions.box_bottom
+      %ul
+      - if current_user.company    
+        %li
+          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
 
   .contentright_s
     - if @work_orders.size > 0
@@ -54,8 +65,6 @@
             = render 'totals'
       - else  
         #workorders_c.data
-          #sort_by      
-            = render 'sort_by'
           #workorders
             = render 'workorders'
     - else

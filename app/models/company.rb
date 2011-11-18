@@ -16,8 +16,8 @@ class Company < ActiveRecord::Base
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
 
-  def is_employee user
-    return (self.user == user || employees.select{|e| e.id == user.id}.size > 0) ? true : false
+  def is_employee usr
+    return (user.id == usr.id || (employees || employees.select{|e| e.id == usr.id}.size > 0)) ? true : false
   end
 
   def full_address

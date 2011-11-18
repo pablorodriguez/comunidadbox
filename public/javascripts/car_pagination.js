@@ -71,7 +71,12 @@ jQuery(document).ready(function(){
 });
 
 function createNewNote(){
+  if($("#cars_notes").is(":hidden")){
+    $(".contentright_s .data").hide();
+    $("#cars_notes").show();  
+  }
   $("#notes_form_container").slideToggle();
+  
 }
 
 

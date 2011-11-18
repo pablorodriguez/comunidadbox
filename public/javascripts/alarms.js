@@ -1,17 +1,20 @@
 jQuery(document).ready(function(){
-	$('#alarm_date_ini').datetimepicker({
-		onSelect: function (selectedDateTime){
-			var start = $(this).datetimepicker('getDate');
-			$('#alarm_date_end').datetimepicker('option', 'minDate', new Date(start.getTime()) );
-		}
-	});
 
-	$('#alarm_date_end').datetimepicker({
-		onSelect: function (selectedDateTime){
-			var end = $(this).datetimepicker('getDate');
-			$('#alarm_date_ini').datetimepicker('option', 'maxDate', new Date(end.getTime()) );
-		}
-	});	
+	var dates = $( "#alarm_date_ini, #alarm_date_end" ).datepicker({
+      defaultDate: "",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onSelect: function( selectedDate ) {
+        var option = this.id == "alarm_date_ini" ? "minDate" : "maxDate",
+          instance = $( this ).data( "datepicker" ),
+          date = $.datepicker.parseDate(
+            instance.settings.dateFormat ||
+            $.datepicker._defaults.dateFormat,
+            selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+      }
+    });
+
 
 	$('#alarm_date_alarm').datetimepicker();
 

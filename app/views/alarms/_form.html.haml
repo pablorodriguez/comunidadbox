@@ -1,40 +1,37 @@
+
 = render 'shared/error_messages', :target => @alarm
-%table
+%table.w
   %tr
-    %td{:colspan=>3} Nombre
-  %tr
-    %td{:colspan=>3}  
+    %td{:style=>"width:150px"} Nombre
+    %td
       = f.text_field :name
   %tr
-    %td{:colspan=>3} Descripcion
-  %tr
-    %td{:colspan=>3}
-      = f.text_area :description, :cols => 80, :rows => 3
+    %td Descripcion  
+    %td
+      = f.text_area :description, :cols => 57, :rows => 3
   %tr
     %td Intervalo de Tiempo
-    %td Unidad de Tiempo
-    %td Estado
-  %tr
     %td  
       = f.text_field :time, :default => 0
+  %tr
+    %td Unidad de Tiempo
     %td
       = f.select :time_unit, Alarm::TIME_UNIT_TYPES
+  %tr  
+    %td Estado
     %td
       = f.select :status, Status::ALARMS_STATUS
   %tr
     %td Fecha Alarma
-  %tr
-    %td{:colspan=>3}
+    %td
       = f.text_field :date_alarm, :default => Time.zone.now
   %tr
-    %td{:colspan=>3}Inicio
-  %tr
-    %td{:colspan=>3}
+    %td Inicio
+    %td
       = f.text_field :date_ini, :default => Time.zone.now
   %tr
-    %td{:colspan=>3}Fin
-  %tr
-    %td{:colspan=>3}
+    %td Fin
+    %td
       = f.text_field :date_end, :default => Time.zone.now
 
 .box_bottom
