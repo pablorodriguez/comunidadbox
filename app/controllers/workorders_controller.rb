@@ -147,9 +147,9 @@ class WorkordersController < ApplicationController
         service.tasks.clear
       end
 
-      if params[:service_ids]
+      if params[:service_type_ids]
         @work_order.services.all.each do |service|
-          service.tasks << Task.find(params[:service_ids][service.id.to_s][:task_ids])
+          service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
         end
       end
 
@@ -204,9 +204,9 @@ class WorkordersController < ApplicationController
     end
 
     if saveAction
-      if params[:service_ids]
+      if params[:service_type_ids]
         @work_order.services.all.each do |service|
-          service.tasks << Task.find(params[:service_ids][service.service_type.id.to_s][:task_ids])
+          service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
         end
       end
 

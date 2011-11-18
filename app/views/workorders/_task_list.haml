@@ -1,13 +1,9 @@
+- service_type = service_type.object if defined? service_type.object
 %ul#tasks
-  - if defined? service_type
-    - service_type.object.tasks.each do |task|
-      %li
-        =# check_box_tag("material[task_ids][]",task.id,service.tasks.include?(task))
-        = check_box_tag "service_ids[#{service.object.id}][task_ids][]", task.id, service.object.tasks.include?(task)
-        = task.name
-  - else
-    - service_type_so.tasks.each do |task|
-      %li
-        =# check_box_tag("material[task_ids][]",task.id,service.tasks.include?(task))
-        = check_box_tag "service_ids[#{service_type_so.id}][task_ids][]", task.id
-        = task.name
+  - service_type.tasks.each do |task|
+    %li
+      - if defined? service
+        = check_box_tag "service_type_ids[#{service_type.id}][task_ids][]", task.id, service.object.tasks.include?(task)
+      - else
+        = check_box_tag "service_type_ids[#{service_type.id}][task_ids][]", task.id
+      = task.name

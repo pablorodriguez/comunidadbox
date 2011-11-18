@@ -9,3 +9,4 @@ Gemfile.lock
 .#*
 *.swp
 db/schema.rb
+config/database.yml
