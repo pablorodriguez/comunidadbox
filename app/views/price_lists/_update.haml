@@ -1,17 +1,16 @@
-#service_types
-  %h1 Tipos de Servicios
+#service_types.box_bottom
+  %h3 Tipos de Servicios
   = form_for @price_list,:url => items_price_list_path(@price_list),:html=>{:method =>:get} do |ff|
     %table
       %tbody
       - for service_type in current_user.company.service_type
         %tr
           %td
-            = label_tag "service_type_ids[#{service_type.id}]",service_type.name,:class =>:link
-          %td
             = check_box_tag "service_type_ids[#{service_type.id}]",service_type.id,@service_type_ids.include?(service_type.id.to_s),:class =>"service_type_id checkbox"
+            = label_tag "service_type_ids[#{service_type.id}]",service_type.name,:class =>:link
       %tr
-        %td Material
+        %td
+          = text_field_tag "material",@material,:class=>"labelify input",:title=>"Material"
       %tr
-        %td{:colspan=>2}
-          = text_field_tag "material",@material
+        %td
           = image_submit_tag("find.png",:class =>"input_img")

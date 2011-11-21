@@ -1,12 +1,6 @@
-%h1
-  = vineta
-  Nueva Lista de Precio
-= render 'shared/error_messages', :target => @price_list
-.box
-  - form_for(@price_list) do |f|
-    %p
-      Nombre
-    = f.text_field :name
-    .buttons
-      = link_to_back
-      = f.submit "Grabar",:class=>"button"
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .box_bottom
+    %h1 Nueva Lista de Precio
+  = render "form"

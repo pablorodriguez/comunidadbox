@@ -1,8 +1,12 @@
-#employees_f
-  %h1
-    = vineta 
-    Empleados
-  .contentleft
-    = render "search"
-  .contentright
-    = render "employees"
+.vertical_menu
+  = render "admin/menu"
+  = render "search"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Empleado", new_employee_path
+
+.contentright_s
+  .box_bottom
+    %h1 Empleados
+  = render "employees"

@@ -1,12 +1,14 @@
 - javascript 'accounts'
-%h1
-  = vineta
-  Nuevo Empleado para  
-  = current_user.company.name
-- form_for @employee, :url => employees_path do |f|
-  .box
-    = render :partial => 'form',:locals  =>{:f => f}
-    .buttons
-      = link_to_back employees_path
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .box_bottom
+    %h1
+      Nuevo Empleado
+  
+  - form_for @employee, :url => employees_path do |f|    
+    .box_bottom
+      = render :partial => 'form',:locals  =>{:f => f}
+    .box_bottom
       = f.submit "Grabar",:class =>"button"
     

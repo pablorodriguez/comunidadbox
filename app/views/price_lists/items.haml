@@ -1,34 +1,37 @@
 - javascript 'jquery.formatCurrency-1.4.0'
 - javascript 'jquery.formatCurrency.es-AR'
 - javascript 'price_list'
-#price_list_items
-  %h1 Lista de Precio
-  .contentleft
+#price_list_items  
+  .vertical_menu
+    =render "admin/menu"
     = render "update"
-  .contentright
-    %h1 Actualizar Precios
+  .contentright_s
+    .box_bottom
+      %h1 Actualizar Precios
     = form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
-      %table
-        %tbody
-          %tr
-            %td
-              %ol
-                %li
-                  = radio_button_tag :item_update,:all,false,:class=>"checkbox"
-                  = label_tag :item_update, "Todos los materiales",:for => :item_update_all,:class=>:link
-                %li
-                  = radio_button_tag :item_update, :all_page,false,:class=>"checkbox"
-                  = label_tag :item_update, "Todas las paginas",:for => :item_update_all_page,:class=>:link
-                %li
-                  = radio_button_tag :item_update, :actual_page,true,:class=>"checkbox"
-                  = label_tag :item_update, "Pagina actual",:for=>:item_update_actual_page,:class=>:link
-            %td
-              Incremento
-              = text_field_tag :percentage,@percentage
-              = button_to_function "Grabar","savePriceList()",:class =>"btn"
-              #service_types_ids{:style =>"display:none"}
-                = hidden_field_tag "material",@material
-                = hidden_field_tag "page",@page
+      .box_bottom
+        %table.w
+          %tbody
+            %tr
+              %td
+                %ol
+                  %li
+                    = radio_button_tag :item_update,:all,false,:class=>"checkbox"
+                    = label_tag :item_update, "Todos los materiales",:for => :item_update_all,:class=>:link
+                  %li
+                    = radio_button_tag :item_update, :all_page,false,:class=>"checkbox"
+                    = label_tag :item_update, "Todas las paginas",:for => :item_update_all_page,:class=>:link
+                  %li
+                    = radio_button_tag :item_update, :actual_page,true,:class=>"checkbox"
+                    = label_tag :item_update, "Pagina actual",:for=>:item_update_actual_page,:class=>:link
+              %td
+                Incremento
+                = text_field_tag :percentage,@percentage
+                = link_to_function "Grabar","savePriceList()",:class =>"button"      
+                #service_types_ids{:style =>"display:none"}
+                  = hidden_field_tag "material",@material
+                  = hidden_field_tag "page",@page
+        
       %table#sort_table.comboxtable
         %thead
           %tr.table_header
