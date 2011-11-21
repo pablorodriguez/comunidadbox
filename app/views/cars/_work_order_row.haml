@@ -24,21 +24,21 @@
         .actions.clear          
           .action.info.wo_info_detail.link          
           - unless current_user.company
-            .action.pdf
+            .action
               = link_to_pdf work_order_row
           - if current_user.company
-            .action.pdf
+            .action
               = print_to_pdf work_order_row
-          .action.new_note_link
-            = link_to_function "","new_note(this)",:title=>"Crear una nota"
+          .action
+            = link_to_function "","new_note(this)",:title=>"Crear una nota",:class=>"new_note_link"
           - n_css = work_order_row.notes.empty? ? "hide" : ""
-          .action{:class=>"#{n_css} notes_link"}
-            = link_to_function "","show_notes(this)",:title=>"Ver notas"  
+          .action{:class=>"#{n_css}"}
+            = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"
           - if work_order_row.can_edit?(current_user)
-            .action.edit
-              = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar")
-            .action.delete
-              = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"    
+            .action
+              = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")
+            .action
+              = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
   .hide_info.hide
     - if can_show
       .left
@@ -51,7 +51,7 @@
       - if can_show
         = render 'ranks/rank',:workorder => work_order_row
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
-    .new_note.hide
+    .new_notes.hide
       = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}
     %div{:id=>"notes-#{work_order_row.id}",:class=>"notes hide"}      
       = render :partial =>'notes/notes_small_view',:collection => work_order_row.notes,:as=>:note

@@ -62,10 +62,8 @@ jQuery(document).ready(function(){
       $("#client_info").fadeOut();
     });
 
-    $(".wo_info_detail").mouseenter(function(){
-      $(this).parent().parent().parent().parent().next().show();
-    }).mouseleave(function(){
-      $(this).parent().parent().parent().parent().next().hide();
+    $(".wo_info_detail").click(function(){      
+      $(this).parent().parent().parent().next().toggle();
     });
 
 });
@@ -78,9 +76,6 @@ function createNewNote(){
   $("#notes_form_container").slideToggle();
   
 }
-
-
-
 
 function createNewService(car_id){
   $("#company-selector").dialog('open');
@@ -115,5 +110,5 @@ function show_notes(element){
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().parent().parent().find(".new_note").slideToggle();
+  $(element).parent().parent().parent().parent().parent().find(".new_notes").slideToggle();
 }
