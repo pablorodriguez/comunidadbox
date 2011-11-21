@@ -149,7 +149,9 @@ class WorkordersController < ApplicationController
 
       if params[:service_type_ids]
         @work_order.services.all.each do |service|
-          service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
+          unless params[:service_type_ids][service.service_type.id.to_s].nil?
+            service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
+          end
         end
       end
 
