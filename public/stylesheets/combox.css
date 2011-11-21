@@ -25,11 +25,13 @@ body {
   background-image:url(/images/delete.png);
   height:16px;
   width:16px;
+  display:block;
 }
 .edit{
   background-image:url(/images/edit.png);
   height:16px;
   width:16px;
+  display:block;
 }
 #service_center_actions .form{  
   width:80%;
@@ -1546,9 +1548,9 @@ td.number, th.number{
 }
 
 .action{
-  width:16px;
   float:right;
   margin:2px;
+  cursor:pointer;
 }
 
 
@@ -1753,18 +1755,21 @@ td.number, th.number{
   background: url(/images/pdf.png) no-repeat scroll;
   height: 16px;
   width: 16px;  
+  display:block;
 }
 .info{
   background: url(/images/info.png) no-repeat scroll;
   height: 16px;
   width: 16px;    
+  display:block;
 }
 
 
 .new_note{
   background: url(/images/note-add.png) no-repeat scroll;
   height: 16px;
-  width: 16px;    
+  width: 16px;
+  
 }
 
 #company-selector{
@@ -2110,6 +2115,7 @@ td.number, th.number{
   background: url(/images/note-add.png) no-repeat scroll;
   height: 16px;
   width: 16px;
+  display:block;
 }
 
 input.labelHighlight,textarea.labelHighlight {

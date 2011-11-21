@@ -64,7 +64,7 @@ jQuery(document).ready( function(){
   })
 
   $(".wo_info_detail").live("click",function(){
-      $(this).parent().parent().parent().next().toggle();
+      $(this).parent().next().toggle();
     });
 
   
@@ -91,9 +91,9 @@ function submitForm(sort_column,direction){
 }
 
 function show_notes(element){
-  $(element).parent().parent().parent().parent().find(".notes").slideToggle();
+  $(element).parent().parent().parent().find(".notes").slideToggle();
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().parent().find(".new_note").slideToggle();
+  $(element).parent().parent().parent().find(".new_notes").slideToggle();
 }
