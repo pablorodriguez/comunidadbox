@@ -26,7 +26,7 @@ body {
   height:16px;
   width:16px;
 }
-.delete{
+.edit{
   background-image:url(/images/edit.png);
   height:16px;
   width:16px;
@@ -1527,11 +1527,11 @@ td.number, th.number{
 .wo_detail .services{  
   margin: 2px 0px;
   float:left;
-  width:84%;
+  width:82%;
 }
 
 .wo_detail .wo_info{
-  width:16%;
+  width:18%;
   float:right;
   
 }
