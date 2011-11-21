@@ -5,7 +5,7 @@
 jQuery(document).ready( function(){
    
     var dates = $( "#date_from, #date_to" ).datepicker({
-      defaultDate: "",
+      defaultDate: -60,
       changeMonth: true,
       numberOfMonths: 3,
       onSelect: function( selectedDate ) {

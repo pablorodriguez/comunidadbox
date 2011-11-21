@@ -1,6 +1,10 @@
 - javascript 'accounts'
-%h1
-  = vineta
-  Nuevo Auto para 
-  = @car.user.full_name
-= render :partial=>'car'
+.vertical_menu
+  = render "home/menu"
+  = render "home/default_actions"
+.contentright_s
+  .box_bottom
+    %h1
+      Nuevo Auto para 
+      = @car.user.full_name
+  = render :partial=>'car'

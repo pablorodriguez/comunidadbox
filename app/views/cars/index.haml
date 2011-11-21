@@ -8,9 +8,7 @@
     -if current_user.company
       .box_bottom
         = render "search_clients"      
-    - if current_user.company_id      
-      .menu_actions
-        = render "home/default_actions"
+    = render "home/default_actions"
   .contentright_s
     #cars.data
       - if @company_cars.size > 0

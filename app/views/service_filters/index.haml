@@ -1,24 +1,24 @@
-%h1
-  = vineta 
-  Filtros
-.box
-  - if @filters.size > 0
-    %table#sort_table.comboxtable
-      %thead
-        %tr
-          %th Fecha
-          %th Nombre
-          %th Filtro
-      - for filter in @filters
-        %tr
-          %td
-            = link_to filter.name,url_for(:controller=>:control_panels,:action=>:filter_alarms,:sf=>filter)
-          %td
-            = filter.description
-          %td
-            = link_to image_tag('delete.gif'), filter, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
-  - else
-    =render(:partial=>'shared/message',:locals =>{:msg =>"No hay filtros creados."})
-  %br
-  =link_to_back
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .boxbottom
+    %h1 Filtros
+  .boxbottom
+    - if @filters.size > 0
+      %table#sort_table.comboxtable
+        %thead
+          %tr
+            %th Fecha
+            %th Nombre
+            %th Filtro
+        - for filter in @filters
+          %tr
+            %td
+              = link_to filter.name,url_for(:controller=>:control_panels,:action=>:filter_alarms,:sf=>filter)
+            %td
+              = filter.description
+            %td
+              = link_to image_tag('delete.png'), filter, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+    - else
+      =render(:partial=>'shared/message',:locals =>{:msg =>"No hay filtros creados."})
         

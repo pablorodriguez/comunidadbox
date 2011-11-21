@@ -20,6 +20,17 @@ body {
   width: 16px;
   display:none;
 }
+
+.delete{
+  background-image:url(/images/delete.png);
+  height:16px;
+  width:16px;
+}
+.delete{
+  background-image:url(/images/edit.png);
+  height:16px;
+  width:16px;
+}
 #service_center_actions .form{  
   width:80%;
   float:left;
@@ -38,7 +49,7 @@ body {
   width:100%;
 }
 
-#car_search input, #client_search input, #service_center input{
+#car_search input, #client_search input, #service_center input,#service_offer_search input, #employees input{ 
   margin:2px;
 }
 
@@ -47,10 +58,7 @@ body {
   width:140px;
 }
 
-#service_center .ajax_loader{
-  margin-top:-20px; 
-}
-#client_search .ajax_loader, #car_search .ajax_loader{
+#client_search .ajax_loader, #car_search .ajax_loader, #service_offer_search .ajax_loader, #service_center .ajax_loader{
   margin-top:-20px;
 }
 
@@ -96,6 +104,7 @@ body {
         
 a{
   color:#B2AC0C;
+  text-decoration:none;
 }
 
 
@@ -1077,7 +1086,7 @@ input.date{
 }
 
 input.amount, input.price{
-  width: 50px;
+  width: 70px;
   text-align: right;
 }
 
@@ -1537,8 +1546,9 @@ td.number, th.number{
 }
 
 .action{
-  width:22px;
+  width:16px;
   float:right;
+  margin:2px;
 }
 
 
@@ -1741,9 +1751,20 @@ td.number, th.number{
 
 .pdf{
   background: url(/images/pdf.png) no-repeat scroll;
-  height: 21px;
-  width: 21px;
-  float:left; 
+  height: 16px;
+  width: 16px;  
+}
+.info{
+  background: url(/images/info.png) no-repeat scroll;
+  height: 16px;
+  width: 16px;    
+}
+
+
+.new_note{
+  background: url(/images/note-add.png) no-repeat scroll;
+  height: 16px;
+  width: 16px;    
 }
 
 #company-selector{
@@ -2087,9 +2108,8 @@ td.number, th.number{
 
 .new_note_link{
   background: url(/images/note-add.png) no-repeat scroll;
-  height: 21px;
-  width: 21px;
-  float: right;
+  height: 16px;
+  width: 16px;
 }
 
 input.labelHighlight,textarea.labelHighlight {

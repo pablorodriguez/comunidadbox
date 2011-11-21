@@ -74,59 +74,6 @@
 
 /* Hexadecimal entities for the icons */
 
-.add:before
-{
-        content: "\271A";
-}
-
-.edit:before
-{
-        content: "\270E";
-}
-
-.delete:before
-{
-        content: "\2718";
-}
-
-.save:before
-{
-        content: "\2714";
-}
-
-.email:before
-{
-        content: "\2709";
-}
-
-.like:before
-{
-        content: "\2764";
-}
-
-
-.back:before
-{
-        content: "\25C4";
-}
-
-.next:before
-{
-        content: "\279C";
-}
-
-
-.spark:before
-{
-        content: "\2737";
-}
-
-.play:before
-{
-        content: "\25B6";
-}
-
-
 /* Buttons and inputs */
 button.button, input.button
 {

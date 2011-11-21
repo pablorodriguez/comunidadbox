@@ -22,7 +22,7 @@
       %td
         = link_to image_tag("edit.png"), edit_service_type_path(service_type)
         - unless is_assigned service_type
-          = link_to image_tag("delete.gif"), service_type,:confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+          = link_to image_tag("delete.png"), service_type,:confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
 %br
 = link_to image_tag('new.png'), new_service_type_path
 = link_to image_tag('return.png'),conf_path

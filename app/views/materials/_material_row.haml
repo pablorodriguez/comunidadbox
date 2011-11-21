@@ -7,6 +7,6 @@
 %td{:class=>:number}
   = material.total_price
 %td{:class=>:grid_btns}
-  = link_to_remote(image_tag("delete.gif"),:url => { :action => "remove_material",:id=>material.row })
+  = link_to_remote(image_tag("delete.png"),:url => { :action => "remove_material",:id=>material.row })
   = link_to(image_tag("edit.png"), nil, {:id => "edit",:href=>'#' ,:onClick=>"editMaterialRow(#{material.row},'#{material.detail}',#{material.amount},#{material.price},#{material.total_price},#{material.material_service_type.service_type_id})"})
 

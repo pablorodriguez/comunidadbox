@@ -1,1 +1,3 @@
 $('#msgs').html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>@msg}))%>")
+$("#service_type_<%=@service_type_id%>").parent().next().hide();
+$(".notice").delay(5000).fadeOut();

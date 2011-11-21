@@ -5,6 +5,6 @@
 %td
   = service.total_price
 %td{:class=>:grid_btns}
-  = link_to_remote(image_tag("delete.gif"), :url => { :action => "remove_service",:id=>service.row })
+  = link_to_remote(image_tag("delete.png"), :url => { :action => "remove_service",:id=>service.row })
   = link_to_remote(image_tag("edit.png"), :url => edit_service_path(service.row),:method =>:get)
 

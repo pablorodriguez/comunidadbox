@@ -14,7 +14,7 @@
         = link_to brand.name,brand
       %td
         = link_to image_tag("edit.png"), edit_brand_path(brand)
-        = link_to image_tag("delete.gif"), brand, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+        = link_to image_tag("delete.png"), brand, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
 %br
   = link_to image_tag('new.png'), new_brand_path
   = link_to_back

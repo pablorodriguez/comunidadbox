@@ -5,6 +5,8 @@ var RecaptchaOptions = {
 };
 var showMenu =false;
 jQuery(document).ready( function(){
+  //$('#s3slider').s3Slider({timeOut: 4000});
+
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
   
   $(".down_icon").click(function(){

@@ -18,12 +18,12 @@
     - client.cars.each_with_index do |car,index|
       .client_car.left
         .detail
-          .left
+          .left.domain
             = link_to h(car.domain),car
-            %strong
-              = car.brand.name
-              = car.model.name
-              = car.year
+          %strong
+            = car.brand.name
+            = car.model.name
+            = car.year
         .actions
           .action
             = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)

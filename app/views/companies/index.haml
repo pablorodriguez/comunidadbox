@@ -1,12 +1,18 @@
 - javascript 'maps'
 - javascript 'search_company_map'
-%h1
-  = vineta 
-  Mis Empresas
-#filtro.contentleft
-  = render "search"
-#all_companies.contentright
-  #comp_map
-    #companies
-      = render "companies"
-    = render "maps"
+.vertical_menu
+  = render "admin/menu"
+  #filtro
+    = render "search"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nueva Empresa", new_company_path
+.contentright_s
+  .box_bottom
+    %h1 Mis Empresas
+  #all_companies
+    #comp_map
+      #companies
+        = render "companies"
+      = render "maps"

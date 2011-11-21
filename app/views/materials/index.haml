@@ -34,7 +34,7 @@
         = h material.name
       %td
         = link_to image_tag("edit.png"), edit_material_path(material)
-        = link_to image_tag("delete.gif"), material, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+        = link_to image_tag("delete.png"), material, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
 = will_paginate @materials
 
 %br

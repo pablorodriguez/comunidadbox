@@ -2,4 +2,4 @@
   - for servicetype in @company.service_type
     %li 
       = servicetype.name + " "
-      = link_to image_tag("delete.gif"), {:action => 'unbind_service', :id => servicetype.id}, :confirm => '¿ Esta seguro que desea desvincular el tipo de servicio ?', :method => :delete
+      = link_to image_tag("delete.png"), {:action => 'unbind_service', :id => servicetype.id}, :confirm => '¿ Esta seguro que desea desvincular el tipo de servicio ?', :method => :delete

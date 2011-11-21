@@ -16,5 +16,5 @@
       %td
         = task.description
       %td
-        = link_to_remote image_tag('delete.gif'), :url => {:action => 'destroy_task', :id => task.id, :service_type => @service_type.id}, :confirm => '¿Esta seguro que desea borrarlo?'
+        = link_to_remote image_tag('delete.png'), :url => {:action => 'destroy_task', :id => task.id, :service_type => @service_type.id}, :confirm => '¿Esta seguro que desea borrarlo?'
 

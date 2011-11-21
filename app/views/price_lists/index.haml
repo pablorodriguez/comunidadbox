@@ -1,7 +1,12 @@
-%h1
-  =vineta
-  Listas de Precios
-.box
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nueva Lista de Precio", new_price_list_path
+.contentright_s
+  .box_bottom
+    %h1 Listas de Precios  
   %table#sort_table.comboxtable
     %thead
       %tr
@@ -22,7 +27,5 @@
           -unless price_list.company.nil?
             = link_to image_tag('edit.png'), edit_price_list_path(price_list)
           -unless price_list.active
-            = link_to image_tag('delete.gif'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
-  .buttos
-  = link_to_back
-  = link_to "Nueva Lista de Precio", new_price_list_path,:class =>:button
+            = link_to image_tag('delete.png'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+    
