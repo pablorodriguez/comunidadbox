@@ -9,10 +9,11 @@
   .box_buttom
     = render "search"
   .menu_actions.box_bottom
-    %ul
-      - if current_user.company
-        %li
-          = link_to "Nuevo Cliente", new_client_path         
+    -if current_user
+      %ul
+        - if current_user.company
+          %li
+            = link_to "Nuevo Cliente", new_client_path         
 .contentright_s  
   #companies.data
     = render "all_companies"
