@@ -1,15 +1,19 @@
 #s3slider {
-   width: 400px; /* important to be same as image width */
-   height: 300px; /* important to be same as image height */
+   width: 800px; /* important to be same as image width */
+   height: 750px; /* important to be same as image height */
    position: relative; /* important */
    overflow: hidden; /* important */
+   margin:0 auto;
 }
 
 #s3sliderContent {
-   width: 400px; /* important to be same as image width or wider */
+   width: 790px; /* important to be same as image width or wider */
    position: absolute; /* important */
    top: 0; /* important */
-   margin-left: 0; /* important */
+   margin-left: 2px; /* important */
+  -moz-box-shadow: 2px 2px 5px #888888;
+  -webkit-box-shadow: 2px 2px 5px #888888;
+  box-shadow: 2px 2px 5px #888888;
 }
 
 .s3sliderImage {
@@ -18,10 +22,11 @@
    display: none; /* important */
 }
 
+
 .s3sliderImage span {
    position: absolute; /* important */
    left: 0;
-   font: 10px/15px Arial, Helvetica, sans-serif;
+   font: 12px/17px Arial, Helvetica, sans-serif;
    padding: 10px 13px;
    width: 374px;
    background-color: #000;
@@ -30,9 +35,8 @@
    -khtml-opacity: 0.7; /* here you can set the opacity of box with text */
    opacity: 0.7; /* here you can set the opacity of box with text */
    color: #fff;
-   display: none; /* important */
-   top: 0;
-
+   display: none; /* important */   
+   bottom:0;
    /*
        if you put
        top: 0; -> the box with text will be shown at the top of the image

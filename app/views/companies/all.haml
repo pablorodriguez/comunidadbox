@@ -4,12 +4,10 @@
 .vertical_menu
   - if current_user
     = render "home/menu"
-  -unless current_user
-    = render "home/nu_menu"
   .box_buttom
     = render "search"
-  .menu_actions.box_bottom
-    -if current_user
+  -if current_user
+    .menu_actions.box_bottom
       %ul
         - if current_user.company
           %li

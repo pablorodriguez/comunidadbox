@@ -1,20 +1,4 @@
-.vertical_menu
-  #menu_options.box_bottom
-    %li
-      #register_link.menu
-        = image_tag "sign-up.png"
-        = link_to "Registrarse",new_user_registration_path
-      .ajax_loader.right
-      - if devise_mapping.recoverable? && controller_name != 'passwords'
-        %li
-          #password_link.menu
-            = image_tag "sgn_pass.png"
-            = link_to t(:forgot_your_password), new_password_path(resource_name)
-    %li
-      #service_center_link.menu
-        = image_tag "help.png"
-        = link_to "Ayuda", "#"
-.contentright_s
+.c
   #cont1
     %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
   #login_c

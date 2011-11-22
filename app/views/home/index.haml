@@ -1,34 +1,23 @@
 - javascript 'jquery.shuffleLetters.js'
 
-.vertical_menu
-  - if user_signed_in?   
-    = render "menu"
-  - unless user_signed_in?     
-    = render "nu_menu"
-  - if user_signed_in?
-    .menu_actions    
-      = render "home/default_actions" 
-.contentright_s
-  #default.data
-    .hide
-      = render "home/sliders"
-    = render "home/welcome_msg"    
-    = render "home/new_msgs"    
-  #cars.data
-  #clients.data
-  #workorders.data
-  #control_panel.data
-  #alarms.data
-  #messages.data    
-  #all_companies.data.hide
-    #comp_map
-      #companies        
-      = render "companies/maps"
-  #new_company.data.hide
-  #user_registration.data.hide
+-if current_user
+  .vertical_menu
+    = render "home/menu"
+  .contentright_s  
+    #default.data  
+      = render "home/welcome_msg"    
+      = render "home/new_msgs"    
+
+-unless current_user
+  #c
+    #default.data  
+      = render "home/welcome_msg"    
+      -unless current_user
+        = render "home/sliders"    
       
 :javascript
-  $(document).ready(function(){
+  $(document).ready(function(){    
     $("#comunidadbox h1").shuffleLetters("Comunidad Box");
+    $('#s3slider').s3Slider({timeOut: 4000});
   })
-  
+    

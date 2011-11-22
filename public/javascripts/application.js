@@ -4,8 +4,7 @@ var RecaptchaOptions = {
       theme : 'white'
 };
 var showMenu =false;
-jQuery(document).ready( function(){
-  //$('#s3slider').s3Slider({timeOut: 4000});
+jQuery(document).ready( function(){  
 
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
   

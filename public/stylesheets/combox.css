@@ -270,7 +270,7 @@ h2 a:hover {
 #login_c form{
   margin: 0 auto;
   overflow: auto; 
-  width:80%; 
+  width:55%; 
 }
 
 .part {
@@ -2139,7 +2139,7 @@ input.labelHighlight,textarea.labelHighlight {
   background:#DDE04A;
 }
 
-#home_menu ul{
+.menu ul{
   padding:5px 10px;
   overflow: auto;
   position: absolute;
@@ -2158,8 +2158,30 @@ input.labelHighlight,textarea.labelHighlight {
   z-index:1000;
 }
 
+.menu_nu ul{
+  padding:5px 10px;
+  overflow: auto;
+  position: absolute;
+  width: 170px;
+  background:white;
+  top:100%;
+  right:0;
+  -moz-border-radius: 0px 0px 5px 5px;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
+  -moz-box-shadow: 2px 2px 5px #888888;
+  -webkit-box-shadow: 2px 2px 5px #888888;
+  box-shadow: 2px 2px 5px #888888;
+  margin-top:-2px;
+  margin-right:1px;
+  z-index:1000;
+}
 
-#home_menu ul li{
+.menu_nu ul li{
+  width:170px;
+}
+
+.menu ul li{
   width:120px;
 }
 
