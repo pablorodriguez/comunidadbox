@@ -228,8 +228,8 @@ class WorkordersController < ApplicationController
     work_order = Workorder.find work_order_id
     if work_order.car.domain == "HRJ549"
       logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
-      #message = WorkOrderNotifier.notify(work_order).deliver
-      #Resque.enqueue WorkorderJob,work_order_id
+      message = WorkOrderNotifier.notify(work_order).deliver
+      Resque.enqueue WorkorderJob,work_order_id
     end
 
   end
