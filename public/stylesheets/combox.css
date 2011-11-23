@@ -72,9 +72,9 @@ body {
 #body{
   padding-bottom:10px;
   overflow: auto;
-  margin:0 auto;
+  margin: 0 auto;
   width:960px;  
-  margin-top:10px;
+  padding-top:10px;
   min-height:776px;
 }
 
@@ -244,6 +244,7 @@ h2 a:hover {
   margin:0px 5px;
 }
 
+
 #content {
   overflow:auto;  
   margin:0 auto;    
@@ -258,8 +259,7 @@ h2 a:hover {
   text-align:center;
 }
 
-#login_c {
-  height:90px;
+#login_c {  
   background-color:#808080;
 }
 
@@ -270,17 +270,9 @@ h2 a:hover {
 #login_c form{
   margin: 0 auto;
   overflow: auto; 
-  width:55%; 
-}
-
-.part {
-  height:90px;
-  float:left;
-}
-
-.part table{
-  margin-top:7px;
-  margin-left: 7px;
+  width:91%; 
+  padding-top:5px;
+  padding-bottom:5px;
 }
 
 #part1 {
@@ -289,16 +281,25 @@ h2 a:hover {
   margin
 }
 
-#part22 {
+.part22 {
   font-size:9px;
+  margin-top:10px;
+}
+
+.part22 .links{
+  margin-left:5px;
 }
 
 #part22 ul{
   margin-left:10px;
 }
 
-#part22 .links{
-  margin-left:4px;
+.part22 .links{
+  margin-left:26px;
+}
+
+.links a{
+  font-size:12px;
 }
 
 #part22 table{
@@ -712,17 +713,11 @@ input{
   
 }
 
-.box {
-  overflow: auto;
-  z-index: 2; 
-  float: left;
-  width: 98%;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid #DDDDDD;
-  margin-left: 5px;
-  padding: 5px 5px 5px 5px;
+.box {  
+  border-left: 1px solid #DDDDDD; 
+  border-right: 1px solid #DDDDDD; 
+  padding: 3px;
+  overflow:auto;
 }
 
 .contentright {
@@ -872,6 +867,14 @@ input{
   overflow: hidden;
 }
 
+#comunidadbox{
+  margin-bottom:10px;
+}
+
+#comunidadbox span{
+  font-size:12px;
+}
+
 
 td.number input{
   text-align:right;
@@ -889,8 +892,6 @@ td.number input{
   font-size:20px;
   color:#75787A;
   margin:0px;
-  margin-bottom:10px;
-  margin-left:5px;
 }
   
 .contentleft h2 {
@@ -2178,7 +2179,7 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 .menu_nu ul li{
-  width:170px;
+  width:180px;
 }
 
 .menu ul li{
@@ -2323,4 +2324,14 @@ input.labelHighlight,textarea.labelHighlight {
 
 .menu_data{
   padding:10px 5px;
+}
+
+.shadown{
+  -moz-box-shadow: 2px 2px 5px #888888;
+  -webkit-box-shadow: 2px 2px 5px #888888;
+  box-shadow: 2px 2px 5px #888888;
+}
+
+.title{  
+  margin:0 auto;
 }

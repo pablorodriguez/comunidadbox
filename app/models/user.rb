@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
 	# :http_authenticatable, :token_authenticatable, :confirmable,:lockable, :timeoutable and :activatable
-  devise :registerable, :database_authenticatable, :recoverable,:rememberable, :trackable, :validatable
+  devise :registerable, :database_authenticatable,:confirmable, :recoverable,:rememberable, :trackable, :validatable
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation
 
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :service_filters,:order =>'name'
   has_many :cars
   has_many :authentications
-  has_many :notes
+  has_many :notes,:order => "created_at DESC"
   
   belongs_to :creator,:class_name=>'User'
   has_many :companies

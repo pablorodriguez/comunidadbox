@@ -1,8 +1,11 @@
 .vertical_menu
   = render "home/menu"
-  .notes_menu_actions
-    %h3 Acciones
-    = link_to "Nueva Nota", new_note_path
+  .menu_actions.box_bottom
+    %ul
+      %li   
+        = link_to "Nueva Nota", new_note_path
+      %li
+        = link_to "Nuevo Cliente", new_client_path
 .contentright_s
   %h1 Listado de Notas
   .box_bottom
@@ -13,12 +16,15 @@
         .left
           = note.message
         -if note.creator_id == current_user.id
-          .right
-            = link_to image_tag('delete.png'), note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true  
-        .info
+          .actions.right
+            .action
+              = link_to "",edit_note_path(note),:class=>"edit",:title =>"Modificar"
+            .action
+              = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true ,:class=>"delete"
+            
+        .info_n.clear
           .date
             %lable{:title =>"Creado el"}
-              = l note.created_at,:format => :short
-          .user
+              = l note.created_at,:format => :short      
             %label{:title =>"Creado por"}
               =note.creator.full_name

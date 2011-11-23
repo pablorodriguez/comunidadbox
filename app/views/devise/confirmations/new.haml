@@ -1,15 +1,15 @@
-%h1
-  = vineta
-  Enviar instrucciones de confirmación
-.contentleft
-  %h1 Ir a
-  = render :partial => "devise/shared/links"
-.contentright
-  %h1
-    Enviar confirmación a:
+.vertical_menu 
+  = render "home/nu_menu"
+.contentright_s
+  .box_bottom
+    %h1 Enviar instrucciones de confirmación  
   = form_for resource,:as => resource_name, :url => confirmation_path(resource_name) do |f|
-    %p
-      = f.label :email,"Correo Electrónico"
-      %br/
-      = f.text_field :email,:class=>:input_long
-    %p= f.submit "Enviar Instrucciones",:class =>"btn2"
+    .box_bottom
+      %table
+        %tr
+          %td
+            = f.label :email,"Correo Electrónico"
+          %td
+            = f.text_field :email,:class=>:input_long
+    .box_bottom
+      = f.submit "Enviar Instrucciones",:class =>"button"

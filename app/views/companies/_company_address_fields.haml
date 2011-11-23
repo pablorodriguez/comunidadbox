@@ -1,7 +1,7 @@
 %table
   %tbody
     %tr
-      %td{:style=>"width:150px"}
+      %td{:style=>"width:100px"}
         %label{ :for => "state" }Provincia
       %td
         = ad.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:id=>@state_id,:class=>"state medium_select"})

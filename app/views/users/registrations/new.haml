@@ -1,12 +1,9 @@
-.vertical_menu
-  = render "home/nu_menu"  
-.contentright_s
+.box_bottom
   .left
     %h1 Nuevo Usuario
   .right
     %h1
-      =  select_tag "user_type", "<option value='u'>Usuario</option><option value='ps'>Prestador de Servicio</option>".html_safe,:class=>"long_select"
-  .clear.box_bottom
+      =  select_tag "user_type", "<option value='u'>Usuario</option><option value='ps'>Prestador de Servicio</option>".html_safe,:class=>"long_selec"
+.clear
   = form_for resource, :url => user_registration_path do |f|
     = render "form", :f => f,:recaptcha => true
-

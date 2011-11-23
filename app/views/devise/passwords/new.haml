@@ -1,15 +1,17 @@
 .vertical_menu  
-  #menu_psw.box_bottom
-    = render :partial => "devise/shared/links"
-.contentright_s
+  = render "home/nu_menu"
+.contentright_s  
   .box_bottom
-    %h1 Enviar instrucciones para cambiar la clave a
+    %h1 Enviar instrucciones de cambio
+  .box_bottom
     = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
       = devise_error_messages!
-      %p
-        = f.label :email, "Correo Electónico"
-        %br/ 
-        = f.text_field :email,:class =>:input_long
+      %table
+        %tr
+          %td
+            = f.label :email, "Correo Electrónico"
+          %td 
+            = f.text_field :email,:class =>:input_long
       .box_bottom
-      = f.submit "Enviar nueva clave",:class=>"button"
+      = f.submit "Enviar Instrucciones",:class=>"button"
   

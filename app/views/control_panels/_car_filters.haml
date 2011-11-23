@@ -70,7 +70,7 @@
   %table.w
     %tr
       %td
-        Mios
+        Mis
       %td
         .mi_amarillo.color
           = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox
@@ -87,7 +87,7 @@
         .rojo.color
           = check_box_tag :select_red,:rojo,false,:class =>:checkbox
 #menu_actions
-  #menu_actions
-    #service_offer_menu.box_bottom
-      %h3 Acciones
-      = link_to_function "Crear Oferta de Servicio","createNewService();"
+  .menu_actions.box_bottom
+    %ul
+      %li      
+        = link_to_function "Crear Oferta de Servicio","createNewService();"

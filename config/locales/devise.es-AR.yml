@@ -1,9 +1,9 @@
 es-AR:
   sign_in: "Ingresar"
   forgot_your_password: "¿ Olvidaste tu clave ?"
-  not_receive_confirmation_instruction: "¿ No recibio instrucciones de confirmación ?"
+  not_receive_confirmation_instruction: "¿ No recibiste instrucciones de confirmación ?"
   sign_up: "Registrate"
-  not_receive_unlock_instruction: "¿ No recibio instrucciones para desbloquear?"
+  not_receive_unlock_instruction: "¿ No recibiste instrucciones para desbloquear?"
   errors:
     messages:
       not_found: 'no encontrado'

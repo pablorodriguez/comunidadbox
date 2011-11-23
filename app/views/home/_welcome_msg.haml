@@ -1,10 +1,13 @@
-#cont1
-  #comunidadbox
-    %h1 ¡BIENVENIDO A COMUNIDAD BOX!
-  %h2
-    %span#cont1
-      Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Disfrutelo!
-      %br
-    - if user_signed_in?
-      - if current_user.company && current_user.company.service_type.empty?
-        = link_to "Por favor registre sus tipos de servicios", service_types_companies_path
+.shadown2.title
+  #cont1
+    #comunidadbox
+      %h1 ¡BIENVENIDO A COMUNIDAD BOX!
+      %span.hide
+        nosotros cuidamos tu auto, vos disfrutalo
+    %h2
+      %span#cont1
+        Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Disfrutelo!
+        %br
+      - if user_signed_in?
+        - if current_user.company && current_user.company.service_type.empty?
+          = link_to "Por favor registre sus tipos de servicios", service_types_companies_path

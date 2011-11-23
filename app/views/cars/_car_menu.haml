@@ -16,6 +16,12 @@
       #future_event.link.menu
         = image_tag "service.png"
         Servicios a Realizar
+    
+    .hide
+      %li
+        #service_offers.link.menu
+          = image_tag "service.png"
+          = link_to "Ofertas de Servicio", car_service_offers_path
     %li
       #report_graph.link.menu
         = image_tag "graph.png"

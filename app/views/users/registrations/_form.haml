@@ -36,9 +36,3 @@
 .box_bottom      
   = f.submit "Grabar",:class=>"button"
     
-- if user_signed_in?
-  -if devise_mapping.recoverable? && controller_name != 'passwords'
-    = link_to t(:forgot_your_password), new_password_path(resource_name)
-    %br
-  -if devise_mapping.confirmable? && controller_name != 'confirmations'
-    = link_to t(:not_receive_confirmation_instruction), new_confirmation_path(resource_name)

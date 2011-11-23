@@ -1,5 +1,15 @@
 .vertical_menu
-  = render "home/menu"  
+  = render "home/menu"
+  .menu_actions.box_bottom
+    %ul
+    - if user_signed_in?
+      -if devise_mapping.recoverable? && controller_name != 'passwords'
+        %li
+          = link_to t(:forgot_your_password), new_password_path(resource_name)      
+      -if devise_mapping.confirmable? && controller_name != 'confirmations'
+        %li
+          = link_to t(:not_receive_confirmation_instruction), new_confirmation_path(resource_name)
+
 .contentright_s
   %h1 Modificar Usuario
   .box_bottom

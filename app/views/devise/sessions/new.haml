@@ -3,23 +3,23 @@
     %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
   #login_c
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-      #part2.part
-        %table
+      .left{:style=>"margin-top:5px"}
+        %h2 INICIAR SESIÓN
+      .left
+        %table.login
           %tr
-            %td{:colspan=>2}
-              %h2
-                INICIAR SESIÓN
             %td
-              - if devise_mapping.rememberable?
-                #part22
-                  %h4
+              = f.text_field :email, {:class =>"textarea labelify",:title=>"Correo Eléctronico"}              
+            %td
+              = f.password_field :password, {:class =>"textarea labelify",:title=>"Clave "}                        
+            - if devise_mapping.rememberable?
+              %tr
+                %td                  
+                  %h2{:style=>"margin-left:-5px;margin-top:-3px"}
                     = f.check_box :remember_me,:class=>"checkbox"
                     = f.label :remember_me
-          %tr
-            %td
-              = f.text_field :email, {:class =>"textarea labelify",:title=>"Correo Eléctronico"}
-            %td
-              = f.password_field :password, {:class =>"textarea labelify",:title=>"Clave "}
-            %td
-              %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}
+      .left{:style=>"margin-top:-5px"}
+        %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}  
+      .left
+        = render "devise/shared/links"
   = render "home/new_msgs"

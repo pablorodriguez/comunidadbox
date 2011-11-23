@@ -43,10 +43,11 @@ class NotesController < ApplicationController
   # POST /notes.xml
   def create
     @note = Note.new(params[:note])
-    @note.creator = current_user
+    @note.user = current_user unless @note.user
+    @note.creator = current_user    
     respond_to do |format|
       if @note.save
-        format.html { redirect_to(@note, :notice => 'Note was successfully created.')}
+        format.html { redirect_to(notes_path)}
         format.js {render :file=>"notes/new_note.js.erb"}
         format.xml  { render :xml => @note, :status => :created, :location => @note }
       else

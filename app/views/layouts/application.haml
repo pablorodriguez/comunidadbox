@@ -8,11 +8,11 @@
     %title Comunidad Box
     = javascript_include_tag 'jquery-1.5.1','jquery.ui.1.8.11','jquery.rails'
     = javascript_include_tag 'jquery.ui.datepicker-es','application','autocolumn.min','jquery.labelify','s3Slider'    
-    = javascript 'analytics'
-    = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
+    -#= javascript 'analytics'
+    -#= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
     = stylesheet_link_tag 'combox','jquery-ui-1.8.15.custom','user','buttons','s3slider'
     = yield(:head)
-    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800", :rel => "stylesheet", :type => "text/css"}
+    -#%link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800", :rel => "stylesheet", :type => "text/css"}
     -#%link{:href => "http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic", :rel => "stylesheet", :type => "text/css"}
     
   %body
@@ -24,7 +24,8 @@
             = render "layouts/logininfo"            
       #body
         = render "layouts/msg"
-        = yield
+        .box
+          = yield
       #footer        
         = render "/layouts/footer"
     -#= render "layouts/mediabar"
