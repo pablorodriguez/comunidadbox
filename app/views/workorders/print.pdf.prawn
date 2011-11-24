@@ -16,8 +16,11 @@ pdf.grid(0,0).bounding_box do
   pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold  
   
   address = user.address ? user.address.to_text : ""
+  info = "Cliente: #{user.full_name}\nTeléfono: #{user.phone}\nEmail: #{user.email}"
+  info += "\nCUIT:#{user.cuit}" if user.cuit
+  info += "\n#{address}" if address
   data_info = [[
-    "Cliente: #{user.full_name}\nTeléfono: #{user.phone}\nEmail: #{user.email}\n#{address}",
+    info,
     "Automovil: #{car.domain}\n#{car.brand.name}, #{car.model.name.strip!}, #{car.year}\nKm. Actual: #{@work_order.km}\nKm. Promedio Mensual: #{car.kmAverageMonthly}"
     ]]
 
@@ -32,7 +35,7 @@ pdf.grid(0,0).bounding_box do
     "Vendedor: #{@work_order.user.full_name} [#{Status.status(@work_order.status)}]",
     "Realizado: #{l @work_order.performed.to_date} [#{@work_order.payment_method.name}]"
     ]]
-  
+    
   pdf.table data_info do
     cells.padding=0
     cells.borders=[]

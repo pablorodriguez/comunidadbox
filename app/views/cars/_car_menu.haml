@@ -5,7 +5,7 @@
       #cars_link.menu
         = image_tag "cars.png"
         - if current_user.company
-          = link_to "Autómoviles", cars_path
+          = link_to "Autómoviles", clients_path
         - unless current_user.company  
           = link_to "Autómoviles", my_cars_path   
     %li

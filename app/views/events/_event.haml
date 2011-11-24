@@ -29,7 +29,7 @@
   .left.clear{:title=>"Fecha a Realizar"}
     = l event.dueDate
   %strong.left.clear{:title=>"Importe gastado en tu empresa"}
-    = number_to_currency(event.car.total_spend(current_user.current_company.id,event.service_type.id))
+    = number_to_currency(event.car.total_spend(current_user.company.id,event.service_type.id))
   .right{:title=>"Importe gastado en total"}
     = number_to_currency(event.car.total_spend(nil,event.service_type.id))
   -if event.service.workorder.company.id == current_user.company.id

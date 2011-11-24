@@ -7,7 +7,6 @@
       %li
         %h3
           = link_to "Registrarse",new_user_registration_path 
-
       %li{:class=>"down_icon link",:id=>"popup_menu"}
         = image_tag("down.gif",:id=>"down_menu")
         #home_menu.menu_nu.hide
@@ -33,6 +32,8 @@
           = image_tag("down.gif",:id=>"down_menu")
           #home_menu.menu.hide
             %ul
+              - if current_user.is_super_admin
+                = link_to "Configurción", conf_path
               %li
                 = link_to "Administración",admin_path    
               %li

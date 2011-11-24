@@ -38,13 +38,20 @@ class ClientsController < ApplicationController
     @client.password = @client.first_name + "test"
     @client.password_confirmation = @client.password
 
+    unless @client.address && @client.valid?
+      @client.address = current_user.address if current_user.address
+    end
+
+    if @client && current_user.company
+      unless @client.service_centers.include?(current_user.company)
+        @client.service_centers << current_user.company
+      end
+    end
+    @client.cars.first.company = current_user.company if @client.cars.first
+
     User.transaction do
       if @client.save
           flash[:notice] = "Cliente creado exitosamente"
-          @client.cars.each do |car|
-            car.company = current_user.current_company
-            car.save
-          end
           redirect_to  new_workorder_path(:car_id =>@client.cars[0].id)
       else
         @client.cars.build if @client.cars.size == 0

@@ -169,19 +169,16 @@ class WorkordersController < ApplicationController
   def create
     company_id =  current_user.company ? current_user.company.id : params[:company_id]
     cso_ids = params["cso_ids"] || []
-    @work_order = Workorder.new(params[:workorder])
-    #@work_order.company = current_user.current_company
+    @work_order = Workorder.new(params[:workorder])    
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     saveAction =false
 
 
     car = @work_order.car
-    unless car.user.service_centers.include?(current_user.current_company)
-      car.user.service_centers << current_user.current_company
+    unless car.user.service_centers.include?(current_user.company)
+      car.user.service_centers << current_user.company
     end
-    #    car.company = current_user.current_company
-    #    car.save
 
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
     saveAction = @work_order.save

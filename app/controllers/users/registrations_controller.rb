@@ -34,7 +34,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           user_role.company = @user.company
           user_role.user = @user
           user_role.save
-          PriceList.copy_default(@user.current_company.id)
+          PriceList.copy_default(@user.company.id)
         end
         format.html { redirect_to root_path }
         format.xml  { head :ok }
@@ -60,8 +60,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if verify_recaptcha  
       if resource.save
           flash[:notice] = "Cliente creado exitosamente"
-          if (resource.current_company &&  (!resource.is_employee))
-            PriceList.copy_default(resource.current_company.id)
+          if (resource.company &&  (!resource.is_employee))
+            PriceList.copy_default(resource.company.id)
           end
           redirect_to new_user_session_path
       else

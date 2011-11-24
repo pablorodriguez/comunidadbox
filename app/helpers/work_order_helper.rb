@@ -48,8 +48,8 @@ module WorkOrderHelper
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
       else
         if work_order.company.id != Company::DEFAULT_COMPANY_ID
-          if (current_user.current_company && 
-              work_order.company == current_user.current_company)
+          if (current_user.company && 
+              work_order.company == current_user.company)
             return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "company")
           else
             return ""
@@ -65,7 +65,7 @@ module WorkOrderHelper
       return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"usr")
     else
       if work_order.company.id != Company::DEFAULT_COMPANY_ID
-        if !current_user.current_company || work_order.belong_to_user(current_user)
+        if !current_user.company || work_order.belong_to_user(current_user)
           return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "usr")
         else
           return ""
@@ -76,7 +76,7 @@ module WorkOrderHelper
   
 
   def get_my_rank(current_user,work_order)
-    if current_user.current_company
+    if current_user.company
       if work_order.company_rank_id
         rank = Rank.find work_order.company_rank_id
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")

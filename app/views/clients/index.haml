@@ -1,17 +1,12 @@
-#all_clients
-  %h1
-    =vineta 
-    Clientes & Automóviles
-  .contentleft_s
-    .contentleft
-      = render "search_clients"
-    .contentleft
-      = render "search_cars"
-    .contentleft
-      .buttons
-        = link_to_back root_path
-        - if current_user.company_id
-          = link_to "Nuevo cliente", new_client_path,{:class =>"button"}
-      
-  #data.contentright
+.vertical_menu
+  =render "home/menu"
+  .box_bottom
+    =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
+  -if current_user.company
+    .box_bottom
+      = render "cars/search_clients"      
+  = render "home/default_actions"
+.contentright_s
+  #cars.data
+  #clients.data
     = render "clients"

@@ -762,6 +762,10 @@ input{
   padding:5px;
 }
 
+#work_order{
+  margin-top:5px;
+}
+
 .contentright_n {
   z-index: 2; 
   float: left;

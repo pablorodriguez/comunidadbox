@@ -90,7 +90,7 @@ class ControlPanelsController < ApplicationController
       @service_filter.service_type_id = ServiceType.find(params[:st]).id
     end
     
-    @company_services = current_user.current_company.service_type
+    @company_services = current_user.company.service_type
     @brands = Brand.all(:order=>:name)    
     @models  = Array.new
     if @service_filter.brand_id

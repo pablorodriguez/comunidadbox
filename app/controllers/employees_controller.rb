@@ -43,7 +43,7 @@ class EmployeesController < ApplicationController
   end
   
   def index
-    @employees = current_user.current_company.employees
+    @employees = current_user.company.employees
   end
   
   def edit

@@ -13,12 +13,11 @@
       .left
         = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select left',:title=>"Forma de Pago"})
         = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio"}
-      = image_tag "new.png",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>:link
-      %strong
-      - if wo_form.object.comment
-        %a{:class=>"edit_comment comment link",:title=>"Modificar Comentario"}
-      - unless wo_form.object.comment
-        %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}              
+        = link_to"","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"      
+        - if wo_form.object.comment
+          %a{:class=>"edit_comment comment link",:title=>"Modificar Comentario"}
+        - unless wo_form.object.comment
+          %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}              
       .hide
         = wo_form.text_area :comment
     #services_list.ordencontent

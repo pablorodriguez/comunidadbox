@@ -51,11 +51,6 @@ class User < ActiveRecord::Base
     return (self.company && self.company.id == comp.id)
   end
 
-  def current_company
-    return company if company
-    return employer if employer
-  end
-
   def find_service_offers(filters = nil)
 
     if self.is_super_admin
@@ -117,7 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def company
-    return company_active if companies.size > 0
+    return company_active unless companies.empty?
     return employer if employer
   end
 
@@ -213,10 +208,10 @@ class User < ActiveRecord::Base
   end
 
   def service_types
-    if current_company
-      sp = current_company.service_type
+    if company
+      sp = company.service_type
     else
-       sp = ServiceType.all(:order =>"name") unless current_company
+       sp = ServiceType.all(:order =>"name") unless company
     end
    sp
   end
