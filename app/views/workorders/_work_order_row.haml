@@ -1,7 +1,7 @@
 .wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
   - can_show = work_order_row.can_show?(current_user)            
-  .info_s
-    .services
+  .info_s    
+    .services      
       .clear.left.domain
         = link_to work_order_row.car.domain, work_order_row.car
       - work_order_row.services.each do |s|

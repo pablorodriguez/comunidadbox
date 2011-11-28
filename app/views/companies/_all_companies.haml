@@ -1,26 +1,7 @@
 -if @companies && @companies.size > 0
-  %h1 Prestadores de Servicios
-  .row
-  - for company in @companies
-    .row
-      .company_detail
-        .actions        
-          - if company.address
-            .action
-              = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"} 
-          
-          - if user_signed_in? && current_user.company.nil?
-            .action
-              = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}    
-        .left
-          .nombre
-            = link_to company.name,company_path(company),{:title => "Ver"}
-          .address
-            = company.full_address
-          .phone
-            = company.phone              
-        .rank  
-          ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{number_with_precision(company.user_rank)}]"
+  .box_bottom
+    %h1 Prestadores de Servicios  
+  = render :partial=>"companies/company",:collection => @companies,:locals =>{:active =>false}
 -else
   %label
     No hay empresas registradas        

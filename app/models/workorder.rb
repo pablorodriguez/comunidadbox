@@ -153,7 +153,7 @@ class Workorder < ActiveRecord::Base
   end
   
   def can_edit?(usr)
-    if ((company.id == usr.company.id && company.is_employee(user) || (user.id == usr.id)) && (open? || in_progress?))
+    if ((company.id == usr.company.id) && (open? || in_progress?))
       return true
     else
       return false   
@@ -161,7 +161,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_show?(user)
-    return true if user.own_car(self.car)
+    return true if user.own_car(car)
     return true if (self.user == user)
     return true if user.belongs_to_company(company)
     return false
@@ -218,7 +218,7 @@ class Workorder < ActiveRecord::Base
       wo = wo.sum("amount * price")
     else
       wo = wo.count("services.id")
-    end
+    end    
     wo
   end
   
@@ -226,8 +226,9 @@ class Workorder < ActiveRecord::Base
     
     domain =  filters[:domain] || ""
     
-    workorders= Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
-    workorders =workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
+    workorders = Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
+    workorders = workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
+    workorders = workorders.order("service_types.name")
     if filters[:user] && filters[:user].company.nil?
       workorders = workorders.where("workorders.car_id IN (?)", filters[:user].cars.map(&:id))
     end

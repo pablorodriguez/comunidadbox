@@ -1,20 +1,20 @@
 .box_bottom
   %h1 Detalle del Reporte
-%table.coltable
-  %col.current{:width=>"60%"}
+%table.w
+  %col{:width=>"60%"}
   %col{:width=>"40%"}
   %tr
-    %td.header Cantidad Ordenes de Trabajo
+    %td Cantidad Ordenes de Trabajo
     %td.number
       %strong
         = @count
   %tr
-    %td.header Tipos de Servicio
+    %td Tipos de Servicio
     %td.number
       %strong
         = number_with_precision @services_amount,:precision=>0
   %tr
-    %td.header Ordenes de Trabajo
+    %td Ordenes de Trabajo
     %td.number
       %strong
         = number_to_currency @workorder_amount

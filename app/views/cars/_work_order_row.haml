@@ -1,6 +1,9 @@
 .wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
   - can_show = work_order_row.can_show?(current_user)            
   .info_s
+    .left
+      .company_name
+        = work_order_row.company.name
     .services
       - work_order_row.services.each do |s|
         .service             
@@ -8,7 +11,8 @@
             .left
               %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
           .left
-            = link_to s.service_type.name ,work_order_row
+            = link_to s.service_type.name ,work_order_row if can_show
+            = s.service_type.name unless can_show
           .operator
             -if s.operator
               %strong
@@ -20,7 +24,6 @@
       - if can_show
         .clear.price_b.right
           = number_to_currency work_order_row.total_price
-      - if can_show
         .actions.clear          
           .action.info.wo_info_detail.link          
           - unless current_user.company

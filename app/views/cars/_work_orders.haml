@@ -1,7 +1,6 @@
 .box_bottom
   %h1 Servicios Realizados
-- for work_order in @work_orders
-  = render :partial =>"work_order_row",:object => work_order
+= render :partial =>"work_order_row",:collection => @work_orders
 %br
 #paginator_wo
   = will_paginate @work_orders,:params => @wo_pages

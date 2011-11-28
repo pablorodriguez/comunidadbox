@@ -1,26 +1,22 @@
-%table
-  %tr
-    %td
-      %label{ :for => "name" } Razón Social
-  %tr
-    %td
-      = f.text_field :name
-  %tr
-    %td
-      %label{:for =>"cuit"} CUIT
-  %tr
-    %td
-      =f.text_field :cuit
- 
-  %tr      
-    %td
-      %label{ :for => "phone" } Teléfono
-  %tr      
-    %td
-      = f.text_field :phone
-  %tr      
-    %td
-      %label{ :for => "website" } Pagina Web
-  %tr      
-    %td
-      = f.text_field :website
+.row
+  .company_detail
+    .actions        
+      - if company.address
+        .action
+          = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"} 
+      
+      - if user_signed_in? && current_user.company.nil?
+        .action
+          = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}
+      - if active && user_signed_in? && current_user.company && current_user.is_administrator  
+        .action 
+          = is_active(company,activate_company_path(company)) 
+    .left
+      .nombre
+        = link_to company.name,company_path(company),{:title => "Ver"}
+      .address
+        = company.full_address
+      .phone
+        = company.phone              
+    .rank  
+      ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{number_with_precision(company.user_rank)}]"

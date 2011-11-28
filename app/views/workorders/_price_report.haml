@@ -1,0 +1,16 @@
+- total = 0
+%table.w
+  %tbody
+    - @price.keys.sort.each do |k|
+      %tr
+        %td
+          = k
+        %td.number
+          = number_to_currency(@price[k])
+          - total += @price[k]
+    %tr
+      %td.box_top
+        %strong Total
+      %td.number.box_top
+        %strong 
+          = number_to_currency(total)

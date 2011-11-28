@@ -34,6 +34,7 @@ class ClientsController < ApplicationController
 
   def create
     @client = User.new(params[:user])
+    @client.confirmed = true
     @client.creator = current_user
     @client.password = @client.first_name + "test"
     @client.password_confirmation = @client.password
@@ -52,7 +53,8 @@ class ClientsController < ApplicationController
     User.transaction do
       if @client.save
           flash[:notice] = "Cliente creado exitosamente"
-          redirect_to  new_workorder_path(:car_id =>@client.cars[0].id)
+          redirect_to new_workorder_path(:car_id =>@client.cars[0].id) unless @client.cars.empty?
+          redirect_to clients_path if @client.cars.empty?
       else
         @client.cars.build if @client.cars.size == 0
         @client.build_address unless @client.address

@@ -54,17 +54,32 @@ class WorkordersController < ApplicationController
     filters_params[:user] = current_user
 
     @workorders = Workorder.find_by_params(filters_params)
+    @report_data = Workorder.group_by_service_type(filters_params)
 
-    @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters_params))
-    amt = Workorder.group_by_service_type(filters_params,false)
-    @amt_data = Workorder.build_graph_data(amt)
+    @price={}
+    @report_data.each_pair do |k,v|
+      if k
+        @price[ServiceType.find(k).name] = v
+      end      
+    end    
 
+    @price_data = Workorder.build_graph_data(@report_data)
+    @amt = Workorder.group_by_service_type(filters_params,false)        
+    
+    @count_data = {}
+    @amt.each_pair do |k,v|
+      if k
+        @count_data[ServiceType.find(k).name] = v
+      end
+    end
+
+    @amt_data = Workorder.build_graph_data(@amt)
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
 
     @count= @workorders.count()
     @workorder_amount= @workorders.sum("price * amount")
     @services_amount =0
-    amt.each{|key,value| @services_amount += value}
+    @amt.each{|key,value| @services_amount += value}
     @status = {-1=>"-- Estado --"}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
 
     respond_to do |format|

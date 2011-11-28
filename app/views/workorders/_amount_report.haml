@@ -1,0 +1,16 @@
+- total = 0
+%table.w
+  %tbody
+  - @count_data.keys.sort.each do |k|              
+    %tr
+      %td
+        = k
+      %td.number
+        = @count_data[k]
+        - total += @count_data[k]
+  %tr
+    %td.box_top
+      %strong Total
+    %td.number.box_top
+      %strong 
+        = total

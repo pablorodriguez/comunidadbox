@@ -1522,7 +1522,7 @@ td.number, th.number{
 .wo_detail .hide_info{
   position:absolute;
   right:0px;
-  top:75px;
+  top:90px;
   margin-right:1px;
   z-index:100;
   background-color: #E6E6E6;
@@ -1535,6 +1535,7 @@ td.number, th.number{
   margin: 2px 0px;
   float:left;
   width:82%;
+  clear:both;
 }
 
 .wo_detail .wo_info{
@@ -1565,6 +1566,7 @@ td.number, th.number{
 
 .client_car{
   width:80%;
+  margin-left:10px;
 }
 
 .car .detail{
@@ -1587,6 +1589,7 @@ td.number, th.number{
   font-weight: bold;
   float: left;
   margin: 2px 5px 2px 2px;
+  width:85px;
 }
 
 .price{
@@ -2232,10 +2235,26 @@ input.labelHighlight,textarea.labelHighlight {
   text-decoration:none;  
 }
 
+#menu_options ul li img{
+  height:21px;
+  width:21px;
+  margin-right:2px;
+}
 .box_bottom{
   border-bottom:thin double #CCCCCC;
   overflow:auto;
   padding-bottom:5px;
+}
+
+.box_top{
+  border-top:thin double #CCCCCC;
+  overflow:auto;
+  padding-bottom:5px;
+}
+
+.client{
+  margin-bottom:5px;
+  overflow:auto;
 }
 
 #breadcrums_menu{

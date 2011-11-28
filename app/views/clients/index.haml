@@ -1,8 +1,9 @@
 .vertical_menu
   =render "home/menu"
-  .box_bottom
-    =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
-  -if current_user.company
+  -if current_user.company && current_user.confirmed
+    .box_bottom
+      =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
+  -if current_user.company  
     .box_bottom
       = render "cars/search_clients"      
   = render "home/default_actions"

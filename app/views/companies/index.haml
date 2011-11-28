@@ -14,5 +14,5 @@
   #all_companies
     #comp_map
       #companies
-        = render "companies"
+        = render :partial=>"company",:collection => @companies,:locals =>{:active => :true}
       = render "maps"

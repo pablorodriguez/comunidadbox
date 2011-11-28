@@ -103,8 +103,8 @@ module ApplicationHelper
   end
   
   def is_active(entity,url=root_path)
-    return image_tag("ok.png") if entity.active
-    return link_to(image_tag("delete.png"),url,{:title => "Activar"}) unless entity.active
+    return image_tag("cruz_verde.png") if entity.active
+    return link_to(image_tag("confirmed.png"),url,{:title => "Activar"}) unless entity.active
   end
   
   def stylesheets(*files)

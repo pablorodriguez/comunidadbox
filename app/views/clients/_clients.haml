@@ -13,9 +13,9 @@
         .action
           = link_to image_tag("edit.png"),edit_client_path(client),{:title=>"Modificar"} if client.confirmed_at.nil?
         .action
-          = link_to image_tag('new.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
+          = link_to image_tag('new_car.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
     - client.cars.each_with_index do |car,index|  
-      .client_car.left
+      .client_car.box_top.left
         .detail.left
           .left.domain
             = link_to h(car.domain),car
@@ -27,6 +27,6 @@
           .action
             = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)
           .action
-            = link_to image_tag('new.png'), new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio"}
+            = link_to image_tag('new_service.png'), new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio"}
    
 = will_paginate @clients

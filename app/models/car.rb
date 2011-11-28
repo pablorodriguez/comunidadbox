@@ -20,7 +20,7 @@ class Car < ActiveRecord::Base
   end
   
   def can_edit?(usr)
-    (user.id == usr.id) || ((company && company.id == usr.company.id) && user.confirmed_at == nil) 
+    (user.id == usr.id) || ((company && company.id == usr.company.id) && user.confirmed_at.nil?) 
   end
   
   def update_km(new_km)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111104234130) do
+ActiveRecord::Schema.define(:version => 20111124213015) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20111104234130) do
     t.string   "street"
     t.string   "zip"
     t.string   "name"
-    t.decimal  "lat",        :precision => 14, :scale => 0
-    t.decimal  "lng",        :precision => 14, :scale => 0
+    t.string   "lat"
+    t.string   "lng"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -471,6 +471,7 @@ ActiveRecord::Schema.define(:version => 20111104234130) do
     t.datetime "updated_at"
     t.string   "company_name"
     t.string   "cuit"
+    t.boolean  "confirmed"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

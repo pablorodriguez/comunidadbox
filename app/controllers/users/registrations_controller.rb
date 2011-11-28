@@ -50,10 +50,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def create
     build_resource
-    resource.type = params[:user][:type]    
+    resource.type = params[:user][:type]
+    resource.confirmed = true
     
     if resource.companies.size > 0
        resource.companies[0].active=1
+       resource.confirmed=false
        resource.roles << Role.find_by_name(Role::ADMINISTRATOR) 
     end
         
