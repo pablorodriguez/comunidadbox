@@ -5,6 +5,7 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+#gem 'mysql'
 gem 'mysql2'
 gem "haml"
 gem "will_paginate", "~> 3.0.pre2"
@@ -14,8 +15,14 @@ gem "chronic"
 gem "packet"
 gem 'prawn'
 gem "geokit"
+
+# GEOLOCALIZACION Y MAPAS
+gem 'geocoder'
+gem 'gmaps4rails'
+
 gem "devise"
-gem "omniauth"
+# EN EL OMNIAUTH 1.0 CAMBIA TODO
+gem "omniauth", "~> 0.3.2"
 gem 'jquery-rails', '>= 0.2.6'
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"

@@ -1228,6 +1228,11 @@ img{
   height: 400px;
 }
 
+.google_map{
+  width:90%;
+  margin:0 auto;
+}
+
 ol{
   list-style: none;
 }
@@ -2357,4 +2362,22 @@ input.labelHighlight,textarea.labelHighlight {
 
 .title{  
   margin:0 auto;
+}
+
+.map_info_windo h1{
+  font-size:18px;
+}
+
+.task_list{
+  
+}
+
+.tasks{
+  overflow:auto;
+  background-color:#E6E6E6;
+}
+
+ul.tasks li{
+  float:left;
+  margin:5px;
 }

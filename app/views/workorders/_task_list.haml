@@ -1,5 +1,11 @@
-%ul#tasks
-  - for task in tasks
+- service_type = service_type.object if defined? service_type.object
+%ul.tasks
+  - service_type.tasks.each do |task|
     %li
-      = check_box_tag("material[task_ids][]",task.id,service.tasks.include?(task))
-      = task.name
+      - if defined? service
+        = check_box_tag "service_type_ids[#{service_type.id}][task_ids][]", task.id, service.object.tasks.include?(task),:class=>:checkbox,:id=>"task-#{task.id}"
+      - else
+        -#= check_box_tag "service_type_ids[#{service_type.id}][task_ids][]", task.id
+        = check_box_tag "service_type_ids[#{service_type.id}][task_ids][]", task.id,false,:class=>:checkbox,:id=>"task-#{task.id}"
+      %label{:for=>"task-#{task.id}",:class=>"link"}
+        = task.name

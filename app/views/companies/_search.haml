@@ -1,21 +1,37 @@
-%h3 Buscar
-#service_center.box_bottom
-  .form
-    - form_for :company, :remote =>true, :url => search_companies_path do |f|
-      %table.w
+
+.box_bottom
+  %h3 Buscar
+  #service_center
+    .form
+      - form_for :company, :remote =>true, :url => search_companies_path do |f|
+        %table.w
+          %tr
+            %td
+              = text_field_tag 'name',"",:class=>"labelify input",:title=>"Nombre"
+            %tr
+              %td
+                = text_field_tag 'street',"",:class=>"labelify input",:title=>"Dirección"
+            %tr
+              %td
+                = text_field_tag 'city',"",:class=>"labelify input",:title=>"Ciudad"
+            %tr
+              %td
+                = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:style=>"width:184px;margin:2px 0px 0px 2px;",:class=>"state"})
+            %tr
+              %td
+                = image_submit_tag("find.png",:class =>"input_img")
+    .ajax_loader.right
+.box_bottom    
+  %h3 Buscar por dirección
+  - form_for :company, :url => search_distance_companies_path do |f|
+    %table.w
+      %thead
         %tr
           %td
-            = text_field_tag 'name',"",:class=>"labelify input",:title=>"Nombre"
-          %tr
-            %td
-              = text_field_tag 'street',"",:class=>"labelify input",:title=>"Dirección"
-          %tr
-            %td
-              = text_field_tag 'city',"",:class=>"labelify input",:title=>"Ciudad"
-          %tr
-            %td
-              = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:style=>"width:184px;margin:2px 0px 0px 2px;",:class=>"state"})
-          %tr
-            %td
-              = image_submit_tag("find.png",:class =>"input_img")
-  .ajax_loader.right
+            = text_field_tag 'street', "",:class=>"labelify input",:title=>"Dirección"
+        %tr
+          %td
+            = text_field_tag 'distance', "",:class=>"labelify input",:title=>"En un radio de (en km)"
+        %tr
+          %td    
+            = image_submit_tag("find.png",:class =>"input_img")

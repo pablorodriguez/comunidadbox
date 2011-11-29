@@ -1,0 +1,14 @@
+.box_bottom
+  %h1 Prestadores de Servicios
+.box_bottom
+  .google_map
+    = gmaps("map_options" => {"type" => "ROADMAP", "zoom" => 13, "auto_adjust" => true },"markers" => {"data" => @json, "options" => {"list_container" => "markers_list" }})
+.box_bottom
+  %strong
+    Dirección:
+  = @street
+  %strong
+    radio de:
+  = " #{@distance} km"
+  %ul#markers_list
+

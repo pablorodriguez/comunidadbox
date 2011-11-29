@@ -1,5 +1,5 @@
 ComunidadBox::Application.routes.draw do
-  
+
 
 
   # The priority is based upon order of creation:
@@ -58,12 +58,12 @@ ComunidadBox::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
-  
+
   match 'auth/:provider/callback' => 'authentications#create'
   match "admin" => "admin#show"
   match "conf" => "conf#show"
   match "vgneumaticos"=>"guests#new"
-  
+
   devise_for :users,:controllers => { :registrations => "users/registrations" }
 
   resources :guests
@@ -80,38 +80,40 @@ ComunidadBox::Application.routes.draw do
   resources :home
   resources :events
   resources :notes
-  
+
   resources :employees do
     collection do
       post :search
     end
-    
+
   end
-  
+
   resources :workorders do
     collection do
       get :filter
+      post :task_list
     end
     member do
       get :notify
       get :print
     end
   end
-    
+
  resources :companies do
     collection do
       get :service_types
       get :all
       post :search
+      post :search_distance
       post :add_service_type
       post :remove_service_type
     end
-    
+
     member do
       get :activate
     end
   end
-  
+
   resources :cars do
     collection do
       post :find_models
@@ -130,10 +132,10 @@ ComunidadBox::Application.routes.draw do
       get :messages
     end
   end
-  
-  resources :users do 
-    collection do 
-      get :new_employee 
+
+  resources :users do
+    collection do
+      get :new_employee
       get :list_service_offer
       get :companies
       get :future_events
@@ -143,7 +145,7 @@ ComunidadBox::Application.routes.draw do
       get :unlock
     end
   end
-  
+
   resources :alarms do
     collection do
       get :list_alarm_now
@@ -156,7 +158,7 @@ ComunidadBox::Application.routes.draw do
       post :search
     end
   end
-  
+
   resources :services do
     collection do
       post :add_material
@@ -172,7 +174,7 @@ ComunidadBox::Application.routes.draw do
       post :save_filter
     end
   end
-  
+
   resources :service_offers do
     collection do
       post :send_notification
@@ -180,7 +182,7 @@ ComunidadBox::Application.routes.draw do
       get :notify_email
       get :notify
     end
-    
+
   end
 
   resources :car_service_offers do
@@ -201,7 +203,7 @@ ComunidadBox::Application.routes.draw do
       put :save_task
     end
   end
-  
+
   resources :materials do
     collection do
       get :details
@@ -209,7 +211,7 @@ ComunidadBox::Application.routes.draw do
       get :destroy_servicetype
     end
   end
-  
+
   resources :price_lists do
     member do
       get :activate
@@ -217,14 +219,14 @@ ComunidadBox::Application.routes.draw do
       get :copy
       put :update_item_price
     end
-    
+
     collection do
       get :import_price
     end
-  end  
-  
+  end
+
   root :to => "home#index"
   mount Resque::Server,:at => "/resque"
-  
+
 end
 

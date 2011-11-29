@@ -1,6 +1,6 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)
-  
+
   add_breadcrumb "Buscar", :all_companies_path
   add_breadcrumb "Autos", :cars_path
   add_breadcrumb "Panel de Control", :control_panels_path
@@ -157,6 +157,19 @@ class WorkordersController < ApplicationController
         @work_order.regenerate_events
         send_notification @work_order.id
       end
+
+      @work_order.services.all.each do |service|
+        service.tasks.clear
+      end
+
+      if params[:service_type_ids]
+        @work_order.services.all.each do |service|
+          unless params[:service_type_ids][service.service_type.id.to_s].nil?
+            service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
+          end
+        end
+      end
+
       format.html { redirect_to(@work_order.car)}
       format.xml  { head :ok }
     else
@@ -205,6 +218,11 @@ class WorkordersController < ApplicationController
     end
 
     if saveAction
+      if params[:service_type_ids]
+        @work_order.services.all.each do |service|
+          service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
+        end
+      end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
       redirect_to @work_order.car
@@ -232,6 +250,13 @@ class WorkordersController < ApplicationController
 
     @service_types = current_user.service_types
     @car_service_offers = @work_order.find_car_service_offer(@company_id)
+  end
+
+  def task_list
+    @service_type = ServiceType.find(params[:service_type_id])
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
   end
 
   private

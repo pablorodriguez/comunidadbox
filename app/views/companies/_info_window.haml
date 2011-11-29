@@ -1,0 +1,17 @@
+.map_info_windo
+  -unless address.company.name.blank?
+    %h1
+      = link_to address.company.name, company_path(address.company)
+
+  -unless address.city.blank? && address.street.blank?
+    Direccion:
+    = address.city + ', ' +   address.street
+   
+  -unless address.company.phone.blank?
+    %br
+    Tel:
+    = address.company.phone
+  %br
+  Distancia:
+  = @distance_km
+

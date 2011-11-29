@@ -1,11 +1,11 @@
 
 - javascript 'maps'
 - javascript 'search_company_map'
+
 .vertical_menu
   - if current_user
-    = render "home/menu"
-  .box_buttom
-    = render "search"
+    = render "home/menu"  
+  = render "search"
   -if current_user
     .menu_actions.box_bottom
       %ul
@@ -14,8 +14,12 @@
             = link_to "Nuevo Cliente", new_client_path         
 .contentright_s  
   #companies.data
-    = render "all_companies"
+    - if @json
+      = render "search_map"
+    - else
+      = render "all_companies"
     .hide
       = render "maps"
   #new_company.data.hide
   #cars.data.hide
+

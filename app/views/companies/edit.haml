@@ -1,19 +1,9 @@
-- form_for(@company) do |f|
-  = render 'shared/error_messages', :target => @company
-  %h1 Modificar Compañía
-  .contentleft  
-  .contentright
-    %table
-      %tbody
-        %tr
-          %td
-            %h1 Datos Empresa
-          = render 'form', :f => f
-        %tr
-          %td
-            %h1 Dirección
-        = f.fields_for :address do |a|
-          = render 'company_address_fields', :ad => a
-    .buttons    
-      = link_to_back companies_path
-      = f.submit "Actualizar",:class=>"button" 
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .box_bottom
+    %h1 Modificar Empresa
+  - form_for(@company) do |f|
+    = render "form",:f => f
+    .box_bottom
+      = f.submit "Grabar",:class=>"button" 

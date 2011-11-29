@@ -17,5 +17,5 @@
     .total_item
       = number_to_currency(f.object.total_price) if f.object.amount
   %td.number
-    = f.hidden_field :_destroy
+    = f.hidden_field :_destroy    
     = link_to_remove_fields f,:material_service,"Borrar Material"

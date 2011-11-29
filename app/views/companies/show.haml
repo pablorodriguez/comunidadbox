@@ -1,11 +1,19 @@
 - javascript 'maps'
 - javascript 'search_company_map'
-#company_info
-  %h1
-    = vineta 
-    Prestador de Servicios
-  .contentleft
-    = render 'show'
-  .contentright
-    #map_container{:style=>"margin:0 auto; width:90%"}
-      #map_canvas.map
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    - if user_signed_in? && current_user.own(@company)
+      %ul
+        %li
+          = link_to "Modificar",edit_company_path(@company),{:title =>"Modificar"}
+
+.contentright_s
+  #company_info
+    .box_bottom
+      %h1 Prestador de Servicios
+    .box_bottom
+      = render 'show'
+    .box_bottom
+      #map_container{:style=>"margin:0 auto; width:75%"}
+        #map_canvas.map

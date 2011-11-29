@@ -6,51 +6,51 @@ var materialDialog;
 var comment;
 serviceRow=0;
 jQuery(document).ready( function(){
-  
+
 	$(".text_lable").each(function(){
 		$(this).disable();
 	});
-	
+
 	$('#workorder_performed').datepicker({
       showOn: 'button',
       buttonImage: '/images/calendar.png',
       buttonImageOnly: true
     });
-    
+
 	initMaterialItems();
 	$("#maxim").click(maxim);
 	var url_km = $("#url_update_km").val();
 	var url_km_avg = $("#url_update_km_avg").val();
-	
+
 	var domain = $.trim($("#domain").html());
 	var param_values ="domain=" + domain;
-	
+
 	$("#km_actual").editInPlace({
  		url:url_km,
 		params:param_values
  	});
-	
+
 	$("#km_avg").editInPlace({
  		url:url_km_avg,
 		params:param_values
  	});
- 	
+
 	$("#service_type_id").change(function(){
 		$("#materials_list").html("");
 		if ($("#detail").val() != ""){
 		  autoCompleteMaterial();
 		}
 	});
-	
+
 	$(".status").change(updateWorkOrderTotalPrice);
-	 
+
 	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
-	$("#materials_list .checkbox").live("click",checkMaterialHandler);	
+	$("#materials_list .checkbox").live("click",checkMaterialHandler);
 	$(".comment").live("click",showModalComment);
 	$("#material_dialog").click(showMaterialDialog);
 	$("#new_service_type").change(addNewServiceType);
-	
+
 	materialDialog = $("#materials").dialog({
 	  autoOpen: false ,
     modal: true,
@@ -66,7 +66,7 @@ jQuery(document).ready( function(){
       $("#service_type_id").val("");
       $("#detail").val("");
     },
-    buttons: [              
+    buttons: [
           {
             text: "Agregar Material",
             click: function() {
@@ -75,23 +75,23 @@ jQuery(document).ready( function(){
                 $("#material_erros").show();
               }else{
                 add_material_service_type();
-                
+
                 if ($("#new_material").val() != ""){
-                  add_new_material_service_type();  
+                  add_new_material_service_type();
                 }
-                
-                
-                $("#material_erros").hide();             
+
+
+                $("#material_erros").hide();
               }
             }
           },
           {
             text:"Listo",
             click:function(){$(this).dialog("close");}
-          }          
+          }
         ]
 	});
-	
+
 	commentDialog = $("#comment_modal").dialog({
 	  autoOpen: false ,
 	  modal: true,
@@ -113,23 +113,27 @@ jQuery(document).ready( function(){
 	    }
 	    commentDialog.dialog("close");
 	});
-	
+
 	$(".pagination a").live("click",function(){
     $.getScript(this.href);
     return false;
   });
-  
+
   $(document).keypress(function(e) {
     if (e.ctrlKey && e.which == 109){
       showMaterialDialog();
     }
     });
-  
+
   $("#detail").keyup(function(e){
     autoCompleteMaterial();
   });
-  
+
 });
+
+function showTask(ele){
+	$(ele).parent().parent().parent().parent().parent().parent().find(".task_list").toggle();
+}
 
 function autoCompleteMaterial(){
   $("#material_erros").hide();
@@ -155,7 +159,7 @@ function addMaterialServiceTypeHandler(){
 function addMaterialServiceType(element){
  selectMaterial(element);
  var check = element.find(":checkbox");
- add_materials_service_types(check); 
+ add_materials_service_types(check);
 }
 
 function selectMaterialHandler(){
@@ -182,7 +186,7 @@ function addEmptyMaterial(element){
 	var tr = div.find("table tr:last");
 	tr.find("td:eq(2)").find("input").val("1");
 	tr.find("td:eq(3)").find("input").val("0.0");
-	tr.find(".material").show();		
+	tr.find(".material").show();
 }
 
 
@@ -190,22 +194,22 @@ function maxim(element){
 	if ($("#header").is(":visible")){
 		$(element.target).html("Min");
 		$("#header").slideUp();
-		$("#menu").slideUp();		
-		$("#wrapmenu").slideUp();	
+		$("#menu").slideUp();
+		$("#wrapmenu").slideUp();
 		$("#footer").slideUp('slow',function(){
-			$("body").removeClass("background");	
+			$("body").removeClass("background");
 		});
-		
+
 		$("#material_per_page").val(15);
 	}else{
 		$(element.target).html("Max");
 		$("#header").slideDown();
-		$("#menu").slideDown();	
+		$("#menu").slideDown();
 		$("#wrapmenu").slideDown();
 		$("#footer").slideDown('slow',function(){
-			$("body").addClass("background");	
+			$("body").addClass("background");
 		});
-				
+
 		$("#material_per_page").val(10);
 	}
 }
@@ -213,7 +217,7 @@ function maxim(element){
 function initMaterialItems(){
 	$(".amount").blur(updateItemTotalPrice);
 	$(".price").blur(updateItemTotalPrice);
-	
+
 }
 
 function updateItemTotalPrice(element){
@@ -221,7 +225,7 @@ function updateItemTotalPrice(element){
 	var price=0;
 	var totalLabel ;
 	var ele = $(element.target);
-	
+
 	if (ele.hasClass("amount")){
 	  if (ele.val().trim() == ""){
 	    ele.val("1");
@@ -250,7 +254,7 @@ function updateTotalService(service_element){
 	var st_id = parseInt(element.find(".service_type_id").val());
 	var so_id = parseInt($("#st_id_" + st_id).val());
 	var cso_id = parseInt($("#cso_ids_" + st_id).val());
-	
+
 	if ((so_id == st_id)){
 	 total = $("#so_p_" + st_id).val();
 	}else{
@@ -259,10 +263,10 @@ function updateTotalService(service_element){
   		if(elem.style.display != 'none'){
   			total += $(this).asNumber();
   		}
-  		
+
   	});
 	}
-	element.find(".total_service").html(total).formatCurrency();	
+	element.find(".total_service").html(total).formatCurrency();
 }
 
 function updateWorkOrderTotalPrice(){
@@ -274,9 +278,9 @@ function updateWorkOrderTotalPrice(){
 				total += $(this).asNumber();
 			}
 		}
-		
+
 	});
-	$("#total_work_order").html(total).formatCurrency();	
+	$("#total_work_order").html(total).formatCurrency();
 }
 
 function search_sub_category(){
@@ -286,7 +290,7 @@ function search_sub_category(){
 		url:action,
 		data:{'id':category},
 		type:'POST',
-		dataType:'script'	
+		dataType:'script'
 	});
 }
 
@@ -298,25 +302,25 @@ function task_list(){
 	var token = $("input[name='authenticity_token']")[0];
 	showServiceTypeAjaxLoader();
 	jQuery.ajax({
-		data:'authenticity_token=' + encodeURIComponent(token), 
+		data:'authenticity_token=' + encodeURIComponent(token),
 		dataType:'script',
-		type:'get', 
+		type:'get',
 		url:action});
 }
 
 function showServiceTypeAjaxLoader(element){
 	$("#search_task").show();
-	$("#st_ajax_loader").show();	
+	$("#st_ajax_loader").show();
 }
 
 function hideServiceTypeAjaxLoader(){
 	$("#search_task").hide();
-	$("#st_ajax_loader").hide();	
+	$("#st_ajax_loader").hide();
 }
 
 function remove_fields(link,association){
 	if (association=="services"){
-		//$(link).prev("input[type=hidden]").attr("value", '1');		
+		//$(link).prev("input[type=hidden]").attr("value", '1');
 		var trs = $(link).parent().parent().parent().parent().parent().find("tbody tr");
 		trs.each(function(){
 		  var tr = $(this);
@@ -331,7 +335,7 @@ function remove_fields(link,association){
 	var serviceDiv = $(link).parent().parent().parent().parent().parent();
 	updateTotalService(serviceDiv);
 	updateWorkOrderTotalPrice();
-    
+
 }
 
 function add_fields(link, association, content){
@@ -339,11 +343,13 @@ function add_fields(link, association, content){
 	var new_id = new Date().getTime();
 	var regexp = new RegExp("new_" + association, "g");
 	if (association =="material_services"){
-		var div = $(link).parent().parent();	
+		var div = $(link).parent().parent();
 		var lastTr = div.find('table tr:last');
 		lastTr.after(content.replace(regexp, new_id));
 	}else if (association =="services"){
+		content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
 		$("#services").find("#services_list").append(content.replace(regexp, new_id));
+		
 	}
 	initMaterialItems();
 }
@@ -355,13 +361,13 @@ function initMaterialsPagination(){
   });
 };
 
-function add_new_material_service_type(){ 
-  var serviceTypeDiv= null; 
-  
+function add_new_material_service_type(){
+  var serviceTypeDiv= null;
+
   var serviceTypeId = $("#service_type_id").val();
   var serviceType = $("#service_type_id option:selected").text();
   var material =$("#new_material").val();
-  
+
   $(".service_type_id").each(function(){
     if($(this).val()== serviceTypeId){
       serviceTypeDiv = $(this).parent().parent().parent().parent().parent().parent();
@@ -372,7 +378,7 @@ function add_new_material_service_type(){
     $("#services_link").click();
     var serviceTypes = $(".service_type");
     serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
-    serviceTypeDiv.find("#serviceType").text(serviceType);  
+    serviceTypeDiv.find("#serviceType").text(serviceType);
   }
   serviceTypeDiv.show();
   var table = serviceTypeDiv.find("table");
@@ -386,7 +392,7 @@ function add_new_material_service_type(){
   tr.find(".text_lable").each(function(){
     $(this).disable();
   });
-    
+
   initMaterialItems();
 }
 
@@ -395,16 +401,27 @@ function addNewServiceType(){
   $("#new_service_type").val("");
 }
 
-function add_material_service_type(){ 
+function addTaskList(service_type_id){
+    $.ajax({
+      url: "/workorders/task_list",
+      data: {
+        'service_type_id':service_type_id
+      },
+    dataType:'script',
+    type:'POST'
+  });
+}
+
+function add_material_service_type(){
   var checks = $("#materials_list").find("input[type=checkbox]:checked");
   add_materials_service_types(checks);
 }
 
 function getServiceTypeDiv(serviceTypeIdElement){
-  
+
   var serviceTypeId = $(serviceTypeIdElement).val();
   var serviceType = $(serviceTypeIdElement +" option:selected").text();
-  
+
   var serviceTypeDiv = null;
   $(".service_type_id").each(function(){
       if($(this).val()== serviceTypeId){
@@ -412,64 +429,66 @@ function getServiceTypeDiv(serviceTypeIdElement){
         serviceTypeDiv =  $(this).parent().parent().parent().parent().parent().parent();
         if (serviceTypeDiv.is("visible") == false){
           serviceTypeDiv.show();
-          serviceTypeDiv.find("table tr:first").show();         
+          serviceTypeDiv.find("table tr:first").show();
         }
       }
     });
-  
-  if (serviceTypeDiv==null){      
+
+  if (serviceTypeDiv==null){
       $("#services_link").click();
       var serviceTypes = $(".service_type");
       serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
       serviceTypeDiv.find("#serviceType").text(serviceType);
-      serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;  
+      serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
   }
-  
+
+  addTaskList(serviceTypeId)
+
   return serviceTypeDiv;
 }
 
-function add_materials_service_types(elements){	
-	var serviceTypeDiv= null;	
+function add_materials_service_types(elements){
+	var serviceTypeDiv= null;
 	elements.each(function(){
 		var ele = $(this);
 		ele.attr("checked",false)
 		var tr0 = ele.parent().parent();
-		
+
 		var serviceTypeId = $("#service_type_id").val();
-		
+
 		var serviceType = $("#service_type_id option:selected").text();
 		var materialServiceTypeId = this.id;
 		var material =$.trim(tr0.find("td:eq(1)").html());
 		var price = tr0.find("td:eq(2)").asNumber();
-		
+
 		serviceTypeDiv = getServiceTypeDiv("#service_type_id");
-		
+
 		serviceTypeDiv.show();
 		serviceTypeDiv.find("table thead th:last").find("input").attr("value","0");
 		var materialButton = serviceTypeDiv.find("#material_services_link");
 		materialButton.click();
-				
+
 		var tr = serviceTypeDiv.find("table tr:last");
 		tr = $(tr[0]);
 
     if (materialServiceTypeId != null){
-      tr.find("td:eq(1) :input").hide();  
-    }		
-		
-		
+      tr.find("td:eq(1) :input").hide();
+    }
+
+
 		tr.find("td:eq(0) :input").val(materialServiceTypeId);
 		tr.find("td:eq(1)").append("<label>"+ material + "</label>");
 		tr.find("td:eq(2) :input").val(1)
 		tr3 = tr.find("td:eq(3) :input");
 		tr3.val(price);
 		//tr3.formatCurrency(tr3);
-		//tr3.toNumber();		
+		//tr3.toNumber();
 		var total = tr.find("td:eq(4)").find(".total_item").html(price);
 		total.formatCurrency(total);
 		tr.find(".text_lable").each(function(){
 			$(this).disable();
 		});
-		
+
 	});
 	initMaterialItems();
 	updateTotalService(serviceTypeDiv);

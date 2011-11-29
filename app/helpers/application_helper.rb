@@ -162,7 +162,7 @@ module ApplicationHelper
   end
   
   def link_to_remove_fields(f,association,title = "")
-    f.hidden_field(:_destroy) + link_to_function(image_tag('delete.png',:title=>title),"remove_fields(this,\'#{association}\')")
+    f.hidden_field(:_destroy) + link_to_function("","remove_fields(this,\'#{association}\')",:title=>title,:class=>"delete right")
   end
   
   

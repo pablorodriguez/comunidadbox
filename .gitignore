@@ -4,9 +4,9 @@ log/*.log
 tmp/**/*
 .project
 Gemfile.lock
-config/database.yml
 *~
 *#
 .#*
 *.swp
 db/schema.rb
+config/database.yml
