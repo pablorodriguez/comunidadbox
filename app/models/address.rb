@@ -25,5 +25,6 @@ class Address < ActiveRecord::Base
       "#{state.country.name} #{state.name} #{city} #{street}" 
     else
       ""
+    end
   end
 end
