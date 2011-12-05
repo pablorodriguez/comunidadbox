@@ -22,9 +22,10 @@ class Address < ActiveRecord::Base
 
   def to_text
     if state && state.country && street
-      "#{state.country.name} #{state.name} #{city} #{street}" 
+      ""
     else
       ""
     end
+    "#{state.country.name} #{state.name} #{city} #{street}" 
   end
 end
