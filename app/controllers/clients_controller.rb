@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
 
   def edit
     @client = User.find(params[:id])
-    @client.address = Address.new if @client.address.empty?
+    @client.address = Address.new unless @client.address
     @models = Array.new
   end
 
