@@ -116,7 +116,7 @@ jQuery(document).ready( function(){
 
 	$(".pagination a").live("click",function(){
     $.getScript(this.href);
-    return false;
+  	return false;
   });
 
   $(document).keypress(function(e) {

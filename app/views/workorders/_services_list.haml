@@ -27,6 +27,6 @@
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     #total_work_order
       = number_to_currency @work_order.total_price    
-    .buttons
+    .buttons.box_top
       = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
     

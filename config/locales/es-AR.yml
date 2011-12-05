@@ -1,4 +1,7 @@
 "es-AR":
+  layouts:    
+    logininfo:
+      login: "Ingresar"
   date:
     formats:
       default: "%e/%m/%Y"
