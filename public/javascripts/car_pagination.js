@@ -48,7 +48,7 @@ jQuery(document).ready(function(){
 
   $(".contentright_s .labelify").labelify({ labelledClass: "labelHighlight" });
 
-  $("form.note_form").bind("ajax:success", function(evt, data, status, xhr){
+  $("form.note_form2").bind("ajax:success", function(evt, data, status, xhr){
       var $form = $(this);
       this.reset();
       $(xhr.responseText).insertBefore($form.parent().parent().next().find(".note").first());

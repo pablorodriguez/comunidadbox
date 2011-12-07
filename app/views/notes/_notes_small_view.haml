@@ -2,8 +2,9 @@
   .left
     = note.message
   -if note.creator_id == current_user.id
-    .right
-      = link_to image_tag('delete.png'), note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true  
+    .actions
+      .action
+        = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete
   .info_note
     .date
       %lable{:title =>"Creado el"}

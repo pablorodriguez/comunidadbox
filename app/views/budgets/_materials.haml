@@ -1,0 +1,23 @@
+#material_erros.errorExplanation.hide
+  %h2
+    Debe seleccionar un servicio para agregar un nuevo material
+#materila_form
+  = form_for :material,:remote=>true,:url=>details_materials_path,:html=>{:id=>:material_form,:method=>:get} do |f|
+    %table.service_table
+      %tr
+        %td{:style=>"width:30%"} Servicio
+        %td{:style=>"width:70%"}
+          = collection_select :service_type,:id,@service_types,:id,:name,{:include_blank => true},{:class=>"input_medium"}
+          -#=link_to image_tag('max.png',:class=>"input_img",:title =>"Maximizar Orden de Trabajo"),"#",:id=>"maxim"
+      %tr
+        %td Material
+        %td          
+          = text_field_tag :detail,@detail,:class=>"input_medium left"          
+          .ajax_loader.left
+          -#= image_submit_tag("find.png",:class =>"input_img")
+      %tr
+        %td Material Nuevo        
+        %td
+          %input{:id=>"new_material",:class=>"input_medium"}
+          -#= link_to_function image_tag('add.png',:class=>:input_img,:title =>"Agregar Materiales"),"add_new_material_service_type(this)"
+#materials_list

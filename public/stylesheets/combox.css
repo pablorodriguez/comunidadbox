@@ -33,6 +33,14 @@ body {
   width:16px;
   display:block;
 }
+
+.sent{
+  background-image:url(/images/sent.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
 #service_center_actions .form{  
   width:80%;
   float:left;
@@ -626,7 +634,7 @@ input{
 }
 
 .input_date{
-  width:70px; 
+  width:86px; 
 }
 
 .input_medium{
@@ -751,11 +759,7 @@ input{
 
 
 #work_order_form{  
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  background-color: #F2EAB7;
-  border: 1px solid #AFAFAF;
+
 }
 
 #work_order_form form{  
@@ -1065,10 +1069,6 @@ table.comboxtable, .comboxform,table.w{
 }
 
 .barradatos{
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid #AFAFAF;
   background-color:#E6E6E6;
   margin:0 auto;
   padding:5px;
@@ -1283,7 +1283,7 @@ td.number, th.number{
 .service_type{
   background-color: #F2F2F2;
   margin: 5px;  
-  border: 1px outset #AFAFAF;
+  padding:3px;
 }
 
 .service_type select{
@@ -1543,7 +1543,14 @@ td.number, th.number{
   clear:both;
 }
 
-.wo_detail .wo_info{
+.budgets .services{  
+  margin: 2px 0px;
+  float:left;
+  width:82%;
+  clear:both;
+}
+
+.wo_detail .wo_info, .budgets .wo_info{
   width:18%;
   float:right;
   
@@ -1632,7 +1639,7 @@ td.number, th.number{
   min-height:35px;
 }
 
-.service .operator{
+.operator{
   font-size: 11px;
   float:left;
   clear:both;  
@@ -1860,6 +1867,22 @@ td.number, th.number{
   color:black;
 }
 
+#total_budget{
+  float: right;
+  margin-right: 43px;
+  font-size: 20px;
+  font-weight:bold;
+  color:black;
+}
+
+#total_budget_v{
+  float: right;
+  margin-right: 8px;
+  font-size: 20px;
+  font-weight:bold;
+  color:black;
+}
+
 .service_event{
   border-radius: 5px 5px 5px 5px;
   border-style: solid;
@@ -1960,7 +1983,7 @@ td.number, th.number{
 }
 
 .long_select{
-  width:180px
+  width:200px
 }
 
 .long_text{
@@ -2071,10 +2094,7 @@ td.number, th.number{
 }
 
 .notes{
-  width:100%;
-  text-align:left;
-  border-top: thin double #CCCCCC;
-  float:left;
+  width:100%;  
 }
 
 .wo_notes{
@@ -2380,4 +2400,31 @@ input.labelHighlight,textarea.labelHighlight {
 ul.tasks li{
   float:left;
   margin:5px;
+}
+
+.budget .car, .budget .customer {
+  width:48%;
+  padding:5px;
+}
+
+.budget_service{
+  float:left;
+  margin:5px 0px 0px 5px;
+}
+.budget_service2{
+  float:left;
+}
+.budget_service a, .budget_service2 a{
+  margin:3px 0px 0px 3px;
+}
+.new_budget input.material{
+  width:96%;
+}
+
+.info_note{
+  float:right;
+}
+
+.info_note .user{
+  font-size:11px;
 }

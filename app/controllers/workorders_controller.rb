@@ -32,10 +32,11 @@ class WorkordersController < ApplicationController
     @sort_column = sort_column
     @direction = sort_direction
     order_by = @sort_column + " " + @direction
-    @service_type_ids =  params["service_type_ids"] || []
+    @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = @service_type_ids.size > 0 ? true : false
+    
     @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
-    logger.debug "### Service Type IDS #{@service_type_ids} Status ID #{@wo_status_id}"
+        
     filters_params ={}
     @date_f = params[:date_from]
     @date_t =params[:date_to]
@@ -47,9 +48,6 @@ class WorkordersController < ApplicationController
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
     filters_params[:wo_status_id] = @status_id if @status_id
     filters_params[:company_id] = current_user.company.id if current_user.company
-#   @filters_params = {:date_from => date_from,:date_to =>date_to,:domain => domain,:service_type_id => service_type_id ,:user => current_user,:wo_status_id => wo_status_id}
-
-    #@filters = @filters_params.clone()
 
     filters_params[:user] = current_user
 
@@ -265,7 +263,7 @@ class WorkordersController < ApplicationController
     work_order = Workorder.find work_order_id
     if work_order.car.domain == "HRJ549"
       logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
-      message = WorkOrderNotifier.notify(work_order).deliver
+      #message = WorkOrderNotifier.notify(work_order).deliver
       Resque.enqueue WorkorderJob,work_order_id
     end
 

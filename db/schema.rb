@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124213015) do
+ActiveRecord::Schema.define(:version => 20111205142904) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -76,6 +76,19 @@ ActiveRecord::Schema.define(:version => 20111124213015) do
 
   create_table "brands", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "budgets", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.integer  "creator_id"
+    t.string   "email"
+    t.integer  "brand_id"
+    t.integer  "model_id"
+    t.string   "domain"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -266,8 +279,10 @@ ActiveRecord::Schema.define(:version => 20111124213015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id",   :null => false
+    t.integer  "budget_id"
   end
 
+  add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
   add_index "notes", ["note_id"], :name => "notes_note_id_fk"
   add_index "notes", ["user_id"], :name => "notes_user_id_fk"
   add_index "notes", ["workorder_id"], :name => "notes_workorder_id_fk"
@@ -387,8 +402,10 @@ ActiveRecord::Schema.define(:version => 20111124213015) do
     t.datetime "updated_at"
     t.integer  "status"
     t.integer  "operator_id"
+    t.integer  "budget_id"
   end
 
+  add_index "services", ["budget_id"], :name => "services_budget_id_fk"
   add_index "services", ["operator_id"], :name => "services_operator_id_fk"
   add_index "services", ["service_type_id"], :name => "services_service_type_id_fk"
   add_index "services", ["workorder_id"], :name => "services_workorder_id_fk"
@@ -527,6 +544,7 @@ ActiveRecord::Schema.define(:version => 20111124213015) do
 
   add_foreign_key "models", "brands", :name => "models_ibfk_1"
 
+  add_foreign_key "notes", "budgets", :name => "notes_budget_id_fk", :dependent => :delete
   add_foreign_key "notes", "notes", :name => "notes_note_id_fk", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete
   add_foreign_key "notes", "workorders", :name => "notes_workorder_id_fk", :dependent => :delete
@@ -546,6 +564,7 @@ ActiveRecord::Schema.define(:version => 20111124213015) do
   add_foreign_key "service_types_tasks", "service_types", :name => "service_types_tasks_ibfk_1", :dependent => :delete
   add_foreign_key "service_types_tasks", "tasks", :name => "service_types_tasks_ibfk_2", :dependent => :delete
 
+  add_foreign_key "services", "budgets", :name => "services_budget_id_fk", :dependent => :delete
   add_foreign_key "services", "service_types", :name => "services_ibfk_1"
   add_foreign_key "services", "users", :name => "services_operator_id_fk", :column => "operator_id"
   add_foreign_key "services", "workorders", :name => "services_ibfk_2", :dependent => :delete

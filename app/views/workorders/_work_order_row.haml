@@ -42,7 +42,6 @@
         .action
           = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>"Modificar")
 
-
   .hide_info.hide
     - if can_show
       .left
@@ -63,8 +62,8 @@
       - if can_show
         = render 'ranks/rank',:workorder => work_order_row
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
-    .new_notes.hide
-      = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id}
-    %div{:id=>"notes-#{work_order_row.id}",:class=>"notes hide"}      
+    .new_notes.hide.box_top.clear
+      = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id,:b=>nil}
+    %div{:id=>"notes-#{work_order_row.id}",:class=>"notes hide box_top clear"}      
       = render :partial =>'notes/notes_small_view',:collection => work_order_row.notes,:as=>:note
   

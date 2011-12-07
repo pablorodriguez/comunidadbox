@@ -43,6 +43,9 @@ class NotesController < ApplicationController
   # POST /notes.xml
   def create
     @note = Note.new(params[:note])
+    @element_id = "#notes"
+    @element_id = "#budget-#{@note.budget_id}" if @note.budget_id
+    @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id
     @note.user = current_user unless @note.user
     @note.creator = current_user    
     respond_to do |format|
@@ -79,6 +82,9 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @note_id = @note.id
     @wo_id = @note.workorder_id
+    @element_id = "#budget-#{@note.budget_id}" if @note.budget_id
+    @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id
+
     @note.destroy
 
     respond_to do |format|

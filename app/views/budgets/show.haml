@@ -1,0 +1,104 @@
+.vertical_menu
+  = render "home/menu"  
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Presupuesto", new_budget_path
+      %li        
+        = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+      %li
+        = link_to "Enviar por Correro",email_budget_path(@budget)
+.contentright_s    
+  .box_bottom
+    .left
+      %h1
+        Presupuesto Nro:
+        = @budget.id
+    .right
+      %h1
+        Realizado:
+        = l Date.parse(@budget.created_at.to_s)
+      %h2
+        Operario:
+        = @budget.creator.full_name
+
+  .budget.box_bottom
+    .customer.left
+      .box_bottom
+        %h1 Cliente
+      %table.w
+        %tr
+          %td{:style=>"width:100px"} Nombre
+          %td
+            = @budget.first_name
+        %tr
+          %td Apellido
+          %td   
+            = @budget.last_name
+        %tr
+          %td Teléfono
+          %td
+            = @budget.phone
+        %tr
+          %td Correo Electrónico
+          %td
+            = @budget.email
+    .car.right
+      .box_bottom
+        %h1 Autómovil
+      %table.w
+        %tr
+          %td{:style=>"width:100px"} Marca
+          %td
+            = @budget.brand_name          
+        %tr
+          %td Modelo
+          %td        
+            = @budget.model_name
+        %tr
+          %td Dominio
+          %td
+            = @budget.domain
+    #services.box_top.clear
+      .box_bottom
+        .budget_service
+          %h1 Servicios
+      
+      #services_list.ordencontent
+        - @budget.services.each do |s|
+          .service_type
+            %table.w
+              %tbody
+                %tr
+                  %td{:style=>'width:60%'}
+                    .budget_service2
+                      %h2
+                        %label{:id=>"serviceType"}
+                          %label.header_text_lable
+                            = s.service_type.name
+                      .hide
+                        = s.comment
+                  %td{:style=>'width:10%'}
+                    %label.right Cantidad
+                  %td{:style=>'width:10%'}
+                    %label.right Precio
+                  %td.number{:style=>'width:15%'}
+                    .total_service
+                      = number_to_currency(s.total_price)
+              - s.material_services.each do |ms|
+                %tr
+                  %td
+                    = ms.material_service_type.material.detail if ms.material_service_type
+                    = ms.material if ms.material
+                  %td.number
+                    = ms.amount
+                  %td.number
+                    = ms.price
+                  %td.number
+                    .total_item
+                      = number_to_currency(ms.total_price) 
+
+                -#=render "material_service_fields",:f => ms_form
+
+        #total_budget_v
+          = number_to_currency @budget.total_price  

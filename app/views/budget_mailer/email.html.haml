@@ -1,0 +1,97 @@
+.box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px;clear:both"}
+  .left{:style=>"float:left"}
+    %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"}
+      Presupuesto Nro:
+      = @budget.id      
+      = link_to image_tag('pdf.png',:style=>"border-style:hidden;"),print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+  .right{:style=>"float:right"}
+    %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"}
+      Realizado:
+      = l Date.parse(@budget.created_at.to_s)
+  .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px;clear:both"}      
+  .left{:style=>"clear:both;float:left;margin-top:5px;width:100%"}
+    .left{:style=>"float:left"}
+      = link_to @budget.creator.company.name, @budget.creator.company,:target=>"_blank"  
+    .right{:style=>"float:right"}
+      = @budget.creator.company.address.to_text
+    .left{:style=>"float:right;clear:both"}
+      Operario:
+      = @budget.creator.full_name
+  
+.budget.box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px;clear:both"}
+  .customer.left{:style=>"float:left;width:48%;padding:5px"}
+    .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}
+      %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"} Cliente
+    %table{:style=>"width:100%"}
+      %tr
+        %td{:style=>"width:100px"} Nombre
+        %td
+          = @budget.first_name
+      %tr
+        %td Apellido
+        %td   
+          = @budget.last_name
+      %tr
+        %td Teléfono
+        %td
+          = @budget.phone
+      %tr
+        %td Correo Electrónico
+        %td
+          = @budget.email
+  .car.right{:style=>"float:right;width:48%;padding:5px"}
+    .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}
+      %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"} Autómovil
+    %table{:style=>"width:100%"}
+      %tr
+        %td{:style=>"width:100px"} Marca
+        %td
+          = @budget.brand.name          
+      %tr
+        %td Modelo
+        %td        
+          = @budget.model.name
+      %tr
+        %td Dominio
+        %td
+          = @budget.domain
+  .clear{:style=>"clear:both"}
+    .box_top{:style=>"border-top:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}
+    .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}
+      %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"} Servicios
+    
+    .ordencontent
+      - @budget.services.each do |s|
+        .service_type{:style=>"background-color:#F2F2F2;margin:5px;padding:3px"}
+          %table{:style=>"width:100%"}
+            %tbody
+              %tr
+                %td{:style=>'width:60%'}
+                  .budget_service2
+                    %h2{:style=>"color:#B3B3B3;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;margin:0"}
+                      %label{:id=>"serviceType"}
+                        %label.header_text_lable{:style=>"color:#C1BB00;font-size:14px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif"}
+                          = s.service_type.name
+                    .hide
+                      = s.comment
+                %td{:style=>'width:10%'}
+                  %label.right{:style=>"float:right"} Cantidad
+                %td{:style=>'width:10%'}
+                  %label.right{:style=>"float:right"} Precio
+                %td.number{:style=>'width:15%;text-align:right'}
+                  .total_service
+                    = number_to_currency(s.total_price)
+            - s.material_services.each do |ms|
+              %tr
+                %td
+                  = ms.material_service_type.material.detail if ms.material_service_type
+                  = ms.material if ms.material
+                %td.number{:style=>"text-align:right"}
+                  = ms.amount
+                %td.number{:style=>"text-align:right"}
+                  = ms.price
+                %td.number{:style=>"text-align:right"}
+                  .total_item
+                    = number_to_currency(ms.total_price) 
+      .total_budget_v{:style=>"color:black;float:right;font-size:20px;font-weight:bold;margin-right:8px"}
+        = number_to_currency @budget.total_price  
