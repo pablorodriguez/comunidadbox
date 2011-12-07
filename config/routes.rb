@@ -83,6 +83,7 @@ ComunidadBox::Application.routes.draw do
     member do      
       get :print
       get :email
+      get :email_s
     end
   end
 

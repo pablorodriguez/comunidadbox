@@ -38,7 +38,7 @@ jQuery(document).ready( function(){
   $(".contentleft input").labelify({ labelledClass: "labelHighlight" });
   $(".labelify").labelify({ labelledClass: "labelHighlight" });  
 
-  $("form.note_form").bind("ajax:success", function(evt, data, status, xhr){
+  $("form1.note_form").bind("ajax:success", function(evt, data, status, xhr){
       var $form = $(this);
       this.reset();
       $form.parent().parent().next().append(xhr.responseText);  

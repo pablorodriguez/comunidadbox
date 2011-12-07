@@ -2,13 +2,35 @@ class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.xml
   def index
-    @budgets = Budget.all
-    @service_type_ids =  params["service_type_ids"] || []
-    @all_service_type = @service_type_ids.size > 0 ? true : false
+    page = params[:page] || 1
+    per_page = 10
+
     @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
+    @service_type_ids =  params[:service_type_ids] || []
+    @all_service_type = @service_type_ids.size > 0 ? true : false
+
+    filters_params ={}
+    @date_f = params[:date_from]
+    @date_t =params[:date_to]
+    @domain = params[:domain] || ""
+
+    filters_params[:first_name] = params[:first_name] if params[:first_name]
+    filters_params[:last_name] = params[:last_name] if params[:last_name]
+    filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
+    filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
+    filters_params[:domain] = @domain
+    filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
+    filters_params[:company_id] = current_user.company.id if current_user.company
+
+    filters_params[:user] = current_user
+    @budgets = Budget.find_by_params filters_params
+
+    @budgets = @budgets.order("budgets.created_at DESC").paginate(:page =>page,:per_page =>per_page)
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @budgets }
+      format.js { render :layout => false}
     end
   end
 
@@ -106,5 +128,12 @@ class BudgetsController < ApplicationController
     budget = Budget.find params[:id]
     BudgetMailer.email(budget).deliver if budget
     redirect_to budget 
+  end
+
+  def email_s
+    @budget = Budget.find params[:id]
+    respond_to do |format|
+      format.html { render :file=>"budget_mailer/email",:layout => "emails" }
+    end
   end
 end

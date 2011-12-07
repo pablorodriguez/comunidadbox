@@ -1,5 +1,7 @@
 class Budget < ActiveRecord::Base
   has_many :services, :dependent => :destroy
+  has_many :notes
+
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
   belongs_to :brand
   belongs_to :model
@@ -21,11 +23,47 @@ class Budget < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def brand_name
+    brand ? brand.name : ""
+  end
+
+  def model_name
+    model ? model.name : ""
+  end
+
   def total_price
  	s_total_price=0
     self.services.each do |s|
       s_total_price += s.total_price
     end   
     s_total_price
+  end
+
+  def self.find_by_params(filters)
+    domain =  filters[:domain] || ""
+    
+    budget = Budget.where("domain like ?","%#{domain.upcase}%")
+    budget = budget.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
+    budget = budget.order("service_types.name")
+    if filters[:user] && filters[:user].company.nil?
+      budget = budget.where("budget.car_id IN (?)", filters[:user].cars.map(&:id))
+    end
+    
+    budget = budget.where("first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
+    budget = budget.where("last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
+    budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
+    
+    budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
+    budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
+    
+    if filters[:company_id]
+      #budget = budget.where("budgetcan.company_id = ?",filters[:company_id])
+    else
+      #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
+    end    
+    
+    budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
+    logger.debug "### Filters SQL #{budget.to_sql}"
+    budget
   end
 end

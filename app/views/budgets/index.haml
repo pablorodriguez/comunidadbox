@@ -1,6 +1,7 @@
+- javascript 'budgets'
+- javascript 'jquery.formatCurrency-1.4.0'
+- javascript 'jquery.formatCurrency.es-AR'
 = render "menu"
 .contentright_s
-  .budgets
-    .box_bottom
-      %h1 Listado de Presupuestos
-    = render :partial => "budget", :collection => @budgets
+  #budgets.budgets
+    = render "budgets"

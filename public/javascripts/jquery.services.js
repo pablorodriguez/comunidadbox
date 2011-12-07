@@ -493,7 +493,7 @@ function add_materials_service_types(elements){
 	initMaterialItems();
 	updateTotalService(serviceTypeDiv);
 	updateWorkOrderTotalPrice();
-	$("#materials_list").find("input[type=checkbox][checked]").each(function(){
+	$("#materials_list").find(":checked").each(function(){
 		$(this).attr('checked',false);
 	});
 }

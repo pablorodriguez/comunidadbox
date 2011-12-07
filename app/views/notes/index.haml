@@ -7,12 +7,11 @@
       %li
         = link_to "Nuevo Cliente", new_client_path
 .contentright_s
-  %h1 Listado de Notas
   .box_bottom
-  #notes
-  - @notes.each do |note|
-    .row    
-      %div{:id=>"note-#{note.id}",:class=>"note clear"}
+    %h1 Listado de Notas  
+  .notes.box_bottom
+    - @notes.each do |note|    
+      %div{:id=>"note-#{note.id}",:class=>"note"}
         .left
           = note.message
         -if note.creator_id == current_user.id

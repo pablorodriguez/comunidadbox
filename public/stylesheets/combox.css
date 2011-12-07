@@ -33,6 +33,14 @@ body {
   width:16px;
   display:block;
 }
+
+.sent{
+  background-image:url(/images/sent.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
 #service_center_actions .form{  
   width:80%;
   float:left;
@@ -626,7 +634,7 @@ input{
 }
 
 .input_date{
-  width:70px; 
+  width:86px; 
 }
 
 .input_medium{
@@ -751,10 +759,7 @@ input{
 
 
 #work_order_form{  
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;  
-  border: 1px solid #AFAFAF;
+
 }
 
 #work_order_form form{  
@@ -1064,10 +1069,6 @@ table.comboxtable, .comboxform,table.w{
 }
 
 .barradatos{
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid #AFAFAF;
   background-color:#E6E6E6;
   margin:0 auto;
   padding:5px;
@@ -2093,10 +2094,7 @@ td.number, th.number{
 }
 
 .notes{
-  width:100%;
-  text-align:left;
-  border-top: thin double #CCCCCC;
-  float:left;
+  width:100%;  
 }
 
 .wo_notes{
@@ -2421,4 +2419,12 @@ ul.tasks li{
 }
 .new_budget input.material{
   width:96%;
+}
+
+.info_note{
+  float:right;
+}
+
+.info_note .user{
+  font-size:11px;
 }
