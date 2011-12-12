@@ -12,13 +12,13 @@ class BudgetsController < ApplicationController
     filters_params ={}
     @date_f = params[:date_from]
     @date_t =params[:date_to]
-    @domain = params[:domain] || ""
+    @domain = params[:domain]
 
-    filters_params[:first_name] = params[:first_name] if params[:first_name]
-    filters_params[:last_name] = params[:last_name] if params[:last_name]
+    filters_params[:first_name] = params[:first_name] if (params[:first_name] && !(params[:first_name].empty?))
+    filters_params[:last_name] = params[:last_name] if (params[:last_name] && !(params[:last_name].empty?))
     filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
-    filters_params[:domain] = @domain
+    filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
     filters_params[:company_id] = current_user.company.id if current_user.company
 
@@ -38,6 +38,13 @@ class BudgetsController < ApplicationController
   # GET /budgets/1.xml
   def show
     @budget = Budget.find(params[:id])
+    @client = @budget
+    @client = @budget.user if @budget.user
+    @client = @budget.car.user if @budget.car
+
+    @car = @budget
+    @car = @budget.car if @budget.car
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @budget }
@@ -48,7 +55,16 @@ class BudgetsController < ApplicationController
   # GET /budgets/new.xml
   def new
     @budget = Budget.new
-    @service_types = current_user.service_types    
+    @service_types = current_user.service_types
+    if params[:c]
+      c = User.find(params[:c]) 
+      @budget.user = c if c
+    end
+    if params[:ca]
+      ca = Car.find(params[:ca])
+      @budget.car = ca if ca
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @budget }
@@ -67,9 +83,11 @@ class BudgetsController < ApplicationController
   def create
     @budget = Budget.new(params[:budget])
     @budget.creator = current_user
+    @budget.company = current_user.company
+
     respond_to do |format|
       if @budget.save
-        format.html { redirect_to(budgets_path) }
+        format.html { redirect_to(@budget) }
         format.xml  { render :xml => @budget, :status => :created, :location => @budget }
       else
         @service_types = current_user.service_types

@@ -1,0 +1,38 @@
+.customer.left
+  .box_bottom
+    %h1 Cliente
+    = f.hidden_field :car_id
+  %table
+    %tr
+      %td{:style=>"width:100px"} Nombre *
+      %td
+        = car.user.first_name
+    %tr
+      %td Apellido *
+      %td   
+        = car.user.last_name
+    %tr
+      %td Teléfono
+      %td
+        = car.user.phone
+    %tr
+      %td Correo Eléctronico
+      %td
+        = car.user.email
+.car.right
+  .box_bottom
+    %h1 Autómovil
+  %table
+   %tr
+      %td Dominio
+      %td
+        = car.domain
+    %tr
+      %td{:style=>"width:100px"} Marca
+      %td 
+        = car.brand.name       
+    %tr
+      %td Modelo
+      %td 
+        = car.model.name       
+   

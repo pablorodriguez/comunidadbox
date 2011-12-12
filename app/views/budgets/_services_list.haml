@@ -2,7 +2,7 @@
   .budget_service
     %h1 Servicios
   .budget_service
-    = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio"}
+    = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio",:style=>"margin-left:17px"}
   .budget_service
     = link_to"","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"        
 #services.overflow

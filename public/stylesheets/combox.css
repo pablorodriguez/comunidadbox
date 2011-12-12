@@ -41,6 +41,27 @@ body {
   display:block;
 }
 
+.new_budget{
+  background-image:url(/images/new_budget.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
+.new_service{
+  background-image:url(/images/new_service.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
+.new_car{
+  background-image:url(/images/new_car.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
 #service_center_actions .form{  
   width:80%;
   float:left;
@@ -1335,7 +1356,7 @@ td.number, th.number{
 }
 
 .error_msg ul{
-  margin-left:40px;
+  margin-left:45px;
 }
 
 .notice h2, .alert h2, .error_msg h2{
@@ -2221,7 +2242,7 @@ input.labelHighlight,textarea.labelHighlight {
 #menu_options .menu{
   padding:3px 2px 3px 10px;
   float:left;
-  width:88%;
+  width:95%;
 }
 
 #menu_options .selected ,#menu_options .menu:hover {
@@ -2234,7 +2255,7 @@ input.labelHighlight,textarea.labelHighlight {
   -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
   -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
   box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
-  width:88%;
+  width:95%;
 }
 
 #menu_options li{    
@@ -2427,4 +2448,9 @@ ul.tasks li{
 
 .info_note .user{
   font-size:11px;
+}
+
+.budget_info{
+  width:79%;
+  float:left;
 }

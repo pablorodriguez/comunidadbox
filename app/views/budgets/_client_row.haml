@@ -1,0 +1,17 @@
+%table.w
+  %tr
+    %td{:style=>"width:100px"} Nombre
+    %td
+      = @client.first_name
+  %tr
+    %td Apellido
+    %td   
+      = @client.last_name
+  %tr
+    %td Teléfono
+    %td
+      = @client.phone
+  %tr
+    %td Correo Electrónico
+    %td
+      = @client.email

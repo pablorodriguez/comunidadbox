@@ -11,9 +11,11 @@
         = client.phone
       .actions.right
         .action
-          = link_to image_tag("edit.png"),edit_client_path(client),{:title=>"Modificar"} if client.confirmed_at.nil?
+          = link_to "",new_budget_path(:c => client.id),:class =>"new_budget"
         .action
-          = link_to image_tag('new_car.png'), new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil"}
+          = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}
+        .action
+          = link_to "",edit_client_path(client),{:title=>"Modificar",:class =>"edit"} if client.confirmed_at.nil?
     - client.cars.each_with_index do |car,index|  
       .client_car.box_top.left
         .detail.left
@@ -25,8 +27,10 @@
             = car.year
         .actions
           .action
-            = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)
+            = link_to "",new_budget_path(:ca => car.id),:class=>"new_budget"
           .action
-            = link_to image_tag('new_service.png'), new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio"}
+            = link_to "", new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
+          .action
+            = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"} if car.can_edit?(current_user)
    
 = will_paginate @clients

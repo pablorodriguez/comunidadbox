@@ -2,44 +2,21 @@
   .materials
     = render :partial=>'materials'
 .budget
-  = form_for(@budget) do |f| 
+  = form_for @budget,:html=>{:class=>:budget} do |f| 
     = render 'shared/error_messages', :target => @budget
-    .customer.left
+    - if @budget.car
+      = render :partial => "car",:locals =>{:car =>@budget.car,:f=>f}
+    - if @budget.user
+      = render :partial => "client",:locals => {:client =>@budget.user,:f => f}
+    - if (@budget.user.nil? && @budget.car.nil?)
+      = render "no_client",:f => f
+    .comment.clear
       .box_bottom
-        %h1 Cliente
       %table
         %tr
-          %td{:style=>"width:100px"} Nombre *
+          %td{:style=>"width:104px"}
+            Comentario
           %td
-            = f.text_field :first_name
-        %tr
-          %td Apellido *
-          %td   
-            = f.text_field :last_name
-        %tr
-          %td Teléfono
-          %td
-            = f.text_field :phone
-        %tr
-          %td Correo Eléctronico
-          %td
-            = f.text_field :email
-    .car.right
-      .box_bottom
-        %h1 Autómovil
-      %table
-        %tr
-          %td{:style=>"width:100px"} Marca
-          %td        
-            = f.collection_select(:brand_id, Brand.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"brand long_select"})
-        %tr
-          %td Modelo
-          %td        
-            #models
-              = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model long_select'})
-        %tr
-          %td Dominio
-          %td
-            = f.text_field :domain
+            = f.text_area :comment,:rows =>3,:cols =>67
     #services.box_top.clear
       = render :partial=>'services_list',:locals =>{:f=>f}

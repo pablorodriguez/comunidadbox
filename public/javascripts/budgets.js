@@ -30,9 +30,9 @@ jQuery(document).ready( function(){
 });
 
 function show_notes(element){
-  $(element).parent().parent().parent().parent().find(".notes").slideToggle();
+  $(element).parent().parent().parent().find(".notes").slideToggle();
 }
 
 function new_note(element){
-  $(element).parent().parent().parent().parent().find(".new_notes").slideToggle();
+  $(element).parent().parent().parent().find(".new_notes").slideToggle();
 }

@@ -1,0 +1,13 @@
+%table.w
+  %tr
+    %td{:style=>"width:100px"} Marca
+    %td
+      = @car.brand.name if @car.brand 
+  %tr
+    %td Modelo
+    %td        
+      = @car.model.name if @car.model
+  %tr
+    %td Dominio
+    %td
+      = @car.domain

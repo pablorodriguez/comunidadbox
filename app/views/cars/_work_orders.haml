@@ -1,5 +1,6 @@
 .box_bottom
   %h1 Servicios Realizados
+#workorders
   - @work_orders.each do |wo|
     = render :partial =>"work_order_row",:object => wo
 %br

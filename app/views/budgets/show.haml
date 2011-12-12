@@ -3,11 +3,13 @@
   .menu_actions.box_bottom
     %ul
       %li
-        = link_to "Nuevo Presupuesto", new_budget_path
+        = link_to "Modificar",edit_budget_path(@budget)
       %li        
         = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
       %li
         = link_to "Enviar por Correro",email_budget_path(@budget)
+      %li
+        = link_to "Nuevo Presupuesto", new_budget_path
 .contentright_s    
   .box_bottom
     .left
@@ -26,44 +28,21 @@
     .customer.left
       .box_bottom
         %h1 Cliente
-      %table.w
-        %tr
-          %td{:style=>"width:100px"} Nombre
-          %td
-            = @budget.first_name
-        %tr
-          %td Apellido
-          %td   
-            = @budget.last_name
-        %tr
-          %td Teléfono
-          %td
-            = @budget.phone
-        %tr
-          %td Correo Electrónico
-          %td
-            = @budget.email
+      = render "client_row"
     .car.right
       .box_bottom
         %h1 Autómovil
-      %table.w
+      = render "car_row"
+    .comment.clear.box_top
+      %table
         %tr
-          %td{:style=>"width:100px"} Marca
+          %td{:style=>"width:104px"} Comentario
           %td
-            = @budget.brand_name          
-        %tr
-          %td Modelo
-          %td        
-            = @budget.model_name
-        %tr
-          %td Dominio
-          %td
-            = @budget.domain
+            = @budget.comment      
     #services.box_top.clear
       .box_bottom
         .budget_service
           %h1 Servicios
-      
       #services_list.ordencontent
         - @budget.services.each do |s|
           .service_type

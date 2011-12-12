@@ -35,6 +35,17 @@ class Workorder < ActiveRecord::Base
   def company_rank
     type 2
   end
+
+  def self.build_from_budget(budget_id)
+    budget = Budget.find budget_id
+    
+    if budget
+
+      if budget.car
+      end
+    else
+    end
+  end
   
   def init  
     if self.attributes.has_key?('performed')

@@ -1,34 +1,42 @@
 .budget_row.row{:id=>"budget-#{budget.id}"}  
-  .left    
-    .domain
-      = budget.domain 
-    = link_to budget.full_name,budget
-  .right
-    .operator
-      = budget.creator.full_name
-  .services.clear
-    - budget.services.each do |s|
-      .service
-        =s.service_type.name
+  .budget_info
+    .left    
+      .domain
+        = budget.domain if budget.domain
+        = budget.car.domain if budget.car
+      = link_to budget.full_name,budget if budget.full_name
+      = link_to budget.user.full_name,budget if budget.user
+      = link_to budget.car.user.full_name,budget if budget.car
+
+    .right
+      .operator
+        = budget.creator.full_name
+    .services.clear
+      - budget.services.each do |s|
+        .service
+          = link_to s.service_type.name, budget
   .wo_info
     .budget_date.right.clear
       = l Date.parse(budget.created_at.to_s)
     .clear.price_b.right            
       = number_to_currency budget.total_price
-    .actions
-      .action  
-        = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:pdf
-      .action
-        = link_to_function "","new_note(this)",:title=>"Crear una nota",:class=>"new_note_link"
-      - n_css = budget.notes.empty? ? "hide" : ""
-      .action{:class=>"#{n_css}"}
-        = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"  
-      .action     
-        = link_to "", budget_path(budget), :confirm => '¿ Esta seguro que desea borrar el Presupuesto ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
-      .action
-        = link_to "",edit_budget_path(budget),:class=>"edit"
-      .action
-        = link_to "",email_budget_path(budget),:remote =>true,:title =>"Enviar por email",:class=>:sent
+  .actions
+    .action     
+      = link_to "", budget_path(budget), :confirm => '¿ Esta seguro que desea borrar el Presupuesto ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
+    .action  
+      = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:pdf
+    .action
+      = link_to_function "","new_note(this)",:title=>"Crear una nota",:class=>"new_note_link"
+    - n_css = budget.notes.empty? ? "hide" : ""
+    .action{:class=>"#{n_css}"}
+      = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"  
+    .action
+      = link_to "",edit_budget_path(budget),:class=>"edit"
+    .action
+      = link_to "",email_budget_path(budget),:remote =>true,:title =>"Enviar por email",:class=>:sent
+    .action
+      = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
+      
   %div{:id=>"notes-#{budget.id}",:class=>"wo_notes clear"}
     .new_notes.hide.box_top.clear
       = render :partial =>"notes/note_form",:locals=>{:b => budget.id,:wo=>nil}
