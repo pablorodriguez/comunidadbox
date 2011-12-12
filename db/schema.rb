@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205142904) do
+ActiveRecord::Schema.define(:version => 20111209184911) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -91,7 +91,14 @@ ActiveRecord::Schema.define(:version => 20111205142904) do
     t.string   "domain"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "company_id"
+    t.integer  "car_id"
+    t.integer  "user_id"
   end
+
+  add_index "budgets", ["car_id"], :name => "budgets_car_id_fk"
+  add_index "budgets", ["company_id"], :name => "budgets_company_id_fk"
+  add_index "budgets", ["user_id"], :name => "budgets_user_id_fk"
 
   create_table "car_service_offers", :force => true do |t|
     t.integer  "car_id"
@@ -519,6 +526,10 @@ ActiveRecord::Schema.define(:version => 20111205142904) do
   add_foreign_key "addresses", "users", :name => "addresses_ibfk_3"
 
   add_foreign_key "alarms", "users", :name => "alarms_ibfk_1", :dependent => :delete
+
+  add_foreign_key "budgets", "cars", :name => "budgets_car_id_fk", :dependent => :delete
+  add_foreign_key "budgets", "companies", :name => "budgets_company_id_fk", :dependent => :delete
+  add_foreign_key "budgets", "users", :name => "budgets_user_id_fk"
 
   add_foreign_key "car_service_offers", "cars", :name => "car_service_offers_ibfk_1", :dependent => :delete
   add_foreign_key "car_service_offers", "service_offers", :name => "car_service_offers_ibfk_2", :dependent => :delete
