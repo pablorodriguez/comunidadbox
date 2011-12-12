@@ -11,7 +11,7 @@
         = client.phone
       .actions.right
         .action
-          = link_to "",new_budget_path(:c => client.id),:class =>"new_budget"
+          = link_to "",new_budget_path(:c => client.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
         .action
           = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}
         .action
@@ -27,7 +27,7 @@
             = car.year
         .actions
           .action
-            = link_to "",new_budget_path(:ca => car.id),:class=>"new_budget"
+            = link_to "",new_budget_path(:ca => car.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
           .action
             = link_to "", new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
           .action
