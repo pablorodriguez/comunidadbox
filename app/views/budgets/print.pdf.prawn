@@ -4,13 +4,14 @@ pdf.font_size fs
 pdf.move_down(15)
 
 pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:at=>[450,820],:scale =>0.40
-pdf.text company.name,:size => fs +4,:style =>:bold
+pdf.image "#{RAILS_ROOT}/public/images/company_logos/vg_logo.png",:at=>[10,820],:scale =>0.40
+pdf.move_down(25)
 pdf.text "#{company.full_address}, #{company.phone}"
 
 
 pdf.move_down(5)
 pdf.text "Presupuesto Nro: #{@budget.id}",:size=>fs,:size=>10,:style =>:bold
-pdf.move_up(14)
+pdf.move_up(25)
 pdf.text "Realizado: #{l(Date.parse(@budget.created_at.to_s))}",:align=>:right,:size=>10,:style =>:bold
 pdf.text "Operario: #{@budget.creator.full_name}",:size =>6,:align=>:right
 pdf.move_down(20)
@@ -38,6 +39,20 @@ pdf.table data do
   row(0).borders = [:top]
   columns(0..3).width = 138
 end
+
+
+data =[
+    ["Comentario",@budget.comment],
+]
+
+pdf.move_down(5)            
+pdf.table data do    
+  cells.borders = [:top]
+  row(0).border_width = 0.8
+  columns(0).width = 138 
+  columns(1).width = 414 
+end
+
 
 data =[
     ["Servicios",""],
