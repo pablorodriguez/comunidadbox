@@ -5,36 +5,57 @@ pdf.move_down(15)
 
 pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:at=>[450,820],:scale =>0.40
 pdf.text company.name,:size => fs +4,:style =>:bold
+pdf.text "#{company.full_address}, #{company.phone}"
 
 
 pdf.move_down(5)
 pdf.text "Presupuesto Nro: #{@budget.id}",:size=>fs,:size=>10,:style =>:bold
-pdf.move_up(11)
-pdf.text "Operario: #{@budget.creator.full_name}",:align=>:right
-pdf.text l(@budget.created_at),:size=> 6,:align=>:right
+pdf.move_up(14)
+pdf.text "Realizado: #{l(Date.parse(@budget.created_at.to_s))}",:align=>:right,:size=>10,:style =>:bold
+pdf.text "Operario: #{@budget.creator.full_name}",:size =>6,:align=>:right
 pdf.move_down(20)
 
 data =[
     ["Cliente","Autómovil"],
 ]
             
-pdf.table data,:column_widths=>[277,277],:cell_style=>{:size => 10,:font_style=>:bold}
+pdf.table data do 
+  row(0).font_style = :bold
+  row(0).borders = [:bottom]  
+  row(0).border_width = 0.8
+  cells.borders = [:top]  
+  columns(0..1).width = 277 
+end
 
 data=[
-    ["Nombre",@budget.first_name,"Marca",@budget.brand.name],
-    ["Apellido",@budget.last_name,"Modelo",@budget.model.name],
-    ["Teléfono",@budget.phone,"Dominio",@budget.domain],
-    ["Correo Electrónico",@budget.email,"",""]
+    ["Nombre",@client.first_name,"Marca",@car.brand.name],
+    ["Apellido",@client.last_name,"Modelo",@car.model.name],
+    ["Teléfono",@client.phone,"Dominio",@car.domain],
+    ["Correo Electrónico",@client.email,"",""]
 ]
-pdf.table data,:column_widths=>[138,139,138,139]
+pdf.table data do
+  cells.borders=[]
+  row(0).borders = [:top]
+  columns(0..3).width = 138
+end
 
-pdf.move_down(8)
-pdf.text "Servicios",:size =>10,:style=>:bold
+data =[
+    ["Servicios",""],
+]
+
+pdf.move_down(5)            
+pdf.table data do  
+  row(0).font_style = :bold  
+  cells.borders = [:top,:bottom]
+  row(0).border_width = 0.8
+  columns(0..1).width = 277 
+end
+
 pdf.move_down(5)
 
 @budget.services.each do |service|
     data = [
-        [service.service_type.name,"","",""]
+        [service.service_type.name,"Cantidad","Precio",number_to_currency(service.total_price)]
     ]
 
     service.material_services.each do |ms|      
@@ -43,6 +64,8 @@ pdf.move_down(5)
     end
                 
     pdf.table data do
+      cells.borders=[]            
+      row(0).font_style = :bold
       column(0).width = 314
       columns(1..3).width = 80
       columns(1..3).style{|c| c.align = :right}      
@@ -51,6 +74,7 @@ end
 
 data= [["",number_to_currency(@budget.total_price)]]
 pdf.table data do
+  cells.borders=[:bottom]
   cells.style(:size =>10,:font_style=>:bold)
   column(0).width = 474
   columns(1).width = 80

@@ -127,6 +127,13 @@ class BudgetsController < ApplicationController
 
   def print
     @budget = Budget.find params[:id]
+    @client = @budget
+    @client = @budget.user if @budget.user
+    @client = @budget.car.user if @budget.car
+
+    @car = @budget
+    @car = @budget.car if @budget.car
+
     respond_to do |format|
       format.html
       format.pdf {
