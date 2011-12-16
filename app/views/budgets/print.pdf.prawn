@@ -28,9 +28,11 @@ pdf.table data do
   columns(0..1).width = 277 
 end
 
+brand = @car.brand ? @car.brand.name : ""
+model = @car.model ? @car.model.name : ""
 data=[
-    ["Nombre",@client.first_name,"Marca",@car.brand.name],
-    ["Apellido",@client.last_name,"Modelo",@car.model.name],
+    ["Nombre",@client.first_name,"Marca",brand],
+    ["Apellido",@client.last_name,"Modelo",model],
     ["Teléfono",@client.phone,"Dominio",@car.domain],
     ["Correo Electrónico",@client.email,"",""]
 ]
