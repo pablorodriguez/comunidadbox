@@ -48,6 +48,7 @@ class ClientsController < ApplicationController
         @client.service_centers << current_user.company
       end
     end
+
     @client.cars.first.company = current_user.company if @client.cars.first
 
     User.transaction do
@@ -74,7 +75,8 @@ class ClientsController < ApplicationController
           end
           
           unless @client.cars.empty?
-            redirect_to new_workorder_path(parameters) 
+            redirect_to new_workorder_path(:car_id =>@client.cars.first.id) unless @budget
+            redirect_to new_workorder_path(:car_id =>@client.cars.first.id,:b => @budget.id) if @budget
           end
 
           if @client.cars.empty? && params[:budget_id] == nil
