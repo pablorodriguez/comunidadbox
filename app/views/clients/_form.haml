@@ -1,6 +1,8 @@
 - javascript 'clients'
 
 = form_for @client, :url => clients_path do |f|
+  - if @budget
+    = hidden_field_tag "budget_id",@budget.id
   = render 'shared/error_messages', :target => @client
   #user_data
     .box_bottom

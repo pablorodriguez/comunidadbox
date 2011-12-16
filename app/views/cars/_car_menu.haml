@@ -53,6 +53,8 @@
         %li
           = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} 
       - if @car.can_edit?(current_user)
+        %li
+          = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
         %li  
           = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} 
       %li

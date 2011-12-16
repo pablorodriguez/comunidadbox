@@ -1,0 +1,24 @@
+.service_type
+  %table.w
+    %tbody
+      %tr
+        %td{:colspan=>2,:style=>'width:60%'}
+          %h2.inline
+            %label{:id=>"serviceType"}
+              = icon_status f.status
+              = f.service_type.name
+
+          .service_status
+            = f.operator.full_name if f.operator
+            .hide
+              = f.comment
+        %td{:style=>'width:10%'}
+          %label.right Cantidad
+        %td{:style=>'width:10%'}
+          %label.right Precio
+        %td.number{:style=>'width:15%'}
+          .total_service
+            = number_to_currency(f.total_price)
+        %td.number{:style=>'width:5%'}
+      - f.material_services.each do |ms|
+        =render :partial=> "show_material_service_fields",:locals=>{:f => ms}

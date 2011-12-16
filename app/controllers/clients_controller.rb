@@ -51,10 +51,35 @@ class ClientsController < ApplicationController
     @client.cars.first.company = current_user.company if @client.cars.first
 
     User.transaction do
+      parameters = {}
+      parameters = {:car_id =>@client.cars.first.id} unless @client.cars.empty?
       if @client.save
+          if params[:budget_id]
+            @budget = Budget.find(params[:budget_id])
+            @budget.user = @client
+            @budget.car = @client.cars.first unless @client.cars.empty?
+            @budget.save
+            parameters[:b] = @budget.id
+          end
+          logger.debug "#### Budget ID #{params[:budget_id]}"
           flash[:notice] = "Cliente creado exitosamente"
-          redirect_to new_workorder_path(:car_id =>@client.cars[0].id) unless @client.cars.empty?
-          redirect_to clients_path if @client.cars.empty?
+
+          #Si hay budget y no hay auto, muestro error y voy al new 
+          if @budget && @client.cars.empty?
+            logger.debug "### debe ingresar un auto"
+            @client.errors.add "", "Debe ingresar informacion del automovil"
+            @client.cars.build if @client.cars.empty?
+            @client.build_address unless @client.address
+            render :action => 'new'  
+          end
+          
+          unless @client.cars.empty?
+            redirect_to new_workorder_path(parameters) 
+          end
+
+          if @client.cars.empty? && params[:budget_id] == nil
+            redirect_to clients_path 
+          end
       else
         @client.cars.build if @client.cars.size == 0
         @client.build_address unless @client.address
@@ -68,6 +93,17 @@ class ClientsController < ApplicationController
     @client = User.new
     @client.address = Address.new
     @client.cars.build
+    if params[:b]
+      @budget = Budget.find params[:b]
+      @client.first_name = @budget.first_name
+      @client.last_name =  @budget.last_name
+      @client.email = @budget.email
+      @client.phone = @budget.phone
+
+      @client.cars.first.domain = @budget.domain
+      @client.cars.first.brand = @budget.brand
+      @client.cars.first.model =@budget.model
+    end
   end
 
   def index

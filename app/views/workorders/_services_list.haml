@@ -2,6 +2,7 @@
   - if @car_service_offers.size > 0
     = render 'service_offer'
   #services.overflow
+    = wo_form.hidden_field :budget_id
     = wo_form.hidden_field :car_id
     = wo_form.hidden_field :company_id
     = wo_form.hidden_field :company_info

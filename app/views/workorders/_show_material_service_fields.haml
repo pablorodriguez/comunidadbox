@@ -1,0 +1,11 @@
+%tr    
+  %td{:colspan=>2}
+    = f.material unless f.material_service_type
+    = f.material_service_type.material.detail if f.material_service_type
+  %td.number    
+    = f.amount
+  %td.number
+    = f.price 
+  %td.number
+    .total_item
+      = number_to_currency(f.total_price) 

@@ -10,11 +10,14 @@ pdf.grid(0,0).bounding_box do
   pdf.font_size fs
   pdf.move_up(15)
   pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:at=>[290,570],:scale =>0.40
-  pdf.text @work_order.company.name,:size => fs +4,:style =>:bold
+  pdf.image "#{RAILS_ROOT}/public/images/company_logos/vg_logo.png",:at=>[10,570],:scale =>0.40  
+  pdf.move_down(40)
   pdf.text "Comprobante para Administración"
-  pdf.move_down(5)
-  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold  
+  pdf.move_up(15)
+  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold,:align=>:right  
   
+  pdf.move_down(10)
+
   address = user.address ? user.address.to_text : ""
   info = "Cliente: #{user.full_name}\nTeléfono: #{user.phone}\nEmail: #{user.email}"
   info += "\nCUIT:#{user.cuit}" if user.cuit
@@ -123,13 +126,16 @@ pdf.grid(0,1).bounding_box do
  
   pdf.font_size fs
   pdf.move_up(15)
+
+  pdf.image "#{RAILS_ROOT}/public/images/company_logos/vg_logo.png",:at=>[10,570],:scale =>0.40  
   pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:at=>[290,570],:scale =>0.40
 
-  pdf.text @work_order.company.name,:size => fs +4,:style =>:bold
+  pdf.move_down(40)
   pdf.text "Comprobante para Playa Servicios"
-  pdf.move_down(5)
-  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold
+  pdf.move_up(15)
+  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold,:align=>:right
   
+  pdf.move_down(10)
   data_info = [[
     "Cliente: #{user.full_name} ",
     "Automovil: #{car.domain} \n #{car.brand.name}, #{car.model.name.strip!}, #{car.year} \n Km. Actual: #{@work_order.km} \n Km. Promedio Mensual: #{car.kmAverageMonthly}"

@@ -3,7 +3,14 @@ class BudgetMailer < ActionMailer::Base
   layout "emails"
   
   def email(budget)
-    @budget = budget    
-    mail(:to => budget.email,:subject => "presupuesto")
+    @budget = budget
+    @client = @budget
+    @client = @budget.user if @budget.user
+    @client = @budget.car.user if @budget.car
+
+    @car = @budget
+    @car = @budget.car if @budget.car 
+    
+    mail(:to => @client.email,:bcc =>@budget.creator.email,:subject => "presupuesto #{budget.creator.company.name} Nro: #{budget.id}")
   end
 end

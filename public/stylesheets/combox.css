@@ -1888,6 +1888,14 @@ td.number, th.number{
   color:black;
 }
 
+#total_work_order_v{
+  float: right;
+  margin-right: 45px;
+  font-size: 20px;
+  font-weight:bold;
+  color:black;
+}
+
 #total_budget{
   float: right;
   margin-right: 43px;

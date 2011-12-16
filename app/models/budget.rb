@@ -16,6 +16,10 @@ class Budget < ActiveRecord::Base
   validates_presence_of :last_name, :if => lambda{(user.nil? && car.nil?)}
 
 
+  def has_car
+    (car || (domain && brand && model)) != nil
+  end
+
   def service_not_empty
     if services.size == 0
       errors.add_to_base("El presupuesto debe contener servicios")      

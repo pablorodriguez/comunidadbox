@@ -7,6 +7,7 @@ class Workorder < ActiveRecord::Base
   belongs_to :car
   belongs_to :company
   belongs_to :user  
+  belongs_to :budget
   belongs_to :payment_method
   has_many :ranks
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true

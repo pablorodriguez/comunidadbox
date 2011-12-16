@@ -150,13 +150,25 @@ class BudgetsController < ApplicationController
   end
 
   def email
-    budget = Budget.find params[:id]
+    budget = Budget.find params[:id]   
     BudgetMailer.email(budget).deliver if budget
-    redirect_to budget 
+    respond_to do |format|
+      format.html {redirect_to budget }
+      format.js { render :layout => false}
+    end
+    
   end
 
   def email_s
     @budget = Budget.find params[:id]
+
+    @client = @budget
+    @client = @budget.user if @budget.user
+    @client = @budget.car.user if @budget.car
+
+    @car = @budget
+    @car = @budget.car if @budget.car 
+
     respond_to do |format|
       format.html { render :file=>"budget_mailer/email",:layout => "emails" }
     end

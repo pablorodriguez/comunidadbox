@@ -33,9 +33,7 @@
     .action
       = link_to "",edit_budget_path(budget),:title=>"Modificar",:class=>"edit"
     .action
-      = link_to "",email_budget_path(budget),:remote =>true,:title =>"Enviar por email",:class=>:sent
-    .action
-      = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
+      -#= link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
       
   %div{:id=>"notes-#{budget.id}",:class=>"wo_notes clear"}
     .new_notes.hide.box_top.clear

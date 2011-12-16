@@ -11,7 +11,7 @@
   .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px;clear:both"}      
   .left{:style=>"clear:both;float:left;margin-top:5px;width:100%"}
     .left{:style=>"float:left"}
-      = link_to @budget.creator.company.name,company_url(@budget.creator.company),:target=>"_blank"  
+      = link_to image_tag("company_logos/vg_logo.png",:alt =>"company logo"),company_url(@budget.creator.company),:target=>"_blank"  
     .right{:style=>"float:right"}
       = @budget.creator.company.address.to_text
     .left{:style=>"float:right;clear:both"}
@@ -26,19 +26,19 @@
       %tr
         %td{:style=>"width:100px"} Nombre
         %td
-          = @budget.first_name
+          = @client.first_name
       %tr
         %td Apellido
         %td   
-          = @budget.last_name
+          = @client.last_name
       %tr
         %td Teléfono
         %td
-          = @budget.phone
+          = @client.phone
       %tr
         %td Correo Electrónico
         %td
-          = @budget.email
+          = @client.email
   .car.right{:style=>"float:right;width:48%;padding:5px"}
     .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}
       %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"} Autómovil
@@ -46,15 +46,15 @@
       %tr
         %td{:style=>"width:100px"} Marca
         %td
-          = @budget.brand.name          
+          = @car.brand.name  if @car.brand        
       %tr
         %td Modelo
         %td        
-          = @budget.model.name
+          = @car.model.name if @car.model
       %tr
         %td Dominio
         %td
-          = @budget.domain
+          = @car.domain
   .clear{:style=>"clear:both"}
     .box_top{:style=>"border-top:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}
     .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px"}

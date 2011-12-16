@@ -1,0 +1,15 @@
+#services.overflow
+  #wo-actions.left
+    .left
+      = icon_status @work_order.status
+      = @work_order.payment_method.name
+    .right
+      = l(@work_order.performed)
+    .hide
+      = @work_order.comment
+  #services_list.ordencontent    
+    - @work_order.services.each do |s|
+      = render :partial=>"show_service_field",:locals=>{:f => s}
+  #total_work_order_v
+    = number_to_currency @work_order.total_price    
+    

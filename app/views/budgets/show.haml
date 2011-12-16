@@ -7,9 +7,13 @@
       %li        
         = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
       %li
-        = link_to "Enviar por Correro",email_budget_path(@budget)
+        = link_to "Enviar por Correro",email_budget_path(@budget),:remote =>true
+      .ajax_loader.right
       %li
         = link_to "Nuevo Presupuesto", new_budget_path
+      %li
+        = link_to "Crear Servicio",new_workorder_path(:b =>@budget.id),:title =>"Crear servicio"
+
 .contentright_s    
   .box_bottom
     .left

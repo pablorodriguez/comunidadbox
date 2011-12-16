@@ -139,6 +139,10 @@ class CarsController < ApplicationController
     else
       user=current_user
     end
+
+    if params[:b]
+      @budget = Budget.find params[:b]
+    end
         
     @car = Car.new
     @car.user = user
@@ -160,11 +164,22 @@ class CarsController < ApplicationController
   def create
     @car = Car.new(params[:car])
     @car.company = current_user.company if current_user.company
-    
+    parameters = {:car_id => @car.id}
+    if params[:budget_id]
+      parameters[:b] = params[:budget_id]
+      b =Budget.find params[:budget_id]
+
+    end
+
     respond_to do |format|
       if @car.save
+        if b
+          b.car = @car
+          b.save
+        end
         flash[:notice] = t :car_created_exit
-        format.html { redirect_to(@car) }
+        logger.debug "### grabo auto ok #{@car.id}"
+        format.html { redirect_to(new_workorder_path(parameters)) }
         format.xml  { render :xml => @car, :status => :created, :location => @car }
       else
         format.html { render :action => "new" }

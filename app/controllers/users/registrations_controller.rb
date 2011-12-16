@@ -39,8 +39,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         format.html { redirect_to root_path }
         format.xml  { head :ok }
       else
-        @user.build_address if @user.address.nil?
-        logger.info "### #{resource.address}"
+        @user.build_address if @user.address.nil?        
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end

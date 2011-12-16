@@ -168,7 +168,7 @@ class WorkordersController < ApplicationController
         end
       end
 
-      format.html { redirect_to(@work_order.car)}
+      format.html { redirect_to(@work_order)}
       format.xml  { head :ok }
     else
       @car_service_offers = @work_order.find_car_service_offer(company_id)
@@ -223,7 +223,7 @@ class WorkordersController < ApplicationController
       end
 
       flash[:notice] = "Orden de Trabajo creada correctamente"
-      redirect_to @work_order.car
+      redirect_to @work_order
     else
       @service_types = current_user.service_types
       @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
@@ -234,20 +234,46 @@ class WorkordersController < ApplicationController
 
   def new
     @company_id =  current_user.company ? current_user.company.id : params[:company_id]
-    car_id = params[:car_id]
-
     @work_order = Workorder.new
     @work_order.performed = I18n.l(Time.now.to_date)
     @work_order.company_info  = params[:c] if params[:c]
 
     @work_order.company = Company.find @company_id if @company_id
-    unless car_id && current_user.cars.size == 1
+    unless params[:car_id] && current_user.cars.size > 0
       @work_order.car = current_user.cars.first
     end
-    @work_order.car = Car.find(params[:car_id]) if params[:car_id]
+   
+    if params[:car_id]
+      car_id = params[:car_id]
+      @work_order.car = Car.find(car_id)
+    end
 
     @service_types = current_user.service_types
-    @car_service_offers = @work_order.find_car_service_offer(@company_id)
+    @car_service_offers = @work_order.find_car_service_offer(@company_id)  
+
+    if params[:b]
+      budget = Budget.find params[:b]
+      
+      unless budget.has_car
+        if budget.user.nil? && budget.car.nil?
+          redirect_to(new_client_path(:b => budget.id)) 
+        end
+        if budget.user && budget.car.nil?
+          redirect_to(new_car_path(:user_id => budget.user.id,:b=>budget.id)) 
+        end
+        
+      else  
+        @work_order.car = budget.car
+        @work_order.budget = budget
+        budget.services.each do |s|
+          n_s = s.clone  
+          s.material_services.each do |ms|
+            n_s.material_services << ms.clone
+          end 
+          @work_order.services << n_s        
+        end
+      end
+    end
   end
 
   def task_list
