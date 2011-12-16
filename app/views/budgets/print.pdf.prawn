@@ -13,7 +13,7 @@ pdf.move_down(5)
 pdf.text "Presupuesto Nro: #{@budget.id}",:size=>fs,:size=>10,:style =>:bold
 pdf.move_up(25)
 pdf.text "Realizado: #{l(Date.parse(@budget.created_at.to_s))}",:align=>:right,:size=>10,:style =>:bold
-pdf.text "Operario: #{@budget.creator.full_name}",:size =>6,:align=>:right
+pdf.text "Responsable de Venta: #{@budget.creator.full_name}",:size =>6,:align=>:right
 pdf.move_down(20)
 
 data =[
