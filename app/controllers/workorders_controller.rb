@@ -74,6 +74,8 @@ class WorkordersController < ApplicationController
     @amt_data = Workorder.build_graph_data(@amt)
     @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
 
+    logger.debug "### WO SQL #{@work_orders.to_sql}"
+
     @count= @workorders.count()
     @workorder_amount= @workorders.sum("price * amount")
     @services_amount =0
@@ -301,7 +303,7 @@ class WorkordersController < ApplicationController
 
   def sort_direction
     if params[:direction]
-      %[asc desc].include?(params[:direction])? params[:direction] : "asc"
+      %[asc desc].include?(params[:direction])? params[:direction] : "desc"
     else
       "desc"
     end
