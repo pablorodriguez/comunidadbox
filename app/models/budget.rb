@@ -31,7 +31,10 @@ class Budget < ActiveRecord::Base
   end
 
   def full_name
-    "#{first_name} #{last_name}"
+    name = "#{first_name} #{last_name}" unless user
+    name = "#{user.first_name} #{user.last_name}" if user
+    name = "#{car.user.first_name} #{car.user.last_name}" if car
+    name
   end
 
   def brand_name

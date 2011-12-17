@@ -148,7 +148,6 @@ class WorkordersController < ApplicationController
     respond_to do |format|
 
     if @work_order.update_attributes(params[:workorder])
-      flash[:notice] = 'Orden de Trabajo actualizada'
 
       CarServiceOffer.update_with_services(@work_order.services,cso_ids)
       if @work_order.finish?
@@ -224,7 +223,6 @@ class WorkordersController < ApplicationController
         end
       end
 
-      flash[:notice] = "Orden de Trabajo creada correctamente"
       redirect_to @work_order
     else
       @service_types = current_user.service_types
@@ -245,6 +243,7 @@ class WorkordersController < ApplicationController
       @work_order.car = current_user.cars.first
     end
    
+    # si viene un car_id lo busco y se lo asigno a la orden de trabajo
     if params[:car_id]
       car_id = params[:car_id]
       @work_order.car = Car.find(car_id)
@@ -256,14 +255,13 @@ class WorkordersController < ApplicationController
     if params[:b]
       budget = Budget.find params[:b]
       
-      unless budget.has_car
-        if budget.user.nil? && budget.car.nil?
+      # si no hay auto en el budget y no hay auto como parametro
+      unless budget.car
+        # si no hay usuario voy a crear nuevo cliente
+        if budget.user.nil?
           redirect_to(new_client_path(:b => budget.id)) 
         end
-        if budget.user && budget.car.nil?
-          redirect_to(new_car_path(:user_id => budget.user.id,:b=>budget.id)) 
-        end
-        
+
       else  
         @work_order.car = budget.car
         @work_order.budget = budget

@@ -19,21 +19,3 @@
       %td Correo Eléctronico
       %td
         = client.email
-.car.right
-  .box_bottom
-    %h1 Autómovil
-  %table
-    %tr
-      %td Dominio
-      %td
-        = f.text_field :domain
-    %tr
-      %td{:style=>"width:100px"} Marca
-      %td        
-        = f.collection_select(:brand_id, Brand.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"brand long_select"})
-    %tr
-      %td Modelo
-      %td        
-        #models
-          = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model long_select'})
-  

@@ -2,12 +2,10 @@
   .budget_info
     .left    
       .domain
-        = budget.domain if budget.domain
+        = budget.domain if budget.domain && budget.car.nil?
         = budget.car.domain if budget.car
-      = link_to budget.full_name,budget,:title=>"Ver" if budget.full_name
-      = link_to budget.user.full_name,budget,:title=>"Ver" if budget.user
-      = link_to budget.car.user.full_name,budget,:title=>"Ver" if budget.car
-
+      = link_to budget.full_name,budget
+      
     .right
       .operator
         = budget.creator.full_name
@@ -32,8 +30,9 @@
       = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"  
     .action
       = link_to "",edit_budget_path(budget),:title=>"Modificar",:class=>"edit"
-    .action
-      -#= link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
+    - if ((budget.user && budget.car) || (budget.user.nil? && budget.car.nil?))
+      .action
+        = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
       
   %div{:id=>"notes-#{budget.id}",:class=>"wo_notes clear"}
     .new_notes.hide.box_top.clear

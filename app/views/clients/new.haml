@@ -1,7 +1,16 @@
 .vertical_menu
   = render "home/menu"
 .contentright_s
+  - if flash[:message]
+    .message
+      %h2= flash[:message]
   .box_bottom
-    %h1 Nuevo Cliente
+    .left
+      %h1 Nuevo Cliente
+    -if @budget
+      .right
+        %h1
+          Presupuesto Nro:
+          = link_to @budget.id,@budget
   = render 'form'
 

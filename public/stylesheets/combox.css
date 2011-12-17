@@ -1359,7 +1359,7 @@ td.number, th.number{
   margin-left:45px;
 }
 
-.notice h2, .alert h2, .error_msg h2{
+.notice h2, .alert h2, .error_msg h2 , .message h2{
   color: black;
   font-weight:bold;
   margin:5px;
@@ -1369,7 +1369,7 @@ td.number, th.number{
   position:relative;
 }
 
-.notice{
+.notice {
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -1384,7 +1384,8 @@ td.number, th.number{
   top:500px;
 }
 
-.messages{
+
+.message{
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;

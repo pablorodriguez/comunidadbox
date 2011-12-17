@@ -52,42 +52,49 @@ class ClientsController < ApplicationController
     @client.cars.first.company = current_user.company if @client.cars.first
 
     User.transaction do
-      parameters = {}
-      parameters = {:car_id =>@client.cars.first.id} unless @client.cars.empty?
       if @client.save
           if params[:budget_id]
             @budget = Budget.find(params[:budget_id])
             @budget.user = @client
             @budget.car = @client.cars.first unless @client.cars.empty?
-            @budget.save
-            parameters[:b] = @budget.id
+            @budget.save            
           end
           logger.debug "#### Budget ID #{params[:budget_id]}"
-          flash[:notice] = "Cliente creado exitosamente"
-
-          #Si hay budget y no hay auto, muestro error y voy al new 
-          if @budget && @client.cars.empty?
-            logger.debug "### debe ingresar un auto"
-            @client.errors.add "", "Debe ingresar informacion del automovil"
-            @client.cars.build if @client.cars.empty?
-            @client.build_address unless @client.address
-            render :action => 'new'  
+          
+          #Si no hay auto, muestro error y voy al new 
+          if @client.cars.empty?
+            if @budget
+              logger.debug "### debe ingresar un auto"
+              @client.errors.add "", "Debe ingresar informacion del automovil"
+              @client.cars.build if @client.cars.empty?
+              @client.build_address unless @client.address
+              render :action => 'new'
+            else
+              logger.debug "### va a listado de clientes"
+              #si no hay auto y no hay budget id voy a lista de clientes          
+              redirect_to clients_path 
+            end
+          else
+            #si hay auto y no hay auto voy a crear orden de trabajo para el auto
+            unless @budget
+              logger.debug "### va a nueva orde de trabajo con #{@client.cars.first.id}"
+              redirect_to new_workorder_path(:car_id =>@client.cars.first.id)
+            end
+            
+            if @budget
+              logger.debug "### va a nueva orde de trabajo con budget #{@budget.id}"
+              #si hay auto y hay budget voy a crear orden de trabajo para el auto y el budget
+              redirect_to new_workorder_path(:b => @budget.id) 
+            end
           end
           
-          unless @client.cars.empty?
-            redirect_to new_workorder_path(:car_id =>@client.cars.first.id) unless @budget
-            redirect_to new_workorder_path(:car_id =>@client.cars.first.id,:b => @budget.id) if @budget
-          end
-
-          if @client.cars.empty? && params[:budget_id] == nil
-            redirect_to clients_path 
-          end
       else
         @client.cars.build if @client.cars.size == 0
         @client.build_address unless @client.address
+        logger.debug "### voy a new action"
+        # si hay error voy al view        
         render :action => 'new'
       end
-
     end
   end
 
@@ -105,6 +112,7 @@ class ClientsController < ApplicationController
       @client.cars.first.domain = @budget.domain
       @client.cars.first.brand = @budget.brand
       @client.cars.first.model =@budget.model
+      flash.now.notice ="Antes de registrar un servicio por favor cree el cliente"
     end
   end
 

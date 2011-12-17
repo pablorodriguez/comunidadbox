@@ -142,6 +142,7 @@ class CarsController < ApplicationController
 
     if params[:b]
       @budget = Budget.find params[:b]
+      @cars = user.cars
     end
         
     @car = Car.new

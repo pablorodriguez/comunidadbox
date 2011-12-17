@@ -19,6 +19,11 @@
           %a{:class=>"edit_comment comment link",:title=>"Modificar Comentario"}
         - unless wo_form.object.comment
           %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}              
+      - if wo_form.object.budget
+        .right
+          %h1
+            Presupuesto Nro:
+            = link_to wo_form.object.budget.id,wo_form.object.budget
       .hide
         = wo_form.text_area :comment
     #services_list.ordencontent
@@ -28,6 +33,6 @@
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     #total_work_order
       = number_to_currency @work_order.total_price    
-    .buttons.box_top
+    .buttons.box_top.box_bottom
       = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
     
