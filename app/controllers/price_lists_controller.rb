@@ -36,7 +36,7 @@ class PriceListsController < ApplicationController
   def create
     @price_list = PriceList.new(params[:price_list])
     @price_list.active=0
-    @price_list.company = current_user.company
+    @price_list.company = get_company
     respond_to do |format|
       if @price_list.save
         flash[:notice] = 'La Lista de Precio de grabo con exito'
@@ -50,7 +50,7 @@ class PriceListsController < ApplicationController
   end
   
   def index
-    @price_lists = get_all_price_list current_user.company.id
+    @price_lists = get_all_price_list company_id
   end
   
   def get_all_price_list(company_id)
@@ -58,13 +58,13 @@ class PriceListsController < ApplicationController
   end
   
   def copy
-    @price_lists = get_all_price_list current_user.company.id
+    @price_lists = get_all_price_list company_id
     render :action =>:index
   end
   
   def activate
     pl= PriceList.find(params[:id])
-    company_id=current_user.company.id
+    company_id = company_id
     plActive = PriceList.first(:conditions =>["company_id = ? and active=1",company_id])
     PriceList.transaction do      
       if plActive
@@ -118,7 +118,7 @@ class PriceListsController < ApplicationController
     @service_type_ids = params[:service_type_ids] ? params[:service_type_ids].values : []
     @percentage = params[:percentage] || ""
     @material = params[:material] || ""
-    company_id=current_user.company.id
+    company_id= company_id
     @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
       
     @price_list = PriceList.find id
@@ -133,7 +133,7 @@ class PriceListsController < ApplicationController
     @service_type_ids = params[:service_type_ids] || []
     @percentage = params[:percentage] || ""
     @material = params[:material] || ""
-    company_id=current_user.company.id
+    company_id = company_id
     @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page)
     @materials
   end
@@ -160,7 +160,7 @@ class PriceListsController < ApplicationController
   end
   
   def update_all_page(plid,percentage,service_types_ids,material)
-    materials = MaterialServiceType.m(current_user.company_id,id,service_types_ids,material,-1)
+    materials = MaterialServiceType.m(company_id,id,service_types_ids,material,-1)
     PriceList.transaction do
         materials.each do |key|
           mst=MaterialServiceType.find key.id

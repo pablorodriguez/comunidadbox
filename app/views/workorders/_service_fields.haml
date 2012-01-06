@@ -10,8 +10,8 @@
               %label.header_text_lable
                 = st_form.object.name
           .service_status
-            - if current_user.company
-              = f.collection_select(:operator_id,current_user.company.operators,:id,:full_name,{:prompt => "-- Seleccione Operario --",:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"})
+            - if company_id
+              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => "-- Seleccione Operario --",:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"})
             = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status left',:title=>"Estado"})
             = f.hidden_field :_destroy            
             = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})

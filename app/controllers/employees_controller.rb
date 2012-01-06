@@ -43,7 +43,7 @@ class EmployeesController < ApplicationController
   end
   
   def index
-    @employees = current_user.company.employees
+    @employees = get_company.employees
   end
   
   def edit
@@ -52,8 +52,9 @@ class EmployeesController < ApplicationController
   
   def create
     @employee = User.new(params[:user])
-    @employee.employer = current_user.company
+    @employee.employer = get_company
     @employee.creator = current_user
+    @employee.confirmed = true
     
     if @employee.save
       flash[:notice] = "Empleado creado exitosamente!"
@@ -68,7 +69,7 @@ class EmployeesController < ApplicationController
     first_name = params[:first_name] || ""
     last_name = params[:last_name] || ""
     @employees = User.where("employer_id like ? and first_name like ? and last_name like ? and email like ?",
-      current_user.company.id,"%#{first_name}%","%#{last_name}%","%#{email}%")
+      company_id,"%#{first_name}%","%#{last_name}%","%#{email}%")
    
     respond_to do |format|
       format.js 

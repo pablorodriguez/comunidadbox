@@ -2,7 +2,7 @@ class ControlPanelsController < ApplicationController
    layout "application", :except => [:find_models]
     
   def index   
-    @company_services = current_user.company.service_type
+    @company_services = get_service_types
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
 
     @eventos_rojo = Event.red.group(:service_type_id).count
@@ -59,7 +59,7 @@ class ControlPanelsController < ApplicationController
   
   def filter_alarms
     logger.debug "### entro"
-    @filters = ServiceFilter.find(:all,:order => :name)
+    #@filters = ServiceFilter.find(:all,:order => :name)
     
     #search all event type (et = event type)
     @events_ids = params[:events_ids] || ""
@@ -90,7 +90,7 @@ class ControlPanelsController < ApplicationController
       @service_filter.service_type_id = ServiceType.find(params[:st]).id
     end
     
-    @company_services = current_user.company.service_type
+    @company_services = get_service_types
     @brands = Brand.all(:order=>:name)    
     @models  = Array.new
     if @service_filter.brand_id
@@ -98,8 +98,10 @@ class ControlPanelsController < ApplicationController
     end
   
     @other_events = Event.other_events(@service_filter.service_type_id)
-    @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,current_user.company.id
+    @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,company_id
     
+    #logger.debug "### SQL #{@events.to_sql}"
+
     @page = params[:page] || 1
     per_page=90
     @events_count = @events.count

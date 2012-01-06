@@ -1,4 +1,4 @@
--if current_user.company
+-if company_id
   - if workorder.company_rank
     = form_for workorder.company_rank,:remote =>true do |f|
       = f.hidden_field :cal      
@@ -7,7 +7,7 @@
       = hidden_field :rank, :cal
       = hidden_field :rank,:type_rank,:value => 2
       = hidden_field :rank,:workorder_id,:value =>workorder.id
--unless current_user.company
+-else
   - if workorder.user_rank
     = form_for workorder.user_rank,:remote =>true do |f|
       = f.hidden_field :cal      

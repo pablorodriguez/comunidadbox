@@ -3,12 +3,20 @@ class ClientsController < ApplicationController
 
   def edit
     @client = User.find(params[:id])
+
     @client.address = Address.new unless @client.address
     @models = Array.new
+
+    unless @client.can_edit?(current_user)
+      flash[:notice] = "No puede modificar un cliente que no es suyo"
+      redirect_to clients_path
+    end
+
   end
 
   def show
     @client = User.find(params[:id])
+    @is_client = is_client @client
   end
 
   def update
@@ -16,8 +24,7 @@ class ClientsController < ApplicationController
     @models = Array.new
 
     if @client.update_attributes(params[:user])
-      flash[:notice] = 'Cliente actualizado con exito.'
-      redirect_to cars_path
+      render :action =>"show"
     else
       flash[:notice]= 'Error al actualizar los datos'
       render :action => 'edit'
@@ -39,63 +46,64 @@ class ClientsController < ApplicationController
     @client.password = @client.first_name + "test"
     @client.password_confirmation = @client.password
 
-    unless @client.address && @client.valid?
+    unless @client.address
       @client.address = current_user.address if current_user.address
     end
 
-    if @client && current_user.company
-      unless @client.service_centers.include?(current_user.company)
-        @client.service_centers << current_user.company
+    if @client && company_id
+      unless @client.service_centers.include?(get_company)
+        @client.service_centers << get_company
       end
     end
 
-    @client.cars.first.company = current_user.company if @client.cars.first
+    @client.cars.first.company = get_company if @client.cars.first
 
-    User.transaction do
-      if @client.save
-          if params[:budget_id]
-            @budget = Budget.find(params[:budget_id])
-            @budget.user = @client
-            @budget.car = @client.cars.first unless @client.cars.empty?
-            @budget.save            
-          end
-          logger.debug "#### Budget ID #{params[:budget_id]}"
-          
-          #Si no hay auto, muestro error y voy al new 
-          if @client.cars.empty?
-            if @budget
-              logger.debug "### debe ingresar un auto"
-              @client.errors.add "", "Debe ingresar informacion del automovil"
-              @client.cars.build if @client.cars.empty?
-              @client.build_address unless @client.address
-              render :action => 'new'
-            else
-              logger.debug "### va a listado de clientes"
-              #si no hay auto y no hay budget id voy a lista de clientes          
-              redirect_to clients_path 
-            end
+    @budget = Budget.find(params[:budget_id]) if params[:budget_id]
+    
+    if @client.save
+        if params[:budget_id]    
+          @budget.user = @client
+          @budget.car = @client.cars.last
+          @budget.save            
+          logger.debug "#### Budget ID #{params[:budget_id]} user id #{@client.id} #{@budget.user.id}"  
+      end
+        
+        
+        #Si no hay auto, muestro error y voy al new 
+        if @client.cars.empty?
+          if @budget
+            logger.debug "### debe ingresar un auto"
+            @client.errors.add "", "Debe ingresar informacion del automovil"
+            @client.cars.build if @client.cars.empty?
+            @client.build_address unless @client.address
+            render :action => 'new'
           else
-            #si hay auto y no hay auto voy a crear orden de trabajo para el auto
-            unless @budget
-              logger.debug "### va a nueva orde de trabajo con #{@client.cars.first.id}"
-              redirect_to new_workorder_path(:car_id =>@client.cars.first.id)
-            end
-            
-            if @budget
-              logger.debug "### va a nueva orde de trabajo con budget #{@budget.id}"
-              #si hay auto y hay budget voy a crear orden de trabajo para el auto y el budget
-              redirect_to new_workorder_path(:b => @budget.id) 
-            end
+            logger.debug "### va a listado de clientes"
+            #si no hay auto y no hay budget id voy a lista de clientes          
+            redirect_to clients_path 
+          end
+        else
+          #si hay auto y no hay auto voy a crear orden de trabajo para el auto
+          unless @budget
+            logger.debug "### va a nueva orden de trabajo con #{@client.cars.first.id}"
+            redirect_to new_workorder_path(:car_id =>@client.cars.first.id)
           end
           
-      else
-        @client.cars.build if @client.cars.size == 0
-        @client.build_address unless @client.address
-        logger.debug "### voy a new action"
-        # si hay error voy al view        
-        render :action => 'new'
-      end
+          if @budget
+            logger.debug "### va a nueva orden de trabajo con budget #{@budget.id}"
+            #si hay auto y hay budget voy a crear orden de trabajo para el auto y el budget
+            redirect_to new_workorder_path(:b => @budget.id) 
+          end
+        end
+        
+    else
+      @client.cars.build if @client.cars.empty?
+      @client.build_address unless @client.address
+      logger.debug "### voy a new action error"
+      # si hay error voy al view        
+      render :action => 'new'
     end
+  
   end
 
   def new
@@ -124,13 +132,13 @@ class ClientsController < ApplicationController
     last_name = params[:last_name] || ""
     company_name = params[:company_name] || ""
 
-#    @clients = User.where("cars.company_id = ?",current_user.company.id).includes(:cars)
-    @clients = current_user.company.customers
-    @clients = @clients.where("first_name like ?","%#{first_name}%") unless first_name.empty?
-    @clients = @clients.where("last_name like ?","%#{last_name}%") unless last_name.empty?
+
+    @clients = User.clients
+
+    @clients = @clients.where("last_name like ?","%#{last_name}%")
     @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
     @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?
-    @clients = @clients.order("first_name,last_name").paginate(:page =>page,:per_page =>per_page)
+    @clients = @clients.order("last_name,first_name").paginate(:page =>page,:per_page =>per_page)
     logger.debug "### #{@clients.to_sql}"
 
     respond_to do |format|

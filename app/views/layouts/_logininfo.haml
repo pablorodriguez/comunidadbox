@@ -15,14 +15,20 @@
               = link_to "Prestadores de Servicios", all_companies_path
             %li
               = link_to "Ayuda", "#"                      
-  - if user_signed_in?  
+  -if user_signed_in?  
     %ul  
       %li
         %h3
           = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"    
-      %li
-        %h3
-          = current_user.company.name if current_user.company
+      -if company_id
+        %li
+          %h3        
+            #company_id
+              -if current_user.companies.size > 1             
+                = form_tag set_company_home_index_path,:id=>:comp_form do |f|
+                  = collection_select "company","id",current_user.all_companies,"id","name",{:selected => cookies[:company_id]},{:onchange =>"$('#comp_form').submit();"}
+              -else
+                = get_company.name
     .clear
       %ul  
         %li

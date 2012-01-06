@@ -9,5 +9,5 @@
         Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Disfrutelo!
         %br
       - if user_signed_in?
-        - if current_user.company && current_user.company.service_type.empty?
+        - if company_id && get_service_types.empty?
           = link_to "Por favor registre sus tipos de servicios", service_types_companies_path

@@ -39,7 +39,7 @@ class ServicesController < ApplicationController
     if material_d_p.service_type_id == nil
       material_d_p.service_type_id =@service.service_type.id
     end
-    material_d = MaterialDetail.all(:conditions=>["detail = ? and company_id = ? and service_type_id = ?",material_d_p.detail,current_user.company.id,material_d_p.service_type_id])[0]
+    material_d = MaterialDetail.all(:conditions=>["detail = ? and company_id = ? and service_type_id = ?",material_d_p.detail,company_id,material_d_p.service_type_id])[0]
     
     mst = MaterialServiceType.find_by_material_id_and_service_type_id(material_d.material_id,material_d.service_type_id)
     @material_service = MaterialService.new

@@ -5,7 +5,7 @@
     = render "home/menu",:s=>:cars
     .box_bottom
       =render :partial=>"search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
-    -if current_user.company
+    -if company_id
       .box_bottom
         = render "search_clients"      
     = render "home/default_actions"

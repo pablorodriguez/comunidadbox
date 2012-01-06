@@ -1,6 +1,6 @@
-include ActionView::Helpers::NumberHelper
-
 class Workorder < ActiveRecord::Base
+
+  include ActionView::Helpers::NumberHelper
     
   has_many :services, :dependent => :destroy
   has_many :notes,:dependent => :destroy
@@ -12,12 +12,14 @@ class Workorder < ActiveRecord::Base
   has_many :ranks
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :payment_method
-  validate :service_not_empty
+  
+  validate :validate_all
   
   before_save :set_status
   after_initialize :init
 
   normalize_attributes :comment
+
 
   def type(type)
     ranks.select{|r| r.type_rank == type}.first
@@ -37,14 +39,16 @@ class Workorder < ActiveRecord::Base
     type 2
   end
 
-  def self.build_from_budget(budget_id)
-    budget = Budget.find budget_id
-    
-    if budget
-
-      if budget.car
-      end
-    else
+  # inizializo una orden de trabajo con un budget
+  def initialize_with_budget n_budget
+    self.car = n_budget.car
+    self.budget = n_budget
+    n_budget.services.each do |s|
+      n_s = s.clone  
+      s.material_services.each do |ms|
+        n_s.material_services << ms.clone
+      end 
+      self.services << n_s        
     end
   end
   
@@ -60,10 +64,18 @@ class Workorder < ActiveRecord::Base
     self.payment_method = PaymentMethod.find 1 unless self.payment_method        
   end
   
-  def service_not_empty
+  def validate_all
     if services.size == 0
       errors.add_to_base("La orden de trabajo debe contener servicios")      
     end
+
+    if user.company
+      unless user.company.is_employee(user)
+        errors.add_to_base("El prestador de servicios es incorrecto")
+      end
+
+    end
+
   end
   
   def find_car_service_offer(company_id,status= Status::CONFIRMED)
@@ -165,7 +177,7 @@ class Workorder < ActiveRecord::Base
   end
   
   def can_edit?(usr)
-    if ((company.id == usr.company.id) && (open? || in_progress?))
+    if ((company.is_employee(usr)) && (open? || in_progress?))
       return true
     else
       return false   
@@ -238,7 +250,7 @@ class Workorder < ActiveRecord::Base
     
     domain =  filters[:domain] || ""
     
-    workorders = Workorder.includes(:company,:payment_method,:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
+    workorders = Workorder.includes([:company,:payment_method],:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
     workorders = workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     #workorders = workorders.order("service_types.name")
     if filters[:user] && filters[:user].company.nil?
@@ -283,4 +295,6 @@ class Workorder < ActiveRecord::Base
       end
     end
   end
+
+
 end

@@ -37,10 +37,8 @@ class MaterialsController < ApplicationController
 
   def details
     @company_id = Company::DEFAULT_COMPANY_ID
-    if current_user.company_id
-      @company_id = current_user.company_id
-    end
-    logger.debug "### #{params[:detail].size}"
+        
+    @company_id = company_id if company_id        
     
     @detail = params[:detail] != "" ? params[:detail].gsub(/\s/,"%").upcase : "NUL"
     @service_type_id = params[:service_type][:id].to_i

@@ -1,11 +1,11 @@
 .vertical_menu
   = render "home/menu"
-  #menua_ctions
-    %h3 Acciones
-    #menu_actions
-      %ul
-        %li
-          = link_to "Modificar",edit_client_path(@client)  
+  - if @client.can_edit?(current_user)
+    .box_bottom
+      .menu_actions
+        %ul
+          %li
+            = link_to "Modificar",edit_client_path(@client)  
 .contentright_s
   .box_bottom
     %h1 Cliente
@@ -22,23 +22,24 @@
           %td Apellido
           %td
             = @client.last_name
-        %tr
-          %td Email
-          %td
-            = @client.email
-        %tr
-          %td Razón Social
-          %td
-            = @client.company_name
-        %tr
-          %td CUIT
-          %td
-            = @client.cuit
-        %tr
-          %td Teléfono
-          %td
-            = @client.phone
-  - if @client.address
+        - if @is_client
+          %tr
+            %td Email
+            %td
+              = @client.email
+          %tr
+            %td Razón Social
+            %td
+              = @client.company_name
+          %tr
+            %td CUIT
+            %td
+              = @client.cuit
+          %tr
+            %td Teléfono
+            %td
+              = @client.phone
+  - if @client.address && @is_client
     .box_bottom
       %h3 Dirección
       %table.w

@@ -5,7 +5,7 @@
         .action
           = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"} 
       
-      - if user_signed_in? && current_user.company.nil?
+      - if user_signed_in? && company_id.nil?
         .action
           = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}    
     .left

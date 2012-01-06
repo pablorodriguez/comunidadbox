@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:search]
 
   def service_types
-    @company = current_user.company
+    @company = get_company
     @not_in = @company.service_type.collect {|x| x.id.to_i }
     if @not_in.size >0
       @service_types =ServiceType.find(:all,:conditions => ["id NOT IN (?) ",  @not_in],:order =>'name')
@@ -176,7 +176,7 @@ class CompaniesController < ApplicationController
   end
 
   def add_service_type
-    company = current_user.company
+    company = get_company
     companyService = company.company_service.build
     @service_error = false
     service_type = ServiceType.find(params[:id])
@@ -192,7 +192,7 @@ class CompaniesController < ApplicationController
 
   def remove_service_type
     @service_type_id = params[:id].to_i
-    company_id= current_user.company.id
+    company_id= company_id
     company_service = CompanyService.all(:conditions=>["company_id = ? and service_type_id = ?",company_id,@service_type_id])
     @msg ="Tipo de Servicio eliminado exitosamente"
     @service_error = false

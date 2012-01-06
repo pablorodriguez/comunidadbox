@@ -1,43 +1,28 @@
-#filters.hide
-  %h1 Filtros
-  %table.w
-    %tr
-      %td Nombre
-    %tr
-      %td
-        .left
-          = f.text_field 'name',{:class=>"short_text"}
-          %label{:id=>'filter_label',:class=>:link,:style=>"display:none"}
-          #service_offers
-          = collection_select(:service_offer,:service_type, @filters,:id,:name,{:include_blank=>:true},{:class=>"change medium_select",:id=>:sf,:name=>:sf,:selected=>@sf,:style=>"display:none"})
-        .right
-          = image_tag('save.png',{:id=>:save_filter,:class=>:link})
-          = image_tag('find.png',{:id=>:find_filter,:class=>:link})
 #search.box_bottom
   %h3 Buscar
   %table.w
     %tr
       %td
-        =f.collection_select(:service_type_id, @company_services,:id,:name,{:prompt=>"-- Tipo de Servicio --"},{:class=>"change long_select"})
+        =f.collection_select(:service_type_id, @company_services,:id,:name,{:include_blank=>"-- Tipo de Servicio --"},{:class=>"change long_select"})
     %tr
       %td
-        = f.collection_select(:state_id, @states, 'id', 'name', {:prompt=>"-- Provincia --"},{:class=>"clear change long_select"})
+        = f.collection_select(:state_id, @states, :id, :name, {:include_blank=>"-- Provincia --"},{:class=>"clear change long_select"})
     %tr  
       %td
         =f.text_field :city,{:class=>"clear change labelify",:style=>"width:174px",:title=>"Ciudad"}
     %tr
       %td
-        = f.collection_select(:brand_id, @brands, :id, :name, {:prompt=>"-- Marca --"},{:class=>"clear change long_select"})
+        = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>"-- Marca --"},{:class=>"clear change long_select"})
     %tr
       %td
         #models
-          = f.collection_select(:model_id, @models, 'id', 'name', {:prompt=>"-- Modelo --"},{:class=>'model clear change long_select'})  
+          = f.collection_select(:model_id, @models, :id, :name, {:prompt=>"-- Modelo --"},{:class=>'model clear change long_select'})  
     %tr
       %td
-        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:prompt=>"-- Combustible --"},{:class=>"clear change long_select"})
+        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:include_blank=>"-- Combustible --"},{:class=>"clear change long_select"})
     %tr
       %td
-        =f.collection_select(:year,@years,:to_i,:to_i,{:prompt=>"-- Año --"},{:class=>"clear change long_select"})
+        =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>"-- Año --"},{:class=>"clear change long_select"})
 #event_types.box_bottom
   %h3 Seleccione Eventos  
   %table.w  

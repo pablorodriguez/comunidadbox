@@ -3,7 +3,7 @@
   = form_for @price_list,:url => items_price_list_path(@price_list),:html=>{:method =>:get} do |ff|
     %table
       %tbody
-      - for service_type in current_user.company.service_type
+      - for service_type in get_service_types
         %tr
           %td
             = check_box_tag "service_type_ids[#{service_type.id}]",service_type.id,@service_type_ids.include?(service_type.id.to_s),:class =>"service_type_id checkbox"

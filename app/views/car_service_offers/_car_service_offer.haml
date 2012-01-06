@@ -50,6 +50,6 @@
         = link_to "Servicio", @car_service_offer.service.workorder
 %p
   = link_to_back
-  - if current_user.company
+  - if company_id
     - if (@car_service_offer.service_offer.status == 'Pendiente' || @car_service_offer.service_offer.status == 'Abierto')
       = link_to image_tag('edit.png'), edit_service_offer_path(@car_service_offer.service_offer) 

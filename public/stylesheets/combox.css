@@ -1068,6 +1068,17 @@ table.comboxtable, .comboxform,table.w{
   margin-top:5px;
 }
 
+#avatar_login #company_id:hover{
+  color:black;  
+}
+
+#avatar_login #company_id select{
+    width:270px;
+}
+
+#avatar_login #company_id1{ 
+    padding:3px;
+}
 #avatar_login a {
   float:left;
 }
@@ -1548,8 +1559,8 @@ td.number, th.number{
 
 .wo_detail .hide_info{
   position:absolute;
-  right:0px;
-  top:90px;
+  right:105px;
+  top:5px;
   margin-right:1px;
   z-index:100;
   background-color: #E6E6E6;
@@ -2310,6 +2321,12 @@ input.labelHighlight,textarea.labelHighlight {
 .client{
   margin-bottom:5px;
   overflow:auto;
+}
+
+.client .phone{
+  margin-left:3px;
+  float:left;
+  font-weight:bold;
 }
 
 #breadcrums_menu{

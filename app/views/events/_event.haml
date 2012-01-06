@@ -9,7 +9,7 @@
       %div{:class=>css}
         - st = create_service_type_tool_tip oe
         %label{:title =>"#{st}"}
-          = event.belongs_to_company(current_user.company) ? link_to(event.car.domain, event.car) : event.car.domain
+          = link_to(event.car.domain, event.car)
     .left.clear.link.due_date{:title =>"Mas Detalle"}
       = l event.dueDate
 
@@ -29,10 +29,10 @@
   .left.clear{:title=>"Fecha a Realizar"}
     = l event.dueDate
   %strong.left.clear{:title=>"Importe gastado en tu empresa"}
-    = number_to_currency(event.car.total_spend(current_user.company.id,event.service_type.id))
+    = number_to_currency(event.car.total_spend(company_id,event.service_type.id))
   .right{:title=>"Importe gastado en total"}
     = number_to_currency(event.car.total_spend(nil,event.service_type.id))
-  -if event.service.workorder.company.id == current_user.company.id
+  -if event.service.workorder.company.id == company_id
     .left.clear
       = event.car.user.full_name
     .left

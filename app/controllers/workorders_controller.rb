@@ -1,5 +1,5 @@
 class WorkordersController < ApplicationController
-  #redirect_to(request.referer), redirect_to(:back)
+  #redirect_to(request.referer), redirect_to(:back)  
 
   add_breadcrumb "Buscar", :all_companies_path
   add_breadcrumb "Autos", :cars_path
@@ -26,8 +26,8 @@ class WorkordersController < ApplicationController
 
   def index
     page = params[:page] || 1
-
-    @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
+    
+    @company_services = get_service_types 
     per_page = 10
     @sort_column = sort_column
     @direction = sort_direction
@@ -47,7 +47,7 @@ class WorkordersController < ApplicationController
     filters_params[:domain] = @domain
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
     filters_params[:wo_status_id] = @status_id if @status_id
-    filters_params[:company_id] = current_user.company.id if current_user.company
+    filters_params[:company_id] = company_id if company_id
 
     filters_params[:user] = current_user
 
@@ -144,7 +144,7 @@ class WorkordersController < ApplicationController
   def update
     @work_order = Workorder.find(params[:id])
     cso_ids = params["cso_ids"] || []
-    company_id =  current_user.company ? current_user.company.id : params[:company_id]
+    company_id =  get_company_id(params)
     respond_to do |format|
 
     if @work_order.update_attributes(params[:workorder])
@@ -173,7 +173,7 @@ class WorkordersController < ApplicationController
       format.xml  { head :ok }
     else
       @car_service_offers = @work_order.find_car_service_offer(company_id)
-      @service_types = current_user.service_types
+      @service_types = get_service_types
 
       format.html { render :action => "edit" }
       format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
@@ -184,7 +184,8 @@ class WorkordersController < ApplicationController
 
   def edit
     @work_order= Workorder.find(params[:id])
-    @service_types = current_user.service_types
+    @service_types = get_service_types
+
     @car_service_offers = @work_order.car_service_offers
     @company = @work_order.company
     if ((@car_service_offers.size == 0) && (@company))
@@ -194,17 +195,20 @@ class WorkordersController < ApplicationController
   end
 
   def create
-    company_id =  current_user.company ? current_user.company.id : params[:company_id]
+    company = get_company
+    company_id = company.id
+    
     cso_ids = params["cso_ids"] || []
-    @work_order = Workorder.new(params[:workorder])    
+
+    @work_order = Workorder.new(params[:workorder])     
+    @work_order.company_id = company_id
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     saveAction =false
 
-
     car = @work_order.car
-    unless car.user.service_centers.include?(current_user.company)
-      car.user.service_centers << current_user.company
+    unless car.user.service_centers.include?(company)
+      car.user.service_centers << company
     end
 
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
@@ -233,13 +237,16 @@ class WorkordersController < ApplicationController
   end
 
   def new
-    @company_id =  current_user.company ? current_user.company.id : params[:company_id]
     @work_order = Workorder.new
+
+    company = get_company params
+    
     @work_order.performed = I18n.l(Time.now.to_date)
     @work_order.company_info  = params[:c] if params[:c]
+    @work_order.company = company if company
 
-    @work_order.company = Company.find @company_id if @company_id
-    unless params[:car_id] && current_user.cars.size > 0
+    # si no hay parametro de auto, no hay paramtro de presupuesto tomo el primer auto del usuario registrado
+    if (params[:car_id].nil? && params[:b].nil?)
       @work_order.car = current_user.cars.first
     end
    
@@ -249,31 +256,34 @@ class WorkordersController < ApplicationController
       @work_order.car = Car.find(car_id)
     end
 
-    @service_types = current_user.service_types
-    @car_service_offers = @work_order.find_car_service_offer(@company_id)  
+    @service_types = current_user.service_types    
 
+    # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
-      budget = Budget.find params[:b]
-      
-      # si no hay auto en el budget y no hay auto como parametro
-      unless budget.car
-        # si no hay usuario voy a crear nuevo cliente
-        if budget.user.nil?
-          redirect_to(new_client_path(:b => budget.id)) 
-        end
+      budget = Budget.companies(company_id).find params[:b]
 
-      else  
-        @work_order.car = budget.car
-        @work_order.budget = budget
-        budget.services.each do |s|
-          n_s = s.clone  
-          s.material_services.each do |ms|
-            n_s.material_services << ms.clone
-          end 
-          @work_order.services << n_s        
-        end
+      if budget
+        # si no hay auto en el budget y no hay auto como parametro
+        unless budget.car
+          # si no hay usuario voy a crear nuevo cliente
+          if budget.user.nil?
+            redirect_to(new_client_path(:b => budget.id))
+            return
+          end
+        end  
+
+        @work_order.initialize_with_budget(budget)
+
+        logger.info "### WO Card ID #{@work_order.car.domain}"
+      else
+        flash[:notice] ="El presupuesto no pertenece a su empresa"
+        redirect_to budgets_path
       end
     end
+    
+    #busco las ofertas de servicios para el auto asignado a la orden de trabajo
+    @car_service_offers = @work_order.find_car_service_offer(company.id)  if company
+
   end
 
   def task_list

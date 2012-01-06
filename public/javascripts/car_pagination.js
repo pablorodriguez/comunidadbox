@@ -43,28 +43,20 @@ jQuery(document).ready(function(){
   $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
   $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
   $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
-  $("#notes").click(function(){showHideContent($(this),"#cars_notes");});  
+  $("#note").click(function(){showHideContent($(this),"#cars_notes");});  
   $("#messages").click(function(){showHideContent($(this),"#cars_messages");});
 
   $(".contentright_s .labelify").labelify({ labelledClass: "labelHighlight" });
 
-  $("form.note_form2").bind("ajax:success", function(evt, data, status, xhr){
-      var $form = $(this);
-      this.reset();
-      $(xhr.responseText).insertBefore($form.parent().parent().next().find(".note").first());
-      $form.parent().parent().parent().parent().find(".notes_link").show().parent().show()
-      $form.parent().parent().next().find(".note").first().effect("highlight", {color:"#F7DE4F"}, 3000);
-    })
+  $("#car_domain").mouseenter(function(){
+    $("#client_info").fadeIn();
+  }).mouseleave(function(){
+    $("#client_info").fadeOut();
+  });
 
-    $("#car_domain").mouseenter(function(){
-      $("#client_info").fadeIn();
-    }).mouseleave(function(){
-      $("#client_info").fadeOut();
-    });
-
-    $(".wo_info_detail").click(function(){      
-      $(this).parent().parent().parent().next().toggle();
-    });
+  $(".wo_info_detail").click(function(){      
+    $(this).parent().parent().parent().next().toggle();
+  });
 
 });
 

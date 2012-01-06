@@ -25,10 +25,10 @@
   - if can_show
     .actions.right
       .action.info.wo_info_detail.link
-      - unless current_user.company
+      - unless company_id
         .action
           = link_to_pdf work_order_row 
-      - if current_user.company
+      - else
         .action
           = print_to_pdf work_order_row
       .action

@@ -6,7 +6,7 @@ gem 'rails', '3.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql'
-gem 'mysql2'
+gem 'mysql2','< 0.3'
 gem "haml"
 gem "will_paginate", "~> 3.0.pre2"
 gem "foreigner"

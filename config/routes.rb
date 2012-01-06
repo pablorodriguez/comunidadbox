@@ -62,7 +62,7 @@ ComunidadBox::Application.routes.draw do
   match "conf" => "conf#show"
   match "vgneumaticos"=>"guests#new"
 
-  devise_for :users,:controllers => { :registrations => "users/registrations" }
+  devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions' }
 
   resources :guests
   resources :authentications
@@ -75,7 +75,13 @@ ComunidadBox::Application.routes.draw do
   resources :car_filters
   resources :ranks
   resources :tasks
-  resources :home
+
+  resources :home do
+    collection do
+      post :set_company
+    end
+  end
+
   resources :events
   resources :notes
 

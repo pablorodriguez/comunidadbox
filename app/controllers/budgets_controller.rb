@@ -1,11 +1,12 @@
 class BudgetsController < ApplicationController
+  
   # GET /budgets
   # GET /budgets.xml
   def index
     page = params[:page] || 1
     per_page = 10
 
-    @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
+    @company_services = get_service_types
     @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = @service_type_ids.size > 0 ? true : false
 
@@ -20,12 +21,12 @@ class BudgetsController < ApplicationController
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
     filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
-    filters_params[:company_id] = current_user.company.id if current_user.company
+    filters_params[:company_id] = company_id if company_id
 
     filters_params[:user] = current_user
     @budgets = Budget.find_by_params filters_params
 
-    @budgets = @budgets.order("budgets.created_at DESC").paginate(:page =>page,:per_page =>per_page)
+    @budgets = @budgets.paginate(:page =>page,:per_page =>per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +56,7 @@ class BudgetsController < ApplicationController
   # GET /budgets/new.xml
   def new
     @budget = Budget.new
-    @service_types = current_user.service_types
+    @service_types = get_service_types
     if params[:c]
       c = User.find(params[:c]) 
       @budget.user = c if c
@@ -74,8 +75,7 @@ class BudgetsController < ApplicationController
   # GET /budgets/1/edit
   def edit
     @budget = Budget.find(params[:id])
-    @service_types = current_user.service_types
-    @company_services = current_user.company ? current_user.company.service_type : current_user.service_types
+    @service_types = get_service_types
   end
 
   # POST /budgets
@@ -83,7 +83,7 @@ class BudgetsController < ApplicationController
   def create
     @budget = Budget.new(params[:budget])
     @budget.creator = current_user
-    @budget.company = current_user.company
+    @budget.company = get_company
 
     respond_to do |format|
       if @budget.save
@@ -101,10 +101,10 @@ class BudgetsController < ApplicationController
   # PUT /budgets/1.xml
   def update
     @budget = Budget.find(params[:id])
-    @service_types = current_user.service_types
+    @service_types = get_service_types
     respond_to do |format|
       if @budget.update_attributes(params[:budget])
-        format.html { redirect_to(@budget, :notice => 'Budget was successfully updated.') }
+        format.html { redirect_to(@budget) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

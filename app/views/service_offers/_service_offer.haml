@@ -48,7 +48,7 @@
     - if (service_offer.status == Status::PENDING || service_offer.status == Status::OPEN)
       .box_bottom  
         = link_to image_tag('edit.png'), edit_service_offer_path(service_offer),:title =>"Modificar"
-    -if current_user.company && service_offer.status != Status::SENT
+    -if company_id && service_offer.status != Status::SENT
       = link_to image_tag('delete.png'), service_offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
         
       

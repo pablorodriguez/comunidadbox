@@ -9,8 +9,8 @@
           = f.collection_select(:car_id,f.object.user.cars,:id,:domain,{:prompt=>"Seleccione un auto"},{:class=>"long_select"})
     %tr
       %td Dominio
-      %td
-        = f.text_field :domain
+      %td        
+        = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"labelify input_short",:title=>"XXX999"
     %tr
       %td{:style=>"width:100px"} Marca
       %td        

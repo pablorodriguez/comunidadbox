@@ -34,10 +34,13 @@ jQuery(document).ready( function(){
     }
   });
 
+
   $('.brand').live("change",searchModel);
   $("#user_type").live("click",setUserType);
+
   		
 });
+
 
 function setUserType(){
   if ($("#user_type").val() == "u"){

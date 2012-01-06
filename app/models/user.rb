@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
 	# :http_authenticatable, :token_authenticatable, :confirmable,:lockable, :timeoutable and :activatable
-  devise :registerable, :database_authenticatable,:confirmable, :recoverable,:rememberable, :trackable, :validatable
+  devise :registerable, :database_authenticatable, :recoverable,:rememberable, :trackable, :validatable
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation
 
@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address,:reject_if =>lambda {|a| a[:street].blank?}
   accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
   accepts_nested_attributes_for :cars,:reject_if =>lambda {|a| a[:domain].blank?}
+
+  scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
 
   NULL_ATTRS = %w( company_name cuit )
   before_save :nil_if_blank
@@ -92,15 +94,11 @@ class User < ActiveRecord::Base
   end
 
   def own(comp)
-    if company_id == comp.id
-      return true
-    end
-    companies.each do |c|
-      if c.id == comp.id        
-        return true
-      end
-    end
-    return false
+    
+    return true if company_id == comp.id
+    
+    return companies.select{|c| c.id == comp.id}.size > 0 ? true : false
+    
   end
 
   def own_car car
@@ -211,18 +209,30 @@ class User < ActiveRecord::Base
     if company
       sp = company.service_type
     else
-       sp = ServiceType.all(:order =>"name") unless company
+       sp = ServiceType.all(:order =>"name")
     end
    sp
   end
 
   def state
     return address.state if address && address.state
-    return nil
   end
 
- def can_edit? user
-   confirmed_at.nil? && creator && user.company.is_employee(creator)
- end
+  def can_edit? user
+    confirmed_at.nil? && creator && user.company.is_employee(creator)
+  end
+
+  def is_client? user
+    return false if companies.empty?
+    return Company.is_client?(companies.map(&:id),user.id)
+  end
+  
+  def all_companies
+    all = Company.new
+    all.id="-1"
+    all.name="-- Todas --"
+    [all] + self.companies
+  end
+
 end
 

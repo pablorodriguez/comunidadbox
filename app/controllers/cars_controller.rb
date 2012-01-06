@@ -1,7 +1,7 @@
 class CarsController < ApplicationController
 
-  add_breadcrumb "Buscar", :all_companies_path
-  add_breadcrumb "Autos", :cars_path  
+  #add_breadcrumb "Buscar", :all_companies_path
+  #add_breadcrumb "Autos", :cars_path  
   
   layout "application", :except => [:search,:update_km,:update_km_avg,:find_models,:search_companies] 
   skip_before_filter :authenticate_user!,:only => [:find_models]
@@ -16,8 +16,8 @@ class CarsController < ApplicationController
     @user = current_user
     per_page = 12
     
-    if current_user.company
-      @company_cars = current_user.company.cars
+    if company_id
+      @company_cars = get_company.cars
     else
       @company_cars = current_user.cars
     end
@@ -86,8 +86,6 @@ class CarsController < ApplicationController
     data = params[:d] || "all"
     filters ={}
 
-    add_breadcrumb "Servicios", workorders_path
-    add_breadcrumb "Panel de Control", control_panels_path if current_user.company
     per_page = 10
     respond_to do |format|
 
@@ -95,10 +93,11 @@ class CarsController < ApplicationController
       @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
         .paginate(:per_page=>per_page,:page =>page)
       filters[:domain] = @car.domain
-      unless current_user.company
+      unless company_id
         filters[:user] = current_user
       end
-      #filters[:company_id] = current_user.company.id if current_user.company
+      
+
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
       @companies = Company.best current_user.state 
       @notes = Note.where("user_id = ? and workorder_id is null",@car.user.id).order("created_at desc")
@@ -159,7 +158,7 @@ class CarsController < ApplicationController
   # POST /cars.xml
   def create
     @car = Car.new(params[:car])
-    @car.company = current_user.company if current_user.company
+    @car.company = get_company if company_id
     parameters = {:car_id => @car.id}
     if params[:budget_id]
       parameters[:b] = params[:budget_id]

@@ -4,10 +4,10 @@
     %li
       #cars_link.menu
         = image_tag "cars.png"
-        - if current_user.company
-          = link_to "Autómoviles", clients_path
-        - unless current_user.company  
-          = link_to "Autómoviles", my_cars_path   
+        - if company_id
+          = link_to "Clientes", clients_path
+        - else
+          = link_to "Mis Autómoviles", my_cars_path   
     %li
       #service_done.link.menu
         = image_tag "service.png"
@@ -33,7 +33,8 @@
     %li
       #alarms.link.menu
         = image_tag "alarm.png"
-        = link_to "Alarmas",alarms_path
+        Alarmas
+        -#= link_to "Alarmas",alarms_path
     .hide
       %li
         #messages.link.menu
@@ -44,14 +45,19 @@
   #cars_work_orders_menu.menu_data
     = hidden_field_tag 'car_id',@car.id
     %ul
-      - if current_user.company
-        %li
-          = link_to "Nuevo Servicio",new_workorder_path(:car_id =>@car),:id=>"create_new_service",:title=>"Nuevo Servicio"
+      - if company_id
         %li
           = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}             
       - if @car.user.can_edit?(current_user)              
         %li
           = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} 
+        %li
+          = link_to "Nuevo Servicio",new_workorder_path(:car_id =>@car),:id=>"create_new_service",:title=>"Nuevo Servicio"
+      - else
+        %li
+          = link_to_function "Nuevo Servicio","createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
+        .hide      
+          = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
       - if @car.can_edit?(current_user)
         %li
           = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
@@ -62,11 +68,5 @@
       .hide
         %li
           = link_to_function "Nuevo Mensaje","createNewMessage(#{@car.id})",{:title=>"Nuev Mensaje"}
-
-    - unless current_user.company
-      %li
-        = link_to_function "Nuevo Servicio","createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}
-      .hide      
-        = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
 
       

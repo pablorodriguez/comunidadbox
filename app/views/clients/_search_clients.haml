@@ -1,7 +1,7 @@
 #client_search
   %h3 Buscar Clientes
   .form
-    - form_tag clients_path, :remote =>true, :method =>:get do
+    = form_tag clients_path, :remote =>true, :method =>:get do
       = text_field_tag 'email',"",:class=>"labelify",:title=>"Correo Eléctronico"
       = text_field_tag 'first_name',"",:class=>"labelify",:title=>"Nombre"
       = text_field_tag 'last_name',"",:class=>"labelify",:title=>"Apellido"  

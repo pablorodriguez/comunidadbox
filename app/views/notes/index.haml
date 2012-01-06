@@ -1,29 +1,36 @@
+-javascript "notes"
 .vertical_menu
   = render "home/menu"
   .menu_actions.box_bottom
     %ul
-      %li   
-        = link_to "Nueva Nota", new_note_path
       %li
         = link_to "Nuevo Cliente", new_client_path
+      %li
+        = link_to_function "Nueva Nota","createNewNote();",{:title=>"Nueva Nota"}
+
 .contentright_s
   .box_bottom
-    %h1 Listado de Notas  
-  .notes.box_bottom
-    - @notes.each do |note|    
-      %div{:id=>"note-#{note.id}",:class=>"note"}
-        .left
-          = note.message
-        -if note.creator_id == current_user.id
-          .actions.right
-            .action
-              = link_to "",edit_note_path(note),:class=>"edit",:title =>"Modificar"
-            .action
-              = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true ,:class=>"delete"
-            
-        .info_n.clear
-          .date
-            %lable{:title =>"Creado el"}
-              = l note.created_at,:format => :short      
-            %label{:title =>"Creado por"}
-              =note.creator.full_name
+    %h1 Listado de Notas
+  #notes
+    #notes_form_container.box_bottom.hide.clear
+      = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> nil}  
+    .notes.box_bottom
+      - @notes.each do |note|
+        = render "notes_small_view",:note => note
+        .hide
+          %div{:id=>"note-#{note.id}",:class=>"note"}
+            .left
+              = note.message
+            -if note.creator_id == current_user.id
+              .actions.right
+                .action
+                  = link_to "",edit_note_path(note),:class=>"edit",:title =>"Modificar"
+                .action
+                  = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true ,:class=>"delete"
+              
+          .info_n.clear
+            .date
+              %lable{:title =>"Creado el"}
+                = l note.created_at,:format => :short      
+              %label{:title =>"Creado por"}
+                =note.creator.full_name

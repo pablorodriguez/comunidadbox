@@ -23,10 +23,9 @@ class ServiceOffersController < ApplicationController
     if current_user.is_administrator
       @cars = @service_offer.car_service_offer
     end
+        
+    @cars = @service_offer.my_cars(current_user) if company_id
     
-    unless current_user.company
-      @cars = @service_offer.my_cars(current_user)
-    end
   end
 
   def new_s
@@ -57,12 +56,12 @@ class ServiceOffersController < ApplicationController
   end
   
   def get_offer_confirmerd
-    ServiceOffer.where(["company_id = ? and status= ?",current_user.company,:Confirmado])  
+    ServiceOffer.where(["company_id = ? and status= ?",get_company,:Confirmado])  
   end
   
   def create
     @offer = ServiceOffer.new(params[:service_offer])
-    @offer.company = current_user.company
+    @offer.company = get_company
     params[:car_ids].each do |car_id|
       car_service_offer = CarServiceOffer.new
       car_service_offer.status = Status::OPEN

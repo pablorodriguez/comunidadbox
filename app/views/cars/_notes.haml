@@ -4,5 +4,5 @@
   #notes
     #notes_form_container.box_bottom.hide.clear
       = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> @car.user.id}  
-    .box_bottom.wo_notes
+    .notes
       = render :partial =>'notes/notes_small_view',:collection => @notes,:as=>:note    

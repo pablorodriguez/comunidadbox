@@ -41,8 +41,8 @@ class UsersController < ApplicationController
   end
 
   def future_events    
-    if current_user.company?
-      @events = current_user.company.future_events
+    if company_id
+      @events = get_company.future_events
     else
       @events = current_user.future_events  
     end     

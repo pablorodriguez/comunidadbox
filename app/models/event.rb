@@ -73,9 +73,8 @@ class Event < ActiveRecord::Base
   end
   
   def self.find_by_params(service_filter,event_types,my_clients=true,others=true,company_id=nil)
-    events = Event.includes(:car => {:user => :address},:service =>{:workorder =>:company}).order("events.dueDate desc")
-    events = events.where("events.status = ?",Status::ACTIVE)
-    
+    events = Event.includes(:car => {:user => :address},:service =>{:workorder =>[:payment_method,:company]}).order("events.dueDate desc")
+    events = events.where("events.status = ?",Status::ACTIVE)    
     events = events.where("events.service_type_id = ?",service_filter.service_type_id) if  service_filter.service_type_id
 
     if service_filter.brand_id
@@ -100,10 +99,10 @@ class Event < ActiveRecord::Base
     events = events.where("addresses.city = ? ",service_filter.city) if service_filter.city?
     events = events.group("events.car_id").group("services.service_type_id")
 
-    logger.debug "### Events RED slq #{events.red.to_sql}"
-
     totalEvents = []
-  
+    
+    logger.debug "### #{event_types}"
+
     totalEvents = events.red if event_types[:red]
     totalEvents += events.yellow if event_types[:yellow]
     totalEvents += events.green if event_types[:green]

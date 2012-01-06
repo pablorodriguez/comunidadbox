@@ -1,6 +1,30 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
+  def company_id
+    cookies[:company_id]
+  end
+
+  def set_company_in_cookie(company_id)
+    cookies.permanent[:company_id]= company_id    
+  end
+
+  def get_company params=nil    
+    company_id ? Company.find(company_id) : Company.find(params[:company_id])
+  end
+
+  def get_company_id params=nil    
+    get_company(params).id
+  end
+
+  def get_service_types
+    company_id ? get_company.service_type : current_user.service_types
+  end
+
+  def is_client client
+    current_user.is_client? client
+  end
+
   def sortable(column,title = nil)
     title ||= column.titleize
     css_class = column == sort_column ? "sortable current #{sort_direction}" : "sortable"
@@ -26,7 +50,7 @@ module ApplicationHelper
   end
   
   def big_event_class event
-    if event.service.workorder.company.id == current_user.company.id
+    if event.service.workorder.company.id == company_id
       return "my_big_event"  
     else
       return "big_event"  
@@ -35,7 +59,7 @@ module ApplicationHelper
   
   def my_event_class event
     css = event_class event
-    css = "mi_" + css if event.service.workorder.company.id == current_user.company.id
+    css = "mi_" + css if event.service.workorder.company.id == company_id
     return css
   end
   
@@ -150,7 +174,7 @@ module ApplicationHelper
   end
   
   def search_children_company_service_type service_type
-    company_id= current_user.company.id
+    company_id= company_id
     service_type_id = service_type.id
     st = ServiceType.all(:include=>:companies, :conditions => ["parent_id= ? and companies.id = ?",service_type_id,company_id])
     return st

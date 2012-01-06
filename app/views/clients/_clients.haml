@@ -2,20 +2,28 @@
   %h1 Listado de Clientes
 
 - for client in @clients
+  - is_client = is_client(client)
   .row
     .client
-      %strong
-        = link_to h(client.full_name), client_path(client),:title=>"Ver"
-      = client.email
-      %strong
-        = client.phone
+      .left
+        %strong
+          = link_to h(client.full_name), client_path(client),:title=>"Ver"
+        
+      - if is_client
+        .left
+          = client.email
+        .phone
+          = client.phone
+      .left.clear
+        = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
+
       .actions.right
         .action
           = link_to "",new_budget_path(:c => client.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
         .action
           = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}
         .action
-          = link_to "",edit_client_path(client),{:title=>"Modificar",:class =>"edit"} if client.confirmed_at.nil?
+          = link_to "",edit_client_path(client),{:title=>"Modificar",:class =>"edit"} if client.can_edit?(current_user)
     - client.cars.each_with_index do |car,index|  
       .client_car.box_top.left
         .detail.left
@@ -29,7 +37,7 @@
           .action
             = link_to "",new_budget_path(:ca => car.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
           .action
-            = link_to "", new_workorder_path(:company_id=>current_user.company.id,:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
+            = link_to "", new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
           .action
             = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"} if car.can_edit?(current_user)
    

@@ -3,15 +3,15 @@
     %li
       #cars_link.menu        
         = image_tag "cars.png"
-        - if current_user.company
-          = link_to_unless_current "Autómoviles", clients_path
-        - unless current_user.company  
+        - if company_id
+          = link_to_unless_current "Clientes", clients_path
+        - else
           = link_to "Autómoviles", my_cars_path      
     %li
       #service_done_link.menu
         = image_tag "service.png"
         = link_to "Servicios Realizados",workorders_path
-    - if current_user.company
+    - if company_id
       %li
         #control_panel_link.menu
           = image_tag "control-panel.png"
@@ -25,7 +25,7 @@
           = image_tag "alarm.png"
           = link_to "Alarmas",alarms_path
       %li
-        #notes.link.link.menu
+        #note.link.link.menu
           = image_tag "notes.png"
           = link_to "Notas",notes_path
       .hide

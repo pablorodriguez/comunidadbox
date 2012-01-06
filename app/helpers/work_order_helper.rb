@@ -4,9 +4,9 @@ module WorkOrderHelper
     html=""
     title ="Calificacion de Empresa: "
     if (rank == :company)
-      cssLink = current_user.company && current_user.company == work_order.company ? "link":""
+      cssLink = company_id && get_company.id == work_order.company.id ? "link":""
     else  
-      cssLink = current_user.company.nil? ? "link":""
+      cssLink = company_id.nil? ? "link":""
     end
     
     
@@ -48,8 +48,8 @@ module WorkOrderHelper
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
       else
         if work_order.company.id != Company::DEFAULT_COMPANY_ID
-          if (current_user.company && 
-              work_order.company == current_user.company)
+          if (company_id && 
+              work_order.company.id == get_company.id)
             return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "company")
           else
             return ""
@@ -65,7 +65,7 @@ module WorkOrderHelper
       return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"usr")
     else
       if work_order.company.id != Company::DEFAULT_COMPANY_ID
-        if !current_user.company || work_order.belong_to_user(current_user)
+        if !company_id || work_order.belong_to_user(current_user)
           return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "usr")
         else
           return ""
@@ -76,7 +76,7 @@ module WorkOrderHelper
   
 
   def get_my_rank(current_user,work_order)
-    if current_user.company
+    if company_id
       if work_order.company_rank_id
         rank = Rank.find work_order.company_rank_id
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
@@ -94,7 +94,7 @@ module WorkOrderHelper
   end
   
   def get_other_rank(current_user,work_order)
-    if current_user.company
+    if company_id
       if work_order.user_rank_id
         rank = Rank.find work_order.user_rank_id
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
@@ -112,7 +112,7 @@ module WorkOrderHelper
   end
   
   def can_edit? work_order
-    @work_order.open? && @work_order.company.id == current_user.company_id
+    @work_order.open? && @work_order.company.id == get_company.id
   end
   
 end

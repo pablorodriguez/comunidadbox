@@ -3,7 +3,7 @@
     #div{:id=>"row_#{offer.id}",:class=>"service_offer_row link row"}
       .service_offer_info
         .service_offer_detail
-          - unless current_user.company
+          - unless company_id
             .company_name        
               = offer.company.name
           .service_offer_title      
@@ -11,11 +11,11 @@
           .service_offer_name
             =h offer.service_type.name
           .status
-            - if current_user.company
+            - if company_id
               = icon_status offer.status
             - else
               = "offer.car_service_offer.status"
-          -if current_user.company && offer.company == current_user.company
+          -if company_id && offer.company.id == get_company.id
             .cars
               Autos:
               = offer.cars.size
@@ -43,7 +43,7 @@
                   %li
                     =day
       .serivce_offer_actions
-        -if current_user.company && offer.status != Status::SENT
+        -if company_id && offer.status != Status::SENT
           #d
             = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
         - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
