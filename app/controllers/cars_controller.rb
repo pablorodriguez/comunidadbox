@@ -17,14 +17,13 @@ class CarsController < ApplicationController
     per_page = 12
     
     if company_id
-      @company_cars = get_company.cars
+      @company_cars = Car.companies(company_id)
     else
       @company_cars = current_user.cars
     end
     
-    if  domain != "%"
-      @company_cars = Car.where("domain like ?",domain)  
-    end
+    
+    @company_cars = Car.where("domain like ?",domain) if  domain != "%"
 
     @company_id = params[:company_id]
     @company_cars = @company_cars.order("domain asc").paginate(:page =>page,:per_page =>per_page)
@@ -93,10 +92,8 @@ class CarsController < ApplicationController
       @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
         .paginate(:per_page=>per_page,:page =>page)
       filters[:domain] = @car.domain
-      unless company_id
-        filters[:user] = current_user
-      end
       
+      filters[:user] = current_user unless company_id
 
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
       @companies = Company.best current_user.state 
@@ -158,7 +155,7 @@ class CarsController < ApplicationController
   # POST /cars.xml
   def create
     @car = Car.new(params[:car])
-    @car.company = get_company if company_id
+    @car.company = get_company
     parameters = {:car_id => @car.id}
     if params[:budget_id]
       parameters[:b] = params[:budget_id]

@@ -49,7 +49,7 @@ class Car < ActiveRecord::Base
   def total_spend(company_id = nil,service_type_id = nil)
     total = 0
     self.workorders.each do  |wo|
-      if (company_id == nil or company_id == wo.company_id)
+      if (company_id == nil or company_id.include?(wo.company_id))
         wo.services.each do |s|
           total += s.total_price unless service_type_id
           total += s.total_price if (service_type_id && s.service_type.id == service_type_id)
@@ -61,6 +61,10 @@ class Car < ActiveRecord::Base
   
   def info
     "#{domain} #{brand.name} #{model.name} #{year} #{fuel}"
+  end
+
+  def self.companies ids
+    Car.includes(:company).where("cars.company_id IN (?)",ids)
   end
 end
 

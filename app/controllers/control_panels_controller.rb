@@ -43,8 +43,7 @@ class ControlPanelsController < ApplicationController
   
   
   def company_services(company_id)
-    CompanyService.find(:all,:conditions=>["company_id= ?",company_id],
-      :joins=>:service_type,:order =>'service_types.name').collect{|p| p.service_type}        
+    CompanyService.includes(:service_type).where("company_id IN (?)",company_id).order('service_types.name').map(&:service_type)
   end
   
   def save_filter

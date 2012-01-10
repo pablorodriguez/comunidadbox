@@ -1,7 +1,6 @@
-- if company_id      
+- if company_id
   .menu_actions
     .box_bottom
-      %ul
-        - if company_id
-          %li
-            = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
+      %ul        
+        %li
+          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 

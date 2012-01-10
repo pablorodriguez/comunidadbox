@@ -239,7 +239,7 @@ class WorkordersController < ApplicationController
   def new
     @work_order = Workorder.new
 
-    company = get_company params
+    company = get_company(params)
     
     @work_order.performed = I18n.l(Time.now.to_date)
     @work_order.company_info  = params[:c] if params[:c]

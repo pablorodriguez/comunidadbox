@@ -7,5 +7,6 @@
     %h1
       Nuevo Auto para 
       = @car.user.full_name
+      = @car.user.company_name if @car.user.company_name
   = render :partial=>'car'
   

@@ -1,8 +1,20 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
+  #devuleve un Array del company id del Cookies o si ID de todas las compañias del Usuario registrado si en la cookie hay -1
   def company_id
-    cookies[:company_id]
+    id = cookies[:company_id]
+    if id == "-1"
+      return current_user.companies.map(&:id)
+    elsif id
+      return Array(id)
+    else
+      nil
+    end
+  end
+
+  def all_company?
+    cookies[:company_id] == "-1"
   end
 
   def set_company_in_cookie(company_id)
@@ -10,15 +22,26 @@ module ApplicationHelper
   end
 
   def get_company params=nil    
-    company_id ? Company.find(company_id) : Company.find(params[:company_id])
+    if (company_id == nil) 
+      return Company.find(params[:company_id])
+    elsif all_company?
+      return current_user.company
+    else
+      return Company.find(company_id.first)
+    end
+    #company_id.empty? ? Company.find(params[:company_id]) : Company.where("id IN (?)",company_id).first
   end
-
+    
+  def get_companies params=nil    
+    company_id.empty? ? Array(Company.find(params[:company_id])) : Company.where("id IN (?)",company_id)
+  end
+  
   def get_company_id params=nil    
     get_company(params).id
   end
 
   def get_service_types
-    company_id ? get_company.service_type : current_user.service_types
+    company_id.empty? ? current_user.service_types : CompanyService.companies(company_id)
   end
 
   def is_client client

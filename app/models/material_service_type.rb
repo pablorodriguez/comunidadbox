@@ -9,8 +9,7 @@ class MaterialServiceType < ActiveRecord::Base
   accepts_nested_attributes_for :service_type
   
   def self.materials company_id
-    MaterialServiceType.all :include=>{:price_list_items_active=>{:price_list=>{}},:service_type=>{:companies=>{}}},
-    :conditions =>["companies.id = ? ",company_id]
+    MaterialServiceType.includes({:price_list_items_active=>{:price_list=>{}},:service_type=>{:companies=>{}}})where("companies.id = ? ",company_id)
   end
   
   def self.m(company_id,price_list_id,service_type_ids,material,page)

@@ -50,22 +50,22 @@ class PriceListsController < ApplicationController
   end
   
   def index
-    @price_lists = get_all_price_list company_id
+    @price_lists = get_all_price_list(get_company.id)
   end
   
   def get_all_price_list(company_id)
-    PriceList.all(:conditions =>["company_id = ?",company_id])
+    PriceList.where("company_id = ?",company_id)
   end
   
   def copy
-    @price_lists = get_all_price_list company_id
+    @price_lists = get_all_price_list(get_company.id)
     render :action =>:index
   end
   
   def activate
     pl= PriceList.find(params[:id])
-    company_id = company_id
-    plActive = PriceList.first(:conditions =>["company_id = ? and active=1",company_id])
+    company_id = get_company.id
+    plActive = PriceList.where("company_id = ? and active=1",company_id).first
     PriceList.transaction do      
       if plActive
         plActive.active=false
@@ -118,7 +118,7 @@ class PriceListsController < ApplicationController
     @service_type_ids = params[:service_type_ids] ? params[:service_type_ids].values : []
     @percentage = params[:percentage] || ""
     @material = params[:material] || ""
-    company_id= company_id
+    company_id= get_company.id
     @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
       
     @price_list = PriceList.find id
@@ -133,7 +133,7 @@ class PriceListsController < ApplicationController
     @service_type_ids = params[:service_type_ids] || []
     @percentage = params[:percentage] || ""
     @material = params[:material] || ""
-    company_id = company_id
+    company_id = get_company.id
     @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page)
     @materials
   end

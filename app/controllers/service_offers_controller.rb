@@ -56,7 +56,7 @@ class ServiceOffersController < ApplicationController
   end
   
   def get_offer_confirmerd
-    ServiceOffer.where(["company_id = ? and status= ?",get_company,:Confirmado])  
+    ServiceOffer.where("company_id = ? and status= ?",get_company.id,:Confirmado)
   end
   
   def create

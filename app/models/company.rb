@@ -86,7 +86,7 @@ class Company < ActiveRecord::Base
   end
 
   def future_events
-    company_cars = Car.all(:conditions =>["company_id = ?",id])
+    company_cars = Car.where("company_id = ?",id)
     cars_ids = company_cars.each{|c|c.id.to_i}
     Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.now,cars_ids])
   end
@@ -113,6 +113,7 @@ class Company < ActiveRecord::Base
   def self.is_client? companies_ids,user_id
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
   end
+
 
 end
 

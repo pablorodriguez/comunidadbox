@@ -4,7 +4,7 @@ module WorkOrderHelper
     html=""
     title ="Calificacion de Empresa: "
     if (rank == :company)
-      cssLink = company_id && get_company.id == work_order.company.id ? "link":""
+      cssLink = company_id.include?(work_order.company.id) ? "link":""
     else  
       cssLink = company_id.nil? ? "link":""
     end

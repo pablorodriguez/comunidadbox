@@ -4,15 +4,15 @@ class CompaniesController < ApplicationController
 
   def service_types
     @company = get_company
-    @not_in = @company.service_type.collect {|x| x.id.to_i }
+    @not_in = @company.service_type.map(&:id)
     if @not_in.size >0
-      @service_types =ServiceType.find(:all,:conditions => ["id NOT IN (?) ",  @not_in],:order =>'name')
+      @service_types =ServiceType.where("id NOT IN (?) ",  @not_in).order('name')
     else
-      @service_types =ServiceType.find(:all,:order =>'name')
+      @service_types =ServiceType.order('name').all
     end
     @company_service_type = @company.service_type
 
-    @all_service_types = ServiceType.all(:order =>'name')
+    @all_service_types = ServiceType.order('name').all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -192,8 +192,8 @@ class CompaniesController < ApplicationController
 
   def remove_service_type
     @service_type_id = params[:id].to_i
-    company_id= company_id
-    company_service = CompanyService.all(:conditions=>["company_id = ? and service_type_id = ?",company_id,@service_type_id])
+    company_id= get_company.id
+    company_service = CompanyService.where("company_id = ? and service_type_id = ?",company_id,@service_type_id)
     @msg ="Tipo de Servicio eliminado exitosamente"
     @service_error = false
     if company_service != nil

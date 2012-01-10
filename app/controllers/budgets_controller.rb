@@ -21,7 +21,7 @@ class BudgetsController < ApplicationController
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
     filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
-    filters_params[:company_id] = company_id if company_id
+    filters_params[:company_id] = company_id
 
     filters_params[:user] = current_user
     @budgets = Budget.find_by_params filters_params
@@ -60,10 +60,12 @@ class BudgetsController < ApplicationController
     if params[:c]
       c = User.find(params[:c]) 
       @budget.user = c if c
+      @budget.car = c.cars.first if c.cars.size == 1
     end
     if params[:ca]
       ca = Car.find(params[:ca])
       @budget.car = ca if ca
+      @budget.user = ca.user
     end
 
     respond_to do |format|

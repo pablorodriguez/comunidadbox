@@ -134,7 +134,7 @@ class ClientsController < ApplicationController
 
 
     @clients = User.clients
-
+    @clients = @clients.where("first_name like ?","%#{first_name}%")
     @clients = @clients.where("last_name like ?","%#{last_name}%")
     @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
     @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?

@@ -1,6 +1,6 @@
-class Workorder < ActiveRecord::Base
+include ActionView::Helpers::NumberHelper
 
-  include ActionView::Helpers::NumberHelper
+class Workorder < ActiveRecord::Base
     
   has_many :services, :dependent => :destroy
   has_many :notes,:dependent => :destroy
@@ -263,7 +263,7 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("performed >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
     if filters[:company_id]
-      workorders = workorders.where("workorders.company_id = ?",filters[:company_id])
+      workorders = workorders.where("workorders.company_id IN (?)",filters[:company_id])
     else
       #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     end

@@ -11,9 +11,9 @@ class Material < ActiveRecord::Base
   
   def Material.all_materials(price_list)
     comp_id = price_list.company_id
-    comp_service_type = CompanyService.all(:conditions=>["company_id = ?",comp_id])
+    comp_service_type = CompanyService.where("company_id = ?",comp_id)
     service_types_ids = comp_service_type.map{|x| x.service_type_id}
-    all_materials = MaterialService.all(:conditions=>["material_service_types.service_type_id in (?)",service_types_ids],
+    all_materials = MaterialService.where("material_service_types.service_type_id in (?)",service_types_ids,
         :include=>{:material_service_type =>{:service_type=>{}}})
     all_materials
   end
