@@ -1,12 +1,30 @@
+= javascript "http://maps.google.com/maps/api/js?sensor=true"
 - javascript 'maps'
 - javascript 'search_company_map'
-.vertical_menu
-  = render "admin/menu"
-  .menu_actions.box_bottom
-    - if user_signed_in? && current_user.own(@company)
-      %ul
-        %li
-          = link_to "Modificar",edit_company_path(@company),{:title =>"Modificar"}
+
+.vertical_menu    
+  - if user_signed_in? 
+    = render "admin/menu"
+    - if current_user.own(@company)
+      .menu_actions.box_bottom
+        %ul
+          %li
+            = link_to "Modificar",edit_company_path(@company),{:title =>"Modificar"}
+  -else
+    #menu_options.box_bottom
+      %li
+        #register_link.menu
+          = image_tag "sign-up.png"
+          = link_to "Registrarse",new_user_registration_path
+        .ajax_loader.right
+      %li
+        #service_center_link.menu
+          = image_tag "find.png"
+          = link_to "Prestadores de Servicios", all_companies_path
+      %li
+        #service_center_link.menu
+          = image_tag "help.png"
+          = link_to "Ayuda", "#"
 
 .contentright_s
   #company_info
@@ -16,4 +34,4 @@
       = render 'show'
     .box_bottom
       #map_container{:style=>"margin:0 auto; width:75%"}
-        #map_canvas.map
+        .map_canvas.map

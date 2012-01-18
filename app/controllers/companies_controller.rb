@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   layout "application", :except => [:add_service_type,:remove_service_type,:search]
-  skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:search]
+  skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:search,:search_distance]
 
   def service_types
     @company = get_company
@@ -31,16 +31,19 @@ class CompaniesController < ApplicationController
     @distance = (params[:distance] && !(params[:distance].blank? ))  ? params[:distance] : "10"    
     @street = (params[:street] && !(params[:street].blank?)) ? params[:street] : ""
 
-    if @stree.blank?
-      @street = current_user.address.to_text if current_user.address.to_text
+    if @street.blank? && (current_user && current_user.addresssize > 0)
+      @street = current_user.address.to_text 
+    else
+      flash[:error] ="Debe ingresar una direccion"
     end
     
-
-    logger.debug "### distance #{params[:distance]} , #{@distance} street #{@street}"
-
     if (@street  != "")
-      distance_in_milles = 10.0 * 0.621371192
-      @address = Address.where("company_id is not null").near(@street, distance_in_milles, :order => :distance)
+      distance_in_milles = @distance.to_i * 0.621371192
+      logger.debug "### distance_in_milles #{distance_in_milles}, @distance #{@distance} Params #{params[:distance] }"
+
+
+      @address = Address.companies.near(@street, distance_in_milles, :order => :distance)
+      logger.debug "### distance , #{distance_in_milles} street #{@street} , found #{@address.size}"
 
       @json = @address.to_gmaps4rails do |address, marker|
         @distance_km = (address.distance.to_f * 1.609344).round(2).to_s + ' Km'
@@ -48,10 +51,10 @@ class CompaniesController < ApplicationController
         marker.infowindow render_to_string(:partial => "/companies/info_window", :locals => { :address => address}).gsub(/\n/, '').gsub(/"/, '\"')
       end
 
-      lat = Geocoder.coordinates(@street)[0]
-      lng = Geocoder.coordinates(@street)[1]
-      distance = @distance.to_f * 1000
-      @circles_json = '[{"lng": ' + lng.to_s + ', "lat": ' + lat.to_s + ', "radius": ' + distance.to_s + ', "strokeWeight" : 3, fillColor: "#FF0000", fillOpacity: 0.2 }]'
+      #lat = Geocoder.coordinates(@street)[0]
+      #lng = Geocoder.coordinates(@street)[1]
+      #distance = @distance.to_f * 1000
+      #@circles_json = '[{"lng": ' + lng.to_s + ', "lat": ' + lat.to_s + ', "radius": ' + distance.to_s + ', "strokeWeight" : 3, fillColor: "#FF0000", fillOpacity: 0.2 }]'
       render :action => 'all'
     else        
       redirect_to all_companies_path

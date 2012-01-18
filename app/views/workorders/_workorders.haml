@@ -1,9 +1,8 @@
-.box_bottom
-  .wo_detail
-    .left
-      %h1 Servicios Realizados
-    #sort_by      
-      = render 'sort_by'
+.wo_detail
+.left
+  %h1 Servicios Realizados
+.box_bottom.clear
 - for work_order in @work_orders
   = render :partial =>"work_order_row",:object => work_order
-= will_paginate @work_orders
+.clear
+  = will_paginate @work_orders

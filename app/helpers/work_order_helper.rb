@@ -4,7 +4,7 @@ module WorkOrderHelper
     html=""
     title ="Calificacion de Empresa: "
     if (rank == :company)
-      cssLink = company_id.include?(work_order.company.id) ? "link":""
+      cssLink = (company_id && company_id.include?(work_order.company.id))? "link":""
     else  
       cssLink = company_id.nil? ? "link":""
     end
@@ -112,7 +112,8 @@ module WorkOrderHelper
   end
   
   def can_edit? work_order
-    @work_order.open? && @work_order.company.id == get_company.id
+    # si la orden esta abierta and la orden fue creada por el dueño del auto or la empresa de la orden es igual a la emprea del usuario loggeado
+    work_order.open? && (work_order.user.id == work_order.car.user.id) || (work_order.company.id == get_company.id)
   end
   
 end

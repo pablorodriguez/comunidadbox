@@ -2,35 +2,49 @@
 - javascript 'search_company_map'
 
 .vertical_menu
-  .box_bottom
-    %h1 Buscar
-    - form_for :company, :remote =>true, :url => search_companies_cars_path do |f|
-      %table.w
-        %thead
-          %tr
-            %td
-              = text_field_tag 'name',"",{:class=>"labelify",:title =>"Nombre"}
-          %tr
-            %td
-              = text_field_tag 'street',"",{:class=>"labelify",:title =>"Dirección"}
-          %tr
-            %td
-              = text_field_tag 'city',"",{:class=>"labelify",:title =>"Ciudad"}
-          %tr
-            %td
-              = hidden_field_tag "car_id",@car_id
-              = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state medium_select"})
-              = image_submit_tag("find.png",:class =>"input_img")
+  #comp_search.box_bottom
+    .comp_search
+      %h1 Buscar
+      - form_for :company, :remote =>true, :url => search_companies_cars_path do |f|
+        %table.w
+          %thead
+            %tr
+              %td
+                = text_field_tag 'name',"",{:class=>"labelify",:title =>"Nombre"}
+            %tr
+              %td
+                = text_field_tag 'street',"",{:class=>"labelify",:title =>"Dirección"}
+            %tr
+              %td
+                = text_field_tag 'city',"",{:class=>"labelify",:title =>"Ciudad"}
+            %tr
+              %td
+                = hidden_field_tag "car_id",@car_id
+                = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state medium_select"})
+                = image_submit_tag("find.png",:class =>"input_img")
+    .ajax_loader.right
+  .menu_actions
+    .box_bottom
+      %ul        
+        %li
+          = link_to_function "Nuevo Prestador de Servicio", "newCompany(this);"
 .contentright_s
-  #all_companies
+  #companies
     = render "/companies/all_companies"
-    = link_to_function "Nuevo Prestador de Servicio", "newCompany(this);"
+
   #new_company.hide
-    %h1 Nuevo Prestador de Servicio
-    Por favor ingrese Nombre, Dirección y Teléfono
-    = text_area_tag :company_info,"",:rows => 5, :cols => 37
-    = hidden_field_tag :new_service_url,new_workorder_path(:car_id =>@car_id)
-    = link_to_function "Seleccionar", "newServiceNewCompany(this);",{:class =>"button"}
-    = link_to_function "Cancelar", "cancelNewCompany(this);",{:class =>"button"}
-  #company_map
-    = render "/companies/maps"
+    .box_bottom
+      %h1 Nuevo Prestador de Servicio
+    .box_bottom
+      %table
+        %tr
+          %td{:style=>"width:200px"}
+            Por favor ingrese Nombre, Dirección y Teléfono
+          %td
+            = text_area_tag :company_info,"",:rows => 5, :cols => 37
+            = hidden_field_tag :new_service_url,new_workorder_path(:car_id =>@car_id)
+    .clear.box_bottom
+      = link_to_function "Seleccionar", "newServiceNewCompany(this);",{:class =>"button"}
+      = link_to_function "Cancelar", "cancelNewCompany(this);",{:class =>"button"}
+#company_map
+  = render "/companies/maps"

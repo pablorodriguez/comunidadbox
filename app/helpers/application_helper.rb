@@ -7,7 +7,7 @@ module ApplicationHelper
     if id == "-1"
       return current_user.companies.map(&:id)
     elsif id
-      return Array(id)
+      return id.split(",")
     else
       nil
     end
@@ -17,8 +17,12 @@ module ApplicationHelper
     cookies[:company_id] == "-1"
   end
 
+  def multiple_company?
+    return (all_company? || (cookies[:company_id].split(",").size > 1) )
+  end
+
   def set_company_in_cookie(company_id)
-    cookies.permanent[:company_id]= company_id    
+    cookies.permanent[:company_id]= company_id.join(",")
   end
 
   def get_company params=nil    
@@ -41,7 +45,7 @@ module ApplicationHelper
   end
 
   def get_service_types
-    company_id.empty? ? current_user.service_types : CompanyService.companies(company_id)
+    company_id ? CompanyService.companies(company_id) : current_user.service_types
   end
 
   def is_client client

@@ -2,4 +2,4 @@ $("<%=@element_id%>").find(".notes").append("<%=escape_javascript(render(:partia
 $("<%=@element_id%>").find(".note_form")[0].reset();
 $("<%=@element_id%>").find(".note_form .labelify").labelify({ labelledClass: "labelHighlight" });  
 $("<%=@element_id%> .note").last().effect("highlight", {color:"#F7DE4F"}, 3000);
-$("<%=@element_id%> .notes_link").parent().show()
+$("<%=@element_id%> .notes_link").parent().show();

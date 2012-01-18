@@ -2,17 +2,20 @@
   = render "home/menu"  
   .menu_actions.box_bottom
     %ul
-      %li
-        = link_to "Modificar",edit_budget_path(@budget)
+      -if @budget.can_edit?(current_user)
+        %li
+          = link_to "Modificar",edit_budget_path(@budget)
       %li        
         = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
       %li
         = link_to "Enviar por Correro",email_budget_path(@budget),:remote =>true
       .ajax_loader.right
-      %li
-        = link_to "Nuevo Presupuesto", new_budget_path
-      %li
-        = link_to "Crear Servicio",new_workorder_path(:b =>@budget.id),:title =>"Crear servicio"
+      -if company_id
+        %li
+          = link_to "Nuevo Presupuesto", new_budget_path
+      -if @budget.can_create_service?(current_user)
+        %li
+          = link_to "Crear Servicio",new_workorder_path(:b =>@budget.id),:title =>"Crear servicio"
 
 .contentright_s    
   .box_bottom

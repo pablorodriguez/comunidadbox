@@ -82,12 +82,12 @@ function createNewService(car_id){
 }
 
 function newCompany(target){
-  $("#all_companies").hide();
+  $("#companies").hide();
   $("#new_company").show();  
 }
 
 function cancelNewCompany(target){
-  $("#all_companies").show();
+  $("#companies").show();
   $("#new_company").hide();
 }
 

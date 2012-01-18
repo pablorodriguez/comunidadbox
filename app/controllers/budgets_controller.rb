@@ -22,8 +22,8 @@ class BudgetsController < ApplicationController
     filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
     filters_params[:company_id] = company_id
-
     filters_params[:user] = current_user
+
     @budgets = Budget.find_by_params filters_params
 
     @budgets = @budgets.paginate(:page =>page,:per_page =>per_page)

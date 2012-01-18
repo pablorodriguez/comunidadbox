@@ -38,7 +38,7 @@ class MaterialsController < ApplicationController
   def details
     @company_id = Company::DEFAULT_COMPANY_ID
         
-    @company_id = get_company.id   
+    @company_id = get_company.id if company_id
     
     @detail = params[:detail] != "" ? params[:detail].gsub(/\s/,"%").upcase : "NUL"
     @service_type_id = params[:service_type][:id].to_i

@@ -2,18 +2,18 @@
 
 -if current_user  
   .vertical_menu
-    = render "home/menu"
-    = render "home/default_actions"
+    = render "menu"
+    = render "default_actions"
   .contentright_s  
     #default.data  
-      = render "home/welcome_msg"    
-      = render "home/new_msgs"    
+      = render "welcome_msg"    
+      = render "new_msgs"    
 
 -unless current_user
   #default.data  
-    = render "home/welcome_msg"    
+    = render "welcome_msg"    
     -unless current_user
-      = render "home/sliders"    
+      = render "sliders"    
       
 :javascript
   $(document).ready(function(){    

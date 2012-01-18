@@ -1,11 +1,18 @@
-#account.box
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Empleado", new_employee_path
+      %li
+        = link_to "Modificar", edit_employee_path(@user) 
+
+.contentright_s
   #user
-    %h1
-      = vineta 
-      Empleado
-    = render 'user_show'
-  - if @user.address            
-    #address
-      = render 'address_show', :address => @user.address
-      
-  = link_to image_tag('edit.png'),edit_employee_path(@user)      
+    .box_bottom
+      %h1 Empleado
+    .box_bottom
+      = render 'user_show'
+      - if @user.address            
+        #address
+          = render 'address_show', :address => @user.address     

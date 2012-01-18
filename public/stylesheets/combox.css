@@ -89,9 +89,10 @@ body {
   width:140px;
 }
 
-#client_search .ajax_loader, #car_search .ajax_loader, #service_offer_search .ajax_loader, #service_center .ajax_loader{
+#client_search .ajax_loader, #car_search .ajax_loader, #service_offer_search .ajax_loader, #service_center .ajax_loader, #comp_search .ajax_loader{
   margin-top:-20px;
 }
+
 
 #container{
   min-height:100%;
@@ -769,13 +770,24 @@ input{
 }
 
 .all_companies {
-  width:63%;
-  float: right;
+  width:60%;
+  position: absolute;
+  left:150px;
+  top:26px;
+  font-size:12px;  
+  background:white;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 5px;  
+  -moz-box-shadow: 2px 2px 5px #888888;
+  -webkit-box-shadow: 2px 2px 5px #888888;
+  box-shadow: 2px 2px 5px #888888;
+  margin-top:-2px;
+  margin-right:1px;
+  z-index:1000;
+
 }
 
 
@@ -999,7 +1011,7 @@ td.number input{
 
 }
 
-table.comboxtable, .comboxform,table.w{
+table.comboxtable, .comboxform, .w{
   width: 100%;
 }
 
@@ -1072,11 +1084,15 @@ table.comboxtable, .comboxform,table.w{
   color:black;  
 }
 
-#avatar_login #company_id select{
+.company_id{
+  margin: 0px 0px 0px 2px;
+}
+
+#avatar_login .company_id select{
     width:270px;
 }
 
-#avatar_login #company_id1{ 
+#avatar_login .company_id1{ 
     padding:3px;
 }
 #avatar_login a {
@@ -1097,7 +1113,7 @@ table.comboxtable, .comboxform,table.w{
   text-align:right;
   margin:0px;
   float:left;
-  margin:2px 5px;
+  margin:5px 0px 5px 5px;
 }
 
 .barradatos{
@@ -2180,8 +2196,8 @@ td.number, th.number{
 
 .notes_link{
   background: url(/images/notes.png) no-repeat scroll;
-  height: 21px;
-  width: 21px;
+  height: 16px;
+  width: 16px;
   float: right;
 }
 
@@ -2206,7 +2222,7 @@ input.labelHighlight,textarea.labelHighlight {
   overflow: auto;
   text-align: center;
   width: 20px;
-  height: 24px;
+  height: 22px;
 }
 
 .down_icon:hover{
@@ -2219,8 +2235,8 @@ input.labelHighlight,textarea.labelHighlight {
   position: absolute;
   width: 120px;
   background:white;
-  top:100%;
-  right:0;
+  top:51px;
+  right:1px;
   -moz-border-radius: 0px 0px 5px 5px;
   -webkit-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;

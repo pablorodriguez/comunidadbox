@@ -25,7 +25,7 @@
         = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)               
       - if company_id
         .action
-          = link_to image_tag('new.png'), new_workorder_path(:company_id=>@company_id,:car_id =>car),{:title=>"Nuevo Servicio"}
+          = link_to image_tag('new.png'), new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio"}
       - else
         .action
           = link_to_function image_tag('new.png'),"createNewService(#{car.id})",{:title=>"Nuevo Servicio"}

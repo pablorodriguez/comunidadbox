@@ -10,11 +10,21 @@ class HomeController < ApplicationController
   end
 
   def set_company   
-    logger.debug params.to_s
-    id=params[:company][:id]
-    if id=="-1" || current_user.companies.find(id)
-      set_company_in_cookie id
+    logger.debug "### Companies IDS #{params[:company_ids]} ALL Comp #{params[:all_company]}"
+    id=params[:company_ids]
+
+    if id.nil?
+      id = [current_user.company.id]
     end
+
+    unless (params[:all_company])
+      if (current_user.companies.find(id))
+        set_company_in_cookie id
+      end
+    else
+        set_company_in_cookie ["-1"]
+    end
+
     redirect_to :back
   end
 end

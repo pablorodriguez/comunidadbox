@@ -4,16 +4,46 @@ var RecaptchaOptions = {
       theme : 'white'
 };
 var showMenu =false;
+var all_company = null;
+var change_company = false;
+
 jQuery(document).ready( function(){  
 
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
   
-  $(".down_icon").click(function(){
+  $(".down_icon").click(function(e){
     $("#home_menu").show();
     $(this).css("background","white");
+    e.stopPropagation();
     showMenu = true;
   });
 
+  $("#company_id ").mouseenter(function(event){
+    $("#all_companies").show();    
+  });
+
+  $("#all_companies :checkbox").click(function(event){
+    change_company=true;
+    var all = true;
+    $("#all_companies .checkbox").each(function(){
+      if (!$(this).attr("checked")){
+        all = false;
+      }
+    });
+
+    $("#all_company_check").attr("checked",all);
+
+    event.stopPropagation();
+  });
+
+  $("#all_companies").click(function(event){
+    event.stopPropagation();
+  });
+
+  $("#all_company_check").click(function(event){    
+    $("#all_companies :checkbox").attr("checked",$(this).attr("checked"));
+    event.stopPropagation();
+  });
 
   $(".labelify").labelify({ labelledClass: "labelHighlight" });
 
@@ -24,14 +54,27 @@ jQuery(document).ready( function(){
     $(".labelify").labelify({ labelledClass: "labelHighlight" });
   });
 
+  all_company = $("#all_companies");
+
   $(document).bind('click', function(e) {
-    if (!$(e.target).parent().hasClass("down_icon")){      
+    if (!$(e.target).hasClass("down_icon")){      
       if (showMenu){
         $(".down_icon").css("background","")
         $("#home_menu").hide();  
         showMenu = false;
       }
     }
+
+    
+    if ($(e.target).parent().attr("id") != "company_id"){
+      if (all_company.is(":visible")){
+        if (change_company){
+          $("#comp_form").submit();  
+        }
+        all_company.hide();
+      }
+    }
+    
   });
 
 

@@ -1,10 +1,16 @@
-#user_company_address
-  %h1
-    = vineta 
-    Modificar Empleado
-  - form_for  @employee, :url => employee_path(@employee)  do |f|  
-    .box
-      = render 'form',:f => f
-      .buttons
-        = link_to_back employees_path
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Empleado", new_employee_path
+
+.contentright_s
+  #user_company_address
+    .box_bottom
+      %h1 Modificar Empleado
+    - form_for  @employee, :url => employee_path(@employee)  do |f|        
+      .box_bottom
+        = render 'form',:f => f
+      .box_bottom
         = f.submit "Actualizar",:class =>"button"

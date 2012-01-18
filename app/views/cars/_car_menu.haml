@@ -15,8 +15,7 @@
     %li
       #future_event.link.menu
         = image_tag "service.png"
-        Servicios a Realizar
-    
+        Servicios a Realizar    
     .hide
       %li
         #service_offers.link.menu
@@ -47,12 +46,14 @@
     %ul
       - if company_id
         %li
-          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}             
-      - if @car.user.can_edit?(current_user)              
-        %li
-          = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} 
+          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}
         %li
           = link_to "Nuevo Servicio",new_workorder_path(:car_id =>@car),:id=>"create_new_service",:title=>"Nuevo Servicio"
+        %li          
+          = link_to "Nuevo Presupuesto",new_budget_path(:ca => @car.id),{:title=>"Nuevo Presupuesto"}
+        - if @car.user.can_edit?(current_user)              
+          %li
+            = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} 
       - else
         %li
           = link_to_function "Nuevo Servicio","createNewService(#{@car.id})",{:title=>"Nuevo Servicio"}

@@ -35,12 +35,14 @@ class Budget < ActiveRecord::Base
       errors.add_to_base("El dominio ingresado ya existe")  
     end  
 
-    #busco usuario con el mismo email
-    u = User.find_by_email(email.strip)
-    # si lo encuentro y el budget no tiene usuario => agrego error
-    # si lo encuentro y el budget tine usuario cuyo id es distinto al id del usuario encontrado con el mismo email => agrego error
-    if (u && user.nil?) || (u && user && u.id != user.id)
-      errors.add_to_base("El email ingresado ya existe")  
+    if email && user.nil?
+      #busco usuario con el mismo email
+      u = User.find_by_email(email.strip)
+      # si lo encuentro y el budget no tiene usuario => agrego error
+      # si lo encuentro y el budget tine usuario cuyo id es distinto al id del usuario encontrado con el mismo email => agrego error
+      if (u && user.nil?) || (u && user && u.id != user.id)
+        errors.add_to_base("El email ingresado ya existe")  
+      end
     end
 
     # si el budget tiene usuario y auto y el auto no pertenece al usuario => agrego error
@@ -94,11 +96,20 @@ class Budget < ActiveRecord::Base
     if filters[:company_id]
       budget = budget.where("company_id IN (?)",filters[:company_id])
     else
-      #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
+      budget = budget.where("user_id = ?",filters[:user].id)
     end    
     
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
     logger.debug "### Filters SQL #{budget.to_sql}"
     budget
   end
+
+  def can_edit? user
+    creator.id == user.id
+  end
+
+  def can_create_service? user
+    ((user && car) || (user.nil? && car.nil?)) && user.company
+  end
+
 end

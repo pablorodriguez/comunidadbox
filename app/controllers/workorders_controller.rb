@@ -29,9 +29,7 @@ class WorkordersController < ApplicationController
     
     @company_services = get_service_types 
     per_page = 10
-    @sort_column = sort_column
-    @direction = sort_direction
-    order_by = @sort_column + " " + @direction
+    @order_by = order_by
     @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = @service_type_ids.size > 0 ? true : false
     
@@ -72,9 +70,9 @@ class WorkordersController < ApplicationController
     end
 
     @amt_data = Workorder.build_graph_data(@amt)
-    @work_orders = @workorders.order(order_by).paginate(:page =>page,:per_page =>per_page)
+    @work_orders = @workorders.order(@order_by).paginate(:page =>page,:per_page =>per_page)
 
-    logger.debug "### WO SQL #{@work_orders.to_sql}"
+    logger.debug "### WO SQL #{@work_orders.to_sql}, order by #{@order_by}"
 
     @count= @workorders.count()
     @workorder_amount= @workorders.sum("price * amount")
@@ -144,7 +142,9 @@ class WorkordersController < ApplicationController
   def update
     @work_order = Workorder.find(params[:id])
     cso_ids = params["cso_ids"] || []
-    company_id =  get_company_id(params)
+
+    company_id =  get_company_id(params) if @work_order.company_id.nil?
+
     respond_to do |format|
 
     if @work_order.update_attributes(params[:workorder])
@@ -195,20 +195,17 @@ class WorkordersController < ApplicationController
   end
 
   def create
-    company = get_company
-    company_id = company.id
-    
+    @work_order = Workorder.new(params[:workorder])     
     cso_ids = params["cso_ids"] || []
 
-    @work_order = Workorder.new(params[:workorder])     
-    @work_order.company_id = company_id
+    @work_order.company_id = company_id.id if @work_order.company_id.nil?
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     saveAction =false
 
     car = @work_order.car
-    unless car.user.service_centers.include?(company)
-      car.user.service_centers << company
+    unless car.user.service_centers.map(&:id).include?(@work_order.company_id)
+      car.user.service_centers << get_company
     end
 
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
@@ -305,17 +302,11 @@ class WorkordersController < ApplicationController
 
   end
 
-  def sort_column
-    params[:sort] || "workorders.performed"
+  def order_by
+    params[:order_by] && (not Workorder::ORDER_BY.values.select{|v| v == params[:order_by]}.empty?) ? params[:order_by] : "workorders.performed desc"
   end
 
-  def sort_direction
-    if params[:direction]
-      %[asc desc].include?(params[:direction])? params[:direction] : "desc"
-    else
-      "desc"
-    end
-  end
+  
 
 
 end

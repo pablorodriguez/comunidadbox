@@ -16,7 +16,7 @@
               %strong
                 Operario:
               = "#{s.operator.first_name} #{s.operator.last_name}"
-      - if all_company?
+      - if multiple_company?
         .clear.left
           = work_order_row.company.name
     .wo_info
