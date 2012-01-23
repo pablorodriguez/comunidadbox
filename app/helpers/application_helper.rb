@@ -18,6 +18,7 @@ module ApplicationHelper
   end
 
   def multiple_company?
+    return false if cookies[:company_id] == nil
     return (all_company? || (cookies[:company_id].split(",").size > 1) )
   end
 
@@ -26,12 +27,14 @@ module ApplicationHelper
   end
 
   def get_company params=nil    
-    if (company_id == nil) 
+    if ((company_id == nil) && (params[:company_id]))
       return Company.find(params[:company_id])
     elsif all_company?
       return current_user.company
-    else
+    elsif company_id    
       return Company.find(company_id.first)
+    else
+      return nil
     end
     #company_id.empty? ? Company.find(params[:company_id]) : Company.where("id IN (?)",company_id).first
   end
@@ -50,6 +53,11 @@ module ApplicationHelper
 
   def is_client client
     current_user.is_client? client
+  end
+
+  def can_show? client
+    return true if (current_user.id == client.id)
+    return is_client(client)
   end
 
   def sortable(column,title = nil)

@@ -5,7 +5,7 @@
         = brand_logo @car.brand.name
       .domain
         = @car.domain
-  - if is_client @car.user
+  - if can_show?(@car.user)
     #client_info.hide    
       .car_info
         = h @car.model.name

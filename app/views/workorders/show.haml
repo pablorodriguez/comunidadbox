@@ -5,14 +5,14 @@
       %ul
         %li
           = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
-        -if can_edit? @work_order
+        -if @work_order.can_edit?(current_user)
           %li
             = link_to "Modificar", edit_workorder_path(@work_order)
 .contentright_s
   .box_bottom
     %h1
       Orden de Trabajo: 
-      = @work_order.company.name
+      = @work_order.company_name
   - can_show = @work_order.can_show? current_user
   = render "show" if can_show
   = render "s_show" unless can_show

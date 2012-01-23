@@ -143,7 +143,9 @@ class WorkordersController < ApplicationController
     @work_order = Workorder.find(params[:id])
     cso_ids = params["cso_ids"] || []
 
-    company_id =  get_company_id(params) if @work_order.company_id.nil?
+    if (@work_order.company_id.nil? && @work_order.company_info.nil?)
+      company_id =  get_company_id(params)
+    end
 
     respond_to do |format|
 
@@ -172,7 +174,8 @@ class WorkordersController < ApplicationController
       format.html { redirect_to(@work_order)}
       format.xml  { head :ok }
     else
-      @car_service_offers = @work_order.find_car_service_offer(company_id)
+      @car_service_offers = []
+      @car_service_offers = @work_order.find_car_service_offer(company_id) if company_id
       @service_types = get_service_types
 
       format.html { render :action => "edit" }
@@ -198,14 +201,17 @@ class WorkordersController < ApplicationController
     @work_order = Workorder.new(params[:workorder])     
     cso_ids = params["cso_ids"] || []
 
-    @work_order.company_id = company_id.id if @work_order.company_id.nil?
+    if (@work_order.company_id.nil? && @work_order.company_info.nil?)
+      @work_order.company_id = company_id.id 
+    end
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     saveAction =false
 
     car = @work_order.car
     unless car.user.service_centers.map(&:id).include?(@work_order.company_id)
-      car.user.service_centers << get_company
+      comp = Company.find_by_id(@work_order.company_id)
+      car.user.service_centers << comp if comp
     end
 
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
@@ -278,6 +284,7 @@ class WorkordersController < ApplicationController
       end
     end
     
+    @car_service_offers =[]
     #busco las ofertas de servicios para el auto asignado a la orden de trabajo
     @car_service_offers = @work_order.find_car_service_offer(company.id)  if company
 
@@ -297,7 +304,7 @@ class WorkordersController < ApplicationController
     if work_order.car.domain == "HRJ549"
       logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
       #message = WorkOrderNotifier.notify(work_order).deliver
-      Resque.enqueue WorkorderJob,work_order_id
+      #Resque.enqueue WorkorderJob,work_order_id
     end
 
   end
