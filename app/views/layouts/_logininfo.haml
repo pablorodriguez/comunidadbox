@@ -1,5 +1,7 @@
-= company_id
-= cookies[:company_id]
+
+-#-if user_signed_in?
+-#  = company_id
+-#  = get_companies.map(&:id)
 #avatar_login
   - unless user_signed_in?
     %ul
@@ -15,7 +17,7 @@
       %li
         %h3
           = link_to "Ayuda", "#"                      
-  -if user_signed_in?  
+  -if user_signed_in? 
     %ul  
       %li
         %h3
@@ -25,20 +27,24 @@
           #company_id.company_id.right
             %h3.link
               = get_company.name
-              - if current_user.companies.size > 1
+              - if multiple_company?
+                +
+              - elsif current_user.companies.size > 1
                 ="..."
     
     -if current_user.companies.size > 1
       #all_companies.all_companies.hide
-        = form_tag set_company_home_index_path,:id=>:comp_form do |f|
-          - current_user.companies.each do |c|          
+        - c_ids = get_companies.map(&:id)
+        %ul
+          = form_tag set_company_home_index_path,:id=>:comp_form do |f|
+            - current_user.companies.each do |c|          
+              %li
+                = check_box_tag 'company_ids[]', c.id,checked = (c_ids.include?(c.id)),:class=>"checkbox",:id=>"company_id_#{c.id}"
+                %label.link{:for=>"company_id_#{c.id}"}
+                  =c.name
             %li
-              = check_box_tag 'company_ids[]', c.id,checked = (get_companies.map(&:id).include?(c.id)),:class=>"checkbox w",:id=>"company_id_#{c.id}"
-              %label.link{:for=>"company_id_#{c.id}"}
-                =c.name
-          %li
-            = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
-            %label.link{:for=>"all_company_check"} Todos
+              = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
+              %label.link{:for=>"all_company_check"} Todos
     - if company_id
       .clear
         %ul  

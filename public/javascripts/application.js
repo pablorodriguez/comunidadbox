@@ -22,7 +22,7 @@ jQuery(document).ready( function(){
     $("#all_companies").show();    
   });
 
-  $("#all_companies :checkbox").click(function(event){
+  $("#all_companies .checkbox").click(function(event){
     change_company=true;
     var all = true;
     $("#all_companies .checkbox").each(function(){
@@ -43,6 +43,7 @@ jQuery(document).ready( function(){
   $("#all_company_check").click(function(event){    
     $("#all_companies :checkbox").attr("checked",$(this).attr("checked"));
     event.stopPropagation();
+    change_company=true;
   });
 
   $(".labelify").labelify({ labelledClass: "labelHighlight" });

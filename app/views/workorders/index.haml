@@ -41,10 +41,11 @@
     .box_bottom
       = render 'search'
     .menu_actions.box_bottom
-      %ul
+      
       - if company_id
-        %li
-          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
+        %ul
+          %li
+            = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
 
   .contentright_s
     - if @work_orders.size > 0
