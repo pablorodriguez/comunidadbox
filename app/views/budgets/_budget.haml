@@ -28,10 +28,9 @@
       = link_to_function "","new_note(this)",:title=>"Crear una nota",:class=>"new_note_link"
     - n_css = budget.notes.empty? ? "hide" : ""
     .action{:class=>"#{n_css}"}
-      = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"  
-    - if budget.can_create_service?(current_user)
-      .action
-        = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
+      = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"      
+    .action
+      = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
     - if budget.can_edit?(current_user)
       .action     
         = link_to "", budget_path(budget), :confirm => '¿ Esta seguro que desea borrar el Presupuesto ?', :method => :delete,:title =>"Eliminar",:class=>"delete"

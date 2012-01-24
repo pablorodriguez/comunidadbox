@@ -9,7 +9,7 @@ class Budget < ActiveRecord::Base
   belongs_to :car
   belongs_to :company
 
-  scope :companies, lambda { |comp_id| {:conditions =>  ["company_id = ?", comp_id] } }
+  scope :companies, lambda { |comp_id| {:conditions =>  ["company_id IN (?)", comp_id] } }
 
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   validate :service_not_empty
