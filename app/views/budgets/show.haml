@@ -12,8 +12,7 @@
       .ajax_loader.right
       -if company_id
         %li
-          = link_to "Nuevo Presupuesto", new_budget_path
-      -if @budget.can_create_service?(current_user)
+          = link_to "Nuevo Presupuesto", new_budget_path      
         %li
           = link_to "Crear Servicio",new_workorder_path(:b =>@budget.id),:title =>"Crear servicio"
 
