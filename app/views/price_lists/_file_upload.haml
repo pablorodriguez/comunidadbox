@@ -1,0 +1,4 @@
+.hide
+  = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
+    = file_field :price, :file
+    = submit_tag "Upload"

@@ -30,6 +30,14 @@ class PriceListsController < ApplicationController
       format.xml  { render :xml => @model }
     end
   end
+
+  def destroy
+    @pl = PriceList.find params[:id]
+    @pl.destroy
+    respond_to do |format|
+      format.html { redirect_to(price_lists_path) }
+    end
+  end
   
   # POST /models
   # POST /models.xml
@@ -40,7 +48,7 @@ class PriceListsController < ApplicationController
     respond_to do |format|
       if @price_list.save
         flash[:notice] = 'La Lista de Precio de grabo con exito'
-        format.html { redirect_to(@price_list) }
+        format.html { redirect_to(price_lists_path) }
         format.xml  { render :xml => @price_list, :status => :created, :location => @price_list }
       else
         format.html { render :action => "new" }
@@ -58,8 +66,11 @@ class PriceListsController < ApplicationController
   end
   
   def copy
-    @price_lists = get_all_price_list(get_company.id)
-    render :action =>:index
+    @pl = PriceList.find params[:id]
+    PriceList.copy_price_list @pl
+    respond_to do |format|
+      format.html { redirect_to(price_lists_path) }
+    end
   end
   
   def activate
@@ -99,14 +110,17 @@ class PriceListsController < ApplicationController
   def update_item_price
     plid= params[:id]
     ids = params[:ids]
-    puts "##### #{ids}"
+    
     page = params[:page]
     item_update = params[:item_update]
     percentage = params[:percentage]
     service_types_ids = params[:service_type_ids]
     material = params[:material]
+    
     update_all(plid,percentage) if (item_update == "all")      
+    
     update_all_page(plid,percentage,service_types_ids,material)if (item_update == "all_page")
+    
     update_actual_page(plid,ids) if (item_update == "actual_page")
     
     redirect_to :action=>:index
@@ -124,6 +138,17 @@ class PriceListsController < ApplicationController
     @price_list = PriceList.find id
   end
   
+
+  def price_upload
+    require 'fileutils'
+    id = params[:id]
+    tmp = params[:price][:file].tempfile    
+    file = File.join("#{RAILS_ROOT}/files/", params[:price][:file].original_filename)
+    FileUtils.cp tmp.path, file
+    logger.debug "## entro en file uplaod"
+    #redirect_to items_price_list_path(PriceList.find(id))
+    redirect_to :action=>:index
+  end
   
   private
   
@@ -145,7 +170,7 @@ class PriceListsController < ApplicationController
           unless value.empty?
             mst=MaterialServiceType.find key.to_i
             items = PriceListItem.find_by_price_list_id_and_material_service_type_id(plid,key)
-            unless items.nil?
+            if items
               items.price = value.to_f
               items.save
             else

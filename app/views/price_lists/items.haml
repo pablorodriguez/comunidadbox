@@ -3,11 +3,14 @@
 - javascript 'price_list'
 #price_list_items  
   .vertical_menu
-    =render "admin/menu"
+    = render "admin/menu"
     = render "update"
+    = render "file_upload.haml"
   .contentright_s
     .box_bottom
-      %h1 Actualizar Precios
+      %h1 
+        Actualizar Precios:
+        = @price_list.name
     = form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
       .box_bottom
         %table.w

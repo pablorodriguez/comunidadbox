@@ -1334,6 +1334,10 @@ td.number, th.number{
   padding:3px;
 }
 
+.service_type table{
+  border-collapse:collapse;
+}
+
 .service_type select{
   margin:0px 3px;
 }

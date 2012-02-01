@@ -31,10 +31,11 @@ class PriceList < ActiveRecord::Base
   def self.copy_price_list pl
     newPL = PriceList.new
     newPL.company_id = pl.company_id
-    newPL.active = true
-    newPL.name= pl.name
+    #newPL.active = true
+    newPL.name= "Copy - #{pl.name}"
     newPL.save
     ActiveRecord::Base.connection.execute("insert into price_list_items (price_list_id,material_service_type_id,price,created_at,updated_at) select #{newPL.id},material_service_type_id,price,now(),now() from price_list_items where price_list_id=#{pl.id}")  
+    newPL    
   end
   
   def materials
@@ -53,13 +54,13 @@ class PriceList < ActiveRecord::Base
   end
   
   def self.generate_code service_type_id
-    set_code_type service_type_id
-    @@code_nro+=1
-    "#{@@code_type}#{format("%05d",@@code_nro)}"
+    code_type = set_code_type service_type_id
+    code_nro+=1
+    "#{code_type}#{format("%05d",@@code_nro)}"
   end
   
   def self.set_code_type service_type_id
-    @@code_type = case service_type_id.to_i
+    code_type = case service_type_id.to_i
       when 1
         "CA"
       when 2
@@ -77,6 +78,80 @@ class PriceList < ActiveRecord::Base
       when 9
         "AM"
     end
+  end
+
+  def self.file_content name
+    fileName = "#{RAILS_ROOT}/lib/#{name}.txt"
+    puts fileName
+    File.open(fileName).each do |line|
+      puts line
+    end
+  end
+
+  def self.import_item_price(pl_id,file_name)
+    pl = PriceList.find pl_id
+    code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
+    found = 0
+    not_found = 0
+
+    fileName = "#{RAILS_ROOT}/lib/#{file_name}"
+    puts fileName
+    File.open(fileName).each do |r|
+
+      cell= r.split("\t")
+      prov_code = cell[0]
+      
+      m = Material.find_by_prov_code(prov_code)
+
+      if m        
+        if (cell[2].strip != m.name)
+          m.name = cell[2].strip
+          m.save
+          puts "#{cell[0]} #{cell[2]} "          
+        end
+        # busco en la lista de precio si existe el material
+        item = PriceListItem.includes(:price_list,:material_service_type => [:material]).where("materials.prov_code = ? and price_lists.id = ?",prov_code,pl_id).first
+
+        if item
+          item.price = cell[3].strip.to_f
+          item.save
+        end
+        
+        found += 1
+        
+      else  
+        # creo el material
+        m = Material.new
+        m.prov_code = prov_code
+        m.code = "CN#{code}"
+        m.name = cell[2].strip
+        m.brand = cell[1].strip
+        m.provider ="Bridgestone"
+        m.save
+
+        # creo un un material service type tipo 2 , Cambio de Neumatico
+        mst = MaterialServiceType.new        
+        mst.service_type_id = 2
+        mst.material_id = m.id
+        mst.save
+
+        # creo un item de prcio de lista 
+        pli = PriceListItem.new
+        pli.price_list_id = pl_id
+        pli.material_service_type_id = mst.id
+        pli.price = cell[3].strip.to_f
+        pli.save
+
+        code += 1
+        not_found += 1
+        puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
+      
+      end
+      
+      
+
+    end
+    puts "### #{found} encontrados, #{not_found} no encontrados"
   end
   
   
@@ -133,6 +208,10 @@ class PriceList < ActiveRecord::Base
     end
   end
   
+
+  def update_price_list
+
+  end
   
   
 end
