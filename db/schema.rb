@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209184911) do
+ActiveRecord::Schema.define(:version => 20120124223828) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -89,11 +89,12 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
     t.integer  "brand_id"
     t.integer  "model_id"
     t.string   "domain"
+    t.integer  "user_id"
+    t.integer  "car_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
-    t.integer  "car_id"
-    t.integer  "user_id"
+    t.text     "comment"
   end
 
   add_index "budgets", ["car_id"], :name => "budgets_car_id_fk"
@@ -198,6 +199,7 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
     t.integer  "service_done_id"
     t.integer  "km"
     t.integer  "status"
+    t.string   "status_o"
     t.date     "dueDate"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -213,9 +215,9 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
     t.string   "model"
     t.integer  "km"
     t.integer  "kmavg"
+    t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "year"
   end
 
   create_table "material_details", :id => false, :force => true do |t|
@@ -262,6 +264,8 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
     t.integer  "sub_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "brand"
+    t.string   "provider"
   end
 
   create_table "models", :force => true do |t|
@@ -496,6 +500,7 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
     t.string   "company_name"
     t.string   "cuit"
     t.boolean  "confirmed"
+    t.boolean  "disable"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
@@ -514,14 +519,16 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
     t.integer  "status"
     t.integer  "payment_method_id"
     t.string   "company_info"
+    t.integer  "budget_id"
   end
 
+  add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
   add_index "workorders", ["payment_method_id"], :name => "workorders_payment_method_id_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
-  add_foreign_key "addresses", "companies", :name => "addresses_ibfk_1"
+  add_foreign_key "addresses", "companies", :name => "addresses_ibfk_1", :dependent => :delete
   add_foreign_key "addresses", "states", :name => "addresses_ibfk_2"
   add_foreign_key "addresses", "users", :name => "addresses_ibfk_3"
 
@@ -545,7 +552,7 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
   add_foreign_key "company_services", "companies", :name => "company_services_ibfk_1"
   add_foreign_key "company_services", "service_types", :name => "company_services_ibfk_2"
 
-  add_foreign_key "events", "services", :name => "events_ibfk_122", :dependent => :delete
+  add_foreign_key "events", "services", :name => "events_ibfk_1", :dependent => :delete
 
   add_foreign_key "material_service_types", "materials", :name => "material_service_types_ibfk_1"
   add_foreign_key "material_service_types", "service_types", :name => "material_service_types_ibfk_2"
@@ -590,6 +597,7 @@ ActiveRecord::Schema.define(:version => 20111209184911) do
 
   add_foreign_key "users", "companies", :name => "users_ibfk_1", :column => "employer_id"
 
+  add_foreign_key "workorders", "budgets", :name => "workorders_budget_id_fk", :dependent => :delete
   add_foreign_key "workorders", "cars", :name => "workorders_ibfk_1"
   add_foreign_key "workorders", "companies", :name => "workorders_ibfk_2"
   add_foreign_key "workorders", "payment_methods", :name => "workorders_payment_method_id_fk"
