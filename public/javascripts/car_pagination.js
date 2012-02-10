@@ -45,6 +45,7 @@ jQuery(document).ready(function(){
   $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
   $("#note").click(function(){showHideContent($(this),"#cars_notes");});  
   $("#messages").click(function(){showHideContent($(this),"#cars_messages");});
+  $("#budgets_link").click(function(){showHideContent($(this),"#car_budgets")});
 
   $(".contentright_s .labelify").labelify({ labelledClass: "labelHighlight" });
 

@@ -1,4 +1,9 @@
-.hide
-  = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
-    = file_field :price, :file
-    = submit_tag "Upload"
+.upload_file
+  .box_bottom
+    %h1 Actualizar desde archivo
+  .box_bottom  
+    = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
+      .left
+        = file_field :price, :file
+      .left
+        = submit_tag "Importar",:disable_with => 'Importando...',:class =>:button

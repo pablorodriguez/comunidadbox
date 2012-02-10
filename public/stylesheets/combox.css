@@ -2500,3 +2500,12 @@ ul.tasks li{
   width:79%;
   float:left;
 }
+
+.upload_file form{
+  margin: 10px 0px;
+}
+
+.upload_file input{
+  height:30px;
+  margin-top:0px;
+}

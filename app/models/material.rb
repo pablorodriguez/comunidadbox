@@ -21,4 +21,17 @@ class Material < ActiveRecord::Base
   def detail
     "[#{code}] #{name}"
   end
+
+  
+  def self.create_material(prov_code,code,name,brand,provider)
+    # creo el material
+    m = Material.new
+    m.prov_code = prov_code
+    m.code = code
+    m.name = name
+    m.brand = brand
+    m.provider = privider
+    m.save
+    m
+  end
 end

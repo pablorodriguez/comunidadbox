@@ -88,71 +88,68 @@ class PriceList < ActiveRecord::Base
     end
   end
 
-  def self.import_item_price(pl_id,file_name)
+  def self.import_item_price_file(pl_id,file,provider)
     pl = PriceList.find pl_id
     code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
     found = 0
     not_found = 0
+    new_materials = []
 
-    fileName = "#{RAILS_ROOT}/lib/#{file_name}"
-    puts fileName
-    File.open(fileName).each do |r|
-
+    file.each do |r|
       cell= r.split("\t")
-      prov_code = cell[0]
-      
+      prov_code = cell[0].strip
+      brand = cell[1].strip
+      name = cell[2].strip
+      price = cell[3].strip.to_f
+
+      # busco el material a ver si existe
       m = Material.find_by_prov_code(prov_code)
 
       if m        
-        if (cell[2].strip != m.name)
-          m.name = cell[2].strip
-          m.save
-          puts "#{cell[0]} #{cell[2]} "          
-        end
         # busco en la lista de precio si existe el material
         item = PriceListItem.includes(:price_list,:material_service_type => [:material]).where("materials.prov_code = ? and price_lists.id = ?",prov_code,pl_id).first
 
         if item
-          item.price = cell[3].strip.to_f
+          item.price = price
           item.save
+        else
+          # creo un item de prcio de lista 
+          #pl.price_list_items.create(:material_service_type_id => 2,:price => price)
         end
-        
         found += 1
-        
       else  
-        # creo el material
-        m = Material.new
-        m.prov_code = prov_code
-        m.code = "CN#{code}"
-        m.name = cell[2].strip
-        m.brand = cell[1].strip
-        m.provider ="Bridgestone"
-        m.save
+        row =  Array[prov_code,brand,name,price]
+        new_materials << row
+        #creo el nuevo material
+        #m = Material.create(:prov_code => prov_code,:code =>"CN#{code}",:name => name,:brand =>brand,:provider => provider)
 
         # creo un un material service type tipo 2 , Cambio de Neumatico
-        mst = MaterialServiceType.new        
-        mst.service_type_id = 2
-        mst.material_id = m.id
-        mst.save
+        #mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => 2)
 
         # creo un item de prcio de lista 
-        pli = PriceListItem.new
-        pli.price_list_id = pl_id
-        pli.material_service_type_id = mst.id
-        pli.price = cell[3].strip.to_f
-        pli.save
+        #pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
 
-        code += 1
-        not_found += 1
-        puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
-      
+        #code += 1
+        #not_found += 1
+        #puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
       end
-      
-      
-
-    end
+      puts "#{(found + not_found)} #{prov_code}"
+    end   
+    file.close
+    result = {}
+    result[:not_found] = not_found
+    result[:found] = found
+    result[:rows] = new_materials
     puts "### #{found} encontrados, #{not_found} no encontrados"
+    result
   end
+
+  def self.import_item_price(pl_id,file_name)
+    puts File.file? file_name
+    file = File.open(file_name)
+    import_item_price_file(pl_id,file,"Bridgestone")
+  end
+
   
   
   def self.import_price(name)

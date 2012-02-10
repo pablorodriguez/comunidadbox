@@ -4,9 +4,21 @@
 #price_list_items  
   .vertical_menu
     = render "admin/menu"
-    = render "update"
-    = render "file_upload.haml"
+    = render "update"    
   .contentright_s
+    = render "file_upload.haml"
+    - if @result
+      #mpor_price_item
+        .box_bottom
+          %h1 Lista de Precios actualizada desde archivo
+        .box_bottom          
+          %strong
+            Cantidad de Precios actualizdos:
+          = @result[:found]
+          %br
+          %strong 
+            Nombre archivo:
+          = @result[:file_name] 
     .box_bottom
       %h1 
         Actualizar Precios:

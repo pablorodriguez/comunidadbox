@@ -95,6 +95,7 @@ class CarsController < ApplicationController
       
       filters[:user] = current_user unless company_id
 
+      @budgets = @car.budgets.paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
       @companies = Company.best current_user.state 
       @notes = Note.where("user_id = ? and workorder_id is null",@car.user.id).order("created_at desc")

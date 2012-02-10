@@ -142,12 +142,23 @@ class PriceListsController < ApplicationController
   def price_upload
     require 'fileutils'
     id = params[:id]
+    @price_list = PriceList.find id
     tmp = params[:price][:file].tempfile    
-    file = File.join("#{RAILS_ROOT}/files/", params[:price][:file].original_filename)
-    FileUtils.cp tmp.path, file
-    logger.debug "## entro en file uplaod"
-    #redirect_to items_price_list_path(PriceList.find(id))
-    redirect_to :action=>:index
+    @result = PriceList.import_item_price_file(@price_list,tmp,"Bridgestone")
+    #file = File.join("#{RAILS_ROOT}/files/", params[:price][:file].original_filename)
+    #FileUtils.cp tmp.path, file,"Bridgestone")
+    #redirect_to items_price_list_path(PriceList.find(id))    
+    @result[:file_name] =params[:price][:file].original_filename
+    @page = 1
+    @service_type_ids = []
+    @percentage = ""
+    @material =  ""
+    company_id= get_company.id
+    @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
+      
+    respond_to do |format|
+      format.html { render :action => "items" }
+    end
   end
   
   private
