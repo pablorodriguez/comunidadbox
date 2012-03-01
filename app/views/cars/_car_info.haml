@@ -29,21 +29,8 @@
         %h3 Marca y Modelo
       %td
         = "#{car.brand.name} #{car.model.name}"
-        
-    %tr
       %td
         %h3 Teléfono
       %td
         = car.user.phone
-      %td 
-        %h3 Km Actual
-      %td
-        = hidden_field_tag :url_update_km, update_km_cars_path
-        %p#km_actual.edit_in_place
-          = car.km
-      %td
-        %h3 Km Promedio Mensual
-      %td
-        = hidden_field_tag :url_update_km_avg, update_km_avg_cars_path
-        %p#km_avg.edit_in_place
-          = car.kmAverageMonthly
+          

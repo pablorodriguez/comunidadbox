@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PabloControllerTest < ActionController::TestCase
+class CarTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  test "the truth" do
+  test "new km change" do
     assert true
   end
 end

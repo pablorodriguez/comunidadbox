@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124223828) do
+ActiveRecord::Schema.define(:version => 20120210152939) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20120124223828) do
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "kmUpdatedAt"
   end
 
   add_index "cars", ["brand_id"], :name => "cars_brand_id_fk"

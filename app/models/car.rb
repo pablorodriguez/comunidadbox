@@ -14,6 +14,19 @@ class Car < ActiveRecord::Base
   validates_numericality_of :year,:km
   validates_uniqueness_of :domain
   validates_format_of :domain, :with => /^\D{3}\d{3}/
+  before_save :set_new_attribute
+  after_save :update_events
+
+  def set_new_attribute
+    # si se modifico el km 
+    # pero no se modificio el kmAverageMonthly
+    # calculo el kmAverageMonthly    
+    if (km_changed? && (!kmAverageMonthly_changed?))
+      if (self.km > changed_attributes["km"])
+        update_km
+      end
+    end
+  end
 
   def future_events
     #Event.future(Time.now).car(self.id).order("dueDate desc")
@@ -23,30 +36,7 @@ class Car < ActiveRecord::Base
   def can_edit?(usr)
     (user.id == usr.id) || ((company && company.id == usr.company.id) && user.confirmed_at.nil?) 
   end
-  
-  def update_km(new_km)
-    months = ((Time.now.to_i - self.updated_at.to_i).to_f / Event::MONTHS_IN_SEC).round
-    if months > 0
-      km_dif = new_km - self.km
-      new_avg = (km_dif) / months
-      self.kmAverageMonthly = new_avg
-      self.km = new_km
-      end
     
-  end
-  
-  def update_events
-    future_events.active.each do |event|
-      months = (event.km - km) / kmAverageMonthly
-      #old_date = event.dueDate
-      e = Event.find event.id
-      e.dueDate = months.months.since
-      e.save
-      #puts "Old Date: #{old_date}, KM: #{event.km} , New Date: #{event.dueDate} Months : #{months}"
-    end
-    
-  end
-
   def total_spend(company_id = nil,service_type_id = nil)
     total = 0
     self.workorders.each do  |wo|
@@ -66,6 +56,31 @@ class Car < ActiveRecord::Base
 
   def self.companies ids
     Car.includes(:company).where("cars.company_id IN (?)",ids)
+  end
+
+  private
+
+  def update_km
+    last_update = self.kmUpdatedAt.nil? ? self.updated_at : self.kmUpdatedAt
+    months = ((Time.now.to_i - last_update.to_i).to_f / Event::MONTHS_IN_SEC).round
+    if months > 0
+      km_dif = self.km - self.changed_attributes["km"]
+      new_avg = (km_dif) / months
+      self.kmAverageMonthly = new_avg        
+      self.kmUpdatedAt = Time.new 
+    end
+  end
+
+   def update_events
+    future_events.active.each do |event|
+      months = (event.km - km) / kmAverageMonthly
+      #old_date = event.dueDate
+      e = Event.find event.id
+      e.dueDate = months.months.since
+      e.save
+      #puts "Old Date: #{old_date}, KM: #{event.km} , New Date: #{event.dueDate} Months : #{months}"
+    end
+    
   end
 end
 

@@ -130,12 +130,12 @@ ComunidadBox::Application.routes.draw do
     collection do
       post :find_models
       post :search
-      post :search_companies
-      post :update_km
-      post :update_km_avg
+      post :search_companies      
       get :my
     end
-    member do
+
+    member do   
+      put :km   
       get :services_done
       get :future_events
       get :report_graph

@@ -1,10 +1,6 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)  
 
-  add_breadcrumb "Buscar", :all_companies_path
-  add_breadcrumb "Autos", :cars_path
-  add_breadcrumb "Panel de Control", :control_panels_path
-
   prawnto :prawn => {:page_size => "A4"}
 
   layout "application", :except => [:remove_service,:filter]

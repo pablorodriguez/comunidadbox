@@ -52,6 +52,7 @@ gem 'resque-scheduler'
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem 'rake', '0.8.7'
 gem 'attribute_normalizer'
 gem 'recaptcha', :require => 'recaptcha/rails'
 #gem "exception_notification", :git => "https://github.com/sickill/exception_notification.git", :require => 'exception_notifier'

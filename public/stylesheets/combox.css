@@ -93,6 +93,10 @@ body {
   margin-top:-20px;
 }
 
+#km_update .ajax_loader{
+  margin-top:18px;
+}
+
 
 #container{
   min-height:100%;
@@ -165,6 +169,10 @@ h1 {
 
 h3{
   margin:5px 10px;
+}
+
+h4{
+ margin: 10px;
 }
 
 h1.contentright{
@@ -1119,8 +1127,7 @@ table.comboxtable, .comboxform, .w{
 .barradatos{
   background-color:#E6E6E6;
   margin:0 auto;
-  padding:5px;
-  margin-bottom:10px;
+  padding:2px 5px;
   overflow: auto; 
 }
 

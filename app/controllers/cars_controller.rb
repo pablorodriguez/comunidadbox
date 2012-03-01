@@ -3,7 +3,7 @@ class CarsController < ApplicationController
   #add_breadcrumb "Buscar", :all_companies_path
   #add_breadcrumb "Autos", :cars_path  
   
-  layout "application", :except => [:search,:update_km,:update_km_avg,:find_models,:search_companies] 
+  layout "application", :except => [:search,:find_models,:search_companies,:km] 
   skip_before_filter :authenticate_user!,:only => [:find_models]
  
   # GET /cars
@@ -44,14 +44,16 @@ class CarsController < ApplicationController
     end
   end
   
-  def update_km
-    domain = params[:domain]
-    new_value = params[:update_value].to_i    
-    car = Car.find_by_domain domain
-    car.km = new_value
-    car.save
-    car.update_events
-    render :text => new_value
+  def km
+    @car = Car.find(params[:id])
+    old_km = @car.km
+    new_km = params[:car][:km].to_i
+    respond_to do |format|
+      if @car.update_attributes(params[:car])
+        @msg = "El nuevo kilometraje es menor. (#{new_km} < #{old_km})" if old_km > new_km
+        format.js
+      end
+    end
   end
 
   def update_km_avg

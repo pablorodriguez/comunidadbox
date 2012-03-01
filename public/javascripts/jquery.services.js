@@ -25,16 +25,7 @@ jQuery(document).ready( function(){
 	var domain = $.trim($("#domain").html());
 	var param_values ="domain=" + domain;
 
-	$("#km_actual").editInPlace({
- 		url:url_km,
-		params:param_values
- 	});
-
-	$("#km_avg").editInPlace({
- 		url:url_km_avg,
-		params:param_values
- 	});
-
+	
 	$("#service_type_id").change(function(){
 		$("#materials_list").html("");
 		if ($("#detail").val() != ""){

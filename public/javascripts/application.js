@@ -18,7 +18,7 @@ jQuery(document).ready( function(){
     showMenu = true;
   });
 
-  $("#company_id ").mouseenter(function(event){
+  $("#company_id ").click(function(event){
     $("#all_companies").show();    
   });
 
@@ -48,7 +48,7 @@ jQuery(document).ready( function(){
 
   $(".labelify").labelify({ labelledClass: "labelHighlight" });
 
-  $(".vertical_menu [data-remote='true']").bind('ajax:before', function(){
+  $("[data-remote='true']").bind('ajax:before', function(){
     $(this).parent().next().show();
   }).bind('ajax:complete',function(){
     $(this).parent().next().hide();
