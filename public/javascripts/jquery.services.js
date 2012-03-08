@@ -38,7 +38,17 @@ jQuery(document).ready( function(){
 	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
 	$("#materials_list .checkbox").live("click",checkMaterialHandler);
-	$(".comment").live("click",showModalComment);
+	$("#wo-actions .add_comment").live("click",showWorkOrderComment);
+	$(".service_status .add_comment").live("click",showServiceComment);
+
+	$(".notes_link").click(function(){
+		$("#wo_note").slideToggle();
+	});
+
+	$(".add_alarm").click(function(){
+		$("#wo_alarm").slideToggle();
+	});
+
 	$("#material_dialog").click(showMaterialDialog);
 	$("#new_service_type").change(addNewServiceType);
 
@@ -58,6 +68,10 @@ jQuery(document).ready( function(){
       $("#detail").val("");
     },
     buttons: [
+          {
+            text:"Buscar",
+            click:function(){$("#material_form").submit();}
+          },
           {
             text: "Agregar Material",
             click: function() {
@@ -123,7 +137,7 @@ jQuery(document).ready( function(){
 });
 
 function showTask(ele){
-	$(ele).parent().parent().parent().parent().parent().parent().find(".task_list").toggle();
+	$(ele).parent().parent().parent().parent().parent().parent().find(".task_list").slideToggle();
 }
 
 function autoCompleteMaterial(){
@@ -172,7 +186,7 @@ function update_km_avg(event){
 
 
 function addEmptyMaterial(element){
-	var div = $(element).parent().parent().parent().parent().parent().parent();
+	var div = $(element).parent().parent().parent().parent().parent().parent().parent().parent();
 	div.find("#material_services_link").click();
 	var tr = div.find("table tr:last");
 	tr.find("td:eq(2)").find("input").val("1");
@@ -478,7 +492,7 @@ function add_materials_service_types(elements){
 		total.formatCurrency(total);
 		tr.find(".text_lable").each(function(){
 			$(this).disable();
-		});
+		});addEmptyMaterial
 
 	});
 	initMaterialItems();
@@ -489,9 +503,12 @@ function add_materials_service_types(elements){
 	});
 }
 
-function showModalComment(link){	
-	comment = $(this).parent().next().children().first();
-	commentDialog.dialog("open");
+function showWorkOrderComment(link){	
+	$(this).parent().parent().parent().parent().parent().parent().parent().find(".comment_div").first().slideToggle();	
+}
+
+function showServiceComment(link){	
+	$(this).parent().parent().parent().parent().parent().parent().parent().parent().find(".comment_div").first().slideToggle();	
 }
 
 function searchServiceTypeMaterial(link){

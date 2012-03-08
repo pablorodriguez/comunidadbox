@@ -48,6 +48,7 @@ class CarsController < ApplicationController
     @car = Car.find(params[:id])
     old_km = @car.km
     new_km = params[:car][:km].to_i
+    @car.kmUpdatedAt = Time.now
     respond_to do |format|
       if @car.update_attributes(params[:car])
         @msg = "El nuevo kilometraje es menor. (#{new_km} < #{old_km})" if old_km > new_km
@@ -91,16 +92,15 @@ class CarsController < ApplicationController
     respond_to do |format|
 
     if data == "all"
-      @work_orders = Workorder.includes(:payment_method,:ranks,:company).where("car_id = ?",@car_id).order("performed desc")
-        .paginate(:per_page=>per_page,:page =>page)
+      @work_orders = Workorder.for_car(@car_id).paginate(:per_page=>per_page,:page =>page)
       filters[:domain] = @car.domain
       
       filters[:user] = current_user unless company_id
 
       @budgets = @car.budgets.paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
-      @companies = Company.best current_user.state 
-      @notes = Note.where("user_id = ? and workorder_id is null",@car.user.id).order("created_at desc")
+      @companies = Company.best(current_user.state)
+      @notes = Note.for_user(@car.user)
       
       @events = @car.future_events.paginate(:per_page=>per_page,:page =>page)
       @wo_pages = {:d=>"wo"}
@@ -115,7 +115,7 @@ class CarsController < ApplicationController
     end
     
     if data =="wo"
-      @work_orders = Workorder.where("car_id = ?",@car_id).paginate(:per_page=>per_page,:page =>page,:order =>"performed desc")
+      @work_orders = Workorder.for_car(@car_id).paginate(:per_page=>per_page,:page =>page,:order =>"performed desc")
       @wo_pages = {:d => "wo"}      
       format.js { render "work_orders",:layout => false}
     end

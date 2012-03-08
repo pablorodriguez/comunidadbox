@@ -6,10 +6,10 @@
         =f.collection_select(:service_type_id, @company_services,:id,:name,{:include_blank=>"-- Tipo de Servicio --"},{:class=>"change long_select"})
     %tr
       %td
-        = f.collection_select(:state_id, @states, :id, :name, {:include_blank=>"-- Provincia --"},{:class=>"clear change long_select"})
+        = f.collection_select(:state_id, @states, :id, :name, {:include_blank=>"-- Provincia --"},{:class=>"clear change long_select",:placeholder=>"Provincia"})
     %tr  
       %td
-        =f.text_field :city,{:class=>"clear change labelify",:style=>"width:174px",:title=>"Ciudad"}
+        =f.text_field :city,{:class=>"clear change",:style=>"width:192px",:placeholder=>"Ciudad"}
     %tr
       %td
         = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>"-- Marca --"},{:class=>"clear change long_select"})

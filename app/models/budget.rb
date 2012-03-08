@@ -80,12 +80,15 @@ class Budget < ActiveRecord::Base
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
     
-    budget = Budget.includes(:creator => :companies)
+    budget = Budget.includes(:car,:creator => :companies)
     budget = budget.where("domain like ?","%#{domain.upcase}%") if filters[:domain]
     budget = budget.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     budget = budget.order("budgets.created_at DESC")
    
-    
+    budget = budget.where("budgets.brand_id = ? OR cars.brand_id = ?","#{filters[:brand_id]}","#{filters[:brand_id]}") if filters[:brand_id]
+    budget = budget.where("budgets.model_id = ? OR cars.model_id = ?","#{filters[:model_id]}","#{filters[:model_id]}") if filters[:model_id]
+    budget = budget.where("cars.year = ?","#{filters[:year]}") if filters[:year]
+
     budget = budget.where("budgets.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
     budget = budget.where("budgets.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
     budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
@@ -94,7 +97,7 @@ class Budget < ActiveRecord::Base
     budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
     if filters[:company_id]
-      budget = budget.where("company_id IN (?)",filters[:company_id])
+      budget = budget.where("companies.id IN (?)",filters[:company_id])
     else
       budget = budget.where("user_id = ?",filters[:user].id)
     end    

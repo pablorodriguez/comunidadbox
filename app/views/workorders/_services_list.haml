@@ -1,4 +1,4 @@
-= form_for @work_order do |wo_form|
+= form_for @work_order,:html =>{:class=>"box_bottom"} do |wo_form|
   - if @car_service_offers.size > 0
     = render 'service_offer'
   #services.overflow
@@ -6,34 +6,44 @@
     = wo_form.hidden_field :car_id
     = wo_form.hidden_field :company_id
     = wo_form.hidden_field :company_info
-    #wo-actions.left
-      .left
-        = icon_status @work_order.status                                
-      .left
-        = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado"
-      .left
-        = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select left',:title=>"Forma de Pago"})
-        = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio"}
-        = link_to"","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"      
-        - if wo_form.object.comment
-          %a{:class=>"edit_comment comment link",:title=>"Modificar Comentario"}
-        - unless wo_form.object.comment
-          %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}              
+    #wo-actions.box_bottom
+      = icon_status @work_order.status                                
+      = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado"
+      = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select',:title=>"Forma de Pago"})
+      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium",:title=>"Agregar nuevo tipo de servicio"}
+      .actions.clear
+        .action.hide
+          = link_to "","#",:title =>"Ver alarma",:class=>"add_alarm "
+        .action
+          = link_to "","#",:title =>"Ver nota",:class=>"notes_link"
+        .action
+          = link_to "","#",:title =>"Ver comentario",:class=>"add_comment"
+        .action
+          = link_to "","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"      
+
       - if wo_form.object.budget
         .right
           %h1
             Presupuesto Nro:
             = link_to wo_form.object.budget.id,wo_form.object.budget
-      .hide
-        = wo_form.text_area :comment
+    = render "comment",:c => wo_form          
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|
         = render "service_fields",:f => s_form
     #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
-    #total_work_order
+    #total_work_order.total_work_order
       = number_to_currency @work_order.total_price    
-    #wo_save.buttons.box_top.hide
+    = wo_form.fields_for :notes do |n_form|
+      = render "note_fields",:f => n_form
+
+    -#= wo_form.fields_for :alarms do |a_form|
+    -#  = render "alarm_fields",:f => a_form
+  - if @work_order.car.update_km?
+    #wo_save.buttons.box_top.hide  
+      = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
+  - if not @work_order.car.update_km?
+    #wo_save.buttons.box_top
       = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
     .box_bottom.w
     

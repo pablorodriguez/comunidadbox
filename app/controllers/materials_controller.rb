@@ -44,8 +44,7 @@ class MaterialsController < ApplicationController
     @service_type_id = params[:service_type][:id].to_i
     @page = params[:page] || 1
     @per_page = params[:per_page] || 10
-    @materials = MaterialDetail.search(@company_id,@service_type_id,@detail)
-    @materials = @materials.paginate(:per_page=>@per_page,:page => @page)
+    @materials = MaterialDetail.search(@company_id,@service_type_id,@detail).paginate(:per_page=>@per_page,:page => @page)
 
     respond_to do |format|
       format.js

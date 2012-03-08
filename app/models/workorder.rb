@@ -15,8 +15,11 @@ class Workorder < ActiveRecord::Base
   has_many :ranks
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :payment_method
+  accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
   
   validate :validate_all
+
+  scope :for_car, lambda { |car_id| { :conditions =>  ["car_id = ?", car_id] ,:order => "performed desc"} }
   
   before_save :set_status
   after_initialize :init
@@ -63,7 +66,7 @@ class Workorder < ActiveRecord::Base
     if self.attributes.has_key?('status')
       self.status = Status::OPEN unless self.status  
     end
-          
+
     self.payment_method = PaymentMethod.find 1 unless self.payment_method        
   end
   
@@ -254,7 +257,7 @@ class Workorder < ActiveRecord::Base
     
     domain =  filters[:domain] || ""
     
-    workorders = Workorder.includes([:company,:payment_method],:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
+    workorders = Workorder.includes([:company],:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
     workorders = workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     #workorders = workorders.order("service_types.name")
     if filters[:user] && filters[:user].company.nil?

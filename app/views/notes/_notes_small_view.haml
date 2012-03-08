@@ -7,7 +7,7 @@
         = link_to "",edit_note_path(note),:class=>"edit",:title =>"Modificar"
       .action
         = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete
-  .info_note
+  .info_note    
     .date
       %lable{:title =>"Creado el"}
         = l note.created_at,:format => :short

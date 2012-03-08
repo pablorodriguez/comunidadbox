@@ -86,11 +86,11 @@ class Event < ActiveRecord::Base
     end
     
     if (my_clients && !(others))
-      events = events.where("workorders.company_id = ?",company_id)
+      events = events.where("workorders.company_id in (?)",company_id)
     end
     
     if (others && !(my_clients))
-      events = events.where("workorders.company_id != ?",company_id)
+      events = events.where("workorders.company_id  not in (?)",company_id)
     end
      
     events = events.where("cars.fuel = ? ",service_filter.fuel) unless service_filter.fuel.blank?
@@ -101,8 +101,6 @@ class Event < ActiveRecord::Base
 
     totalEvents = []
     
-    logger.debug "### #{event_types}"
-
     totalEvents = events.red if event_types[:red]
     totalEvents += events.yellow if event_types[:yellow]
     totalEvents += events.green if event_types[:green]

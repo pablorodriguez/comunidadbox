@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210152939) do
+ActiveRecord::Schema.define(:version => 20120302115247) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -284,14 +284,15 @@ ActiveRecord::Schema.define(:version => 20120210152939) do
     t.datetime "recall"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer  "status"
+    t.string   "status",       :limit => 50
     t.integer  "user_id"
     t.integer  "workorder_id"
     t.integer  "note_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "creator_id",   :null => false
+    t.integer  "creator_id",                 :null => false
     t.integer  "budget_id"
+    t.boolean  "viewed"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"

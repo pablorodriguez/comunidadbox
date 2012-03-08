@@ -7,7 +7,7 @@
     .client
       .left
         %strong
-          = link_to h(client.full_name), client_path(client),:title=>"Ver"
+          = link_to client.full_name, client_path(client),:title=>"Ver"
         
       - if is_client
         .left

@@ -22,5 +22,6 @@
     = render 'alarms'
   #cars_messages.data.hide
     = render 'messages'
-  #company-selector.data.hide
-    = render 'company_selector'
+  - if @companies
+    #company-selector.data.hide
+      = render 'company_selector'

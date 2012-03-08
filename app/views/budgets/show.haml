@@ -8,8 +8,9 @@
       %li        
         = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
       %li
-        = link_to "Enviar por Correro",email_budget_path(@budget),:remote =>true
-      .ajax_loader.right
+        %span
+          = link_to "Enviar por Correro",email_budget_path(@budget),:remote =>true
+        .ajax_loader.right
       -if company_id
         %li
           = link_to "Nuevo Presupuesto", new_budget_path      

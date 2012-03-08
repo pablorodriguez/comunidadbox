@@ -26,6 +26,8 @@ class Status
   ALARMS_STATUS ={
     'Activo' =>ACTIVE,'Cancelado' =>CANCELLED
   }
+
+  NOTES_STATUS = {"SOON"=>""}
     
   def self.status st
     STATUS[st]

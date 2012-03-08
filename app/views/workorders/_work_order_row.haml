@@ -62,7 +62,7 @@
             %label{:class=>"edit_comment comment",:title=>"#{work_order_row.comment}"}
 
     #rank.rank{:id =>"wo_#{work_order_row.id}"}
-      - if can_show
+      - if false
         = render 'ranks/rank',:workorder => work_order_row
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
     .new_notes.hide.box_top.clear

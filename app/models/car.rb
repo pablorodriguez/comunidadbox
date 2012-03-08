@@ -17,6 +17,10 @@ class Car < ActiveRecord::Base
   before_save :set_new_attribute
   after_save :update_events
 
+  def self.fuels
+    %w(Nafta Diesel Gas)
+  end
+
   def set_new_attribute
     # si se modifico el km 
     # pero no se modificio el kmAverageMonthly
@@ -26,6 +30,10 @@ class Car < ActiveRecord::Base
         update_km
       end
     end
+  end
+
+  def update_km?
+    (self.kmUpdatedAt && (Time.now - self.kmUpdatedAt) > (60 * 60 * 24)) ? false : true
   end
 
   def future_events

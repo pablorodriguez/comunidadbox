@@ -1,4 +1,7 @@
 jQuery(document).ready( function(){
+
+  $('#brand_id').change(searchModel);
+  
 	var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,
       changeMonth: true,
@@ -28,6 +31,22 @@ jQuery(document).ready( function(){
 })
 
 });
+
+function searchModel(event){
+  var brand_id = event.target.id; 
+  var token = $("input[name='authenticity_token']").val();
+  AjaxLoader.enable();
+  $.ajax({
+    url: "/control_panels/find_models",
+      data: {
+        'id':brand_id,
+        'brand_id':$("#"+brand_id).val(),
+        'authenticity_token':encodeURIComponent(token)
+      },
+    dataType:'script',
+    type:'POST'
+  });  
+}
 
 function show_notes(element){
   $(element).parent().parent().parent().find(".notes").slideToggle();

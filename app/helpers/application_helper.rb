@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def is_client client
-    current_user.is_client? client
+    company_id.include?(client.id.to_s)
   end
 
   def can_show? client
@@ -85,7 +85,7 @@ module ApplicationHelper
   end
   
   def big_event_class event
-    if event.service.workorder.company.id == company_id
+    if company_id.include?(event.service.workorder.company.id.to_s)
       return "my_big_event"  
     else
       return "big_event"  
@@ -94,7 +94,7 @@ module ApplicationHelper
   
   def my_event_class event
     css = event_class event
-    css = "mi_" + css if event.service.workorder.company.id == company_id
+    css = "mi_" + css if company_id.include?(event.service.workorder.company.id.to_s)
     return css
   end
   

@@ -10,17 +10,12 @@
   #work_order
     .box_bottom      
       #car_info.barradatos      
-        = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}    
+        = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}
+  - if @work_order.car.update_km?
     #car_new_km
       = render :partial=>'cars/new_km',:locals =>{:car=>@work_order.car}
   #materials.hide
     .materials
       = render :partial=>'materials'
-  #work_order_form.box_top
+  #work_order_form
     = render :partial=>'services_list',:locals =>{:work_order=>@work_order}  
-  #comment_modal.hide         
-    Por favor ingrese un comentario
-    %br
-    = text_area_tag :comment,"test", :rows => 3,:cols=>"28"
-    .right
-      = link_to "Grabar","#",{:class =>:button,:id=>"save_comment"}

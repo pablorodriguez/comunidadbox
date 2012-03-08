@@ -15,7 +15,7 @@ class Company < ActiveRecord::Base
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
-
+  
   def is_employee usr
     return (user.id == usr.id || (employees && employees.select{|e| e.id == usr.id}.size > 0)) ? true : false
   end
@@ -41,36 +41,23 @@ class Company < ActiveRecord::Base
   end
 
   def user_rank
-    total_wo = self.workorders.size
-    rank = 0
-    self.workorders.each do |wo|
-      if wo.user_rank
-        rank += wo.user_rank.cal
-      end
+    rank = Workorder.includes(:ranks).where("ranks.type_rank = 2 and company_id = ?",self.id).sum("cal").to_f
+    total_wo = self.workorders.count
 
-    end
     if total_wo == 0
        return 0
     else
-      (rank.to_f / total_wo)
+      (rank / total_wo)
     end
 
   end
 
   def total_work_order
-    self.workorders.size
+    self.workorders.count
   end
 
   def total_user_ranked
-    total = 0
-    if self.workorders
-      self.workorders.each do |wo|
-        if wo.user_rank
-          total +=1
-        end
-      end
-    end
-    total
+    Workorder.includes(:ranks).where("ranks.type_rank = 2 and company_id = ?",self.id).count    
   end
 
   def self.search params
@@ -110,7 +97,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def self.is_client? companies_ids,user_id
+  def self.is_client?(companies_ids,user_id)
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
   end
 

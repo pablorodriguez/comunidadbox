@@ -81,16 +81,16 @@ class ControlPanelsController < ApplicationController
       @service_filter = ServiceFilter.new(params[:service_filter])
     end
     
-    @fuels = %w(Nafta Diesel Gas)
+    @fuels = Car.fuels
     @years = ((Time.now.year) -25)...((Time.now.year) +2)
-    
-    @states = State.all(:order=>:name)
+    @states = State.order(:name)
+
     if params[:st]
       @service_filter.service_type_id = ServiceType.find(params[:st]).id
     end
     
     @company_services = get_service_types
-    @brands = Brand.all(:order=>:name)    
+    @brands = Brand.order(:name)    
     @models  = Array.new
     if @service_filter.brand_id
       @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)

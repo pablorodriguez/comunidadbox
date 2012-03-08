@@ -51,7 +51,7 @@
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
     #rank.rank{:id =>"wo_#{work_order_row.id}"}
-      - if can_show
+      - if false
         = render 'ranks/rank',:workorder => work_order_row
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
     .new_notes.box_top.clear.hide

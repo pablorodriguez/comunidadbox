@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
   NULL_ATTRS = %w( company_name cuit )
   before_save :nil_if_blank
 
+  def self.company_clients companies_ids  
+    User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids).order("users.first_name")  
+  end
+
   def nil_if_blank
     NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
   end
@@ -187,7 +191,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    (first_name.blank? && last_name.blank?) ? email : "#{first_name.capitalize} #{last_name.capitalize}"
+    (first_name.blank? && last_name.blank?) ? email : "#{first_name} #{last_name}"
   end
 
   def price_list

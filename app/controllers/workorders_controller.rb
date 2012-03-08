@@ -182,8 +182,8 @@ class WorkordersController < ApplicationController
   end
 
   def edit
-    @work_order= Workorder.find(params[:id])
-    @service_types = get_service_types
+    @work_order= Workorder.find(params[:id])    
+    @service_types = current_user.service_types    
 
     @car_service_offers = @work_order.car_service_offers
     @company = @work_order.company
@@ -202,6 +202,8 @@ class WorkordersController < ApplicationController
     end
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
+    @work_order.notes.first.creator = current_user unless @work_order.notes.empty?
+    
     saveAction =false
 
     car = @work_order.car
@@ -243,19 +245,15 @@ class WorkordersController < ApplicationController
     @work_order.performed = I18n.l(Time.now.to_date)
     @work_order.company_info  = params[:c] if params[:c]
     @work_order.company = company if company
+    @work_order.notes.build
 
-    # si no hay parametro de auto, no hay paramtro de presupuesto tomo el primer auto del usuario registrado
-    if (params[:car_id].nil? && params[:b].nil?)
-      @work_order.car = current_user.cars.first
-    end
-   
-    # si viene un car_id lo busco y se lo asigno a la orden de trabajo
-    if params[:car_id]
-      car_id = params[:car_id]
-      @work_order.car = Car.find(car_id)
-    end
+    # si no hay parametro de auto, no hay parametro de presupuesto tomo el primer auto del usuario registrado
+    @work_order.car = current_user.cars.first if (params[:car_id].nil? && params[:b].nil?)
+    
+    # si viene un car_id lo busco y se lo asigno a la orden de trabajo    
+    @work_order.car = Car.find(params[:car_id]) if params[:car_id]
 
-    @service_types = current_user.service_types    
+    @service_types = current_user.service_types
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
@@ -300,7 +298,7 @@ class WorkordersController < ApplicationController
     if work_order.car.domain == "HRJ549"
       logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
       #message = WorkOrderNotifier.notify(work_order).deliver
-      #Resque.enqueue WorkorderJob,work_order_id
+      Resque.enqueue WorkorderJob,work_order_id
     end
 
   end

@@ -1338,7 +1338,7 @@ td.number, th.number{
 .service_type{
   background-color: #F2F2F2;
   margin: 5px;  
-  padding:3px;
+  padding:5px 3px 3px 3px;
 }
 
 .service_type table{
@@ -1352,6 +1352,15 @@ td.number, th.number{
 .comments{
   width: 24px;
   height: 24px;
+}
+
+.comment_div{
+  padding: 2px;
+  margin-top:5px;
+}
+
+.comment_div textarea{
+  width:99%;
 }
 
 .inline{
@@ -1798,23 +1807,30 @@ td.number, th.number{
 
 .add_comment{
   background: url(/images/add_comment.png) no-repeat scroll;
-  height: 21px;
-  width: 21px;
-  float: left;
+  height: 16px;
+  width: 16px;
+  display: block;
+}
+
+.add_alarm{
+  background: url(/images/new_alarm.png) no-repeat scroll;
+  height: 16px;
+  width: 16px;
+  display: block;
 }
 
 .new{
   background: url(/images/new.png) no-repeat scroll;
-  height: 21px;
-  width: 21px;
-  float: right;
+  height: 16px;
+  width: 16px;
+  display: block;
 }
 
 .edit_comment{
   background: url(/images/edit_comment.png) no-repeat scroll;
-  height: 21px;
-  width: 21px;
-  float:left;
+  height: 16px;
+  width: 16px;
+  display: block;
 }
 
 .edit2{
@@ -1919,12 +1935,17 @@ td.number, th.number{
   padding: 3px;
 }
 
-#total_work_order{
+.total_work_order{
   float: right;
   margin-right: 53px;
   font-size: 20px;
   font-weight:bold;
   color:black;
+  margin-bottom:5px;
+}
+
+#wo_note{
+  padding-top:5px;
 }
 
 #total_work_order_v{
@@ -2165,6 +2186,10 @@ td.number, th.number{
   width:100%;  
 }
 
+.wo_note{
+  margin: 5px 3px;
+}
+
 .wo_notes{
   text-align:right;
 }
@@ -2209,7 +2234,7 @@ td.number, th.number{
   background: url(/images/notes.png) no-repeat scroll;
   height: 16px;
   width: 16px;
-  float: right;
+  display: block;
 }
 
 .new_note_link{
@@ -2340,11 +2365,12 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 .box_top{
-  border-top:thin double #CCCCCC;
-  overflow:auto;
-  padding-bottom:5px;
+  border-top:thin double #CCCCCC;    
 }
 
+.box_right{
+  border-right:thin double #CCCCCC;    
+}
 .client{
   margin-bottom:5px;
   overflow:auto;
@@ -2380,13 +2406,7 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 #client_info{
-  position:absolute;
-  -moz-box-shadow: 10px 10px 5px #888888;
-  -webkit-box-shadow: 10px 10px 5px #888888;
-  box-shadow: 10px 10px 5px #888888;
   background-color: #E6E6E6;
-  border: 1px solid #AFAFAF;
-  border-radius: 5px 5px 5px 5px;
   overflow: auto;
   padding: 5px;
   width:227px;

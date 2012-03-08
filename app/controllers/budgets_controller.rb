@@ -23,10 +23,22 @@ class BudgetsController < ApplicationController
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
     filters_params[:company_id] = company_id
     filters_params[:user] = current_user
+    filters_params[:brand_id] = params[:brand_id] if params[:brand_id] && !(params[:brand_id].empty?)
+    filters_params[:model_id] = params[:service_filter][:model_id] if params[:service_filter] && !(params[:service_filter][:model_id].empty?)
+    filters_params[:year] = params[:year] if(params[:year] && !(params[:year].empty?))
 
-    @budgets = Budget.find_by_params filters_params
+    @budgets = Budget.find_by_params(filters_params)
 
     @budgets = @budgets.paginate(:page =>page,:per_page =>per_page)
+
+    @fuels = Car.fuels
+    @years = ((Time.now.year) -25)...((Time.now.year) +2)
+    @states = State.order(:name)
+    @company_services = get_service_types
+    @brands = Brand.order(:name)    
+
+    @models  = Array.new
+    @models = Model.find_all_by_brand_id(filters_params[:brand_id],:order=>:name) if filters_params[:brand_id]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -152,8 +164,10 @@ class BudgetsController < ApplicationController
   end
 
   def email
-    budget = Budget.find params[:id]   
-    BudgetMailer.email(budget).deliver if budget
+    budget_id = params[:id]
+    logger.info "### envo de email del budget #{budget_id}"
+    Resque.enqueue(BudgetJob,budget_id)
+
     respond_to do |format|
       format.html {redirect_to budget }
       format.js { render :layout => false}

@@ -14,16 +14,12 @@
               = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => "-- Seleccione Operario --",:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"})
             = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status left',:title=>"Estado"})
             = f.hidden_field :_destroy            
-            = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
-            -#= link_to_function("","showTask(this)",{:class =>"taks new"});
-            .left
-              - if f.object.comment
-                %a{:class=>"edit_comment comment link",:title=>"Modificar Comentario"}
-              - unless f.object.comment
-                %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}              
-                -#= link_to_function(image_tag('add_comment.png',{:class =>"input_img",:title=>"Agregar comentario"}), "",{:class =>:comments})   
-            .hide
-              = f.text_area :comment, :rows => 3,:cols=>"28",:class=>"comment"
+            .actions
+              .action
+                = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
+                -#= link_to_function("","showTask(this)",{:class =>"taks new"});
+              .action
+                %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}
         %td{:style=>'width:10%'}
           %label.right Cantidad
         %td{:style=>'width:10%'}
@@ -41,3 +37,5 @@
   .task_list{:id=>"task_list_#{f.object.service_type_id}"}
     = f.fields_for :service_type do |st_form|
       = render 'task_list', :service_type => st_form, :service => f
+  = render "comment",:c => f  
+    
