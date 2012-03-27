@@ -1,0 +1,31 @@
+#event_detail.event_detail
+  .detail
+    .car_info.box_bottom
+      .domain
+      %label.car
+      .block
+        %label.user_full_name
+    .box_bottom2
+      .block
+        .left
+          %label.user_email_label Email:
+          %label.user_email
+        .right
+          %label.user_phone_label Teléfono:
+          %label.user_phone
+      .block
+        .left
+          %label.km_label Kilometraje:
+          %label.km
+        .right
+          %label.km_avg_label Kilometraje Promedio:
+          %label.km_avg
+      .block
+        .left
+          %label.total_company_spend_label Total Prestadaor Servicio:
+          %label.total_company_spend
+        .right
+          %label.total_spend_label Total Gastado:
+          %label.total_spend
+  #notes
+    = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil,:notes =>nil}

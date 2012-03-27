@@ -137,6 +137,10 @@ class WorkordersController < ApplicationController
   # PUT /brands/1.xml
   def update
     @work_order = Workorder.find(params[:id])
+
+
+    params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}"
+
     cso_ids = params["cso_ids"] || []
 
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
@@ -144,7 +148,6 @@ class WorkordersController < ApplicationController
     end
 
     respond_to do |format|
-
     if @work_order.update_attributes(params[:workorder])
 
       CarServiceOffer.update_with_services(@work_order.services,cso_ids)
@@ -194,7 +197,8 @@ class WorkordersController < ApplicationController
   end
 
   def create
-    @work_order = Workorder.new(params[:workorder])     
+    params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}"
+    @work_order = Workorder.new(params[:workorder])
     cso_ids = params["cso_ids"] || []
 
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
@@ -203,7 +207,7 @@ class WorkordersController < ApplicationController
     @work_order.km = Car.find(@work_order.car.id).km
     @work_order.user = current_user
     @work_order.notes.first.creator = current_user unless @work_order.notes.empty?
-    
+    @work_order.notes.first.user = current_user unless @work_order.notes.empty?
     saveAction =false
 
     car = @work_order.car

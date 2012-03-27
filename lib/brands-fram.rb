@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require "watir"
 
 puts "Setting Firefox as default browser"

@@ -48,10 +48,3 @@ function searchModel(event){
   });  
 }
 
-function show_notes(element){
-  $(element).parent().parent().parent().find(".notes").slideToggle();
-}
-
-function new_note(element){
-  $(element).parent().parent().parent().find(".new_notes").slideToggle();
-}

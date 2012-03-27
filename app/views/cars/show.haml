@@ -1,11 +1,12 @@
 - javascript 'jquery.ba-url.min'
 - javascript 'jquery.labelify'
 - javascript 'car_pagination'
+- javascript "notes"
 - javascript 'rank'
 - javascript 'highcharts'
 .vertical_menu
   #car_detail
-    = render "car_detail"
+    = render "car_detail"  
   = render "car_menu"    
 .contentright_s
   #cars_work_orders.data
@@ -17,7 +18,7 @@
   #cars_report_graphics.hide.data
     = render 'graphics'          
   #cars_notes.data.hide
-    = render 'notes'
+    = render :partial =>'notes',:locals =>{:notes =>@notes}
   #cars_alarms.data.hide
     = render 'alarms'
   #cars_messages.data.hide

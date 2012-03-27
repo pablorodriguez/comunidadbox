@@ -1,12 +1,12 @@
-#km_update.overflow.box_bottom
-  .left.box_right
-    %h4 Antes de grabar actualize estos datos:
-  .left
-    = form_for(car,:url=> km_car_path(car),:method =>:put,:remote=>true) do |f|
+#km_update.overflow.box_bottom  
+  .update_km
+    .left.box_right.msg_update_km
+      %h4 Por favor actualize kilometraje para poder crear un servicio.
+    = form_for(car,:url=> km_car_path(car),:method =>:put,:remote=>true,:html=>{:class=>"update_km_form"}) do |f|
       = f.label :km ,"Km Actual"
       = f.text_field :km,:autofocus=>true,:class=>"input_short"
       = f.label :kmAverageMonthly,"Km Promedio Mensual"
       = f.text_field :kmAverageMonthly,:class=>"input_short"
-      = f.submit "Grabar",:class=>"button",:disable_with => 'Grabando...'
+      = f.submit "Actualizar Km",:class=>"button",:disable_with => 'Grabando...'
   .ajax_loader.left
-#km_msg.message.hide
+  #km_msg.message.hide.clear

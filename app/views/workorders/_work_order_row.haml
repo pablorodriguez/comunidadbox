@@ -1,24 +1,23 @@
 .wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
   - can_show = work_order_row.can_show?(current_user)            
-  .info_s    
-    .services      
-      .clear.left.domain
-        = link_to work_order_row.car.domain, work_order_row.car
-      - work_order_row.services.each do |s|
-        .service             
-          - if s.comment
-            .left
-              %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+  .services      
+    .clear.left.domain
+      = link_to work_order_row.car.domain, work_order_row.car
+    - work_order_row.services.each do |s|
+      .service             
+        - if s.comment
           .left
-            = link_to s.service_type.name ,work_order_row
-          .operator
-            -if s.operator
-              %strong
-                Operario:
-              = "#{s.operator.first_name} #{s.operator.last_name}"
-      - if multiple_company?
-        .clear.left
-          = work_order_row.company_name
+            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+        .left
+          = link_to s.service_type.name ,work_order_row
+        .operator
+          -if s.operator
+            %strong
+              Operario:
+            = "#{s.operator.first_name} #{s.operator.last_name}"
+    - if multiple_company?
+      .clear.left
+        = work_order_row.company_name
     .wo_info
       .right
         = l work_order_row.performed
@@ -26,7 +25,7 @@
         .clear.price_b.right
           = number_to_currency work_order_row.total_price
   - if can_show
-    .actions.right
+    .actions
       .action.info.wo_info_detail.link
       - unless company_id
         .action
@@ -64,9 +63,6 @@
     #rank.rank{:id =>"wo_#{work_order_row.id}"}
       - if false
         = render 'ranks/rank',:workorder => work_order_row
-  %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes"}
-    .new_notes.hide.box_top.clear
-      = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id,:b=>nil}
-    %div{:id=>"notes-#{work_order_row.id}",:class=>"notes hide box_top clear"}      
-      = render :partial =>'notes/notes_small_view',:collection => work_order_row.notes,:as=>:note
+  %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes clear"}
+    = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id,:b=>nil,:notes =>work_order_row.notes}
   

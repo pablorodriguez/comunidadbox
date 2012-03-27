@@ -1,6 +1,13 @@
-$("#car_km").val(<%=@car.km%>);
-$("#car_kmAverageMonthly").val(<%=@car.kmAverageMonthly%>);
-$("#wo_save").show();
-if ("<%= @msg%>" != ""){
-	$("#km_msg").html("<%= @msg%>").show();
-}
+<% if @msg != "" %>
+    $("#km_msg").html("<%= @msg%>").show();
+    $("#wo_save").hide();
+<%else%>
+  $("#km_msg").html("").hide();
+  $("#car_km").val("<%=@car.km%>");
+  $("#km").html("<%=@car.km%>").effect("highlight",{},3000);
+  $("#car_kmAverageMonthly").val("<%=@car.kmAverageMonthly%>");
+  $("#kmAverageMonthly").html("<%=@car.kmAverageMonthly%>").effect("highlight",{},3000);
+  $("#kmUpdatedAt").html("<%=l @car.kmUpdatedAt.to_date%>").effect("highlight",{},3000);
+  $("#wo_save").show();
+  $("#km_update").hide();
+<%end%>

@@ -1,10 +1,13 @@
-.new_note_form
-  = form_for :note,:remote=>true,:url => notes_path,:html=>{:class=>:note_form} do |f|    
-    = f.text_area :message,:cols=>64,:rows=>2,:class =>"left labelify",:title =>"Por favor ingrese el texto de la nota"
-    - if wo      
-      = f.hidden_field :workorder_id,:value => wo
-    - if b      
-      = f.hidden_field :budget_id,:value => b    
-    = f.hidden_field :user_id,:value => @usr
-    .right.clear
-      = f.submit "Grabar",:class=>:button
+.notes_container.box_top.hide
+  .new_note_form.hide
+    = form_for :note,:remote=>true,:url => notes_path,:html=>{:class=>:note_form} do |f|    
+      = f.text_area :message,:cols=>64,:rows=>2,:class =>:left,:title =>"",:placeholder =>"Por favor ingrese el texto de la nota"
+      - if wo      
+        = f.hidden_field :workorder_id,:value => wo
+      - if b      
+        = f.hidden_field :budget_id,:value => b
+      .left
+        = f.submit "",:class=>:confirm,:title =>"Grabar"
+  .notes.hide
+    - if notes
+      = render :partial =>'notes/notes_small_view',:collection => notes,:as=>:note    

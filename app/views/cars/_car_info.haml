@@ -33,4 +33,22 @@
         %h3 Teléfono
       %td
         = car.user.phone
+    %tr
+      %td
+        %h3
+          Kilometraje
+      %td
+        %span#km
+          = car.km
+      %td
+        %h3
+          Kilometraje promedio mensual
+      %td
+        %span#kmAverageMonthly
+          = car.kmAverageMonthly
+      %td
+        %h3 Ultima actualización
+      %td 
+        %span#kmUpdatedAt
+          = l car.kmUpdatedAt.to_date if car.kmUpdatedAt
           

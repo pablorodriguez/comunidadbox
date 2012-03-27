@@ -22,13 +22,13 @@
         = h car.kmAverageMonthly
     .actions
       .action
-        = link_to image_tag('edit.png'),edit_car_path(car),{:title=>"Modificar automóvil"} if car.can_edit?(current_user)               
+        = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class=>"edit"} if car.can_edit?(current_user)               
       - if company_id
         .action
-          = link_to image_tag('new.png'), new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio"}
+          = link_to "", new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio",:class=>"new_service"}
       - else
         .action
-          = link_to_function image_tag('new.png'),"createNewService(#{car.id})",{:title=>"Nuevo Servicio"}
+          = link_to_function "","createNewService(#{car.id})",{:title=>"Nuevo Servicio",:class=>"new_service"}
             
 
 = will_paginate cars

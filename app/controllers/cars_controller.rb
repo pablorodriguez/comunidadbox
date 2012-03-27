@@ -44,16 +44,23 @@ class CarsController < ApplicationController
     end
   end
   
-  def km
+  def km    
     @car = Car.find(params[:id])
-    old_km = @car.km
-    new_km = params[:car][:km].to_i
     @car.kmUpdatedAt = Time.now
+    new_km = params[:car][:km].to_i
+    new_avg= params[:car][:kmAverageMonthly].to_i
+    
+    @msg = ""
+    # valido si cambio km o kmAverageMonthly
+    if ((@car.km == new_km) && (@car.kmAverageMonthly == new_avg))
+      @msg = "Debe ingresar nuevos valores para Kilometraje o Km Promedio Mensual"
+      logger.debug "No cambio valores"
+    end
+
     respond_to do |format|
-      if @car.update_attributes(params[:car])
-        @msg = "El nuevo kilometraje es menor. (#{new_km} < #{old_km})" if old_km > new_km
-        format.js
-      end
+      @car.update_attributes(params[:car]) if @msg == ""
+      @car.reload
+      format.js
     end
   end
 
@@ -87,7 +94,7 @@ class CarsController < ApplicationController
     page = params[:page] || 1
     data = params[:d] || "all"
     filters ={}
-
+    @notes = nil
     per_page = 10
     respond_to do |format|
 

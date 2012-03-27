@@ -1,8 +1,5 @@
 .notes_container
   .box_bottom
     %h1 Listado de Notas  
-  #notes
-    #notes_form_container.box_bottom.hide.clear
-      = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> @car.user.id}  
-    .notes
-      = render :partial =>'notes/notes_small_view',:collection => @notes,:as=>:note    
+  .box_bottom
+    = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> @car.user.id,:notes =>@notes}

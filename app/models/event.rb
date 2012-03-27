@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   belongs_to :car
   belongs_to :service
   belongs_to :service_done,:class_name =>"Service"
+  has_many :notes
 
   MONTHS_IN_SEC = 60 * 60 * 24 * 30
   MONTH_RED=1
@@ -106,6 +107,10 @@ class Event < ActiveRecord::Base
     totalEvents += events.green if event_types[:green]
     
     totalEvents  
+  end
+
+  def notes_txt
+    self.notes.map(&:message).join(" | ");
   end
 
 end

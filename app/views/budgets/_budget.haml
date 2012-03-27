@@ -12,15 +12,16 @@
           = budget.company.name
       .operator
         = budget.creator.full_name
-    .services.clear
+    .services
       - budget.services.each do |s|
         .service
           = link_to s.service_type.name, budget
-  .wo_info
-    .budget_date.right.clear
-      = l Date.parse(budget.created_at.to_s)
-    .clear.price_b.right            
-      = number_to_currency budget.total_price
+    .wo_info
+      .budget_date.right
+        = l Date.parse(budget.created_at.to_s)
+      .price_b.right            
+        = number_to_currency budget.total_price
+  
   .actions
     .action  
       = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:pdf
@@ -38,8 +39,5 @@
       .action
         = link_to "",edit_budget_path(budget),:title=>"Modificar",:class=>"edit"
       
-  %div{:id=>"notes-#{budget.id}",:class=>"wo_notes clear"}
-    .new_notes.hide.box_top.clear
-      = render :partial =>"notes/note_form",:locals=>{:b => budget.id,:wo=>nil}
-    .notes.box_top.clear.hide
-      = render :partial =>'notes/notes_small_view',:collection => budget.notes,:as=>:note
+  %div{:id=>"notes-#{budget.id}",:class=>"wo_notes clear"}    
+    = render :partial =>"notes/note_form",:locals=>{:b => budget.id,:wo=>nil,:notes => budget.notes}

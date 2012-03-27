@@ -42,12 +42,20 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.xml
   def create
-    @note = Note.new(params[:note])
-    @element_id = "#notes"
+
+    if params[:event_id]
+      event = Event.find(params[:event_id])
+      @note = event.notes.build(params[:note])
+    else
+      @note = Note.new(params[:note])
+    end
+
+    @element_id = ".notes_container"
     @element_id = "#budget-#{@note.budget_id}" if @note.budget_id
     @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id
-    @note.user = current_user unless @note.user
+    @note.user = current_user   
     @note.creator = current_user    
+    
     respond_to do |format|
       if @note.save
         format.html { redirect_to(notes_path)}

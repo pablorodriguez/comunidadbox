@@ -1,29 +1,29 @@
 .car_detail.clear
   #car_domain.barradatos
-    .left
+    .big_domain
       .left
         = brand_logo @car.brand.name
       .domain
         = @car.domain
-    - if can_show?(@car.user)    
-      .car_info
+    - if can_show?(@car.user)
+      .car_info.box_top
         = h @car.model.name
         = @car.year      
-      .clear
-        %strong
-          = h @car.user.full_name      
-        = @car.user.phone        
-      .clear  
-        = @car.user.email
-      .clear
-        Km:
-        %strong  
-          = @car.km      
-      .car_spend.clear
-        %left
-          %label{:title=>"Total Consumido"}
-            = number_to_currency @car.total_spend
-        - if company_id
-          %strong.right
-            %lable{:title=>"Total Consumido en tu empresa"}  
-              = number_to_currency @car.total_spend(company_id)
+        .clear
+          %strong
+            = h @car.user.full_name      
+          = @car.user.phone        
+        .clear  
+          = @car.user.email
+        .clear
+          Km:
+          %strong  
+            = @car.km      
+        .car_spend.clear
+          %left
+            %label{:title=>"Total Consumido"}
+              = number_to_currency @car.total_spend
+          - if company_id
+            %strong.right
+              %lable{:title=>"Total Consumido en tu empresa"}  
+                = number_to_currency @car.total_spend(company_id)

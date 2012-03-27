@@ -1,15 +1,18 @@
 #services.overflow
   #wo-actions.left
-    .left
+    .service_type
       = icon_status @work_order.status
-      = @work_order.payment_method.name
-    .right
       = l(@work_order.performed)
-    .hide
-      = @work_order.comment
+      = @work_order.payment_method.name
+      - if @work_order.comment
+        .comment.clear
+          = @work_order.comment
   #services_list.ordencontent    
     - @work_order.services.each do |s|
       = render :partial=>"show_service_field",:locals=>{:f => s}
   #total_work_order_v
-    = number_to_currency @work_order.total_price    
+    = number_to_currency @work_order.total_price
+- unless @work_order.notes.empty?
+  #wo_note.box_top.clear
+    = render :partial =>'notes/notes_small_view',:collection => @work_order.notes,:as=>:note   
     

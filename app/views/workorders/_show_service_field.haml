@@ -22,3 +22,7 @@
         %td.number{:style=>'width:5%'}
       - f.material_services.each do |ms|
         =render :partial=> "show_material_service_fields",:locals=>{:f => ms}
+      - if f.comment
+        %tr
+          %td
+            = f.comment

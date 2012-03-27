@@ -82,10 +82,19 @@ ComunidadBox::Application.routes.draw do
     end
   end
 
-  resources :events
+  resources :events do
+    resources :notes
+
+    member do
+      get :search_notes
+    end
+  end
+
   resources :notes
 
   resources :budgets do
+    resources :notes
+
     member do      
       get :print
       get :email
@@ -108,7 +117,7 @@ ComunidadBox::Application.routes.draw do
     member do
       get :notify
       get :print
-    end
+    end    
   end
 
  resources :companies do

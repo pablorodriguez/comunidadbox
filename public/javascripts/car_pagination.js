@@ -1,4 +1,5 @@
 jQuery(document).ready(function(){
+
   $("#paginator_wo .pagination a").live("click",function(){
     $.setFragment({"page" : $.queryString(this.href).page,  
     "page" : $.queryString(this.href).page,    
@@ -98,10 +99,3 @@ function newServiceNewCompany(){
   window.location=url + "&c="+comp_info;
 }
 
-function show_notes(element){
-  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
-}
-
-function new_note(element){
-  $(element).parent().parent().parent().parent().parent().find(".new_notes").slideToggle();
-}

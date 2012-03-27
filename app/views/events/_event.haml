@@ -1,44 +1,42 @@
-%div{:class=>"#{my_event_class(event)}"}
-  - oe = @other_events[event.car_id]
-  - css = oe ? "other_event qtip":""
-  .small_event
-    -unless event.is_green
-      .right
-        = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"red checkbox"})
-    %div
-      %div{:class=>css}
-        - st = create_service_type_tool_tip oe
-        %label{:title =>"#{st}"}
-          = link_to(event.car.domain, event.car)
-    .left.clear.link.due_date{:title =>"Mas Detalle"}
-      = l event.dueDate
+.cp_event.left[event]
+  %div{:class=>"#{my_event_class(event)}"}
+    - oe = @other_events[event.car_id]
+    - css = oe ? "other_event qtip":""
+    .small_event
+      -unless event.is_green
+        .right
+          = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"checkbox"})
+      %div
+        %div{:class=>css}
+          - st = create_service_type_tool_tip oe
+          %label{:title =>"#{st}"}
+            = link_to(event.car.domain, event.car)
+      .left.clear.link.due_date{:title =>"Mas Detalle"}
+        = l event.dueDate
+        - e_css = event.notes.empty? ? "" : "has_notes"
+        .event_notes{:class=>e_css,:title=>event.notes_txt}
 
-%div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
-  .left.domain
-    =event.car.info
-  .left 
-    %lable{:title=>"Km actual"}   
-      %strong
-        Km:
-      = event.car.km
-  .right    
-    %lable{:title=>"Km Promedio Mensual"}
-      %strong
-        Km: 
-      = event.car.kmAverageMonthly
-  .left.clear{:title=>"Fecha a Realizar"}
-    = l event.dueDate
-  %strong.left.clear{:title=>"Importe gastado en tu empresa"}
-    = number_to_currency(event.car.total_spend(company_id,event.service_type.id))
-  .right{:title=>"Importe gastado en total"}
-    = number_to_currency(event.car.total_spend(nil,event.service_type.id))
-  -if event.service.workorder.company.id == company_id
-    .left.clear
-      = event.car.user.full_name
-    .left
-      = event.car.user.email
-    -if event.car.user.phone
-      .left.clear
-        %strong
-          Tel:
-        = event.car.user.phone  
+  %div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
+    .url
+      = event_notes_path(event)
+    .domain
+      =event.car.domain
+    .car
+      = "#{event.car.brand.name} #{event.car.model.name}"
+    .km
+      = number_with_precision event.car.km,:precision =>0
+    .km_avg 
+      = number_with_precision event.car.kmAverageMonthly,:precision =>0
+    .due_date
+      = l event.dueDate
+    .total_company_spend
+      = number_to_currency(event.car.total_spend(company_id,event.service_type.id))
+    .total_spend
+      = number_to_currency(event.car.total_spend(nil,event.service_type.id))
+    -if (big_event_class(event) == "my_big_event")
+      .user_full_name
+        = event.car.user.full_name
+      .user_email
+        = event.car.user.email      
+      .user_phone
+        = number_to_phone event.car.user.try(:phone)

@@ -1,4 +1,5 @@
 -javascript "notes"
+-javascript "notes_index"
 .vertical_menu
   = render "home/menu"
   .menu_actions.box_bottom
@@ -8,12 +9,6 @@
       %li
         = link_to_function "Nueva Nota","createNewNote();",{:title=>"Nueva Nota"}
 
-.contentright_s
-  .box_bottom
-    %h1 Listado de Notas
-  #notes
-    #notes_form_container.box_bottom.hide.clear
-      = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> nil}  
-    .notes.box_bottom
-      - @notes.each do |note|
-        = render "notes_small_view",:note => note
+.contentright_s  
+  %h1 Listado de Notas
+  = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> nil,:notes =>@notes}  

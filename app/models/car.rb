@@ -10,8 +10,8 @@ class Car < ActiveRecord::Base
   has_many :service_offers,:through =>  :car_service_offer,:order =>'created_at'
   #has_and_belongs_to_many :offers
   
-  validates_presence_of :model,:domain,:year,:km
-  validates_numericality_of :year,:km
+  validates_presence_of :model,:domain,:year,:km,:kmAverageMonthly
+  validates_numericality_of :year,:km,:kmAverageMonthly
   validates_uniqueness_of :domain
   validates_format_of :domain, :with => /^\D{3}\d{3}/
   before_save :set_new_attribute
@@ -26,14 +26,12 @@ class Car < ActiveRecord::Base
     # pero no se modificio el kmAverageMonthly
     # calculo el kmAverageMonthly    
     if (km_changed? && (!kmAverageMonthly_changed?))
-      if (self.km > changed_attributes["km"])
-        update_km
-      end
+      update_kmUpdatedAt
     end
   end
 
   def update_km?
-    (self.kmUpdatedAt && (Time.now - self.kmUpdatedAt) > (60 * 60 * 24)) ? false : true
+    (self.kmUpdatedAt && (Time.now - self.kmUpdatedAt) < (60 * 60 * 24)) ? false : true
   end
 
   def future_events
@@ -48,7 +46,7 @@ class Car < ActiveRecord::Base
   def total_spend(company_id = nil,service_type_id = nil)
     total = 0
     self.workorders.each do  |wo|
-      if (company_id == nil or company_id.include?(wo.company_id))
+      if (company_id == nil or company_id.include?(wo.company_id.to_s))
         wo.services.each do |s|
           total += s.total_price unless service_type_id
           total += s.total_price if (service_type_id && s.service_type.id == service_type_id)
@@ -68,7 +66,7 @@ class Car < ActiveRecord::Base
 
   private
 
-  def update_km
+  def update_kmUpdatedAt
     last_update = self.kmUpdatedAt.nil? ? self.updated_at : self.kmUpdatedAt
     months = ((Time.now.to_i - last_update.to_i).to_f / Event::MONTHS_IN_SEC).round
     if months > 0

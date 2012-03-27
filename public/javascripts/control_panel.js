@@ -1,3 +1,16 @@
+var eventDetailDialog;
+
+function searchNotes(event_id){  
+  var token = $("input[name='authenticity_token']")[0];
+  //AjaxLoader.enable();
+  //data: {'authenticity_token':encodeURIComponent(token)},
+  $.ajax({
+    url: "/events/"+ event_id +"/search_notes",
+    dataType:'script',
+    type:'GET'
+  });
+}
+
 function checkAll(element,css){
 	var id = "input[class='" + css +"']";
 	var value = element.checked;
@@ -120,6 +133,49 @@ jQuery(document).ready( function(){
   
   //$("#view input:checkbox").click(view);
   $("#select input:checkbox").click(select);
+
+  eventDetailDialog = $("#event_detail").dialog({
+	autoOpen: false ,
+    modal: true,
+    draggable:false,
+    resizable:false,
+    position: [500,150],
+    width:750,
+    title:"Servicio",
+    close:function(){    	
+    	var notes_txt = [];
+    	$(".notes .note").each(function(){
+    		notes_txt.push($(this).children().first().children().first().html().trim());
+    	});
+    	// creo el id del event
+    	var event_id = "#event_" + $(".notes_container form").attr("action").match(/\d+/)[0];
+
+    	if (notes_txt.length > 0){
+    		$(event_id +" .event_notes").attr("title",notes_txt).addClass("has_notes");
+    	}else{
+    		$(event_id +" .event_notes").attr("title","").removeClass("has_notes");
+    	}
+    	$(".notes_container .notes").html("");
+    	$(".notes_container .note_form").attr("action","");
+    },
+    open: function(){
+    	$(".notes_container").show();
+    	$(".notes_container .notes").show();
+    	$(".notes_container .new_note_form").show();
+    },
+    buttons: [          
+          {
+            text:"Listo",
+            click:function(){
+            	$(this).dialog("close");
+            }
+          }
+        ]
+	});
+
+  $(".note_form[data-remote='true']").bind('ajax:success',function(){
+    $(this)[0].reset();
+  });
    
 });
 
@@ -198,9 +254,31 @@ function hideBigEvent(){
 }
 
 function showBigEvent(){
-  var top =$(this).offset().top -30;
-  var left = $(this).offset().left -30;
-  $(this).parent().parent().next().offset({top:top,left:left}).fadeIn();
+	var event = $(this);
+	$("#event_detail").show();
+	var event_detail = $("#event_detail .detail");
+	
+	var event_id = event.parent().parent().parent().attr("id");
+	event_id = event_id.match(/\d*$/)[0];
+	searchNotes(event_id);
+	
+	var event_data = event.parent().parent().next();
+
+	$.each([".domain",".km",".km_avg",".total_company_spend",".total_spend",".car",".user_full_name",".user_email",".user_phone"],function(index,value){
+		var val = event_data.find(value).html();
+		if (val != null){
+			event_detail.find(value).html(val).show();
+			event_detail.find(value + "_label").show();
+		}else{
+			event_detail.find(value).html("").hide();
+			event_detail.find(value + "_label").hide();
+		}	
+	});
+
+	var url = event_data.find(".url").html().trim();
+	$(".note_form").attr("action",url);
+	
+	eventDetailDialog.dialog("open");
 }
 
 function toggleSearchFilter(){

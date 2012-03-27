@@ -49,10 +49,37 @@ jQuery(document).ready( function(){
   $(".labelify").labelify({ labelledClass: "labelHighlight" });
 
   $("[data-remote='true']").bind('ajax:before', function(){
-    $(this).parent().next().show();
+    $(this).parent().parent().find(".ajax_loader").show();
   }).bind('ajax:complete',function(){
-    $(this).parent().next().hide();
+    $(this).parent().parent().find(".ajax_loader").hide();
     $(".labelify").labelify({ labelledClass: "labelHighlight" });
+  }).bind('ajax:error',function(evt,xhr,status,error){
+    var $form = $(this),
+          errors,
+          errorText;
+
+      try {
+        // Populate errorText with the comment errors
+        errors = $.parseJSON(xhr.responseText);
+      } catch(err) {
+        // If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
+        errors = {message: "Por favor intente de nuevo y carge la pagina nuevamente"};
+      }
+
+      // Build an unordered list from the list of errors
+      errorText = "Hubo un error en la aplicación \n<ul>";
+
+      for ( error in errors ) {
+        errorText += "<li>" + error + ': ' + errors[error] + "</li> ";
+      }
+
+      errorText += "</ul>";
+      
+      //Chequero que exista el div para mostrar errores
+      if ($("#msgs .alert").size() == 0){
+        $("#msgs").html("<div class='alert'></div>")
+      }
+      $("#msgs .alert").html(errorText);
   });
 
   all_company = $("#all_companies");

@@ -2,6 +2,6 @@ $("#note-<%=@note_id%>").fadeOut();
 $("#note-<%=@note_id%>").remove();
 
 if ($("<%=@element_id%> .notes").children().size() == 0){
-	$("<%=@element_id%>").find(".notes_link").parent().hide();
-	$("<%=@element_id%> .notes").hide();
+	$("<%=@element_id%>").find(".notes_link").parent().hide();	
+	$("#notes .notes").hide();
 }

@@ -13,6 +13,25 @@ body {
   height:100%;
 }
 
+.msg_update_km{
+  width:37%;
+}
+
+.update_km{
+  padding: 4px 2px;
+  width:97%;
+  float: left;
+}
+
+.update_km h4{
+  margin: 5px;
+}
+
+.update_km_form{
+  overflow: auto;
+  padding-left:5px;
+}
+
 .ajax_loader{
   background-image:url(/images/ajax-loader.gif);
   height: 11px;
@@ -27,6 +46,12 @@ body {
   width:16px;
   display:block;
 }
+
+.block{
+ display:block;
+ overflow: auto;
+}
+
 .edit{
   background-image:url(/images/edit.png);
   height:16px;
@@ -48,8 +73,44 @@ body {
   display:block;
 }
 
+.wo_note{
+  overflow: auto;
+  width:100%;
+}
+
+.has_notes{
+  background-image:url(/images/notes.png);
+  height:16px;
+  width:16px;
+  display:block;
+  float: right;
+  margin-left:10px;
+}
+
+
+.budget_s{
+  background-image:url(/images/budget_s.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
+
 .new_service{
   background-image:url(/images/new_service.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
+.service_s{
+  background-image:url(/images/service_s.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+.event_s{
+  background-image:url(/images/event.png);
   height:16px;
   width:16px;
   display:block;
@@ -117,6 +178,9 @@ body {
   background-image:url(/images/headerpng.png);
   background-repeat:no-repeat;
   background-position:center;
+  box-shadow: 0px 3px 5px #888;
+  -moz-box-shadow: 0px 3px 5px #888;
+  -webkit-box-shadow: 0px 3px 5px #888;
   height:56px;  
 }
 
@@ -1336,8 +1400,7 @@ td.number, th.number{
 }
 
 .service_type{
-  background-color: #F2F2F2;
-  margin: 5px;  
+  background-color: #F2F2F2;  
   padding:5px 3px 3px 3px;
 }
 
@@ -1608,7 +1671,7 @@ td.number, th.number{
 .wo_detail .services{  
   margin: 2px 0px;
   float:left;
-  width:82%;
+  width:100%;
   clear:both;
 }
 
@@ -1655,6 +1718,9 @@ td.number, th.number{
   width: 60%;
 }
 
+.car_detail{
+  margin-bottom:3px;
+}
 
 .logo{
   float: left;
@@ -1665,12 +1731,26 @@ td.number, th.number{
   clear: both;
 }
 
+.car_info{
+  padding: 5px;
+}
+
+.event_detail .car_info{
+  height:40px;
+}
+
+.big_domain{
+  padding: 5px;
+  overflow: auto;
+}
+
 .domain{
   font-size: 20px;
   font-weight: bold;
   float: left;
   margin: 2px 5px 2px 2px;
-  width:85px;
+  width:85px;  
+  display:block; 
 }
 
 .price{
@@ -1705,7 +1785,7 @@ td.number, th.number{
   float: left;
   border-radius: 5px 5px 5px 5px;
   border: 1px outset #636262; 
-  min-height:35px;
+  min-height:20px;
 }
 
 .operator{
@@ -1879,6 +1959,12 @@ td.number, th.number{
 
 .event{
   width: 100%;
+}
+
+.event_detail{
+  width:80%;
+  margin:0 auto;
+  overflow: auto;
 }
 
 .km{
@@ -2113,6 +2199,15 @@ td.number, th.number{
   float: right;
 }
 
+.confirm{
+  background: url(/images/ok.png) no-repeat scroll right center;
+  width:21px;
+  height:21px;
+  border:none;
+  margin: 0px 0px 0px 3px;
+  cursor: pointer;
+}
+
 .buttons{
   width:100%;
   float:left;
@@ -2153,29 +2248,29 @@ td.number, th.number{
   font-weight: bold;
 }
 
+.notes_fk{
+  float:left;
+  margin:2px 2px 2px 5px;
+}
+
 .new_note{
   border-top:thin double #CCCCCC;
   clear:both;
 }
 
 .new_note_form{
-  overflow:auto;
-  float:left;
-  margin:10px 0px;
-  padding-left:10px;
+  overflow:auto;    
+  margin:10px;
+  padding: 5px;
   overflow: auto;
   background: none repeat scroll 0 0 #FFFFCC;
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
-  margin: 5px 10px;
-  min-height: 21px;
-  padding: 10px 5px;
-  position: relative;
-  width:95%;
 }
 
-.contentright_s .new_note_form textarea{
-  width:98%;
+.new_note_form textarea{
+  float: left;
+  width:95%;
 }
 
 .notes_actions{
@@ -2209,7 +2304,7 @@ td.number, th.number{
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   display: block;
-  margin: 5px 10px;
+  margin: 10px;
   min-height: 21px;
   padding: 5px 5px;
   position: relative;
@@ -2515,8 +2610,11 @@ ul.tasks li{
   width:96%;
 }
 
-.info_note{
-  float:right;
+.info_note{  
+  display: block;
+  float: left;
+  overflow: auto;
+  width: 93%;
 }
 
 .info_note .user{
@@ -2524,7 +2622,7 @@ ul.tasks li{
 }
 
 .budget_info{
-  width:79%;
+  width:100%;
   float:left;
 }
 

@@ -5,7 +5,7 @@ module ApplicationHelper
   def company_id
     id = cookies[:company_id]
     if id == "-1"
-      return current_user.companies.map(&:id)
+      return current_user.companies.map { |c| c.id.to_s}
     elsif id
       return id.split(",")
     else
@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def is_client client
-    company_id.include?(client.id.to_s)
+    Company.is_client?(company_id,client.id)
   end
 
   def can_show? client

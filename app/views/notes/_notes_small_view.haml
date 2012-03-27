@@ -1,16 +1,25 @@
-%div{:id=>"note-#{note.id}",:class=>"note clear"}
-  .left
-    = note.message
+%div{:id=>"note-#{note.id}",:class=>"note clear"}  
+  .info_note    
+    .left
+      = note.message  
+    .right
+      .date
+        %lable{:title =>"Creado el"}
+          = l note.created_at,:format => :short
+      .user.right.clear
+        %label{:title =>"Creado por"}
+          =note.creator.full_name
+  .notes_fk
+    - if note.event
+      = link_to "",event_path(note.event),:class=>"event_s",:title =>"Servicio a Realizar"
+    - if note.workorder      
+      = link_to "",workorder_path(note.workorder),:class =>"service_s",:title =>"Servicio Realizado"
+    - if note.budget      
+      = link_to "",budget_path(note.budget),:class=>"budget_s",:title =>"Presupuesto"      
+  
   -if note.creator_id == current_user.id
     .actions
-      .actions
+      .action.hide
         = link_to "",edit_note_path(note),:class=>"edit",:title =>"Modificar"
       .action
-        = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete
-  .info_note    
-    .date
-      %lable{:title =>"Creado el"}
-        = l note.created_at,:format => :short
-    .user
-      %label{:title =>"Creado por"}
-        =note.creator.full_name
+        = link_to "", note_path(note), :confirm => '¿ Esta seguro que desea borrar la Nota ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete        
