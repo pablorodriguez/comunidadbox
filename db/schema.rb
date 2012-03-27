@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302115247) do
+ActiveRecord::Schema.define(:version => 20120323171733) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -293,6 +293,7 @@ ActiveRecord::Schema.define(:version => 20120302115247) do
     t.integer  "creator_id",                 :null => false
     t.integer  "budget_id"
     t.boolean  "viewed"
+    t.integer  "event_id"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
