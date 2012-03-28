@@ -185,6 +185,7 @@ class WorkordersController < ApplicationController
   end
 
   def edit
+    @update_km = false
     @work_order= Workorder.find(params[:id])    
     @work_order.notes.build if @work_order.notes.empty?
 
@@ -246,6 +247,8 @@ class WorkordersController < ApplicationController
   end
 
   def new
+
+    @update_km= @work_order.car.update_km?
     @work_order = Workorder.new
 
     company = get_company(params)

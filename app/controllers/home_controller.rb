@@ -7,6 +7,11 @@ class HomeController < ApplicationController
     if current_user
       @events = current_user.future_events(:per_page=>12)
     end
+
+    if current_user && current_user.disable
+      flash[:notice] = 'No pude ingresar al sitio con un usuario deshabilitado'
+      redirect_to destroy_user_session_path
+    end
   end
 
   def set_company   

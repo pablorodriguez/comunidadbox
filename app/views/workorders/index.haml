@@ -21,10 +21,31 @@
               = link_to_unless_current "Clientes", clients_path
             - else
               = link_to "Autómoviles", my_cars_path 
+        - if company_id
+          %li
+            #control_panel_link.menu
+              = image_tag "control-panel.png"
+              = link_to "Panel de Control",control_panels_path 
         %li
           #service_done.link.menu
             = image_tag "service.png"
             Servicios Realizados        
+        %li
+          #control_panel_link.menu
+            = image_tag "budget.png"
+            = link_to "Presupuestos",budgets_path   
+        %li
+          #note.link.link.menu
+            = image_tag "notes.png"
+            = link_to "Notas",notes_path
+        %li
+          #service_offer.link.menu
+            = image_tag "service_offer.png"
+            = link_to "Ofertas de Servicio" , service_offers_path
+        %li
+          #service_center_link.menu
+            = image_tag "find.png"        
+            = link_to "Prestadores de Servicios", all_companies_path   
         - unless current_user.is_employee
           %li
             #report_amount.link.menu

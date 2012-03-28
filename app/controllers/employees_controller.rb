@@ -31,10 +31,20 @@ class EmployeesController < ApplicationController
       end
     end
   end
+
+  def activate
+    @employee = User.find(params[:id])
+    @employee.update_attribute(:disable,false)
+
+    respond_to do |format|
+      format.html { redirect_to(employees_url) }
+      format.xml  { head :ok }
+    end
+  end
   
   def destroy
     @employee = User.find(params[:id])
-    @employee.destroy
+    @employee.update_attribute(:disable,true)    
 
     respond_to do |format|
       format.html { redirect_to(employees_url) }

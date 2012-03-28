@@ -19,6 +19,9 @@
               = link_to h(emp.email),employee_path(emp),:title =>"Ver empleado"
             %td
               = link_to image_tag('edit.png',:title =>"Modificar"),edit_employee_path(emp)
-              = link_to image_tag('delete.png',:title =>"Eliminar"), employee_path(emp), :confirm => '¿ Esta seguro que desea borrar al empleado ?', :method => :delete
+              - if emp.disable?
+                = link_to image_tag('active.png',:title =>"Activar"), activate_employee_path(emp), :confirm => '¿ Esta seguro que desea activar al empleado ?'
+              -else
+                = link_to image_tag('delete.png',:title =>"Eliminar"), employee_path(emp), :confirm => '¿ Esta seguro que desea borrar al empleado ?', :method => :delete
   -else
     =render(:partial=>'shared/message',:locals =>{:msg =>"No hay empleados registrados."})

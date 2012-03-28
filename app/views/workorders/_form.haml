@@ -11,7 +11,7 @@
     .box_bottom      
       #car_info.barradatos      
         = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}
-  - if @work_order.car.update_km?
+  - if @update_km
     #car_new_km
       = render :partial=>'cars/new_km',:locals =>{:car=>@work_order.car}
   #materials.hide

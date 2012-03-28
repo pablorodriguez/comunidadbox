@@ -107,6 +107,10 @@ ComunidadBox::Application.routes.draw do
       post :search
     end
 
+    member do
+      get :activate
+    end
+
   end
 
   resources :workorders do
