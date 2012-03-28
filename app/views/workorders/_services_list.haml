@@ -39,10 +39,7 @@
 
     -#= wo_form.fields_for :alarms do |a_form|
     -#  = render "alarm_fields",:f => a_form
-  - if @work_order.car.update_km?
-    #wo_save.buttons.box_top.hide  
+    - b_css =  @update_km ? ".hide" : ""  
+    #wo_save.buttons.box_top{:class => "#{b_css}"}
       = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
-  - if not @work_order.car.update_km?
-    #wo_save.buttons.box_top
-      = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'    
     
