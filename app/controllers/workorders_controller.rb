@@ -247,12 +247,7 @@ class WorkordersController < ApplicationController
   end
 
   def new
-
-    
     @work_order = Workorder.new
-    
-
-
     company = get_company(params)
     
     @work_order.performed = I18n.l(Time.now.to_date)

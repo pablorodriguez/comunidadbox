@@ -30,7 +30,7 @@ class Car < ActiveRecord::Base
     end
 
     if self.new_record?
-      kmUpdatedAt = DateTime.new
+      self.kmUpdatedAt = Time.new
     end
   end
 
