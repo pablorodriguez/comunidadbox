@@ -28,6 +28,10 @@ class Car < ActiveRecord::Base
     if (km_changed? && (!kmAverageMonthly_changed?))
       update_kmUpdatedAt
     end
+
+    if self.new_record?
+      kmUpdatedAt = DateTime.new
+    end
   end
 
   def update_km?

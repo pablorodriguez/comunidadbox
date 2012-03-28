@@ -248,8 +248,10 @@ class WorkordersController < ApplicationController
 
   def new
 
-    @update_km= @work_order.car.update_km?
+    
     @work_order = Workorder.new
+    
+
 
     company = get_company(params)
     
@@ -263,6 +265,8 @@ class WorkordersController < ApplicationController
     
     # si viene un car_id lo busco y se lo asigno a la orden de trabajo    
     @work_order.car = Car.find(params[:car_id]) if params[:car_id]
+
+    @update_km= @work_order.car.update_km?
 
     @service_types = current_user.service_types
 
