@@ -259,9 +259,7 @@ class WorkordersController < ApplicationController
     @work_order.car = current_user.cars.first if (params[:car_id].nil? && params[:b].nil?)
     
     # si viene un car_id lo busco y se lo asigno a la orden de trabajo    
-    @work_order.car = Car.find(params[:car_id]) if params[:car_id]
-
-    @update_km= @work_order.car.update_km?
+    @work_order.car = Car.find(params[:car_id]) if params[:car_id]    
 
     @service_types = current_user.service_types
 
@@ -291,7 +289,8 @@ class WorkordersController < ApplicationController
     @car_service_offers =[]
     #busco las ofertas de servicios para el auto asignado a la orden de trabajo
     @car_service_offers = @work_order.find_car_service_offer(company.id)  if company
-
+    @update_km= @work_order.car.update_km?
+    
   end
 
   def task_list
