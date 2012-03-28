@@ -97,7 +97,7 @@ class Budget < ActiveRecord::Base
     budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
     if filters[:company_id]
-      budget = budget.where("companies.id IN (?)",filters[:company_id])
+      budget = budget.where("budgets.company_id IN (?)",filters[:company_id])
     else
       budget = budget.where("user_id = ?",filters[:user].id)
     end    

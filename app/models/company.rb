@@ -101,6 +101,9 @@ class Company < ActiveRecord::Base
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
   end
 
+  def self.employees(companies_ids)
+    User.where("employer_id IN (?)",companies_ids)    
+  end
 
 end
 
