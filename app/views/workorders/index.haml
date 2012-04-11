@@ -46,7 +46,7 @@
           #service_center_link.menu
             = image_tag "find.png"        
             = link_to "Prestadores de Servicios", all_companies_path   
-        - unless current_user.is_employee
+        - if current_user.is_administrator
           %li
             #report_amount.link.menu
               = image_tag "graph.png"
@@ -54,16 +54,15 @@
           %li
             #report_quantiy.link.menu
               = image_tag "graph_money.png"
-              Reporte Cantidad
+              Reporte Cantidad        
           %li
             #report_material.link.menu
               = image_tag "graph_money.png"
-              Reporte Materiales              
-          - if current_user.is_administrator
-            %li
-              #report_detail.link.menu
-                = image_tag "report.png"
-                Reporte Detalle
+              Reporte Materiales
+          %li
+            #report_detail.link.menu
+              = image_tag "report.png"
+              Reporte Detalle
     .box_bottom
       = render 'search'
     .menu_actions.box_bottom
@@ -91,9 +90,9 @@
           #amt_graph.box_bottom
           #amt_report.box_bottom
             = render "amount_report"       
-        #amt_material_graph_c.data.hide.chart
-          = render "material_report"
         - if current_user.is_administrator
+          #amt_material_graph_c.data.hide.chart
+            = render "material_report"
           #report_data.data.box_bottom.hide
             = render 'totals'
       - else  
