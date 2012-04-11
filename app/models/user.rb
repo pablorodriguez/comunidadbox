@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   NULL_ATTRS = %w( company_name cuit )
   before_save :nil_if_blank
-  validate :validate_all
+  #validate :validate_all
 
   def validate_all
     unless self.creator.companies.find_by_id(self.employer_id)
