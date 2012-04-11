@@ -62,7 +62,7 @@ class EmployeesController < ApplicationController
   
   def create
     @employee = User.new(params[:user])
-    @employee.employer = current_user.company
+    @employee.employer = current_user.company unless @employee.employer
     @employee.creator = current_user
     
     if @employee.save

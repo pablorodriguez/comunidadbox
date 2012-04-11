@@ -16,11 +16,12 @@
         %label{ :for => "email" }Email *
       %td
         = f.text_field :email
-    %tr
-      %td
-        %label{ :for => "email" }Sucursal *
-      %td
-        = f.collection_select(:employer_id, current_user.companies,:id,:name,{:prompt=>"-- Sucursal --"},{:class=>'long_select',:style=>"width:265px"})
+    - if current_user.companies.size > 1
+      %tr
+        %td
+          %label{ :for => "email" }Sucursal *
+        %td
+          = f.collection_select(:employer_id, current_user.companies,:id,:name,{:prompt=>"-- Sucursal --"},{:class=>'long_select',:style=>"width:265px"})
     
     %tr
       %td Tipo de Empleado
