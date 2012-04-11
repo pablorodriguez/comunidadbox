@@ -5,7 +5,7 @@ class Workorder < ActiveRecord::Base
   ORDER_BY = {"-- Ordenar por ---" =>"workorders.performed desc","Dominio: Descendiente"=>"cars.domain desc","Dominio: Ascendiente"=>"cars.domain asc",
     "Realizado: Descendiente"=>"workorders.performed desc","Realizado: Ascendiente" => "workorders.performed asc"}
     
-  has_many :services, :dependent => :destroy
+  has_many :services, :dependent => :destroy,:inverse_of => :workorder
   has_many :notes,:dependent => :destroy
   belongs_to :car
   belongs_to :company
@@ -16,7 +16,9 @@ class Workorder < ActiveRecord::Base
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :payment_method
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
-  
+  validates :services ,:length =>{:minimum => 1}
+
+  #,:message =>"La orden de trabajo debe contener servicios"
   validate :validate_all
 
   scope :for_car, lambda { |car_id| { :conditions =>  ["car_id = ?", car_id] ,:order => "performed desc"} }
@@ -71,11 +73,13 @@ class Workorder < ActiveRecord::Base
   end
   
   def validate_all
-    if services.size == 0
-      errors.add_to_base("La orden de trabajo debe contener servicios")      
+    logger.debug "####### entro a validate all #{self.services}"
+    if self.services.empty?
+      errors.add_to_base("La orden de trabajo debe contener servicios")
+      logger.debug "############################# service esta vacio"
     end
 
-    if user.company
+    if self.user.company
       unless user.company.is_employee(user)
         errors.add_to_base("El prestador de servicios es incorrecto")
       end
@@ -162,6 +166,8 @@ class Workorder < ActiveRecord::Base
         n_status = Status::OPEN
       end
     end
+
+    n_status = Status::OPEN if self.services.empty?
     logger.debug "### New Status #{n_status}"
     self.status = n_status    
   end
@@ -223,20 +229,42 @@ class Workorder < ActiveRecord::Base
     end
   end
   
-  def self.build_graph_data service_data
+  def self.build_material_data(amount_data,count_data)
+    total_amount = 0
+    amount_data.values.each{|v| total_amount += v.to_f}
+    data_detail = {}
+    amount_data.each do |key,amount|
+      percentage = ((amount.to_f * 100) / total_amount)
+      if key.nil?
+        new_key = "Otro"
+      else
+        new_key = Material.find(key).name
+      end
+      count = count_data[key]
+      data_detail[new_key] = [amount,percentage,count]
+    end
+    data_detail
+  end
+
+  def self.build_graph_data(data,class_name=ServiceType)
     data_str =""
-    total = 0 
-    service_data.values.each{|v| total = total + v.to_f}
-    service_data.each do |key,value|
+
+    total = 0    
+    data.values.each{|v| total += v.to_f}
+
+    data.each do |key,value|
       if (key && total > 0)
         percentage = ((value.to_f * 100) / total)
-        service_type = ServiceType.find(key)
-        logger.debug "### Key: #{key}, Value: #{value} #{service_type.name} %: #{percentage} total: #{total}"
-        data_str = data_str + "{ 
-          name: '#{service_type.name}', 
-          y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
-          p: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
-          color: '#{service_type.color}' },"        
+
+          entity = "Otro"
+          entity = class_name.send(:find,key) if key
+          data_str = data_str + "{ 
+            name: '#{entity.name}', 
+            y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
+            p: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
+            },"
+            #color: '#{GraphColor.color(key)}'},
+        
       end
     end
     data_str.chop
@@ -249,10 +277,22 @@ class Workorder < ActiveRecord::Base
       wo = wo.sum("amount * price")
     else
       wo = wo.count("services.id")
-    end    
+    end
     wo
   end
   
+  def self.group_by_material(params,price=true)
+    wo = self.find_by_params(params)
+    wo = wo.group("material_service_types.material_id")
+    if price
+      wo = wo.sum("amount * price")
+    else
+      wo = wo.count("material_services.id")
+    end        
+    wo
+  end
+  
+
   def self.find_by_params(filters)
     
     domain =  filters[:domain] || ""

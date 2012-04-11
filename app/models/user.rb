@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :notes,:order => "created_at DESC"
   
   belongs_to :creator,:class_name=>'User'
-  has_many :companies
+  has_many :companies, :order => 'name ASC'
   has_many :companies_users
   has_many :service_centers, :through => :companies_users, :source => :company
 
@@ -41,6 +41,13 @@ class User < ActiveRecord::Base
 
   NULL_ATTRS = %w( company_name cuit )
   before_save :nil_if_blank
+  validate :validate_all
+
+  def validate_all
+    unless self.creator.companies.find_by_id(self.employer_id)
+      errors.add_to_base("El empleador es incorrecto")
+    end
+  end
 
   def self.company_clients companies_ids  
     User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids).order("users.first_name")  
@@ -223,7 +230,11 @@ class User < ActiveRecord::Base
   end
 
   def can_edit? user
-    confirmed_at.nil? && creator && user.company.is_employee(creator)
+    user.confirmed_at.nil? && is_employee?(user)
+  end
+
+  def is_employee?(usr)
+    (companies && companies.includes(:companies_users).where("companies_users.user_id = ?",id).size >= 0) ? true : false
   end
 
   def is_client? user

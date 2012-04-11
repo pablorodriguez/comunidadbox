@@ -39,6 +39,6 @@
           .action
             = link_to "", new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
           .action
-            = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"} if car.can_edit?(current_user)
+            = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"} if current_user.can_edit?(car.user)
    
 = will_paginate @clients

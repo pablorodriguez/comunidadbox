@@ -44,7 +44,8 @@ class Car < ActiveRecord::Base
   end
   
   def can_edit?(usr)
-    (user.id == usr.id) || ((company && company.id == usr.company.id) && user.confirmed_at.nil?) 
+    self.user.can_edit?(usr)
+    #(user.id == usr.id) || ((company && company.id == usr.company.id) && user.confirmed_at.nil?) 
   end
     
   def total_spend(company_id = nil,service_type_id = nil)

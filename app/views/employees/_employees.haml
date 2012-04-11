@@ -1,11 +1,12 @@
-#employees
-  %h1 Listado de Empleados
+#employees 
   - if @employees.size > 0
     %table#sort_table.comboxtable
       %thead
         %tr
           %th Nombre
           %th Apellido
+          -if company_id.size > 1
+            %th Sucursal
           %th Email
           %th
       - for emp in @employees
@@ -15,6 +16,9 @@
               = emp.first_name
             %td
               = emp.last_name
+            -if company_id.size > 1
+              %td
+                = emp.company.name
             %td
               = link_to h(emp.email),employee_path(emp),:title =>"Ver empleado"
             %td

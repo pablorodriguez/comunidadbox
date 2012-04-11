@@ -4,13 +4,14 @@ if (<%=@work_orders.size%> > 0){
   $("#workorders").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún servicio."}))%>");  
 } 
 $("#totals").html("<%=escape_javascript(render(:partial=>'totals')) if current_user.is_administrator%>");
+
 if ($("#price_graph").size() >0){ 
-  build_price_graph([<%=@price_data%>],"price_graph","Facturación por Tipo de Servicio");
+  build_price_graph([<%=@price_data%>],"price_graph");
+}
+if ($("#amt_graph").size() > 0){
+  build_amt_graph([<%=@amt_data%>],"amt_graph");
 }
 
 $("#price_report").html("<%=escape_javascript(render(:partial=>'price_report'))%>")
 $("#amt_report").html("<%=escape_javascript(render(:partial=>'amount_report'))%>")
-
-if ($("#amt_graph").size() > 0){
-  build_amt_graph([<%=@amt_data%>],"amt_graph","Cantidad por Tipo de Servicio");
-}
+$("#amt_material_graph_c").html("<%=escape_javascript(render(:partial=>'material_report'))%>")

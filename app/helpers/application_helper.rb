@@ -85,7 +85,7 @@ module ApplicationHelper
   end
   
   def big_event_class event
-    if company_id.include?(event.service.workorder.company.id.to_s)
+    if (event.service && company_id.include?(event.service.workorder.company.id.to_s))
       return "my_big_event"  
     else
       return "big_event"  

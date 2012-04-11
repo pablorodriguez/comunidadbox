@@ -21,7 +21,7 @@ jQuery(document).ready( function(){
 
 		
 	$(".dropdown dt a").live("click",function() {
-    $(".dropdown dd ul").toggle();    
+    $(".dropdown dd ul").toggle();
   });
   
   
@@ -49,6 +49,7 @@ jQuery(document).ready( function(){
   $("#service_done").click(function(){showHideContent($(this),"#workorders_c");});
   $("#report_amount").click(function(){showHideContent($(this),"#price_graph_c");});
   $("#report_quantiy").click(function(){showHideContent($(this),"#amt_graph_c");});
+  $("#report_material").click(function(){showHideContent($(this),"#amt_material_graph_c");});
   $("#report_detail").click(function(){showHideContent($(this),"#report_data");});
 
   $("#service_types :checkbox[id!='all_service_type']").change(function(){

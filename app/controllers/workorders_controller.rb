@@ -39,10 +39,9 @@ class WorkordersController < ApplicationController
     filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
     filters_params[:domain] = @domain
-    filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
+    filters_params[:service_type_ids] = @service_type_ids unless (@service_type_ids.empty?)
     filters_params[:wo_status_id] = @status_id if @status_id
     filters_params[:company_id] = company_id if company_id
-
     filters_params[:user] = current_user
 
     @workorders = Workorder.find_by_params(filters_params)
@@ -50,13 +49,17 @@ class WorkordersController < ApplicationController
 
     @price={}
     @report_data.each_pair do |k,v|
-      if k
-        @price[ServiceType.find(k).name] = v
-      end      
+      @price[ServiceType.find(k).name] = v if k
     end    
 
     @price_data = Workorder.build_graph_data(@report_data)
-    @amt = Workorder.group_by_service_type(filters_params,false)        
+    @amt = Workorder.group_by_service_type(filters_params,false)
+    @count_material = Workorder.group_by_material(filters_params,false)
+
+    amt_material = Workorder.group_by_material(filters_params)
+    count_material = Workorder.group_by_material(filters_params,false)
+    @amt_material_data = Workorder.build_material_data(amt_material,count_material)
+    
     
     @count_data = {}
     @amt.each_pair do |k,v|
@@ -138,9 +141,11 @@ class WorkordersController < ApplicationController
   def update
     @work_order = Workorder.find(params[:id])
     
-    params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]["0"]
-    params[:workorder][:notes_attributes]["0"][:creator_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]["0"]
-
+    if params[:workorder][:notes_attributes]
+      params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" 
+      params[:workorder][:notes_attributes]["0"][:creator_id] = "#{current_user.id}"
+    end
+    
     cso_ids = params["cso_ids"] || []
 
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
@@ -171,14 +176,12 @@ class WorkordersController < ApplicationController
       end
 
       format.html { redirect_to(@work_order)}
-      format.xml  { head :ok }
     else
+      logger.debug "######################################## #{@work_order.errors}"
       @car_service_offers = []
       @car_service_offers = @work_order.find_car_service_offer(company_id) if company_id
       @service_types = get_service_types
-
       format.html { render :action => "edit" }
-      format.xml  { render :xml => @work_order.errors, :status => :unprocessable_entity }
     end
 
     end
@@ -200,7 +203,7 @@ class WorkordersController < ApplicationController
   end
 
   def create
-    params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}"
+    params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]
     @work_order = Workorder.new(params[:workorder])
     cso_ids = params["cso_ids"] || []
 

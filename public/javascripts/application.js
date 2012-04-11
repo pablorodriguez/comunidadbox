@@ -202,7 +202,7 @@ AjaxLoader={
 };
 
 
-function build_amt_graph(data,container,title) {
+function build_amt_graph(data,container) {
    $("#" + container).html("");
    chart = new Highcharts.Chart({
       chart: {
@@ -213,7 +213,7 @@ function build_amt_graph(data,container,title) {
          plotShadow: false                
       },      
       title: {
-         text: title
+         text: ''
       },
       tooltip: {
          formatter: function() {

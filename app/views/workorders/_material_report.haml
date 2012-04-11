@@ -1,0 +1,23 @@
+.box_bottom
+  %h1 Reporte por Materiales
+#amt_material_graph.box_bottom  
+  %table.comboxtable
+    %thead
+      %tr
+        %th Material
+        %th Total Facturado        
+        %th Cantidad
+        %th Porcentaje
+    %tbody
+      - @amt_material_data.keys.sort.each do |key|
+        - value = @amt_material_data[key]
+        %tr
+          %td
+            = key
+          %td.number
+            = number_with_precision value[0],:precision =>2
+          %td.number            
+            = number_with_precision value[2],:precision =>0
+          %td.number
+            = number_to_percentage value[1]
+  

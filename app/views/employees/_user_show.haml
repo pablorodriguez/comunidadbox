@@ -15,6 +15,10 @@
     Email:
     = @user.email
 %p
+  %label 
+    Sucursal:
+    = @user.employer.name
+%p
   %label Roles:
   - for role in @user.roles
     = role.detail 

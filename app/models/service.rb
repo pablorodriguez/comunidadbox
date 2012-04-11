@@ -1,5 +1,5 @@
 class Service < ActiveRecord::Base
-  belongs_to :workorder
+  belongs_to :workorder, :inverse_of => :services
   belongs_to :budget
   belongs_to :service_type
   belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'

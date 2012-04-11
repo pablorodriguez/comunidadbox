@@ -17,7 +17,7 @@ class Company < ActiveRecord::Base
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
   
   def is_employee usr
-    return (user.id == usr.id || (employees && employees.select{|e| e.id == usr.id}.size > 0)) ? true : false
+    return (user.id == usr.id || (usr.employer.id == id)) ? true : false
   end
 
   def full_address
@@ -28,7 +28,7 @@ class Company < ActiveRecord::Base
   end
 
   def operators
-    User.where("employer_id = ? and roles.name = ?", self.id,Role::OPERATOR).includes(:roles).order("users.last_name,users.first_name")
+    User.where("employer_id = ? and roles.name = ? and disable is NULL", self.id,Role::OPERATOR).includes(:roles).order("users.first_name,users.last_name")
   end
 
   def all_materials

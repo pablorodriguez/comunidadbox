@@ -17,6 +17,12 @@
       %td
         = f.text_field :email
     %tr
+      %td
+        %label{ :for => "email" }Sucursal *
+      %td
+        = f.collection_select(:employer_id, current_user.companies,:id,:name,{:prompt=>"-- Sucursal --"},{:class=>'long_select',:style=>"width:265px"})
+    
+    %tr
       %td Tipo de Empleado
       %td
         - for role in Role.all :conditions =>["id >= ?",1] 

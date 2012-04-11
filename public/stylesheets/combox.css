@@ -2500,9 +2500,19 @@ input.labelHighlight,textarea.labelHighlight {
   padding: 2px 0px;
 }
 
+.car_detail .domain_brand{
+  overflow: auto;
+}
+
+.car_detail .brand{
+  font-size:20px;
+  font-weight:bold;
+  margin:0px 10px;
+}
+
 .car_detail .domain{
   font-size:25px;
-  margin:10px;
+  margin:0px 10px;
 }
 
 #client_info{

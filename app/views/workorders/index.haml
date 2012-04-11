@@ -6,8 +6,8 @@
 - unless current_user.is_employee
   :javascript
     $(document).ready(function() {;
-      build_price_graph([#{@price_data}],"price_graph","Facturación por Tipo de Servicio");
-      build_amt_graph([#{@amt_data}],"amt_graph","Cantidad por Tipo de Servicio");
+      build_price_graph([#{@price_data}],"price_graph");
+      build_amt_graph([#{@amt_data}],"amt_graph");      
     })
 
 %all-workorder  
@@ -55,6 +55,10 @@
             #report_quantiy.link.menu
               = image_tag "graph_money.png"
               Reporte Cantidad
+          %li
+            #report_material.link.menu
+              = image_tag "graph_money.png"
+              Reporte Materiales              
           - if current_user.is_administrator
             %li
               #report_detail.link.menu
@@ -87,6 +91,8 @@
           #amt_graph.box_bottom
           #amt_report.box_bottom
             = render "amount_report"       
+        #amt_material_graph_c.data.hide.chart
+          = render "material_report"
         - if current_user.is_administrator
           #report_data.data.box_bottom.hide
             = render 'totals'

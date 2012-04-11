@@ -1,6 +1,6 @@
 <% if @msg != "" %>
-    $("#km_msg").html("<%= @msg%>").show();
-    $("#wo_save").hide();
+    $("#km_msg").html("<%= @msg%>").show();    
+    $("#workorder_submit").attr("disabled","disabled");
 <%else%>
   $("#km_msg").html("").hide();
   $("#car_km").val("<%=@car.km%>");
@@ -10,4 +10,5 @@
   $("#kmUpdatedAt").html("<%=l @car.kmUpdatedAt.to_date%>").effect("highlight",{},3000);
   $("#wo_save").show();
   $("#km_update").hide();
+  $("#workorder_submit").attr("disabled","");
 <%end%>
