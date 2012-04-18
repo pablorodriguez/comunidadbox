@@ -287,7 +287,7 @@ class Workorder < ActiveRecord::Base
     if price
       wo = wo.sum("amount * price")
     else
-      wo = wo.count("material_services.id")
+      wo = wo.sum("material_services.amount")
     end        
     wo
   end
