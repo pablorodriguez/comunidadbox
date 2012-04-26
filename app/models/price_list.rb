@@ -94,46 +94,52 @@ class PriceList < ActiveRecord::Base
     found = 0
     not_found = 0
     new_materials = []
+    record = 0
 
     file.each do |r|
-      logger.debug r
-      cell= r.split("\t")
-      prov_code = cell[0].strip
-      brand = cell[1].strip
-      name = cell[2].strip
-      price = cell[3].strip.to_f
+      record +=1
+      logger.debug "#{record} #### #{r}"
+      begin
+        cell= r.split("\t")
+        prov_code = cell[0].strip
+        brand = cell[1].strip
+        name = cell[2].strip
+        price = cell[3].strip.to_f
 
-      # busco el material a ver si existe
-      m = Material.find_by_prov_code(prov_code)
+        # busco el material a ver si existe
+        m = Material.find_by_prov_code(prov_code)
 
-      if m        
-        # busco en la lista de precio si existe el material
-        item = PriceListItem.includes(:price_list,:material_service_type => [:material]).where("materials.prov_code = ? and price_lists.id = ?",prov_code,pl_id).first
+        if m        
+          # busco en la lista de precio si existe el material
+          item = PriceListItem.includes(:price_list,:material_service_type => [:material]).where("materials.prov_code = ? and price_lists.id = ?",prov_code,pl_id).first
 
-        if item
-          item.price = price
-          item.save
-        else
+          if item
+            item.price = price
+            item.save
+          else
+            # creo un item de prcio de lista 
+            #pl.price_list_items.create(:material_service_type_id => 2,:price => price)
+          end
+          found += 1
+        else  
+          row =  Array[prov_code,brand,name,price]
+          new_materials << row
+          #creo el nuevo material
+          #m = Material.create(:prov_code => prov_code,:code =>"CN#{code}",:name => name,:brand =>brand,:provider => provider)
+
+          # creo un un material service type tipo 2 , Cambio de Neumatico
+          #mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => 2)
+
           # creo un item de prcio de lista 
-          #pl.price_list_items.create(:material_service_type_id => 2,:price => price)
+          #pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
+
+          #code += 1
+          not_found += 1
+          #puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
         end
-        found += 1
-      else  
-        row =  Array[prov_code,brand,name,price]
-        new_materials << row
-        #creo el nuevo material
-        #m = Material.create(:prov_code => prov_code,:code =>"CN#{code}",:name => name,:brand =>brand,:provider => provider)
-
-        # creo un un material service type tipo 2 , Cambio de Neumatico
-        #mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => 2)
-
-        # creo un item de prcio de lista 
-        #pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
-
-        #code += 1
-        not_found += 1
-        #puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
-      end      
+      rescue Exception
+        logger.error "#### Error reading record #{record} #{r}"
+      end
     end   
     file.close
     result = {}
@@ -147,7 +153,14 @@ class PriceList < ActiveRecord::Base
 
   def self.save_material_not_found(file_name,materials)    
     logger.debug "Saving file materila not found #{file_name} : materiales : #{materials.size}"
-    File.open("#{RAILS_ROOT}/public/price_files/not_found_" + file_name, 'w') {|f| materials.each {|m| f.write(m.join("\t") + "\n")} }
+    File.open("#{RAILS_ROOT}/public/price_files/not_found_" + file_name, 'w') do|f|
+      materials.each do |m| 
+        str = m.join("\t") + "\n"
+        str = str.force_encoding('UTF-8')
+        logger.debug "### #{m} #{str}"
+        f.write(str)
+      end
+    end 
   end
   
 
