@@ -1,5 +1,4 @@
-.notes_container
-  .box_bottom
-    %h1 Listado de Notas  
-  .box_bottom
-    = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> @car.user.id,:notes =>@notes}
+%div
+  %h1 Listado de Notas  
+.box_bottom
+  = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> @car.user.id,:notes => notes}

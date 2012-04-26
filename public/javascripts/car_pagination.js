@@ -44,7 +44,10 @@ jQuery(document).ready(function(){
   $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
   $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
   $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
-  $("#note").click(function(){showHideContent($(this),"#cars_notes");});  
+  $("#note").click(function(){
+    showHideContent($(this),"#cars_notes");
+    $("#cars_notes .notes_container").show().find(".notes").show();
+  });  
   $("#messages").click(function(){showHideContent($(this),"#cars_messages");});
   $("#budgets_link").click(function(){showHideContent($(this),"#car_budgets")});
 

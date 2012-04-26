@@ -16,7 +16,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = User.find(params[:id])
-    @is_client = current_user.is_client @client
+    @is_client = current_user.is_client?(@client)
   end
 
   def update
