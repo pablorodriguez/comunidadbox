@@ -1,6 +1,6 @@
 #work_order
   #car_info.barradatos
-    = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}
+    = render :partial=>'car_info',:locals =>{:car=>@work_order.car}
   .box_bottom
     .box_top
       = render :partial=>'show_services_list',:locals =>{:work_order=>@work_order}

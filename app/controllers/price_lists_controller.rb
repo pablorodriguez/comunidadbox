@@ -143,8 +143,9 @@ class PriceListsController < ApplicationController
     require 'fileutils'
     id = params[:id]
     @price_list = PriceList.find id
-    tmp = params[:price][:file].tempfile    
-    @result = PriceList.import_item_price_file(@price_list,tmp,"Bridgestone")
+    tmp = params[:price][:file].tempfile
+    file_name = params[:price][:file].original_filename
+    @result = PriceList.import_item_price_file(@price_list,tmp,file_name)
     #file = File.join("#{RAILS_ROOT}/files/", params[:price][:file].original_filename)
     #FileUtils.cp tmp.path, file,"Bridgestone")
     #redirect_to items_price_list_path(PriceList.find(id))    

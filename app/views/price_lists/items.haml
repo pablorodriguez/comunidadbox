@@ -12,13 +12,19 @@
         .box_bottom
           %h1 Lista de Precios actualizada desde archivo
         .box_bottom          
-          %strong
-            Cantidad de Precios actualizdos:
-          = @result[:found]
-          %br
           %strong 
             Nombre archivo:
           = @result[:file_name] 
+          %br
+          %strong
+            Precios actualizdos:
+          = @result[:found]
+          %br
+          %strong
+            Materiales no encontrados:
+          = link_to " #{@result[:not_found]}","/price_files/#{@result[:not_found_material]}", target: "_blank",title: "Materiales no encontrados"
+          %br
+
     .box_bottom
       %h1 
         Actualizar Precios:

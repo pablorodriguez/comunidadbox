@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
     @client.address = Address.new unless @client.address
     @models = Array.new
 
-    unless @client.can_edit?(current_user)
+    unless current_user.is_client?(@client)
       flash[:notice] = "No puede modificar un cliente que no es suyo"
       redirect_to clients_path
     end
@@ -16,7 +16,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = User.find(params[:id])
-    @is_client = is_client @client
+    @is_client = current_user.is_client @client
   end
 
   def update
@@ -134,13 +134,12 @@ class ClientsController < ApplicationController
     company_name = params[:company_name] || ""
 
 
-    @clients = User.company_clients(company_id)
+    @clients = User.company_clients(current_user.companies.map(&:id))
     @clients = @clients.where("first_name like ?","%#{first_name}%") unless first_name.empty?
     @clients = @clients.where("last_name like ?","%#{last_name}%") unless last_name.empty?
     @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
     @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?
     @clients = @clients.order("last_name,first_name").paginate(:page =>page,:per_page =>per_page)
-    logger.debug "### #{@clients.to_sql}"
 
     respond_to do |format|
       format.html

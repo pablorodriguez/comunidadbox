@@ -1,0 +1,55 @@
+.datos_personales
+  %table.tabla_datos_personales
+    %tr
+      %td
+        %h3 Nombre
+      %td
+        = car.user.full_name
+        - if car.user.company_name
+          %label{:title=>"Razón Social"}
+            = "[#{car.user.company_name}]" 
+        - if car.user.cuit
+          %label{:title=>"CUIT"}
+            = "[#{car.user.cuit}]" 
+      %td
+        %h3 Dominio
+      %td
+        %p#domain
+          = car.domain
+      %td
+        %h3 Año
+      %td
+        = car.year
+    %tr  
+      %td
+        %h3 Email
+      %td
+        = car.user.email
+      %td
+        %h3 Marca y Modelo
+      %td
+        = "#{car.brand.name} #{car.model.name}"
+      %td
+        %h3 Teléfono
+      %td
+        = car.user.phone
+    %tr
+      %td
+        %h3
+          Kilometraje
+      %td
+        %span#km
+          = car.km unless @work_order.km
+          = @work_order.km if @work_order.km
+      %td
+        %h3
+          Kilometraje promedio mensual
+      %td
+        %span#kmAverageMonthly
+          = car.kmAverageMonthly
+      %td
+        %h3 Ultima actualización
+      %td 
+        %span#kmUpdatedAt
+          = l car.kmUpdatedAt.to_date if car.kmUpdatedAt
+          

@@ -88,7 +88,7 @@ class PriceList < ActiveRecord::Base
     end
   end
 
-  def self.import_item_price_file(pl_id,file,provider)
+  def self.import_item_price_file(pl_id,file,file_name)
     pl = PriceList.find pl_id
     code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
     found = 0
@@ -96,6 +96,7 @@ class PriceList < ActiveRecord::Base
     new_materials = []
 
     file.each do |r|
+      logger.debug r
       cell= r.split("\t")
       prov_code = cell[0].strip
       brand = cell[1].strip
@@ -130,19 +131,25 @@ class PriceList < ActiveRecord::Base
         #pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
 
         #code += 1
-        #not_found += 1
+        not_found += 1
         #puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
-      end
-      puts "#{(found + not_found)} #{prov_code}"
+      end      
     end   
     file.close
     result = {}
     result[:not_found] = not_found
     result[:found] = found
     result[:rows] = new_materials
-    puts "### #{found} encontrados, #{not_found} no encontrados"
+    result[:not_found_material] = "not_found_" + file_name
+    save_material_not_found(file_name,new_materials)
     result
   end
+
+  def self.save_material_not_found(file_name,materials)    
+    logger.debug "Saving file materila not found #{file_name} : materiales : #{materials.size}"
+    File.open("#{RAILS_ROOT}/public/price_files/not_found_" + file_name, 'w') {|f| materials.each {|m| f.write(m.join("\t") + "\n")} }
+  end
+  
 
   def self.import_item_price(pl_id,file_name)
     puts File.file? file_name
