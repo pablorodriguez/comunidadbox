@@ -46,14 +46,15 @@ class NotesController < ApplicationController
     if params[:event_id]
       event = Event.find(params[:event_id])
       @note = event.notes.build(params[:note])
+      @note.user = event.car.user   
     else
       @note = Note.new(params[:note])
+      @note.user = current_user
     end
 
     @element_id = ".notes_container"
     @element_id = "#budget-#{@note.budget_id}" if @note.budget_id
-    @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id
-    @note.user = current_user   
+    @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id    
     @note.creator = current_user    
     
     respond_to do |format|
