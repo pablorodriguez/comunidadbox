@@ -181,6 +181,7 @@ ComunidadBox::Application.routes.draw do
   resources :clients do
     collection do
       post :search
+      get :index_all
     end
   end
 

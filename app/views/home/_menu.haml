@@ -4,7 +4,7 @@
       #cars_link.menu        
         = image_tag "cars.png"
         - if company_id
-          = link_to_unless_current "Clientes", clients_path
+          = link_to "Clientes", clients_path
         - else
           = link_to "Autómoviles", my_cars_path          
     - if company_id
