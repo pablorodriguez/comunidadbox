@@ -80,12 +80,11 @@ class PriceList < ActiveRecord::Base
     end
   end
 
-  def self.file_content name
-    fileName = "#{RAILS_ROOT}/lib/#{name}.txt"
-    puts fileName
-    File.open(fileName).each do |line|
-      puts line
-    end
+  def self.import_price_from_file pl_id,file_name
+    fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
+    file = File.open(fileName)
+    logger.debug "Importing price from #{fileName}"
+    import_item_price_file(pl_id,file,file_name)
   end
 
   def self.import_item_price_file(pl_id,file,file_name)
@@ -153,7 +152,7 @@ class PriceList < ActiveRecord::Base
 
   def self.save_material_not_found(file_name,materials)    
     logger.debug "Saving file materila not found #{file_name} : materiales : #{materials.size}"
-    File.open("#{RAILS_ROOT}/public/price_files/not_found_" + file_name, 'w') do|f|
+    File.open("#{RAILS_ROOT}/public/price_files/output/not_found_" + file_name, 'w') do|f|
       materials.each do |m| 
         str = m.join("\t") + "\n"
         str = str.force_encoding('UTF-8')
