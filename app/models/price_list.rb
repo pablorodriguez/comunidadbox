@@ -157,7 +157,9 @@ class PriceList < ActiveRecord::Base
 
   def self.save_material_not_found(file_name,materials)    
     logger.debug "Saving file materila not found #{file_name} : materiales : #{materials.size}"
-    File.open("#{RAILS_ROOT}/public/price_files/output/not_found_" + file_name, 'w') do|f|
+    #out_put_file = "#{RAILS_ROOT}/public/price_files/output/not_found_" + file_name
+    out_put_file = "/home/pablo/price_files/output/not_found_" + file_name
+    File.open(out_put_file, 'w') do|f|
       materials.each do |m| 
         str = m.join("\t") + "\n"
         str = str.force_encoding('UTF-8')
