@@ -81,7 +81,8 @@ class PriceList < ActiveRecord::Base
   end
 
   def self.import_price_from_file pl_id,file_name
-    fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
+    #fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
+    fileName = "/home/pablo/price_files/input/#{file_name}"
     file = File.open(fileName)
     logger.debug "Importing price from #{fileName}"
     import_item_price_file(pl_id,file,file_name)
@@ -126,7 +127,7 @@ class PriceList < ActiveRecord::Base
           end
           found += 1
         else  
-          row =  Array[prov_code,brand,name,price]
+          row =  Array[prov_code,provider,name,price]
           new_materials << row
           #creo el nuevo material
           #m = Material.create(:prov_code => prov_code,:code =>"CN#{code}",:name => name,:brand =>brand,:provider => provider)
@@ -143,6 +144,7 @@ class PriceList < ActiveRecord::Base
         end
       rescue Exception
         logger.error "#### Error reading record #{record} #{r}"
+        logger.error "#{$!}"
       end
     end   
     file.close
