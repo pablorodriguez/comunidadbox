@@ -101,7 +101,7 @@ class PriceList < ActiveRecord::Base
       begin
         cell= r.split("\t")
         prov_code = cell[0].strip
-        brand = cell[1].strip
+        provider = cell[1].strip
         name = cell[2].strip
         price = cell[3].strip.to_f
 
@@ -110,7 +110,12 @@ class PriceList < ActiveRecord::Base
 
         if m        
           # busco en la lista de precio si existe el material
-          item = PriceListItem.includes(:price_list,:material_service_type => [:material]).where("materials.prov_code = ? and price_lists.id = ?",prov_code,pl_id).first
+          m.provider = provider
+          m.name = name
+          m.save
+
+          item = PriceListItem.includes(:price_list,:material_service_type => [:material]).where("materials.prov_code = ? and price_lists.id = ?",
+            prov_code,pl_id).first
 
           if item
             item.price = price
@@ -144,7 +149,7 @@ class PriceList < ActiveRecord::Base
     result = {}
     result[:not_found] = not_found
     result[:found] = found
-    result[:rows] = new_materials
+    #result[:rows] = new_materials
     result[:not_found_material] = "not_found_" + file_name
     save_material_not_found(file_name,new_materials)
     result
