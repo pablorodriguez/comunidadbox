@@ -190,7 +190,7 @@ class Workorder < ActiveRecord::Base
   
   def can_edit?(usr)
     if (open? || in_progress?)
-      if ((self.user.id == usr.id) || (company.is_employee(usr)))
+      if ((user.id == usr.id) || (company.is_employee(usr)))
         return true
       end
     end
