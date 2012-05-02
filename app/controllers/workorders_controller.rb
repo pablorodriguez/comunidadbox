@@ -71,8 +71,6 @@ class WorkordersController < ApplicationController
     @amt_data = Workorder.build_graph_data(@amt)
     @work_orders = @workorders.order(@order_by).paginate(:page =>page,:per_page =>per_page)
 
-    logger.debug "### WO SQL #{@work_orders.to_sql}, order by #{@order_by}"
-
     @count= @workorders.count()
     @workorder_amount= @workorders.sum("price * amount")
     @services_amount =0

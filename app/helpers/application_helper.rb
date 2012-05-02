@@ -5,7 +5,8 @@ module ApplicationHelper
   def company_id
     id = cookies[:company_id]
     if id == "-1"
-      return current_user.companies.map { |c| c.id.to_s}
+      return current_user.companies.map { |c| c.id.to_s} unless current_user.is_manager
+      return current_user.creator.companies.map { |c| c.id.to_s} if current_user.is_manager
     elsif id
       return id.split(",")
     else

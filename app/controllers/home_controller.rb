@@ -23,7 +23,8 @@ class HomeController < ApplicationController
     end
 
     unless (params[:all_company])
-      if (current_user.companies.find(id))
+      ids = params[:all_company] || []
+      if (current_user.get_companies_ids.find_all{|e| ids.include?(e)} == ids)
         set_company_in_cookie id
       end
     else

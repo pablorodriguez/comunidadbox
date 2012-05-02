@@ -201,6 +201,7 @@ class Workorder < ActiveRecord::Base
     return true if (self.user.id == user.id)
     return true if user.own_car(car)    
     return true if (company && user.belongs_to_company(company))
+    return true if(user.is_manager && user.creator.belongs_to_company(user.company))
     return false
   end
   

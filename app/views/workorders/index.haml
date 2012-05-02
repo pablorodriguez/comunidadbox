@@ -3,13 +3,12 @@
 - javascript 'rank'
 - javascript 'jquery.ba-bbq.min'
 - javascript 'highcharts'
-- unless current_user.is_employee
+- unless current_user.get_companies.empty?
   :javascript
     $(document).ready(function() {;
       build_price_graph([#{@price_data}],"price_graph");
       build_amt_graph([#{@amt_data}],"amt_graph");      
     })
-
 %all-workorder  
   .vertical_menu
     #menu_options.box_bottom
@@ -74,10 +73,10 @@
 
   .contentright_s
     - if @work_orders.size > 0
-      - unless current_user.is_employee
-        #workorders_c.data
-          #workorders
-            = render 'workorders'     
+      #workorders_c.data
+        #workorders
+          = render 'workorders'
+      - unless current_user.get_companies.empty?
         #price_graph_c.data.hide.chart            
           .box_bottom
             %h1 Importes por Tipo de Servicios
@@ -95,9 +94,5 @@
             = render "material_report"
           #report_data.data.box_bottom.hide
             = render 'totals'
-      - else  
-        #workorders_c.data
-          #workorders
-            = render 'workorders'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"

@@ -1180,6 +1180,11 @@ table.comboxtable, .comboxform, .w{
   float:left;
 }
 
+#all_companies ul li{
+  float:left;
+  clear: both;
+}
+
 #avatar_login h3 {
   color:#FFF;
   font-size:14px;

@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   end
 
   def has_company?
-    companies.size > 0
+    companies.empty?
   end
 
   def company_id
@@ -157,6 +157,15 @@ class User < ActiveRecord::Base
     current_address ? current_address.to_text : ""
   end
 
+  def get_companies
+    return creator.companies if is_manager
+    return companies if companies
+    return []
+  end
+
+  def get_companies_ids
+    get_companies.map(&:id)
+  end
 
   def future_events(args={})
     per_page = args[:per_page]
@@ -171,6 +180,10 @@ class User < ActiveRecord::Base
     events = events.paginate(:page => 1,:per_page=>per_page) if per_page
 
     events
+  end
+
+  def is_manager
+    find_role Role::MANAGER
   end
 
   def is_administrator
@@ -194,7 +207,7 @@ class User < ActiveRecord::Base
   end
 
   def find_role(role_name)
-    roles.select{|r| r.name == role_name}[0] != nil
+    roles.select{|r| r.name == role_name}.first != nil
   end
 
   def full_name

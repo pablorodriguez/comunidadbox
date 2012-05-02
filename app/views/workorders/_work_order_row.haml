@@ -1,5 +1,5 @@
 .wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
-  - can_show = work_order_row.can_show?(current_user)            
+  - can_show = work_order_row.can_show?(current_user)  
   .services      
     .clear.left.domain
       = link_to work_order_row.car.domain, work_order_row.car
@@ -15,15 +15,16 @@
             %strong
               Operario:
             = "#{s.operator.first_name} #{s.operator.last_name}"
-    - if multiple_company?
-      .clear.left
-        = work_order_row.company_name
     .wo_info
       .right
         = l work_order_row.performed
       - if can_show
         .clear.price_b.right
           = number_to_currency work_order_row.total_price
+    - if multiple_company?
+      .clear.left
+        = work_order_row.company_name
+
   - if can_show
     .actions
       .action.info.wo_info_detail.link

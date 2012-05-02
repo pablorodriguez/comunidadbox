@@ -84,7 +84,7 @@ class PriceList < ActiveRecord::Base
     #fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
     fileName = "/home/pablo/price_files/input/#{file_name}"
     file = File.open(fileName)
-    logger.debug "Importing price from #{fileName}"
+    logger.info "Importing price from #{fileName}"
     import_item_price_file(pl_id,file,file_name)
   end
 
@@ -98,7 +98,7 @@ class PriceList < ActiveRecord::Base
 
     file.each do |r|
       record +=1
-      logger.debug "#{record} #### #{r}"
+      logger.info "#{record} #### #{r}"
       begin
         cell= r.split("\t")
         prov_code = cell[0].strip
@@ -158,14 +158,14 @@ class PriceList < ActiveRecord::Base
   end
 
   def self.save_material_not_found(file_name,materials)    
-    logger.debug "Saving file materila not found #{file_name} : materiales : #{materials.size}"
+    logger.info "Saving file materila not found #{file_name} : materiales : #{materials.size}"
     #out_put_file = "#{RAILS_ROOT}/public/price_files/output/not_found_" + file_name
     out_put_file = "/home/pablo/price_files/output/not_found_" + file_name
     File.open(out_put_file, 'w') do|f|
       materials.each do |m| 
         str = m.join("\t") + "\n"
         str = str.force_encoding('UTF-8')
-        logger.debug "### #{m} #{str}"
+        logger.info "### #{m} #{str}"
         f.write(str)
       end
     end 

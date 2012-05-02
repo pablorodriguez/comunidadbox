@@ -24,3 +24,7 @@
   id: 5
   name: administrator
   detail: Administrador
+6:
+  id:6
+  name: manager
+  detail: Gerente General

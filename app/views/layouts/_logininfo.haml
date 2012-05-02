@@ -29,15 +29,15 @@
               = get_company.name
               - if multiple_company?
                 +
-              - elsif current_user.companies.size > 1
+              - if current_user.get_companies.size > 1
                 ="..."
-    
-    -if current_user.companies.size > 1
+    - c_ids = get_companies.map(&:id)
+    -if current_user.get_companies.size > 1
       #all_companies.all_companies.hide
-        - c_ids = get_companies.map(&:id)
+        
         %ul
           = form_tag set_company_home_index_path,:id=>:comp_form do |f|
-            - current_user.companies.each do |c|          
+            - current_user.get_companies.each do |c|          
               %li
                 = check_box_tag 'company_ids[]', c.id,checked = (c_ids.include?(c.id)),:class=>"checkbox",:id=>"company_id_#{c.id}"
                 %label.link{:for=>"company_id_#{c.id}"}

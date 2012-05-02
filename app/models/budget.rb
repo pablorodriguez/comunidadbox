@@ -80,8 +80,8 @@ class Budget < ActiveRecord::Base
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
     
-    budget = Budget.includes(:car,:creator => :companies)
-    budget = budget.where("domain like ?","%#{domain.upcase}%") if filters[:domain]
+    budget = Budget.includes(:car,:creator => :companies)    
+    budget = budget.where("cars.domain like ? or  budgets.domain like ?","%#{domain.upcase}%","%#{domain.upcase}%") if filters[:domain]
     budget = budget.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     budget = budget.order("budgets.created_at DESC")
    

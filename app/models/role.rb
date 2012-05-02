@@ -4,6 +4,7 @@ class Role < ActiveRecord::Base
   EMPLOYEE ='employee'
   SUPER_ADMIN ='super_admin'
   OPERATOR ='operator'
+  MANAGER='manager'
   
   
   def self.administrator
