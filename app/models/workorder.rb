@@ -197,11 +197,23 @@ class Workorder < ActiveRecord::Base
     return false
   end
 
-  def can_show?(user)
-    return true if (self.user.id == user.id)
-    return true if user.own_car(car)    
-    return true if (company && user.belongs_to_company(company))
-    return true if(user.is_manager && user.creator.belongs_to_company(user.company))
+  def can_show?(usr)
+    # si el usuario de la orden de trabajo es el dueno del auto
+    return true if usr.own_car(car)    
+
+    # si el usuario de la orden de trabajo es igual al usuario 
+    return true if (self.user.id == usr.id)
+
+    # si el usuario pertenece a la compania donde se realizo la worden de trabajo
+    return true if (company && usr.belongs_to_company(company))
+
+    return false if (company && usr.belongs_to_company(company))
+
+    # si el usuario es manager o empleado y pertenece a algunas de las sucursales
+    # del prestador de servicios
+    return true if ((usr.is_manager || usr.is_employee) && (company.user.belongs_to_company(usr.company)))
+
+    # otra cosa no lo puede ver
     return false
   end
   

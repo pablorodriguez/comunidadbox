@@ -1576,6 +1576,10 @@ td.number, th.number{
   float: left;
 }
 
+.info_s{
+  overflow: auto;
+}
+
 .service_offer_detail{
   float: left;
   width: 25%;

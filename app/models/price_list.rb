@@ -88,7 +88,66 @@ class PriceList < ActiveRecord::Base
     import_item_price_file(pl_id,file,file_name)
   end
 
+  def self.check_prov_code file_name
+    prov_code = {}
+    fileName = "/home/pablo/price_files/input/#{file_name}"
+    
+    err_file = File.new("/home/pablo/price_files/output/err_" + file_name,"w+")
+
+    file = File.open(fileName)
+    rs = 0
+    er = 0
+    puts "reading #{fileName}"
+    str =""
+    row =""
+    file.each do |r|
+        begin
+          rs +=1  
+          row = r.clone
+          str = r.force_encoding('ASCII-8BIT')
+
+          cell= str.split("\t")
+          code = cell[0].strip
+
+          provider = cell[1].strip
+          name = cell[2].strip
+          price = cell[3].strip.to_f
+
+          if prov_code[code]
+            prov_code[code] += 1
+            puts row
+          else
+            prov_code[code] = 1
+          end
+        rescue Exception
+          #logger.error "#### Error reading record #{r}"          
+          puts "#{$!}"
+          puts "#{row} #{rs}"
+          #err_file.write $!
+          err_file.write "#{row} #{rs} #{$!}"
+          er +=1
+        end
+    end
+    err_file.close
+
+    puts "end reading"
+    out_put_file = "/home/pablo/price_files/output/dup_" + file_name
+    File.open(out_put_file, 'w') do|f|
+      puts "writing in #{out_put_file}"
+      prov_code.each do |k,v|
+        if v > 1
+          str = "#{k} \t #{v}\n"
+          f.write(str)
+        end
+      end
+    end
+    puts "records #{rs} erros #{er}"
+    return ""
+  end
+
   def self.import_item_price_file(pl_id,file,file_name)
+    puts Time.now
+
     pl = PriceList.find pl_id
     code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
     found = 0
@@ -98,6 +157,7 @@ class PriceList < ActiveRecord::Base
 
     file.each do |r|
       record +=1
+      puts record
       logger.info "#{record} #### #{r}"
       begin
         cell= r.split("\t")
@@ -154,6 +214,8 @@ class PriceList < ActiveRecord::Base
     #result[:rows] = new_materials
     result[:not_found_material] = "not_found_" + file_name
     save_material_not_found(file_name,new_materials)
+    
+    puts Time.now
     result
   end
 

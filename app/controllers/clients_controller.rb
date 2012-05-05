@@ -157,7 +157,7 @@ class ClientsController < ApplicationController
     company_name = params[:company_name] || ""
 
 
-    @clients = User.company_clients(current_user.companies.map(&:id))
+    @clients = User.company_clients(current_user.get_companies_ids)
     @clients = @clients.where("first_name like ?","%#{first_name}%") unless first_name.empty?
     @clients = @clients.where("last_name like ?","%#{last_name}%") unless last_name.empty?
     @clients = @clients.where("email like ?","%#{email}%") unless email.empty?

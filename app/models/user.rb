@@ -159,7 +159,8 @@ class User < ActiveRecord::Base
 
   def get_companies
     return creator.companies if is_manager
-    return companies if companies
+    return companies unless companies.empty?
+    return employer.user.companies if is_employee 
     return []
   end
 

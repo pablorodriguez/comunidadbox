@@ -81,12 +81,12 @@ class Budget < ActiveRecord::Base
     domain =  filters[:domain] || ""
     
     budget = Budget.includes(:car,:creator => :companies)    
-    budget = budget.where("cars.domain like ? or  budgets.domain like ?","%#{domain.upcase}%","%#{domain.upcase}%") if filters[:domain]
+    budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
     budget = budget.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
     budget = budget.order("budgets.created_at DESC")
    
-    budget = budget.where("budgets.brand_id = ? OR cars.brand_id = ?","#{filters[:brand_id]}","#{filters[:brand_id]}") if filters[:brand_id]
-    budget = budget.where("budgets.model_id = ? OR cars.model_id = ?","#{filters[:model_id]}","#{filters[:model_id]}") if filters[:model_id]
+    budget = budget.where("budgets.brand_id = :brand_id OR cars.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
+    budget = budget.where("budgets.model_id = :model_id OR cars.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
     budget = budget.where("cars.year = ?","#{filters[:year]}") if filters[:year]
 
     budget = budget.where("budgets.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]

@@ -2,46 +2,48 @@
   - can_show = work_order_row.can_show?(current_user)
   .services
     .left
-      .company_name
-        = work_order_row.company_name
-    .info_s.clear
-      - work_order_row.services.each do |s|
-        .service             
-          - if s.comment
+      - if can_show
+        .company_name.left
+          = work_order_row.company_name
+      .info_s.clear
+        - work_order_row.services.each do |s|
+          .service             
+            - if s.comment
+              .left
+                %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
             .left
-              %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-          .left
-            = link_to s.service_type.name ,work_order_row if can_show
-            = s.service_type.name unless can_show
-          .operator
-            -if s.operator
-              %strong
-                Operario:
-              = "#{s.operator.first_name} #{s.operator.last_name}"
+              = link_to s.service_type.name ,work_order_row if can_show
+              = s.service_type.name unless can_show
+            .operator
+              -if s.operator
+                %strong
+                  Operario:
+                = "#{s.operator.first_name} #{s.operator.last_name}"
     .wo_info
       .right
         = l work_order_row.performed
       - if can_show
         .clear.price_b.right
           = number_to_currency work_order_row.total_price
-  .actions
-    .action.info.wo_info_detail.link          
-    - unless company_id
-      .action
-        = link_to_pdf work_order_row
-    - else
-      .action
-        = print_to_pdf work_order_row
-    .action
-      = link_to_function "","new_note(this)",:title=>"Crear una nota",:class=>"new_note_link"
-    - n_css = work_order_row.notes.empty? ? "hide" : ""
-    .action{:class=>"#{n_css}"}
-      = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"      
-    - if work_order_row.can_edit?(current_user)
-      .action
-        = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")
-      .action
-        = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
+      - if can_show
+        .actions
+          .action.info.wo_info_detail.link          
+          - unless company_id
+            .action
+              = link_to_pdf work_order_row
+          - else
+            .action
+              = print_to_pdf work_order_row
+          .action
+            = link_to_function "","new_note(this)",:title=>"Crear una nota",:class=>"new_note_link"
+          - n_css = work_order_row.notes.empty? ? "hide" : ""
+          .action{:class=>"#{n_css}"}
+            = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"      
+          - if work_order_row.can_edit?(current_user)
+            .action
+              = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")
+            .action
+              = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
   .hide_info.hide
     - if can_show
       .left
