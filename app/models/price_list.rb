@@ -80,6 +80,7 @@ class PriceList < ActiveRecord::Base
     end
   end
 
+  # usar este metodo para importar lista de precios
   def self.import_price_from_file pl_id,file_name
     #fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
     fileName = "/home/pablo/price_files/input/#{file_name}"
@@ -88,6 +89,7 @@ class PriceList < ActiveRecord::Base
     import_item_price_file(pl_id,file,file_name)
   end
 
+  #chequea que los codigos de proveedor sean unicos
   def self.check_prov_code file_name
     prov_code = {}
     fileName = "/home/pablo/price_files/input/#{file_name}"
@@ -146,7 +148,7 @@ class PriceList < ActiveRecord::Base
   end
 
   def self.import_item_price_file(pl_id,file,file_name)
-    puts Time.now
+    start=  Time.now
 
     pl = PriceList.find pl_id
     code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
@@ -154,6 +156,8 @@ class PriceList < ActiveRecord::Base
     not_found = 0
     new_materials = []
     record = 0
+    no_price_item = []
+    new_material_service_type = []
 
     file.each do |r|
       record +=1
@@ -182,8 +186,14 @@ class PriceList < ActiveRecord::Base
             item.price = price
             item.save
           else
+            no_price_item << r 
             # creo un item de prcio de lista 
-            #pl.price_list_items.create(:material_service_type_id => 2,:price => price)
+            m_s_t = MaterialServiceType.where("material_id = ? ",m.id)
+            m_s_t.each do |mst|
+              pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
+              new_material_service_type << "#{mst_id} #{mst.material.prov_code} #{mst.material.name} #{price}"
+            end
+            
           end
           found += 1
         else  
@@ -211,14 +221,29 @@ class PriceList < ActiveRecord::Base
     result = {}
     result[:not_found] = not_found
     result[:found] = found
+    result[:item_not_found] = no_price_item.size
+    result[:new_material_service_type] = new_material_service_type.size
     #result[:rows] = new_materials
     result[:not_found_material] = "not_found_" + file_name
-    save_material_not_found(file_name,new_materials)
     
-    puts Time.now
+    save_material_not_found(file_name,new_materials)
+    save("item_not_foound_" + file_name,no_price_item)
+    save("new_material_service_type"+file_name,new_material_service_type)
+    puts "Start: #{start}  End: #{Time.now}"
+
     result
   end
 
+  def self.save file_name,items
+    out_put_file = "/home/pablo/price_files/output/" + file_name
+    File.open(out_put_file, 'w') do|f|
+      items.each do |item|
+        f.write(item)
+      end
+    end 
+  end
+
+  #grabo materiales no encontrados
   def self.save_material_not_found(file_name,materials)    
     logger.info "Saving file materila not found #{file_name} : materiales : #{materials.size}"
     #out_put_file = "#{RAILS_ROOT}/public/price_files/output/not_found_" + file_name
@@ -232,73 +257,5 @@ class PriceList < ActiveRecord::Base
       end
     end 
   end
-  
-
-  def self.import_item_price(pl_id,file_name)
-    puts File.file? file_name
-    file = File.open(file_name)
-    import_item_price_file(pl_id,file,"Bridgestone")
-  end
-
-  
-  
-  def self.import_price(name)
-    get_first_code_nro
-    messageFiles = "D:\\Users\\pablo\\Documents\\My Empresa\\ComunidadBox\\database\\#{name}.txt"
-    r=0
-    errors = Array.new
-    pl = PriceList.find 1
-    
-    File.open(messageFiles).each do |record|
-        r+=1
-        cell = record.split("\t")
-        code = cell[0]
-        name =cell[1]
-        price = cell[2]
-        st_id = cell[4]
-        m = Material.new
-        begin
-          Material.transaction do
-            m.prov_code = code
-            m.code = generate_code st_id
-            m.name = name
-            if m.save
-              mst = MaterialServiceType.new
-              mst.material = m
-              mst.service_type_id = st_id
-              mst.save
-              
-              pli = PriceListItem.new
-              pli.price_list = pl
-              pli.material_service_type = mst
-              pli.price = price
-              pli.save
-              
-              pl.price_list_items << pli
-              pl.save
-            else
-              puts "Error ############## #{code}"              
-              errors << m
-            end
-          end
-        rescue
-          errors << m
-        end
-        puts "#{code}  #{name} Price #{price} #{st_id}"
-    end
-    puts "Total de registros #{r}"
-    puts "Total grabados #{r - errors.length}"
-    puts "Total de Errores #{errors.length}"
-    errors.each do |e|
-      puts "#{e.code}  #{e.name}"
-      e.errors.each_full { |msg| puts msg }
-    end
-  end
-  
-
-  def update_price_list
-
-  end
-  
   
 end
