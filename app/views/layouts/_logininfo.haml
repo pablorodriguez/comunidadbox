@@ -29,12 +29,11 @@
               = get_company.name
               - if multiple_company?
                 +
-              - if current_user.get_companies.size > 1
+              - unless current_user.get_companies.empty?
                 ="..."
     - c_ids = get_companies.map(&:id)
-    -if current_user.get_companies.size > 1
-      #all_companies.all_companies.hide
-        
+    -unless current_user.get_companies.empty?
+      #all_companies.all_companies.hide        
         %ul
           = form_tag set_company_home_index_path,:id=>:comp_form do |f|
             - current_user.get_companies.each do |c|          
@@ -52,10 +51,10 @@
             = image_tag("down.gif",:id=>"down_menu")
             #home_menu.menu.hide
               %ul
-                - if current_user.is_super_admin
+                - if current_user.is_super_admin?
                   %li
                     = link_to "Configurción", conf_path
-                - if current_user.is_administrator
+                - if current_user.is_administrator?
                   %li
                     = link_to "Administración",admin_path    
                 %li

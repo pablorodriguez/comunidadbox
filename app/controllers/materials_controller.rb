@@ -1,6 +1,7 @@
 class MaterialsController < ApplicationController
   
   layout "application" ,:except =>[:details,:save_service_type]
+  authorize_resource
   
   def index
     page = params[:page] || 1
@@ -40,8 +41,10 @@ class MaterialsController < ApplicationController
         
     @company_id = get_company.id if company_id
     
+    params[:detail] ||= ""
+
     @detail = params[:detail] != "" ? params[:detail].gsub(/\s/,"%").upcase : "NUL"
-    @service_type_id = params[:service_type][:id].to_i
+    @service_type_id = params[:service_type][:id].to_i if params[:service_type]
     @page = params[:page] || 1
     @per_page = params[:per_page] || 10
     @materials = MaterialDetail.search(@company_id,@service_type_id,@detail).paginate(:per_page=>@per_page,:page => @page)

@@ -51,6 +51,8 @@ class BudgetsController < ApplicationController
   # GET /budgets/1.xml
   def show
     @budget = Budget.find(params[:id])
+    authorize! :read, @budget
+
     @client = @budget
     @client = @budget.user if @budget.user
     @client = @budget.car.user if @budget.car
@@ -68,6 +70,8 @@ class BudgetsController < ApplicationController
   # GET /budgets/new.xml
   def new
     @budget = Budget.new
+    authorize! :create, @budget
+
     @service_types = get_service_types
     if params[:c]
       c = User.find(params[:c]) 
@@ -89,6 +93,8 @@ class BudgetsController < ApplicationController
   # GET /budgets/1/edit
   def edit
     @budget = Budget.find(params[:id])
+    authorize! :update, @budget
+
     @service_types = get_service_types
   end
 
@@ -96,6 +102,8 @@ class BudgetsController < ApplicationController
   # POST /budgets.xml
   def create
     @budget = Budget.new(params[:budget])
+    authorize! :create, @budget
+
     @budget.creator = current_user
     @budget.company = get_company
 
@@ -115,6 +123,8 @@ class BudgetsController < ApplicationController
   # PUT /budgets/1.xml
   def update
     @budget = Budget.find(params[:id])
+    authorize! :update, @budget
+
     @service_types = get_service_types
     respond_to do |format|
       if @budget.update_attributes(params[:budget])
@@ -131,6 +141,8 @@ class BudgetsController < ApplicationController
   # DELETE /budgets/1.xml
   def destroy
     @budget = Budget.find(params[:id])
+    authorize! :destroy, @budget
+
     @budget.destroy
 
     respond_to do |format|
@@ -141,6 +153,8 @@ class BudgetsController < ApplicationController
 
   def print
     @budget = Budget.find params[:id]
+    authorize! :read, @budget
+
     @client = @budget
     @client = @budget.user if @budget.user
     @client = @budget.car.user if @budget.car

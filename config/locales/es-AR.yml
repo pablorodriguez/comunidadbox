@@ -192,3 +192,10 @@
       multi_page_html: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"
   service_type:
     oil_change: "Cambio de Aceite"
+  
+  unauthorized:
+    manage:
+      all: "Ud. no esta autorizado a realizar la accion solicitada."
+      user: "Not allowed to manage other user accounts."
+    update:
+      project: "Not allowed to update this project." 

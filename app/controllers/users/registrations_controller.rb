@@ -61,7 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if verify_recaptcha  
       if resource.save
           flash[:notice] = "Cliente creado exitosamente"
-          if (resource.company &&  (!resource.is_employee))
+          if (resource.company &&  (!resource.is_employee?))
             PriceList.copy_default(resource.company.id)
           end
           redirect_to new_user_session_path

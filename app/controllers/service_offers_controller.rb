@@ -1,5 +1,6 @@
 class ServiceOffersController < ApplicationController
-  
+  authorize_resource
+
   def index
     page = params[:page] || 1
     @service_types = current_user.service_types
@@ -20,7 +21,7 @@ class ServiceOffersController < ApplicationController
 
   def show
     @service_offer = ServiceOffer.find(params[:id])
-    if current_user.is_administrator
+    if current_user.is_administrator?
       @cars = @service_offer.car_service_offer
     end
         

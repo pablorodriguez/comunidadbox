@@ -211,7 +211,7 @@ class Workorder < ActiveRecord::Base
 
     # si el usuario es manager o empleado y pertenece a algunas de las sucursales
     # del prestador de servicios
-    return true if ((usr.is_manager || usr.is_employee) && (company.user.belongs_to_company(usr.company)))
+    return true if ((usr.is_manager? || usr.is_employee?) && (company.user.belongs_to_company(usr.company)))
 
     # otra cosa no lo puede ver
     return false

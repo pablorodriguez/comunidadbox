@@ -10,19 +10,14 @@ class WorkordersController < ApplicationController
   def destroy
     wo = Workorder.find(params[:id])
     car = wo.car
+    authorize! :destroy, wo
     wo.destroy
     redirect_to car
   end
 
-  def remove_service
-    @id= params[:id]
-    @work_order = session[:work_order]
-    @work_order.remove_service @id.to_i
-  end
-
   def index
     page = params[:page] || 1
-    
+
     @company_services = get_service_types 
     per_page = 10
     @order_by = order_by
@@ -88,6 +83,7 @@ class WorkordersController < ApplicationController
 
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
+    authorize! :read, @work_order
 
     respond_to do |format|
       format.html
@@ -108,6 +104,7 @@ class WorkordersController < ApplicationController
   def print
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
+    authorize! :read, @work_order
 
     respond_to do |format|
       format.pdf {
@@ -138,7 +135,7 @@ class WorkordersController < ApplicationController
   # PUT /brands/1.xml
   def update
     @work_order = Workorder.find(params[:id])
-    
+    authorize! :update, @work_order
     if params[:workorder][:notes_attributes]
       params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" 
       params[:workorder][:notes_attributes]["0"][:creator_id] = "#{current_user.id}"
@@ -187,7 +184,9 @@ class WorkordersController < ApplicationController
 
   def edit
     @update_km = false
-    @work_order= Workorder.find(params[:id])    
+    @work_order= Workorder.find(params[:id])
+    authorize! :update, @work_order
+
     @work_order.notes.build if @work_order.notes.empty?
 
     @service_types = current_user.service_types    
@@ -203,6 +202,8 @@ class WorkordersController < ApplicationController
   def create
     params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]
     @work_order = Workorder.new(params[:workorder])
+    authorize! :create, @work_order
+    
     cso_ids = params["cso_ids"] || []
 
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
@@ -263,6 +264,7 @@ class WorkordersController < ApplicationController
     @work_order.car = Car.find(params[:car_id]) if params[:car_id]    
 
     @service_types = current_user.service_types
+    authorize! :create, @work_order
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]

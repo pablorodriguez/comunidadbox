@@ -1,11 +1,10 @@
 class CarsController < ApplicationController
 
-  #add_breadcrumb "Buscar", :all_companies_path
-  #add_breadcrumb "Autos", :cars_path  
-  
+  authorize_resource
+
   layout "application", :except => [:search,:find_models,:search_companies,:km] 
   skip_before_filter :authenticate_user!,:only => [:find_models]
- 
+   
   # GET /cars
   # GET /cars.xml
   def index
@@ -89,6 +88,8 @@ class CarsController < ApplicationController
   # GET /cars/1.xml
   def show
     @car = Car.find(params[:id])
+    authorize! :read, @car
+
     @car_id = params[:id]
     @usr = @car.user.id
     page = params[:page] || 1
@@ -158,6 +159,7 @@ class CarsController < ApplicationController
   # GET /cars/1/edit
   def edit
     @car = Car.find(params[:id])
+    authorize! :update, @car
     @models = Model.find_by_brand_id(@car.brand.id)
   end
 

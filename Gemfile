@@ -34,6 +34,8 @@ gem 'jquery-rails', '>= 0.2.6'
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
 gem 'resque-scheduler'
+gem 'factory_girl_rails'
+gem 'cancan'
 #gem 'rails3-jquery-autocomplete'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
@@ -46,6 +48,7 @@ gem 'resque-scheduler'
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
+gem 'debugger'
 
 # Bundle the extra gems:
 # gem 'bj'

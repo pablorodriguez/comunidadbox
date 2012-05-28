@@ -1,5 +1,6 @@
 class ServiceFiltersController < ApplicationController
   layout "application", :except => [:create] 
+  authorize_resource
   
   def index
     @filters = current_user.service_filters

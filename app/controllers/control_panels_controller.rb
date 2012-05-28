@@ -1,7 +1,9 @@
 class ControlPanelsController < ApplicationController
-   layout "application", :except => [:find_models]
+  layout "application", :except => [:find_models]
+  authorize_resource :class => false
     
-  def index   
+  def index       
+
     @company_services = get_service_types
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
 

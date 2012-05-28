@@ -7,8 +7,8 @@
       
       - if user_signed_in? && company_id.nil?
         .action
-          = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id,:car_id =>@car_id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}
-      - if active && user_signed_in? && company_id && current_user.is_administrator  
+          = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}
+      - if active && user_signed_in? && company_id && current_user.is_administrator?
         .action 
           = is_active(company,activate_company_path(company)) 
     .left

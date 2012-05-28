@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
   layout "application", :except => [:search]
+  authorize_resource :class => false
   
   def new
     @employee = User.new

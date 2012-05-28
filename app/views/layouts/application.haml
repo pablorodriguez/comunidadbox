@@ -17,11 +17,11 @@
       #header
         #logo
           #logologo
-            = link_to image_tag("logo_n.png"),root_path
+            = link_to image_tag("logo_n.png"),root_path            
             = render "layouts/logininfo"   
-      #body
-        = render "layouts/msg"
+      #body        
         .box
+          = render "layouts/msg"
           = yield
       #footer        
         = render "/layouts/footer"

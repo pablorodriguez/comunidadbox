@@ -19,7 +19,7 @@
             - if company_id
               = link_to_unless_current "Clientes", clients_path
             - else
-              = link_to "Autómoviles", my_cars_path 
+              = link_to "Mis Autos", my_cars_path 
         - if company_id
           %li
             #control_panel_link.menu
@@ -45,7 +45,7 @@
           #service_center_link.menu
             = image_tag "find.png"        
             = link_to "Prestadores de Servicios", all_companies_path   
-        - if current_user.is_administrator
+        - if current_user.is_administrator?
           %li
             #report_amount.link.menu
               = image_tag "graph.png"
@@ -89,7 +89,7 @@
           #amt_graph.box_bottom
           #amt_report.box_bottom
             = render "amount_report"       
-        - if current_user.is_administrator
+        - if current_user.is_administrator?
           #amt_material_graph_c.data.hide.chart
             = render "material_report"
           #report_data.data.box_bottom.hide

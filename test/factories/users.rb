@@ -1,0 +1,42 @@
+FactoryGirl.define do
+
+  factory :gustavo_de_antonio, class: User do
+    first_name "Gustavo"
+    last_name "De Antonio"
+    email "gustavo@comunidadbox.com"    
+    password "gustavotest"
+    confirmed 1
+    after_build do |user|
+      user.companies << FactoryGirl.build(:valle_grande_mendoza_peru)
+      user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)
+      user.roles << FactoryGirl.create(:administrator)
+    end
+  end
+
+
+  factory :marcelo_de_antonio, class: User do
+    first_name "Marcelo"
+    last_name "De Antonio"
+    email "marcelo@comunidadbox.com"    
+    password "marcelotest"
+    confirmed 1
+    employer factory: :valle_grande_mendoza_plaza
+    creator factory: :gustavo_de_antonio
+    after_build do |user|    
+      user.roles << FactoryGirl.create(:administrator)
+    end
+  end
+
+  factory :pablo_rodriguez,class: User do
+    first_name "Pablo"
+    last_name "Rodriguez"
+    email "pablo@comunidadbox.com"
+    encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
+    password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
+    confirmed 1
+    after_build do |user|
+      use.cars << FactoryGirl.create(:HRJ549)
+    end
+  end
+
+end

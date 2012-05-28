@@ -97,12 +97,21 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def is_client?(user_id)
+    Company.is_client?(self,user_id)
+  end
+
   def self.is_client?(companies_ids,user_id)
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
   end
+  
+  def self.is_employee?(companies_ids,user_id)
+    User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
+  end
+
 
   def self.employees(companies_ids)
-    User.where("employer_id IN (?)",companies_ids)    
+    User.where("employer_id IN (?)",companies_ids)
   end
 
 end

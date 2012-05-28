@@ -1,5 +1,7 @@
 class PriceListsController < ApplicationController
   
+  authorize_resource
+
   def show
     @price_list = PriceList.find(params[:id])
 

@@ -58,7 +58,7 @@
                 = link_to "Servicios Realizados" , workorders_path
         / End 4 columns container
       / End 4 columns Item
-    - if user_signed_in? && current_user.is_administrator
+    - if user_signed_in? && current_user.is_administrator?
       %li.menu_right
         %a.drop{:href => "#"} Administración
         / Begin 3 columns Item
@@ -88,7 +88,7 @@
                 = link_to "Mis Empleados", employees_path
       / End 3 columns container
     / End 3 columns Item
-    -if user_signed_in? && current_user.is_super_admin
+    -if user_signed_in? && current_user.is_super_admin?
       %li.menu_right        
         %a.drop{:href => "#"} Configuración
         .dropdown_2columns.align_right

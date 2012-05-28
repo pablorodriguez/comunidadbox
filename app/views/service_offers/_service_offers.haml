@@ -51,6 +51,6 @@
             = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
   #paginator_wo
     = will_paginate @offers
-  - if current_user.is_super_admin
+  - if current_user.is_super_admin?
     .box_bottom    
       = link_to "Enviar Ofertas de Servicio", notify_service_offers_path,:class =>"btn2"

@@ -14,7 +14,7 @@ body {
 }
 
 .msg_update_km{
-  width:35%;
+  width:35%;  
 }
 
 .update_km{
@@ -1446,18 +1446,16 @@ td.number, th.number{
 }
 
 .alert{
+  overflow: auto;
   background-color: #FFAFAF;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DF0000;
-  margin: 5px;
-  padding: 5px;
-  width: auto;
-  position: absolute;
-  width: 210px;
-  top:0px;
-   top:500px;
+  margin: 0 auto;
+  padding: 5px;  
+  width: 98%;  
+  
 }
 
 .error_msg{
@@ -1479,29 +1477,36 @@ td.number, th.number{
   color: black;
   font-weight:bold;
   margin:5px;
+  width:96%;
+  float:left;
 }
 
 #msgs{
-  position:relative;
+  margin:5px 0px;
+}
+
+.close{
+  float: right;
+  font-weight: bold;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .notice {
+  overflow: auto;
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;  
   border: 1px solid #099F3A;
-  margin: 5px;
-  padding:5px;
-  width: auto;
+  margin: 0 auto;  
   padding: 5px;
-  position: absolute;
-  width: 210px;
-  top:590px;
+  width: 97%;
 }
 
 
 .message{
+  overflow: auto;
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -1526,12 +1531,6 @@ td.number, th.number{
   list-style: decimal;
   margin-left: 25px;
   font-style: italic;
-}
-
-#msg{
-  position: absolute;
-  margin-left: 600px;
-  width: 300px;
 }
  
 .ui-accordion-header{
@@ -1760,7 +1759,7 @@ td.number, th.number{
   float: left;
   margin: 2px 5px 2px 2px;
   width:85px;  
-  display:block; 
+  display:block;   
 }
 
 .price{

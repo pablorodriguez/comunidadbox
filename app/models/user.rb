@@ -66,9 +66,9 @@ class User < ActiveRecord::Base
 
   def find_service_offers(filters = nil)
 
-    if self.is_super_admin
+    if self.is_super_admin?
       offers = ServiceOffer.confirmed
-    elsif self.is_administrator
+    elsif self.is_administrator?
       offers = company.service_offers
     else
       offers = ServiceOffer.cars(cars.map(&:id)).sended
@@ -105,11 +105,8 @@ class User < ActiveRecord::Base
   end
 
   def own(comp)
-    
     return true if company_id == comp.id
-    
     return companies.select{|c| c.id == comp.id}.size > 0 ? true : false
-    
   end
 
   def own_car car
@@ -132,7 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def has_company?
-    companies.empty?
+    companies.size > 0
   end
 
   def company_id
@@ -158,9 +155,9 @@ class User < ActiveRecord::Base
   end
 
   def get_companies
-    return creator.companies if is_manager
+    return creator.companies if is_manager?
     return companies unless companies.empty?
-    return employer.user.companies if is_employee 
+    return employer.user.companies if is_employee? 
     return []
   end
 
@@ -183,25 +180,26 @@ class User < ActiveRecord::Base
     events
   end
 
-  def is_manager
+  def is_manager?
     find_role Role::MANAGER
   end
 
-  def is_administrator
+  def is_administrator?
     find_role Role::ADMINISTRATOR
   end
 
-  def is_super_admin
+  def is_super_admin?
     find_role Role::SUPER_ADMIN
   end
 
-  def is_employee
-    employer != nil
+  def is_employee?(usr=nil)
+    return employer != nil unless usr
+    (companies && companies.includes(:companies_users).where("companies_users.user_id = ?",id).size >= 0) ? true : false
   end
 
-  def is_car_owner
+  def is_car_owner?
     car_owner = true
-    if has_company? || is_employee
+    if has_company? || is_employee?
       car_owner = false
     end
     car_owner
@@ -244,24 +242,16 @@ class User < ActiveRecord::Base
   end
 
   def can_edit? user
-    user.confirmed_at.nil? && is_employee?(user)
+    user.confirmed_at.nil? && is_client?(user)
   end
 
-  def is_employee?(usr)
-    (companies && companies.includes(:companies_users).where("companies_users.user_id = ?",id).size >= 0) ? true : false
+  def can_edit_car? car
+    self == car.user
   end
 
-  def is_client? user
-    return false if companies.empty?
-    return Company.is_client?(companies.map(&:id),user.id)
+  def is_client? user    
+    Company.is_client?(companies.map(&:id),user.id)
   end
   
-  def all_companies
-    all = Company.new
-    all.id="-1"
-    all.name="-- Todas --"
-    [all] + self.companies
-  end
-
 end
 

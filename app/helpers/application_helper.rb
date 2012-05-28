@@ -3,10 +3,10 @@ module ApplicationHelper
   
   #devuleve un Array del company id del Cookies o si ID de todas las compañias del Usuario registrado si en la cookie hay -1
   def company_id
-    id = cookies[:company_id]
+    id = cookies[:company_id]    
     if id == "-1"
-      return current_user.companies.map { |c| c.id.to_s} unless current_user.is_manager
-      return current_user.creator.companies.map { |c| c.id.to_s} if current_user.is_manager
+      return current_user.companies.map { |c| c.id.to_s} unless current_user.is_manager?
+      return current_user.creator.companies.map { |c| c.id.to_s} if current_user.is_manager?
     elsif id
       return id.split(",")
     else
@@ -28,11 +28,11 @@ module ApplicationHelper
   end
 
   def get_company params=nil    
-    if ((company_id == nil) && (params[:company_id]))
+    if ((company_id == nil) && (params &&(params[:company_id])))
       return Company.find(params[:company_id])
     elsif all_company?
       return current_user.company
-    elsif company_id    
+    elsif (company_id && company_id.size > 0)
       return Company.find(company_id.first)
     else
       return nil
@@ -40,8 +40,8 @@ module ApplicationHelper
     #company_id.empty? ? Company.find(params[:company_id]) : Company.where("id IN (?)",company_id).first
   end
     
-  def get_companies params=nil    
-    company_id.empty? ? Array(Company.find(params[:company_id])) : Company.where("id IN (?)",company_id)
+  def get_companies params=nil        
+    company_id && company_id.empty? ? Array(Company.find(params[:company_id])) : Company.where("id IN (?)",company_id)
   end
   
   def get_company_id params=nil    
@@ -146,7 +146,7 @@ module ApplicationHelper
     if current_user && !current_user.companies.nil?
       css="/company.css"
     else 
-      if current_user && current_user.is_super_admin
+      if current_user && current_user.is_super_admin?
         css="/admin.css"
       end
     end

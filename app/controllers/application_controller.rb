@@ -16,5 +16,10 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").
   # filter_parameter_logging :password
   before_filter :authenticate_user!
+
+
+  rescue_from CanCan::AccessDenied do |exception|    
+    redirect_to root_url, :alert => exception.message
+  end
 end
 

@@ -9,6 +9,10 @@ var change_company = false;
 
 jQuery(document).ready( function(){  
 
+  $("#msgs .close").click(function(){
+    $(this).parent().hide();
+  });
+
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
   
   $(".down_icon").click(function(e){

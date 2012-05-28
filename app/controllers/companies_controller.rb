@@ -1,8 +1,9 @@
 class CompaniesController < ApplicationController
   layout "application", :except => [:add_service_type,:remove_service_type,:search]
   skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:search,:search_distance]
-
-  def service_types
+  authorize_resource
+  
+  def service_types    
     @company = get_company
     @not_in = @company.service_type.map(&:id)
     if @not_in.size >0

@@ -1,7 +1,0 @@
-owner:
-  first_name: Gustavo
-  last_name: De Antonio
-  email: gustavo@comunidadbox.com
-  encrypted_password: $2a$10$9RJP4JVbwQKa7uA4z9uQ7uTmBdvBAQ9ncjY/ik4bHZQ0yQ4UiKCT2
-  password_salt: $2a$10$9RJP4JVbwQKa7uA4z9uQ7u
-  confirmed: 1
