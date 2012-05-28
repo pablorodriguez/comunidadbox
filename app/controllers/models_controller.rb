@@ -1,4 +1,5 @@
-class ModelsController < ApplicationController
+class ModelsController < ApplicationController  
+  load_and_authorize_resource
   # GET /models
   # GET /models.xml
   def index

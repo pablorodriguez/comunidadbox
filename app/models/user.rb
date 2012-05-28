@@ -250,7 +250,7 @@ class User < ActiveRecord::Base
   end
 
   def is_client? user    
-    Company.is_client?(companies.map(&:id),user.id)
+    Company.is_client?(get_companies_ids,user.id)
   end
   
 end

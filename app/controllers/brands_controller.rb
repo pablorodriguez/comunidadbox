@@ -1,5 +1,6 @@
 class BrandsController < ApplicationController
   layout "application"
+  authorize_resource
   # GET /brands
   # GET /brands.xml
   def index

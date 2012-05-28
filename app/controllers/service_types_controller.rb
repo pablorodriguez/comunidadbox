@@ -1,5 +1,6 @@
 class ServiceTypesController < ApplicationController
-   layout "application", :except => [:task_list,:save_material,:save_task] 
+  layout "application", :except => [:task_list,:save_material,:save_task] 
+  authorize_resource
   # GET /service_types
   # GET /service_types.xml
   def index

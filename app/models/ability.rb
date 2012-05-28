@@ -30,12 +30,17 @@ class Ability
     end
 
     can :read, Car do |car|
-      car.user == user || user.is_client?(car.user)
+      car.user == user || user.company
     end
 
     if user.is_super_admin?
       can :manage, Material
       can :manage, :conf
+      can :manage, Task
+      can :manage, ServiceType
+      can :manage, Brand
+      can :manage, Model
+      can :manage, State      
     elsif user.id
       can :details, Material      
     end 
@@ -65,16 +70,18 @@ class Ability
       can :manage, :control_panel
       can :create, Budget
       can :manage, Company
+      can :manage, :client
     end
 
     can :all, Company
+    can :index, ServiceOffer
 
     if user.is_administrator? || user.is_manager?
       can :manage, ServiceOffer
       can :manage, :admin
       can :manage, PriceList
       can :manage, :employee
-      can :manage, ServiceFilter
+      can :manage, ServiceFilter      
     end
 
 
