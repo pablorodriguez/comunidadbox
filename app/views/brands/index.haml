@@ -2,20 +2,22 @@
 - javascript 'sort.table'
 - stylesheets 'demo_page'
 - stylesheets 'demo_table'
-%h1 Listado de Marcas
-%table{:id=>'sort_table',:class=>'display'}
-  %thead
-    %tr
-      %th Nombre
-      %th
-  - for brand in @brands
-    %tr
-      %td
-        = link_to brand.name,brand
-      %td
-        = link_to image_tag("edit.png"), edit_brand_path(brand)
-        = link_to image_tag("delete.png"), brand, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
-%br
-  = link_to image_tag('new.png'), new_brand_path
-  = link_to_back
+.vertical_menu
+  = render "conf/menu"
+.contentright_s  
+  %h1 Listado de Marcas
+  %table{:id=>'sort_table',:class=>'display w'}
+    %thead
+      %tr
+        %th Nombre
+        %th
+    - for brand in @brands
+      %tr
+        %td
+          = link_to brand.name,brand
+        %td
+          = link_to image_tag("edit.png"), edit_brand_path(brand)
+          = link_to image_tag("delete.png"), brand, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+  %br
+    = link_to image_tag('new.png'), new_brand_path  
 
