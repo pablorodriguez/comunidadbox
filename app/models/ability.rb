@@ -74,6 +74,7 @@ class Ability
     end
 
     can :all, Company
+    can :search_distance, Company
     can :index, ServiceOffer
 
     if user.is_administrator? || user.is_manager?

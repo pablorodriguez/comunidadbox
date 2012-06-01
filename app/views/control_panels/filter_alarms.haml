@@ -11,7 +11,7 @@
   .filters
     %input{:value=> service_filters_path, :type=>:hidden,:id=>:save_filter_url}
     = form_for @service_filter,:url=>filter_alarms_control_panels_path,:html=>{:id=>:service_filter_form} do |f|
-      = hidden_field_tag("page",@page)
+      = hidden_field_tag("page","1")
       = hidden_field_tag("events_ids",@events_ids)
       = render "car_filters",:f=>f
 .contentright_s

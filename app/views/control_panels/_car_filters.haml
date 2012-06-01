@@ -23,6 +23,10 @@
     %tr
       %td
         =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>"-- Año --"},{:class=>"clear change long_select"})
+    %tr        
+      %td
+        = f.text_field 'date_from', :class =>"input_date",:title =>"Desde",:placeholder =>"Desde"
+        = f.text_field 'date_to', :class =>"input_date",:title=>"Hasta",:placeholder =>"Hasta"
 #event_types.box_bottom
   %h3 Seleccione Eventos  
   %table.w  

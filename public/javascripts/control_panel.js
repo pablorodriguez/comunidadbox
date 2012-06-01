@@ -176,6 +176,21 @@ jQuery(document).ready( function(){
   $(".note_form[data-remote='true']").bind('ajax:success',function(){
     $(this)[0].reset();
   });
+
+  var dates = $( "#service_filter_date_from, #service_filter_date_to" ).datepicker({
+      defaultDate: -30,
+      changeMonth: true,
+      numberOfMonths: 2,
+      onSelect: function( selectedDate ) {
+        var option = this.id == "service_filter_date_from" ? "minDate" : "maxDate",
+          instance = $( this ).data( "datepicker" ),
+          date = $.datepicker.parseDate(
+            instance.settings.dateFormat ||
+            $.datepicker._defaults.dateFormat,
+            selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+      }
+    });
    
 });
 

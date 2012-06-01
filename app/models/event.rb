@@ -101,10 +101,15 @@ class Event < ActiveRecord::Base
     events = events.group("events.car_id").group("services.service_type_id")
 
     totalEvents = []
-    
-    totalEvents = events.red if event_types[:red]
-    totalEvents += events.yellow if event_types[:yellow]
-    totalEvents += events.green if event_types[:green]
+
+    if service_filter.date_from && service_filter.date_to
+      events = events.where("dueDate between ? and ?",service_filter.date_from.to_datetime.in_time_zone,service_filter.date_to.to_datetime.in_time_zone)
+      totalEvents = events
+    else
+      totalEvents = events.red if event_types[:red]
+      totalEvents += events.yellow if event_types[:yellow]
+      totalEvents += events.green if event_types[:green]  
+    end    
     
     totalEvents  
   end
