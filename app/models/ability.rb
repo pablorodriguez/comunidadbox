@@ -71,6 +71,7 @@ class Ability
       can :create, Budget
       can :manage, Company
       can :manage, :client
+      #can :index_all, :client
     end
 
     can :all, Company
