@@ -102,7 +102,7 @@ class Event < ActiveRecord::Base
 
     totalEvents = []
 
-    if service_filter.date_from && service_filter.date_to
+    unless service_filter.date_from.empty? && service_filter.date_to.empty?
       events = events.where("dueDate between ? and ?",service_filter.date_from.to_datetime.in_time_zone,service_filter.date_to.to_datetime.in_time_zone)
       totalEvents = events
     else
