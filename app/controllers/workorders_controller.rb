@@ -264,7 +264,7 @@ class WorkordersController < ApplicationController
     @work_order.car = Car.find(params[:car_id]) if params[:car_id]    
 
     @service_types = current_user.service_types
-    authorize! :create, @work_order
+       
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
@@ -293,7 +293,7 @@ class WorkordersController < ApplicationController
     #busco las ofertas de servicios para el auto asignado a la orden de trabajo
     @car_service_offers = @work_order.find_car_service_offer(company.id)  if company
     @update_km= @work_order.car.update_km?
-    
+    authorize! :create, @work_order
   end
 
   def task_list

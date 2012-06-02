@@ -26,7 +26,7 @@ class Ability
     user ||= User.new
 
     can :manage, Car do |car|
-      car.user == user || user.can_edit_car?(car)
+      car.user == user || user.can_edit?(car.user)
     end
 
     can :read, Car do |car|
@@ -46,7 +46,7 @@ class Ability
     end 
 
     can :create, Workorder do |w|
-      user.has_company? || w.car.user == user
+      (user.has_company? || w.car.user == user || user.is_employee?) && (w.company && w.company.is_employee(user))
     end
   
     can [:update,:destroy], Workorder do |w|

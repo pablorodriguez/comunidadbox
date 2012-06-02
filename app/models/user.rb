@@ -246,7 +246,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_car? car
-    self == car.user
+    self == car.user && is_client?(user)
   end
 
   def is_client? user    
