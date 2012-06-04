@@ -34,7 +34,7 @@ gem 'jquery-rails', '>= 0.2.6'
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
 gem 'resque-scheduler'
-gem 'factory_girl_rails'
+gem 'factory_girl_rails',"~> 3.0"
 gem 'cancan'
 #gem 'rails3-jquery-autocomplete'
 # gem 'ruby-debug19', :require => 'ruby-debug'

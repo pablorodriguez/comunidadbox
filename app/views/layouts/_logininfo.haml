@@ -30,21 +30,21 @@
               - unless current_user.is_super_admin?
                 - if multiple_company?
                   +
-                - unless current_user.get_companies.empty?
+                - if current_user.get_companies.size > 1
                   ="..."
     - c_ids = get_companies.map(&:id)
     -unless current_user.get_companies.empty?
-      #all_companies.all_companies.hide        
-        %ul
-          = form_tag set_company_home_index_path,:id=>:comp_form do |f|
+      = form_tag set_company_home_index_path,:id=>:comp_form do |f|
+        #all_companies.all_companies.hide        
+          %ul
             - current_user.get_companies.each do |c|          
               %li
                 = check_box_tag 'company_ids[]', c.id,checked = (c_ids.include?(c.id)),:class=>"checkbox",:id=>"company_id_#{c.id}"
                 %label.link{:for=>"company_id_#{c.id}"}
                   =c.name
             %li
-              = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
-              %label.link{:for=>"all_company_check"} Todos
+            = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
+            %label.link{:for=>"all_company_check"} Todos
     - if company_id
       .clear
         %ul  

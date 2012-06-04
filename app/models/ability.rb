@@ -58,7 +58,7 @@ class Ability
     end
 
     can :read, Budget do |b|
-      b.car.user == user || b.user == user || Company.is_employee?(b.creator.get_companies_ids,user)
+      (b.car && b.car.user == user) || b.user == user || Company.is_employee?(b.creator.get_companies_ids,user)
     end
 
     can [:destroy,:update], Budget do |b|      
