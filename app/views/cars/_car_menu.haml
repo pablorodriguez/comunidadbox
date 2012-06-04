@@ -66,7 +66,6 @@
       - if current_user.can_edit?(@car.user)
         %li
           = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
-      - if current_user.can_edit_car?(@car)
         %li  
           = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} 
       %li

@@ -81,7 +81,7 @@ class CarsController < ApplicationController
     else
       @user = current_user
     end
-    @cars = @user.cars.paginate(:per_page=>5,:page =>page)
+    @cars = @user.cars.paginate(:per_page=>15,:page =>page)
   end
   
   # GET /cars/1
