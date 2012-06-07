@@ -46,7 +46,7 @@ class Ability
     end 
 
     can :create, Workorder do |w|
-      value = (user.has_company? && w.company.is_employee(user)) ? true :false
+      value = (w.company.is_employee(user)) ? true :false
 
       unless value
         value = (w.car.user == user)
