@@ -69,7 +69,7 @@ class Workorder < ActiveRecord::Base
       self.status = Status::OPEN unless self.status  
     end
 
-    self.payment_method = PaymentMethod.find_by_name("Efectivo") unless self.payment_method        
+    self.payment_method = PaymentMethod.find_by_name("Efectivo") unless self.payment_method  
   end
   
   def validate_all

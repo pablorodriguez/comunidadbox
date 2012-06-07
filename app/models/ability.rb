@@ -46,7 +46,13 @@ class Ability
     end 
 
     can :create, Workorder do |w|
-      (user.has_company? || w.car.user == user || user.is_employee?) && (w.company && w.company.is_employee(user))
+      value = (user.has_company? && w.company.is_employee(user)) ? true :false
+
+      unless value
+        value = (w.car.user == user)
+      end
+      
+      value
     end
   
     can [:update,:destroy], Workorder do |w|
@@ -74,6 +80,7 @@ class Ability
       #can :index_all, :client
     end
 
+    can :read, Company
     can :all, Company
     can :search_distance, Company
     can :index, ServiceOffer

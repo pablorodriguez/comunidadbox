@@ -27,7 +27,7 @@ module ApplicationHelper
     cookies.permanent[:company_id]= company_id.join(",")
   end
 
-  def get_company params=nil    
+  def get_company params=nil
     if ((company_id == nil) && (params &&(params[:company_id])))
       return Company.find(params[:company_id])
     elsif all_company?

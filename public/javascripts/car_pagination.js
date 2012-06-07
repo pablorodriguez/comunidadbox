@@ -98,7 +98,8 @@ function cancelNewCompany(target){
 
 function newServiceNewCompany(){
   var url = $("#new_service_url").val();
-  var comp_info =$("#company_info").val();$
-  window.location=url + "&c="+comp_info;
+  var comp_info =$("#company_info").val();
+  var car = "?car_id=" + $("#car_id").val();
+  window.location=url + car + "&c="+comp_info;
 }
 

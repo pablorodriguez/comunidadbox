@@ -7,7 +7,7 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def set_company_id
-    clear_company_id
+    clear_company_id    
     if current_user && current_user.company
       set_company_in_cookie(Array(current_user.company.id))
       logger.info "##### #{current_user.company.id}"

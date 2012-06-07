@@ -9,7 +9,7 @@ FactoryGirl.define do
     after_build do |user|
       user.companies << FactoryGirl.build(:valle_grande_mendoza_peru)
       user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)
-      #user.roles << FactoryGirl.create(:administrator)
+      user.roles {[create(:administrator)]}
     end
   end
 
@@ -23,7 +23,7 @@ FactoryGirl.define do
     employer factory: :valle_grande_mendoza_plaza
     creator factory: :gustavo_de_antonio
     after_build do |user|    
-      #user.roles << FactoryGirl.create(:administrator)
+      user.roles {[create(:administrator)]}
     end
   end
 
@@ -37,6 +37,19 @@ FactoryGirl.define do
     confirmed 1
     after_build do |user|
       user.cars << FactoryGirl.create(:HRJ549)
+    end
+  end
+
+  factory :hugo_rodriguez,class: User do
+    first_name "Hugo"
+    last_name "Rodriguez"
+    email "hugo@rodriguez.com"
+    password "pablotest"
+    encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
+    password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
+    confirmed 1
+    after_build do |user|
+      user.cars << FactoryGirl.create(:DDD549)
     end
   end
 

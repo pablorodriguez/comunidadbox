@@ -1,5 +1,6 @@
 FactoryGirl.define do
 
+
   factory :oil_change, class: ServiceType do
     id 1
     name "Cambio de Aceite"
@@ -7,7 +8,7 @@ FactoryGirl.define do
     active 1
   end
 
-  factory :tire_change, class: ServiceType do
+  factory :tire_change, class: ServiceType do    
     id 2
     name "Cambio de Neumaticos"
     kms 50000
@@ -57,3 +58,4 @@ FactoryGirl.define do
   end
   
 end
+

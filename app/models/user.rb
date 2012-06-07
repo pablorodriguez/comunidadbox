@@ -242,7 +242,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit? user
-    user.confirmed_at.nil? && is_client?(user)
+    (self.id == user.id) || (user.confirmed_at.nil? && is_client?(user))
   end
 
   def can_edit_car? car
