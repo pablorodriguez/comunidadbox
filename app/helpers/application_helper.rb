@@ -3,7 +3,7 @@ module ApplicationHelper
   
   #devuleve un Array del company id del Cookies o si ID de todas las compañias del Usuario registrado si en la cookie hay -1
   def company_id
-    id = cookies[:company_id]    
+    id = cookies[:company_id]
     if id == "-1"
       return current_user.companies.map { |c| c.id.to_s} unless current_user.is_manager?
       return current_user.creator.companies.map { |c| c.id.to_s} if current_user.is_manager?

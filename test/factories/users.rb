@@ -6,10 +6,10 @@ FactoryGirl.define do
     email "gustavo@comunidadbox.com"    
     password "gustavotest"
     confirmed 1
+    roles {[create(:administrator)]}
     after_build do |user|
       user.companies << FactoryGirl.build(:valle_grande_mendoza_peru)
-      user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)
-      user.roles {[create(:administrator)]}
+      user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)      
     end
   end
 

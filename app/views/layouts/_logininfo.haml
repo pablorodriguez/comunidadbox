@@ -22,9 +22,11 @@
       %li
         %h3
           = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w"    
+
       -if company_id
+        = hidden_field_tag("company",company_id.join(","))
         %li          
-          #company_id.company_id.right
+          #company_id.company_id.right                        
             %h3.link
               = get_company.name
               - if current_user.is_administrator? && (current_user.get_companies.size > 1)

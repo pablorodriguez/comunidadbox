@@ -38,7 +38,6 @@ class WorkordersController < ApplicationController
     filters_params[:wo_status_id] = @status_id if @status_id
     filters_params[:company_id] = company_id if company_id
     filters_params[:user] = current_user
-
     @workorders = Workorder.find_by_params(filters_params)
     @report_data = Workorder.group_by_service_type(filters_params)
 
@@ -227,8 +226,7 @@ class WorkordersController < ApplicationController
     saveAction = @work_order.save
     if @work_order.finish?
       #@work_order.generate_events
-      @work_order.reload
-      @work_order.regenerate_events
+      # @work_order.reload      
       send_notification @work_order.id
     end
 

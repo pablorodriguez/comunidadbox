@@ -11,8 +11,28 @@ class ActiveSupport::TestCase
   fixtures :all  
 
   # Add more helper methods to be used by all tests here...
+
 end
 
 class ActionController::TestCase
 	include Devise::TestHelpers
+
+  def create_all_default_data
+
+    #crear formas de pago
+    create :credit_card
+    create :debit_card
+
+    #create tipos de servicios
+    create :oil_change
+    create :tire_change
+    create :alignment_and_balancing
+
+    #crear materiales
+    create :hand_work_material
+
+    #create materiales para tipos de servicios
+    create :hand_work_for_tire_change
+    create :hand_work_oil_change
+  end
 end

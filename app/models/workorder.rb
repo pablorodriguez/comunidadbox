@@ -18,16 +18,22 @@ class Workorder < ActiveRecord::Base
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
   validates :services ,:length =>{:minimum => 1}
 
+  
+
   #,:message =>"La orden de trabajo debe contener servicios"
   validate :validate_all
 
   scope :for_car, lambda { |car_id| { :conditions =>  ["car_id = ?", car_id] ,:order => "performed desc"} }
   
   before_save :set_status
+  after_save :to_after_save
   after_initialize :init
 
   normalize_attributes :comment
 
+  def to_after_save
+    regenerate_events if finish?
+  end
 
   def type(type)
     ranks.select{|r| r.type_rank == type}.first
@@ -146,6 +152,7 @@ class Workorder < ActiveRecord::Base
   end
   
   def regenerate_events
+    
     Event.transaction do
       services.each do |service|        
         service.events.each do |e|

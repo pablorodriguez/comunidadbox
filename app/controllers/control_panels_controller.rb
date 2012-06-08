@@ -98,7 +98,7 @@ class ControlPanelsController < ApplicationController
       @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)
     end
   
-    @other_events = Event.other_events(@service_filter.service_type_id)
+    @other_events = Event.other_events(@service_filter.service_type_id)    
     @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,company_id
     
     #logger.debug "### SQL #{@events.to_sql}"
@@ -106,7 +106,7 @@ class ControlPanelsController < ApplicationController
     @page = params[:page] || 1
     per_page=90
     @events_count = @events.count
-    @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
+    @page_events = @events.paginate(:page=>@page,:per_page=>per_page)    
     logger.info "### salio Eventos IDS #{@events_ids}"
     
   end
