@@ -19,7 +19,17 @@ class ActionController::TestCase
 
   def create_all_default_data
 
+    #create brand
+    create :chevrolet
+    create :vw
+
+    #create model
+    create :suran
+    create :astra
+
     #crear formas de pago
+    create :cash
+    create :check
     create :credit_card
     create :debit_card
 

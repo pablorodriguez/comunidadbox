@@ -3,6 +3,7 @@ require 'test_helper'
 class CarsControllerTest < ActionController::TestCase
   
   setup do    
+    create_all_default_data
     @employer =  create(:gustavo_de_antonio)
     @user = create(:pablo_rodriguez)
     @hugo = create(:hugo_rodriguez)

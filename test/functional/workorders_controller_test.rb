@@ -6,7 +6,7 @@ class WorkordersControllerTest < ActionController::TestCase
     create_all_default_data    
     @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
-    @wo_1 = create(:wo_1,:car => @user.cars.first,:user => @employer,:company => @employer.company,:payment_method => create(:cash))
+    @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
   end
 
   test "list workorder" do

@@ -2,21 +2,21 @@ FactoryGirl.define do
 
  factory :DDD549, class: Car do
     domain "DDD549"
-    association :model, factory: :suran
-    association :brand, factory: :vw
+    model {Model.find(1)}
+    brand {Brand.find(1)}
     year 2009
     km 55000
-    kmAverageMonthly 1500
+    kmAverageMonthly 5000
     fuel "Nafta"    
   end
 
   factory :HRJ549, class: Car do
-    domain "HRJ549"
-    association :model, factory: :astra
-    association :brand, factory: :chevrolet
+    domain "HRJ549"    
+    model {Model.find(1)}
+    brand {Brand.find(2)}
     year 2010
     km 45000
-    kmAverageMonthly 1300
+    kmAverageMonthly 5000
     fuel "Diesel"
   end
   
