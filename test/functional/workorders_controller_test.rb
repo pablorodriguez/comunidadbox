@@ -32,6 +32,26 @@ class WorkordersControllerTest < ActionController::TestCase
     
   end
 
+  test "new work order form budget with car" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    b = create(:budget_one,:car => @user.cars.first,:company => @employer.company,:creator =>@employer)
+    car = @user.cars.first
+    get :new, :b => b.id
+    assert_response :success
+    assert_select("#domain",:text => car.domain,:count=>1)
+  end
+
+  test "new work order form budget no car" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    b = create(:budget_two,:company => @employer.company,:creator =>@employer)
+    car = @user.cars.first
+    get :new, :b => b.id    
+    assert_redirected_to new_client_path(:b => b.id)    
+  end
+
+
   test "new work order company" do
     sign_in @employer    
     @request.cookies["company_id"]= @employer.company.id.to_s

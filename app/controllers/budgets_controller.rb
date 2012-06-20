@@ -76,7 +76,7 @@ class BudgetsController < ApplicationController
     if params[:c]
       c = User.find(params[:c]) 
       @budget.user = c if c
-      @budget.car = c.cars.first if c.cars.size == 1
+      #@budget.car = c.cars.first if c.cars.size == 1
     end
     if params[:ca]
       ca = Car.find(params[:ca])
@@ -122,7 +122,7 @@ class BudgetsController < ApplicationController
   # PUT /budgets/1
   # PUT /budgets/1.xml
   def update
-    @budget = Budget.find(params[:id])
+    @budget = Budget.find(params[:id])    
     authorize! :update, @budget
 
     @service_types = get_service_types

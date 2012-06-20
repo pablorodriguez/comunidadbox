@@ -1,5 +1,7 @@
 class Service < ActiveRecord::Base
   belongs_to :workorder, :inverse_of => :services
+  has_many :events,:dependent => :destroy,:inverse_of => :service
+  
   belongs_to :budget
   belongs_to :service_type
   belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
@@ -7,7 +9,8 @@ class Service < ActiveRecord::Base
   has_one :car_service_offer
   has_many :material_services
   
-  has_many :events
+  
+  
   has_and_belongs_to_many :tasks
    
   accepts_nested_attributes_for :material_services, :allow_destroy => true

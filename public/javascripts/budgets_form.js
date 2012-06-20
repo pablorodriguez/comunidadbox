@@ -24,6 +24,7 @@ jQuery(document).ready( function(){
     $("#materials_list .checkbox").live("click",checkMaterialHandler);
 
     $('.brand').change(searchModel);
+    initMaterialItems();
 
     materialDialog = $("#materials").dialog({
     autoOpen: false ,

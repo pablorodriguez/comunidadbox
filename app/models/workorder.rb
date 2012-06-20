@@ -227,14 +227,16 @@ class Workorder < ActiveRecord::Base
   private
   def create_event service
     service_type = service.service_type
-    months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i
-    event = Event.new
-    event.car = self.car
-    event.km = self.car.km + service_type.kms
-    event.service_type=service_type
-    event.service = service
-    event.status= Status::ACTIVE
-    event.dueDate = service.workorder.performed + months.month
+    months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i    
+    event = service.events.build(car: self.car,km: (self.car.km + service_type.kms),
+      service_type: service_type,status: (Status::ACTIVE),
+      dueDate: (service.workorder.performed + months.month))
+    #event.car = self.car
+    #event.km = self.car.km + service_type.kms
+    #event.service_type=service_type
+    #event.service = service
+    #event.status= Status::ACTIVE
+    #event.dueDate = service.workorder.performed + months.month
     logger.debug "### Event created DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months} Service #{event.service_id}"
     event
   end

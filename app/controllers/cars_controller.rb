@@ -141,13 +141,22 @@ class CarsController < ApplicationController
   # GET /cars/new
   # GET /cars/new.xml
   def new
+    @car = Car.new
     if params[:user_id]
       user = User.find params[:user_id]
     else
       user=current_user
     end
        
-    @car = Car.new
+    if params[:b].present?
+      @budget = Budget.find(params[:b])
+      flash.now.notice ="Antes de registrar un servicio por favor cree el Automovil"
+      @car.brand = @budget.brand
+      @car.model = @budget.model
+      @car.domain = @budget.domain
+    end
+
+    
     @car.user = user
     @models = Array.new
     respond_to do |format|

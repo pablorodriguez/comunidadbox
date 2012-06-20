@@ -1,7 +1,8 @@
 class Event < ActiveRecord::Base
   belongs_to :service_type
   belongs_to :car
-  belongs_to :service
+  belongs_to :service, :inverse_of => :events
+
   belongs_to :service_done,:class_name =>"Service"
   has_many :notes
 

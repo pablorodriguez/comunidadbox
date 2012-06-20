@@ -268,20 +268,20 @@ class WorkordersController < ApplicationController
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
       budget = Budget.companies(company_id).find params[:b]
-
       if budget
-        # si no hay auto en el budget y no hay auto como parametro
-        unless budget.car
-          # si no hay usuario voy a crear nuevo cliente
-          if budget.user.nil?
-            redirect_to(new_client_path(:b => budget.id))
-            return
-          end
-        end  
+        # si no hay auto en el budget y no hay auto como parametro      
+        # si no hay usuario voy a crear nuevo cliente
+        if budget.user.nil? && budget.car.nil?
+          redirect_to(new_client_path(:b => budget.id))
+          return
+        end
+      
+        if budget.user && budget.car.nil?
+          redirect_to(new_car_path(user_id: budget.user.id,b: budget.id))
+          return
+        end
 
         @work_order.initialize_with_budget(budget)
-
-        logger.info "### WO Card ID #{@work_order.car.domain}"
       else
         flash[:notice] ="El presupuesto no pertenece a su empresa"
         redirect_to budgets_path

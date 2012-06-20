@@ -14,9 +14,7 @@ class ActiveSupport::TestCase
 
 end
 
-class ActionController::TestCase
-	include Devise::TestHelpers
-
+module ComunidadBox::TestHelpers
   def create_all_default_data
 
     #create brand
@@ -45,4 +43,13 @@ class ActionController::TestCase
     create :hand_work_for_tire_change
     create :hand_work_oil_change
   end
+end
+
+class ActionController::TestCase
+	include Devise::TestHelpers
+  include ComunidadBox::TestHelpers
+end
+
+class ActiveSupport::TestCase  
+  include ComunidadBox::TestHelpers
 end
