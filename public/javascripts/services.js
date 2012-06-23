@@ -6,8 +6,8 @@ document.observe('dom:loaded', function(){
     $('material_detail_auto_complete').observe('click', updatePrice);
     $('material_detail_auto_complete').observe('keyup', updatePrice);
     $('material_amount').observe('keyup', updateTotalPrice);
-    $('material_detail').observe('keyup', updatePrice);
-	$('material_price').observe('keyup', updateTotalPrice);	
+    $('material_detail').observe('keyup', updatePrice);	 
+    $('material_price').observe('keyup', updateTotalPrice);	
     $('material_service_type_id').observe('change', updateItemServiceMaterial);    
 });
 

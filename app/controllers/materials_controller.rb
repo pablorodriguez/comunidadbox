@@ -41,16 +41,17 @@ class MaterialsController < ApplicationController
         
     @company_id = get_company.id if company_id
     
-    params[:detail] ||= ""
+    params[:term] ||= ""
 
-    @detail = params[:detail] != "" ? params[:detail].gsub(/\s/,"%").upcase : "NUL"
-    @service_type_id = params[:service_type][:id].to_i if params[:service_type]
+    @detail = params[:term] != "" ? params[:term].gsub(/\s/,"%").upcase : "NUL"
+    @service_type_id = params[:service_type].to_i if params[:service_type]
     @page = params[:page] || 1
     @per_page = params[:per_page] || 10
     @materials = MaterialDetail.search(@company_id,@service_type_id,@detail).paginate(:per_page=>@per_page,:page => @page)
 
     respond_to do |format|
-      format.js
+      format.js 
+      format.json { render :json => @materials}
       format.html # show.html.erb
       format.xml  { render :xml => @materials }
       

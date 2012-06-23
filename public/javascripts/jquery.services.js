@@ -130,11 +130,58 @@ jQuery(document).ready( function(){
     }
     });
 
-  $("#detail").keyup(function(e){
+  $("#term").keyup(function(e){
     autoCompleteMaterial();
   });
 
 });
+
+function initMaterialAutocomplete(material_input){
+  var autoOpts ={
+    appendTo: "#services_list",
+    source: searchMaterialAjax,
+    select:function(e,ui){
+      var ele = $(this);
+      ele.next().val(ui.item.value);
+      ele.parent().parent().find(".service_type_id").val(ui.item.code);
+      ele.parent().next().next().find(".price").val(ui.item.price).blur();
+      material_input.blur();
+    }
+  };
+
+  material_input.autocomplete(autoOpts);
+  material_input.blur(checkDetails);
+
+}
+
+function checkDetails(){
+  var ele = $(this);
+  if (ele.val() != ele.next().val()){
+    ele.parent().prev().find(".code").hide();
+  }else{
+    ele.parent().prev().find(".code").show();
+  }
+}
+
+function searchMaterialAjax(req,resp){
+  var st = this.element.parent().parent().parent().find(".service_type_id").val();
+  req["service_type"] = st;
+  req["authenticity_token"] = encodeURIComponent($("input[name='authenticity_token']").val());
+
+  $.getJSON("/materials/details",req,function(materials){
+    var data = [];
+    $.each(materials,function(i,val){
+      var obj = {};
+      obj.code = val.material_detail.material_id;
+      obj.value = val.material_detail.detail;
+      obj.label = val.material_detail.detail + " " + val.material_detail.price;
+      obj.price = val.material_detail.price;
+      data.push(obj);
+    });
+    resp(data);    
+  })
+}
+
 
 function showTask(ele){
 	$(ele).parent().parent().parent().parent().parent().parent().find(".task_list").slideToggle();
@@ -142,7 +189,7 @@ function showTask(ele){
 
 function autoCompleteMaterial(){
   $("#material_erros").hide();
-    var detail = $.trim($("#detail").val());
+    var detail = $.trim($("#term").val());
     if (detail != ""){
       //$("#detail").val(detail);
       $("#material_form").submit();
@@ -192,6 +239,7 @@ function addEmptyMaterial(element){
 	tr.find("td:eq(2)").find("input").val("1");
 	tr.find("td:eq(3)").find("input").val("0.0");
 	tr.find(".material").show();
+  initMaterialAutocomplete(tr.find(".material"));
 }
 
 

@@ -133,7 +133,7 @@ function searchModel(event){
   //AjaxLoader.enable();
   $.ajax({
     url: "/cars/find_models",
-      data: {
+      data: { 
         'id':brand_id,
         'brand_id':$("#"+brand_id).val(),
         'authenticity_token':encodeURIComponent(token)

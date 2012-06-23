@@ -141,19 +141,6 @@ module ApplicationHelper
     content_for(:head){javascript_include_tag(*files)}
   end
   
-  def user_css
-    css="/user.css"
-    if current_user && !current_user.companies.nil?
-      css="/company.css"
-    else 
-      if current_user && current_user.is_super_admin?
-        css="/admin.css"
-      end
-    end
-    css="/user.css"
-    content_for(:head){stylesheet_link_tag(css)}
-  end
-  
   def activate(company)
     if company.active
       return image_tag('active.png')

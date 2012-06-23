@@ -1,12 +1,15 @@
 %tr
   %td
-    = f.hidden_field :material_service_type_id
+    .code.hide
+      = image_tag "confirm.png"
+    = f.hidden_field :material_service_type_id,:class => :service_type_id
   %td
     = f.fields_for :material_service_type do |mst_form|
       = mst_form.fields_for :material do |m_form|
         = m_form.object.detail
-    - if f.object.material_service_type_id.nil?    
+    - if f.object.material_service_type_id.nil?        
       = f.text_field :material,:class=>:material
+    %input.copy_detail.input_long.hide
     -#- if f.object.material.nil?
     -#  = f.text_field :material,:class=>:material,:style =>"display:none"
   %td.number    

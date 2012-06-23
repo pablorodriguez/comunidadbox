@@ -1,7 +1,7 @@
 class CreateMaterialView < ActiveRecord::Migration
   def self.up
     execute "
-    create view material_details      
+      CREATE VIEW material_details      
       as
       select
         m.id as material_id,

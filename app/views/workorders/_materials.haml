@@ -8,12 +8,12 @@
         %tr
           %td Servicio
           %td
-            = collection_select :service_type,:id,@service_types,:id,:name,{:include_blank => true},{:class=>"input_medium"}
+            = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:name),{:class=>"input_medium"}
             -#=link_to image_tag('max.png',:class=>"input_img",:title =>"Maximizar Orden de Trabajo"),"#",:id=>"maxim"
         %tr
           %td Material
           %td
-            = text_field_tag :detail,@detail,:class=>"input_medium"
+            = text_field_tag :term,@detail,:class=>"input_medium"
             -#= image_submit_tag("find.png",:class =>"input_img")
         %tr
           %td Material Nuevo        
