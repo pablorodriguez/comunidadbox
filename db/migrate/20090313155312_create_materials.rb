@@ -8,7 +8,11 @@ class CreateMaterials < ActiveRecord::Migration
       t.integer :sub_category_id
       t.timestamps
     end
-     
+    
+    add_index :materials,:name
+    add_index :materials,:code
+    add_index :materials,:prov_code
+
   end
 
   def self.down

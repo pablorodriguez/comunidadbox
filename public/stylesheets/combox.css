@@ -2,6 +2,27 @@
 /* CSS Document 
 #F2F2F2
 */
+.header_text_lable{
+  display: block;
+  float: left;
+  padding: 5px;
+}
+
+.service_type .code{
+  width:16px;
+  float: left;
+  padding: 5px 3px;
+}
+
+li.ui-menu-item a span{
+  color:black !important;
+  font-weight:bold;
+}
+
+li.ui-menu-item a label{
+  float:right;
+  margin-right: 5px;
+}
 
 body {
   background-color: #FFFF;
@@ -1227,7 +1248,8 @@ input.amount, input.price{
 }
 
 input.material{
-  width: 98%;
+  width: 94%;
+  float: right;
 }
 
 select.status{

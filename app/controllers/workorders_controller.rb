@@ -148,7 +148,6 @@ class WorkordersController < ApplicationController
 
     respond_to do |format|
     if @work_order.update_attributes(params[:workorder])
-
       CarServiceOffer.update_with_services(@work_order.services,cso_ids)
       if @work_order.finish?
         #@work_order.generate_events

@@ -1,6 +1,6 @@
 .service_type
   %table.w
-    %tbody
+    %thead
       %tr.tasks
         %td{:colspan=>2,:style=>'width:60%'}
           %h2.inline
@@ -30,8 +30,9 @@
         %td.number{:style=>'width:5%'}
           .remove_service.right
             = link_to_remove_fields f,:services,"Borrar Servicio"
-    = f.fields_for :material_services do |ms_form|
-      =render "material_service_fields",:f => ms_form
+    %tbody
+      = f.fields_for :material_services do |ms_form|
+        =render "material_service_fields",:f => ms_form
   #n_s.hide
     = button_to_add_fields "Nuevo Material",f,:material_services
   .task_list{:id=>"task_list_#{f.object.service_type_id}"}

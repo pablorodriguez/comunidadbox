@@ -134,14 +134,33 @@ jQuery(document).ready( function(){
     autoCompleteMaterial();
   });
 
+  $(".material").each(function(){
+    initMaterialAutocomplete($(this))
+  });
+
 });
 
 function initMaterialAutocomplete(material_input){
   var autoOpts ={
-    appendTo: "#services_list",
+    appendTo: "#services_list",  
     source: searchMaterialAjax,
+    close: function(e,ui){
+      var ele = $(this);
+      ele.prev().prev().hide();
+    },
+    search:function(){
+      var ele = $(this);
+      ele.prev().prev().show();
+      ele.prev().hide();
+    },
+    open:function(){
+      var ele = $(this);
+      ele.prev().prev().hide();
+      ele.prev().hide();
+    },
     select:function(e,ui){
       var ele = $(this);
+      ele.val(ui.item.value);
       ele.next().val(ui.item.value);
       ele.parent().parent().find(".service_type_id").val(ui.item.code);
       ele.parent().next().next().find(".price").val(ui.item.price).blur();
@@ -149,7 +168,11 @@ function initMaterialAutocomplete(material_input){
     }
   };
 
-  material_input.autocomplete(autoOpts);
+  material_input.autocomplete(autoOpts).data("autocomplete")._renderItem=function(ul,item){    
+    var line = $( "<li></li>" ).data("item.autocomplete", item).append("<a>"+ item.label + "</a>" ).appendTo(ul);
+    return line;
+  };
+
   material_input.blur(checkDetails);
 
 }
@@ -157,27 +180,33 @@ function initMaterialAutocomplete(material_input){
 function checkDetails(){
   var ele = $(this);
   if (ele.val() != ele.next().val()){
-    ele.parent().prev().find(".code").hide();
+    ele.prev().hide();
   }else{
-    ele.parent().prev().find(".code").show();
+    ele.prev().show();
   }
 }
 
+
 function searchMaterialAjax(req,resp){
-  var st = this.element.parent().parent().parent().find(".service_type_id").val();
+  var ele = this.element;
+  var st = ele.parent().parent().parent().prev().find(".service_type_id").val();
   req["service_type"] = st;
-  req["authenticity_token"] = encodeURIComponent($("input[name='authenticity_token']").val());
+  req["authenticity_token"] = encodeURIComponent($("input[name='authenticity_token']").val());    
 
   $.getJSON("/materials/details",req,function(materials){
     var data = [];
-    $.each(materials,function(i,val){
-      var obj = {};
-      obj.code = val.material_detail.material_id;
-      obj.value = val.material_detail.detail;
-      obj.label = val.material_detail.detail + " " + val.material_detail.price;
-      obj.price = val.material_detail.price;
-      data.push(obj);
+    var regEx = new RegExp(req.term.toUpperCase(),"i");
+    $.each(materials,function(i,val){      
+        var obj = {};
+        obj.code = val.material_detail.material_id;
+        obj.value = val.material_detail.detail;
+        obj.label = val.material_detail.detail.replace(regEx,"<span>" + req.term.toUpperCase() + "</span>") + "<label id='pr'>" + val.material_detail.price_fmt + "</label>";
+        obj.price = val.material_detail.price;
+        data.push(obj);      
     });
+    if (data.length == 0){
+      ele.prev().prev().hide().prev().hide();
+    }
     resp(data);    
   })
 }
@@ -397,8 +426,7 @@ function add_fields(link, association, content){
 	var regexp = new RegExp("new_" + association, "g");
 	if (association =="material_services"){
 		var div = $(link).parent().parent();
-		var lastTr = div.find('table tr:last');
-		lastTr.after(content.replace(regexp, new_id));
+    div.find('table tbody').append(content.replace(regexp, new_id));		
 	}else if (association =="services"){
 		content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
 		$("#services").find("#services_list").append(content.replace(regexp, new_id));

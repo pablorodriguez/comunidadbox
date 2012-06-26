@@ -51,7 +51,7 @@ class MaterialsController < ApplicationController
 
     respond_to do |format|
       format.js 
-      format.json { render :json => @materials}
+      format.json { render :json => @materials.to_json(methods: :price_fmt)}
       format.html # show.html.erb
       format.xml  { render :xml => @materials }
       

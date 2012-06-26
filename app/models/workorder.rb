@@ -1,6 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
+  
 
   ORDER_BY = {"-- Ordenar por ---" =>"workorders.performed desc","Dominio: Descendiente"=>"cars.domain desc","Dominio: Ascendiente"=>"cars.domain asc",
     "Realizado: Descendiente"=>"workorders.performed desc","Realizado: Ascendiente" => "workorders.performed asc"}

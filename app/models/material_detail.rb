@@ -1,3 +1,5 @@
+include ActionView::Helpers::NumberHelper
+
 class MaterialDetail < ActiveRecord::Base
   
   attr :amount,true
@@ -9,6 +11,10 @@ class MaterialDetail < ActiveRecord::Base
   attr :per_page , true
   attr :page,true
 #  attr :service_type_id,true
+
+  def price_fmt
+    number_to_currency(self.price)
+  end
   
   def totalPrice
     amount * price
