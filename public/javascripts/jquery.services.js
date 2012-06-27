@@ -276,7 +276,7 @@ function addEmptyMaterial(element){
 	div.find("#material_services_link").click();
 	var tr = div.find("table tr:last");
   tr.find("td:eq(1)").find("input").focus();
-	tr.find("td:eq(2)").find("input").val("1");
+	tr.find("td:eq(2)").find("input").val("1").blur();
 	tr.find("td:eq(3)").find("input").val("0.0");
 	var ele = tr.find(".material");
   ele.show();
@@ -537,6 +537,7 @@ function getServiceTypeDiv(serviceTypeIdElement){
       serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
       serviceTypeDiv.find("#serviceType").text(serviceType);
       serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
+      serviceTypes.find("a.new_material").click();
   }
 
   addTaskList(serviceTypeId)

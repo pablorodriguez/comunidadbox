@@ -2,5 +2,5 @@
   .box_bottom
     %h1 Listado de Presupuestos
   - unless @budgets.empty?
-    = render :partial => "/budgets/budget", :collection => @budgets
+    = render @budgets
     = will_paginate @budgets
