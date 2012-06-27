@@ -1117,6 +1117,13 @@ table.comboxtable, .comboxform, .w{
   width: 100%;
 }
 
+table.services {
+  width:100%;
+}
+
+table.services tr{
+  height:25px;
+}
 .comboxtable th , .comboxform tr.header{
   border-bottom: thin double black;
   background-color: #F2EAB7;
