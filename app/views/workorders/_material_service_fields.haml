@@ -2,7 +2,7 @@
   %td    
     = f.hidden_field :material_service_type_id,:class => :material_service_type_id
   %td
-    .ajax_loader.left
+    .ajax_loader_m.left
     -if f.object.material_service_type_id
       .code
         = image_tag "confirm.png"
@@ -12,7 +12,7 @@
     - if f.object.material_service_type_id.nil?        
       = f.text_field :material,:class=>:material
     -else
-      = text_field_tag :material,f.object.material_service_type.material.name,:class =>:material
+      = text_field_tag :material,"[#{f.object.material_service_type.material.prov_code}] #{f.object.material_service_type.material.name}",:class =>:material
     %input.copy_detail.input_long.hide
     -#- if f.object.material.nil?
     -#  = f.text_field :material,:class=>:material,:style =>"display:none"

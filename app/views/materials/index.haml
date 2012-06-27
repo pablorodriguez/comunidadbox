@@ -1,43 +1,46 @@
-%div#search
-  - form_tag materials_path, :method => :get do
-    %table.service_table
-      %thead
-        %tr
-          %td.table_header{:colspan=>2} Buscar por
-      %tbody
-        %tr
-          %td Código
-          %td
-            = text_field_tag 'codigo', @codigo, :size=>6
-        %tr  
-          %td Nombre
-          %td
-            = text_field_tag 'nombre', @nombre
-            = submit_tag 'Ok'
+.vertical_menu
+  = render "conf/menu"
+.contentright_s
+  %div#search
+    - form_tag materials_path, :method => :get do
+      %table.service_table
+        %thead
+          %tr
+            %td.table_header{:colspan=>2} Buscar por
+        %tbody
+          %tr
+            %td Código
+            %td
+              = text_field_tag 'codigo', @codigo, :size=>6
+          %tr  
+            %td Nombre
+            %td
+              = text_field_tag 'nombre', @nombre
+              = submit_tag 'Ok'
 
-%h1
-  Listado Materiales
-%table.service_table
-  %thead
-    %tr.table_header
-      %th
-        Código
-      %th
-        Nombre
-      %th
+  %h1
+    Listado Materiales
+  %table.service_table
+    %thead
+      %tr.table_header
+        %th
+          Código
+        %th
+          Nombre
+        %th
 
-  - for material in @materials
-    %tr
-      %td
-        = link_to material.code, material
-      %td
-        = h material.name
-      %td
-        = link_to image_tag("edit.png"), edit_material_path(material)
-        = link_to image_tag("delete.png"), material, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
-= will_paginate @materials
+    - for material in @materials
+      %tr
+        %td
+          = link_to material.code, material
+        %td
+          = h material.name
+        %td
+          = link_to image_tag("edit.png"), edit_material_path(material)
+          = link_to image_tag("delete.png"), material, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+  = will_paginate @materials
 
-%br
-= link_to image_tag('new.png'), new_material_path
-= link_to image_tag('return.png'),conf_path
+  %br
+  = link_to image_tag('new.png'), new_material_path
+  = link_to image_tag('return.png'),conf_path
 

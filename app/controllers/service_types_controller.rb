@@ -33,7 +33,7 @@ class ServiceTypesController < ApplicationController
     @not_in = (res = (@service_type.materials.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
     @materials = Material.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
 
-    @tasks = Task.find(:all) - @service_type.tasks
+    @tasks = [] #Task.find(:all) - @service_type.tasks
 
     respond_to do |format|
       format.html # show.html.erb

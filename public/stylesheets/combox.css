@@ -53,6 +53,15 @@ body {
   padding-left:5px;
 }
 
+.ajax_loader_m{
+  margin:8px 3px;
+  background-image:url(/images/ajax-loader.gif);
+  height: 11px;  
+  width: 16px;
+  display:none;
+}
+
+
 .ajax_loader{
   background-image:url(/images/ajax-loader.gif);
   height: 11px;
@@ -1428,7 +1437,7 @@ td.number, th.number{
 
 .service_type{
   background-color: #F2F2F2;  
-  padding:5px 3px 3px 3px;
+  margin: 5px 0px;
 }
 
 .service_type table{
@@ -2071,7 +2080,7 @@ td.number, th.number{
 
 #total_work_order_v{
   float: right;
-  margin-right: 45px;
+  margin-right: 35px;
   font-size: 20px;
   font-weight:bold;
   color:black;

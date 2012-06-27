@@ -128,6 +128,13 @@ jQuery(document).ready( function(){
     if (e.ctrlKey && e.which == 109){
       showMaterialDialog();
     }
+
+    if (e.ctrlKey && e.shiftKey && e.which == 78){
+      var ele = $(e.target);
+      if (ele.hasClass("material")){
+        ele.parent().parent().parent().parent().find("a.new_material").click();
+      }
+    }
     });
 
   $("#term").keyup(function(e){
@@ -147,6 +154,9 @@ function initMaterialAutocomplete(material_input){
     close: function(e,ui){
       var ele = $(this);
       ele.prev().prev().hide();
+      ele.parent().next().find("input").focus(function(){
+        this.select();
+      }).focus();
     },
     search:function(){
       var ele = $(this);
@@ -162,7 +172,7 @@ function initMaterialAutocomplete(material_input){
       var ele = $(this);
       ele.val(ui.item.value);
       ele.next().val(ui.item.value);
-      ele.parent().parent().find(".service_type_id").val(ui.item.code);
+      ele.parent().parent().find(".material_service_type_id").val(ui.item.code);
       ele.parent().next().next().find(".price").val(ui.item.price).blur();
       material_input.blur();
     }
@@ -179,10 +189,10 @@ function initMaterialAutocomplete(material_input){
 
 function checkDetails(){
   var ele = $(this);
-  if (ele.val() != ele.next().val()){
-    ele.prev().hide();
-  }else{
+  if ((ele.val().trim() != "") && (ele.val() == ele.next().val())) {    
     ele.prev().show();
+  }else{
+    ele.prev().hide();
   }
 }
 
@@ -265,10 +275,12 @@ function addEmptyMaterial(element){
 	var div = $(element).parent().parent().parent().parent().parent().parent().parent().parent();
 	div.find("#material_services_link").click();
 	var tr = div.find("table tr:last");
+  tr.find("td:eq(1)").find("input").focus();
 	tr.find("td:eq(2)").find("input").val("1");
 	tr.find("td:eq(3)").find("input").val("0.0");
-	tr.find(".material").show();
-  initMaterialAutocomplete(tr.find(".material"));
+	var ele = tr.find(".material");
+  ele.show();
+  initMaterialAutocomplete(ele);
 }
 
 
@@ -445,8 +457,8 @@ function initMaterialsPagination(){
 function add_new_material_service_type(){
   var serviceTypeDiv= null;
 
-  var serviceTypeId = $("#service_type_id").val();
-  var serviceType = $("#service_type_id option:selected").text();
+  var serviceTypeId = $("#service_type").val();
+  var serviceType = $("#service_type option:selected").text();
   var material =$("#new_material").val();
 
   $(".service_type_id").each(function(){
@@ -468,7 +480,11 @@ function add_new_material_service_type(){
   serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
   var tr = table.find("tr:last");
   tr = $(tr[0]);
-  tr.find("td:eq(1) input").val(material);
+    
+  var m_input = tr.find(".material");
+  m_input.val(material);
+  initMaterialAutocomplete(m_input);
+
   tr.find("td:eq(2) :input").val(1)
   tr.find(".text_lable").each(function(){
     $(this).disable();
@@ -535,30 +551,29 @@ function add_materials_service_types(elements){
 		ele.attr("checked",false)
 		var tr0 = ele.parent().parent();
 
-		var serviceTypeId = $("#service_type_id").val();
+		var serviceTypeId = $("#service_type").val();
+		var serviceType = $("#service_type option:selected").text();
 
-		var serviceType = $("#service_type_id option:selected").text();
 		var materialServiceTypeId = this.id;
 		var material =$.trim(tr0.find("td:eq(1)").html());
 		var price = tr0.find("td:eq(2)").asNumber();
 
-		serviceTypeDiv = getServiceTypeDiv("#service_type_id");
+		serviceTypeDiv = getServiceTypeDiv("#service_type");
 
-		serviceTypeDiv.show();
-		serviceTypeDiv.find("table thead th:last").find("input").attr("value","0");
+		serviceTypeDiv.show();		
 		var materialButton = serviceTypeDiv.find("#material_services_link");
 		materialButton.click();
 
 		var tr = serviceTypeDiv.find("table tr:last");
 		tr = $(tr[0]);
 
-    if (materialServiceTypeId != null){
-      tr.find("td:eq(1) :input").hide();
-    }
-
-
 		tr.find("td:eq(0) :input").val(materialServiceTypeId);
-		tr.find("td:eq(1)").append("<label>"+ material + "</label>");
+		var input = tr.find("td:eq(1) .material");
+    input.val(material);
+    input.prev().show();
+    input.next().val(material);
+    initMaterialAutocomplete(input);
+
 		tr.find("td:eq(2) :input").val(1)
 		tr3 = tr.find("td:eq(3) :input");
 		tr3.val(price);
@@ -568,7 +583,7 @@ function add_materials_service_types(elements){
 		total.formatCurrency(total);
 		tr.find(".text_lable").each(function(){
 			$(this).disable();
-		});addEmptyMaterial
+		});
 
 	});
 	initMaterialItems();
