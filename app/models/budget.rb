@@ -108,7 +108,7 @@ class Budget < ActiveRecord::Base
   end
 
   def can_edit? user
-    (creator.id == user.id || company.is_employee(user))
+    creator.id == user.id || company.is_employee(user)
   end
 
   def can_create_service? user

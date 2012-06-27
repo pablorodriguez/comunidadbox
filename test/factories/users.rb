@@ -13,6 +13,15 @@ FactoryGirl.define do
     end
   end
 
+  factory :emp_walter,class: User do
+    first_name "Walter"
+    last_name "Martinez"
+    email "walter@vgneumaticos.com.ar"
+    password "waltertest"
+    confirmed 1
+    roles {[create(:employee)]}
+  end
+
 
   factory :marcelo_de_antonio, class: User do
     first_name "Marcelo"

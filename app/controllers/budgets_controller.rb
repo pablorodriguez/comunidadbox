@@ -39,7 +39,6 @@ class BudgetsController < ApplicationController
 
     @models  = Array.new
     @models = Model.find_all_by_brand_id(filters_params[:brand_id],:order=>:name) if filters_params[:brand_id]
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @budgets }
