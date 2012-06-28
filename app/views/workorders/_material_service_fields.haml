@@ -12,7 +12,10 @@
     - if f.object.material_service_type_id.nil?        
       = f.text_field :material,:class=>:material
     -else
-      = text_field_tag :material,"[#{f.object.material_service_type.material.prov_code}] #{f.object.material_service_type.material.name}",:class =>:material
+      -#= text_field_tag :material,"[#{f.object.material_service_type.material.prov_code}] #{f.object.material_service_type.material.name}",:class =>:material
+      = f.fields_for :material_service_type do |mst_form|
+        = mst_form.fields_for :material do |m_form|
+          = m_form.object.detail
     %input.copy_detail.input_long.hide
     -#- if f.object.material.nil?
     -#  = f.text_field :material,:class=>:material,:style =>"display:none"

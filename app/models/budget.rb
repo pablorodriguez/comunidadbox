@@ -1,6 +1,7 @@
 class Budget < ActiveRecord::Base
   has_many :services, :dependent => :destroy
   has_many :notes
+  has_many :workorders
 
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
   belongs_to :brand

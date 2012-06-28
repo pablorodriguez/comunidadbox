@@ -2,7 +2,7 @@ var materialDialog;
 jQuery(document).ready( function(){
 
     $("#new_service_type").change(addNewServiceType);
-    $("#detail").keyup(function(e){
+    $("#term").keyup(function(e){
       autoCompleteMaterial();
     });
 
@@ -39,7 +39,7 @@ jQuery(document).ready( function(){
       $("#material_erros").hide();
       $("#new_material").val("");
       $("#service_type_id").val("");
-      $("#detail").val("");
+      $("#term").val("");
     },
     buttons: [
           {
@@ -102,7 +102,7 @@ function showMaterialDialog(){
 
 function autoCompleteMaterial(){
   $("#material_erros").hide();
-    var detail = $.trim($("#detail").val());
+    var detail = $.trim($("#term").val());
     if (detail != ""){
       //$("#detail").val(detail);
       $("#material_form").submit();
@@ -267,14 +267,14 @@ function add_materials_service_types(elements){
     ele.attr("checked",false)
     var tr0 = ele.parent().parent();
 
-    var serviceTypeId = $("#service_type_id").val();
+    var serviceTypeId = $("#service_type").val();
 
-    var serviceType = $("#service_type_id option:selected").text();
+    var serviceType = $("#service_type option:selected").text();
     var materialServiceTypeId = this.id;
     var material =$.trim(tr0.find("td:eq(1)").html());
     var price = tr0.find("td:eq(2)").asNumber();
 
-    serviceTypeDiv = getServiceTypeDiv("#service_type_id");
+    serviceTypeDiv = getServiceTypeDiv("#service_type");
 
     serviceTypeDiv.show();
     serviceTypeDiv.find("table thead th:last").find("input").attr("value","0");

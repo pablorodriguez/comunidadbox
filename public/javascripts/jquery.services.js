@@ -160,6 +160,7 @@ function initMaterialAutocomplete(material_input){
     },
     search:function(){
       var ele = $(this);
+      ele.parent().prev().find("input").val("");
       ele.prev().prev().show();
       ele.prev().hide();
     },
@@ -537,7 +538,7 @@ function getServiceTypeDiv(serviceTypeIdElement){
       serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
       serviceTypeDiv.find("#serviceType").text(serviceType);
       serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
-      serviceTypes.find("a.new_material").click();
+      serviceTypeDiv.find("a.new_material").click();
   }
 
   addTaskList(serviceTypeId)
