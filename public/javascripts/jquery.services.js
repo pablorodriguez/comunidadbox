@@ -154,9 +154,6 @@ function initMaterialAutocomplete(material_input){
     close: function(e,ui){
       var ele = $(this);
       ele.prev().prev().hide();
-      ele.parent().next().find("input").focus(function(){
-        this.select();
-      }).focus();
     },
     search:function(){
       var ele = $(this);
@@ -175,7 +172,11 @@ function initMaterialAutocomplete(material_input){
       ele.next().val(ui.item.value);
       ele.parent().parent().find(".material_service_type_id").val(ui.item.code);
       ele.parent().next().next().find(".price").val(ui.item.price).blur();
-      material_input.blur();
+      ele.parent().next().find("input").focus(function(){
+        this.select();
+      }).focus();
+
+      //material_input.blur();
     }
   };
 
@@ -416,7 +417,7 @@ function hideServiceTypeAjaxLoader(){
 function remove_fields(link,association){
 	if (association=="services"){
 		//$(link).prev("input[type=hidden]").attr("value", '1');
-		var trs = $(link).parent().parent().parent().parent().parent().find("tbody tr");
+		var trs = $(link).parent().parent().parent().parent().parent().find("thead tr");
 		trs.each(function(){
 		  var tr = $(this);
 		  tr.find("a").prev().attr("value", '1');
