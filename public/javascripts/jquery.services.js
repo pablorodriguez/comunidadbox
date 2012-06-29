@@ -210,7 +210,7 @@ function searchMaterialAjax(req,resp){
     var regEx = new RegExp(req.term.toUpperCase(),"i");
     $.each(materials,function(i,val){      
         var obj = {};
-        obj.code = val.material_detail.material_id;
+        obj.code = val.material_detail.material_service_type_id;
         obj.value = val.material_detail.detail;
         obj.label = val.material_detail.detail.replace(regEx,"<span>" + req.term.toUpperCase() + "</span>") + "<label id='pr'>" + val.material_detail.price_fmt + "</label>";
         obj.price = val.material_detail.price;
