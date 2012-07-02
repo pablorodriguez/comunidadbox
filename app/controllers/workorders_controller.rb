@@ -8,11 +8,15 @@ class WorkordersController < ApplicationController
   helper_method :sort_column,:sort_direction
 
   def destroy
-    wo = Workorder.find(params[:id])
-    car = wo.car
-    authorize! :destroy, wo
-    wo.destroy
-    redirect_to car
+    @wo = Workorder.find(params[:id])    
+    authorize! :destroy, @wo
+    @wo.destroy
+
+    respond_to do |format|
+      format.html {redirect_to workorders_path}
+      format.js { render :layout => false}
+    end
+    
   end
 
   def index

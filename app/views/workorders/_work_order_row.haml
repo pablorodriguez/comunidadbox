@@ -27,6 +27,7 @@
 
   - if can_show
     .actions
+      .ajax_loader.left
       .action.info.wo_info_detail.link
       - unless company_id
         .action
@@ -41,7 +42,7 @@
         = link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"  
       - if work_order_row.can_edit?(current_user)        
         .action
-          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
+          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
         .action
           = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>"Modificar")
 
