@@ -194,7 +194,7 @@ class PriceList < ActiveRecord::Base
             m_s_t = MaterialServiceType.where("material_id = ? ",m.id)
             m_s_t.each do |mst|
               pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
-              new_material_service_type << "#{mst_id} #{mst.material.prov_code} #{mst.material.name} #{price}"
+              new_material_service_type << "#{mst.id} #{mst.material.prov_code} #{mst.material.name} #{price}"
             end
             
           end
