@@ -246,7 +246,7 @@ class PriceList < ActiveRecord::Base
 
   def self.save file_name,items
     out_put_file = "/home/pablo/price_files/output/" + file_name
-    File.open(out_put_file, 'w') do|f|
+    File.open(out_put_file, 'w:ASCII-8BIT') do|f|
       items.each do |item|
         f.write(item)
       end
