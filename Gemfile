@@ -7,13 +7,13 @@ end
 
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.2.6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql'
-gem 'mysql2','< 0.3'
+gem 'mysql2'
 gem "haml"
 gem "will_paginate", "~> 3.0.pre2"
 gem "foreigner"
@@ -23,19 +23,33 @@ gem "packet"
 gem 'prawn'
 gem "geokit"
 
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', :platform => :ruby
+  #gem 'twitter-bootstrap-rails'
+  gem 'bootstrap-sass'
+  gem 'uglifier', '>= 1.0.3'
+end
+
 # GEOLOCALIZACION Y MAPAS
 gem 'geocoder'
 gem 'gmaps4rails'
 
 gem "devise"
-# EN EL OMNIAUTH 1.0 CAMBIA TODO
-gem "omniauth", "~> 0.3.2"
-gem 'jquery-rails', '>= 0.2.6'
+gem "devise-encryptable"
+gem 'jquery-rails'
+
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
 gem 'resque-scheduler'
 gem 'factory_girl_rails',"~> 3.0"
 gem 'cancan'
+#gem 'omniauth-facebook'
 #gem 'rails3-jquery-autocomplete'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
@@ -48,7 +62,7 @@ gem 'cancan'
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
-# gem 'debugger', group: [:development,:test]
+gem 'debugger', group: [:development,:test]
 
 # Bundle the extra gems:
 # gem 'bj'
@@ -62,8 +76,8 @@ gem 'cancan'
 # group :development, :test do
 #   gem 'webrat'
 # end
-gem 'rake', '0.8.7'
+#gem 'rake', '0.8.7'
 gem 'attribute_normalizer'
 gem 'recaptcha', :require => 'recaptcha/rails'
 #gem "exception_notification", :git => "https://github.com/sickill/exception_notification.git", :require => 'exception_notifier'
-gem "breadcrumbs_on_rails"
+#gem "breadcrumbs_on_rails"
