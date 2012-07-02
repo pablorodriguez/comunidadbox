@@ -154,20 +154,23 @@ class PriceList < ActiveRecord::Base
     code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
     found = 0
     not_found = 0
-    new_materials = []
+    errors = []
     record = 0
+    new_materials = []    
     no_price_item = []
     new_material_service_type = []
 
-    file.each do |r|
-      record +=1
+    file.each do |row|
+      record +=1 
       puts record
-      logger.info "#{record} #### #{r}"
+      r = row.clone.force_encoding('ASCII-8BIT')     
       begin
-        cell= r.split("\t")
+        cell= r.split("\t")        
         prov_code = cell[0].strip
         provider = cell[1].strip
-        name = cell[2].strip
+
+        name = cell[2].force_encoding('ASCII-8BIT').strip
+
         price = cell[3].strip.to_f
 
         # busco el material a ver si existe
@@ -212,14 +215,16 @@ class PriceList < ActiveRecord::Base
           not_found += 1
           #puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
         end
-      rescue Exception
-        logger.error "#### Error reading record #{record} #{r}"
-        logger.error "#{$!}"
+      rescue Exception        
+        puts "#### Error reading record #{record} #{r}"
+        puts "#{$!}"
+        errors << "#{record} #{r} #{$!}"
       end
     end   
     file.close
     result = {}
     result[:not_found] = not_found
+    result[:errors] = errors.size
     result[:found] = found
     result[:item_not_found] = no_price_item.size
     result[:new_material_service_type] = new_material_service_type.size
@@ -231,7 +236,10 @@ class PriceList < ActiveRecord::Base
     save("new_material_service_type"+file_name,new_material_service_type)
     timeEnd = Time.now
 
-    puts "Start: #{start}  End: #{timeEnd}, total time: #{(timeEnd - start) / (60 * 60)}"
+    puts "Start: #{start}  End: #{timeEnd}, total time: #{(timeEnd - start)}"
+    errors.each do |e|
+      puts e
+    end
 
     result
   end
