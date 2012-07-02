@@ -229,7 +229,9 @@ class PriceList < ActiveRecord::Base
     save_material_not_found(file_name,new_materials)
     save("item_not_foound_" + file_name,no_price_item)
     save("new_material_service_type"+file_name,new_material_service_type)
-    puts "Start: #{start}  End: #{Time.now}"
+    timeEnd = Time.now
+
+    puts "Start: #{start}  End: #{timeEnd}, total time: #{(timeEnd - start) / (60 * 60)}"
 
     result
   end
