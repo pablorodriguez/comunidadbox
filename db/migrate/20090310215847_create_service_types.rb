@@ -6,6 +6,7 @@ class CreateServiceTypes < ActiveRecord::Migration
       t.integer :kms
       t.integer :parent_id
       t.string :active
+      t.string :code, :limit => 10
       t.timestamps
     end
   end

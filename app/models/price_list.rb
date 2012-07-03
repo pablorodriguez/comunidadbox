@@ -89,6 +89,7 @@ class PriceList < ActiveRecord::Base
     import_item_price_file(pl_id,file,file_name)
   end
 
+ 
   #chequea que los codigos de proveedor sean unicos
   def self.check_prov_code file_name
     prov_code = {}
@@ -150,8 +151,7 @@ class PriceList < ActiveRecord::Base
   def self.import_item_price_file(pl_id,file,file_name)
     start=  Time.now
 
-    pl = PriceList.find pl_id
-    code = Material.where("code like 'CN%'").order("id DESC").first.code.scan(/\d+/).first.to_i + 1
+    pl = PriceList.find pl_id    
     found = 0
     not_found = 0
     errors = []
@@ -168,13 +168,27 @@ class PriceList < ActiveRecord::Base
         cell= r.split("\t")        
         prov_code = cell[0].strip
         provider = cell[1].strip
-
         name = cell[2].force_encoding('ASCII-8BIT').strip
-
         price = cell[3].strip.to_f
 
         # busco el material a ver si existe
-        m = Material.find_by_prov_code(prov_code)
+        m = Material.find_by_prov_code(prov_code)        
+        unless m
+          if cell[4]
+            service_type_id = cell[4].strip.to_i
+            st = ServiceType.find(service_type_id)
+            new_code = Material.where("code like '#{st.code}%'").order("code DESC").first.code.scan(/\d+/).first.to_i + 1
+
+            row =  Array[prov_code,provider,name,price]
+            new_materials << row
+            #creo el nuevo material
+            m = Material.new(:prov_code => prov_code,:code =>"#{st.code}#{new_code}",:name => name,:provider => provider)            
+            m.save
+            # creo un un material service type 
+            mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => st.id)
+            not_found += 1
+          end
+        end
 
         if m        
           # busco en la lista de precio si existe el material
@@ -198,22 +212,7 @@ class PriceList < ActiveRecord::Base
             end
             
           end
-          found += 1
-        else  
-          row =  Array[prov_code,provider,name,price]
-          new_materials << row
-          #creo el nuevo material
-          #m = Material.create(:prov_code => prov_code,:code =>"CN#{code}",:name => name,:brand =>brand,:provider => provider)
-
-          # creo un un material service type tipo 2 , Cambio de Neumatico
-          #mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => 2)
-
-          # creo un item de prcio de lista 
-          #pl.price_list_items.create(:material_service_type_id => mst.id,:price => price)
-
-          #code += 1
-          not_found += 1
-          #puts "\t #{m.id} #{m.code} #{m.name} #{prov_code} ### #{m.id}"
+          found += 1        
         end
       rescue Exception        
         puts "#### Error reading record #{record} #{r}"
