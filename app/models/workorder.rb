@@ -292,6 +292,17 @@ class Workorder < ActiveRecord::Base
     end
     data_str.chop
   end
+
+  def to_csv(options = {})
+    debugger
+    CSV.generate(options) do |csv|
+      csv << column_names
+      debugger
+      all.each do |workorder|
+        csv << workorder.attributes.values_at(*column_names)
+      end
+    end
+  end
   
   def self.group_by_service_type(params,price=true)
     wo = self.find_by_params(params)

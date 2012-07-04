@@ -1,5 +1,3 @@
-  require 'csv'
-
 class PriceList < ActiveRecord::Base
   has_many :price_list_items
   belongs_to :company
@@ -59,27 +57,7 @@ class PriceList < ActiveRecord::Base
     "#{code_type}#{format("%05d",@@code_nro)}"
   end
   
-  def self.set_code_type service_type_id
-    code_type = case service_type_id.to_i
-      when 1
-        "CA"
-      when 2
-        "CN"
-      when 3
-        "AB"
-      when 4
-        "MG"
-      when 5
-        "TR"
-      when 7
-        "SU"
-      when 8
-        "FE"
-      when 9
-        "AM"
-    end
-  end
-
+  
   # usar este metodo para importar lista de precios
   def self.import_price_from_file pl_id,file_name
     #fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
@@ -87,65 +65,6 @@ class PriceList < ActiveRecord::Base
     file = File.open(fileName)
     logger.info "Importing price from #{fileName}"
     import_item_price_file(pl_id,file,file_name)
-  end
-
- 
-  #chequea que los codigos de proveedor sean unicos
-  def self.check_prov_code file_name
-    prov_code = {}
-    fileName = "/home/pablo/price_files/input/#{file_name}"
-    
-    err_file = File.new("/home/pablo/price_files/output/err_" + file_name,"w+")
-
-    file = File.open(fileName)
-    rs = 0
-    er = 0
-    puts "reading #{fileName}"
-    str =""
-    row =""
-    file.each do |r|
-        begin
-          rs +=1  
-          row = r.clone
-          str = r.force_encoding('ASCII-8BIT')
-
-          cell= str.split("\t")
-          code = cell[0].strip
-
-          provider = cell[1].strip
-          name = cell[2].strip
-          price = cell[3].strip.to_f
-
-          if prov_code[code]
-            prov_code[code] += 1
-            puts row
-          else
-            prov_code[code] = 1
-          end
-        rescue Exception
-          #logger.error "#### Error reading record #{r}"          
-          puts "#{$!}"
-          puts "#{row} #{rs}"
-          #err_file.write $!
-          err_file.write "#{row} #{rs} #{$!}"
-          er +=1
-        end
-    end
-    err_file.close
-
-    puts "end reading"
-    out_put_file = "/home/pablo/price_files/output/dup_" + file_name
-    File.open(out_put_file, 'w') do|f|
-      puts "writing in #{out_put_file}"
-      prov_code.each do |k,v|
-        if v > 1
-          str = "#{k} \t #{v}\n"
-          f.write(str)
-        end
-      end
-    end
-    puts "records #{rs} erros #{er}"
-    return ""
   end
 
   def self.import_item_price_file(pl_id,file,file_name)
@@ -174,6 +93,7 @@ class PriceList < ActiveRecord::Base
         # busco el material a ver si existe
         m = Material.find_by_prov_code(prov_code)        
         unless m
+          not_found += 1
           if cell[4]
             service_type_id = cell[4].strip.to_i
             st = ServiceType.find(service_type_id)
@@ -185,9 +105,8 @@ class PriceList < ActiveRecord::Base
             m = Material.new(:prov_code => prov_code,:code =>"#{st.code}#{new_code}",:name => name,:provider => provider)            
             m.save
             # creo un un material service type 
-            mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => st.id)
-            not_found += 1
-          end
+            mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => st.id)            
+          end          
         end
 
         if m        
@@ -265,6 +184,64 @@ class PriceList < ActiveRecord::Base
         f.write(str)
       end
     end 
+  end
+
+  #chequea que los codigos de proveedor sean unicos
+  def self.check_prov_code file_name
+    prov_code = {}
+    fileName = "/home/pablo/price_files/input/#{file_name}"
+    
+    err_file = File.new("/home/pablo/price_files/output/err_" + file_name,"w+")
+
+    file = File.open(fileName)
+    rs = 0
+    er = 0
+    puts "reading #{fileName}"
+    str =""
+    row =""
+    file.each do |r|
+        begin
+          rs +=1  
+          row = r.clone
+          str = r.force_encoding('ASCII-8BIT')
+
+          cell= str.split("\t")
+          code = cell[0].strip
+
+          provider = cell[1].strip
+          name = cell[2].strip
+          price = cell[3].strip.to_f
+
+          if prov_code[code]
+            prov_code[code] += 1
+            puts row
+          else
+            prov_code[code] = 1
+          end
+        rescue Exception
+          #logger.error "#### Error reading record #{r}"          
+          puts "#{$!}"
+          puts "#{row} #{rs}"
+          #err_file.write $!
+          err_file.write "#{row} #{rs} #{$!}"
+          er +=1
+        end
+    end
+    err_file.close
+
+    puts "end reading"
+    out_put_file = "/home/pablo/price_files/output/dup_" + file_name
+    File.open(out_put_file, 'w') do|f|
+      puts "writing in #{out_put_file}"
+      prov_code.each do |k,v|
+        if v > 1
+          str = "#{k} \t #{v}\n"
+          f.write(str)
+        end
+      end
+    end
+    puts "records #{rs} erros #{er}"
+    return ""
   end
   
 end
