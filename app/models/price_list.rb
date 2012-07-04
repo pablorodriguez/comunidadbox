@@ -102,7 +102,7 @@ class PriceList < ActiveRecord::Base
             new_code = Material.where("code like '#{st.code}%'").order("code DESC").first.code.scan(/\d+/).first.to_i + 1
 
             #creo el nuevo material
-            m = Material.new(:prov_code => prov_code,:code =>"#{st.code}#{format('%05d',new_code}",:name => name,:provider => provider)            
+            m = Material.new(:prov_code => prov_code,:code =>"#{st.code}#{format('%05d',new_code)}",:name => name,:provider => provider)            
             m.save
             # creo un un material service type 
             mst = MaterialServiceType.create(:material_id => m.id,:service_type_id => st.id)            
