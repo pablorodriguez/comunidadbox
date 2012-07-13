@@ -80,23 +80,26 @@ class Budget < ActiveRecord::Base
 
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
-    
     budget = Budget.includes(:car,:creator => :companies)    
-    budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
     budget = budget.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
-    budget = budget.order("budgets.created_at DESC")
-   
-    budget = budget.where("budgets.brand_id = :brand_id OR cars.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
-    budget = budget.where("budgets.model_id = :model_id OR cars.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
-    budget = budget.where("cars.year = ?","#{filters[:year]}") if filters[:year]
 
-    budget = budget.where("budgets.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
-    budget = budget.where("budgets.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
-    budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
-    
-    budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
-    budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
-    
+    prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
+    unless prop.any?{|k| filters.key?(k)}
+      budget = Budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
+    else
+      budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
+      budget = budget.where("budgets.brand_id = :brand_id OR cars.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
+      budget = budget.where("budgets.model_id = :model_id OR cars.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
+      budget = budget.where("cars.year = ?","#{filters[:year]}") if filters[:year]
+
+      budget = budget.where("budgets.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
+      budget = budget.where("budgets.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
+      budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
+      
+      budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
+      budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
+    end
+
     if filters[:company_id]
       budget = budget.where("budgets.company_id IN (?)",filters[:company_id])
     else
@@ -104,8 +107,7 @@ class Budget < ActiveRecord::Base
     end    
     
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
-    logger.debug "### Filters SQL #{budget.to_sql}"
-    budget
+    budget.order("budgets.created_at DESC")
   end
 
   def can_edit? user

@@ -150,7 +150,7 @@ class PriceList < ActiveRecord::Base
     result[:not_found_material] = "not_found_" + file_name
     
     save_material_not_found(file_name,new_materials)
-    save("item_not_foound_" + file_name,no_price_item)
+    save("item_not_found_" + file_name,no_price_item)
     save("new_material_service_type"+file_name,new_material_service_type)
     timeEnd = Time.now
 

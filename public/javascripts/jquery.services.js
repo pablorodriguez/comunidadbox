@@ -174,16 +174,22 @@ function initMaterialAutocomplete(material_input){
       ele.parent().next().next().find(".price").val(ui.item.price).blur();
       ele.parent().next().find("input").focus(function(){
         this.select();
-      }).focus();
-
-      //material_input.blur();
+      }).focus();      
     }
   };
 
-  material_input.autocomplete(autoOpts).data("autocomplete")._renderItem=function(ul,item){    
-    var line = $( "<li></li>" ).data("item.autocomplete", item).append("<a>"+ item.label + "</a>" ).appendTo(ul);
-    return line;
+  var autoComp= material_input.autocomplete(autoOpts).data("autocomplete");
+  autoComp._renderItem=function(ul,item){    
+    return $("<li></li>").data("item.autocomplete", item).append("<a>"+ item.label + "</a>").appendTo(ul);    
   };
+
+  autoComp._renderMenu=function( ul, items ) {
+    var self = this;
+    $.each( items, function( index, item ) {
+        self._renderItem( ul, item );
+    });
+    $("<li></li>").append("").appendTo(ul);
+},
 
   material_input.blur(checkDetails);
 

@@ -5,7 +5,7 @@ class BrandsController < ApplicationController
   # GET /brands.xml
   def index
     @brands = Brand.find(:all,:order => 'name')
-    
+      
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @brands }
