@@ -84,7 +84,7 @@ class Budget < ActiveRecord::Base
     budget = budget.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
-    unless prop.any?{|k| filters.key?(k)}
+    unless prop.any?{|k| filters.key?(k.to_sym)}
       budget = Budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
     else
       budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
