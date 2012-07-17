@@ -19,7 +19,7 @@ class Material < ActiveRecord::Base
   end
   
   def detail
-    "[#{code}] #{name}"
+    "[#{prov_code}] #{name}"
   end
 
   
