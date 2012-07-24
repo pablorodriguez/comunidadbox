@@ -891,15 +891,6 @@ input{
 
 }
 
-
-#work_order_form{  
-
-}
-
-#work_order_form form{  
-  padding:5px;
-}
-
 #work_order{
   margin-top:5px;
 }
@@ -1117,12 +1108,24 @@ table.comboxtable, .comboxform, .w{
 }
 
 table.services {
-  width:100%;
+  width:99.8%;
 }
 
+
 table.services tr{
-  height:25px;
+  height:30px;
+  background-color: #F2F2F2;
 }
+
+table.services tr td:first-child {
+  padding: 0 0 0 5px;
+}
+
+table.services thead tr th {
+  background-color:#E6E6E6;
+  border-bottom:thin double #CCCCCC;
+}
+
 .comboxtable th , .comboxform tr.header{
   border-bottom: thin double black;
   background-color: #F2EAB7;
@@ -1263,7 +1266,7 @@ input.amount, input.price{
 }
 
 input.material{
-  width: 94%;
+  width: 93%;
   float: right;
 }
 
@@ -1444,6 +1447,7 @@ td.number, th.number{
 .service_type{
   background-color: #F2F2F2;  
   margin: 5px 0px;
+  overflow: auto;
 }
 
 .service_type table{
@@ -1452,6 +1456,11 @@ td.number, th.number{
 
 .service_type select{
   margin:0px 3px;
+}
+
+.comment{
+  font-size: small;
+  font-style: italic;
 }
 
 .comments{

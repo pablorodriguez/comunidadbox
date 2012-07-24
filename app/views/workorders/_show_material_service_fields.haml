@@ -1,7 +1,11 @@
 %tr    
   %td{:colspan=>2}
-    = f.material unless f.material_service_type
-    = f.material_service_type.material.detail if f.material_service_type
+    .material
+      = f.material unless f.material_service_type
+      - if f.material_service_type
+        %strong
+          = f.material_service_type.material.prov_code
+        = f.material_service_type.material.name
   %td.number    
     = f.amount
   %td.number

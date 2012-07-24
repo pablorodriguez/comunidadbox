@@ -1,8 +1,8 @@
 .service_type
-  %table.w
+  %table.services
     %thead
-      %tr.tasks
-        %td{:colspan=>2,:style=>'width:60%'}
+      %tr
+        %th{:colspan=>2,:style=>'width:60%'}
           %h2.inline
             %label{:id=>"serviceType"}
             = f.hidden_field :service_type_id,:class=>:service_type_id
@@ -20,19 +20,19 @@
                 -#= link_to_function("","showTask(this)",{:class =>"taks new"});
               .action
                 %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}
-        %td{:style=>'width:10%'}
+        %th{:style=>'width:10%'}
           %label.right Cantidad
-        %td{:style=>'width:10%'}
+        %th{:style=>'width:10%'}
           %label.right Precio
-        %td.number{:style=>'width:15%'}
+        %th.number{:style=>'width:15%'}
           .total_service
             = number_to_currency(f.object.total_price)
-        %td.number{:style=>'width:5%'}
+        %th.number{:style=>'width:5%'}
           .remove_service.right
             = link_to_remove_fields f,:services,"Borrar Servicio"
     %tbody
       = f.fields_for :material_services do |ms_form|
-        =render "material_service_fields",:f => ms_form
+        =render "material_service_fields",:f => ms_form      
   #n_s.hide
     = button_to_add_fields "Nuevo Material",f,:material_services
   .task_list{:id=>"task_list_#{f.object.service_type_id}"}

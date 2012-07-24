@@ -1,7 +1,7 @@
 .service_type.box_bottom
   %table.services
     %thead
-      %tr.box_bottom
+      %tr
         %th{:colspan=>2,:style=>'width:60%'}
           %h2.inline
             %label.left{:id=>"serviceType"}
@@ -21,7 +21,6 @@
     %tbody      
       - f.material_services.each do |ms|
         =render :partial=> "show_material_service_fields",:locals=>{:f => ms}
-      - if f.comment
-        %tr
-          %td
-            = f.comment
+  - if f.comment
+    .comment.clear
+      = f.comment

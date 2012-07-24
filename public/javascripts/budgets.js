@@ -23,13 +23,17 @@ jQuery(document).ready( function(){
   })
   
   $("#service_types #all_service_type").change(function(){
-  if ($("#all_service_type").attr("checked")){
-    $("#service_types :checkbox[id!='all_service_type']").attr("checked",'checked');  
-  }else{
-    $("#service_types :checkbox[id!='all_service_type']").attr("checked",'');  
-  }
-})
+    if ($("#all_service_type").attr("checked")){
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",'checked');  
+    }else{
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",'');  
+    }
+  })
 
+  $(".material").each(function(){
+    initMaterialAutocomplete($(this))
+  });
+  
 });
 
 function searchModel(event){

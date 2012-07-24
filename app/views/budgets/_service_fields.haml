@@ -1,8 +1,8 @@
 .service_type
-  %table.w
-    %tbody
+  %table.services
+    %thead
       %tr
-        %td{:colspan=>2,:style=>'width:60%'}
+        %th{:colspan=>2,:style=>'width:66%'}
           .budget_service2
             %h2
               %label{:id=>"serviceType"}
@@ -10,23 +10,23 @@
               = f.fields_for :service_type do |st_form|
                 %label.header_text_lable
                   = st_form.object.name
-          .budget_service2
+          .budget_service
             = f.hidden_field :_destroy            
             = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
-            -#= link_to_function("","showTask(this)",{:class =>"taks new"});   
             .hide
               = f.text_area :comment, :rows => 3,:cols=>"28",:class=>"comment"
-        %td{:style=>'width:10%'}
+        %th{:style=>'width:8%'}
           %label.right Cantidad
-        %td{:style=>'width:10%'}
+        %th{:style=>'width:8%'}
           %label.right Precio
-        %td.number{:style=>'width:15%'}
+        %th.number{:style=>'width:13%'}
           .total_service
             = number_to_currency(f.object.total_price)
-        %td.number{:style=>'width:5%'}
+        %th.number{:style=>'width:5%'}
           .remove_service.right
             = link_to_remove_fields f,:services,"Borrar Servicio"
-    = f.fields_for :material_services do |ms_form|
-      =render "material_service_fields",:f => ms_form
+    %tbody
+      = f.fields_for :material_services do |ms_form|
+        =render "material_service_fields",:f => ms_form
   #n_s.hide
     = button_to_add_fields "Nuevo Material",f,:material_services

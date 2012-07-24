@@ -136,7 +136,8 @@ function getServiceTypeDiv(serviceTypeIdElement){
       var serviceTypes = $(".service_type");
       serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
       serviceTypeDiv.find("#serviceType").text(serviceType);
-      serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
+      serviceTypeDiv.find(".service_type_id").val(serviceTypeId);
+      serviceTypeDiv.find("a.new_material").click();
   }
 
   return serviceTypeDiv;
@@ -148,8 +149,8 @@ function add_fields(link, association, content){
     var regexp = new RegExp("new_" + association, "g");
     if (association =="material_services"){
         var div = $(link).parent().parent();
-        var lastTr = div.find('table tr:last');
-        lastTr.after(content.replace(regexp, new_id));
+        var lastTr = div.find('table tbody');        
+        lastTr.append(content.replace(regexp, new_id));
     }else if (association =="services"){
         content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
         $("#services").find("#services_list").append(content.replace(regexp, new_id));
@@ -251,8 +252,10 @@ function addEmptyMaterial(element){
     div.find("#material_services_link").click();
     var tr = div.find("table tr:last");
     tr.find("td:eq(2)").find("input").val("1");
-    tr.find("td:eq(3)").find("input").val("0.0");
-    tr.find(".material").show();
+    tr.find("td:eq(3)").find("input").val("0.0");    
+    var ele = tr.find(".material");
+    ele.show();
+    initMaterialAutocomplete(ele);
 }
 
 function add_material_service_type(){

@@ -9,16 +9,13 @@
     -else
       .code.hide
         = image_tag "confirm.png" 
-    - if f.object.material_service_type_id.nil?        
-      = f.text_field :material,:class=>:material
+    - if f.object.material_service_type_id
+      %strong
+        = f.object.material_service_type.material.prov_code
+      = f.object.material_service_type.material.name
     -else
-      -#= text_field_tag :material,"[#{f.object.material_service_type.material.prov_code}] #{f.object.material_service_type.material.name}",:class =>:material
-      = f.fields_for :material_service_type do |mst_form|
-        = mst_form.fields_for :material do |m_form|
-          = m_form.object.detail
+      = f.text_field :material,:class=>:material
     %input.copy_detail.input_long.hide
-    -#- if f.object.material.nil?
-    -#  = f.text_field :material,:class=>:material,:style =>"display:none"
   %td.number    
     = f.text_field :amount,:class =>"amount right"
   %td.number

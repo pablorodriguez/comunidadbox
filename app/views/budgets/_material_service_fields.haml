@@ -1,14 +1,21 @@
 %tr
   %td
-    = f.hidden_field :material_service_type_id
+    = f.hidden_field :material_service_type_id,:class => :material_service_type_id
   %td
-    = f.fields_for :material_service_type do |mst_form|
-      = mst_form.fields_for :material do |m_form|
-        = m_form.object.detail
-    - if f.object.material_service_type_id.nil?    
+    .ajax_loader_m.left
+    -if f.object.material_service_type_id
+      .code
+        = image_tag "confirm.png"
+    -else
+      .code.hide
+        = image_tag "confirm.png" 
+    - if f.object.material_service_type_id
+      %strong 
+        = f.object.material_service_type.material.prov_code
+      = f.object.material_service_type.material.name
+    -else
       = f.text_field :material,:class=>:material
-    -#- if f.object.material.nil?
-    -#  = f.text_field :material,:class=>:material,:style =>"display:none"
+    %input.copy_detail.input_long.hide   
   %td.number
     = f.text_field :amount,:class =>"amount right"
   %td.number

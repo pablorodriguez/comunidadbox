@@ -53,10 +53,10 @@
       #services_list.ordencontent
         - @budget.services.each do |s|
           .service_type
-            %table.w
-              %tbody
+            %table.services            
+              %thead
                 %tr
-                  %td{:style=>'width:60%'}
+                  %th{:style=>'width:60%'}
                     .budget_service2
                       %h2
                         %label{:id=>"serviceType"}
@@ -64,25 +64,30 @@
                             = s.service_type.name
                       .hide
                         = s.comment
-                  %td{:style=>'width:10%'}
+                  %th{:style=>'width:10%'}
                     %label.right Cantidad
-                  %td{:style=>'width:10%'}
+                  %th{:style=>'width:10%'}
                     %label.right Precio
-                  %td.number{:style=>'width:15%'}
+                  %th.number{:style=>'width:15%'}
                     .total_service
                       = number_to_currency(s.total_price)
-              - s.material_services.each do |ms|
-                %tr
-                  %td
-                    = ms.material_service_type.material.detail if ms.material_service_type
-                    = ms.material if ms.material
-                  %td.number
-                    = ms.amount
-                  %td.number
-                    = ms.price
-                  %td.number
-                    .total_item
-                      = number_to_currency(ms.total_price) 
+              %tbody
+                - s.material_services.each do |ms|              
+                  %tr
+                    %td
+                      -if ms.material_service_type
+                        %strong 
+                          = ms.material_service_type.material.prov_code
+                        = ms.material_service_type.material.name
+                      -else
+                        = ms.material if ms.material
+                    %td.number
+                      = ms.amount
+                    %td.number
+                      = ms.price
+                    %td.number
+                      .total_item
+                        = number_to_currency(ms.total_price) 
 
                 -#=render "material_service_fields",:f => ms_form
 
