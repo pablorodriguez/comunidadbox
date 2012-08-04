@@ -9,7 +9,7 @@
   #user_company_address
     .box_bottom
       %h1 Modificar Empleado
-    - form_for  @employee, :url => employee_path(@employee)  do |f|        
+    = form_for  @employee, :url => employee_path(@employee)  do |f|        
       .box_bottom
         = render 'form',:f => f
       .box_bottom

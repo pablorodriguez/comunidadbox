@@ -21,6 +21,7 @@ gem "foreigner"
 gem "chronic"
 gem "packet"
 gem 'prawn'
+gem 'prawnto_2'
 gem "geokit"
 
 # Gems used only for assets and not required
@@ -47,6 +48,7 @@ gem 'jquery-rails'
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
 gem 'resque-scheduler'
+gem 'rufus-scheduler'
 gem 'factory_girl_rails',"~> 3.0"
 gem 'cancan'
 #gem 'omniauth-facebook'

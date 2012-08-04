@@ -1,5 +1,5 @@
 = render 'shared/error_messages', :target => @car
-- form_for @car,:html=>{:class =>"car"} do |f|
+= form_for @car,:html=>{:class =>"car"} do |f|
   = f.hidden_field :user_id  
   = hidden_field_tag "budget_id",@budget.id if @budget
   .box_bottom

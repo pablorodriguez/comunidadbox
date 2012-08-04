@@ -13,7 +13,7 @@
       %tr{:id=> "service_#{service.row}" ,:class=>"service_row"}
         = render :partial=>'/services/service',:locals=>{:service => service}
 #list_services_btns{:class=>:service_table_btn}
-  - form_for :work_order,:url=>{:action=>'save'},:html=>{:id=>:work_order_form} do |f|
+  = form_for :work_order,:url=>{:action=>'save'},:html=>{:id=>:work_order_form} do |f|
     = f.submit("Grabar Orden de Trabajo", :id=>"work_order_create",:class=>:btn,:name =>:Grabar)
   = button_to_function "Cerrar", "alert('Cierra la orden de trabajo!')"
   Precio Total Servicio:

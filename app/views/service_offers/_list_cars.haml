@@ -1,14 +1,11 @@
-%h3 Automóviles seleccionados
+.box_bottom
+  %h3 Automóviles seleccionados
 - @cars.each do |car_s|
-  .row
-    .left
+  .domain
+    .domain_n
       = car_s.car.domain
-    .left
-      = car_s.car.brand.name
-      = car_s.car.model.name
-    - if car_s.status
-      %status
-        = icon_status car_s.status
+      -# if car_s.status      
+        -#= icon_status car_s.status
     -if current_user.cars.include?(car_s.car)
       .actions
       - if car_s.status == "Enviado"

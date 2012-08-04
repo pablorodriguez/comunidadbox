@@ -1,7 +1,7 @@
 #client_search
   %h3 Buscar Clientes
   .form
-    - form_tag index_all_clients_path,{:remote =>true, :method =>:get,:id=>:search_client_form} do
+    = form_tag index_all_clients_path,{:remote =>true, :method =>:get,:id=>:search_client_form} do
       = hidden_field_tag("page","1")
       %table
         %thead

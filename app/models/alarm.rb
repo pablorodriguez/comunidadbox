@@ -15,6 +15,8 @@ class Alarm < ActiveRecord::Base
     [ 'Activado' , 'Active' ],
     [ 'Desactivado' , 'DeActive' ]
   ]
-  
+  def self.notify
+    logger.info "Envio de notificacion de alarms"
+  end
 end
 

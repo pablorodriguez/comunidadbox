@@ -1,4 +1,4 @@
-- form_remote_for :material,:url=>formatted_add_material_services_path(:js),:loading =>'AjaxLoader.enable()',:html=>{:id=>:material_form} do |f|              
+= form_remote_for :material,:url=>formatted_add_material_services_path(:js),:loading =>'AjaxLoader.enable()',:html=>{:id=>:material_form} do |f|              
   =f.hidden_field :row
   %input{:value=> search_sub_category_service_types_path, :type=>:hidden,:id=>:search_sub_category_url}
   %table.service_table

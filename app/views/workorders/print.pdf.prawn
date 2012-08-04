@@ -9,8 +9,9 @@ pdf.define_grid(:columns => 2, :rows => 1, :gutter => 30)
 pdf.grid(0,0).bounding_box do
   pdf.font_size fs
   pdf.move_up(15)
-  pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:at=>[290,570],:scale =>0.40
-  pdf.image "#{RAILS_ROOT}/public/images/company_logos/vg_logo.png",:at=>[10,570],:scale =>0.40  
+
+  pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[290,570],:scale =>0.40
+  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,570],:scale =>0.40  
   pdf.move_down(40)
   pdf.text "Comprobante para Administración"
   pdf.move_up(15)
@@ -127,8 +128,8 @@ pdf.grid(0,1).bounding_box do
   pdf.font_size fs
   pdf.move_up(15)
 
-  pdf.image "#{RAILS_ROOT}/public/images/company_logos/vg_logo.png",:at=>[10,570],:scale =>0.40  
-  pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:at=>[290,570],:scale =>0.40
+  pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[10,570],:scale =>0.40
+  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[290,570],:scale =>0.40  
 
   pdf.move_down(40)
   pdf.text "Comprobante para Playa Servicios"

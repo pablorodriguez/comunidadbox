@@ -23,9 +23,8 @@ class ServiceOffersController < ApplicationController
     @service_offer = ServiceOffer.find(params[:id])
     if current_user.is_administrator?
       @cars = @service_offer.car_service_offer
-    end
-        
-    @cars = @service_offer.my_cars(current_user) if company_id
+    end    
+    @cars = @service_offer.car_service_offer
     
   end
 
@@ -40,15 +39,15 @@ class ServiceOffersController < ApplicationController
       flash[:error] = 'Debe elegir al menos un automovil'
       redirect_to :back
     else
-      @offer.car_service_offer = Set.new
+      @offer.car_service_offer = []
       logger.debug "### Cars IDS #{@events_ids}"
       @events_ids.each do |car_id|
         car_service_offer = CarServiceOffer.new
-        car_service_offer.car_id = car_id
+        car_service_offer.car = Car.find(car_id)
         car_service_offer.service_offer = @offer
         @offer.car_service_offer << car_service_offer
       end
-    end
+    end    
     @cars = @offer.car_service_offer
   end
   

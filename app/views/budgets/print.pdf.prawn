@@ -3,8 +3,9 @@ company = @budget.creator.company
 pdf.font_size fs
 pdf.move_down(15)
 
-pdf.image "#{RAILS_ROOT}/public/images/logo_n.png",:at=>[455,820],:scale =>0.50
-pdf.image "#{RAILS_ROOT}/public/images/company_logos/vg_logo.png",:at=>[10,820],:scale =>0.40
+
+pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[455,820],:scale =>0.50
+pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,820],:scale =>0.40
 pdf.move_down(30)
 pdf.text "#{company.full_address}, #{company.phone}"
 

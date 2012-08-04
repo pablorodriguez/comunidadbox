@@ -1,9 +1,9 @@
 .budget_row.row{:id=>"budget-#{budget.id}"}  
   .budget_info
     .left    
-      .domain
-        = budget.domain if budget.domain && budget.car.nil?
-        = link_to(budget.car.domain, car_path(budget.car)) if budget.car
+      - if (budget.domain && (!budget.domain.empty?)) || budget.car 
+        .domain_n.left          
+          = link_to(budget.car.domain, car_path(budget.car))
       = link_to budget.full_name,budget
       
     .right      
