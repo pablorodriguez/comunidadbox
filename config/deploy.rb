@@ -4,7 +4,7 @@ require "bundler/capistrano"
 server "www.comunidadbox.com", :web, :app, :db, primary: true
 
 set :application, "comunidadbox"
-set :user, "pablo"
+set :user, "deployer"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
