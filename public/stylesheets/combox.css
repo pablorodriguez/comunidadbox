@@ -1808,6 +1808,23 @@ td.number, th.number{
   display:block;   
 }
 
+.domain_n{
+  background-image:url(/images/patente.png);  
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;
+  padding: 7px 5px;
+  margin: 3px;
+  width: 82px;
+}
+
+.domain_n a{
+  color: white;
+  font-size: 20px;
+}
+
 .price{
   font-size: 14px;
   font-weight: bold;
@@ -2561,7 +2578,7 @@ input.labelHighlight,textarea.labelHighlight {
 .car_detail .brand{
   font-size:20px;
   font-weight:bold;
-  margin:0px 10px;
+  margin:0px 5px;
 }
 
 .car_detail .domain{
@@ -2622,10 +2639,6 @@ input.labelHighlight,textarea.labelHighlight {
 
 .dates{
   width:69%;
-}
-
-#new_service_offer{
-  width:98%;
 }
 
 .menu_data{

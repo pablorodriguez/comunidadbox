@@ -1,23 +1,69 @@
+
+require "bundler/capistrano"
+
+server "www.comunidadbox.com", :web, :app, :db, primary: true
+
 set :application, "comunidadbox"
-set :repository,  "git@comunidadbox.com:myrepo.git "
+set :user, "pablo"
+set :deploy_to, "/home/#{user}/apps/#{application}"
+set :deploy_via, :remote_cache
+set :use_sudo, false
 
-set :scm, :git
-set :scm_username, "git"  # The server's user for deploys
-set :scm_password, "git5624"  # The deploy user's password
-
+set :scm, "git"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :repository,  "git@github.com:ComunidadBox/comunidadbox.git"
+set :branch, "master"
 
-role :web, "www.comunidadbox.com"                          # Your HTTP server, Apache/etc
-role :app, "www.comunidadbox.com"                          # This may be the same as your `Web` server
-role :db,  "www.comunidadbox.com", :primary => true # This is where Rails migrations will run
-role :db,  "www.comunidadbox"
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
 
+after "deploy", "deploy:cleanup"  # keep only the last 5 releases
 
+namespace :deploy do
 
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
+  %w[start stop restart].each do |command|
+    desc "#{command} unicorn server"
+    task command, roles: :app, except: {no_release: true} do
+      run "/etc/init.d/apache #{command}"
+    end
+  end
+
+  task :setup_config, roles: :app do
+    run "mkdir -p #{shared_path}/config"
+    put File.read("config/database.example.yml"), "#{shared_path}/config/database.yml"
+    puts "Now edit the config files in #{shared_path}."
+  end
+  after "deploy:setup", "deploy:setup_config"
+
+  task :symlink_config, roles: :app do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+  after "deploy:finalize_update", "deploy:symlink_config"
+
+  desc "Make sure local git is in sync with remote."
+  task :check_revision, roles: :web do
+    unless `git rev-parse HEAD` == `git rev-parse origin/master`
+      puts "WARNING: HEAD is not the same as origin/master"
+      puts "Run `git push` to sync changes."
+      exit
+    end
+  end
+  before "deploy", "deploy:check_revision"
+
+end
+
+#role :web, "your web-server here"                          # Your HTTP server, Apache/etc
+#role :app, "your app-server here"                          # This may be the same as your `Web` server
+#role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
+#role :db,  "your slave db-server here"
+
+# if you want to clean up old releases on each deploy uncomment this:
+# after "deploy:restart", "deploy:cleanup"
+
+# if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
+# If you are using Passenger mod_rails uncomment this:
 # namespace :deploy do
 #   task :start do ; end
 #   task :stop do ; end

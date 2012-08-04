@@ -1,6 +1,6 @@
 - javascript 'service_offer'
 %h1 Nueva Tarea
-- form_for @task do |f|
+= form_for @task do |f|
   = render 'shared/error_messages', :target => @task
   = render :partial => 'form', :locals => {:f => f}
 

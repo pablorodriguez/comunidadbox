@@ -1,5 +1,5 @@
 #activate
-  - form_for :user, @user, :url => { :action => :change_pass, :id => @user.id }  do |f|
+  = form_for :user, @user, :url => { :action => :change_pass, :id => @user.id }  do |f|
     = f.error_messages
     %table.service_table
       %tr.table_header

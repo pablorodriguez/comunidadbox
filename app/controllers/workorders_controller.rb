@@ -1,8 +1,6 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)  
 
-  prawnto :prawn => {:page_size => "A4"}
-
   layout "application", :except => [:remove_service,:filter]
 
   helper_method :sort_column,:sort_direction

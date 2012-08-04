@@ -1,5 +1,4 @@
 class ServiceType < ActiveRecord::Base
-  acts_as_tree :order => 'name'
 
   has_many :material_service_type
   has_many :materials ,:through => :material_service_type

@@ -13,7 +13,7 @@
     %td
       = h @materials.name
 %br
-- form_for :servicetype,:remote => true, :url=>{:action=>"save_service_type"},:html => {:id => 'form'} do |form|
+= form_for :servicetype,:remote => true, :url=>{:action=>"save_service_type"},:html => {:id => 'form'} do |form|
   #select_servicetype
     = render 'select_services'
   = submit_tag "Agregar" 

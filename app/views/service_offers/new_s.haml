@@ -9,5 +9,7 @@
       Nueva Oferta de Servicio:  
       =@offer.service_type.name
   #service_offer
-    - form_for(@offer) do |f|
-      = render :partial => 'form', :locals => {:f => f}
+    = form_for @offer do |f|    
+      = render :partial => 'form', :locals => {:f => f}  
+    #service_offer_menu.box_bottom.left.w
+      = render "list_cars"

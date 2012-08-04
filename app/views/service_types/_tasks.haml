@@ -1,4 +1,4 @@
-- form_for :service_type,:remote => true, :url => save_task_service_types_path do
+= form_for :service_type,:remote => true, :url => save_task_service_types_path do
   = select_tag 'task', options_for_select(['-Seleccione una Tarea-'] + @tasks.collect {|t| [t.name, t.id]}, :selected => '-Seleccione una Tarea-')
   = hidden_field_tag 'service_type', @service_type.id
   = submit_tag 'Agregar'

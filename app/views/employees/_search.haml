@@ -1,7 +1,7 @@
 .box_bottom
   #employees
     %h3 Buscar
-    - form_for :employee, :remote =>true, :url => search_employees_path do
+    = form_for :employee, :remote =>true, :url => search_employees_path do
       %table.w
         %thead
           %tr

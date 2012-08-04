@@ -6,6 +6,6 @@
     %h1 
       Modificar Oferta de Servicio:
       = @offer.service_type.name
-  - form_for @offer do |f|
+  = form_for @offer do |f|
     = render :partial => 'form', :locals => {:f => f}
   = render 'list_cars'

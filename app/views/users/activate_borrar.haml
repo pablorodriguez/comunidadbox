@@ -1,6 +1,6 @@
 #activate
   %h1 Ingrese su clave para activar su cuenta
-  - form_for :user, @user, :url => { :action => :change_pass, :id => @user.id }  do |f|
+  = form_for :user, @user, :url => { :action => :change_pass, :id => @user.id }  do |f|
     = f.error_messages
     %table
       %tr

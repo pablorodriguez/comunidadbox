@@ -4,6 +4,6 @@
 .contentright_s
   .box_bottom
     %h1 Modificar Alarma
-  - form_for @alarm do |f|
+  = form_for @alarm do |f|
     = render :partial => 'form', :locals => {:f => f}
 
