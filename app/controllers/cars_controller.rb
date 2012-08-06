@@ -39,7 +39,7 @@ class CarsController < ApplicationController
   def find_models
     @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
     respond_to do |format|
-      format.js
+      format.js { render :layout => false}
     end
   end
   
