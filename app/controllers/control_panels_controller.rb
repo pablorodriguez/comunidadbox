@@ -140,7 +140,7 @@ class ControlPanelsController < ApplicationController
     @models = Model.find_all_by_brand_id(params[:brand_id],:order =>"name")
     @brand_id=params[:id]
     respond_to do |format|
-      format.js
+      format.js { render :layout => false}
     end
   end
 end
