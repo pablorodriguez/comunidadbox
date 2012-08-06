@@ -21,7 +21,7 @@ gem "foreigner"
 gem "chronic"
 gem "packet"
 gem 'prawn'
-gem 'prawnto_2'
+gem 'prawnto'
 gem "geokit"
 
 # Gems used only for assets and not required

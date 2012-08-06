@@ -1,6 +1,5 @@
 class WorkordersController < ApplicationController
   #redirect_to(request.referer), redirect_to(:back)  
-
   layout "application", :except => [:remove_service,:filter]
 
   helper_method :sort_column,:sort_direction
@@ -110,17 +109,17 @@ class WorkordersController < ApplicationController
 
     respond_to do |format|
       format.pdf {
-        prawnto :prawn => {
-        :page_size => 'A4',
-        :left_margin => 10,
-        :right_margin => 10,
-        :top_margin => 35,
-        :bottom_margin => 15,
-        :page_layout => :landscape},
-        :filename=>"orden_de_trabajo_#{@work_order.id}.pdf"
-
+          prawnto :prawn => {
+            :page_size => 'A4',
+            :left_margin => 10,
+            :right_margin => 10,
+            :top_margin => 35,
+            :bottom_margin => 15,
+            :page_layout => :landscape},
+          :filename=>"orden_de_trabajo_#{@work_order.id}.pdf"
+        
         render :layout => false
-        }
+        }       
     end
   end
 

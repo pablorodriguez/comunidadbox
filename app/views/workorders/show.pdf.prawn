@@ -3,7 +3,8 @@ car =@work_order.car
 user = car.user
 fs=8
 
-pdf.image "#{RAILS_ROOT}/public/images/logo_bw.png",:position =>:center,:scale =>0.40
+pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[290,570],:scale =>0.40
+
 pdf.move_down(15)
 pdf.text "Estimado #{user.full_name}",:size=>fs,:style =>:bold
 pdf.text "Muchas gracias por usar Comunidad Box, Ud. ha realizado un servicio en nuestra red de prestadores",:size=>fs

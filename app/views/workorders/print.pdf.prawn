@@ -129,7 +129,7 @@ pdf.grid(0,1).bounding_box do
   pdf.move_up(15)
 
   pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[10,570],:scale =>0.40
-  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[290,570],:scale =>0.40  
+  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[270,570],:scale =>0.40  
 
   pdf.move_down(40)
   pdf.text "Comprobante para Playa Servicios"
