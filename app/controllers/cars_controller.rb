@@ -59,7 +59,7 @@ class CarsController < ApplicationController
     respond_to do |format|
       @car.update_attributes(params[:car]) if @msg == ""
       @car.reload
-      format.js
+      format.js { render :layout => false}
     end
   end
 
@@ -134,7 +134,7 @@ class CarsController < ApplicationController
     @companies = Company.search params
     @car_id = params[:car_id]
     respond_to do |format|
-      format.js
+      format.js { render :layout => false}
     end
   end
 
