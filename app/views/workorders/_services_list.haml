@@ -41,7 +41,7 @@
     -#  = render "alarm_fields",:f => a_form
     #wo_save.buttons.box_top
       - if @update_km
-        = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...',:disabled=>"true"
+        = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...',:disabled=>"true",:id => :workorder_submit
       -else
-        = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'
+        = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...',:id => :workorder_submit
       = link_to "Cancelar",car_path(@work_order.car)
