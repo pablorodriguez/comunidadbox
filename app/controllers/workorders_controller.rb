@@ -268,7 +268,7 @@ class WorkordersController < ApplicationController
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
-      budget = Budget.companies(company_id).find params[:b]
+      budget = Budget.companies(company_id).find(params[:b].to_i)
       if budget
         # si no hay auto en el budget y no hay auto como parametro      
         # si no hay usuario voy a crear nuevo cliente
@@ -281,11 +281,11 @@ class WorkordersController < ApplicationController
           redirect_to(new_car_path(user_id: budget.user.id,b: budget.id))
           return
         end
-
         @work_order.initialize_with_budget(budget)
       else
         flash[:notice] ="El presupuesto no pertenece a su empresa"
         redirect_to budgets_path
+        return
       end
     end
     
@@ -293,7 +293,11 @@ class WorkordersController < ApplicationController
     #busco las ofertas de servicios para el auto asignado a la orden de trabajo
     @car_service_offers = @work_order.find_car_service_offer(company.id)  if company
     @update_km= @work_order.car.update_km?
-    authorize! :create, @work_order
+    #authorize! :create, @work_order
+    respond_to do |format|
+      format.html
+    end
+
   end
 
   def task_list

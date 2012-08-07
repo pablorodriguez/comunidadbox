@@ -59,9 +59,11 @@ class Workorder < ActiveRecord::Base
     self.car = n_budget.car
     self.budget = n_budget
     n_budget.services.each do |s|
-      n_s = s.clone  
+      
+      n_s = Service.new(service_type_id: s.service_type_id)      
       s.material_services.each do |ms|
-        n_s.material_services << ms.clone
+      
+        n_s.material_services.build(amount: ms.amount,price: ms.price,material_service_type_id: ms.material_service_type_id,material: ms.material)
       end 
       self.services << n_s        
     end
@@ -294,10 +296,8 @@ class Workorder < ActiveRecord::Base
   end
 
   def to_csv(options = {})
-    debugger
     CSV.generate(options) do |csv|
       csv << column_names
-      debugger
       all.each do |workorder|
         csv << workorder.attributes.values_at(*column_names)
       end
