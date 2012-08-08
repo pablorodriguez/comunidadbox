@@ -74,8 +74,8 @@ class WorkordersControllerTest < ActionController::TestCase
     user = create(:hugo_rodriguez)
     sign_in user
     car = user.cars.first
-    get :new, :car_id => car.to_param,:company_id => @employer.company.id
-    assert_response :success 
+    get :new, :car_id => car.to_param
+    assert_response 302 
   end
 
 

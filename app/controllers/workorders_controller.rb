@@ -265,6 +265,11 @@ class WorkordersController < ApplicationController
 
     @service_types = current_user.service_types
        
+    if @work_order.company.nil? and @work_order.company_info.nil?
+      flash[:notice] ="Para registar un servicio debe seleccionar un prestador"
+      redirect_to root_path
+      return
+    end
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
