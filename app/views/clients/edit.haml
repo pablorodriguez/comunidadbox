@@ -1,6 +1,7 @@
 - javascript 'clients'
 .vertical_menu
   = render "home/menu"
+  = render "client_menu"   
 .contentright_s
   #user_company_address
     .box_bottom
@@ -19,5 +20,6 @@
             = render 'users/user_address_fields', :f =>a
       .buttons.box_bottom        
         = f.submit "Grabar",:class=>:button
-      
+        = link_to "Cancelar",client_path(@client)
+
 

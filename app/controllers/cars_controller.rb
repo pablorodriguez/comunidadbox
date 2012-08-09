@@ -170,6 +170,9 @@ class CarsController < ApplicationController
     @car = Car.find(params[:id])
     authorize! :update, @car
     @models = Model.find_by_brand_id(@car.brand.id)
+    respond_to do |format|
+      format.html
+    end
   end
 
   # POST /cars

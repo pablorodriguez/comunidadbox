@@ -1,11 +1,6 @@
 .vertical_menu
   = render "home/menu"
-  - if @client.can_edit?(current_user)
-    .box_bottom
-      .menu_actions
-        %ul
-          %li
-            = link_to "Modificar",edit_client_path(@client)  
+  = render "client_menu"
 .contentright_s
   .box_bottom
     %h1 Cliente

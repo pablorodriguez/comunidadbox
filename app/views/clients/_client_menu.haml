@@ -1,0 +1,11 @@
+.menu_actions.box_bottom
+  .menu_data    
+    %ul
+      - if company_id
+        %li
+          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}
+      - if current_user.can_edit?(@client)
+        %li
+          = link_to "Modificar Cliente",edit_client_path(@client),{:title=>"Modificar cliente"} 
+        %li
+          = link_to "Nuevo Automóvil", new_car_path(:user_id=>@client.id),  {:title =>"Nuevo Automóvil"}

@@ -5,20 +5,27 @@ class ClientsController < ApplicationController
 
   def edit
     @client = User.find(params[:id])
-
-    @client.address = Address.new unless @client.address
+    
+    @client.build_address unless @client.address
     @models = Array.new
 
     unless current_user.is_client?(@client)
       flash[:notice] = "No puede modificar un cliente que no es suyo"
-      redirect_to clients_path
+      return redirect_to clients_path
     end
-
+    
+    respond_to do |format|
+      format.html
+    end
   end
 
   def show
     @client = User.find(params[:id])
     @is_client = current_user.is_client?(@client)
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
@@ -109,9 +116,9 @@ class ClientsController < ApplicationController
   
   end
 
-  def new
-    @client = User.new
-    @client.address = Address.new
+  def new    
+    @client = User.new    
+    @client.build_address 
     @client.cars.build
     if params[:b]
       @budget = Budget.find params[:b]
@@ -124,6 +131,9 @@ class ClientsController < ApplicationController
       @client.cars.first.brand = @budget.brand
       @client.cars.first.model =@budget.model
       flash.now.notice ="Antes de registrar un servicio por favor cree el cliente"
+    end
+    respond_to do |format|
+      format.html
     end
   end
 

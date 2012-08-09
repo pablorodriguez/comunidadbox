@@ -6,3 +6,4 @@
     = render :partial => "users/car_fields",:locals => {:f => f}
   .box_bottom    
     = f.submit "Grabar",:class=>"button"
+    = link_to "Cancelar",client_path(@car.user)

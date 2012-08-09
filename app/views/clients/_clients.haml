@@ -21,9 +21,11 @@
         .action
           = link_to "",new_budget_path(:c => client.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
         .action
-          = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}
-        .action
-          = link_to "",edit_client_path(client),{:title=>"Modificar",:class =>"edit"} if client.can_edit?(current_user)
+          = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}        
+        - if current_user.can_edit?(client)
+          .action
+            = link_to "",edit_client_path(client),{:title=>"Modificar Cliente",:class =>"edit"} 
+
     - client.cars.each_with_index do |car,index|  
       .client_car.box_top.left
         .detail.left
