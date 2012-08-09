@@ -126,7 +126,6 @@ class ClientsController < ApplicationController
       @client.last_name =  @budget.last_name
       @client.email = @budget.email
       @client.phone = @budget.phone
-
       @client.cars.first.domain = @budget.domain
       @client.cars.first.brand = @budget.brand
       @client.cars.first.model =@budget.model
