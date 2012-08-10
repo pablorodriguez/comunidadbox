@@ -130,6 +130,7 @@ class Workorder < ActiveRecord::Base
     if (self.car.kmAverageMonthly && (self.car.kmAverageMonthly > 0))
       services.each do |service| 
         unless service.cancelled
+          debugger
           new_event = create_event(service)
           
           #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
@@ -157,7 +158,7 @@ class Workorder < ActiveRecord::Base
   def regenerate_events
     
     Event.transaction do
-      services.each do |service|        
+      services.each do |service|                
         service.events.each do |e|
           logger.debug "### Borro evento #{e.id} service #{service.id}" 
           e.destroy
@@ -364,7 +365,7 @@ class Workorder < ActiveRecord::Base
         
         e = Event.find id
         # Valido que el evento no pertenezca a la misma Workorder
-        logger.debug "### #{e.service.workorder.id} #{service.workorder.id}"
+        #logger.debug "### #{e.service.workorder.id} #{service.workorder.id}"
         if e.service.workorder.id != service.workorder.id
           logger.debug "### encontro eventos futuros para cancelar con este nuevo creado #{e.id}"
           #cambio su esado a finished

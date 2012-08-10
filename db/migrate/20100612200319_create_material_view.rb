@@ -16,11 +16,11 @@ class CreateMaterialView < ActiveRecord::Migration
         concat('[',m.prov_code,'] ',m.name,' ',ifnull(m.provider,'')) AS detail,
         pl.company_id AS company_id 
       from 
-        ((((comunidadbox_development.materials m 
-        join comunidadbox_development.service_types st) 
-        join comunidadbox_development.material_service_types mst) 
-        join comunidadbox_development.price_lists pl on((pl.active = 1))) 
-        join comunidadbox_development.price_list_items pli) 
+        ((((materials m 
+        join service_types st) 
+        join material_service_types mst) 
+        join price_lists pl on((pl.active = 1))) 
+        join price_list_items pli) 
       where 
         ((pli.price_list_id = pl.id) 
         and (pli.material_service_type_id = mst.id) 

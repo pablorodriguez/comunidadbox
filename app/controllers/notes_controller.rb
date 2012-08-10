@@ -60,7 +60,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       if @note.save
         format.html { redirect_to(notes_path)}
-        format.js {render :file=>"notes/new_note.js.erb"}
+        format.js {render :file=>"notes/new_note.js.erb",:layout => false}
         format.xml  { render :xml => @note, :status => :created, :location => @note }
       else
         format.html { render :action => "new" }
@@ -98,7 +98,7 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(notes_url) }
-      format.js
+      format.js {render :layout => false}
       format.xml  { head :ok }
     end
   end

@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   	@notes = @event.notes
     logger.debug "######## Event id for notes  #{@event.id}"
   	respond_to do |format|
-      format.js
+      format.js {render :layout => false}
     end
   end
 end
