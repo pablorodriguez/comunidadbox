@@ -66,5 +66,5 @@
       - if false
         = render 'ranks/rank',:workorder => work_order_row
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes clear"}
-    = render :partial =>"notes/note_form",:locals=>{:wo => work_order_row.id,:b=>nil,:notes =>work_order_row.notes}
+    = render :partial =>"notes/note_form_np",:locals=>{:wo => work_order_row.id,:b=>nil,:notes =>work_order_row.notes}
   

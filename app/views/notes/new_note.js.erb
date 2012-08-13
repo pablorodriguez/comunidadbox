@@ -1,2 +1,2 @@
-$("<%=@element_id%>").find(".notes").append("<%=escape_javascript(render(:partial=>'notes_small_view',:locals=>{:note=>@note}))%>");
+$("<%=@element_id%>").find(".notes").show().prepend("<%=escape_javascript(render(:partial=>'notes_small_view',:locals=>{:note=>@note}))%>");
 $("<%=@element_id%> .note").last().effect("highlight", {color:"#F7DE4F"}, 3000);

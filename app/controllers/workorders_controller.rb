@@ -18,9 +18,10 @@ class WorkordersController < ApplicationController
 
   def index
     page = params[:page] || 1
+    per_page = 10
 
     @company_services = get_service_types 
-    per_page = 10
+    
     @order_by = order_by
     @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = @service_type_ids.size > 0 ? true : false

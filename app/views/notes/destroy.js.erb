@@ -1,7 +1,12 @@
-$("#note-<%=@note_id%>").fadeOut();
-$("#note-<%=@note_id%>").remove();
+$("#note-<%=@note_id%>").fadeOut().remove();
 
 if ($("<%=@element_id%> .notes").children().size() == 0){
-	$("<%=@element_id%>").find(".notes_link").parent().hide();	
-	$("#notes .notes").hide();
+  var notes_container = $("<%=@element_id%> .notes_container");
+  if (!(notes_container.find(".note_form").is(":visible"))){
+    notes_container.hide();  
+  }
+
+	$("<%=@element_id%>").find(".notes_link").parent().hide();
+  
+	
 }

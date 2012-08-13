@@ -98,7 +98,7 @@ class CarsController < ApplicationController
     @notes = nil
     per_page = 10
     respond_to do |format|
-
+      
     if data == "all"
       @work_orders = Workorder.for_car(@car_id).paginate(:per_page=>per_page,:page =>page)
       filters[:domain] = @car.domain
@@ -108,7 +108,7 @@ class CarsController < ApplicationController
       @budgets = @car.budgets.paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
       @companies = Company.best(current_user.state)
-      @notes = Note.for_user(@car.user)
+      @notes = Note.for_user(@car.user).paginate(:per_page=>10,:page =>1)
       
       @events = @car.future_events.paginate(:per_page=>per_page,:page =>page)
       @wo_pages = {:d=>"wo"}

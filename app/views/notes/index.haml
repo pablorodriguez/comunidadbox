@@ -5,10 +5,7 @@
   .menu_actions.box_bottom
     %ul
       %li
-        = link_to "Nuevo Cliente", new_client_path
-      %li
-        = link_to_function "Nueva Nota","createNewNote();",{:title=>"Nueva Nota"}
-
+        = link_to "Nuevo Cliente", new_client_path      
 .contentright_s  
   %h1 Listado de Notas
-  = render :partial =>"notes/note_form",:locals=>{:wo => nil,:b=>nil, :usr=> nil,:notes =>@notes}  
+  = render :partial =>"notes/note_form_p",:locals=>{:wo => nil,:b=>nil, :usr=> nil,:notes =>@notes}  
