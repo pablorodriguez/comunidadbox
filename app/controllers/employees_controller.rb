@@ -65,6 +65,7 @@ class EmployeesController < ApplicationController
     @employee = User.new(params[:user])
     @employee.employer = current_user.company unless @employee.employer
     @employee.creator = current_user
+    @employee.confirmed =1
     
     if @employee.save
       flash[:notice] = "Empleado creado exitosamente!"
