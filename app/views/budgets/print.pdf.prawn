@@ -1,4 +1,4 @@
-fs=8
+fs=12
 company = @budget.creator.company
 pdf.font_size fs
 pdf.move_down(15)
@@ -78,8 +78,7 @@ pdf.move_down(5)
 
     service.material_services.each do |ms|      
         data << [ms.material_service_type.material.detail,ms.amount,number_to_currency(ms.price),number_to_currency(ms.total_price)] if ms.material_service_type
-        data << [ms.material,ms.amount,number_to_currency(ms.price),number_to_currency(ms.total_price)] unless ms.material_service_type
-    end
+        data << [ms.material,ms.amount,number_to_currency(ms.price),number_to_currency(ms.total_price)] unless ms.material_service_type    end
                 
     pdf.table data do
       cells.borders=[]            

@@ -11,41 +11,41 @@ pdf.grid(0,0).bounding_box do
   pdf.move_up(15)
 
   pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[290,570],:scale =>0.40
-  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,570],:scale =>0.40  
+  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,570],:scale =>0.40
+
   pdf.move_down(40)
+  pdf.text @work_order.company.name
   pdf.text "Comprobante para Administración"
-  pdf.move_up(15)
+  
+  pdf.move_up(27)
   pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold,:align=>:right  
   
   pdf.move_down(10)
 
   address = user.address ? user.address.to_text : ""
-  info = "Cliente: #{user.full_name}\nTeléfono: #{user.phone}\nEmail: #{user.email}"
-  info += "\nCUIT:#{user.cuit}" if user.cuit
-  info += "\n#{address}" if address
-  data_info = [[
-    info,
-    "Automovil: #{car.domain}\n#{car.brand.name}, #{car.model.name.strip!}, #{car.year}\nKm. Actual: #{@work_order.km}\nKm. Promedio Mensual: #{car.kmAverageMonthly}"
-    ]]
+  company_name = user.company_name ? "Razon Social: #{user.company_name}" : ""
+
+  data_info = [
+    ["Cliente: #{user.full_name}","Automovil: #{car.domain}"],
+    ["Teléfono: #{user.phone}","#{car.brand.name}, #{car.model.name}, #{car.year}"],
+    ["Email: #{user.email}","Km. Actual: #{@work_order.km}"],
+    [company_name,"Km. Promedio Mensual: #{car.kmAverageMonthly}"]
+  ]
+  data_info << ["CUIT:#{user.cuit}","#{Status.status(@work_order.status)}"] if user.cuit
+  data_info << [address,"#{@work_order.payment_method.name}"]
+  data_info << ["Vendedor: #{@work_order.user.full_name}",""]
+  data_info << ["Realizado: #{l @work_order.performed.to_date}",""]
+  
 
   pdf.table data_info do
     cells.padding=0
     cells.borders=[]
     column(1).style{|c| c.align = :right}
-    [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
-  end
-
-  data_info = [[
-    "Vendedor: #{@work_order.user.full_name} [#{Status.status(@work_order.status)}]",
-    "Realizado: #{l @work_order.performed.to_date} [#{@work_order.payment_method.name}]"
-    ]]
-    
-  pdf.table data_info do
-    cells.padding=0
-    cells.borders=[]
     columns(0..1).width = 197    
-    column(1).style{|c| c.align = :right}
+    [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
+    row(4).column(0).font_style = :bold
   end
+
   pdf.move_down 3
   
   column_widths = [222,58,57,58]
@@ -128,18 +128,20 @@ pdf.grid(0,1).bounding_box do
   pdf.font_size fs
   pdf.move_up(15)
 
-  pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[10,570],:scale =>0.40
-  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[270,570],:scale =>0.40  
+  pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[290,570],:scale =>0.40
+  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,570],:scale =>0.40
+
 
   pdf.move_down(40)
+  pdf.text @work_order.company.name
   pdf.text "Comprobante para Playa Servicios"
-  pdf.move_up(15)
+  pdf.move_up(27)
   pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold,:align=>:right
   
   pdf.move_down(10)
   data_info = [[
     "Cliente: #{user.full_name} ",
-    "Automovil: #{car.domain} \n #{car.brand.name}, #{car.model.name.strip!}, #{car.year} \n Km. Actual: #{@work_order.km} \n Km. Promedio Mensual: #{car.kmAverageMonthly}"
+    "Automovil: #{car.domain} \n #{car.brand.name}, #{car.model.name}, #{car.year} \n Km. Actual: #{@work_order.km} \n Km. Promedio Mensual: #{car.kmAverageMonthly}"
     ]]
 
   pdf.table data_info do
