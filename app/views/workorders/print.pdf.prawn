@@ -43,7 +43,7 @@ pdf.grid(0,0).bounding_box do
     column(1).style{|c| c.align = :right}
     columns(0..1).width = 197    
     [0,1].each{|i| column(i).style { |c| c.border_width = 0 }}
-    row(4).column(0).font_style = :bold
+    row(4).column(0).font_style = :bold if user.cuit
   end
 
   pdf.move_down 3
