@@ -1,4 +1,4 @@
-#menu_options.box_bottom.box_top
+#menu_options.box_bottom
   %ul
     
     %li
@@ -29,16 +29,17 @@
       #report_graph.link.menu
         = image_tag "graph.png"
         Reporte Gráfico
-    %li
-      #note.link.menu
-        = image_tag "notes.png"
-        Notas
-    %li
-      #alarms.link.menu
-        = image_tag "alarm.png"
-        Alarmas
-        -#= link_to "Alarmas",alarms_path
     .hide
+      %li
+        #note.link.menu
+          = image_tag "notes.png"
+          Notas
+    .hide
+      %li
+        #alarms.link.menu
+          = image_tag "alarm.png"
+          Alarmas
+          -#= link_to "Alarmas",alarms_path
       %li
         #messages.link.menu
           = image_tag "message.png"
@@ -68,9 +69,9 @@
           = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
         %li  
           = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} 
-      %li
-        = link_to_function "Nueva Nota","createNewNote(#{@car.id})",{:title=>"Nueva Nota"}
       .hide
+        %li
+          = link_to_function "Nueva Nota","createNewNote(#{@car.id})",{:title=>"Nueva Nota"}
         %li
           = link_to_function "Nuevo Mensaje","createNewMessage(#{@car.id})",{:title=>"Nuev Mensaje"}
 

@@ -10,13 +10,13 @@ jQuery(document).ready(function(){
 
 });
 
-function createNewNote(){
-  $("#notes_form_container").slideToggle();
+function createNewNote_old(){
+  $("#new_note_form").slideToggle();
   
 }
 
 function show_notes(element){
-  var parent = $(element).parent().parent().parent();
+  var parent = $(element).parent().parent().parent().parent().parent();
   // si el container esta visible
   if (parent.find(".notes_container").is(":visible")){
     // toggle de las notas
@@ -37,7 +37,7 @@ function show_notes(element){
 }
 
 function new_note(element){  
-  var parent = $(element).parent().parent().parent();
+  var parent = $(element).parent().parent().parent().parent().parent();
   if (parent.find(".notes_container").is(":visible")){
     parent.find(".new_note_form").toggle();
 

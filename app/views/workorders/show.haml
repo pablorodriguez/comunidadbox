@@ -9,10 +9,11 @@
           %li
             = link_to "Modificar", edit_workorder_path(@work_order)
 .contentright_s
-  .box_bottom
-    %h1
-      Orden de Trabajo: 
-      = @work_order.company_name
-  - can_show = @work_order.can_show? current_user
-  = render "show" if can_show
-  = render "s_show" unless can_show
+  .div{:id=>"wo_#{@work_order.id}"} 
+    .box_bottom
+      %h1
+        Orden de Trabajo: 
+        = @work_order.company_name
+    - can_show = @work_order.can_show? current_user
+    = render "show" if can_show
+    = render "s_show" unless can_show

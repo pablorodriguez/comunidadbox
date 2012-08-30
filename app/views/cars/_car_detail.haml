@@ -1,16 +1,15 @@
-.car_detail.clear
+.car_detail.clear.box_bottom
   #car_domain.barradatos
-    .big_domain
+    .big_domain.left
       .left
         = brand_logo @car.brand.name      
-      .domain_brand
-        .domain_n
-          = @car.domain
-        .brand.clear
-          = h @car.model.name
-          = @car.year      
+        .domain_n.right
+          = @car.domain  
+      .brand.clear
+        = h @car.model.name
+        = @car.year   
     - if can_show?(@car.user)
-      .car_info.box_top
+      .left.car_info
         .clear
           %strong
             = h @car.user.full_name      

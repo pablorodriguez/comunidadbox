@@ -1788,6 +1788,7 @@ td.number, th.number{
 
 .car_info{
   padding: 5px;
+  width:70%;
 }
 
 .event_detail .car_info{

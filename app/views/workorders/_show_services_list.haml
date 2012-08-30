@@ -14,6 +14,9 @@
   #total_work_order_v
     = number_to_currency @work_order.total_price
 - unless @work_order.notes.empty?
-  #wo_note.box_top.clear
-    = render :partial =>'notes/notes_small_view',:collection => @work_order.notes,:as=>:note   
-    
+  .notes_container.box_top.w.left
+    .box_bottom
+      %h1 Notas
+    .notes
+      = render :partial =>'notes/notes_small_view',:collection => @work_order.notes,:as=>:note   
+        
