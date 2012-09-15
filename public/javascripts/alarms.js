@@ -18,4 +18,30 @@ jQuery(document).ready(function(){
 
 	$('#alarm_date_alarm').datetimepicker();
 
+  $("#repit").change(function(){
+    if($(this).attr("checked")){
+      $("#repit_container").show();
+    }else{
+      $("#repit_container").hide();
+    }    
+  }).change();
+
+  $("#no_end").change(function(){
+    if($(this).attr("checked")){
+      $("#repit_container .date_range").attr('disabled','disabled').val("");
+    }else{
+      $("#repit_container .date_range").attr('disabled','').val("");
+    }
+  }).change();
+
+  $("#all").change(function(){
+    if($(this).attr("checked")){
+      $("#repit_container .day").attr("checked",true);
+    }else{
+      $("#repit_container .day").attr('checked',false);
+    }
+
+  });
+
+
 });

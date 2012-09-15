@@ -113,7 +113,7 @@ body {
   height:16px;
   width:16px;
   display:block;
-  float: right;
+  float: left;
   margin-left:5px;
 }
 
@@ -760,6 +760,10 @@ input{
   width:86px; 
 }
 
+.input_date_time{
+  width:140px; 
+}
+
 .input_medium{
   width: 250px;
 }
@@ -998,6 +1002,10 @@ input{
   margin-right:5px;
   margin-bottom:5px;
   overflow: hidden;
+}
+
+#days ul li{
+  float: left;
 }
 
 #comunidadbox{
@@ -1738,7 +1746,7 @@ td.number, th.number{
 }
 
 .wo_detail .wo_info, .budgets .wo_info{
-  width:18%;
+  width:17%;
   float:right;
   
 }
@@ -1782,7 +1790,7 @@ td.number, th.number{
   margin: 0px 5px 0px 5px;
 }
 
-.car .km{
+.car {
   clear: both;
 }
 
@@ -1809,19 +1817,118 @@ td.number, th.number{
   display:block;   
 }
 
-.domain_n{
-  background-image:url(/images/patente.png);  
+
+.domain_n_old{ 
   color: white;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   height: 23px;
-  padding: 5px 5px 9px 5px;
-  margin: 3px;
-  width: 82px;
+  padding: 5px 0px 9px;
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
-.domain_n a{
+.domain_white{
+  background-image:url(/images/patente.png);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.mi_domain_red{
+  background-image:url(/images/mi_patente_red.png);  
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.mi_domain_yellow{
+  background-image:url(/images/mi_patente_yellow.png);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;  
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.mi_domain_green{
+  background-image:url(/images/mi_patente_green.png);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.domain_red{
+  background-image:url(/images/patente_red.png);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;  
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.domain_yellow{
+  background-image:url(/images/patente_yellow.png);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;  
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.domain_green{
+  background-image:url(/images/patente_green.png);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 23px;  
+  margin-top: 2px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 8px 0px;
+  width: 93px;
+}
+
+.domain_white a{
   color: white;
   font-size: 20px;
 }
@@ -2030,7 +2137,7 @@ td.number, th.number{
 }
 
 .event{
-  width: 100%;
+  
 }
 
 .event_detail{
@@ -2039,9 +2146,7 @@ td.number, th.number{
   overflow: auto;
 }
 
-.km{
-  margin-right: 15px;
-}
+
 .event .status{
   margin: 2px 5px;
 }
@@ -2060,9 +2165,9 @@ td.number, th.number{
 }
 
 .mi_rojo{
-  border: 1px solid red;
-  background-color: #F77979;
+  border: 1px solid red;  
   overflow: auto;
+  background-color: #F77979;
 }
 
 .amarillo{
@@ -2094,7 +2199,11 @@ td.number, th.number{
 }
 
 .due_date {
-  width:100%;
+  color: black;
+  font-size: 12px;
+  font-weight: normal;  
+  float: right;
+  margin-right: 3px;
 }
 
 .total_work_order{
@@ -2166,29 +2275,37 @@ td.number, th.number{
 }
 
 .cars{
-  float: left;
-  margin-top:5px;
+  background: none repeat scroll 0 0 #F9F7CF;
+  overflow: auto;
+  padding-top: 3px;
 }
 
 .cars a{
-  color:black;
+  color:white;
   text-decoration:none;
 }
 
 .small_event{
-  height: 40px;
-  padding: 2px 2px;
-  width: 100px;
+  margin: 0 auto;
+  width: 93px;  
 }
 
-.other_event{
-  background-color: #99D9FF;
-  border-color: black;
-  border-style: outset;
-  border-width: 1px;
-  padding: 0 5px;
-  z-index:1000;
+.small_event_selected{
+  background: none repeat scroll 0 0 #D8DB41;
+  border-color: #BFBA00;
+  border-radius: 5px 5px 5px 5px;
+  border-style: ridge;
+  margin-top: -3px;
+  position: absolute;
+  width: 92px;
+}
 
+.other_event{  
+  z-index:1000;
+}
+
+.other_event a{
+  color: #B1D5F9;
 }
 
 .small_event .domain, .my_big_event .domain, .big_event .domain{
@@ -2250,8 +2367,12 @@ td.number, th.number{
 }
 
 .cp_event{
-  margin: 1px;
-  width:110px;
+  display: inline-block;
+  height: 63px;
+  margin: 1px;   
+  overflow: auto;
+  float: left;
+  width: 97px;
 }
 
 .link {
@@ -2288,6 +2409,18 @@ td.number, th.number{
   width:100%;
   float:left;
 }
+
+#repit_container{
+  padding: 5px 0px 5px 0px;
+}
+
+.buttons_container{
+  background-color: #F7F4F4;
+  border-bottom: thin double #CCCCCC;
+  border-top: thin double #CCCCCC;
+  margin-top: 10px;
+}
+
 .buttons a.button{
   vertical-align: middle;
 }
@@ -2633,8 +2766,30 @@ input.labelHighlight,textarea.labelHighlight {
   margin:0px 15px;
 }
 
-.alarm_info{
-  width:20%;
+.alarm .time {
+  margin-right: 5px;
+}
+
+.alarm .status {
+  margin: 0px 3px;
+  float: left;
+}
+
+.alarm .description{
+  width:85%;
+  float: left;
+}
+
+.alarm .actions{
+  width:10%;
+  float: right;
+}
+
+.alarm .dates {
+  width: 100%;
+  margin: 0px;
+  clear: both;
+  overflow: auto;
 }
 
 .dates{

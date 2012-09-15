@@ -9,4 +9,5 @@ class Note < ActiveRecord::Base
 	def self.for_user(user)
 		where("user_id = ?",user.id).order("created_at desc")
 	end
+  
 end

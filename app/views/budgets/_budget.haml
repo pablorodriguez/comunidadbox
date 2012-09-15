@@ -2,7 +2,7 @@
   .budget_info
     .left    
       - if (budget.domain && (!budget.domain.empty?)) || budget.car 
-        .domain_n.left          
+        .domain_white.left          
           - if budget.car
             = link_to(budget.car.domain, car_path(budget.car)) 
           -else
@@ -19,7 +19,7 @@
       - budget.services.each do |s|
         .service
           = link_to s.service_type.name, budget
-    .wo_info
+    %div
       .budget_date.right
         = l Date.parse(budget.created_at.to_s)
       .price_b.right            

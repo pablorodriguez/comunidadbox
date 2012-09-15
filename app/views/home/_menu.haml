@@ -12,15 +12,14 @@
         #control_panel_link.menu
           = image_tag "control-panel.png"
           = link_to "Panel de Control",control_panels_path            
-      %li.hide
+      %li
         #alarms_link.menu
           = image_tag "alarm.png"
-          = link_to "Alarmas",alarms_path
-      .hide
-        %li
-          #messages_link.menu
-            = image_tag "message.png"
-            Mensajes
+          = link_to "Alarmas",alarms_path      
+      %li.hide
+        #messages_link.menu
+          = image_tag "message.png"
+          Mensajes
     %li
       #service_done_link.menu
         = image_tag "service.png"

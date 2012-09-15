@@ -1,26 +1,24 @@
-.cp_event.left[event]
-  %div{:class=>"#{my_event_class(event)}"}
+.event[event]
+  .small_event
     - oe = @other_events[event.car_id]
-    - css = oe ? "other_event qtip":""
-    .small_event
-      -unless event.is_green
-        .right
-          = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"checkbox"})
-      %div
-        %div{:class=>css}
-          - st = create_service_type_tool_tip oe
-          %label{:title =>"#{st}"}
-            = link_to(event.car.domain, event.car)
-      .left.clear.link.due_date{:title =>"Mas Detalle"}
-        = l event.dueDate
-        - e_css = event.notes.empty? ? "" : "has_notes"
-        .event_notes{:class=>e_css,:title=>event.notes_txt}
+    - css = oe ? "other_event qtip":""      
+    %div{:class=>"#{my_event_class(event)} #{css}"}
+      - st = create_service_type_tool_tip oe
+      %label{:title =>"#{st}"}
+        = link_to(event.car.domain, "#")
+    .link.due_date{:title =>"Mas Detalle"}
+      = l event.dueDate
+    -unless event.is_green
+      .hide
+        = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"checkbox"})
+    - e_css = event.notes.empty? ? "" : "has_notes"
+    .event_notes{:class=>e_css,:title=>event.notes_txt}
 
-  %div{:class=>"#{event_class(event)} #{big_event_class(event)} link"}
+  %div{:class=>"#{big_event_class(event)} link"}
     .url
       = event_notes_path(event)
     .domain
-      =event.car.domain
+      = event.car.domain
     .car
       = "#{event.car.brand.name} #{event.car.model.name}"
     .km

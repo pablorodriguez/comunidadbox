@@ -129,8 +129,7 @@ class Workorder < ActiveRecord::Base
   def generate_events
     if (self.car.kmAverageMonthly && (self.car.kmAverageMonthly > 0))
       services.each do |service| 
-        unless service.cancelled
-          debugger
+        unless service.cancelled          
           new_event = create_event(service)
           
           #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado

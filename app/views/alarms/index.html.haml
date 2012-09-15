@@ -2,41 +2,12 @@
   = render "menu"
 .contentright_s
   .alarms
-    %h1 Listado de Alarmas
-    .row
+    .box_bottom
+      %h1 Listado de Alarmas
     - @alarms.each do |alarm|
-      .row.alarm
-        .alarm_info.left
-          %strong
-            =h alarm.name
-        .description          
-          =h alarm.description
-          = icon_status alarm.status
-        -if alarm.time 
-          .dates.left        
-            %strong
-              Cada:
-            =h alarm.time
-            =h alarm.time_unit
-        -if alarm.date_alarm 
-          %strong
-            Fecha
-          =l alarm.date_alarm  
-        -if alarm.date_ini
-          #date_from
-            %strong
-              Inicia:
-            =l alarm.date_ini
-        -if alarm.date_end
-          #date_to
-            %strong
-              Finaliza:
-            =l alarm.date_end
-        .actions.right
-          .action
-            = link_to image_tag('edit.png'), edit_alarm_path(alarm)
-          .action
-            = link_to image_tag('delete.png'), alarm, :confirm => 'Esta seguro?', :method => :delete
+      = render alarm
+      
+        
 
   
   

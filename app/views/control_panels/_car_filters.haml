@@ -62,21 +62,16 @@
         Mis
       %td
         .mi_amarillo.color
-          = check_box_tag :select_yellow,:mi_amarillo,false,:class =>:checkbox
+          = check_box_tag :select_yellow,:mi_domain_yellow,false,:class =>:checkbox
       %td
         .mi_rojo.color
-          = check_box_tag :select_red,:mi_rojo,false,:class =>:checkbox
+          = check_box_tag :select_red,:mi_domain_red,false,:class =>:checkbox
     %tr
       %td
         Otros
       %td
         .amarillo.color
-          = check_box_tag :select_yellow,:amarillo,false,:class =>:checkbox
+          = check_box_tag :select_yellow,:domain_yellow,false,:class =>:checkbox
       %td
         .rojo.color
-          = check_box_tag :select_red,:rojo,false,:class =>:checkbox
-#menu_actions
-  .menu_actions.box_bottom
-    %ul
-      %li      
-        = link_to_function "Crear Oferta de Servicio","createNewService();"
+          = check_box_tag :select_red,:domain_red,false,:class =>:checkbox

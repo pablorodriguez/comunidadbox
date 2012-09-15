@@ -40,7 +40,7 @@ class Car < ActiveRecord::Base
 
   def future_events
     #Event.future(Time.now).car(self.id).order("dueDate desc")
-    Event.car(self.id).active.order("dueDate desc")
+    Event.car(self.id).active.order("dueDate asc")
   end
   
   def can_edit?(usr)

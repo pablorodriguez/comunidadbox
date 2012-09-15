@@ -92,6 +92,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def all_notes
+    Note.where("user_id = :user_id or creator_id = :user_id", user_id: self.id).order("created_at desc")
+  end
+
   def service_offers(status=nil)
     services = []
     cars.each do |c|

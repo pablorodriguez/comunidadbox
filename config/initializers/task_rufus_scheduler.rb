@@ -9,12 +9,17 @@ scheduler.every("1m") do
   #this will run in every 1 minutes.
   #Envia notificaciones de alarmas
   #Resque.enqueue(AlarmJob)
+  #Resque.enqueue(ServiceOfferJob)
 end
 
 scheduler.every("1d") do
   #this will run in every day.
   #Envias ofertas de servicios
   #Resque.enqueue(ServiceOfferJob)
+end
+
+scheduler.cron '0 22 * * 1-5' do
+  Resque.enqueue(ServiceOfferJob)
 end
  
 #You can schedule as many job as you want here

@@ -36,46 +36,60 @@ class ServiceOffer < ActiveRecord::Base
       dates
   end
 
-  def self.get_service_offer_by_user
-    users = Hash.new
-    service_offers = ServiceOffer.where(["status = ?",Status::CONFIRMED])
-    
-    service_offers.each do |s|
-      s.status = Status::SENT
-      s.save
-      
-      s.car_service_offer.each do |cs|
-        cs.status = Status::SENT
-        cs.save
-      end
-      
-      s.cars.each do |c|
-        unless users[c]
-          users[c]=Array.new
-        end         
-        users[c] << s
-      end
-    end
-    
-    users
-  end
-  
   def my_cars user
     car_service_offer.select{|cs| cs.car.user.id == user.id}
   end
 
-  def self.notify
-    ServiceOffer.transaction do
-      users = get_service_offer_by_user
-      users.each do |key,value|
-        self.notify_service_offer(key,value)
+  #Busco las ofertas de servicio y las agrupo por auto
+  def self.get_service_offer_by_user
+    cars = Hash.new
+    service_offers = ServiceOffer.confirmed
+    
+    service_offers.each do |s|            
+      s.cars.each do |c|
+        unless cars[c]
+          cars[c]=Array.new
+        end         
+        cars[c] << s
       end
     end
+    
+    return cars,service_offers
   end
   
+
+  #Notifico a los autos sus ofertas de servicios
+  def self.notify
+    #enviar solo a estos autos..prueba
+    cars_id = %w"HRJ549 AOK780"
+    logger.info "Service Offer notify"
+    cars,so = get_service_offer_by_user      
+    cars.each do |car,service_offers|        
+      if cars_id.include?(car.domain)
+        ServiceOffer.transaction do
+          debugger
+          self.notify_service_offer(car,service_offers) 
+          self.update_car_service_offer_status(car,service_offers)
+        end
+      end    
+    end
+  
+    #Actualizo el estado de cada Oferta de Servicio a SENT    
+    so.each {|s| s.update_attributes(status: Status::SENT)}
+
+  end
+  
+  #Actualizo el estado de la oferta de servicio del auto a SENT
+  def self.update_car_service_offer_status(car,service_offers)
+    service_offers.each do |so|
+      CarServiceOffer.where("car_id = ? and service_offer_id = ?",car.id,so.id).update_all(status: Status::SENT)
+    end  
+  end
+
   private
   
   def self.notify_service_offer(car,service_offers)
+    logger.info "Envio de ServiceOffer #{Time.now} para #{car.domain} #{service_offers.map(&:id).join(',')}"
     message = ServiceOfferMailer.notify(car,service_offers).deliver
   end
 end

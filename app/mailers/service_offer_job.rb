@@ -2,7 +2,7 @@ class ServiceOfferJob
   @queue = :mails
   
   class << self
-    def perform
+    def perform      
       ServiceOffer.notify      
     end
   end

@@ -1,0 +1,41 @@
+.row.alarm
+  .status
+    = icon_status alarm.status.to_i
+  .description          
+    %strong
+      =h alarm.name
+    =h alarm.description
+  .actions
+    .action
+      = link_to image_tag('edit.png'), edit_alarm_path(alarm)
+    .action
+      = link_to image_tag('delete.png'), alarm, :confirm => 'Esta seguro?', :method => :delete
+  .dates
+    -if alarm.time 
+      .time.left        
+        %strong
+          Cada:
+        =h alarm.time
+        =h alarm.time_unit
+    -if alarm.date_alarm 
+      %strong
+        Fecha:
+      =l alarm.date_alarm,:format =>:short
+    -if alarm.date_ini
+      .time.left
+        %strong
+          Inicia:
+        =l alarm.date_ini,:format =>:short
+    -if alarm.date_end
+      .time.left
+        %strong
+          Finaliza:
+        =l alarm.date_end,:format =>:short
+    - if alarm.no_end
+      %strong No termina
+    - days = alarm.days_selected
+    - unless days.empty?
+      .days_selected.clear.left
+        %strong Días:
+        - alarm.days_selected.each do |d|
+          = d

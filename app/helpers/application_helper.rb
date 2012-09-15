@@ -79,9 +79,9 @@ module ApplicationHelper
   end
   
   def event_class event
-    css = "verde" if event.is_green
-    css = "rojo" if event.is_red
-    css ="amarillo" if event.is_yellow
+    css = "domain_green" if event.is_green
+    css = "domain_red" if event.is_red
+    css = "domain_yellow" if event.is_yellow
     return css
   end
   

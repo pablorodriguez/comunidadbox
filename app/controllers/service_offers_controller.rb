@@ -31,6 +31,7 @@ class ServiceOffersController < ApplicationController
   def new_s
     @title ="Oferta de Servicio"
     @offer = ServiceOffer.new(params[:service_offer])
+
     @events_ids = params[:events_ids_chk] || []
     @events_ids.slice!(0) if @events_ids
     @events_ids = @events_ids.split("#")
@@ -121,7 +122,7 @@ class ServiceOffersController < ApplicationController
   def notify_email
     users = ServiceOffer.get_service_offer_by_user
     if users.size > 0
-      @car = users.keys[0]
+      @car = users.keys[1]
       @user = @car.user
       @service_offers = users[@car]
       respond_to do |format|

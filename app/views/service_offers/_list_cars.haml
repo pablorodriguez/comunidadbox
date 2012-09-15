@@ -1,11 +1,10 @@
 .box_bottom
   %h3 Automóviles seleccionados
-- @cars.each do |car_s|
-  .domain
-    .domain_n
-      = car_s.car.domain
-      -# if car_s.status      
-        -#= icon_status car_s.status
+.box_bottom
+  - @cars.each do |car_s|   
+    .left
+      .domain_white
+        = car_s.car.domain
     -if current_user.cars.include?(car_s.car)
       .actions
       - if car_s.status == "Enviado"

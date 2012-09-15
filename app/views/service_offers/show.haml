@@ -11,9 +11,9 @@
 
 .contentright_s
   .box_bottom
-    %h1
-      Oferta de Servicio :
+    %h1      
+      = @service_offer.service_type.name
+    %h1       
       = @service_offer.company.name
   = render @service_offer
-  #service_offer_menu.box_bottom
-    = render "list_cars"
+  = render "list_cars"

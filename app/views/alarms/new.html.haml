@@ -1,10 +1,8 @@
-- javascript 'alarms'
-- javascript 'jquery-ui-timepicker-addon'
 .vertical_menu
   = render "menu"
 .contentright_s
-  %h1 Nueva Alarma
   .box_bottom
+    %h1 Nueva Alarma
   = form_for @alarm do |f|
     = render :partial => 'form', :locals => {:f => f}
 

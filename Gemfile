@@ -47,7 +47,7 @@ gem 'jquery-rails'
 
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
-gem 'resque-scheduler'
+#gem 'resque-scheduler'
 gem 'rufus-scheduler'
 gem 'factory_girl_rails',"~> 3.0"
 gem 'cancan'

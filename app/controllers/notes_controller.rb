@@ -5,7 +5,7 @@ class NotesController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = 10
-    @notes = current_user.notes.paginate(:page =>page,:per_page =>per_page)
+    @notes = current_user.all_notes.paginate(:page =>page,:per_page =>per_page)
 
     respond_to do |format|
       format.html # index.html.erb

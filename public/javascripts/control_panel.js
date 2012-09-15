@@ -88,6 +88,14 @@ function searchModel(event){
   });  
 }
 
+function updateEventSelected(checkbox){
+  if (checkbox.is(":checked")){
+      checkbox.parent().parent().parent().addClass("small_event_selected");
+    }else{
+      checkbox.parent().parent().parent().removeClass("small_event_selected");
+    }
+}
+
 jQuery(document).ready( function(){
 	$('#operators_red').click(function(){checkAll(this,'red');});
 	$('#operators_yellow').click(function(){checkAll(this,'yellow');});
@@ -102,6 +110,16 @@ jQuery(document).ready( function(){
 	$('#sf').change(submit_form);
 	$('#find_filter').click(toggleSearchFilter);
 	
+  $(".cars .cp_event :checkbox").change(function(){
+    updateEventSelected($(this));
+  });
+
+  $(".cars .small_event a").click(function(){
+    var checkbox = $(this).parent().parent().parent().parent().parent().find(":checkbox");
+    checkbox.click();
+    updateEventSelected(checkbox);
+  });
+
 	$('#service_filter_brand_id').change(searchModel);
 	
 	if ($('#service_filter_name').val()){
@@ -194,10 +212,6 @@ jQuery(document).ready( function(){
    
 });
 
-function createNewService(){
-	$("#save_offer").click();
-}
-
 function checkEventsIds(){
   //Si hay datos en events id, busco los checkbox y los selecciono
   var events_ids = $("#events_ids").val();
@@ -208,6 +222,7 @@ function checkEventsIds(){
   		var checkbox = $("#events input:checkbox[value='" + ids[x] + "']");
   		if (checkbox.size() > 0){
   			checkbox.attr("checked","checked");
+        updateEventSelected(checkbox);
   			remove_ids += "#" + ids[x];
   		}
   	}
@@ -253,11 +268,15 @@ function select(){
     var value = $(this).attr("value");      
     if (this.checked){
       $("#events ." + value).each(function(){        
-        $(this).find("input:checkbox").attr("checked","checked");
+        var checkbox = $(this).parent().find("input:checkbox");                
+        checkbox.attr("checked","selected");
+        updateEventSelected(checkbox);
       });
     }else{
       $("#events ." + value).each(function(){
-        $(this).find("input:checkbox").attr("checked","");
+        var checkbox = $(this).parent().find("input:checkbox");  
+        checkbox.attr("checked","");        
+        updateEventSelected(checkbox);
       });      
     }
       
@@ -273,11 +292,11 @@ function showBigEvent(){
 	$("#event_detail").show();
 	var event_detail = $("#event_detail .detail");
 	
-	var event_id = event.parent().parent().parent().attr("id");
+	var event_id = event.parent().parent().attr("id");
 	event_id = event_id.match(/\d*$/)[0];
 	searchNotes(event_id);
 	
-	var event_data = event.parent().parent().next();
+	var event_data = event.parent().parent();
 
 	$.each([".domain",".km",".km_avg",".total_company_spend",".total_spend",".car",".user_full_name",".user_email",".user_phone"],function(index,value){
 		var val = event_data.find(value).html();

@@ -57,9 +57,9 @@
               = @client.address.zip
   .box_bottom.w
     - @client.cars.each do |car|
-      .left
-        = brand_logo car.brand.name            
-      .domain_n.left
+      .domain_white.left
         = link_to car.domain, car
       .left
+        = brand_logo car.brand.name            
+      %h1.left
         = "#{car.model.name} #{car.year}"

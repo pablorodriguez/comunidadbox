@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323171733) do
+ActiveRecord::Schema.define(:version => 20120901130832) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -42,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20120323171733) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "monday",      :default => false
+    t.boolean  "tuesday",     :default => false
+    t.boolean  "wednesday",   :default => false
+    t.boolean  "thursday",    :default => false
+    t.boolean  "friday",      :default => false
+    t.boolean  "saturday",    :default => false
+    t.boolean  "sunday",      :default => false
+    t.boolean  "no_end",      :default => false
+    t.datetime "next_time"
+    t.datetime "last_time"
   end
 
   add_index "alarms", ["user_id"], :name => "alarms_user_id_fk"
@@ -222,15 +233,16 @@ ActiveRecord::Schema.define(:version => 20120323171733) do
   end
 
   create_table "material_details", :id => false, :force => true do |t|
-    t.integer "material_id",                             :default => 0, :null => false
+    t.string  "prov_code",                :limit => 50
+    t.integer "material_id",                                    :default => 0, :null => false
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "service_type_id"
-    t.integer "price_list_id",                           :default => 0, :null => false
-    t.integer "material_service_type_id",                :default => 0, :null => false
+    t.integer "price_list_id",                                  :default => 0, :null => false
+    t.integer "material_service_type_id",                       :default => 0, :null => false
     t.float   "price"
-    t.string  "detail_upper",             :limit => 308
-    t.string  "detail",                   :limit => 308
+    t.text    "detail_upper",             :limit => 2147483647
+    t.text    "detail",                   :limit => 2147483647
     t.integer "company_id"
   end
 
@@ -268,6 +280,10 @@ ActiveRecord::Schema.define(:version => 20120323171733) do
     t.string   "brand"
     t.string   "provider"
   end
+
+  add_index "materials", ["code"], :name => "material_code"
+  add_index "materials", ["name"], :name => "material_name"
+  add_index "materials", ["prov_code"], :name => "material_prov_code"
 
   create_table "models", :force => true do |t|
     t.string   "name"
@@ -395,6 +411,7 @@ ActiveRecord::Schema.define(:version => 20120323171733) do
     t.integer  "kms"
     t.integer  "parent_id"
     t.string   "active"
+    t.string   "code",       :limit => 10
     t.datetime "created_at"
     t.datetime "updated_at"
   end
