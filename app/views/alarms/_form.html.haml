@@ -1,6 +1,5 @@
 
 - javascript 'alarms'
-- javascript 'jquery-ui-timepicker-addon'
 = render 'shared/error_messages', :target => @alarm
 .box_bottom
   %table.w
@@ -19,7 +18,10 @@
         = f.text_field :date_alarm, :default => Time.zone.now,:value => (l(f.object.date_alarm,format: :short) if f.object.date_alarm),:class =>:input_date_time
         = check_box_tag "repit","1",f.object.replay?
         = label_tag "repit","Repetir"
-
+        %strong
+          Proxima notificación
+        - if f.object.next_time
+          = l(f.object.next_time,format: :short)
 #repit_container.box_bottom.hide
   %table.w
     %tbody
@@ -33,9 +35,9 @@
         %td
           %label Inicio
         %td{:colspan=>2}
-          = f.text_field :date_ini, :default => Time.zone.now,:class =>"input_date date_range"
+          = f.text_field :date_ini, :default => Time.zone.now,:value => (l(f.object.date_ini,format: :short) if f.object.date_ini),:class =>"input_date_time date_range"
           %label Fin
-          = f.text_field :date_end, :default => Time.zone.now,:class =>"input_date date_range"
+          = f.text_field :date_end, :default => Time.zone.now,:value => (l(f.object.date_end,format: :short) if f.object.date_ini),:class =>"input_date_time date_range"
           = f.check_box :no_end
           =label_tag "alarm_no_end","No Termina"
       %tr

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901130832) do
+ActiveRecord::Schema.define(:version => 20120917121644) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -300,20 +300,23 @@ ActiveRecord::Schema.define(:version => 20120901130832) do
     t.datetime "recall"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.string   "status",       :limit => 50
+    t.string   "status",        :limit => 50
     t.integer  "user_id"
     t.integer  "workorder_id"
     t.integer  "note_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "creator_id",                 :null => false
+    t.integer  "creator_id",                  :null => false
     t.integer  "budget_id"
     t.boolean  "viewed"
     t.integer  "event_id"
+    t.integer  "receiver_id"
+    t.integer  "respond_to_id"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
   add_index "notes", ["note_id"], :name => "notes_note_id_fk"
+  add_index "notes", ["receiver_id"], :name => "notes_receiver_id_fk"
   add_index "notes", ["user_id"], :name => "notes_user_id_fk"
   add_index "notes", ["workorder_id"], :name => "notes_workorder_id_fk"
 
@@ -584,6 +587,7 @@ ActiveRecord::Schema.define(:version => 20120901130832) do
 
   add_foreign_key "notes", "budgets", :name => "notes_budget_id_fk", :dependent => :delete
   add_foreign_key "notes", "notes", :name => "notes_note_id_fk", :dependent => :delete
+  add_foreign_key "notes", "users", :name => "notes_receiver_id_fk", :column => "receiver_id", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete
   add_foreign_key "notes", "workorders", :name => "notes_workorder_id_fk", :dependent => :delete
 

@@ -3,7 +3,7 @@ class AlarmJob
   
   class << self
     def perform
-      Alarm.notify       
+      Alarm.notify      
     end
   end
 end

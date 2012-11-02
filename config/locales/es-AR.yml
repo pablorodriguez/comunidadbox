@@ -58,7 +58,7 @@
   time:
     formats:
       default: "%A, %e de %B de %Y, %H:%M hs"
-      short: "%e/%m /%Y, %H:%M hs"
+      short: "%e/%m/%Y %H:%M"
       long: "%A, %e de %B de %Y, %H:%M hs"
     am: am
     pm: pm

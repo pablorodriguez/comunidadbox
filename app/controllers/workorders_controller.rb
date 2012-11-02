@@ -274,7 +274,8 @@ class WorkordersController < ApplicationController
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
-      budget = Budget.companies(company_id).find(params[:b].to_i)
+      budget = Budget.companies(current_user.company_ids).where("id = ? ",params[:b].to_i).first
+
       if budget
         # si no hay auto en el budget y no hay auto como parametro      
         # si no hay usuario voy a crear nuevo cliente

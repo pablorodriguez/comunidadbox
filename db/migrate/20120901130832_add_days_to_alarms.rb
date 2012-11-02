@@ -1,6 +1,6 @@
 class AddDaysToAlarms < ActiveRecord::Migration
 
-  def self.up
+  def up
     add_column :alarms, :monday,:boolean,:default => false
     add_column :alarms, :tuesday,:boolean,:default => false
     add_column :alarms, :wednesday,:boolean,:default => false
@@ -13,7 +13,8 @@ class AddDaysToAlarms < ActiveRecord::Migration
     add_column :alarms, :last_time, :timestamp
   end
 
-  def self.down
+
+  def down
     remove_column :alarms,:monday
     remove_column :alarms,:tuesday
     remove_column :alarms,:wednesday

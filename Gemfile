@@ -37,6 +37,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development, :test do
+  #gem 'turn'
+end
+
 # GEOLOCALIZACION Y MAPAS
 gem 'geocoder'
 gem 'gmaps4rails'
@@ -65,6 +69,8 @@ gem 'capistrano'
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
 gem 'debugger', group: [:development,:test]
+
+
 
 # Bundle the extra gems:
 # gem 'bj'

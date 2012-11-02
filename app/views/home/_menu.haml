@@ -7,15 +7,15 @@
           = link_to "Clientes", clients_path
         - else
           = link_to "Mis Autos", my_cars_path          
+    %li
+      #alarms_link.menu
+        = image_tag "alarm.png"
+        = link_to "Alarmas",alarms_path      
     - if company_id
       %li
         #control_panel_link.menu
           = image_tag "control-panel.png"
           = link_to "Panel de Control",control_panels_path            
-      %li
-        #alarms_link.menu
-          = image_tag "alarm.png"
-          = link_to "Alarmas",alarms_path      
       %li.hide
         #messages_link.menu
           = image_tag "message.png"

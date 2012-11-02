@@ -11,6 +11,6 @@ class BudgetMailer < ActionMailer::Base
     @car = @budget
     @car = @budget.car if @budget.car 
     
-    mail(:to => @client.email,:bcc =>@budget.creator.email,:subject => "presupuesto #{budget.creator.company.name} Nro: #{budget.id}")
+    mail(:to => @client.email,:subject => "presupuesto #{budget.creator.company.name} Nro: #{budget.id}")
   end
 end

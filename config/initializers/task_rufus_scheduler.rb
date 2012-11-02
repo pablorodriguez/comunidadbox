@@ -8,7 +8,7 @@ scheduler = Rufus::Scheduler.start_new
 scheduler.every("1m") do
   #this will run in every 1 minutes.
   #Envia notificaciones de alarmas
-  #Resque.enqueue(AlarmJob)
+  Resque.enqueue(AlarmJob)
   #Resque.enqueue(ServiceOfferJob)
 end
 

@@ -23,8 +23,16 @@ jQuery(document).ready(function(){
       $("#repit_container").show();
     }else{
       $("#repit_container").hide();
+      $("#repit_container :text").val("");
+      $("#repit_container :checkbox").attr("checked","");
     }    
-  }).change();
+  });
+
+  if ($("#repit_container :checkbox:checked").size() > 0){
+    $("#repit_container").show();
+    $("#repit").attr("checked","checked");
+  }
+  
 
   $("#no_end").change(function(){
     if($(this).attr("checked")){

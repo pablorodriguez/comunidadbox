@@ -1,6 +1,6 @@
 class AlarmsController < ApplicationController
   def index
-    @alarms = current_user.alarms
+    @alarms = current_user.alarms.order("next_time desc")
   end
 
   def show

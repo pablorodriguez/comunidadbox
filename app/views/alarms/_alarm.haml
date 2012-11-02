@@ -21,6 +21,14 @@
       %strong
         Fecha:
       =l alarm.date_alarm,:format =>:short
+    - if alarm.next_time
+      %strong
+        Proxima 
+      = l alarm.next_time,:format =>:short
+    - if alarm.last_time
+      %strong
+        Ultima
+      = l alarm.last_time,:format =>:short
     -if alarm.date_ini
       .time.left
         %strong
