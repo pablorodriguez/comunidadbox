@@ -1,7 +1,7 @@
 
 - javascript 'alarms'
 = render 'shared/error_messages', :target => @alarm
-.box_bottom
+.box_bottom  
   %table.w
     %tr
       %td{:style=>"width:100px"} Nombre
@@ -22,11 +22,12 @@
           Proxima notificación
         - if f.object.next_time
           = l(f.object.next_time,format: :short)
-#repit_container.box_bottom.hide
+- css_hide = f.object.replay? ? "" : "hide"
+#repit_container.box_bottom{:class=>"#{css_hide}"}
   %table.w
     %tbody
       %tr
-        %td
+        %td{:style=>"width:100px"}
           %label Cada 
         %td{:colspan=>2}
           = f.text_field :time,:class =>:input_short

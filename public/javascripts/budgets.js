@@ -1,4 +1,7 @@
 jQuery(document).ready( function(){
+  $(".notes_container").hide();
+  $(".new_note_link").click(new_note);
+  $(".notes_link").click(show_notes)
 
   $('#brand_id').change(searchModel);
   

@@ -6,6 +6,7 @@
     %ul
       %li
         = link_to "Nuevo Cliente", new_client_path      
-.contentright_s  
-  %h1 Listado de Notas
+.contentright_s
+  .box_bottom
+    %h1 Listado de Notas
   = render :partial =>"notes/note_form_p",:locals=>{:wo => nil,:b=>nil, :usr=> nil,:notes =>@notes}  

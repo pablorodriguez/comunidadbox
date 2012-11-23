@@ -13,6 +13,7 @@ class CreateNotes < ActiveRecord::Migration
       t.references :note
       t.timestamps
     end
+    
     add_foreign_key(:notes,:users,:dependent => :delete)
     add_foreign_key(:notes,:workorders,:dependent => :delete)
     add_foreign_key(:notes,:notes,:column =>:note_id,:dependent => :delete)

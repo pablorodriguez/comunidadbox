@@ -1,6 +1,6 @@
-.notes_container.box_top.hide
+.notes_container
   = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b}
-  .notes.hide
+  .notes
     - notes.each do |note|
       = render :partial =>'notes/notes_small_view',:locals=>{:wo => wo,:b=>b,:note =>note}
   

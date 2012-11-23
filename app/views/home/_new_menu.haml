@@ -1,0 +1,16 @@
+%li
+  #alarms_link.menu
+    = image_tag "alarm.png",:class=> :left
+    = link_to "Alarmas",alarms_path,:class=> :left
+    #today_alarm
+      = alarm_today_nro
+%li
+  #messages_link.menu        
+    = image_tag "message.png",:class=> :left
+    = link_to "Mensajes", messages_path,:class => :left
+    #unread_message_nro
+      = unread_message_nro
+%li
+  #note.link.link.menu
+    = image_tag "notes.png"
+    = link_to "Notas",notes_path

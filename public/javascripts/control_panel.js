@@ -96,9 +96,22 @@ function updateEventSelected(checkbox){
     }
 }
 
+function createNewAlarm(){
+  $("#alarms").toggle();
+  $("#notes").hide();
+}
+
+function createNewNote(){  
+  $("#notes").toggle();
+  $("#alarms").hide();
+}
+
 jQuery(document).ready( function(){
 	$('#operators_red').click(function(){checkAll(this,'red');});
 	$('#operators_yellow').click(function(){checkAll(this,'yellow');});
+
+  $(".add_alarm").click(createNewAlarm);
+  $(".new_note").click(createNewNote);
 	
 	$('#reload').click(submit_form);
 	$('#new_reload').click(submit_form);
@@ -173,13 +186,21 @@ jQuery(document).ready( function(){
     	}else{
     		$(event_id +" .event_notes").attr("title","").removeClass("has_notes");
     	}
+
+      if ($(".alarms").children().size() > 0){
+        $(event_id +" .event_alarm").addClass("has_alarms");
+      }else{
+        $(event_id +" .event_alarm").removeClass("has_alarms");
+      }      
+
+      $("#repit").attr("checked",false).trigger('change');
+
     	$(".notes_container .notes").html("");
     	$(".notes_container .note_form").attr("action","");
     },
-    open: function(){
-    	$(".notes_container").show();
-    	$(".notes_container .notes").show();
-    	$(".notes_container .new_note_form").show();
+    open: function(){    	
+    	$("#notes").hide();
+      $("#alarms").hide();
     },
     buttons: [          
           {
@@ -192,6 +213,10 @@ jQuery(document).ready( function(){
 	});
 
   $(".note_form[data-remote='true']").bind('ajax:success',function(){
+    $(this)[0].reset();
+  });
+
+  $("#new_alarm[data-remote='true']").bind('ajax:success',function(){
     $(this)[0].reset();
   });
 
@@ -310,8 +335,10 @@ function showBigEvent(){
 	});
 
 	var url = event_data.find(".url").html().trim();
+  var alarm_url = event_data.find(".alarm_url").html().trim();
+
 	$(".note_form").attr("action",url);
-	
+	$("#new_alarm").attr("action",alarm_url);
 	eventDetailDialog.dialog("open");
 }
 

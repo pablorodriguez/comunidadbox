@@ -39,6 +39,7 @@ end
 
 group :development, :test do
   #gem 'turn'
+  gem "timecop"
 end
 
 # GEOLOCALIZACION Y MAPAS

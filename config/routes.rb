@@ -76,14 +76,30 @@ ComunidadBox::Application.routes.draw do
   resources :ranks
   resources :tasks
 
+  resources :messages do 
+    member do
+      get :email
+      post :read
+    end
+
+  end
+
+
   resources :home do
     collection do
       post :set_company
     end
   end
 
+  resources :messages do
+    member do
+      post :respond
+    end
+  end
+
   resources :events do
     resources :notes
+    resources :alarms
 
     member do
       get :search_notes
@@ -140,6 +156,8 @@ ComunidadBox::Application.routes.draw do
   end
 
   resources :cars do
+    resources :alarms
+
     collection do
       post :find_models
       post :search

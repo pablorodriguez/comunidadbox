@@ -1,4 +1,4 @@
-.row.alarm
+.alarm.row[alarm]
   .status
     = icon_status alarm.status.to_i
   .description          
@@ -6,10 +6,11 @@
       =h alarm.name
     =h alarm.description
   .actions
+    .action        
+      = link_to "",edit_alarm_path(alarm),:class=>"edit",:title =>"Modificar"
     .action
-      = link_to image_tag('edit.png'), edit_alarm_path(alarm)
-    .action
-      = link_to image_tag('delete.png'), alarm, :confirm => 'Esta seguro?', :method => :delete
+      -#= link_to image_tag('delete.png'), alarm, :confirm => 'Esta seguro?', :method => :delete
+      = link_to "", alarm_path(alarm), :confirm => '¿ Esta seguro que desea borrar la Alarma ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete 
   .dates
     -if alarm.time 
       .time.left        

@@ -1,0 +1,5 @@
+.box_bottom
+  %h1 Nueva Alarma
+- @alarm = Alarm.new
+= form_for @alarm,:remote=>true do |f|
+  = render :partial => '/alarms/form', :locals => {:f => f}

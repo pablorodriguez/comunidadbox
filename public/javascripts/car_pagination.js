@@ -1,4 +1,7 @@
 jQuery(document).ready(function(){
+  
+  $(".notes_container").hide();
+  $(".new_note_link").click(new_note);
 
   $("#paginator_wo .pagination a").live("click",function(){
     $.setFragment({"page" : $.queryString(this.href).page,  

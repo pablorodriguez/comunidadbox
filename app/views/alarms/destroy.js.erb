@@ -1,0 +1,7 @@
+$("#alarm_<%=@alarm.id%>").fadeOut().remove();
+
+if ($(".alarms").children().size() == 0){
+  $("#event_<%=@alarm.event.id%>").find(".event_alarm").hide();
+}else{
+  $("#event_<%=@alarm.event.id%>").find(".event_alarm").show();
+}

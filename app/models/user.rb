@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   belongs_to :employer,:class_name =>"Company",:foreign_key=>'employer_id'
 
   has_many :alarms, :dependent => :destroy
+  has_many :messages
 
   validates_uniqueness_of :email, :case_sensitive => false
 
@@ -255,6 +256,10 @@ class User < ActiveRecord::Base
 
   def is_client? user    
     Company.is_client?(get_companies_ids,user.id)
+  end
+
+  def unread_messages_nro
+    Message.for_user(self).unread.count
   end
   
 end

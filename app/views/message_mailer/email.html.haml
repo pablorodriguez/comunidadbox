@@ -1,0 +1,16 @@
+%h2 Comunidad Box
+
+-if @message.receiver != @message.user
+  %p
+    Estimado #{@message.receiver.full_name}
+  %p
+    #{@message.user.full_name} le envia a enviado un mensaje
+-if @message.alarm
+  La alarma 
+  = link_to "#{@message.alarm.name}",alarm_url(@message.alarm),:target => "_blank" 
+  le envia un mensaje
+
+%p
+  =h @message.message
+%h3 Equipo de Comunidad Box
+

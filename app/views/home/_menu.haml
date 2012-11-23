@@ -7,19 +7,11 @@
           = link_to "Clientes", clients_path
         - else
           = link_to "Mis Autos", my_cars_path          
-    %li
-      #alarms_link.menu
-        = image_tag "alarm.png"
-        = link_to "Alarmas",alarms_path      
     - if company_id
       %li
         #control_panel_link.menu
           = image_tag "control-panel.png"
           = link_to "Panel de Control",control_panels_path            
-      %li.hide
-        #messages_link.menu
-          = image_tag "message.png"
-          Mensajes
     %li
       #service_done_link.menu
         = image_tag "service.png"
@@ -29,13 +21,10 @@
         = image_tag "budget.png"
         = link_to "Presupuestos",budgets_path      
     %li
-      #note.link.link.menu
-        = image_tag "notes.png"
-        = link_to "Notas",notes_path
-    %li
       #service_offer.link.menu
         = image_tag "service_offer.png"
         = link_to "Ofertas de Servicio" , service_offers_path
+    = render "new_menu"
     %li
       #service_center_link.menu
         = image_tag "find.png"        

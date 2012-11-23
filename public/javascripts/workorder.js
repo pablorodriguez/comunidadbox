@@ -1,9 +1,41 @@
+
+function changeSort() {
+  var order = $("#order_by").find("dt a span.order").html();
+  var by = $("#order_by").find("dt a span.value").html();
+  submitForm(by,order);
+}
+
+function setSort(element){
+    var text = element.html();
+    $(".dropdown dt a span").html(text);
+    $(".dropdown dd ul").hide();
+    changeSort();
+}
+
+
+function submitForm(sort_column,direction){
+	$("#sort").val(sort_column);
+	$("#direction").val(direction);
+	$("#filter").submit();
+}
+
+function show_notes_222(element){
+  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
+}
+
+function new_note_222(){
+  $(this).parent().parent().parent().parent().parent().find(".new_notes").slideToggle();
+}
+
 /**
  * @author Hernan
  */
  var chart;
 jQuery(document).ready( function(){
-   
+    $(".notes_container").hide();
+    $(".new_note_link").click(new_note);
+    $(".notes_link").click(show_notes)
+
     var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,
       changeMonth: true,
@@ -19,8 +51,8 @@ jQuery(document).ready( function(){
       }
     });
 
-		
-	$(".dropdown dt a").live("click",function() {
+    
+  $(".dropdown dt a").live("click",function() {
     $(".dropdown dd ul").toggle();
   });
   
@@ -70,31 +102,3 @@ jQuery(document).ready( function(){
 
   
 });
-
-function changeSort() {
-  var order = $("#order_by").find("dt a span.order").html();
-  var by = $("#order_by").find("dt a span.value").html();
-  submitForm(by,order);
-}
-
-function setSort(element){
-    var text = element.html();
-    $(".dropdown dt a span").html(text);
-    $(".dropdown dd ul").hide();
-    changeSort();
-}
-
-
-function submitForm(sort_column,direction){
-	$("#sort").val(sort_column);
-	$("#direction").val(direction);
-	$("#filter").submit();
-}
-
-function show_notes(element){
-  $(element).parent().parent().parent().parent().parent().find(".notes").slideToggle();
-}
-
-function new_note(element){
-  $(element).parent().parent().parent().parent().parent().find(".new_notes").slideToggle();
-}

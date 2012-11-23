@@ -15,8 +15,8 @@ function createNewNote_old(){
   
 }
 
-function show_notes(element){
-  var parent = $(element).parent().parent().parent().parent().parent();
+function show_notes(){
+  var parent = $(this).parent().parent().parent();
   // si el container esta visible
   if (parent.find(".notes_container").is(":visible")){
     // toggle de las notas
@@ -36,8 +36,8 @@ function show_notes(element){
   }
 }
 
-function new_note(element){  
-  var parent = $(element).parent().parent().parent().parent().parent();
+function new_note(){  
+  var parent = $(this).parent().parent().parent();
   if (parent.find(".notes_container").is(":visible")){
     parent.find(".new_note_form").toggle();
 

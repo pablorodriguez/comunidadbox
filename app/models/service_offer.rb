@@ -67,7 +67,6 @@ class ServiceOffer < ActiveRecord::Base
     cars.each do |car,service_offers|        
       if cars_id.include?(car.domain)
         ServiceOffer.transaction do
-          debugger
           self.notify_service_offer(car,service_offers) 
           self.update_car_service_offer_status(car,service_offers)
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917121644) do
+ActiveRecord::Schema.define(:version => 20121121212047) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(:version => 20120917121644) do
     t.boolean  "no_end",      :default => false
     t.datetime "next_time"
     t.datetime "last_time"
+    t.integer  "car_id"
+    t.integer  "client_id"
+    t.integer  "event_id"
   end
 
   add_index "alarms", ["user_id"], :name => "alarms_user_id_fk"
@@ -285,6 +288,27 @@ ActiveRecord::Schema.define(:version => 20120917121644) do
   add_index "materials", ["name"], :name => "material_name"
   add_index "materials", ["prov_code"], :name => "material_prov_code"
 
+  create_table "messages", :force => true do |t|
+    t.text     "message"
+    t.boolean  "read",         :default => false
+    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.integer  "event_id"
+    t.integer  "workorder_id"
+    t.integer  "budget_id"
+    t.integer  "message_id"
+    t.integer  "alarm_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "messages", ["alarm_id"], :name => "messages_alarm_id_fk"
+  add_index "messages", ["budget_id"], :name => "messages_budget_id_fk"
+  add_index "messages", ["event_id"], :name => "messages_event_id_fk"
+  add_index "messages", ["message_id"], :name => "messages_message_id_fk"
+  add_index "messages", ["user_id"], :name => "messages_user_id_fk"
+  add_index "messages", ["workorder_id"], :name => "messages_workorder_id_fk"
+
   create_table "models", :force => true do |t|
     t.string   "name"
     t.integer  "brand_id"
@@ -312,6 +336,7 @@ ActiveRecord::Schema.define(:version => 20120917121644) do
     t.integer  "event_id"
     t.integer  "receiver_id"
     t.integer  "respond_to_id"
+    t.integer  "alarm_id"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
@@ -501,19 +526,19 @@ ActiveRecord::Schema.define(:version => 20120917121644) do
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "phone",                :limit => 15
+    t.string   "phone",                  :limit => 15
     t.integer  "employer_id"
     t.integer  "creator_id"
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                         :default => "", :null => false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -524,6 +549,13 @@ ActiveRecord::Schema.define(:version => 20120917121644) do
     t.string   "cuit"
     t.boolean  "confirmed"
     t.boolean  "disable"
+    t.datetime "reset_password_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",                       :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authenticatable"
+    t.string   "invitation_token"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
@@ -582,6 +614,13 @@ ActiveRecord::Schema.define(:version => 20120917121644) do
 
   add_foreign_key "material_services", "material_service_types", :name => "material_services_ibfk_1"
   add_foreign_key "material_services", "services", :name => "material_services_ibfk_2", :dependent => :delete
+
+  add_foreign_key "messages", "alarms", :name => "messages_alarm_id_fk", :dependent => :delete
+  add_foreign_key "messages", "budgets", :name => "messages_budget_id_fk", :dependent => :delete
+  add_foreign_key "messages", "events", :name => "messages_event_id_fk", :dependent => :delete
+  add_foreign_key "messages", "messages", :name => "messages_message_id_fk", :dependent => :delete
+  add_foreign_key "messages", "users", :name => "messages_user_id_fk", :dependent => :delete
+  add_foreign_key "messages", "workorders", :name => "messages_workorder_id_fk", :dependent => :delete
 
   add_foreign_key "models", "brands", :name => "models_ibfk_1"
 

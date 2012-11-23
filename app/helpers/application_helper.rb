@@ -132,6 +132,28 @@ module ApplicationHelper
     end
     
   end
+
+  def unread_message_nro
+    if current_user
+      nro = current_user.unread_messages_nro
+      if nro > 0
+        content_tag(:div,nro,:class=>'unread_msg_nro left')
+      else
+        ""
+      end
+    end
+  end
+
+  def alarm_today_nro
+    if current_user
+      nro = current_user.alarms.run_in_next_hours(24).count
+      if nro > 0
+        content_tag(:div,nro,:class=>'unread_msg_nro left')
+      else
+        ""
+      end
+    end
+  end
  
   def title(title)
     content_for(:title){title}

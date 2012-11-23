@@ -15,12 +15,20 @@ class AlarmsController < ApplicationController
     @alarm = current_user.alarms.find(params[:id])
   end
 
-  def create
-    @alarm = current_user.alarms.new(params[:alarm])
+  def create    
+    if params[:event_id]
+      event = Event.find(params[:event_id])
+      @alarm = event.alarms.build(params[:alarm])
+      @alarm.user = current_user
+    else
+      @alarm = current_user.alarms.new(params[:alarm])      
+    end
+
+    
     respond_to do |format|
-      if @alarm.save
-        flash[:notice] = 'La Alarma ha sido creada'
+      if @alarm.save        
         format.html { redirect_to alarms_path }
+        format.js {render :file=>"alarms/new_alarm.js.erb",:layout => false}
       else
         format.html { render :action => "new" }
       end
@@ -29,8 +37,7 @@ class AlarmsController < ApplicationController
 
   def update
     @alarm = current_user.alarms.find(params[:id])
-    if @alarm.update_attributes(params[:alarm])
-      flash[:notice] = 'Alarma actualizada'
+    if @alarm.update_attributes(params[:alarm])      
       redirect_to alarms_path
     else
       render :action => "edit"
@@ -39,8 +46,12 @@ class AlarmsController < ApplicationController
 
   def destroy
     @alarm = current_user.alarms.find(params[:id])
-    @alarm.destroy
-    redirect_to alarms_path
+    @alarm.destroy    
+    respond_to do |format|
+      format.html { redirect_to(alarms_path) }
+      format.js {render :layout => false}
+      format.xml  { head :ok }
+    end
   end
 
   def list_alarm_now
@@ -69,8 +80,7 @@ class AlarmsController < ApplicationController
       end
       alarm.save!
     end
-
-    flash[:notice] = 'Alarma Enviada'
+    
     redirect_to list_alarm_now_alarms_path
   end
 end

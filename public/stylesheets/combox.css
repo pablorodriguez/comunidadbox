@@ -111,10 +111,16 @@ body {
   background-image:url(/images/notes.png);
   background-position:center;
   height:16px;
-  width:16px;
-  display:block;
-  float: left;
-  margin-left:5px;
+  width:16px;  
+  float: left;  
+}
+
+.has_alarms{
+  background-image:url(/images/new_alarm.png);
+  background-position:center;
+  height:16px;
+  width:16px;  
+  float: left;  
 }
 
 
@@ -139,6 +145,7 @@ body {
   width:16px;
   display:block;
 }
+
 .event_s{
   background-image:url(/images/event.png);
   height:16px;
@@ -250,6 +257,7 @@ a{
 .checkbox, .radio{
   width: 15px;
   height: 12px;
+  margin: 0px;
 }
 
 h1 {
@@ -646,6 +654,10 @@ ul{
   margin:2px 0 0;
 }
 
+ul li label {
+  margin: 0 5px 0px 2px;
+}
+
 #submenu li a{
   float:none;
   width:180px;
@@ -898,6 +910,7 @@ input{
 #work_order{
   margin-top:5px;
 }
+
 
 .contentright_n {
   z-index: 2; 
@@ -1751,6 +1764,11 @@ td.number, th.number{
   
 }
 
+.service_info{
+  width:80%;
+  float:left;
+}
+
 .actions{
   float:right;
   padding:0px 0px 5px 0px;
@@ -2462,11 +2480,6 @@ td.number, th.number{
   margin:2px 2px 2px 5px;
 }
 
-.new_note{
-  border-top:thin double #CCCCCC;
-  clear:both;
-}
-
 .new_note_form{
   overflow:auto;    
   margin:10px;
@@ -2511,14 +2524,35 @@ td.number, th.number{
   overflow: auto;
   background: none repeat scroll 0 0 #FFFFCC;
   border-radius: 5px 5px 5px 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  display: block;
+  border: 0px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
   margin: 10px;
   min-height: 21px;
-  padding: 5px 5px;
-  position: relative;
-  z-index: 10;
+  padding: 5px 5px;  
 }
+
+.unread_msg_nro{
+  background: url("/images/red-circle.png") no-repeat scroll 0 0 transparent;
+  color: white;
+  float: left;
+  font-size: 9px;
+  font-weight: bold;
+  height: 16px;
+  margin-top: 2px;
+  margin-left: 5px;
+  text-align: center;
+  width: 16px;
+}
+
+.message_not_read{
+  cursor: pointer;
+  box-shadow: 0 1px 2px red;
+}
+
+.msg{
+  cursor: pointer;  
+}
+
 .note .info .date{
   font-size:0.8em;
   float:left;

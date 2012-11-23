@@ -1,11 +1,18 @@
 #event_detail.event_detail
   .detail
     .box_bottom
-      .domain.domain_white
-      %label.car
-      .block
-        %label.user_full_name
-    .box_bottom2
+      .left
+        .domain.domain_white
+        %label.car
+        .block
+          %label.user_full_name
+      .right
+        .actions
+          .action
+            .add_alarm{:title => "Nueva Alarma"}
+          .action
+            .new_note{:title => "Nueva Nota"}
+    .box_bottom
       .block
         .left
           %label.user_email_label Email:
@@ -27,5 +34,8 @@
         .right
           %label.total_spend_label Total Gastado:
           %label.total_spend
-  #notes
+  #notes.hide
     = render :partial =>"notes/note_form_np",:locals=>{:wo => nil,:b=>nil,:notes =>[] }
+  #alarms.hide
+    = render :partial =>"alarms/ajax_form"
+    .alarms   

@@ -1,0 +1,1 @@
+$(".alarms").show().prepend("<%=escape_javascript(render(:partial=>'alarm_small_view',:locals=>{:alarm=>@alarm}))%>").last().effect("highlight", {color:"#F7DE4F"}, 3000);

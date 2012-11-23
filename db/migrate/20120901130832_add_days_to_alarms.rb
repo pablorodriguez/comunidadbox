@@ -11,6 +11,9 @@ class AddDaysToAlarms < ActiveRecord::Migration
     add_column :alarms, :no_end,:boolean,:default => false
     add_column :alarms, :next_time, :timestamp 
     add_column :alarms, :last_time, :timestamp
+    add_column :alarms, :car_id,:integer
+    add_column :alarms, :client_id,:integer
+    add_column :alarms, :event_id,:integer
   end
 
 
@@ -25,7 +28,9 @@ class AddDaysToAlarms < ActiveRecord::Migration
     remove_column :alarms,:no_end
     remove_column :alarms,:next_time
     remove_column :alarms,:last_time
-
+    remove_column :alarms,:car_id
+    remove_column :alarms,:client_id
+    remove_column :alarms,:event_id
   end
 
 end

@@ -106,7 +106,8 @@ class ControlPanelsController < ApplicationController
     @page = params[:page] || 1
     per_page=90
     @events_count = @events.count
-    @page_events = @events.paginate(:page=>@page,:per_page=>per_page)    
+    @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
+    @alarm = Alarm.new
     logger.info "### salio Eventos IDS #{@events_ids}"
     
   end

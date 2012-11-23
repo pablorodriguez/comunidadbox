@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :service_done,:class_name =>"Service"
   has_many :notes
+  has_many :alarms
 
   MONTHS_IN_SEC = 60 * 60 * 24 * 30
   MONTH_RED=1

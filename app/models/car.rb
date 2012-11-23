@@ -2,6 +2,7 @@ class Car < ActiveRecord::Base
   has_many :workorders
   has_many :budgets
   has_many :events
+  
   belongs_to :model
   belongs_to :brand
   belongs_to :user

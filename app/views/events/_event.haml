@@ -12,11 +12,16 @@
       .hide
         = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"checkbox"})
     - e_css = event.notes.empty? ? "" : "has_notes"
-    .event_notes{:class=>e_css,:title=>event.notes_txt}
+    - a_css = event.alarms.empty? ? "" : "has_alarms"
+    .left
+      .event_notes{:class=>e_css,:title=>event.notes_txt}
+      .event_alarm{:class=>a_css,:title=>""}
 
   %div{:class=>"#{big_event_class(event)} link"}
     .url
       = event_notes_path(event)
+    .alarm_url
+      = event_alarms_path(event)
     .domain
       = event.car.domain
     .car
