@@ -261,6 +261,10 @@ class User < ActiveRecord::Base
   def unread_messages_nro
     Message.for_user(self).unread.count
   end
+
+  def next_alarm_nro
+    alarms.active.run_in_next_hours(24).count
+  end
   
 end
 

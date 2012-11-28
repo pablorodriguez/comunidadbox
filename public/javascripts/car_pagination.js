@@ -1,7 +1,16 @@
 jQuery(document).ready(function(){
   
   $(".notes_container").hide();
-  $(".new_note_link").click(new_note);
+  var notes_links = $(".new_note_link");
+  if (notes_links.length > 0){
+    notes_links.click(new_note);  
+  }
+
+  var service_links = $(".new_service");
+  if (service_links.length > 0){
+    service_links.click(createNewService);
+  }  
+  
 
   $("#paginator_wo .pagination a").live("click",function(){
     $.setFragment({"page" : $.queryString(this.href).page,  
@@ -77,7 +86,8 @@ function createNewNote(){
   
 }
 
-function createNewService(car_id){
+function createNewService(){
+  var car_id = $(this).attr("id");
   $("#company-selector").dialog('open');
   $("#company-selector #car_id").val(car_id);
   
@@ -89,20 +99,5 @@ function createNewService(car_id){
   
 }
 
-function newCompany(target){
-  $("#companies").hide();
-  $("#new_company").show();  
-}
 
-function cancelNewCompany(target){
-  $("#companies").show();
-  $("#new_company").hide();
-}
-
-function newServiceNewCompany(){
-  var url = $("#new_service_url").val();
-  var comp_info =$("#company_info").val();
-  var car = "?car_id=" + $("#car_id").val();
-  window.location=url + car + "&c="+comp_info;
-}
 

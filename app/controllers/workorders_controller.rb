@@ -152,7 +152,7 @@ class WorkordersController < ApplicationController
     respond_to do |format|
     if @work_order.update_attributes(params[:workorder])
       CarServiceOffer.update_with_services(@work_order.services,cso_ids)
-      if @work_order.finish?
+      if @work_order.is_finished?
         #@work_order.generate_events
         @work_order.reload
         @work_order.regenerate_events
@@ -226,7 +226,7 @@ class WorkordersController < ApplicationController
 
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
     saveAction = @work_order.save
-    if @work_order.finish?
+    if @work_order.is_finished?
       #@work_order.generate_events
       # @work_order.reload      
       send_notification @work_order.id

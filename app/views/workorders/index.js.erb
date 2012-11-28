@@ -12,6 +12,8 @@ if ($("#amt_graph").size() > 0){
   build_amt_graph([<%=@amt_data%>],"amt_graph");
 }
 
-$("#price_report").html("<%=escape_javascript(render(:partial=>'price_report'))%>")
-$("#amt_report").html("<%=escape_javascript(render(:partial=>'amount_report'))%>")
-$("#amt_material_graph_c").html("<%=escape_javascript(render(:partial=>'material_report'))%>")
+$("#price_report").html("<%=escape_javascript(render(:partial=>'price_report'))%>");
+$("#amt_report").html("<%=escape_javascript(render(:partial=>'amount_report'))%>");
+$("#amt_material_graph_c").html("<%=escape_javascript(render(:partial=>'material_report'))%>");
+$(".notes_container").hide();
+$(".notes").hide();

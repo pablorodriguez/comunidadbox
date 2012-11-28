@@ -7,7 +7,7 @@
         - if company_id
           = link_to "Clientes", clients_path
         - else
-          = link_to "Mis Autómoviles", my_cars_path   
+          = link_to "Mis Autos", my_cars_path   
     %li
       #service_done.link.menu
         = image_tag "service.png"
@@ -29,22 +29,7 @@
       #report_graph.link.menu
         = image_tag "graph.png"
         Reporte Gráfico
-    .hide
-      %li
-        #note.link.menu
-          = image_tag "notes.png"
-          Notas
-    .hide
-      %li
-        #alarms.link.menu
-          = image_tag "alarm.png"
-          Alarmas
-          -#= link_to "Alarmas",alarms_path
-      %li
-        #messages.link.menu
-          = image_tag "message.png"
-          Mensajes
-
+    = render "/home/new_menu"
 .menu_actions.box_bottom
   #cars_work_orders_menu.menu_data
     = hidden_field_tag 'car_id',@car.id

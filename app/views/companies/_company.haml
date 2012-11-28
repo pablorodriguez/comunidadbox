@@ -3,7 +3,7 @@
     .actions        
       - if company.address
         .action
-          = link_to_function image_tag("find.png"),"search_address(this)",{:title => "Buscar dirección en el mapa"} 
+          = link_to image_tag("find.png"),"#",{:title => "Buscar dirección en el mapa",:class => :search_address} 
       
       - if user_signed_in? && company_id.nil?
         .action

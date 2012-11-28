@@ -39,7 +39,7 @@
 
     -#= wo_form.fields_for :alarms do |a_form|
     -#  = render "alarm_fields",:f => a_form
-    #wo_save.buttons.box_top
+    #wo_save.buttons_container
       - if @update_km
         = wo_form.submit "Grabar",:class =>"button",:disable_with => 'Grabando...',:disabled=>"true",:id => :workorder_submit
       -else

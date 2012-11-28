@@ -4,6 +4,8 @@ class Alarm < ActiveRecord::Base
   belongs_to :car, :class_name => 'Car', :foreign_key => 'car_id'
   belongs_to :event
 
+  has_many :messages
+
   validates_presence_of :name, :user,:date_alarm
   
   #scope :activ, lambda { |model| { :joins => :car, :conditions =>  ["cars.model_id = ?", model] } }

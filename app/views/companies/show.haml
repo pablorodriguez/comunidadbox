@@ -3,8 +3,12 @@
 - javascript 'search_company_map'
 
 .vertical_menu    
-  - if user_signed_in? 
-    = render "admin/menu"
+  - if user_signed_in?
+    - if current_user.company
+      = render "admin/menu"
+    -else
+      = render "home/menu"
+
     - if current_user.own(@company)
       .menu_actions.box_bottom
         %ul

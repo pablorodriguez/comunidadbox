@@ -1,3 +1,4 @@
+- javascript "http://maps.google.com/maps/api/js?sensor=true"
 - javascript 'maps'
 - javascript 'search_company_map'
 
@@ -27,7 +28,8 @@
     .box_bottom
       %ul        
         %li
-          = link_to_function "Nuevo Prestador de Servicio", "newCompany(this);"
+          -#= link_to_function "Nuevo Prestador de Servicio", "newCompany(this);"
+          = link_to "Nuevo Prestador de Servicio","#",:class => "new_company"
 .contentright_s
   #companies
     = render "/companies/all_companies"
@@ -43,8 +45,8 @@
           %td
             = text_area_tag :company_info,"",:rows => 5, :cols => 37
             = hidden_field_tag :new_service_url,new_workorder_path(:car_id =>@car_id)
-    .clear.box_bottom
-      = link_to_function "Seleccionar", "newServiceNewCompany(this);",{:class =>"button"}
-      = link_to_function "Cancelar", "cancelNewCompany(this);",{:class =>"button"}
+    .buttons_container
+      = link_to "Seleccionar", "#",{:class =>"button new_service_new_company"}
+      = link_to "Cancelar", "#",:class=> :cancel_new_company
 #company_map
   = render "/companies/maps"

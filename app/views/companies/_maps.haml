@@ -5,8 +5,7 @@
         %td Dirección
         %td
           %input{:id =>"address_map",:size =>"20"}
-          = link_to_function image_tag("find.png"),"search_address_text()",{:title => "Buscar dirección en el mapa"}
+          = link_to image_tag("find.png"),"#",{:class => "search_address_text",:title => "Buscar dirección en el mapa"}
           - if current_user
-            = link_to_function "Cerca mio","search_companies_near_to_me('#{current_user.address_text}');"
-           
+            = link_to "Cerca mio","#",:data => {:addres_text =>"#{current_user.address_text}"},:id => "near_to_me"            
   .map_canvas.map

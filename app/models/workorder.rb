@@ -1,7 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
-  
+  include Statused  
 
   ORDER_BY = {"-- Ordenar por ---" =>"workorders.performed desc","Dominio: Descendiente"=>"cars.domain desc","Dominio: Ascendiente"=>"cars.domain asc",
     "Realizado: Descendiente"=>"workorders.performed desc","Realizado: Ascendiente" => "workorders.performed asc"}
@@ -33,7 +33,7 @@ class Workorder < ActiveRecord::Base
   normalize_attributes :comment
 
   def to_after_save
-    regenerate_events if finish?
+    regenerate_events if is_finished?
   end
 
   def type(type)
@@ -182,24 +182,24 @@ class Workorder < ActiveRecord::Base
     self.status = n_status    
   end
   
-  def finish?
+  def finish_old?
     status == Status::FINISHED
   end
    
-  def open?
+  def open_old?
     status == Status::OPEN
   end
 
-  def in_progress?
+  def in_progress_old?
     status == Status::IN_PROCESS
   end
-  
+
   def belong_to_user user
     user.cars.include?(car)
   end
   
   def can_edit?(usr)
-    if (open? || in_progress?)
+    if (is_open? || is_in_progress?)
       if ((user.id == usr.id) || (company.is_employee(usr)))
         return true
       end

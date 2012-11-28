@@ -28,7 +28,8 @@
           = link_to "", new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio",:class=>"new_service"}
       - else
         .action
-          = link_to_function "","createNewService(#{car.id})",{:title=>"Nuevo Servicio",:class=>"new_service"}
+          -#= link_to_function "","createNewService(#{car.id})",:title=>"Nuevo Servicio",:class=>"new_service"
+          = link_to "","#",{:id=>"#{car.id}",:title=>"Nuevo Servicio",:class=>"new_service"}
             
 
 = will_paginate cars

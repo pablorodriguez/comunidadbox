@@ -42,7 +42,7 @@ module WorkOrderHelper
   end
   
   def get_company_rank(current_user,work_order)
-    if work_order.finish?
+    if work_order.is_finished?
       if(work_order.company_rank_id)
         rank = Rank.find work_order.company_rank_id
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
@@ -113,7 +113,7 @@ module WorkOrderHelper
   
   def can_edit? work_order
     # si la orden esta abierta and la orden fue creada por el dueño del auto or la empresa de la orden es igual a la emprea del usuario loggeado
-    work_order.open? && (work_order.user.id == work_order.car.user.id) || (work_order.company.id == get_company.id)
+    work_order.is_open? && (work_order.user.id == work_order.car.user.id) || (work_order.company.id == get_company.id)
   end
   
 end

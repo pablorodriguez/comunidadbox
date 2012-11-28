@@ -146,7 +146,7 @@ module ApplicationHelper
 
   def alarm_today_nro
     if current_user
-      nro = current_user.alarms.run_in_next_hours(24).count
+      nro = current_user.next_alarm_nro
       if nro > 0
         content_tag(:div,nro,:class=>'unread_msg_nro left')
       else

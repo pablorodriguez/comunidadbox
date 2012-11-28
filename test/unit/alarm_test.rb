@@ -170,7 +170,7 @@ class AlarmTest < ActiveSupport::TestCase
     assert(@alarm.next_time == now,"next time #{@alarm.next_time} no es igual a #{now}")
 
     @alarm.notify
-    msg = Message.for_user(@alarm.user)
+    msg = @alarm.messages.first
 
     assert_not_nil(msg,"Message on creado")
     assert(msg.read? == false)

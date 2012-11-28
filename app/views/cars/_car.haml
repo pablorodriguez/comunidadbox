@@ -4,6 +4,9 @@
   = hidden_field_tag "budget_id",@budget.id if @budget
   .box_bottom
     = render :partial => "users/car_fields",:locals => {:f => f}
-  .box_bottom    
+  .buttons_container
     = f.submit "Grabar",:class=>"button"
-    = link_to "Cancelar",client_path(@car.user)
+    - if current_user.company
+      = link_to "Cancelar",client_path(@car.user)
+    -else
+      = link_to "Cancelar",my_cars_path

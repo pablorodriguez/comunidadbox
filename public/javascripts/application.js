@@ -116,6 +116,12 @@ jQuery(document).ready( function(){
   		
 });
 
+function set_link_to_function(links,func){
+  if (links.length > 0){
+    links.click(func);
+  }
+}
+
 
 function setUserType(){
   if ($("#user_type").val() == "u"){

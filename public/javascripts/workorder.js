@@ -33,8 +33,9 @@ function new_note_222(){
  var chart;
 jQuery(document).ready( function(){
     $(".notes_container").hide();
+    $(".notes").hide();
     $(".new_note_link").click(new_note);
-    $(".notes_link").click(show_notes)
+    $(".notes_link").click(show_notes)    
 
     var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,
