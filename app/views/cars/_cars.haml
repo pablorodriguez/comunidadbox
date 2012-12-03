@@ -29,7 +29,7 @@
       - else
         .action
           -#= link_to_function "","createNewService(#{car.id})",:title=>"Nuevo Servicio",:class=>"new_service"
-          = link_to "","#",{:id=>"#{car.id}",:title=>"Nuevo Servicio",:class=>"new_service"}
+          = link_to "","#",:data => {:car_id=>"#{car.id}"},:title=>"Nuevo Servicio",:class=>"new_service"
             
 
 = will_paginate cars

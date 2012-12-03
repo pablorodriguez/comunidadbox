@@ -1,6 +1,6 @@
 class Budget < ActiveRecord::Base
   has_many :services, :dependent => :destroy
-  has_many :notes
+  has_many :notes, :order => "CREATED_AT desc"
   has_many :workorders
 
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
@@ -85,7 +85,7 @@ class Budget < ActiveRecord::Base
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
     unless prop.any?{|k| filters.key?(k.to_sym)}
-      budget = Budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
+      budget = budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
     else
       budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
       budget = budget.where("budgets.brand_id = :brand_id OR cars.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
@@ -103,7 +103,7 @@ class Budget < ActiveRecord::Base
     if filters[:company_id]
       budget = budget.where("budgets.company_id IN (?)",filters[:company_id])
     else
-      budget = budget.where("user_id = ?",filters[:user].id)
+      budget = budget.where("budgets.user_id = ?",filters[:user].id)
     end    
     
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]

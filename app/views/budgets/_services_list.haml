@@ -14,4 +14,6 @@
   .box_bottom    
     #total_budget
       = number_to_currency @budget.total_price    
-  = f.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'    
+  .buttons_container
+    = f.submit "Grabar",:class =>"button",:disable_with => 'Grabando...'    
+    = link_to "Cancelar",@budget

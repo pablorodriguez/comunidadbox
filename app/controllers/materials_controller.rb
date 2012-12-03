@@ -49,7 +49,7 @@ class MaterialsController < ApplicationController
     @per_page = params[:per_page] || 10
     @materials = MaterialDetail.search(@company_id,@service_type_id,@detail).paginate(:per_page=>@per_page,:page => @page)    
     respond_to do |format|
-      format.js 
+      format.js {render :layout => false}
       format.json { render :json => @materials.to_json(methods: :price_fmt)}
       format.html # show.html.erb
       format.xml  { render :xml => @materials }

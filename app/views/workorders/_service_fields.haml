@@ -16,7 +16,8 @@
             = f.hidden_field :_destroy            
             .actions
               .action
-                = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
+                -#= link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
+                = link_to "","#",{:class =>"new_material new",:title=>"Agregar nuevo material"}
                 -#= link_to_function("","showTask(this)",{:class =>"taks new"});
               .action
                 %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}

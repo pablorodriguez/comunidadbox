@@ -61,11 +61,12 @@ module ApplicationHelper
     return is_client(client)
   end
 
+  # no es usada mas
   def sortable(column,title = nil)
     title ||= column.titleize
     css_class = column == sort_column ? "sortable current #{sort_direction}" : "sortable"
     direction = column == sort_column && sort_direction == "asc" ? "desc":"asc"
-    link_to_function title,"submitForm('#{column}' ,'#{direction}')",{:class => css_class}
+    #link_to_function title,"submitForm('#{column}' ,'#{direction}')",{:class => css_class}
   end
   
   def icon_status(status)

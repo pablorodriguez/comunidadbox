@@ -12,7 +12,8 @@
                   = st_form.object.name
           .budget_service
             = f.hidden_field :_destroy            
-            = link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
+            -#= link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
+            = link_to "","#",{:class =>"new_material new",:title=>"Agregar nuevo material"}         
             .hide
               = f.text_area :comment, :rows => 3,:cols=>"28",:class=>"comment"
         %th{:style=>'width:8%'}

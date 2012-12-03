@@ -1,2 +1,16 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+jQuery(document).ready(function(){
+
+  $(".info_note").click(function(){
+    var url = $(this).prev().html();    
+    mark_as_read(url);
+  });
+
+});
+
+function mark_as_read(url){
+    $.ajax({
+      url: url,
+      dataType:'script',
+      type:'POST'
+  });
+}

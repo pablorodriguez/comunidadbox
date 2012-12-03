@@ -54,9 +54,8 @@ class NotesController < ApplicationController
       @note.user = current_user
     end
 
-    @element_id = ".notes_container"
-    @element_id = "#budget-#{@note.budget_id}" if @note.budget_id
-    @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id    
+    set_note_element_id
+    
     @note.creator = current_user    
     
     respond_to do |format|
@@ -87,15 +86,22 @@ class NotesController < ApplicationController
     end
   end
 
+  def set_note_element_id
+    @element_id = "#notes .notes_container"
+    @element_id = "#budget_#{@note.budget_id}" if @note.budget_id
+    @element_id = "#workorder_#{@note.workorder_id}" if @note.workorder_id 
+    @element_id = "#event_notes .notes_container" if @note.event_id
+  end
+
   # DELETE /notes/1
   # DELETE /notes/1.xml
   def destroy
     @note = Note.find(params[:id])
     @note_id = @note.id
     @wo_id = @note.workorder_id
-    @element_id = "#budget-#{@note.budget_id}" if @note.budget_id
-    @element_id = "#wo_#{@note.workorder_id}" if @note.workorder_id
 
+    set_note_element_id
+    
     @note.destroy
 
     respond_to do |format|

@@ -23,7 +23,7 @@ class CompaniesController < ApplicationController
   def search
     @companies = Company.search params
     respond_to do |format|
-      format.js
+      format.js { render :layout => false}
     end
   end
 

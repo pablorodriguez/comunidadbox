@@ -1,4 +1,4 @@
-.wo_detail.row{:id=>"wo_#{work_order_row.id}"}    
+.wo_detail.row[work_order_row]
   - can_show = work_order_row.can_show?(current_user)  
   .services      
     .clear.left.domain_white
@@ -35,14 +35,8 @@
       - else
         .action
           = print_to_pdf work_order_row
-      .action
-        -#= link_to_function "","new_note(this)",:title=>"Crear nota",:class=>"new_note_link"
-        %a{:title=>"Crear nota",:class=>"new_note_link",:href=>"#"}
-      - n_css = work_order_row.notes.empty? ? "hide" : ""
-      .action{:class=>"#{n_css}"}
-        -#= link_to_function "","show_notes(this)",:title=>"Ver notas",:class=>"notes_link"  
-        %a{:title=>"Ver noteas",:class=>"notes_link",:href=>"#"}
-          
+      .action        
+        %a{:title=>"Crear nota",:class=>"new_note_link",:href=>"#"}      
       - if work_order_row.can_edit?(current_user)        
         .action
           = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"

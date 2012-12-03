@@ -12,7 +12,7 @@ class BudgetsController < ApplicationController
 
     filters_params ={}
     @date_f = params[:date_from]
-    @date_t =params[:date_to]
+    @date_t = params[:date_to]
     @domain = params[:domain]
 
     filters_params[:first_name] = params[:first_name] if (params[:first_name] && !(params[:first_name].empty?))
@@ -37,8 +37,9 @@ class BudgetsController < ApplicationController
     @company_services = get_service_types
     @brands = Brand.order(:name)    
 
-    @models  = Array.new
+    @models = Array.new
     @models = Model.find_all_by_brand_id(filters_params[:brand_id],:order=>:name) if filters_params[:brand_id]
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @budgets }
