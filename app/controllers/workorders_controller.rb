@@ -202,6 +202,7 @@ class WorkordersController < ApplicationController
 
   def create
     params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]
+    
     @work_order = Workorder.new(params[:workorder])
     authorize! :create, @work_order
     
@@ -288,6 +289,7 @@ class WorkordersController < ApplicationController
           redirect_to(new_car_path(user_id: budget.user.id,b: budget.id))
           return
         end
+
         @work_order.initialize_with_budget(budget)
       else
         flash[:notice] ="El presupuesto no pertenece a su empresa"

@@ -1,4 +1,6 @@
 class ServiceFilter < ActiveRecord::Base
+  attr_accessible :service_type_id, :state_id, :city, :brand_id, :model_id, :fuel, :year, :date_from, :date_to
+
   belongs_to :service_type
   belongs_to :brand
   belongs_to :model

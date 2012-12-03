@@ -79,7 +79,7 @@ class ControlPanelsController < ApplicationController
       @sf=@sf.to_i
       @service_filter = ServiceFilter.find(@sf)
     else
-      @sf=nil
+      @sf=nil      
       @service_filter = ServiceFilter.new(params[:service_filter])
     end
     
@@ -102,7 +102,6 @@ class ControlPanelsController < ApplicationController
     @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,company_id
     
     #logger.debug "### SQL #{@events.to_sql}"
-
     @page = params[:page] || 1
     per_page=90
     @events_count = @events.count

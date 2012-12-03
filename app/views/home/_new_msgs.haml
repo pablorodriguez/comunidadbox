@@ -5,7 +5,7 @@
     .cuadro.right.gray
       - if current_user
         = render "/home/my_events"
-      - unless current_user
+      - else
         = render "/home/companies"
     .cuadro.middle.orange
       = render "/home/last_notice"    

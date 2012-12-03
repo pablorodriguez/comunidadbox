@@ -1,6 +1,8 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
+  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes
+  
   include Statused  
 
   ORDER_BY = {"-- Ordenar por ---" =>"workorders.performed desc","Dominio: Descendiente"=>"cars.domain desc","Dominio: Ascendiente"=>"cars.domain asc",
@@ -62,8 +64,14 @@ class Workorder < ActiveRecord::Base
       
       n_s = Service.new(service_type_id: s.service_type_id)      
       s.material_services.each do |ms|
-      
-        n_s.material_services.build(amount: ms.amount,price: ms.price,material_service_type_id: ms.material_service_type_id,material: ms.material)
+        new_m_s= MaterialService.new
+        new_m_s.amount = ms.amount
+        new_m_s.price = ms.price
+        new_m_s.material_service_type_id = ms.material_service_type_id
+        new_m_s.material = ms.material
+
+        n_s.material_services << new_m_s
+        
       end 
       self.services << n_s        
     end

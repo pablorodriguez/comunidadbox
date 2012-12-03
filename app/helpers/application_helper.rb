@@ -96,6 +96,9 @@ module ApplicationHelper
   
   def my_event_class event
     css = event_class event
+    unless event.service
+      debugger
+    end
     css = "mi_" + css if company_id.include?(event.service.workorder.company.id.to_s)
     return css
   end

@@ -9,8 +9,8 @@ class ControlPanelsControllerTest < ActionController::TestCase
     @hugo = create(:hugo_rodriguez)
     create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
     create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company)
-    create(:wo_tc,:car => @user.cars.first,:user => @employer,company: @employer.company,performed: Date.parse("01/01/2012"))
-    create(:wo_tc,:car => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Date.parse("05/01/2012"))
+    create(:wo_tc,:car => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now)
+    create(:wo_tc,:car => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now)
   end
 
   test "control panel index company" do
@@ -27,7 +27,7 @@ class ControlPanelsControllerTest < ActionController::TestCase
     get :filter_alarms,:st => 1,:et =>"all"
     assert_response :success
     assert_template :filter_alarms
-    assert_select("div#events div.cp_event",:count => 2)    
+    assert_select("#events div.cp_event",:count => 2)    
   end
 
   #test "filter alarms green events" do

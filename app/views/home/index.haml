@@ -15,10 +15,15 @@
     -unless current_user
       = render "sliders"    
       
+
+
 :javascript
   $(document).ready(function(){    
     $("#comunidadbox h1").shuffleLetters("Comunidad Box");
     $("#comunidadbox span").delay(4000).fadeIn('slow');
-    $('#s3slider').s3Slider({timeOut: 6000});
+
+    if ($('#s3slider').length > 0){
+      $('#s3slider').s3Slider({timeOut: 6000});
+    }
   })
-    
+

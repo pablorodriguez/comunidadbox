@@ -1,4 +1,7 @@
 class Service < ActiveRecord::Base
+
+  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment
+
   belongs_to :workorder, :inverse_of => :services
   has_many :events,:dependent => :destroy,:inverse_of => :service
   
