@@ -10,5 +10,6 @@
   %tr
     %td Dominio
     %td
-      .domain_white
-        = link_to @car.domain, @car
+      - unless @car.domain.empty?
+        .domain_white
+          = link_to @car.domain, @car

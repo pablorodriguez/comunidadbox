@@ -130,7 +130,7 @@ module ApplicationHelper
   
   def link_to_back(url=nil)    
     unless url
-      return link_to_function "<","javascript:history.back(-1)",:class =>"button" unless url  
+      return link_to "<","#",:class =>"button back" unless url  
     else
       return link_to "<",url,:class =>"button" if url
     end
@@ -235,7 +235,7 @@ module ApplicationHelper
   end
   
   def link_to_remove_fields(f,association,title = "")
-    f.hidden_field(:_destroy) + link_to_function("","remove_fields(this,\'#{association}\')",:title=>title,:class=>"delete right")
+    f.hidden_field(:_destroy) + link_to("","#",:data => {:association => "#{association}"},:title=>title,:class=>"delete delete-button right")
   end
   
   
@@ -260,7 +260,8 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|  
       render(association.to_s.singularize + "_fields", :f => builder)  
     end  
-    button_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")",:id=>"#{association}_link")  
+    #button_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")",:id=>"#{association}_link")  
+    link_to name,"#",:data => {:association => "#{association}",:content =>"#{h(fields)}"},:id =>"#{association}_link",:class =>"add_fields"
   end 
   
   def button_to_address_add_fields(name, f, association)  

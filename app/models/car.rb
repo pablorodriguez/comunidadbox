@@ -1,4 +1,6 @@
 class Car < ActiveRecord::Base
+  attr_accessible :km, :kmAverageMonthly
+
   has_many :workorders
   has_many :budgets
   has_many :events

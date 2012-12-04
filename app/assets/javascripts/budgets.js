@@ -1,6 +1,7 @@
 jQuery(document).ready( function(){
 
   $(".new_note_link").click(new_note);
+  
 
   $('#brand_id').change(searchModel);
   

@@ -27,7 +27,7 @@ class ControlPanelsControllerTest < ActionController::TestCase
     get :filter_alarms,:st => 1,:et =>"all"
     assert_response :success
     assert_template :filter_alarms
-    assert_select("#events div.cp_event",:count => 2)    
+    assert_select("div#events div.cp_event",:count => 2)    
   end
 
   #test "filter alarms green events" do

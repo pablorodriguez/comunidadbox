@@ -102,6 +102,7 @@ class BudgetsController < ApplicationController
   # POST /budgets.xml
   def create
     @budget = Budget.new(params[:budget])
+    
     authorize! :create, @budget
 
     @budget.creator = current_user

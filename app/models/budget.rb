@@ -1,4 +1,6 @@
 class Budget < ActiveRecord::Base
+  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id,:comment,:services_attributes,:service_type_attributes
+
   has_many :services, :dependent => :destroy
   has_many :notes, :order => "CREATED_AT desc"
   has_many :workorders
@@ -25,7 +27,7 @@ class Budget < ActiveRecord::Base
 
   def service_not_empty
     if services.empty?
-      errors.add_to_base("El presupuesto debe contener servicios")      
+      errors[:base] << "El presupuesto debe contener servicios"
     end
     
     #busco auto con el mismo dominio

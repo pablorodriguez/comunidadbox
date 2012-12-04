@@ -11,6 +11,12 @@ jQuery(document).ready( function(){
     $(this).parent().hide();
   });
 
+  $(".back").click(function(){
+    history.back(-1);
+  });
+
+  
+
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
   
   $(".down_icon").click(function(e){

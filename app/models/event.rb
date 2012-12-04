@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  attr_accessible :car,:km,:service_type,:status,:dueDate
+
   belongs_to :service_type
   belongs_to :car
   belongs_to :service, :inverse_of => :events

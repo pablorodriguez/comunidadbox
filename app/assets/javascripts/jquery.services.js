@@ -35,6 +35,10 @@ jQuery(document).ready( function(){
 
 	$(".status").change(updateWorkOrderTotalPrice);
 
+  $("#services").delegate(".add_fields","click",add_fields);
+  $("#services").delegate(".delete-button",'click',remove_fields);
+
+  
   $(".new_material").live('click',addEmptyMaterial);
 	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
 	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
@@ -341,7 +345,9 @@ function hideServiceTypeAjaxLoader(){
 	$("#st_ajax_loader").hide();
 }
 
-function remove_fields(link,association){
+function remove_fields(){
+  var link = $(this);
+  var association = link.data("association");
 	if (association=="services"){
 		//$(link).prev("input[type=hidden]").attr("value", '1');
 		var trs = $(link).parent().parent().parent().parent().parent().find("thead tr");
@@ -361,7 +367,10 @@ function remove_fields(link,association){
 
 }
 
-function add_fields(link, association, content){
+function add_fields(){
+  var link = $(this);
+  var association = link.data("association");
+  var content = link.data("content");
 	var msg="";
 	var new_id = new Date().getTime();
 	var regexp = new RegExp("new_" + association, "g");

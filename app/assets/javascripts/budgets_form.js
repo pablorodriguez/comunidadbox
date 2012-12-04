@@ -18,8 +18,12 @@ jQuery(document).ready( function(){
       
     });
 
+  
+    $("#services").delegate(".add_fields","click",add_fields);
+    $("#services").delegate(".delete-button",'click',remove_fields);
+    
     $("#material_dialog").click(showMaterialDialog);
-     $(".new_material").live('click',addEmptyMaterial);
+    $(".new_material").live('click',addEmptyMaterial);
     $("#materials_list table tbody tr").live("click",selectMaterialHandler);
     $("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
     $("#materials_list .checkbox").live("click",checkMaterialHandler);
@@ -144,17 +148,20 @@ function getServiceTypeDiv(serviceTypeIdElement){
   return serviceTypeDiv;
 }
 
-function add_fields(link, association, content){
+function add_fields(){
+    var link = $(this);
+    var association = link.data("association");
+    var content = link.data("content");
     var msg="";
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
     if (association =="material_services"){
         var div = $(link).parent().parent();
         var lastTr = div.find('table tbody');        
-        lastTr.append(content.replace(regexp, new_id));
+        lastTr.append($(content.replace(regexp, new_id)));
     }else if (association =="services"){
         content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
-        $("#services").find("#services_list").append(content.replace(regexp, new_id));
+        $("#services").find("#services_list").append($(content.replace(regexp, new_id)));
         
     }
     initMaterialItems();
@@ -193,7 +200,10 @@ function updateItemTotalPrice(element){
     updateBudgetsTotalPrice();
 }
 
-function remove_fields(link,association){
+function remove_fields(){
+    var link = $(this);
+    var association = link.data("association");
+
     if (association=="services"){
         //$(link).prev("input[type=hidden]").attr("value", '1');
         var trs = $(link).parent().parent().parent().parent().parent().find("tbody tr");

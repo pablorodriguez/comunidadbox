@@ -10,5 +10,5 @@
   $("#kmUpdatedAt").html("<%=l @car.kmUpdatedAt.to_date%>").effect("highlight",{},3000);
   $("#wo_save").show();
   $("#km_update").hide();
-  $("#workorder_submit").attr("disabled","");
+  $("#workorder_submit").removeAttr('disabled');
 <%end%>
