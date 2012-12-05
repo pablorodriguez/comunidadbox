@@ -1,5 +1,5 @@
 class ServiceOffer < ActiveRecord::Base
-
+  attr_accessible :service_type_id, :title, :status, :comment, :price, :percent, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
 
   has_many :car_service_offer
   has_many :cars, :through => :car_service_offer

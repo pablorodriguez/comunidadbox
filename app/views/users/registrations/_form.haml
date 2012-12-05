@@ -33,6 +33,7 @@
 =f.fields_for :companies do |c|
   #company_data.hide
     = render 'companies/form', :f => c
-.box_bottom      
+.buttons_container 
   = f.submit "Grabar",:class=>"button"
+  = link_to_back name: :Cancelar
     

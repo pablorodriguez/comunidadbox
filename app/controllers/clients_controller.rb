@@ -69,7 +69,7 @@ class ClientsController < ApplicationController
     @client.cars.first.company = get_company if @client.cars.first
 
     @budget = Budget.find(params[:budget_id]) if params[:budget_id]
-    
+
     if @client.save
         if params[:budget_id]    
           @budget.user = @client

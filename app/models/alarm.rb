@@ -1,4 +1,6 @@
 class Alarm < ActiveRecord::Base
+  attr_accessible :name, :status, :description, :date_alarm, :time, :time_unit, :date_ini, :date_end, :no_end, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
+
   belongs_to :user  
   belongs_to :client, :class_name => 'User', :foreign_key => 'client_id'
   belongs_to :car, :class_name => 'Car', :foreign_key => 'car_id'

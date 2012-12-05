@@ -34,7 +34,7 @@
     %tbody
       = f.fields_for :material_services do |ms_form|
         =render "material_service_fields",:f => ms_form      
-  #n_s.hide2
+  #n_s.hide
     = button_to_add_fields "Nuevo Material",f,:material_services
   .task_list{:id=>"task_list_#{f.object.service_type_id}"}
     = f.fields_for :service_type do |st_form|

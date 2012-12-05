@@ -1,4 +1,6 @@
 class Note < ActiveRecord::Base
+	attr_accessible :message, :budget_id, :workorder_id, :event_id,:note_id,:creator_id,:receiver_id,:respond_to
+
 	belongs_to :user
 	belongs_to :workorder
 	belongs_to :event

@@ -73,7 +73,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_default_data resource     
       flash.delete(:recaptcha_error)
       resource.errors.add "Validacion", "Hubo un error en la validacion del codigo de reCaptcha. Por favor ingreselo nuevamente."
-      render_with_scope :new
+      render :new
     end
    
   end

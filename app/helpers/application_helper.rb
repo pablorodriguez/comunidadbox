@@ -128,12 +128,10 @@ module ApplicationHelper
     link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Formulario",:class =>:pdf 
   end
   
-  def link_to_back(url=nil)    
-    unless url
-      return link_to "<","#",:class =>"button back" unless url  
-    else
-      return link_to "<",url,:class =>"button" if url
-    end
+  def link_to_back(arg)    
+    name = arg[:name] ? arg[:name] : "<"
+    url = arg[:url] ? arg[url] : "#"
+    return link_to name,url,:class =>"back"
     
   end
 

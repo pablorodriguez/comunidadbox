@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
 
+  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :cars_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes
+
   attr :type, true
 
   has_many :service_filters,:order =>'name'
@@ -82,7 +84,7 @@ class User < ActiveRecord::Base
       offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
       offers = offers.where("status in (?)",filters[:status]) if filters[:status]
     end
-    offers
+    offers.order("created_at DESC")
   end
 
   def service_types

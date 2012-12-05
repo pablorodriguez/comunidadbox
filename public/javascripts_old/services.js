@@ -2,19 +2,34 @@ var priceNumberPattern = /[0-9]+\.[0-9]+$/;
 var materialCodePattern = /\[\S*\]/;
 var numberPattern = /[0-9]/;
 
-document.observe('dom:loaded', function(){
+jQuery(document).ready( function(){
     $('material_detail_auto_complete').observe('click', updatePrice);
     $('material_detail_auto_complete').observe('keyup', updatePrice);
     $('material_amount').observe('keyup', updateTotalPrice);
     $('material_detail').observe('keyup', updatePrice);	 
     $('material_price').observe('keyup', updateTotalPrice);	
-    $('material_service_type_id').observe('change', updateItemServiceMaterial);    
+    $('material_service_type_id').observe('change', updateItemServiceMaterial);
+
+    var dates = $( "#service_offer_since, #service_offer_until" ).datepicker({
+      defaultDate: -60,
+      changeMonth: true,
+      numberOfMonths: 3,
+      onSelect: function( selectedDate ) {
+        var option = this.id == "service_offer_until" ? "minDate" : "maxDate",
+          instance = $( this ).data( "datepicker" ),
+          date = $.datepicker.parseDate(
+            instance.settings.dateFormat ||
+            $.datepicker._defaults.dateFormat,
+            selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+      }
+    }); 
 });
 
 
 
 function updateItemServiceMaterial(event){
-    $('material_detail').value = "";
+  $('material_detail').value = "";
 	$('material_row').value = "";
 	$('material_amount').value = "";
     updatePrice(event);

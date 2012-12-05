@@ -77,8 +77,6 @@ class ServiceOffersController < ApplicationController
 
     @cars = @offer.car_service_offer
     if @offer.save
-
-      flash[:notice] = 'Se ha creado la oferta!'
       redirect_to service_offers_path
     else
       render :action => "new"
@@ -98,7 +96,6 @@ class ServiceOffersController < ApplicationController
   def update
     @offer = ServiceOffer.find(params[:id])
     if @offer.update_attributes(params[:service_offer])
-      flash[:notice] = 'Se ha actualizado la oferta!'
       redirect_to service_offers_path
     else
       render :action => "edit"

@@ -16,6 +16,9 @@ end
 
 module ComunidadBox::TestHelpers
   def create_all_default_data
+    #create country and states
+    create :argentina
+    create :mendoza
 
     #create brand
     create :chevrolet

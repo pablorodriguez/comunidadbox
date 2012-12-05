@@ -18,6 +18,6 @@
     .personal_address.box_bottom
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
-  .box_bottom    
+  .buttons_container    
     = f.submit "Grabar",:class=>:button
     = link_to "Cancelar",clients_path

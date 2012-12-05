@@ -1,4 +1,6 @@
 class Address < ActiveRecord::Base
+  attr_accessible :state_id, :lat, :lng, :city, :street, :zip
+
   belongs_to :user
   belongs_to :company
   belongs_to :state

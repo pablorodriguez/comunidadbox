@@ -30,7 +30,7 @@
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|
         = render "service_fields",:f => s_form
-    #n_s.hide2
+    #n_s.hide
       = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
     #total_work_order.total_work_order
       = number_to_currency @work_order.total_price    
