@@ -1,9 +1,10 @@
 class Car < ActiveRecord::Base
-  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :year, :model_id, :fuel
+  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :year, :model_id, :fuel, :user_id
 
   has_many :workorders
   has_many :budgets
   has_many :events
+  has_many :notes
   
   belongs_to :model
   belongs_to :brand

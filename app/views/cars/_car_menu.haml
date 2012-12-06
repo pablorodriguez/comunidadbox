@@ -1,35 +1,5 @@
-#menu_options.box_bottom
-  %ul
-    
-    %li
-      #cars_link.menu
-        = image_tag "cars.png"
-        - if company_id
-          = link_to "Clientes", clients_path
-        - else
-          = link_to "Mis Autos", my_cars_path   
-    %li
-      #service_done.link.menu
-        = image_tag "service.png"
-        Servicios Realizados        
-    %li
-      #future_event.link.menu
-        = image_tag "service.png"
-        Servicios a Realizar    
-    %li
-      #budgets_link.link.menu
-        = image_tag "budget.png"
-        Presupuestos
-    .hide
-      %li
-        #service_offers.link.menu
-          = image_tag "service.png"
-          = link_to "Ofertas de Servicio", car_service_offers_path
-    %li
-      #report_graph.link.menu
-        = image_tag "graph.png"
-        Reporte Gráfico
-    = render "/home/new_menu"
+=render "home/menu"
+
 .menu_actions.box_bottom
   #cars_work_orders_menu.menu_data
     = hidden_field_tag 'car_id',@car.id
@@ -59,5 +29,17 @@
         = link_to "Nueve Nota","#",{:title=>"Nueva Nota",:id => :new_note_link}
       -#%li
       -#  = link_to_function "Nuevo Mensaje","createNewMessage(#{@car.id})",{:title=>"Nuev Mensaje"}
+      %li
+        #service_done.link.menu
+          = link_to "Servicios Realizados", "#"
+      %li
+        #future_event.link.menu
+          = link_to "Servicios a Realizar","#"
+      %li
+        #budgets_link.link.menu
+          = link_to "Presupuestos","#"
+      %li
+        #report_graph.link.menu
+          = link_to "Reporte Gráfico","#"
 
     

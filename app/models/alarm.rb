@@ -7,6 +7,7 @@ class Alarm < ActiveRecord::Base
   belongs_to :event
 
   has_many :messages
+  has_many :notes
 
   validates_presence_of :name, :user,:date_alarm
   

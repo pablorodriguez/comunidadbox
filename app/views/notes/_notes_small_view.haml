@@ -16,8 +16,12 @@
     - if note.workorder      
       = link_to "",workorder_path(note.workorder),:class =>"service_s",:title =>"Servicio Realizado"
     - if note.budget      
-      = link_to "",budget_path(note.budget),:class=>"budget_s",:title =>"Presupuesto"      
-  
+      = link_to "",budget_path(note.budget),:class=>"budget_s",:title =>"Presupuesto"
+    - if note.car
+      = link_to "",car_path(note.car),:class=>"note_car",:title =>"Automovil"
+    - if note.alarm      
+      = link_to "",alarm_path(note.alarm),:class=>"note_alarm",:title =>"Alarma"
+    
   -if note.creator_id == current_user.id
     .actions
       .action.hide

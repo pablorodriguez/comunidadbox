@@ -1,5 +1,5 @@
 .notes_container.hide
-  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b}
+  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b,:c => c}
   .notes.hide
     - if notes && notes.size > 0
       = render :partial =>'notes/notes_small_view',:collection => notes,:as=>:note    

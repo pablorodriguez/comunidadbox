@@ -5,5 +5,7 @@
       = f.hidden_field :workorder_id,:value => wo
     - if b      
       = f.hidden_field :budget_id,:value => b
+    - if c
+      = f.hidden_field :car_id,:value => c
     .left
       = f.submit "",:class=>:confirm,:title =>"Grabar"

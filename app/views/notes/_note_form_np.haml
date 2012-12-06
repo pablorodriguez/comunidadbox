@@ -1,5 +1,5 @@
 .notes_container
-  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b}
+  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b,:c => c}
   .notes
     - notes.each do |note|
       = render :partial =>'notes/notes_small_view',:locals=>{:wo => wo,:b=>b,:note =>note}

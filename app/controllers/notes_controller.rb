@@ -50,8 +50,7 @@ class NotesController < ApplicationController
       @note = event.notes.build(params[:note])
       @note.user = event.car.user   
     else
-      @note = Note.new(params[:note])
-      @note.user = current_user
+      @note = Note.new(params[:note])      
     end
 
     set_note_element_id

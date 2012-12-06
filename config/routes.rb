@@ -157,6 +157,7 @@ ComunidadBox::Application.routes.draw do
 
   resources :cars do
     resources :alarms
+    resources :notes
 
     collection do
       post :find_models

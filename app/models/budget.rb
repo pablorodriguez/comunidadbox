@@ -1,5 +1,5 @@
 class Budget < ActiveRecord::Base
-  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id,:comment,:services_attributes,:service_type_attributes
+  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id, :car_id, :user_id,:comment,:services_attributes,:service_type_attributes
 
   has_many :services, :dependent => :destroy
   has_many :notes, :order => "CREATED_AT desc"

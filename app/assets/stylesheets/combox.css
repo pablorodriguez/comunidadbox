@@ -115,6 +115,15 @@ body {
   float: left;  
 }
 
+.note_alarm{
+  background-image:url(images/alarm.png);
+  background-position:center;
+  height:16px;
+  width:16px; 
+  display: block; 
+}
+
+
 .has_alarms{
   background-image:url(images/new_alarm.png);
   background-position:center;
@@ -152,6 +161,14 @@ body {
   width:16px;
   display:block;
 }
+
+.note_car{
+  background-image:url(images/car.png);
+  height:16px;
+  width:16px;
+  display:block;
+}
+
 
 .new_car{
   background-image:url(images/new_car.png);
@@ -1578,9 +1595,6 @@ td.number, th.number{
   margin: 0px 5px 0px 5px;
 }
 
-.car {
-  
-}
 
 .car_info{
   padding: 5px;

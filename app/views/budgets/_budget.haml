@@ -40,5 +40,5 @@
       .action
         = link_to "",edit_budget_path(budget),:title=>"Modificar",:class=>"edit"
       
-  = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:notes => budget.notes}    
+  = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes}    
   
