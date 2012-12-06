@@ -24,6 +24,11 @@
 //= require jquery.labelify
 //= require s3Slider
 //= require jquery.editinplace
+//= require gmaps4rails/gmaps4rails.base
+//= require gmaps4rails/gmaps4rails.bing
+//= require gmaps4rails/gmaps4rails.googlemaps
+//= require gmaps4rails/gmaps4rails.mapquest
+//= require gmaps4rails/gmaps4rails.openlayers
 
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
