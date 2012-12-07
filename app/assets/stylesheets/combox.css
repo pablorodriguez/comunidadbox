@@ -115,15 +115,6 @@ body {
   float: left;  
 }
 
-.note_alarm{
-  background-image:url(images/alarm.png);
-  background-position:center;
-  height:16px;
-  width:16px; 
-  display: block; 
-}
-
-
 .has_alarms{
   background-image:url(images/new_alarm.png);
   background-position:center;
@@ -1200,11 +1191,6 @@ img{
   height: 400px;
 }
 
-.google_map{
-  width:90%;
-  margin:0 auto;
-}
-
 ol{
   list-style: none;
 }
@@ -1639,7 +1625,7 @@ td.number, th.number{
   font-weight: bold;
   text-align: center;
   height: 23px;
-  margin-top: 2px;
+  margin: 2px;
   background-position: center center;
   background-repeat: no-repeat;
   padding: 8px 0px;

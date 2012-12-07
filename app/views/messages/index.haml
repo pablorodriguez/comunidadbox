@@ -9,7 +9,8 @@
 .contentright_s  
   .box_bottom
     %h1 Mensajes  
-  = render :partial =>'message',:collection => @messages
-  - if @messages && @messages.size > 0
-    .clear
-      = will_paginate @messages
+  .box_bottom
+    = render :partial =>'message',:collection => @messages
+    - if @messages && @messages.size > 0
+      .clear
+        = will_paginate @messages

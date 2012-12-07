@@ -20,7 +20,7 @@
     - if note.car
       = link_to "",car_path(note.car),:class=>"note_car",:title =>"Automovil"
     - if note.alarm      
-      = link_to "",alarm_path(note.alarm),:class=>"note_alarm",:title =>"Alarma"
+      = link_to "",alarm_path(note.alarm),:class=>"has_alarms",:title =>"Alarma"
     
   -if note.creator_id == current_user.id
     .actions

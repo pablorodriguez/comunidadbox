@@ -23,7 +23,7 @@
     .alarm_url
       = event_alarms_path(event)
     .domain
-      = event.car.domain
+      = link_to event.car.domain, car_path(event.car)
     .car
       = "#{event.car.brand.name} #{event.car.model.name}"
     .km

@@ -12,10 +12,10 @@
       .big_domain
         .left
           %strong
-            = h @car.user.full_name      
-          .right{:title=>"Teléfono"}
-            =number_to_phone(@car.user.phone)
-        .left
+            = link_to @car.user.full_name, client_path(@car.user)
+        .left{:title=>"Teléfono"}
+          =number_to_phone(@car.user.phone)
+        .right
           = @car.user.email
         .clear
           .left{:title =>"Kilometraje Total"}

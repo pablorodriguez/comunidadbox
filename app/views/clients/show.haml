@@ -55,11 +55,12 @@
             %td Código Postal
             %td
               = @client.address.zip
-  .box_bottom.w
+  .client_cars
     - @client.cars.each do |car|
-      .domain_white.left
-        = link_to car.domain, car
-      .left
-        = brand_logo car.brand.name            
-      %h1.left
-        = "#{car.model.name} #{car.year}"
+      .clear.row
+        .left
+          = brand_logo car.brand.name            
+        .domain_white.left
+          = link_to car.domain, car
+        %h1.left
+          = "#{car.model.name} #{car.year}"
