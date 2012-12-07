@@ -9,5 +9,6 @@ class AddGudgetItToNotes < ActiveRecord::Migration
 
   def self.down
   	remove_column :notes, :budget_id
+    remove_column :notes, :car_id
   end
 end

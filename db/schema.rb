@@ -337,6 +337,7 @@ ActiveRecord::Schema.define(:version => 20121121212047) do
     t.integer  "receiver_id"
     t.integer  "respond_to_id"
     t.integer  "alarm_id"
+    t.integer  "car_id"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
