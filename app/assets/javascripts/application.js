@@ -29,7 +29,8 @@
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require gmaps4rails/gmaps4rails.mapquest
 //= require gmaps4rails/gmaps4rails.openlayers
-//= require jquery.shuffleLetters.js
+//= require jquery.shuffleLetters
+//= require messages
 
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
