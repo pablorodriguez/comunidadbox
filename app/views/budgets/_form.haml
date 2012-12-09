@@ -1,12 +1,12 @@
-- javascript 'materials_ajax'
-- javascript 'budgets_form'
-- javascript 'jquery.formatCurrency-1.4.0'
-- javascript 'jquery.formatCurrency.es-AR'
+-# javascript 'materials_ajax'
+-# javascript 'budgets_form'
+-# javascript 'jquery.formatCurrency-1.4.0'
+-# javascript 'jquery.formatCurrency.es-AR'
 
 #materials.hide
   .materials
     = render :partial=>'materials'
-.budget
+#budget
   = form_for @budget,:html=>{:class=>:budget} do |f| 
     = render 'shared/error_messages', :target => @budget    
     - if @budget.car

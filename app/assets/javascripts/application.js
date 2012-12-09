@@ -13,24 +13,44 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery-ui-timepicker-addon
+//= require jquery-ui-timepicker-es
+//= require jquery.ba-bbq.min
+//= require jquery.ba-url.min
+//= require jquery.editinplace
+//= require jquery.formatCurrency-1.4.0
+//= require jquery.formatCurrency.es-AR
 //= require jquery.inputmask
 //= require jquery.inputmask.extentions
-
-//= require analytics
-//= require jquery-ui-timepicker-addon
-//= require jquery.ui.datepicker-es
-//= require jquery-ui-timepicker-es
-//= require combox
 //= require jquery.labelify
-//= require s3Slider
-//= require jquery.editinplace
+//= require jquery.shuffleLetters
 //= require gmaps4rails/gmaps4rails.base
 //= require gmaps4rails/gmaps4rails.bing
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require gmaps4rails/gmaps4rails.mapquest
 //= require gmaps4rails/gmaps4rails.openlayers
-//= require jquery.shuffleLetters
+//= require highcharts
+//= require s3Slider
+//= require accounts
+//= require alarms
+//= require budgets_form
+//= require car_pagination
+//= require clients
+//= require company_service
+//= require combox
+//= require company_map
+//= require control_panel
+//= require map_content
+//= require maps
+//= require materials_ajax
 //= require messages
-
+//= require notes
+//= require notes_index
+//= require price_list
+//= require rank
+//= require search_company_map
+//= require service_offer
+//= require jquery.services
+//= require workorder
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults

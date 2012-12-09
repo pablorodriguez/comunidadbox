@@ -1,7 +1,9 @@
-var materialDialog;
+var materialDialog_budget;
 jQuery(document).ready( function(){
 
-    $("#new_service_type").change(addNewServiceType);
+    if ($("#budget").length == 0){return;};
+
+    $("#new_service_type").change(addNewServiceTypeBudget);
     $("#term").keyup(function(e){
       autoCompleteMaterial();
     });
@@ -19,19 +21,21 @@ jQuery(document).ready( function(){
     });
 
   
-    $("#services").delegate(".add_fields","click",add_fields);
-    $("#services").delegate(".delete-button",'click',remove_fields);
+    $("#services").delegate(".add_fields","click",add_fields_budget);
+    $("#services").delegate(".delete-button",'click',remove_fields_budget);
+
+    $("#services").delegate(".amount","blur",updateItemTotalPrice_budget);
+    $("#services").delegate(".price","blur",updateItemTotalPrice_budget);
     
     $("#material_dialog").click(showMaterialDialog);
-    $(".new_material").live('click',addEmptyMaterial);
+    $(".new_material").live('click',addEmptyMaterial_budget);
     $("#materials_list table tbody tr").live("click",selectMaterialHandler);
     $("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
     $("#materials_list .checkbox").live("click",checkMaterialHandler);
 
     $('.brand').change(searchModel);
-    initMaterialItems();
 
-    materialDialog = $("#materials").dialog({
+    materialDialog_budget = $("#materials").dialog({
     autoOpen: false ,
     modal: true,
     draggable:false,
@@ -97,12 +101,12 @@ function selectMaterial(element){
 }
 
 function searchServiceTypeMaterial(link){
-  materialDialog.dialog("open");
+  materialDialog_budget.dialog("open");
   $("#service_type_id").val($(link).parent().prev().find("input").val());
 }
 
 function showMaterialDialog(){
-  materialDialog.dialog("open");
+  materialDialog_budget.dialog("open");
 }
 
 function autoCompleteMaterial(){
@@ -114,12 +118,12 @@ function autoCompleteMaterial(){
     }
 }
 
-function addNewServiceType(){
-  getServiceTypeDiv("#new_service_type").show();
+function addNewServiceTypeBudget(){
+  getServiceTypeDivBudget("#new_service_type").show();
   $("#new_service_type").val("");
 }
 
-function getServiceTypeDiv(serviceTypeIdElement){
+function getServiceTypeDivBudget(serviceTypeIdElement){
 
   var serviceTypeId = $(serviceTypeIdElement).val();
   var serviceType = $(serviceTypeIdElement +" option:selected").text();
@@ -148,7 +152,7 @@ function getServiceTypeDiv(serviceTypeIdElement){
   return serviceTypeDiv;
 }
 
-function add_fields(){
+function add_fields_budget(){
     var link = $(this);
     var association = link.data("association");
     var content = link.data("content");
@@ -164,19 +168,14 @@ function add_fields(){
         $("#services").find("#services_list").append($(content.replace(regexp, new_id)));
         
     }
-    initMaterialItems();
+    
 }
 
-function initMaterialItems(){
-    $(".amount").blur(updateItemTotalPrice);
-    $(".price").blur(updateItemTotalPrice);
-}
-
-function updateItemTotalPrice(element){
+function updateItemTotalPrice_budget(){
     var amount=0;
     var price=0;
     var totalLabel ;
-    var ele = $(element.target);
+    var ele = $(this);
 
     if (ele.hasClass("amount")){
       if (ele.val().trim() == ""){
@@ -200,7 +199,7 @@ function updateItemTotalPrice(element){
     updateBudgetsTotalPrice();
 }
 
-function remove_fields(){
+function remove_fields_budget(){
     var link = $(this);
     var association = link.data("association");
 
@@ -258,7 +257,7 @@ function updateBudgetsTotalPrice(){
     $("#total_budget").html(total).formatCurrency();
 }
 
-function addEmptyMaterial(){
+function addEmptyMaterial_budget(){
     var element = $(this);
     var div = $(element).parent().parent().parent().parent().parent().parent();
     div.find("#material_services_link").click();
@@ -318,7 +317,7 @@ function add_materials_service_types(elements){
     });
 
   });
-  initMaterialItems();
+  
   updateTotalService(serviceTypeDiv);
   updateBudgetsTotalPrice();
     

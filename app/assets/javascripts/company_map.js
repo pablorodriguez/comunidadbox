@@ -1,10 +1,14 @@
 var checkBoxMap;
 jQuery(document).ready(function(){
-    initializeMap();
-	
-	google.maps.event.addListener(map, 'dblclick', function(event) {
-    	placeMarker(event.latLng);
-  	});
+  initializeMap();
+
+	if (typeof google != "undefined"){
+    google.maps.event.addListener(map, 'dblclick', function(event) {
+      placeMarker(event.latLng);
+    });
+  
+  }
+
 	
 	$(".view_map").change(showAddressInMap);
 	checkBoxMap = $(".view_map:checked");

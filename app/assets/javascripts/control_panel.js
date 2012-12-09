@@ -107,6 +107,9 @@ function createNewNote(){
 }
 
 jQuery(document).ready( function(){
+
+  if ($("#control_panel").length == 0){return;};
+
 	$('#operators_red').click(function(){checkAll(this,'red');});
 	$('#operators_yellow').click(function(){checkAll(this,'yellow');});
 

@@ -1,4 +1,4 @@
-- javascript 'clients'
+-# javascript 'clients'
 
 = form_for @client, :url => clients_path do |f|
   - if @budget
@@ -11,7 +11,7 @@
         %tbody
           = render 'users/user_row',:f => f
     %h3 Información de su auto
-    .car_info.box_bottom
+    .box_bottom
       =f.fields_for :cars do |c|
         = render 'users/car_fields',:f =>c
     %h3 Direccion Personal

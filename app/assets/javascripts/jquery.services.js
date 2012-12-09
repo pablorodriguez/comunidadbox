@@ -7,6 +7,8 @@ var comment;
 serviceRow=0;
 jQuery(document).ready( function(){
 
+  if ($("#work_order_form").length == 0){return;};
+
 	$(".text_lable").each(function(){
 		$(this).disable();
 	});
