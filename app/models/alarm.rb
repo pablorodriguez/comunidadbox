@@ -18,7 +18,7 @@ class Alarm < ActiveRecord::Base
   scope :no_end, where("no_end = true")
 
   def self.next_minute
-    where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.now.utc)
+    where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.now)
   end
   %W"monday tuesday wednesday thursday friday saturday sunday".each do |d|
     scope d,where(d => 1)
