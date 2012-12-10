@@ -68,7 +68,7 @@ class PriceList < ActiveRecord::Base
   end
 
   def self.import_item_price_file(pl_id,file,file_name)
-    start=  Time.now
+    start=  Time.zone.now
 
     pl = PriceList.find pl_id    
     found = 0
@@ -152,7 +152,7 @@ class PriceList < ActiveRecord::Base
     save_material_not_found(file_name,new_materials)
     save("item_not_found_" + file_name,no_price_item)
     save("new_material_service_type"+file_name,new_material_service_type)
-    timeEnd = Time.now
+    timeEnd = Time.zone.now
 
     puts "Start: #{start}  End: #{timeEnd}, total time: #{(timeEnd - start)}"
     errors.each do |e|

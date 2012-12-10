@@ -3,7 +3,7 @@ class AlarmMailer < ActionMailer::Base
     subject 'Alarma programada brindada por Comunidad Box'
     recipients user.email
     from 'info@comunidadbox.com'
-    sent_on Time.now
+    sent_on Time.zone.now
     body :user => user, :alarm => alarm
     content_type "text/html"
   end

@@ -84,7 +84,7 @@ class ControlPanelsController < ApplicationController
     end
     
     @fuels = Car.fuels
-    @years = ((Time.now.year) -25)...((Time.now.year) +2)
+    @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)
     @states = State.order(:name)
 
     if params[:st]

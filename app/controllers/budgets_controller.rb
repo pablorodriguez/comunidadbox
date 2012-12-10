@@ -32,7 +32,7 @@ class BudgetsController < ApplicationController
     @budgets = @budgets.paginate(:page =>page,:per_page =>per_page)
 
     @fuels = Car.fuels
-    @years = ((Time.now.year) -25)...((Time.now.year) +2)
+    @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)
     @states = State.order(:name)
     @company_services = get_service_types
     @brands = Brand.order(:name)    

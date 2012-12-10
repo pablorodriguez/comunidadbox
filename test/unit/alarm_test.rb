@@ -12,7 +12,7 @@ class AlarmTest < ActiveSupport::TestCase
   end
 
   test "validate next time 1 hour" do
-    now = Time.now
+    now = Time.zone.now
     next_time = now + 1.hour
     @alarm =  create(:alarm_repit,:name=> "alarm each 1 hour",:time => 1,:time_unit => "hour",:date_alarm => now,:date_ini => now,:date_end => 1.month.since)
     
@@ -74,7 +74,7 @@ class AlarmTest < ActiveSupport::TestCase
   end
 
   test "validate next time each monday" do
-    now = Time.now
+    now = Time.zone.now
     next_time = Chronic.parse("next monday")    
     unit_time = "week"
     @alarm =  create(:alarm_repit,:time => 1,:time_unit => unit_time,:date_alarm => now,:no_end => true,:monday=>true)    

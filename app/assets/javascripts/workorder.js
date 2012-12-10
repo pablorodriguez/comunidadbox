@@ -25,10 +25,14 @@ function submitForm(sort_column,direction){
  var chart;
 jQuery(document).ready( function(){
 
-    $(".new_note_link").click(new_note);
+  if ($("#workorders").length == 0){return;};
+
+  $(".new_note_link").click(new_note);  
+  $(".new_service").click(createNewService);
+  
 
     var dates = $( "#date_from, #date_to" ).datepicker({
-      defaultDate: -60,
+      defaultDate: -60,      
       changeMonth: true,
       numberOfMonths: 3,
       onSelect: function( selectedDate ) {

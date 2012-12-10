@@ -39,11 +39,10 @@ class Car < ActiveRecord::Base
   end
 
   def update_km?
-    (self.kmUpdatedAt && (Time.now - self.kmUpdatedAt) < (60 * 60 * 24)) ? false : true
+    (self.kmUpdatedAt && (Time.zone.now - self.kmUpdatedAt) < (60 * 60 * 24)) ? false : true
   end
 
   def future_events
-    #Event.future(Time.now).car(self.id).order("dueDate desc")
     Event.car(self.id).active.order("dueDate asc")
   end
   
@@ -87,7 +86,7 @@ class Car < ActiveRecord::Base
 
   def update_kmUpdatedAt
     last_update = self.kmUpdatedAt.nil? ? self.updated_at : self.kmUpdatedAt
-    months = ((Time.now.to_i - last_update.to_i).to_f / Event::MONTHS_IN_SEC).round
+    months = ((Time.zone.now.to_i - last_update.to_i).to_f / Event::MONTHS_IN_SEC).round
     if months > 0
       km_dif = self.km - self.changed_attributes["km"]
       new_avg = (km_dif) / months

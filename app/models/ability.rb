@@ -93,6 +93,9 @@ class Ability
       can :manage, ServiceFilter      
     end
 
+    if user.is_super_admin?
+      can :manage, Resque
+    end
 
   end
 end

@@ -15,9 +15,9 @@ class Event < ActiveRecord::Base
   MONTH_GREEN=2
  
   scope :red, lambda {{:conditions => ["dueDate <= ? AND dueDate >= ? AND events.status = ?", 
-    Time.now.months_since(Event::MONTH_RED),Time.now.months_ago(Event::MONTH_RED),Status::ACTIVE]}}
-  scope :yellow, lambda {{:conditions => ["dueDate > ? AND dueDate <= ?",Time.now.months_since(Event::MONTH_RED), Time.now.months_since(Event::MONTH_YELLOW)]} }
-  scope :green, lambda {{:conditions => ["dueDate > ? ",Time.now.months_since(Event::MONTH_GREEN)]} }
+    Time.zone.now.months_since(Event::MONTH_RED),Time.zone.now.months_ago(Event::MONTH_RED),Status::ACTIVE]}}
+  scope :yellow, lambda {{:conditions => ["dueDate > ? AND dueDate <= ?",Time.zone.now.months_since(Event::MONTH_RED), Time.zone.now.months_since(Event::MONTH_YELLOW)]} }
+  scope :green, lambda {{:conditions => ["dueDate > ? ",Time.zone.now.months_since(Event::MONTH_GREEN)]} }
 
   scope :modeled, lambda { |model| { :joins => :car, :conditions =>  ["cars.model_id = ?", model] } }
   scope :branded, lambda { |brand| { :joins => :car, :conditions =>  ["cars.brand_id = ?", brand] } }
@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
   scope :future, lambda { |day| {:conditions =>  ["dueDate >= ?", day]}}
   
   def is_green
-    dueDate > Time.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
+    dueDate > Time.zone.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
   end
 
   def belongs_to_company company
@@ -39,11 +39,11 @@ class Event < ActiveRecord::Base
   end
   
   def is_yellow
-    dueDate > Time.now.months_since(Event::MONTH_RED).to_date && dueDate <= Time.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
+    dueDate > Time.zone.now.months_since(Event::MONTH_RED).to_date && dueDate <= Time.zone.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
   end
   
   def is_red
-    dueDate <= Time.now.months_since(Event::MONTH_RED).to_date ? true : false 
+    dueDate <= Time.zone.now.months_since(Event::MONTH_RED).to_date ? true : false 
   end
 
   def self.group_by(service_type_id=nil)

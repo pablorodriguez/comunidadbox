@@ -79,7 +79,7 @@ class Workorder < ActiveRecord::Base
   
   def init  
     if self.attributes.has_key?('performed')
-      self.performed = I18n.l(Time.now.to_date) unless self.performed  
+      self.performed = I18n.l(Time.zone.now.to_date) unless self.performed  
     end
     
     if self.attributes.has_key?('status')

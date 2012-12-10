@@ -7,22 +7,23 @@
 .vertical_menu  
   = render "car_menu"    
 .contentright_s
-  #car_detail
-    = render "car_detail"  
-  #cars_work_orders.data
-    = render "work_orders"
-  #cars_future_events.hide.data
-    = render "events"
-  #car_budgets.data.hide
-    = render "/budgets/budgets"      
-  #cars_report_graphics.hide.data
-    = render 'graphics'          
-  #cars_notes.data.hide
-    = render :partial =>'notes',:locals =>{:notes =>@notes}
-  #cars_alarms.data.hide
-    = render 'alarms'
-  #cars_messages.data.hide
-    = render 'messages'
-  - if @companies
-    #company-selector.data.hide
-      = render 'company_selector'
+  #cars
+    #car_detail
+      = render "car_detail"  
+    #cars_work_orders.data
+      = render "work_orders"
+    #cars_future_events.hide.data
+      = render "events"
+    #car_budgets.data.hide
+      = render "/budgets/budgets"      
+    #cars_report_graphics.hide.data
+      = render 'graphics'          
+    #cars_notes.data.hide
+      = render :partial =>'notes',:locals =>{:notes =>@notes}
+    #cars_alarms.data.hide
+      = render 'alarms'
+    #cars_messages.data.hide
+      = render 'messages'
+    - if @companies
+      #company-selector.data.hide
+        = render 'company_selector'

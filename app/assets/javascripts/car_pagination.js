@@ -1,4 +1,6 @@
 jQuery(document).ready(function(){
+
+  if ($("#cars").length == 0){return;};
   
   $("#new_note_link").click(createNewNote);
 

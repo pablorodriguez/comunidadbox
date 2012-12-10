@@ -179,7 +179,7 @@ class User < ActiveRecord::Base
 
     cars_ids = cars.each{|c|c.id.to_i} unless car_id
     cars_ids = [car_id] if car_id
-    events = Event.where("dueDate >= ? and car_id in(?)",Time.now,cars_ids)
+    events = Event.where("dueDate >= ? and car_id in(?)",Time.zone.now,cars_ids)
 
     events = events.includes(:service_type).where("service_types.id = ?",service_type_id) if service_type_id
     events = events.paginate(:page => 1,:per_page=>per_page) if per_page

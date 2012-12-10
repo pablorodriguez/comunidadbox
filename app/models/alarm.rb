@@ -14,17 +14,17 @@ class Alarm < ActiveRecord::Base
   #scope :activ, lambda { |model| { :joins => :car, :conditions =>  ["cars.model_id = ?", model] } }
   scope :active, where(:status => Status::ACTIVE)  
   scope :next,lambda { |hours| where("TIMESTAMPDIFF(HOUR,NOW(),next_time) <= ?",hours)}
-  scope :now, where("(date_ini <= :now and date_end >= :now) or no_end = true", :now => Time.now)
+  scope :now, where("(date_ini <= :now and date_end >= :now) or no_end = true", :now => Time.zone.now)
   scope :no_end, where("no_end = true")
 
   def self.next_minute
-    where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.now)
+    where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.zone.now)
   end
   %W"monday tuesday wednesday thursday friday saturday sunday".each do |d|
     scope d,where(d => 1)
   end
 
-  scope :today, Alarm.send(Time.now.strftime("%A").downcase)
+  scope :today, Alarm.send(Time.zone.now.strftime("%A").downcase)
   scope :run_in_next_hours,lambda{|hrs| where("next_time  BETWEEN ? AND ?",1.minute.ago,hrs.hours.since)}
 
   before_save :set_next_time
@@ -53,7 +53,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def update_next_time
-    if (no_end || (date_end && date_end >= Time.now))
+    if (no_end || (date_end && date_end >= Time.zone.now))
       self.next_time = generate_next_time(self.next_time)
     else
       self.next_time = nil
@@ -62,7 +62,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def update_last_time
-    self.last_time = Time.now
+    self.last_time = Time.zone.now
   end
 
   #Update next time when alarm is saved
@@ -90,7 +90,7 @@ class Alarm < ActiveRecord::Base
 
   #check if the alarm is on time
   def is_on_time?
-    now = Time.now
+    now = Time.zone.now
     return true if no_end   
     if (date_ini.nil? || date_end.nil?) && (date_alarm >= now)
       return true 
@@ -106,7 +106,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def next_week_day
-    nro = Time.now.wday
+    nro = Time.zone.now.wday
     DAYS[days_selected_nro.find{|d| d <= nro}]
   end
 
@@ -138,8 +138,8 @@ class Alarm < ActiveRecord::Base
     days.sort
   end
 
-  def next_day_selected(from=Time.now)
-    if (is_today? && (date_alarm > Time.now))      
+  def next_day_selected(from=Time.zone.now)
+    if (is_today? && (date_alarm > Time.zone.now))      
       date_alarm
     else
       days = days_selected    
@@ -152,7 +152,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def notify    
-    logger.info "#### notify alarm #{id} #{Time.now}"    
+    logger.info "#### notify alarm #{id} #{Time.zone.now}"    
     update_next_time
     update_last_time    
     send_message

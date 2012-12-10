@@ -45,7 +45,7 @@ class CarsController < ApplicationController
   
   def km    
     @car = Car.find(params[:id])
-    @car.kmUpdatedAt = Time.now
+    @car.kmUpdatedAt = Time.zone.now
     new_km = params[:car][:km].to_i
     new_avg= params[:car][:kmAverageMonthly].to_i
     

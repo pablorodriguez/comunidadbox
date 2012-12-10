@@ -272,7 +272,10 @@ ComunidadBox::Application.routes.draw do
   end
 
   root :to => "home#index"
-  mount Resque::Server,:at => "/resque"
+  
+  constraints CanAccessResque do
+    mount Resque::Server, at: '/resque'
+  end
 
 end
 

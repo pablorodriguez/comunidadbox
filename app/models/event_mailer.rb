@@ -5,7 +5,7 @@ class EventMailer < ActionMailer::Base
     subject    'notificacion servicio realizado'
     recipients work_order.car.user.email
     from       'info@comunidadbox.com'
-    sent_on    Time.now
+    sent_on    Time.zone.now
     body       :user => user,:work_order => work_order
     content_type "text/html"
   end
