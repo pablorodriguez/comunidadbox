@@ -130,8 +130,8 @@ jQuery(document).ready( function(){
     updateEventSelected($(this));
   });
 
-  $(".cars .small_event a").click(function(){
-    var checkbox = $(this).parent().parent().parent().parent().parent().find(":checkbox");
+  $(".cars .small_event label").click(function(){
+    var checkbox = $(this).parent().parent().parent().parent().find(":checkbox");
     checkbox.click();
     updateEventSelected(checkbox);
   });
