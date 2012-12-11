@@ -147,7 +147,6 @@ module ApplicationHelper
   end
 
   def alarm_today_nro
-    return 0
     if current_user
       nro = current_user.next_alarm_nro
       if nro > 0
