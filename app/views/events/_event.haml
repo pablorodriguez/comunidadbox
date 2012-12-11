@@ -4,8 +4,8 @@
     - css = oe ? "other_event qtip":""      
     %div{:class=>"#{my_event_class(event)} #{css}"}
       - st = create_service_type_tool_tip oe
-      %label{:title =>"#{st}"}
-        = link_to(event.car.domain, "#")
+      %label{:title =>"#{st}",:class =>:link}
+        = event.car.domain
     .link.due_date{:title =>"Mas Detalle"}
       = l event.dueDate
     -unless event.is_green
