@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 databases = {
 	:comunidad_box_dev => {
-	:database => 'comunidadbox_development',
+	:database => 'comunidadbox_production',
 	:username => 'combox',
 	:password => 'combox'
 	}
