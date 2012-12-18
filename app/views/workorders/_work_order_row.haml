@@ -18,6 +18,8 @@
     .wo_info
       .right
         = l work_order_row.performed
+        .wo_id{:title => "Número del Servicio"}
+          = work_order_row.id
       - if can_show
         .clear.price_b.right
           = number_to_currency work_order_row.total_price

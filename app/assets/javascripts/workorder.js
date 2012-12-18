@@ -27,9 +27,9 @@ jQuery(document).ready( function(){
 
   if ($("#workorders").length == 0){return;};
 
-  $(".new_note_link").click(new_note);  
-  $(".new_service").click(createNewService);
   
+  $("#workorders").delegate(".new_note_link","click",new_note);
+   
 
     var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,      

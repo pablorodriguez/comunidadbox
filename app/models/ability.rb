@@ -45,7 +45,7 @@ class Ability
       can :details, Material      
     end 
 
-    can :create, Workorder do |w|
+    can :create, Workorder do |w|      
       value = (w.company && w.company.is_employee(user)) ? true :false
 
       unless value

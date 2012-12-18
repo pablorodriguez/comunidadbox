@@ -9,7 +9,7 @@ ComunidadBox::Application.configure do
   config.cache_classes = false
 
   #set AR time zone
-  config.time_zone ='Buenos Aires'
+  #config.time_zone ='Buenos Aires'
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true

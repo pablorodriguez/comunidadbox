@@ -14,6 +14,7 @@ class BudgetsController < ApplicationController
     @date_f = params[:date_from]
     @date_t = params[:date_to]
     @domain = params[:domain]
+    @budget_id = params[:number]
 
     filters_params[:first_name] = params[:first_name] if (params[:first_name] && !(params[:first_name].empty?))
     filters_params[:last_name] = params[:last_name] if (params[:last_name] && !(params[:last_name].empty?))
@@ -23,6 +24,7 @@ class BudgetsController < ApplicationController
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
     filters_params[:company_id] = company_id
     filters_params[:user] = current_user
+    filters_params[:budget_id] = @budget_id if (@budget_id && (!@budget_id.empty?))
     filters_params[:brand_id] = params[:brand_id] if params[:brand_id] && !(params[:brand_id].empty?)
     filters_params[:model_id] = params[:service_filter][:model_id] if params[:service_filter] && !(params[:service_filter][:model_id].empty?)
     filters_params[:year] = params[:year] if(params[:year] && !(params[:year].empty?))

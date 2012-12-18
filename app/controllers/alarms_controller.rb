@@ -23,7 +23,7 @@ class AlarmsController < ApplicationController
     else
       @alarm = current_user.alarms.new(params[:alarm])      
     end
-
+    
     
     respond_to do |format|
       if @alarm.save        
@@ -37,6 +37,7 @@ class AlarmsController < ApplicationController
 
   def update
     @alarm = current_user.alarms.find(params[:id])
+    
     if @alarm.update_attributes(params[:alarm])      
       redirect_to alarms_path
     else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121212047) do
+ActiveRecord::Schema.define(:version => 20121210120035) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -341,6 +341,7 @@ ActiveRecord::Schema.define(:version => 20121121212047) do
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
+  add_index "notes", ["car_id"], :name => "notes_car_id_fk"
   add_index "notes", ["note_id"], :name => "notes_note_id_fk"
   add_index "notes", ["receiver_id"], :name => "notes_receiver_id_fk"
   add_index "notes", ["user_id"], :name => "notes_user_id_fk"
@@ -626,6 +627,7 @@ ActiveRecord::Schema.define(:version => 20121121212047) do
   add_foreign_key "models", "brands", :name => "models_ibfk_1"
 
   add_foreign_key "notes", "budgets", :name => "notes_budget_id_fk", :dependent => :delete
+  add_foreign_key "notes", "cars", :name => "notes_car_id_fk", :dependent => :delete
   add_foreign_key "notes", "notes", :name => "notes_note_id_fk", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_receiver_id_fk", :column => "receiver_id", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete

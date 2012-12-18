@@ -107,6 +107,15 @@ body {
   width:100%;
 }
 
+.wo_id, .bg_id{
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin:-2px 2px;
+  text-align: right;
+  float:right;
+}
+
 .has_notes{
   background-image:url(images/notes.png);
   background-position:center;

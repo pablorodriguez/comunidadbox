@@ -76,7 +76,7 @@ module ApplicationHelper
     return image_tag("sent.png",:class =>"status",:title =>Status.status(status)) if status == Status::SENT
     return image_tag("cancelled.png",:class =>"status",:title =>Status.status(status)) if status == Status::CANCELLED
     return image_tag("performed.png",:class =>"status",:title =>Status.status(status)) if status == Status::PERFORMED
-    return image_tag("active.png",:class =>"status",:title =>Status.status(status)) if status == Status::ACTIVE
+    return image_tag("ok.png",:class =>"status",:title =>Status.status(status)) if status == Status::ACTIVE
   end
   
   def event_class event

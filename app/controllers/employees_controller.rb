@@ -22,8 +22,7 @@ class EmployeesController < ApplicationController
     @employee = User.find(params[:id])
    
     respond_to do |format|
-      if @employee.update_attributes(params[:user])
-        flash[:notice] = 'Empleado actualizado con exito.'
+      if @employee.update_attributes(params[:user])        
         format.html { redirect_to :action => "show" }
         format.xml  { head :ok }
       else

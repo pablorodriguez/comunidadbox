@@ -31,17 +31,27 @@ class WorkordersController < ApplicationController
     filters_params ={}
     @date_f = params[:date_from]
     @date_t =params[:date_to]
-    @domain = params[:domain] || ""
+    @domain = params[:domain]
+    @wo_id = params[:number]
 
     filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
-    filters_params[:domain] = @domain
+    filters_params[:domain] = @domain if (@domiain && (!@domain.empty?))
     filters_params[:service_type_ids] = @service_type_ids unless (@service_type_ids.empty?)
     filters_params[:wo_status_id] = @status_id if @status_id
     filters_params[:company_id] = company_id if company_id
     filters_params[:user] = current_user
+    filters_params[:workorder_id] = @wo_id if (@wo_id && (!@wo_id.empty?))
+    filters_params[:order_by] = @order_by
+
     @workorders = Workorder.find_by_params(filters_params)
+    
+    @count= @workorders.count()   
+    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)
+
     @report_data = Workorder.group_by_service_type(filters_params)
+    
+    @workorder_amount= @work_orders.sum(&:total_price)  
 
     @price={}
     @report_data.each_pair do |k,v|
@@ -65,12 +75,10 @@ class WorkordersController < ApplicationController
     end
 
     @amt_data = Workorder.build_graph_data(@amt)
-    @work_orders = @workorders.order(@order_by).paginate(:page =>page,:per_page =>per_page)
-
-    @count= @workorders.count()
-    @workorder_amount= @workorders.sum("price * amount")
-    @services_amount =0
+    
+    @services_amount =0    
     @amt.each{|key,value| @services_amount += value}
+
     @status = {-1=>"-- Estado --"}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
 
     respond_to do |format|
@@ -275,7 +283,7 @@ class WorkordersController < ApplicationController
 
     # si hay parametro de budget lo busco e inicializo al WO con los datos del presupuesto
     if params[:b]
-      budget = Budget.companies(current_user.company_ids).where("id = ? ",params[:b].to_i).first
+      budget = Budget.companies(current_user.company.user.company_ids).where("id = ? ",params[:b].to_i).first
 
       if budget
         # si no hay auto en el budget y no hay auto como parametro      

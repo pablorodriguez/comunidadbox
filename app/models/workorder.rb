@@ -336,31 +336,29 @@ class Workorder < ActiveRecord::Base
   
 
   def self.find_by_params(filters)
+    workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:car =>:user,:services => [{:material_services => [{:material_service_type =>:service_type}]}])
     
-    domain =  filters[:domain] || ""
-    
-    workorders = Workorder.includes([:company],:car =>:user).where("cars.domain like ?","%#{domain.upcase}%")
-    workorders = workorders.includes(:services => {:material_services =>{:material_service_type =>:service_type}})
+    workorders = workorders.where("cars.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
+
     #workorders = workorders.order("service_types.name")
-    if filters[:user] && filters[:user].company.nil?
-      workorders = workorders.where("workorders.car_id IN (?)", filters[:user].cars.map(&:id))
-    end
+    
+    workorders = workorders.where("workorders.car_id IN (?)", filters[:user].cars.map(&:id)) if filters[:user] && filters[:user].company.nil?
     
     workorders = workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
     
     workorders = workorders.where("performed <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
     workorders = workorders.where("performed >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     
-    if filters[:company_id]
-      workorders = workorders.where("workorders.company_id IN (?)",filters[:company_id])
-    else
-      #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
-    end
-
+    workorders = workorders.where("workorders.company_id IN (?)",filters[:company_id]) if filters[:company_id]
+    
+    #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
+    
+    workorders = workorders.where("workorders.id = ?", filters[:workorder_id]) if filters[:workorder_id]
     workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
     
     workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
     logger.debug "### Filters SQL #{workorders.to_sql}"
+    
     workorders
   end
   

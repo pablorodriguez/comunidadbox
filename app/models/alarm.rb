@@ -73,6 +73,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def generate_next_time(base_time= self.date_alarm)
+    debugger
     d = days_selected    
     if (self.time && (d.empty?))
         new_time = base_time + (self.time.send(self.time_unit))
@@ -84,8 +85,8 @@ class Alarm < ActiveRecord::Base
       end
     else
       new_time = self.date_alarm
-    end
-    new_time
+    end    
+    new_time.utc
   end
 
   #check if the alarm is on time
@@ -120,7 +121,7 @@ class Alarm < ActiveRecord::Base
     days << "monday" if monday
     days << "tuesday" if tuesday
     days << "wednesday" if wednesday
-    days << "thursady" if thursday
+    days << "thursday" if thursday
     days << "friday" if friday
     days << "saturday" if saturday
     days
@@ -142,7 +143,8 @@ class Alarm < ActiveRecord::Base
     if (is_today? && (date_alarm > Time.zone.now))      
       date_alarm
     else
-      days = days_selected    
+      days = days_selected
+      debugger
       days.map{ |s| Chronic.parse("next #{s}", now: from)}.sort.first unless days.empty?    
     end
   end
