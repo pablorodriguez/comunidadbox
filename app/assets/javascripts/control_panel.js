@@ -72,7 +72,7 @@ function edit_filter_name(){
 	$('#save_filter').show();
 }
 
-function searchModel(event){
+function searchModelControlPanel(event){
   var brand_id = event.target.id; 
   var token = $("input[name='authenticity_token']").val();
   AjaxLoader.enable();
@@ -136,7 +136,7 @@ jQuery(document).ready( function(){
     updateEventSelected(checkbox);
   });
 
-	$('#service_filter_brand_id').change(searchModel);
+	$('#service_filter_brand_id').change(searchModelControlPanel);
 	
 	if ($('#service_filter_name').val()){
 		$('#filter_label').text($('#service_filter_name').val());

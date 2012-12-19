@@ -4,7 +4,7 @@ jQuery(document).ready( function(){
 
   $(".new_note_link").click(new_note);  
   
-  $('#brand_id').change(searchModel);
+  $('#brand_id').change(searchModelBudget);
   
   var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,
@@ -37,7 +37,7 @@ jQuery(document).ready( function(){
   
 });
 
-function searchModel(event){
+function searchModelBudget(event){
   var brand_id = event.target.id; 
   var token = $("input[name='authenticity_token']").val();
   AjaxLoader.enable();
