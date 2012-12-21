@@ -52,6 +52,20 @@ namespace :deploy do
   end
   before "deploy", "deploy:check_revision"
 
+  task "restart resque" do
+    run "#{deploy_to}/current/conf/resque_stop.sh"
+    run "#{deploy_to}/current/conf/resque_start.sh"
+  end
+
+  task "start resque" do    
+    run "#{deploy_to}/current/conf/resque_start.sh"
+  end
+
+  task "stop resque" do
+    run "#{deploy_to}/current/conf/resque_stop.sh"    
+  end
+
+  
 end
 
 #role :web, "your web-server here"                          # Your HTTP server, Apache/etc
