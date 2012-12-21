@@ -18,6 +18,8 @@ class Alarm < ActiveRecord::Base
   scope :no_end, where("no_end = true")
 
   def self.next_minute
+    now = Time.now
+    puts "##### #{now}"
     where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.zone.now)
   end
   %W"monday tuesday wednesday thursday friday saturday sunday".each do |d|
@@ -73,7 +75,6 @@ class Alarm < ActiveRecord::Base
   end
 
   def generate_next_time(base_time= self.date_alarm)
-    debugger
     d = days_selected    
     if (self.time && (d.empty?))
         new_time = base_time + (self.time.send(self.time_unit))
@@ -144,7 +145,6 @@ class Alarm < ActiveRecord::Base
       date_alarm
     else
       days = days_selected
-      debugger
       days.map{ |s| Chronic.parse("next #{s}", now: from)}.sort.first unless days.empty?    
     end
   end

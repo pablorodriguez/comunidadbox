@@ -132,6 +132,14 @@ body {
   float: left;  
 }
 
+.new_message{
+  background-image:url(images/message.png);
+  background-position:center;
+  height:16px;
+  width:16px;  
+  float: left;  
+}
+
 
 .budget_s{
   background-image:url(images/budget_s.png);

@@ -39,6 +39,9 @@
           = print_to_pdf work_order_row
       .action        
         %a{:title=>"Crear nota",:class=>"new_note_link",:href=>"#"}      
+      .action        
+        %a{:title=>"Crear Mensaje",:class=>"new_message",:href=>"#"}      
+
       - if work_order_row.can_edit?(current_user)        
         .action
           = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"

@@ -53,16 +53,16 @@ namespace :deploy do
   before "deploy", "deploy:check_revision"
 
   task "restart_resque" do
-    run "nohup #{deploy_to}/current/config/resque_stop.sh &"
-    run "nohup #{deploy_to}/current/config/resque_start.sh &"
+    run "#{deploy_to}/current/config/resque_stop.sh"
+    run "#{deploy_to}/current/config/resque_start.sh"
   end
 
   task "start_resque" do    
-    run "nohup #{deploy_to}/current/config/resque_start.sh &"
+    run "#{deploy_to}/current/config/resque_start.sh"
   end
 
   task "stop_resque" do
-    run "nohup #{deploy_to}/current/config/resque_stop.sh &"
+    run "#{deploy_to}/current/config/resque_stop.sh"
   end
 
   

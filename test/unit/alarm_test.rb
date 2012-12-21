@@ -24,9 +24,9 @@ class AlarmTest < ActiveSupport::TestCase
     next_time = now + 1.month
     unit_time = "month"
     @alarm =  create(:alarm_repit,:name=> "alarm each 1 month no end",:time => 1,:time_unit => unit_time,:date_alarm => now,:no_end => true)
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")
+    assert(@alarm.next_time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")
     @alarm.update_attribute(:name,"new name")
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
+    assert(@alarm.next_time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
   end
 
   test "validate next time change 1 month" do
@@ -34,11 +34,11 @@ class AlarmTest < ActiveSupport::TestCase
     next_time = now + 1.month
     unit_time = "month"
     @alarm =  create(:alarm_repit,:name=> "alarm month no end",:time => 1,:time_unit => unit_time,:date_alarm => now,:no_end => true)
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
+    assert(@alarm.next_time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
 
     @alarm.update_attribute(:date_alarm,next_time)
     new_next_time = next_time + 1.month
-    assert(@alarm.next_time.time == new_next_time ,"Next time no es correcto despues de cambiar date_alarm: #{@alarm.date_alarm} #{@alarm.next_time.time} != #{new_next_time}")
+    assert(@alarm.next_time == new_next_time ,"Next time no es correcto despues de cambiar date_alarm: #{@alarm.date_alarm} #{@alarm.next_time.time} != #{new_next_time}")
   end
 
   test "validate next time change 1 hours" do
@@ -47,10 +47,10 @@ class AlarmTest < ActiveSupport::TestCase
     unit_time = "month"
     @alarm =  create(:alarm_repit,:name=> "alarm month no end",:time => 1,:time_unit => unit_time,:date_alarm => now,
       :no_end => true)
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
+    assert(@alarm.next_time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
     @alarm.update_attribute(:time_unit,"hour")
     new_next_time = now + 1.hour
-    assert(@alarm.next_time.time == new_next_time ,"Next time no es correcto despues de cambiar 
+    assert(@alarm.next_time == new_next_time ,"Next time no es correcto despues de cambiar 
         Date Alarm: #{@alarm.date_alarm} 
         Next Time: #{@alarm.next_time.time} !=  New Next Time: #{new_next_time}")
   end
@@ -61,7 +61,7 @@ class AlarmTest < ActiveSupport::TestCase
     unit_time = "day"
     @alarm =  create(:alarm_repit,:name=> "alarm month no end",:time => 1,:time_unit => unit_time,:date_alarm => now,
       :no_end => true)
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
+    assert(@alarm.next_time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
   end
 
   test "validate next time change year day" do
@@ -70,7 +70,7 @@ class AlarmTest < ActiveSupport::TestCase
     unit_time = "year"
     @alarm =  create(:alarm_repit,:name=> "alarm month no end",:time => 1,:time_unit => unit_time,:date_alarm => now,
       :no_end => true)
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
+    assert(@alarm.next_time == next_time,"Next time no es correcto: #{@alarm.next_time.time} != #{next_time}")    
   end
 
   test "validate next time each monday" do
@@ -78,7 +78,7 @@ class AlarmTest < ActiveSupport::TestCase
     next_time = Chronic.parse("next monday")    
     unit_time = "week"
     @alarm =  create(:alarm_repit,:time => 1,:time_unit => unit_time,:date_alarm => now,:no_end => true,:monday=>true)    
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: 
+    assert(@alarm.next_time == next_time,"Next time no es correcto: 
         Alarm Next Time: #{@alarm.next_time.time} 
         Next Time: #{next_time}")    
   end
@@ -88,7 +88,7 @@ class AlarmTest < ActiveSupport::TestCase
     next_time = Chronic.parse("next friday", now: now)
     unit_time = "week"    
     @alarm =  create(:alarm_repit,:time => 1,:time_unit => unit_time,:date_alarm => now,:no_end => true,monday: true, friday: true)    
-    assert(@alarm.next_time.time == next_time,"Next time no es correcto: 
+    assert(@alarm.next_time == next_time,"Next time no es correcto: 
         Alarm Next Time: #{@alarm.next_time.time} 
         Next Time: #{next_time}")    
   end
