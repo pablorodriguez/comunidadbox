@@ -13,7 +13,7 @@ gem 'rails', '3.2.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql'
-gem 'mysql2'
+gem 'mysql2','0.3.10'
 gem "haml"
 gem "will_paginate", "~> 3.0.pre2"
 gem "foreigner"
@@ -52,6 +52,7 @@ gem 'jquery-rails'
 
 #gem 'delayed_job'
 gem 'resque', :require =>"resque/server"
+gem 'capistrano-resque'
 #gem 'resque-scheduler'
 gem 'rufus-scheduler'
 gem 'factory_girl_rails',"~> 3.0"

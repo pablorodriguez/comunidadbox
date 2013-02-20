@@ -167,10 +167,6 @@ function showHideContent(link,data){
   //$("#menu_actions").animate({'left':'0px'}); 
 }
 
-function resetStatusMessages(){
-  //$("#msgs").fadeOut();
-}
-
 function showGRAvatar(){
   window.open("http://www.gravatar.com");
   return false;

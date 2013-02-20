@@ -19,6 +19,11 @@ function submitForm(sort_column,direction){
 	$("#filter").submit();
 }
 
+function new_message_wo(){  
+  $(this).parent().parent().parent().find(".message").toggle();
+}
+
+
 /**
  * @author Hernan
  */
@@ -29,7 +34,7 @@ jQuery(document).ready( function(){
 
   
   $("#workorders").delegate(".new_note_link","click",new_note);
-   
+  $("#workorders").delegate(".new_message","click",new_message_wo);
 
     var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,      
@@ -45,6 +50,10 @@ jQuery(document).ready( function(){
         dates.not( this ).datepicker( "option", option, date );
       }
     });
+
+  $(".new_msg_form[data-remote='true']").bind('ajax:success',function(){
+    $(this)[0].reset();
+  });
 
     
   $(".dropdown dt a").live("click",function() {
@@ -80,14 +89,14 @@ jQuery(document).ready( function(){
   $("#report_detail").click(function(){showHideContent($(this),"#report_data");});
 
   $("#service_types :checkbox[id!='all_service_type']").change(function(){
-    $(this).parent().parent().parent().find(":checkbox[id='all_service_type']").attr("checked",'');
+    $(this).parent().parent().parent().find(":checkbox[id='all_service_type']").attr("checked",false);
   })
 
   $("#service_types #all_service_type").change(function(){
     if ($("#all_service_type").attr("checked")){
-      $("#service_types :checkbox[id!='all_service_type']").attr("checked",'checked');  
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",true);  
     }else{
-      $("#service_types :checkbox[id!='all_service_type']").attr("checked",'');  
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",false);  
     }
   })
 

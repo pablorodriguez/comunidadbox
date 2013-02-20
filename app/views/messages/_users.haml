@@ -1,0 +1,33 @@
+.box_bottom
+  %h1 Listado de Clientes con Mensajes
+
+- for client in @clients
+  - is_client = is_client(client)
+  .row
+    .client
+      .left
+        %strong
+          = link_to client.full_name, client_path(client),:title=>"Ver"
+        
+      - if is_client
+        .left
+          = client.email
+        .phone
+          = client.phone
+      .left.clear
+        = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
+
+      .actions.right
+        .action
+          = link_to "",user_messages_path(client),{:title=>"Ver Mensaje",:class=>"new_message"}
+
+    - client.cars.each_with_index do |car,index|  
+      .client_car.box_top.left
+        .detail.left
+          .left.domain_white
+            = link_to h(car.domain),car
+          %strong
+            = car.brand.name
+            = car.model.name
+            = car.year  
+= will_paginate @clients

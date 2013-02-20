@@ -70,7 +70,7 @@
   .contentright_s
     - if @work_orders.size > 0
       #workorders
-        #workorders_c.data
+        #workorders_c.data          
           #workorders
             = render 'workorders'
         - unless current_user.get_companies.empty?

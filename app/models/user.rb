@@ -261,7 +261,7 @@ class User < ActiveRecord::Base
   end
 
   def unread_messages_nro
-    Message.for_user(self).unread.count
+    Message.where("receiver_id = ?",self.id).unread.count
   end
 
   def next_alarm_nro

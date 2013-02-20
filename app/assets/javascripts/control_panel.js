@@ -1,4 +1,4 @@
-var eventDetailDialog;
+var cp_eventDetailDialog;
 
 function searchNotes(event_id){  
   var token = $("input[name='authenticity_token']")[0];
@@ -98,12 +98,17 @@ function updateEventSelected(checkbox){
 
 function createNewAlarm(){
   $("#alarms").toggle();
-  $(".notes_container").hide();
+  $(".notes_container,#mesage").hide();  
 }
 
 function createNewNote(){  
   $(".notes_container").toggle();
-  $("#alarms").hide();
+  $("#alarms,#message").hide();  
+}
+
+function createNewMessage(){    
+  $("#alarms,.notes_container").hide();
+  $("#message").toggle();
 }
 
 jQuery(document).ready( function(){
@@ -115,6 +120,7 @@ jQuery(document).ready( function(){
 
   $(".add_alarm").click(createNewAlarm);
   $(".new_note").click(createNewNote);
+  $(".new_message").click(createNewMessage);
 	
 	$('#reload').click(submit_form);
 	$('#new_reload').click(submit_form);
@@ -168,7 +174,7 @@ jQuery(document).ready( function(){
   //$("#view input:checkbox").click(view);
   $("#select input:checkbox").click(select);
 
-  eventDetailDialog = $("#event_detail").dialog({
+  cp_eventDetailDialog = $("#event_detail").dialog({
 	autoOpen: false ,
     modal: true,
     draggable:false,
@@ -200,6 +206,7 @@ jQuery(document).ready( function(){
 
     	$(".notes_container .notes").html("");
     	$(".notes_container .note_form").attr("action","");
+      $("#message .new_msg_form").attr("action","");
     },
     open: function(){    	
     	$("#notes").hide();
@@ -215,14 +222,7 @@ jQuery(document).ready( function(){
         ]
 	});
 
-  $(".note_form[data-remote='true']").bind('ajax:success',function(){
-    $(this)[0].reset();
-  });
-
-  $("#new_alarm[data-remote='true']").bind('ajax:success',function(){
-    $(this)[0].reset();
-  });
-
+  
   var dates = $( "#service_filter_date_from, #service_filter_date_to" ).datepicker({
       defaultDate: -30,
       changeMonth: true,
@@ -339,10 +339,12 @@ function showBigEvent(){
 
 	var url = event_data.find(".url").html().trim();
   var alarm_url = event_data.find(".alarm_url").html().trim();
+  var message_url = event_data.find(".message_url").html().trim();
 
 	$(".note_form").attr("action",url);
 	$("#new_alarm").attr("action",alarm_url);
-	eventDetailDialog.dialog("open");
+  $("#message .new_msg_form").attr("action",message_url);
+	cp_eventDetailDialog.dialog("open");
 }
 
 function toggleSearchFilter(){

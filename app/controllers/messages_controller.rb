@@ -2,8 +2,29 @@ class MessagesController < ApplicationController
 
   def index  
     page = params[:page] || 1
+    per_page = 50
+    @user = User.find(params[:user_id])
+    @messages = Message.between(@user,current_user).paginate(:page =>page,:per_page =>per_page)
+  end
+
+  def users
+    page = params[:page] || 1
     per_page = 10
-    @messages = Message.for_user(current_user).paginate(:page =>page,:per_page =>per_page)
+    @clients = Message.for_user(current_user).paginate(:page =>page,:per_page =>per_page)
+  end
+
+  def new
+    @msg = Message.new
+  end
+
+  def create   
+    @message = Message.new(params[:message])
+    @message.receiver_id = params[:user_id]
+    @message.user = current_user
+    @message.save
+    respond_to do |format|                  
+      format.js {render :file=>"messages/create.js.erb",:layout => false}   
+    end
   end
 
   def destroy
@@ -16,7 +37,7 @@ class MessagesController < ApplicationController
   end
 
   def read
-    @message = current_user.messages.find(params[:id])
+    @message = Message.find(params[:id])
     if @message.read?
       @message.read = false
     else

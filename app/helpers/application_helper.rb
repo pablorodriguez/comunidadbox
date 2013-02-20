@@ -283,6 +283,14 @@ module ApplicationHelper
     logger.debug "### search id #{oe} #{st}"
     return st
   end
+
+  def message_class(msg)
+    css = "my_msg"
+    if (msg.user != current_user)
+      css = msg.read? ? "other_msg" : "other_msg message_not_read"
+    end    
+    css
+  end
    
 
 end

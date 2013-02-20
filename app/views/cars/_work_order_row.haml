@@ -19,12 +19,14 @@
               %strong
                 Operario:
               = "#{s.operator.first_name} #{s.operator.last_name}"
-    .wo_info
-      .right
-        = l work_order_row.performed
-      - if can_show
-        .clear.price_b.right
-          = number_to_currency work_order_row.total_price
+    .wo_id.left.clear{:title => "Número del Servicio"}
+      = work_order_row.id
+  .wo_info
+    .right
+      = l work_order_row.performed
+    - if can_show
+      .clear.price_b.right
+        = number_to_currency work_order_row.total_price
   - if can_show
     .actions
       .action.info.wo_info_detail.link          

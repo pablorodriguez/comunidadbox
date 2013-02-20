@@ -1,0 +1,14 @@
+%div{:class => "#{message_class(message)}"}
+  .url.hide
+    = link_to "read", read_message_path(message), :remote => true,:method => :post,:class => :read
+  .info_note    
+    .left
+      = message.message  
+    .right
+      .date
+        %lable{:title =>"Creado el"}
+          = l message.created_at,:format => :short  
+  .actions
+    -if message.user == current_user
+      .action
+        = link_to "", message_path(message), :confirm => '¿ Esta seguro que desea borrar el Mensaje ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete

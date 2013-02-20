@@ -1,0 +1,9 @@
+.vertical_menu
+  = render "home/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Cliente", new_client_path      
+.contentright_s  
+  #clients.data
+    = render "users"

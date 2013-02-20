@@ -9,6 +9,10 @@ set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
+role :resque_worker, "www.comunidadbox.com"
+set :workers, { "alarms" => 1,"mails" => 1 }
+
+
 set :scm, "git"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :repository,  "git@github.com:ComunidadBox/comunidadbox.git"

@@ -8,9 +8,12 @@
         = link_to "Nuevo Cliente", new_client_path      
 .contentright_s  
   .box_bottom
-    %h1 Mensajes  
+    %h1 
+      Mensajes para :
+      = @user.full_name
   .box_bottom
-    = render :partial =>'message',:collection => @messages
-    - if @messages && @messages.size > 0
-      .clear
-        = will_paginate @messages
+    .messages
+      = render :partial =>'message',:collection => @messages
+    = render :partial =>'form_user',:locals => {:user => @user}
+  .clear
+    = will_paginate @messages

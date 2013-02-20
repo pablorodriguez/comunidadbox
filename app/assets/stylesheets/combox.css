@@ -110,10 +110,7 @@ body {
 .wo_id, .bg_id{
   color: black;
   font-size: 16px;
-  font-weight: bold;
-  margin:-2px 2px;
-  text-align: right;
-  float:right;
+  font-weight: bold;  
 }
 
 .has_notes{
@@ -1364,6 +1361,16 @@ td.number, th.number{
 
 .message{
   overflow: auto;
+  clear: both;
+}
+
+.message_responses{
+  width: 80%;
+  float: right;
+}
+
+.message_ok{
+  overflow: auto;
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -1535,14 +1542,13 @@ td.number, th.number{
 }
 
 .wo_detail .services{  
-  margin: 2px 0px;
+  padding: 2px 0px;
   float:left;
-  width:100%;
-  clear:both;
+  width:82%;  
 }
 
 .budgets .services{  
-  margin: 2px 0px;
+  padding: 2px 0px;
   float:left;
   width:82%;
   clear:both;
@@ -1780,7 +1786,7 @@ td.number, th.number{
 .operator{
   font-size: 11px;
   float:left;
-  clear:both;  
+  margin: 4px;
 }
 
 .service a{
@@ -2084,6 +2090,11 @@ td.number, th.number{
   margin-left:0px;
 }
 
+.car, .client_name{
+  float:left;
+  padding: 10px;
+}
+
 .cars{
   background: none repeat scroll 0 0 #F9F7CF;
   overflow: auto;
@@ -2317,6 +2328,40 @@ td.number, th.number{
   margin-top:5px;
 }
 
+
+.new_msg_form{
+  overflow: auto;
+}
+
+.my_msg{  
+  padding-left:10px;
+  overflow: auto;
+  background: none repeat scroll 0 0 #FFFFCC;
+  border-radius: 5px 5px 5px 5px;
+  border: 0px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  margin: 5px;
+  min-height: 21px;
+  padding: 5px 5px;  
+  width: 80%;
+  float:left;
+}
+
+.other_msg{
+  padding-left:10px;
+  overflow: auto;
+  background: none repeat scroll 0 0 #C0EDF7;
+  border-radius: 5px 5px 5px 5px;
+  border: 0px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  margin: 5px;
+  min-height: 21px;
+  padding: 5px 5px;  
+  width: 80%;
+  float:right;
+  cursor:pointer;
+}
+
 .note{
   padding-left:10px;
   overflow: auto;
@@ -2345,10 +2390,6 @@ td.number, th.number{
 .message_not_read{
   cursor: pointer;
   box-shadow: 0 1px 2px red;
-}
-
-.msg{
-  cursor: pointer;  
 }
 
 .note .info .date{
@@ -2691,8 +2732,8 @@ ul.tasks li{
 }
 
 .budget_info{
-  width:100%;
-  float:left;
+  width:18%;
+  float:right;
 }
 
 .upload_file form{

@@ -1,7 +1,7 @@
 if (<%=@message.read?%>){
-  $("#message_<%=@message.id%>").removeClass("message_not_read");
+  $("#message_<%=@message.id%>").children().first().removeClass("message_not_read");
 }else{
-  $("#message_<%=@message.id%>").addClass("message_not_read");
+  $("#message_<%=@message.id%>").children().first().addClass("message_not_read");
 }
 
 $("#unread_message_nro").html("<%=escape_javascript(unread_message_nro)%>");
