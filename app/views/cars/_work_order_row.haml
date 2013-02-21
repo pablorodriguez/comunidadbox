@@ -11,16 +11,18 @@
           - if s.comment
             .left
               %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-          .left
-            = link_to s.service_type.name ,work_order_row if can_show
-            = s.service_type.name unless can_show
+          .left            
+            = s.service_type.name
           .operator
             -if s.operator
               %strong
                 Operario:
               = "#{s.operator.first_name} #{s.operator.last_name}"
     .wo_id.left.clear{:title => "Número del Servicio"}
-      = work_order_row.id
+      -if can_show
+        = link_to work_order_row.id,work_order_row
+      -else
+        = work_order_row.id
   .wo_info
     .right
       = l work_order_row.performed

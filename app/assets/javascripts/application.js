@@ -30,6 +30,7 @@
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require gmaps4rails/gmaps4rails.mapquest
 //= require gmaps4rails/gmaps4rails.openlayers
+//= require combox
 //= require highcharts
 //= require s3Slider
 //= require accounts
@@ -39,7 +40,6 @@
 //= require car_pagination
 //= require clients
 //= require company_service
-//= require combox
 //= require company_map
 //= require control_panel
 //= require map_content

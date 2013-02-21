@@ -1,8 +1,9 @@
+//#car_pagination.js
 jQuery(document).ready(function(){
 
   if ($("#cars").length == 0){return;};
   
-  $("#new_note_link").click(createNewNote);
+  $("#new_note_link").click(createNewNoteCar);
 
   $("#create_new_service").click(createNewService);
 
@@ -82,7 +83,7 @@ jQuery(document).ready(function(){
 
 });
 
-function createNewNote(){
+function createNewNoteCar(){
   
   $("#cars_notes .notes_container").show();
 

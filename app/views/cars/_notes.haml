@@ -1,5 +1,5 @@
 .box_bottom
   %h1 Listado de Notas  
-.box_bottom[@car]
+.box_bottom.w[@car]
   #notes
     = render :partial =>"notes/note_form_np",:locals=>{:wo => nil,:b=>nil, :c => @car.id,:notes => notes}  
