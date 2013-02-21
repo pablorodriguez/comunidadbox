@@ -15,6 +15,9 @@ jQuery(document).ready( function(){
     history.back(-1);
   });
 
+  $("form[data-remote='true']").live('ajax:success',function(){
+    $(this)[0].reset();
+  });
   
 
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
