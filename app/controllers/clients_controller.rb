@@ -83,7 +83,7 @@ class ClientsController < ApplicationController
         if @client.cars.empty?
           if @budget
             logger.debug "### debe ingresar un auto"
-            @client.errors.add "", "Debe ingresar informacion del automovil"
+            @client.errors.add "Automovil", "Debe ingresar informacion del automovil"
             @client.cars.build if @client.cars.empty?
             @client.build_address unless @client.address
             render :action => 'new'

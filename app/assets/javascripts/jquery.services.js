@@ -13,11 +13,14 @@ jQuery(document).ready( function(){
 		$(this).disable();
 	});
 
-	$('#workorder_performed').datepicker({
+	$('.date').datepicker({
       showOn: 'button',
       buttonImage: '/images/calendar.png',
       buttonImageOnly: true
     });
+  
+  $('.date_time').datetimepicker();
+
 
 	initMaterialItems();
 	$("#maxim").click(maxim);

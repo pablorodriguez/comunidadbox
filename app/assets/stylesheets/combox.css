@@ -2,6 +2,16 @@
 /* CSS Document 
 #F2F2F2
 */
+
+.field_with_errors{
+  display: inline;
+}
+
+.field_with_errors input{
+  background: red;  
+  color: black;
+}
+
 .header_text_lable{
   display: block;
   float: left;
@@ -721,7 +731,7 @@ input{
 }
 
 .input_date_time{
-  width:140px; 
+  width:120px; 
 }
 
 .input_medium{

@@ -3,9 +3,9 @@ var geocoder;
 
 function initializeMap(zoom_param,address) {
 
-	if (typeof google == "undefined"){
-		return;
-	}
+	if (typeof google == "undefined"){return;};
+
+  if ($(".map_canvas").length == 0) {return;};   
 
 	if (zoom_param == null){
 		zoom_param = 8;
@@ -18,6 +18,8 @@ function initializeMap(zoom_param,address) {
 	  zoom: zoom_param,
 	  center: latlng,
 	  mapTypeControl: false,
+    streetViewControl: false,
+    overviewMapControl: true,    
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map($(".map_canvas")[0], myOptions);

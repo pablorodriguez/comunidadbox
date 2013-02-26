@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210120035) do
+ActiveRecord::Schema.define(:version => 20130226212223) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -577,6 +577,8 @@ ActiveRecord::Schema.define(:version => 20121210120035) do
     t.integer  "payment_method_id"
     t.string   "company_info"
     t.integer  "budget_id"
+    t.datetime "deliver"
+    t.datetime "deliver_actual"
   end
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"

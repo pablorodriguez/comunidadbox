@@ -1,7 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
-  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes
+  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual
   
   include Statused  
 
@@ -20,7 +20,8 @@ class Workorder < ActiveRecord::Base
   accepts_nested_attributes_for :payment_method
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
   validates :services ,:length =>{:minimum => 1}
-
+  validates_presence_of :deliver, :message => "Debe ingresar una hora de entrega"
+  validates_presence_of :performed, :message =>"Debe ingresar una fecha de realizado"
   
 
   #,:message =>"La orden de trabajo debe contener servicios"
@@ -92,13 +93,13 @@ class Workorder < ActiveRecord::Base
   def validate_all
     logger.debug "####### entro a validate all #{self.services}"
     if self.services.empty?
-      errors.add_to_base("La orden de trabajo debe contener servicios")
+      errors.add("Servicios","La orden de trabajo debe contener servicios")
       logger.debug "############################# service esta vacio"
     end
 
     if self.user.company
       unless user.company.is_employee(user)
-        errors.add_to_base("El prestador de servicios es incorrecto")
+        errors.add("Servicios","El prestador de servicios es incorrecto")
       end
 
     end

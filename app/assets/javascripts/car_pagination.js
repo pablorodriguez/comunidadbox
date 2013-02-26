@@ -1,7 +1,7 @@
 //#car_pagination.js
 jQuery(document).ready(function(){
 
-  if ($("#cars").length == 0){return;};
+  if ($("#all_cars").length == 0){return;};
   
   $("#new_note_link").click(createNewNoteCar);
 

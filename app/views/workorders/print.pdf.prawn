@@ -114,6 +114,7 @@ pdf.grid(0,0).bounding_box do
 
   #pdf.move_down(3)
   pdf.text "Total: #{number_to_currency(@work_order.total_price)}",:align =>:right,:style =>:bold
+  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left
 
 end		
 
@@ -201,7 +202,7 @@ pdf.grid(0,1).bounding_box do
     if materials.size > 0
       pdf.table materials do
         column_widths.each_index{|i| column(i).width = column_widths[i] }
-        column(1).style{|c| c.align = :right}      
+        column(1).style{|c| c.align = :right}     
         cells.padding= [1,5]      
       end
     end
@@ -211,6 +212,7 @@ pdf.grid(0,1).bounding_box do
     unless service.comment
      pdf.text "Comentario: #{service.comment}",:size=>fs
     end
+    pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left
       
     
   end
