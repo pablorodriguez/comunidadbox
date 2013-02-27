@@ -42,9 +42,7 @@
 
     -#= wo_form.fields_for :alarms do |a_form|
     -#  = render "alarm_fields",:f => a_form
-    #wo_save.buttons_container
-      - if @update_km
-        = wo_form.submit "Grabar",:class =>"button",:data => {"disable-with" => 'Grabando...'},:id => :workorder_submit
-      -else
-        = wo_form.submit "Grabar",:class =>"button",:data => {"disable-with" => 'Grabando...'},:id => :workorder_submit
+    #wo_save.buttons_container      
+      - dis = @update_km ? "disabled" : nil 
+      = wo_form.submit "Grabar",:class =>"button",:data => {"disable-with" => 'Grabando...'},:id => :workorder_submit,:disabled => dis      
       = link_to "Cancelar",car_path(@work_order.car)
