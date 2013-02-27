@@ -2,9 +2,14 @@
   #wo-actions.left
     .service_type.box_bottom
       = icon_status @work_order.status
-      = l(@work_order.performed)
-      = @work_order.payment_method.name
+      %label{title: "Realizado"}
+        = l(@work_order.performed)
+      %label{title: "Forma de Pago"}
+        = @work_order.payment_method.name
       = link_to "[#{@work_order.budget.id}]",budget_path(@work_order.budget),:title => "Presupuesto" if @work_order.budget
+      - if @work_order.deliver
+        %label.right{title: "Hora de Entrega"}
+          = l(@work_order.deliver,format: :short) 
       - if @work_order.comment
         .comment.clear
           = @work_order.comment

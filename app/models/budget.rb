@@ -85,9 +85,9 @@ class Budget < ActiveRecord::Base
     budget = Budget.order("budgets.created_at DESC").includes(:car,:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
-    #unless prop.any?{|k| filters.key?(k.to_sym)}
-    #  budget = budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
-    #else
+    unless prop.any?{|k| filters.key?(k.to_sym)}
+      budget = budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
+    else
       budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
       budget = budget.where("budgets.brand_id = :brand_id OR cars.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
       budget = budget.where("budgets.model_id = :model_id OR cars.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
@@ -99,7 +99,7 @@ class Budget < ActiveRecord::Base
       
       budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
       budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
-    #end
+    end
 
     if filters[:company_id]
       budget = budget.where("budgets.company_id IN (?)",filters[:company_id])
