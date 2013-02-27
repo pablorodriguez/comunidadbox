@@ -13,10 +13,8 @@
           %li
             = link_to "Nuevo Cliente", new_client_path         
 .contentright_s  
-  #companies.data
-    = render "all_companies"
-    .hide
-      = render "gmap4rails"
+  #companies.data    
+    = render "search_map"
     .hide
       = render "maps"
   #new_company.data.hide

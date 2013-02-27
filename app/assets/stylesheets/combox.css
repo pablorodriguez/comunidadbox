@@ -2558,14 +2558,18 @@ input.labelHighlight,textarea.labelHighlight {
 .box_right{
   border-right:thin double #CCCCCC;    
 }
+
+.client label{
+  margin: 0px 2px 0px 0px;
+}
+
 .client{
   margin-bottom:5px;
   overflow:auto;
 }
 
 .client .phone{
-  margin-left:3px;
-  float:left;
+  margin-left:3px;  
   font-weight:bold;
 }
 

@@ -56,7 +56,10 @@ class CompaniesController < ApplicationController
       #lng = Geocoder.coordinates(@street)[1]
       #distance = @distance.to_f * 1000
       #@circles_json = '[{"lng": ' + lng.to_s + ', "lat": ' + lat.to_s + ', "radius": ' + distance.to_s + ', "strokeWeight" : 3, fillColor: "#FF0000", fillOpacity: 0.2 }]'
-      render :action => 'all'
+      #render :action => 'all'
+      respond_to do |format|
+        format.html # index.html.erb      
+      end
     else        
       redirect_to all_companies_path
     end
@@ -66,6 +69,7 @@ class CompaniesController < ApplicationController
   def all
     @companies = Company.best
     @car_id = params[:car_id]
+    @json = []
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @companies }

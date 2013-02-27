@@ -2,7 +2,7 @@
   %h1 Prestadores de Servicios
 .box_bottom
   .google_map
-    = gmaps("map_options" => {"type" => "ROADMAP", "zoom" => 13, "auto_adjust" => true },"markers" => {"data" => @json, "options" => {"list_container" => "markers_list" }})
+    = render "gmap4rails"    
 .box_bottom
   %strong
     Dirección:

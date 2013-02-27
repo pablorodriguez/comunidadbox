@@ -30,6 +30,7 @@
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require gmaps4rails/gmaps4rails.mapquest
 //= require gmaps4rails/gmaps4rails.openlayers
+//= require analytics
 //= require combox
 //= require highcharts
 //= require s3Slider

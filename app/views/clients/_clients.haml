@@ -4,29 +4,28 @@
 - for client in @clients
   - is_client = is_client(client)
   .row
-    .client
-      .left
-        %strong
-          = link_to client.full_name, client_path(client),:title=>"Ver"
-        
+    .client      
       - if is_client
-        .left
-          = client.email
-        .phone
+        %label       
+          = link_to client.full_name, client_path(client),:title=>"Ver"
+        %label.phone
           = client.phone
-      .left.clear
-        = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
+        %label
+          = client.email
 
-      .actions.right
+    .left.clear.client
+      = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
+
+    .actions.right
+      .action
+        = link_to "",new_budget_path(:c => client.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
+      .action
+        %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(client)}}
+      .action
+        = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}        
+      - if current_user.can_edit?(client)
         .action
-          = link_to "",new_budget_path(:c => client.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
-        .action
-          %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(client)}}
-        .action
-          = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}        
-        - if current_user.can_edit?(client)
-          .action
-            = link_to "",edit_client_path(client),{:title=>"Modificar Cliente",:class =>"edit"} 
+          = link_to "",edit_client_path(client),{:title=>"Modificar Cliente",:class =>"edit"} 
 
     - client.cars.each_with_index do |car,index|  
       .client_car.box_top.left
