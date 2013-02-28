@@ -183,6 +183,7 @@ ComunidadBox::Application.routes.draw do
     resources :messages
 
     collection do
+      get :generate_email
       get :new_employee
       get :list_service_offer
       get :companies

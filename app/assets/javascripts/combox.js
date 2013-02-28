@@ -1,6 +1,7 @@
 var RecaptchaOptions = {
       theme : 'white'
 };
+
 var showMenu =false;
 var all_company = null;
 var change_company = false;

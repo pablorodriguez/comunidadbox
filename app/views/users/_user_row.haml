@@ -18,6 +18,9 @@
     %label{ :for => "email" }Email *
   %td
     = f.text_field :email,:class=>"input_medium"
+    - if current_user && current_user.has_company?      
+      = link_to "Generar Email",generate_email_users_path,:remote => true
+      
 %tr
   %td
     %label{ :for => "email" }CUIT

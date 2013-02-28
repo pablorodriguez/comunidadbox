@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+  @@lock = Mutex.new
+  @@last_number = 0
+
   # Include default devise modules. Others available are:
 	# :http_authenticatable, :token_authenticatable, :confirmable,:lockable, :timeoutable and :activatable
   devise :registerable, :database_authenticatable, :recoverable,:rememberable, :trackable, :validatable
@@ -267,6 +270,40 @@ class User < ActiveRecord::Base
   def next_alarm_nro
     alarms.active.run_in_next_hours(24).count
   end
+
+  def self.last_number
+    @@last_number
+  end
+
+  def self.get_last_email
+    User.where("email like ?","test%@comunidadbox.com").order("email DESC").pluck("email").first
+  end
+
+  def self.get_last_number
+    nro = 0
+    email = get_last_email
+    nro = email.scan(/\d+/).first.to_i if email
   
+    @@last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
+
+    @@last_number
+    
+  end
+
+  def self.generate_email_schync        
+    "test#{get_last_number}@comunidadbox.com"
+  end
+
+
+  def self.generate_email
+    mail = ""
+    @@lock.synchronize do
+      mail = User.generate_email_schync
+    end
+    mail
+  end
+
+  
+
 end
 

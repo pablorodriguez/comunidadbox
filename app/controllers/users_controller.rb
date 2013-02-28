@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  @@lock = Mutex.new
   layout "application", :except => [:find_models]
 
   skip_before_filter :authenticate_user!,:only => [:new,:create,:update,:login,:activate,:find_models, :change_pass]
@@ -62,6 +63,13 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
+  def generate_email
+    @email_generated =  User.generate_email
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
+  end
+
 end
 

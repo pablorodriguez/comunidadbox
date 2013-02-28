@@ -34,7 +34,6 @@
 //= require combox
 //= require highcharts
 //= require s3Slider
-//= require accounts
 //= require alarms
 //= require budgets
 //= require budgets_form
