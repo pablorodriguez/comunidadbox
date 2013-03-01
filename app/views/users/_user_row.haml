@@ -19,7 +19,7 @@
   %td
     = f.text_field :email,:class=>"input_medium"
     - if current_user && current_user.has_company?      
-      = link_to "Generar Email",generate_email_users_path,:remote => true
+      = link_to "Generar Email",generate_email_users_path,:remote => true,:title => "Si el cliente no tiene email click aqui"
       
 %tr
   %td
