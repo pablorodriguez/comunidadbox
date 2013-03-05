@@ -36,6 +36,8 @@
       %h1 Prestador de Servicios
     .box_bottom
       = render 'show'
-    .box_bottom
-      #map_container{:style=>"margin:0 auto; width:75%"}
-        .map_canvas.map
+    .box_bottom 
+      = render "search_map"
+      .hide
+        = render "maps"
+        

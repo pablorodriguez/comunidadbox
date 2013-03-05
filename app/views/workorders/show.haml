@@ -17,3 +17,9 @@
     - can_show = @work_order.can_show? current_user
     = render "show" if can_show
     = render "s_show" unless can_show
+    #ranks_container.hide
+      #ranks.ranks.box_bottom
+        = render :partial => "ranks/rank",:locals => {:workorder =>@work_order}      
+      #rank_info.box_bottom
+        %h3 Calificar cliente
+      = render :partial => "ranks/new",:locals => {:workorder =>@work_order}

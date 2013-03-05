@@ -3,4 +3,4 @@
   Bienvenido #{@resource.full_name} a Comunidad Box !!!
 %p 
   Ud. puede confirmar su cuenta con el siguiente link:
-  = link_to 'Confirmar su cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)    
+  = link_to 'Confirmar su cuenta', user_confirmation_url(:confirmation_token => @resource.confirmation_token)    

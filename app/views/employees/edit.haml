@@ -12,5 +12,6 @@
     = form_for  @employee, :url => employee_path(@employee)  do |f|        
       .box_bottom
         = render 'form',:f => f
-      .box_bottom
+      .buttons_container.box_bottom
         = f.submit "Actualizar",:class =>"button"
+        = link_to "Cancelar",employees_path

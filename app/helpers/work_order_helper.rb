@@ -2,7 +2,7 @@ module WorkOrderHelper
   
   def show_rank(work_order,rank=:company)
     html=""
-    title ="Calificacion de Empresa: "
+    title =""
     if (rank == :company)
       cssLink = (company_id && company_id.include?(work_order.company.id))? "link":""
     else  
@@ -19,7 +19,7 @@ module WorkOrderHelper
     else
       css ="usr_rank_stars"  
       cal = work_order.user_rank ? work_order.user_rank.cal : 0
-      title ="Calificacion de Usuario: "
+      title =""
     end
     
     

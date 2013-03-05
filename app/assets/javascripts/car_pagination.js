@@ -3,20 +3,14 @@ jQuery(document).ready(function(){
 
   if ($("#all_cars").length == 0){return;};
   
-  $("#new_note_link").click(createNewNoteCar);
+  //$("#new_note_link").click(createNewNoteCar);
+  //$("#workorders").delegate(".new_note_link","click",createNewNoteCar);
 
   $("#create_new_service").click(createNewService);
 
-  var notes_links = $(".new_note_link");
-  if (notes_links.length > 0){
-    notes_links.click(new_note);  
-  }
+  $(".new_note_link").click(new_note);  
 
-  var service_links = $(".new_service");
-  if (service_links.length > 0){
-    service_links.click(createNewService);
-  }  
-  
+  $(".new_service").click(createNewService);
 
   $("#paginator_wo .pagination a").live("click",function(){
     $.setFragment({"page" : $.queryString(this.href).page,  

@@ -76,7 +76,7 @@ class ClientsController < ApplicationController
           @budget.car = @client.cars.last
           @budget.save            
           logger.debug "#### Budget ID #{params[:budget_id]} user id #{@client.id} #{@budget.user.id}"  
-      end
+        end
         
         
         #Si no hay auto, muestro error y voy al new 

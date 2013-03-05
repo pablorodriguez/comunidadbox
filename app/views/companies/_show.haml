@@ -1,15 +1,14 @@
 = hidden_field_tag :full_address, @company.full_address
 %table.service_table
   %tbody
-    %tr.header
-      %td{:colspan=>2} Nombre
     %tr
-      %td{:colspan=>2}
+      %td{width:'100px'}
+        Nombre
+      %td
         = @company.name
     %tr.header
-      %td{:colspan=>2} Sitio Web
-    %tr
-      %td{:colspan=>2}
+      %td Sitio Web
+      %td
         = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
     %tr
       %td Teléfono
@@ -19,14 +18,15 @@
       %td Ranking
       %td
         = @company.user_rank
-    -if @company.address
-      = hidden_field_tag :full_address, @company.address.to_text
-      %tr.header
-        %td{:colspan=>2}
-          Dirección
+-if @company.address
+  .box_bottom
+    %h3 Dirección
+  %table
+    %tbody
+      = hidden_field_tag :full_address, @company.address.to_text        
       %tr
-        %td 
-          %label{ :for => "state" }Provincia
+        %td{width:'100px'}
+          Provincia
         %td
           = @company.address.state.name
       %tr
@@ -45,4 +45,3 @@
         %td
           = @company.address.zip
 
-    

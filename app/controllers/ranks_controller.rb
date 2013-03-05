@@ -58,9 +58,10 @@ class RanksController < ApplicationController
     respond_to do |format|
       if @rank.save
         @work_order = @rank.workorder
-        format.js
+        format.js {render :action =>"create",:layout =>false}
       else
-        format.html { render :action => "new" }
+        @work_order = @rank.workorder
+        format.js {render :action =>"create",:layout =>false}
         format.xml  { render :xml => @rank.errors, :status => :unprocessable_entity }
       end
     end

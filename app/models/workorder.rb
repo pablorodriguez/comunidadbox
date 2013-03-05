@@ -1,7 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
-  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual
+  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual,:user_id
   
   include Statused  
 

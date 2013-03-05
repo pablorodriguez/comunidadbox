@@ -78,7 +78,7 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = current_user.companies
-
+    @json = []
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @companies }
@@ -89,6 +89,10 @@ class CompaniesController < ApplicationController
   # GET /companies/1.xml
   def show
     @company = Company.find(params[:id])
+    
+    @json = @company.address.to_gmaps4rails do |address, marker|      
+      marker.infowindow render_to_string(:partial => "/companies/info_window", :locals => { :address => address}).gsub(/\n/, '').gsub(/"/, '\"')
+    end
 
     respond_to do |format|
       format.html # show.html.erb

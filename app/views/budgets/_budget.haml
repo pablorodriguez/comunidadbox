@@ -1,46 +1,50 @@
 .budget_row.row[budget]
-  .services
-    .left    
-      - if (budget.domain && (!budget.domain.empty?)) || budget.car 
-        .domain_white.left          
-          - if budget.car
-            = link_to(budget.car.domain, car_path(budget.car)) 
-          -else
-            = budget.domain
+  - if (budget.domain && (!budget.domain.empty?)) || budget.car 
+    .domain_white.left       
+      - if budget.car
+        = link_to(budget.car.domain, car_path(budget.car)) 
+      -else
+        = budget.domain
+  .services    
     - budget.services.each do |s|
       .service
         = s.service_type.name
-    .left.clear
-      %label{title: "Cliente"}
-        = budget.full_name
-      - if (multiple_company? || not(current_user.company))
-        .company_name
-          = budget.company.name
-      .bg_id.left{:title => "Número del presupuesto"}
-        = link_to budget.id, budget
-      .operator{title: "Operario"}
-        = budget.creator.full_name
-  .budget_info      
-    %div
-      .budget_date.right
-        = l Date.parse(budget.created_at.to_s)
-      .price_b.right            
+  .budget_info.clear
+    %label.bg_id{:title => "Número del presupuesto"}
+      = link_to budget.id, budget
+    %label{title: "Cliente"}
+      %strong
+        Cliente:
+    %label
+      = budget.full_name
+    %label
+      %strong
+        Operario:
+    %label
+      = budget.creator.full_name
+    .right
+      %label
+        = l budget.created_at,:format => :short
+      %label.price_b
         = number_to_currency budget.total_price
+  - if (multiple_company? || not(current_user.company))
+    .clear.left
+      = budget.company.name
   
   .actions
-    .action  
-      = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:pdf
-    .action
-      %a{:title=>"Nueva nota",:class=>"new_note_link",:href=>"#"}      
-    - n_css = budget.notes.empty? ? "hide" : ""
-    -if company_id
-      .action
-        = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
     - if budget.can_edit?(current_user)
       .action     
         = link_to "", budget_path(budget), :data => {:confirm => '¿ Esta seguro que desea borrar el Presupuesto ?'}, :method => :delete,:title =>"Eliminar",:class=>"delete"
+    - if company_id
+      .action
+        = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
       .action
         = link_to "",edit_budget_path(budget),:title=>"Modificar",:class=>"edit"
+    .action  
+      = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:pdf
+    .action
+      %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}      
+    - n_css = budget.notes.empty? ? "hide" : ""
       
   = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes}    
   

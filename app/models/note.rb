@@ -1,5 +1,5 @@
 class Note < ActiveRecord::Base
-	attr_accessible :message, :budget_id, :workorder_id, :event_id,:note_id,:car_id,:creator_id,:receiver_id,:respond_to
+	attr_accessible :message, :budget_id, :workorder_id, :event_id,:note_id,:car_id,:creator_id,:receiver_id,:respond_to,:user_id
 
 	belongs_to :user
 	belongs_to :car

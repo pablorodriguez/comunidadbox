@@ -1,20 +1,4 @@
--if company_id
-  - if workorder.company_rank
-    = form_for workorder.company_rank,:remote =>true do |f|
-      = f.hidden_field :cal      
-  -unless workorder.company_rank
-    = form_tag ranks_path,:remote =>true do |f|
-      = hidden_field :rank, :cal
-      = hidden_field :rank,:type_rank,:value => 2
-      = hidden_field :rank,:workorder_id,:value =>workorder.id
--else
-  - if workorder.user_rank
-    = form_for workorder.user_rank,:remote =>true do |f|
-      = f.hidden_field :cal      
-  -unless workorder.user_rank
-    = form_tag ranks_path,:remote =>true do |f|
-      = hidden_field :rank, :cal
-      = hidden_field :rank,:type_rank,:value => 1
-      = hidden_field :rank,:workorder_id,:value =>workorder.id
 = show_rank workorder
+= workorder.company_rank.cal if workorder.company_rank
 = show_rank workorder,:user
+= workorder.user_rank.cal if workorder.user_rank

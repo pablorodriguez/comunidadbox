@@ -1,20 +1,21 @@
-= form_for(@rank) do |f|
-  = render 'shared/error_messages', :target => @rank
-  =hidden_field_tag 'wo_id',@work_order.id
-  =hidden_field_tag 'cat', @cat
+= form_for :rank,:url => ranks_path,:remote =>true,:html => {:id=>:rank_form} do |f|
+  = f.hidden_field :cal      
+  = f.hidden_field :type_rank,:value => current_user.company ? 2 : 1
+  = f.hidden_field :workorder_id,:value =>workorder.id
   %table
     %tr
       %td
-        %label Calificacion
+        %label Calificación
+      %td      
+        .rank
+          = show_rank workorder
+          %label.rank_select_msg
+        %label.rank_msg Seleccione una estrella
     %tr
       %td
-        = f.select :cal, Alarm::RANK_VALUES,{:class =>"input_short"}
-    %tr
+        = f.label :comment  
       %td
-        %label Comentario
-    %tr  
-      %td
-        = f.text_area :comment , :cols=>18 ,:rows=>5
-    %tr
-      %td{:colspan=>2}
-        = f.submit 'Calificar',:class =>:btn
+        = f.text_area :comment,:cols => 50,:rows =>5  
+  .buttons_container    
+    = f.submit "Grabar",:class=>:button
+    = link_to "Cancelar",workorders_path

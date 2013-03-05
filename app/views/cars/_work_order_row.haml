@@ -2,49 +2,40 @@
   -#.wo_detail.row{:id=>"wo_#{work_order_row.id}"}  
   - can_show = work_order_row.can_show?(current_user)
   .services
-    .service_info
-      - if can_show
-        .company_name
-          = work_order_row.company_name
-      - work_order_row.services.each do |s|
-        .service             
-          - if s.comment
-            .left
-              %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
-          .left            
-            = s.service_type.name
-          .operator
-            -if s.operator
-              %strong
-                Operario:
-              = "#{s.operator.first_name} #{s.operator.last_name}"
-    .wo_id.left.clear{:title => "Número del Servicio"}
-      -if can_show
-        = link_to work_order_row.id,work_order_row
-      -else
-        = work_order_row.id
-  .wo_info
-    .right
-      = l work_order_row.performed
+    - work_order_row.services.each do |s|
+      .service             
+        - if s.comment
+          .left
+            %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
+        .left            
+          = s.service_type.name
+        -if s.operator
+          .operator.clear
+            %label{title: "Operario"}          
+            = "#{s.operator.first_name} #{s.operator.last_name}"
+  .service_info    
     - if can_show
-      .clear.price_b.right
-        = number_to_currency work_order_row.total_price
+      %label.wo_id{:title => "Número del Servicio"}
+        = link_to work_order_row.id,work_order_row
+      %label{:title =>"Prestador de Servicio"}
+        = link_to work_order_row.company_name,work_order_row.company,:target => :_blank
+    .right
+      %label
+        = l work_order_row.performed
+      - if can_show
+        %label.price_b
+          = number_to_currency work_order_row.total_price
   - if can_show
     .actions
-      .action.info.wo_info_detail.link          
-      - unless company_id
-        .action
-          = link_to_pdf work_order_row
-      - else
-        .action
-          = print_to_pdf work_order_row
-      .action
-        %a{:title=>"Crear nota",:class=>"new_note_link",:href=>"#"}
       - if work_order_row.can_edit?(current_user)
         .action
-          = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")
-        .action
           = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
+        .action
+          = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")      
+      .action
+        = print_to_pdf work_order_row
+      .action
+        %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}
   .hide_info.hide
     - if can_show
       .left
@@ -53,8 +44,7 @@
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
         - if work_order_row.payment_method
           = ",#{work_order_row.payment_method.name}"
-    #rank.rank{:id =>"wo_#{work_order_row.id}"}
-      - if false
-        = render 'ranks/rank',:workorder => work_order_row
+    #rank.rank{:id =>"wo_#{work_order_row.id}"}      
+      = render 'ranks/rank',:workorder => work_order_row
   -#%div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes clear"}      
   = render :partial =>"notes/note_form_np",:locals=>{:wo => work_order_row.id,:b=>nil,:c => nil,:notes =>work_order_row.notes}

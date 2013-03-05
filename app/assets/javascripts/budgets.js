@@ -1,6 +1,6 @@
 jQuery(document).ready( function(){
   
-  if ($("#budgets").length == 0){return;}    
+  if ($("#all_budgets").length == 0){return;}    
 
   $(".new_note_link").click(new_note);  
   

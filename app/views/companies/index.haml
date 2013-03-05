@@ -15,4 +15,7 @@
     #comp_map
       #companies
         = render :partial=>"company",:collection => @companies,:locals =>{:active => :true}
+    .hide
+      = render "gmap4rails"
+    .hide
       = render "maps"

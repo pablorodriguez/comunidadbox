@@ -8,7 +8,7 @@
 }
 
 .field_with_errors input{
-  background: red;  
+  background: #FFAFAF;  
   color: black;
 }
 
@@ -430,6 +430,12 @@ h2 a:hover {
   text-align:center;
 }
 
+.login_links{
+  float: right;
+  margin-top: -37px;
+  text-align: right;
+}
+
 #login_c {  
   background-color:#808080;
 }
@@ -440,10 +446,8 @@ h2 a:hover {
 
 #login_c form{
   margin: 0 auto;
-  overflow: auto; 
-  width:91%; 
-  padding-top:5px;
-  padding-bottom:5px;
+  overflow: auto;   
+  padding: 10px;  
 }
 
 #part1 {
@@ -1185,10 +1189,10 @@ td p{
   font-size:12px;
   color:#b3b3b3;
   text-align:right;
-}
+}.sta
 
 
-.ordenrightflechas {
+.ordenrightflechas {.sta
   margin-left:2px;
   margin-right:2px;
   display:inline-block;
@@ -1236,7 +1240,7 @@ ol{
 
 .search_map{
   margin-top: 15px;
-  -moz-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;.sta
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #AFAFAF;
@@ -1269,7 +1273,7 @@ td.number, th.number{
 }
 
 .service_type table{
-  border-collapse:collapse;
+  border-collapse:collapse;.sta
 }
 
 .service_type select{
@@ -1551,17 +1555,10 @@ td.number, th.number{
   padding: 5px;
 }
 
-.wo_detail .services{  
+.services{  
   padding: 2px 0px;
-  float:left;
-  width:82%;  
-}
-
-.budgets .services{  
-  padding: 2px 0px;
-  float:left;
-  width:82%;
-  clear:both;
+  float:left;  
+  overflow: auto;  
 }
 
 .wo_detail .wo_info, .budgets .wo_info{
@@ -1570,8 +1567,8 @@ td.number, th.number{
   
 }
 
-.service_info{
-  width:80%;
+.service_info, .budget_info{
+  width:100%;
   float:left;
 }
 
@@ -1649,6 +1646,52 @@ td.number, th.number{
   margin-top: 2px;
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+.star{
+  background-image:url(images/star.png);
+  height: 16px;
+  width:  16px;
+  float: left;
+}
+
+.star_select{
+  background-image:url(images/star_select.png);
+  height: 16px;
+  width:  16px;
+  float: left;
+}
+
+.comp_rank_stars{
+  float: left;
+  margin: 0px 5px;
+}
+
+.usr_rank_stars{
+  float: right;
+}
+
+.ranks{
+  overflow: auto;
+  margin: 5px 0px;
+}
+
+.rank_msg{
+  clear: both;
+  float: left;
+  font-size: 10px;
+  font-style: italic;
+}
+
+.rank_select_msg{
+  float: left;
+  font-size: small;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.rank{
+  clear: both;
 }
 
 .domain_white{
@@ -1764,8 +1807,7 @@ td.number, th.number{
   font-size: 16px;
   font-weight: bold;
   color: black;
-  margin: 2px 5px;
-  text-align:right;
+  margin: 0px 5px;  
 }
 
 .line{
@@ -1795,8 +1837,7 @@ td.number, th.number{
 
 .operator{
   font-size: 11px;
-  float:left;
-  margin: 4px;
+  float:left;  
 }
 
 .service a{
@@ -1808,11 +1849,6 @@ td.number, th.number{
 .services ul{
   padding: 0px;
   margin: 3px;
-}
-
-.services{  
-  float: left;
-  overflow: auto;  
 }
 
 .services ul li{
@@ -1947,7 +1983,7 @@ td.number, th.number{
 
 
 .new_note{
-  background: url(images/note-add.png) no-repeat scroll;
+  background: url(images/notes.png) no-repeat scroll;
   height: 16px;
   width: 16px;
   
@@ -2055,7 +2091,7 @@ td.number, th.number{
 
 #total_budget{
   float: right;
-  margin-right: 43px;
+  margin-right: 33px;
   font-size: 20px;
   font-weight:bold;
   color:black;
@@ -2425,7 +2461,7 @@ td.number, th.number{
 }
 
 .new_note_link{
-  background: url(images/note-add.png) no-repeat scroll;
+  background: url(images/notes.png) no-repeat scroll;
   height: 16px;
   width: 16px;
   display:block;
@@ -2743,11 +2779,6 @@ ul.tasks li{
 
 .info_note .user{
   font-size:11px;
-}
-
-.budget_info{
-  width:18%;
-  float:right;
 }
 
 .upload_file form{

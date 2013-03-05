@@ -56,7 +56,7 @@ class Ability
     end
   
     can [:update,:destroy], Workorder do |w|
-      w.car.user == user || w.can_edit?(user)
+      w.user == user || w.can_edit?(user)
     end
 
     can :read, Workorder do |w|

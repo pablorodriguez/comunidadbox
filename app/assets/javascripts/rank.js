@@ -1,15 +1,21 @@
 jQuery(document).ready( function(){
    
-  $(".star.link").live("click",setRank);
-  $(".star_select.link").live("click",setRank);
+  $("#rank_form").delegate(".star","click",setRank);
+  $("#rank_form").delegate(".star_select","click",setRank);
+
   
 });
 
 function setRank(){
-  var cal = $(this).attr("id");
+  var ele = $(this);
+  var rank = ele.attr("id");
+  var parent= ele.parent();
+  parent.next().html(ele.attr("title"));
+  $("#rank_form #rank_cal").val(rank);
+  var stars = parent.find(".star");
+  stars.removeClass("star_select").addClass("star");
+  for(var i=1;i <= rank;i++){
+    parent.find("#"+i).addClass("star_select");
+  }
 
-  $(this).parent().parent().find("#rank_cal").val(cal);
-  $(this).parent().parent().find("form").submit();
-  
-  $(this).parent().html("<img src='/images/ajax-loader.gif' alt='Ajax-loader' class='ajax'>");
 }

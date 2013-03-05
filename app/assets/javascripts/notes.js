@@ -1,15 +1,3 @@
-jQuery(document).ready(function(){
-  
-  $(".note_form[data-remote='true']").bind('ajax:success',function(){
-    $(this)[0].reset();    
-    var link = $(this).parent().parent().parent().parent().parent().find(".notes_link");
-    if (link) {
-      link.parent().show();
-    }
-  });
-
-});
-
 
 function show_notes(){
   var parent = $(this).parent().parent().parent();
