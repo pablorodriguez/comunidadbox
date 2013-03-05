@@ -1,3 +1,4 @@
+.msg_errors.hide
 .box_top.my_msg
   = form_for :message,:url => user_messages_path(user),:remote=>true do |f|  
     = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder =>"Por favor ingrese el texto del mensaje"

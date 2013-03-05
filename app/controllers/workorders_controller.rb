@@ -92,6 +92,7 @@ class WorkordersController < ApplicationController
   def show
 
     @work_order = Workorder.find params[:id]
+    @rank =  @work_order.build_rank_for_user(current_user)
     @car = @work_order.car
     authorize! :read, @work_order
 

@@ -1,0 +1,12 @@
+- if workorder.company_rank
+  .company_rank.left
+    .stars.left
+      = show_rank workorder.company_rank.cal
+    %label.rank_msg
+      = workorder.company_rank.comment
+- if workorder.user_rank
+  .user_rank.right    
+    .stars.right
+      = show_rank workorder.user_rank.cal
+    %label.rank_msg
+      = workorder.user_rank.comment

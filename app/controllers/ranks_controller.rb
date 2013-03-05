@@ -71,17 +71,10 @@ class RanksController < ApplicationController
   # PUT /ranks/1.xml
   def update
     @rank = Rank.find(params[:id])
-
     respond_to do |format|
-      if @rank.update_attributes(params[:rank])
-        @work_order = @rank.workorder
-        format.js {render :action =>"create",:layout =>false}
-        format.html { redirect_to(@rank) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @rank.errors, :status => :unprocessable_entity }
-      end
+      @rank.update_attributes(params[:rank])
+      @work_order = @rank.workorder
+      format.js {render :action =>"create",:layout =>false}
     end
   end
 

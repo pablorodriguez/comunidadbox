@@ -1,5 +1,6 @@
 class Message < ActiveRecord::Base
   attr_accessible :message,:receiver_id,:message_id
+
   belongs_to :alarm
   belongs_to :workorder
   belongs_to :budget
@@ -12,7 +13,7 @@ class Message < ActiveRecord::Base
   scope :for,lambda { |user| where("receiver_id = ?",user.id)}
   scope :send_by,lambda { |user| where("user_id = ?",user.id)}
   scope :unread, where(:read => false)
-  
+  validates :message,:presence => true
 
   def email
     MessageMailer.deliver_mail(id)

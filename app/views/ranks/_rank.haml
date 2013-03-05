@@ -1,4 +1,12 @@
-= show_rank workorder
-= workorder.company_rank.cal if workorder.company_rank
-= show_rank workorder,:user
-= workorder.user_rank.cal if workorder.user_rank
+.company_rank.left
+  .stars.left
+    = show_rank workorder.company_rank ? workorder.company_rank.cal : 0
+  - if workorder.company_rank
+    %label.rank_msg
+      = workorder.company_rank.comment
+.user_rank.right
+  .stars.right
+    = show_rank workorder.user_rank ? workorder.user_rank.cal : 0,:user
+  - if workorder.user_rank
+    %label.rank_msg
+      = workorder.user_rank.comment

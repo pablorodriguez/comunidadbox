@@ -1,1 +1,2 @@
-$("#ranks #company_rank").html("<%=escape_javascript(render(:partial=>'rank',:locals=>{:workorder=>@work_order}))%>")
+$("#ranks_container #ranks").html("<%=escape_javascript(render(:partial=>'rank',:locals=>{:workorder=>@work_order}))%>");
+$(".rank_form").slideToggle();

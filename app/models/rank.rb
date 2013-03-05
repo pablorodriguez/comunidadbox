@@ -1,7 +1,7 @@
 class Rank < ActiveRecord::Base
   attr_accessible :cal, :type_rank, :workorder_id, :comment
   
-  validates_numericality_of :cal,:message => "Calificacion debe ser un numero entre 0 y 5",:greater_than_or_equal_to => 0 ,:less_than_or_equal_to=>5
+  validates_numericality_of :cal,:message => "Calificacion debe ser un numero entre 1 y 5",:greater_than_or_equal_to => 1 ,:less_than_or_equal_to=>5
   belongs_to :workorder
   
   VALUES = {
@@ -11,10 +11,18 @@ class Rank < ActiveRecord::Base
     4 => "Muy Bueno",
     5 => "Excelente"
   }
+
+  COMPANY = 1
+  USER = 2
   
   TYPES = {
-    1 => "Company",
-    2 => "User"
+    COMPANY => "Company",
+    USER => "User"
   }
+
+
+  def self.rank_type(user)
+    user.company ? COMPANY : USER
+  end
   
 end

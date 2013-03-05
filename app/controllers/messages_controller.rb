@@ -21,9 +21,13 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     @message.receiver_id = params[:user_id]
     @message.user = current_user
-    @message.save
-    respond_to do |format|                  
-      format.js {render :file=>"messages/create.js.erb",:layout => false}   
+    
+    respond_to do |format|               
+      if @message.save      
+        format.js {render :file=>"messages/create.js.erb",:layout => false}   
+      else
+        format.js {render :file=>"messages/error.js.erb",:layout => false}   
+      end
     end
   end
 

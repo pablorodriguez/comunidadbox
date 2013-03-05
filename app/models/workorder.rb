@@ -40,7 +40,8 @@ class Workorder < ActiveRecord::Base
   end
 
   def type(type)
-    ranks.select{|r| r.type_rank == type}.first
+    #select{|r| r.type_rank == type}.first
+    ranks.where("type_rank = ?",type).first
   end
   
   def company_name
@@ -50,11 +51,11 @@ class Workorder < ActiveRecord::Base
   end  
   
   def user_rank
-    type 1
+    type Rank::USER
   end  
   
   def company_rank
-    type 2
+    type Rank::COMPANY
   end
 
   # inizializo una orden de trabajo con un budget
@@ -236,7 +237,7 @@ class Workorder < ActiveRecord::Base
     return false
   end
   
-  private
+  
   def create_event service
     service_type = service.service_type
     months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i    
@@ -382,6 +383,18 @@ class Workorder < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def build_rank_for_user(user)
+    rank = self.ranks.build
+    rank.cal=0
+    rank.type_rank = Rank.rank_type(user) 
+    if company_rank && user.company
+      rank = company_rank
+    elsif user_rank && (user.company.nil?)
+      rank = user_rank
+    end
+    rank
   end
 
 

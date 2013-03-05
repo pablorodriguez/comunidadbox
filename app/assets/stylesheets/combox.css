@@ -1648,6 +1648,10 @@ td.number, th.number{
   background-repeat: no-repeat;
 }
 
+.stars{
+  overflow: auto;  
+}
+
 .star{
   background-image:url(images/star.png);
   height: 16px;
@@ -1662,13 +1666,18 @@ td.number, th.number{
   float: left;
 }
 
+.rank_stars{
+  overflow: auto;  
+  display: inline;
+}
+
 .comp_rank_stars{
   float: left;
   margin: 0px 5px;
 }
 
 .usr_rank_stars{
-  float: right;
+  float: left;
 }
 
 .ranks{
@@ -1681,6 +1690,8 @@ td.number, th.number{
   float: left;
   font-size: 10px;
   font-style: italic;
+  width: 130px;
+  margin: 5px;
 }
 
 .rank_select_msg{

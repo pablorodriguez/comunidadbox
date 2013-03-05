@@ -1,27 +1,12 @@
 module WorkOrderHelper
   
-  def show_rank(work_order,rank=:company)
+  def show_rank(cal,css="")
     html=""
     title =""
-    if (rank == :company)
-      cssLink = (company_id && company_id.include?(work_order.company.id))? "link":""
-    else  
-      cssLink = company_id.nil? ? "link":""
-    end
-    
-    
-    cssStarSelect = "star_select #{cssLink}"
-    cssStar = "star #{cssLink}"
-    
-    if rank == :company
-      css ="comp_rank_stars"
-      cal = work_order.company_rank ? work_order.company_rank.cal : 0
-    else
-      css ="usr_rank_stars"  
-      cal = work_order.user_rank ? work_order.user_rank.cal : 0
-      title =""
-    end
-    
+
+    cssStarSelect = "star_select #{css} cal"
+    cssStar = "star #{css} cal"  
+    css ="rank_stars"
     
     if cal > 0
       html = content_tag(:div,"",:class =>cssStarSelect,:id =>1,:title =>title + Rank::VALUES[1])

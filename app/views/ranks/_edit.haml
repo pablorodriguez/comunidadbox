@@ -1,0 +1,5 @@
+.box_bottom 
+  = form_for rank,:remote =>true,:html => {:id=>:rank_form,:data => {:no_reset => true}} do |f| 
+    = render :partial => "ranks/form", :locals => {:workorder =>workorder,:rank => rank,:f => f}
+    .buttons_container    
+      = f.submit "Actualizar",:class=>:button      

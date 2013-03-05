@@ -16,8 +16,10 @@ jQuery(document).ready( function(){
     history.back(-1);
   });
 
-  $("form[data-remote='true']").live('ajax:success',function(){
-    $(this)[0].reset();
+  $("form[data-remote='true']").live('ajax:success',function(){    
+    if (!$(this).data("no-reset")){
+      this.reset();
+    }
   });
   
 
