@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
       offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
       offers = offers.where("status in (?)",filters[:status]) if filters[:status]
     end
-    offers.order("created_at DESC")
+    offers.order("service_offers.created_at DESC")
   end
 
   def service_types
