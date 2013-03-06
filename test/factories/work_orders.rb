@@ -3,6 +3,7 @@ FactoryGirl.define do
   factory :wo_oc, class: Workorder do            
     services {[FactoryGirl.build(:service_oc)]}
     payment_method {PaymentMethod.find(1)}
+    deliver 1.hour.since
   end
 
   factory :service_oc, class: Service do
@@ -20,6 +21,7 @@ FactoryGirl.define do
   factory :wo_tc, class: Workorder do            
     services {[FactoryGirl.build(:service_tc)]}
     payment_method {PaymentMethod.find(1)}
+    deliver 1.hour.since
   end
 
   factory :service_tc, class: Service do
