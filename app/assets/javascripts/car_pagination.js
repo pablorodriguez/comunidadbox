@@ -8,6 +8,8 @@ jQuery(document).ready(function(){
 
   $("#create_new_service").click(createNewService);
 
+
+
   $(".new_note_link").click(new_note);  
 
   $(".new_service").click(createNewService);
@@ -56,6 +58,8 @@ jQuery(document).ready(function(){
   $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
   $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
   $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
+  $("#create_new_message").click(function(){showHideContent($(this),"#cars_messages");});
+
   $("#note").click(function(){
     showHideContent($(this),"#cars_notes");
     $("#cars_notes .notes_container").show().find(".notes").show();

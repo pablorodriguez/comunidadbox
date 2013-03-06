@@ -23,12 +23,9 @@
         %li
           = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
         %li  
-          = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"} 
-    
+          = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"}   
       %li
-        = link_to "Nueva Nota","#",{:title=>"Nueva Nota",:id => :new_note_link}
-      -#%li
-      -#  = link_to_function "Nuevo Mensaje","createNewMessage(#{@car.id})",{:title=>"Nuev Mensaje"}
+        = link_to "Nuevo Mensaje","#",:data => {:car_id => "#{@car_id}"},:title=>"Nuev Mensaje",:id =>"create_new_message"
       %li
         #service_done.link.menu
           = link_to "Servicios Realizados", "#"

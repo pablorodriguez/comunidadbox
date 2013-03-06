@@ -4,10 +4,10 @@
   .car.row
     .logo
       = brand_logo car.brand.name,true
-    .domain
+    .left.domain_white
       = link_to h(car.domain),car
     .detail  
-      .name                               
+      .name                                    
         = h car.brand.name
         = h car.model.name
         %strong

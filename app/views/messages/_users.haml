@@ -3,21 +3,22 @@
 
 - for client in @clients
   - is_client = is_client(client)
-  .row
+  .row.link
     .client
       .left
-        %strong
-          = link_to client.full_name, client_path(client),:title=>"Ver"
-        
-      - if is_client
-        .left
-          = client.email
-        .phone
-          = client.phone
-      .left.clear
+        %label
+          %strong
+            = link_to client.full_name, client_path(client),:title=>"Ver"
+          
+        - if is_client
+          %label
+            = client.email
+          %label.phone
+            = client.phone
+      %label.clear.left
         = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
 
-      .actions.right
+      .actions.right.hide
         .action
           = link_to "",user_messages_path(client),{:title=>"Ver Mensaje",:class=>"new_message"}
 

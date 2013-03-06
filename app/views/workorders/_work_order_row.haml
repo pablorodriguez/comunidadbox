@@ -56,5 +56,5 @@
   
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes clear"}
     = render :partial =>"notes/note_form_np",:locals=>{:wo => work_order_row.id,:b=>nil,:c => nil,:notes =>work_order_row.notes}
-  .hide.box_top.w.message
+  .hide.message
     = render :partial => "/messages/form_user",:locals => {user: work_order_row.car.user}

@@ -9,6 +9,11 @@ jQuery(document).ready(function(){
     $(this).parent().find("a.read").click();    
   });
 
+  $("#clients .row").click(function(event){
+    var href = $(this).find("a.new_message").attr("href");
+    window.location=href;
+  });
+
   eventDetailDialog = $(".new_msg_form2").dialog({
   autoOpen: false ,
     modal: true,
