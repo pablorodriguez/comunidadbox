@@ -45,6 +45,9 @@ module ComunidadBox::TestHelpers
     #create materiales para tipos de servicios
     create :hand_work_for_tire_change
     create :hand_work_oil_change
+    
+    #create roles
+    create(:administrator)
   end
 end
 

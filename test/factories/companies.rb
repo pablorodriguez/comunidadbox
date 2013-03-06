@@ -15,5 +15,11 @@ FactoryGirl.define do
     website "www.neumaticosvallegrande.com.ar"
   end
 
+  factory :imr, class: Company do
+    name "IMR"    
+    phone "0261-49494949"
+    website "www.imr.com.ar"
+    active 1
+  end
   
 end

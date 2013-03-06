@@ -32,6 +32,7 @@ class WorkordersControllerTest < ActionController::TestCase
     
   end
 
+
   test "new work order form budget with car" do
     sign_in @employer    
     @request.cookies["company_id"]= @employer.company.id.to_s
@@ -51,6 +52,35 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_redirected_to new_client_path(:b => b.id)    
   end
 
+  test "edit work order company" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    get :edit ,:id => @wo_1.to_param
+    assert_response :success
+    assert_select("#total_work_order",/60.00/)
+  end
+
+  test "edit other work order company" do
+    wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    sign_in @user        
+    get :edit ,:id => wo.to_param
+    assert_redirected_to root_path    
+  end
+  
+  test "delete work order company" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    xhr :delete,:destroy,:id => @wo_1.to_param
+    assert_response :success    
+  end
+
+  test "delete work order other company" do
+    imr_admin =  create(:imr_admin)
+    sign_in imr_admin
+    @request.cookies["company_id"]= imr_admin.company.id.to_s
+    xhr :delete,:destroy,:id => @wo_1.to_param
+    assert_redirected_to root_path     
+  end
 
   test "new work order company" do
     sign_in @employer    

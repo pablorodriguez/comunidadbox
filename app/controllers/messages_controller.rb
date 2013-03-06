@@ -24,9 +24,9 @@ class MessagesController < ApplicationController
     
     respond_to do |format|               
       if @message.save      
-        format.js {render :file=>"messages/create.js.erb",:layout => false}   
+        format.js {render :file=>"messages/create",:layout => false}   
       else
-        format.js {render :file=>"messages/error.js.erb",:layout => false}   
+        format.js {render :file=>"messages/error",:layout => false}   
       end
     end
   end

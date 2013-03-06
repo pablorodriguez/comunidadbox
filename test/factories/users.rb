@@ -6,7 +6,7 @@ FactoryGirl.define do
     email "gustavo@comunidadbox.com"    
     password "gustavotest"
     confirmed 1
-    roles {[create(:administrator)]}
+    roles {[Role.find(5)]}
     after(:build) do |user|
       user.companies << FactoryGirl.build(:valle_grande_mendoza_peru)
       user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)      
@@ -22,6 +22,26 @@ FactoryGirl.define do
     roles {[create(:employee)]}
   end
 
+  factory :imr_admin, class: User do
+    first_name "imr"
+    last_name "imr"
+    email "imr@comunidadbox.com"    
+    password "imrtest"
+    confirmed 1    
+    after(:build) do |user|
+      user.companies << FactoryGirl.build(:imr)      
+    end
+    roles {[Role.find(5)]}
+  end 
+
+  factory :imr_emp, class: User do
+    first_name "Marcelo"
+    last_name "Battle"
+    email "marcelo_battle2@comunidadbox.com"    
+    password "marcelotest"
+    confirmed 1        
+    roles {[Role.find(5)]}
+  end 
 
   factory :marcelo_de_antonio, class: User do
     first_name "Marcelo"
@@ -31,9 +51,7 @@ FactoryGirl.define do
     confirmed 1
     employer factory: :valle_grande_mendoza_plaza
     creator factory: :gustavo_de_antonio
-    after(:build) do |user|    
-      user.roles {[create(:administrator)]}
-    end
+    roles {[Role.find(5)]}
   end
 
   factory :pablo_rodriguez,class: User do

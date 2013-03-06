@@ -11,4 +11,4 @@
   .actions
     -if message.user == current_user
       .action
-        = link_to "", message_path(message), :confirm => '¿ Esta seguro que desea borrar el Mensaje ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete
+        = link_to "", message_path(message), :method => :delete,:data => {:confirm => '¿ Esta seguro que desea borrar el Mensaje ?'},:title =>"Eliminar",:remote=> true,:class=>:delete
