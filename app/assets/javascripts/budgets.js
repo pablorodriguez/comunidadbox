@@ -2,7 +2,7 @@ jQuery(document).ready( function(){
   
   if ($("#all_budgets").length == 0){return;}    
 
-  $(".new_note_link").click(new_note);  
+  $(".new_note_link").live("click",new_note);  
   
   $('#brand_id').change(searchModelBudget);
   
