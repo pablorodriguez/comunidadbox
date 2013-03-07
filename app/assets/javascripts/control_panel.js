@@ -108,7 +108,7 @@ function createNewNote(){
 
 function createNewMessage(){    
   $("#alarms,.notes_container").hide();
-  $("#message").toggle();
+  $(".message").toggle();
 }
 
 jQuery(document).ready( function(){
@@ -341,9 +341,13 @@ function showBigEvent(){
   var alarm_url = event_data.find(".alarm_url").html().trim();
   var message_url = event_data.find(".message_url").html().trim();
 
-	$(".note_form").attr("action",url);
+	$(".note_form").attr("action",url).find("#element_id").val(event_id);;
 	$("#new_alarm").attr("action",alarm_url);
-  $("#message .new_msg_form").attr("action",message_url);
+  $(".message .new_msg_form").attr("action",message_url).find("#element_id").val(event_id);
+  $("#messages_container_").attr("id","messages_container_" + event_id);
+  $("#notes_container_0").attr("id","notes_container_" + event_id);
+  
+
 	cp_eventDetailDialog.dialog("open");
 }
 

@@ -661,7 +661,7 @@ ul li label {
 
 
 .cruzroja {
-  margin:10px;
+  margin:2px 5px;
   vertical-align:middle;
   float:left;
   background-image:url(images/cruz_roja.png);
@@ -1338,14 +1338,14 @@ td.number, th.number{
 }
 
 .error_msg ul{
-  margin-left:45px;
+  margin-left:39px;
+  clear: both;
 }
 
 .notice h2, .alert h2, .error_msg h2 , .message h2{
   color: black;
   font-weight:bold;
   margin:5px;
-  width:96%;
   float:left;
 }
 
@@ -2371,10 +2371,6 @@ td.number, th.number{
 
 .wo_note{
   margin: 5px 3px;
-}
-
-.wo_notes{
-  text-align:right;
 }
 
 #wo_form{

@@ -54,17 +54,15 @@ class NotesController < ApplicationController
     end
 
     set_note_element_id
+    @id = params[:element_id]
     
     @note.creator = current_user    
     
-    respond_to do |format|
-      if @note.save
-        format.html { redirect_to(notes_path)}
+    respond_to do |format|               
+      if @note.save              
         format.js {render :file=>"notes/new_note",:layout => false}
-        format.xml  { render :xml => @note, :status => :created, :location => @note }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @note.errors, :status => :unprocessable_entity }
+        format.js {render :file=>"notes/error",:layout => false}   
       end
     end
   end

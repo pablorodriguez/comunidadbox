@@ -1,0 +1,1 @@
+$("#notes_container_<%=@id%> .msg_errors").html("<%=escape_javascript(render(:partial =>'shared/error_messages',:locals =>{:target => @note}))%>").show();

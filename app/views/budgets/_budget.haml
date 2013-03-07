@@ -46,5 +46,5 @@
       %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}      
     - n_css = budget.notes.empty? ? "hide" : ""
       
-  = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes}    
+  = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes,:id=>budget.id}    
   

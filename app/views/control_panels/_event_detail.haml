@@ -37,9 +37,9 @@
           %label.total_spend_label Total Gastado:
           %label.total_spend  
   #event_notes
-    = render :partial =>"notes/note_form_np",:locals=>{:wo => nil,:b=>nil,:c => nil,:notes =>[] }
+    = render :partial =>"notes/note_form_np",:locals=>{:wo => nil,:b=>nil,:c => nil,:notes =>[],:id=>0 }
   #alarms.hide
     = render :partial =>"alarms/ajax_form"
     .alarms
-  #message.hide
+  #messages_container_.message.hide
     = render :partial => "messages/form"

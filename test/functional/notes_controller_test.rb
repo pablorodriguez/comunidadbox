@@ -10,4 +10,19 @@ class NotesControllerTest < ActionController::TestCase
 
   end
 
+ test "send message company" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    xhr :post,:create,:message => {:user_id => @employer.to_param,:message => "nuevo mensaje"}
+    assert_response :success
+    assert_template "create" 
+  end
+
+  test "send no message company" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    xhr :post,:create,:message => {:user_id => @employer.to_param}
+    assert_response :success  
+    assert_template "error"
+  end
 end

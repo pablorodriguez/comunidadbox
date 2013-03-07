@@ -1,1 +1,1 @@
-$(".msg_errors").html("<%=escape_javascript(render(:partial =>'shared/error_messages',:locals =>{:target => @message}))%>").show();
+$("#messages_container_<%=@element_id%> .msg_errors").html("<%=escape_javascript(render(:partial =>'shared/error_messages',:locals =>{:target => @message}))%>").show();

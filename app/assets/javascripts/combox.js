@@ -12,6 +12,10 @@ jQuery(document).ready( function(){
     $(this).parent().hide();
   });
 
+  $(".cruzroja").live("click",function(){
+    $(this).parent().parent().hide();
+  });
+
   $(".back").click(function(){
     history.back(-1);
   });

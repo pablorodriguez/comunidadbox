@@ -23,6 +23,6 @@ class MessagesControllerTest < ActionController::TestCase
     @request.cookies["company_id"]= @employer.company.id.to_s
     xhr :post,:create,:message => {:user_id => @employer.to_param}
     assert_response :success  
-    assert_template "error"  
+    assert_template "error"
   end
 end

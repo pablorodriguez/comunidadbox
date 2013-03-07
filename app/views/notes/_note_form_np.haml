@@ -1,5 +1,6 @@
-.notes_container.box_top
-  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b,:c => c}
+.notes_container.box_top{:id => "notes_container_#{id}"}
+  .msg_errors.hide
+  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b,:c => c,:element_id => id}
   .notes
     - notes.each do |note|
       = render :partial =>'notes/notes_small_view',:locals=>{:wo => wo,:b=>b,:note =>note}

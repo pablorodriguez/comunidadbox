@@ -1,11 +1,11 @@
 
 jQuery(document).ready( function(){
   
-  if ($("#new_user").length == 0){return;};
+  if ($("#clients").length == 0){return;};
 
 
   $("#clients").delegate(".new_message","click",function(){
-    $(this).parent().parent().parent().parent().find(".message").toggle();
+    $(this).parent().parent().parent().find(".message").toggle();
   });
 
 

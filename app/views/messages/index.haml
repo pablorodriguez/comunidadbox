@@ -14,6 +14,7 @@
   .box_bottom
     .messages
       = render :partial =>'message',:collection => @messages
-    = render :partial =>'form_user',:locals => {:user => @user}
+    %div{:id=>"messages_container_#{@user.id}"}
+      = render :partial =>'form_user',:locals => {:user => @user,:element_id => @user.id}
   .clear
     = will_paginate @messages

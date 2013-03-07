@@ -1,7 +1,7 @@
 var eventDetailDialog;
 jQuery(document).ready(function(){
 
-  //if ($("#workorders").length == 0){return;}
+  if ($("#clients_msg").length == 0){return;}
 
   //$("#workorders").delegate(".new_message","click",showMessageDialog);
 
@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
     $(this).parent().find("a.read").click();    
   });
 
-  $("#clients .row").click(function(event){
+  $("#clients_msg .row").click(function(event){
     var href = $(this).find("a.new_message").attr("href");
     window.location=href;
   });

@@ -21,6 +21,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     @message.receiver_id = params[:user_id]
     @message.user = current_user
+    @element_id = params[:element_id]
     
     respond_to do |format|               
       if @message.save      

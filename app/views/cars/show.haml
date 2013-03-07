@@ -21,8 +21,8 @@
     #cars_alarms.data.hide
       = render 'alarms'
     #cars_messages.data.hide
-      .box_bottom    
-        = render :partial => "/messages/form_user",:locals => {user: @car.user}
+      .box_bottom{:id =>"messages_container_#{@car.user.id}"}
+        = render :partial => "/messages/form_user",:locals => {user: @car.user,:element_id => @car.user.id}
     - if @companies
       #company-selector.data.hide
         = render 'company_selector'
