@@ -173,7 +173,8 @@ class BudgetsController < ApplicationController
         :left_margin => 20,
         :right_margin => 20,
         :top_margin => 15,
-        :bottom_margin => 15},
+        :bottom_margin => 15,
+        :page_layout => :portrait},
         :filename=>"presupuesto_#{@budget.id}.pdf"
         render :layout => false
         }

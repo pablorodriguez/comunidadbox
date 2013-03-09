@@ -92,6 +92,13 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("#domain",:text => car.domain,:count=>1)
   end
 
+   test "show work order company" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s  
+    get :show, :id => @wo_1.to_param
+    assert_response :success    
+  end
+
 
   test "new work order no company other car" do
     sign_in create(:hugo_rodriguez)
@@ -115,6 +122,37 @@ class WorkordersControllerTest < ActionController::TestCase
     car = user.cars.first
     get :new, :car_id => car.to_param,:c => "Empresa no registrada"
     assert_response :success 
+  end
+
+  test "create new work order company" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s  
+    client = create(:hugo_rodriguez)
+   
+    assert_difference('Workorder.count',1,"no hay unan nueva workorder") do
+      post :create, :workorder => {
+        :performerd => Time.now.strftime("%d/%m/%Y"),
+        :deliver => 1.hour.since.strftime("%d/%m/%Y %H:%m"),
+        :car_id =>client.cars.first.to_param,
+        :company_id=>@employer.company.to_param,
+        :payment_method_id => 1 ,
+        :services_attributes => [
+          {
+            :status => 1,
+            :service_type_id => 1,
+            :material_services_attributes =>[
+              {
+              :material => "FILTRO DE ACEIT",
+              :amount =>"1",
+              :price => "250",
+              :_destroy => "false"
+              }
+            ]          
+          }
+        ]
+      }
+    end
+    assert_redirected_to assigns(:work_order)
   end
 
 end

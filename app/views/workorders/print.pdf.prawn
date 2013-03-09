@@ -211,10 +211,9 @@ pdf.grid(0,1).bounding_box do
     
     unless service.comment
      pdf.text "Comentario: #{service.comment}",:size=>fs
-    end
-    pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left
-      
+    end        
     
   end
+  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left
  
 end   

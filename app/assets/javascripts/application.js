@@ -45,6 +45,7 @@
 //= require map_content
 //= require maps
 //= require materials_ajax
+//= require client_messages
 //= require messages
 //= require notes
 //= require notes_index

@@ -216,7 +216,6 @@ class WorkordersController < ApplicationController
     authorize! :create, @work_order
     
     cso_ids = params["cso_ids"] || []
-
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
       @work_order.company_id = company_id.id 
     end
@@ -233,6 +232,7 @@ class WorkordersController < ApplicationController
       comp = Company.find_by_id(@work_order.company_id)
       car.user.service_centers << comp if comp
     end
+
 
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
     saveAction = @work_order.save
