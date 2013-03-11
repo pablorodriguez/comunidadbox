@@ -5,7 +5,7 @@ class Rank < ActiveRecord::Base
   belongs_to :workorder
   
   VALUES = {
-    1 => "Muy Malo",
+    1 => I18n.t("vary_bad"),
     2 => "Malo",
     3 => "Bueno",
     4 => "Muy Bueno",

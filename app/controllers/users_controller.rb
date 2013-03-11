@@ -71,5 +71,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def validate_email
+    @user =  User.find_by_email(params[:email])
+    respond_to do |format|
+      if @user
+        format.js { render :file => "users/invalid_email", :layout => false}
+      else
+        format.js { render :file => "users/valid_email",:layout => false}
+      end
+    end
+  end
+
 end
 

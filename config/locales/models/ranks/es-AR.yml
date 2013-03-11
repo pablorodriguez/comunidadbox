@@ -1,0 +1,8 @@
+es-AR:
+  activerecord:
+    models:
+      rank: "Calificación"        
+    attributes:
+      rank:
+        rank: "Calificación"
+        comment: "Comentario"

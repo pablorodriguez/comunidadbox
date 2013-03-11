@@ -2,5 +2,5 @@
   = form_for rank,:url => ranks_path,:remote =>true,:data => {:no_reset => true},:html => {:id=>:rank_form} do |f| 
     = render :partial => "ranks/form", :locals => {:workorder =>workorder,:rank => rank,:f => f}
     .buttons_container    
-      = f.submit "Grabar",:class=>:button      
+      = f.submit t('.save'),:class=>:button      
   

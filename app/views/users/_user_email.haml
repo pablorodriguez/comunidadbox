@@ -1,0 +1,6 @@
+.validation_email_msg
+  %label
+    = t 'user.email_duplicated'  
+  %label
+    = link_to @user.full_name,client_path(@user),{:target => "_blank"}
+    

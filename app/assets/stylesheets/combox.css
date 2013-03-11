@@ -163,6 +163,13 @@ body {
   display:block;
 }
 
+.generate_email{
+  background-image:url(images/my_services.png);
+  height:21px;
+  width:21px;
+  margin: 2px;
+}
+
 .service_s{
   background-image:url(images/service_s.png);
   height:16px;
@@ -2795,4 +2802,16 @@ ul.tasks li{
 .upload_file input{
   height:30px;
   margin-top:0px;
+}
+
+.validation_email_msg{
+  background-color: #F2F2F2;
+  border-radius:5px;  
+  float: right;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.user_email{
+  float: left;
 }

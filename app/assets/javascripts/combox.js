@@ -6,6 +6,10 @@ var showMenu =false;
 var all_company = null;
 var change_company = false;
 
+$.fn.exist = function(){
+    return jQuery(this).length > 0;
+};
+
 jQuery(document).ready( function(){  
 
   $("#msgs .close").click(function(){

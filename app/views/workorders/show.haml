@@ -27,8 +27,8 @@
       .rank_form.hide
         .box_bottom
           %h3 
-            = "Calificar cliente" if current_user.company
-            = "Calificar Prestador de Servicio" unless current_user.company
+            = t('.rank_client') if current_user.company
+            = t('.rank_company') unless current_user.company
         - if @rank.new_record?
           = render :partial => "ranks/new",:locals => {:workorder =>@work_order,:rank => @rank}
         - else

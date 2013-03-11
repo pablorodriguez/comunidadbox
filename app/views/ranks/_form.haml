@@ -4,12 +4,13 @@
 %table
   %tr
     %td
-      %label Calificación
+      = f.label :rank
     %td      
       .rank
         = show_rank f.object.cal,:link
         %label.rank_select_msg
-      %label.rank_msg Seleccione una estrella
+      %label.rank_msg 
+        = t '.select_a_star'
   %tr
     %td
       = f.label :comment  

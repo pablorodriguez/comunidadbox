@@ -1,4 +1,4 @@
-"es-AR":
+es-AR:
   layouts:    
     logininfo:
       login: "Ingresar"
@@ -112,7 +112,7 @@
     precision:
       format:
         delimiter: "."
-    human:
+    hCalificaciónuman:
       format:
         delimiter: "."
         precision: "2"
@@ -172,10 +172,12 @@
   user:
     email: "Correo Eléctronico"
     password: "Clave"
+    email_duplicated: "Email ya registrado"
+    
   car_updated_exit: 'Automóvil actualizado con exito.'
   car_created_exit: 'Automóvil creado con exito.'
   will_paginate:
-    previous_label: "&#8592; Anterios"
+    previous_label: "&#8592; Anterio"
     next_label: "Siguiente &#8594;"
     page_gap: "&hellip;"
     page_entries_info:
@@ -192,10 +194,13 @@
       multi_page_html: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"
   service_type:
     oil_change: "Cambio de Aceite"
-  
+
+  vary_bad: "Muy Malos"
+
+
   unauthorized:
     manage:
       all: "Ud. no esta autorizado a realizar la accion solicitada."
       user: "Not allowed to manage other user accounts."
     update:
-      project: "Not allowed to update this project." 
+      project: "Not allowed to update this project."  

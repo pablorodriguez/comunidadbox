@@ -150,7 +150,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def alarm_text
-    "#{name} #{description} "
+    "Alarma: #{name} , #{description}"
   end
 
   def notify    

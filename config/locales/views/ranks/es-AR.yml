@@ -1,0 +1,8 @@
+es-AR:
+  ranks:
+    new:
+      save: "Grabar"
+    edit:
+      update: "Actualizar"
+    form:
+      select_a_star: "Seleccione una estrella"

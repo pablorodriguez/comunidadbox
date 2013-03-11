@@ -297,13 +297,13 @@ function select(){
     if (this.checked){
       $("#events ." + value).each(function(){        
         var checkbox = $(this).parent().find("input:checkbox");                
-        checkbox.attr("checked","selected");
+        checkbox.prop("checked",true);
         updateEventSelected(checkbox);
       });
     }else{
       $("#events ." + value).each(function(){
         var checkbox = $(this).parent().find("input:checkbox");  
-        checkbox.attr("checked","");        
+        checkbox.prop("checked",false);        
         updateEventSelected(checkbox);
       });      
     }
@@ -325,6 +325,12 @@ function showBigEvent(){
 	searchNotes(event_id);
 	
 	var event_data = event.parent().parent();
+
+  if (event_data.find('[class^="mi_domain"]').size() > 0){
+    $(".new_message").show();
+  }else{
+    $(".new_message").hide();
+  }
 
 	$.each([".domain",".km",".km_avg",".total_company_spend",".total_spend",".car",".user_full_name",".user_email",".user_phone"],function(index,value){
 		var val = event_data.find(value).html();

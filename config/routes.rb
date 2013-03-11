@@ -184,6 +184,7 @@ ComunidadBox::Application.routes.draw do
 
     collection do
       get :generate_email
+      get :validate_email
       get :new_employee
       get :list_service_offer
       get :companies
