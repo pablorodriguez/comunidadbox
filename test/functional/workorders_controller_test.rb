@@ -28,7 +28,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("div#all_companies ul li",:count=>3)
     assert_select("#company[value='#{@employer.company.id}']")
 
-    assert_select(".price_b",:text => "$60.00",:count=>1)
+    assert_select(".price_b",:text => "$ 60,00",:count=>1)
     
   end
 
