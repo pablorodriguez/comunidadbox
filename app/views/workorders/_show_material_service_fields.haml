@@ -9,7 +9,7 @@
   %td.number    
     = f.amount
   %td.number
-    = f.price 
+    = number_to_currency f.price 
   %td.number
     .total_item
       = number_to_currency(f.total_price) 

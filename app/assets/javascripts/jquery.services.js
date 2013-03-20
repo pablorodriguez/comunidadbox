@@ -439,7 +439,7 @@ function add_new_material_service_type(){
 
 function addNewServiceType(){
   getServiceTypeDiv("#new_service_type").show();
-  $("#new_service_type").val("");
+  //$("#new_service_type").val("");
 }
 
 function addTaskList(service_type_id){

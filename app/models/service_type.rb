@@ -1,5 +1,7 @@
 class ServiceType < ActiveRecord::Base
 
+  default_scope :order => "name"
+
   has_many :material_service_type
   has_many :materials ,:through => :material_service_type
   has_many :company_services

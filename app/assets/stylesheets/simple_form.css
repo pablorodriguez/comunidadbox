@@ -1,0 +1,13 @@
+.simple_form .table .input{
+  float: left;
+  margin: 0px 5px;
+}
+
+.simple_form .table{
+  overflow: auto;
+  margin:5px 0px;
+}
+
+.simple_form .material{  
+  float: left;
+}

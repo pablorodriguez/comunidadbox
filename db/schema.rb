@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226212223) do
+ActiveRecord::Schema.define(:version => 20130311230442) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -249,6 +249,17 @@ ActiveRecord::Schema.define(:version => 20130226212223) do
     t.integer "company_id"
   end
 
+  create_table "material_service_type_templates", :force => true do |t|
+    t.integer  "service_type_template_id"
+    t.integer  "material_service_type_id"
+    t.string   "material"
+    t.integer  "amount"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "material_service_type_templates", ["service_type_template_id"], :name => "material_service_type_templates_service_type_template_id_fk"
+
   create_table "material_service_types", :force => true do |t|
     t.integer  "material_id"
     t.integer  "service_type_id"
@@ -436,6 +447,17 @@ ActiveRecord::Schema.define(:version => 20130226212223) do
   add_index "service_offers", ["company_id"], :name => "service_offers_company_id_fk"
   add_index "service_offers", ["service_type_id"], :name => "service_offers_service_type_id_fk"
 
+  create_table "service_type_templates", :force => true do |t|
+    t.string   "name"
+    t.integer  "service_type_id"
+    t.integer  "company_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "service_type_templates", ["company_id"], :name => "service_type_templates_company_id_fk"
+  add_index "service_type_templates", ["service_type_id"], :name => "service_type_templates_service_type_id_fk"
+
   create_table "service_types", :force => true do |t|
     t.string   "name"
     t.integer  "kms"
@@ -613,6 +635,8 @@ ActiveRecord::Schema.define(:version => 20130226212223) do
 
   add_foreign_key "events", "services", :name => "events_ibfk_1", :dependent => :delete
 
+  add_foreign_key "material_service_type_templates", "service_type_templates", :name => "material_service_type_templates_service_type_template_id_fk", :dependent => :delete
+
   add_foreign_key "material_service_types", "materials", :name => "material_service_types_ibfk_1"
   add_foreign_key "material_service_types", "service_types", :name => "material_service_types_ibfk_2"
 
@@ -646,6 +670,9 @@ ActiveRecord::Schema.define(:version => 20130226212223) do
 
   add_foreign_key "service_offers", "companies", :name => "service_offers_ibfk_1"
   add_foreign_key "service_offers", "service_types", :name => "service_offers_ibfk_2"
+
+  add_foreign_key "service_type_templates", "companies", :name => "service_type_templates_company_id_fk"
+  add_foreign_key "service_type_templates", "service_types", :name => "service_type_templates_service_type_id_fk"
 
   add_foreign_key "service_types_tasks", "service_types", :name => "service_types_tasks_ibfk_1", :dependent => :delete
   add_foreign_key "service_types_tasks", "tasks", :name => "service_types_tasks_ibfk_2", :dependent => :delete

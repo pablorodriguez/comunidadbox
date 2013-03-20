@@ -19,8 +19,8 @@ class Workorder < ActiveRecord::Base
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :payment_method
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
-  validates :services ,:length =>{:minimum => 1}
-  validates_presence_of :deliver, :message => "Debe ingresar una hora de entrega"
+  #validates :services ,:length =>{:minimum => 1}
+  #validates_presence_of :deliver, :message => "Debe ingresar una hora de entrega"
   validates_presence_of :performed, :message =>"Debe ingresar una fecha de realizado"
   
 
@@ -94,13 +94,16 @@ class Workorder < ActiveRecord::Base
   def validate_all
     logger.debug "####### entro a validate all #{self.services}"
     if self.services.empty?
-      errors.add("Servicios","La orden de trabajo debe contener servicios")
+      errors[:services] << "La orden de trabajo debe contener servicios"
       logger.debug "############################# service esta vacio"
     end
 
     if self.user.company
+      unless deliver
+        errors[:deliver] << "no puede ser vacio"
+      end
       unless user.company.is_employee(user)
-        errors.add("Servicios","El prestador de servicios es incorrecto")
+        errors[:services] << "El prestador de servicios es incorrecto"
       end
 
     end

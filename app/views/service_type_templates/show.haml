@@ -1,0 +1,27 @@
+.vertical_menu
+  = render "admin/menu"  
+  .menu_actions.box_bottom      
+    %ul
+      %li
+        = link_to "Nuevo Template",new_service_type_template_path,{:title=> t(".new_template")} 
+      %li
+        = link_to "Modificar",edit_service_type_template_path(@template),{:title=> t(".edit")}
+
+.contentright_s
+  .box_bottom
+    %h1 
+      = t(".template")
+      = ": #{@template.name}"
+  .service_type_template_row.box_bottom
+    %strong
+      = ServiceTypeTemplate.human_attribute_name(:service_type)
+    
+    %label
+      = @template.service_type.name
+
+    - for material in @template.material_service_type_templates
+      %br
+      = material.material_service_type_id
+      = material.material
+      = material.amount
+

@@ -7,7 +7,8 @@
     %h1 
       Ingrese Servicios Realizados:
       = @work_order.company_name
-  = render 'shared/error_messages', :target => @work_order
+  #err
+    = render 'shared/error_messages', :target => @work_order
   #work_order
     .box_bottom      
       #car_info.barradatos      

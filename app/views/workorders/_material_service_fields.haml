@@ -8,8 +8,9 @@
         = image_tag "confirm.png"
     -else
       .code.hide
-        = image_tag "confirm.png" 
-    - if f.object.material_service_type_id
+        = image_tag "confirm.png"
+
+    -if f.object.material_service_type_id
       %strong
         = f.object.material_service_type.material.prov_code
       = f.object.material_service_type.material.name

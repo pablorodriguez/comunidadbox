@@ -75,6 +75,7 @@ ComunidadBox::Application.routes.draw do
   resources :car_filters
   resources :ranks
   resources :tasks
+  resources :service_type_templates
 
   resources :messages do     
     member do

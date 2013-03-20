@@ -83,6 +83,7 @@ class Ability
     can :read, Company
     can :all, Company
     can :search_distance, Company
+    can :search, Company
     can :index, ServiceOffer
 
     if user.is_administrator? || user.is_manager?

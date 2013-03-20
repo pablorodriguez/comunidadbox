@@ -1,0 +1,33 @@
+#service_type_templates
+  = simple_form_for @template do |f|
+    %table
+      %tbody
+        %tr
+          %td
+            = ServiceTypeTemplate.human_attribute_name(:name)
+          %td
+            = f.input :name,:label => false,:input_html =>{:class =>:input_medium}
+        %tr
+          %td
+            = ServiceTypeTemplate.human_attribute_name(:service_type)
+          %td
+            .left
+              = f.association :service_type,:label => false,:include_blank => t('select_service_type'),:input_html =>{:class =>:input_medium}
+
+    .hide
+      = button_to_add_fields "Nuevo Material",f,:material_service_type_templates
+    .box_bottom
+    %br
+    #materials
+      .box_bottom
+        %h1{:class => :left} Materiales
+        = link_to "","#",:title => t(".add_material"),:class =>"new link left"
+
+      %table
+        %tbody
+          = f.fields_for :material_service_type_templates do |f_mst|
+            = render "material_service_type_template_fields",:f => f_mst     
+    .box_bottom
+    .buttons_container
+      = f.button :submit,t('.submit'),:class =>:button
+      = link_to t('cancel'), service_type_templates_path

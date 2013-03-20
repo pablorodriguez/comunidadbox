@@ -1,16 +1,17 @@
 class Company < ActiveRecord::Base
   has_one :address
+  has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   belongs_to :user
   has_many :companies_users
   has_many :customers, :through => :companies_users, :source => :user
   has_many :price_lists
-  has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   has_many :company_service
   has_many :service_type, :through => :company_service, :order =>'name'
   has_many :workorders
   has_many :employees,:class_name =>'User',:foreign_key =>'employer_id'
   has_many :cars
   has_many :service_offers
+  has_many :service_type_templates
 
   DEFAULT_COMPANY_ID = 1
 

@@ -271,6 +271,12 @@ class User < ActiveRecord::Base
     alarms.active.run_in_next_hours(24).count
   end
 
+  def service_type_templates(id)
+    templates = company.service_type_templates
+    templates = templates.where("service_type_id = ?",id) if id
+    templates
+  end
+
   def self.last_number
     @@last_number
   end
@@ -278,6 +284,7 @@ class User < ActiveRecord::Base
   def self.get_last_email
     User.where("email like ?","test%@comunidadbox.com").order("email DESC").pluck("email").first
   end
+
 
   def self.get_last_number
     nro = 0

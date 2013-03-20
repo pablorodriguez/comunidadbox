@@ -114,7 +114,7 @@ pdf.grid(0,0).bounding_box do
 
   #pdf.move_down(3)
   pdf.text "Total: #{number_to_currency(@work_order.total_price)}",:align =>:right,:style =>:bold
-  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left
+  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left if @work_order.deliver
 
 end		
 
@@ -214,6 +214,6 @@ pdf.grid(0,1).bounding_box do
     end        
     
   end
-  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left
+  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left if @work_order.deliver
  
 end   

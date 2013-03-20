@@ -57,6 +57,7 @@ gem 'capistrano-resque'
 gem 'rufus-scheduler'
 gem 'factory_girl_rails',"~> 3.0"
 gem 'cancan'
+gem 'jbuilder'
 #gem 'omniauth-facebook'
 #gem 'rails3-jquery-autocomplete'
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -66,6 +67,8 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
+
+gem "simple_form"
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'

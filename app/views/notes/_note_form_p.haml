@@ -1,8 +1,7 @@
 .notes_container.hide
-  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b,:c => c}
+  = render :partial => "notes/note_form",:locals=>{:wo => wo,:b=>b,:c => c,:element_id => element_id}
   .notes.hide
     - if notes && notes.size > 0
       = render :partial =>'notes/notes_small_view',:collection => notes,:as=>:note    
-  - if notes && notes.size > 0
-    .clear
-      = will_paginate notes
+      .clear
+        = will_paginate notes

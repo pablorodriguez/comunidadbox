@@ -9,11 +9,16 @@
     #wo-actions.box_bottom
       = icon_status @work_order.status                                
       = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado",:placeholder=> "Realizado"
-      = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>"Hora de Entregar",:placeholder => "Hora de Entregar"
-      - if @work_order.deliver
+      - if current_user.company
+        = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>"Hora de Entrega",:placeholder => "Hora de Entrega"
+      
+      - if @work_order.deliver && current_user.company
         = wo_form.text_field :deliver_actual,:class =>"date_time input_date_time",:value => (@work_order.deliver_actual ? l(@work_order.deliver_actual) : ""),:title=>"Entregado",:placeholder => "Entregado"
-      = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'select',:title=>"Forma de Pago"})
-      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Seleccione Tipo de Servicio --"},{:class=>"input_medium",:title=>"Agregar nuevo tipo de servicio"}
+      = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>"Forma de Pago"})
+      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Tipo de Servicio --"},{:class=>"sp_input",:title=>"Agregar nuevo tipo de servicio"}
+      - if current_user.company
+        = select_tag "template",nil,{:prompt => "-- Template --",:class =>"sp_input"}
+
       .actions.clear
         .action.hide
           = link_to "","#",:title =>"Ver alarma",:class=>"add_alarm "

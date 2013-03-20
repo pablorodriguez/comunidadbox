@@ -1,0 +1,24 @@
+es-AR:
+  service_type_templates:
+    index:
+      create_new_template: "Crear nuevo template"
+      title: "Listado de Templates de Servicios"
+    actions:
+      new_template: "Crear nuevo template"      
+    show:
+      template: "Template"
+      new_template: "Crear nuevo template"
+      edit: "Modificar Template"
+    service_type_template:
+      edit: "Modificar Template"
+      show: "Ver Template"
+    new:
+      new_template: "Nuevo Template"
+      edit_template: "Modificar Template"
+    form:
+      submit: "Guardar"
+      add_material: "Agregar Material"
+    material_service_type_template_fields:
+      delete: "Borrar Material"      
+    edit:
+      edit_template: "Modificar Template"

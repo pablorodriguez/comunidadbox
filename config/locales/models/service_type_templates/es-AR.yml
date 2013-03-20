@@ -1,0 +1,8 @@
+es-AR:
+  activerecord:
+    models:
+      service_type_template: "Template"
+    attributes:
+      service_type_template:
+        name: "Nombre"
+        service_type: "Tipo de Servico"

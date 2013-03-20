@@ -1,0 +1,8 @@
+es-AR:
+  activerecord:
+    models:
+      workorder: "Orden de Trabajo"        
+    attributes:
+      workorder:
+        deliver: "Hora de Entrega"
+        services: "Servicios"

@@ -32,6 +32,8 @@
 //= require gmaps4rails/gmaps4rails.openlayers
 //= require combox
 //= require registration
+//= require service_type_template
+//= require workorder_template
 //= require highcharts
 //= require s3Slider
 //= require alarms

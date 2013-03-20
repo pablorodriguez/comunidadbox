@@ -1,0 +1,17 @@
+.service_type_template_row.row
+  %label
+    = link_to service_type_template.name,service_type_template,:title => t(".show")
+
+  = label service_type_template, :service_type
+
+  %label
+    = service_type_template.service_type.name
+
+  - for material in service_type_template.material_service_type_templates
+    %br
+    = material.material_service_type_id
+    = material.material
+    = material.amount
+  .actions
+    .action
+      = link_to "",edit_service_type_template_path(service_type_template),:title => t(".edit"),:class => :edit

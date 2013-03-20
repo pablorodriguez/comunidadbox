@@ -733,6 +733,10 @@ input{
   height:20px;
 }
 
+.sp_input{
+  width: 180px;
+}
+
 .input_short{
   width:100px;
 }
@@ -2814,4 +2818,9 @@ ul.tasks li{
 
 .user_email{
   float: left;
+}
+
+#materials .material_row{
+  margin: 5px 0px;
+  overflow: auto;
 }
