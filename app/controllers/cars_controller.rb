@@ -117,7 +117,6 @@ class CarsController < ApplicationController
       @amt_data = Workorder.build_graph_data(@amt)
 
       @count_data = {}
-      debugger
       @amt.each_pair do |k,v|
         if k
           @count_data[ServiceType.find(k).name] = v
