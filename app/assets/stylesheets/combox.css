@@ -2681,11 +2681,6 @@ input.labelHighlight,textarea.labelHighlight {
     font-size: 90%;
 }
 
-.chart{
-  padding:5px;
-  overflow:auto;
-}
-
 .pagination .current{
   background-color: #F2EAB7;
   background-position: right center;
@@ -2823,4 +2818,10 @@ ul.tasks li{
 #materials .material_row{
   margin: 5px 0px;
   overflow: auto;
+}
+
+.graph{
+  width: 694px;
+  overflow: auto;
+  margin: 0 auto;
 }

@@ -298,8 +298,8 @@ class Workorder < ActiveRecord::Base
           entity = class_name.send(:find,key) if key
           data_str = data_str + "{ 
             name: '#{entity.name}', 
-            y: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
-            p: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
+            p: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
+            y: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
             },"
             #color: '#{GraphColor.color(key)}'},
         

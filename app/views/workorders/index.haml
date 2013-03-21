@@ -77,13 +77,13 @@
           #price_graph_c.data.hide.chart            
             .box_bottom
               %h1 Importes por Tipo de Servicios
-            #price_graph.box_bottom          
+            #price_graph.box_bottom.graph          
             #price_report.box_bottom
               = render "price_report"
           #amt_graph_c.data.hide.chart
             .box_bottom
               %h1 Cantidad por Tipo de Servicios
-            #amt_graph.box_bottom
+            #amt_graph.box_bottom.graph
             #amt_report.box_bottom
               = render "amount_report"       
           - if current_user.is_administrator?

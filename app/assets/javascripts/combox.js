@@ -241,7 +241,7 @@ function build_amt_graph(data,container) {
       },
       tooltip: {
          formatter: function() {
-            return this.point.name +': <b> '+ this.y + '</b>';
+            return this.point.name +': <b> '+ this.y + ' % </b>';
          }
       },
        series: [{
@@ -253,7 +253,7 @@ function build_amt_graph(data,container) {
          dataLabels: {
             enabled: true,
             formatter: function() {
-              return '<b>'+ this.point.name +'</b>'+ this.point.p +' %';
+              return '<b>'+ this.point.name +'</b>'+ this.point.p +' ';
             }
          }
       }]
@@ -276,7 +276,7 @@ function build_price_graph(data,container,title) {
       },
       tooltip: {
          formatter: function() {
-            return this.point.name +': <b>$ '+ this.y + '</b>';
+            return this.point.name +': <b> '+ this.y + ' % </b>';
          }
       },
        series: [{
@@ -288,7 +288,7 @@ function build_price_graph(data,container,title) {
          dataLabels: {
             enabled: true,
             formatter: function() {
-              return '<b>'+ this.point.name +'</b>'+ this.point.p +' %';
+              return '<b>'+ this.point.name +'</b> $ '+ this.point.p +'';
             }
          }
       }]

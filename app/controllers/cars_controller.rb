@@ -89,7 +89,7 @@ class CarsController < ApplicationController
   def show
     @car = Car.find(params[:id])
     authorize! :read, @car
-
+    @json = []
     @car_id = params[:id]
     @usr = @car.user.id
     page = params[:page] || 1
@@ -102,12 +102,32 @@ class CarsController < ApplicationController
       
     if data == "all"
       @work_orders = Workorder.for_car(@car_id).paginate(:per_page=>per_page,:page =>page)
-      filters[:domain] = @car.domain
-      
+      filters[:domain] = @car.domain      
       filters[:user] = current_user unless company_id
 
       @budgets = @car.budgets.paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
+      
+      amt_material = Workorder.group_by_material(filters)
+      count_material = Workorder.group_by_material(filters,false)      
+      
+      @amt_material_data = Workorder.build_material_data(amt_material,count_material)
+
+      @amt = Workorder.group_by_service_type(filters,false)
+      @amt_data = Workorder.build_graph_data(@amt)
+
+      @count_data = {}
+      debugger
+      @amt.each_pair do |k,v|
+        if k
+          @count_data[ServiceType.find(k).name] = v
+        end
+      end
+
+      
+      @services_amount =0    
+      @amt.each{|key,value| @services_amount += value}
+
       @companies = Company.best(current_user.state)
       
       
