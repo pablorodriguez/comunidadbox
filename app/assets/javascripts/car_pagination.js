@@ -28,7 +28,17 @@ jQuery(document).ready(function(){
         dates.not( this ).datepicker( "option", option, date );
       }
     });
-  
+  $("#service_types :checkbox[id!='all_service_type']").change(function(){
+    $(this).parent().parent().parent().find(":checkbox[id='all_service_type']").attr("checked",false);
+  });
+
+  $("#service_types #all_service_type").change(function(){
+    if ($("#all_service_type").attr("checked")){
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",true);  
+    }else{
+      $("#service_types :checkbox[id!='all_service_type']").attr("checked",false);  
+    }
+  });
 
   $("#paginator_wo .pagination a").live("click",function(){
     $.setFragment({"page" : $.queryString(this.href).page,  
