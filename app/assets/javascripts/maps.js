@@ -4,8 +4,7 @@ var geocoder;
 function initializeMap(zoom_param,address) {
 
 	if (typeof google == "undefined"){return;};
-
-  if ($(".map_canvas").length == 0) {return;};   
+  if ($(".map_canvas").length == 0) {return;};  
 
 	if (zoom_param == null){
 		zoom_param = 8;

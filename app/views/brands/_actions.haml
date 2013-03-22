@@ -1,0 +1,9 @@
+.box_bottom
+  %h3 Buscar
+  = form_for :model, :url => brands_path,:method => :get do |f|
+    %table.w
+      %tr
+        %td
+          = text_field_tag(:b,nil,:placeholder => "Marca")
+        %td
+          = image_tag "find.png",:class => "link search_brand"

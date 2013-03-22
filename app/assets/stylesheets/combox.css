@@ -438,8 +438,7 @@ h2 a:hover {
 }
 
 .login_links{
-  float: right;
-  margin-top: -37px;
+  float: right;  
   text-align: right;
 }
 
@@ -857,6 +856,7 @@ input{
 .company_detail{
   padding:5px;
 }
+
 .company_selector{
   width:200px;
   float:left;
@@ -1010,7 +1010,7 @@ table.services thead tr th {
   border-bottom-color:#CCC;
   border-bottom-style:double;
   float: left;
-  width: 100%;
+  width: 99%;
   padding:3px;
 }
 

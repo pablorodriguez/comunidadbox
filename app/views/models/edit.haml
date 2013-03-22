@@ -1,6 +1,6 @@
-%h1
-  Editar Modelo
-= render :partial=>'model'
-= link_to 'Ver', @model
-|
-= link_to_back
+.vertical_menu
+  = render "conf/menu"  
+.contentright_s
+  .box_bottom
+    %h1 Modificar Modelo
+  = render :partial=>'model'

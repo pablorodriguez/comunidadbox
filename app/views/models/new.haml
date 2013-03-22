@@ -1,4 +1,7 @@
-%h1
-  Nuevo Modelo
-= render :partial=>'model'
-= link_to_back
+.vertical_menu
+  = render "conf/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1 Nuevo Modelo
+  = render :partial=>'model'

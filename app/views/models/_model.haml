@@ -8,5 +8,7 @@
     = f.label :name
     %br
     = f.text_field :name
-  %p
-    = f.submit "Grabar"
+
+  .buttons_container
+    = f.submit "Grabar",:class =>:button
+    = link_to "Cancelar",models_path

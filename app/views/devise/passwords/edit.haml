@@ -1,14 +1,14 @@
-%h1
-  = vineta 
-  Cambio de Clave  
-.contentleft
-  %h1 Ir a
-  = render :partial => "devise/shared/links"
-.contentright
-  %h1
-    Por favor ingrese una nueva clave
+.vertical_menu  
+  = render "home/nu_menu"
+.contentright_s 
+  .box_bottom
+
+    %h1
+      ="Por favor ingrese una nueva clave"
+      -#= resource.reset_password_token
   = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
-    = devise_error_messages!
+    -#= devise_error_messages!
+    = render 'shared/error_messages', :target => resource
     = f.hidden_field :reset_password_token
     %p
       = f.label :password,"Nueva Clave"
@@ -18,4 +18,5 @@
       = f.label :password_confirmation,"Confirmación nueva clave"
       %br/
       = f.password_field :password_confirmation
-    %p= f.submit "Confirmar nueva clave",:class=>:btn2
+    .buttons_container
+      = f.submit "Confirmar nueva clave",:class=>:button

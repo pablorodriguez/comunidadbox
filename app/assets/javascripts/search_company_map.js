@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
-  initializeMap();
 
+  initializeMap();
   
   set_link_to_function($(".new_company"),newCompany);
   set_link_to_function($(".cancel_new_company"),cancelNewCompany);
@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 
   $(".new_service_new_company").click(newServiceNewCompany);
   $(".search_address_text").click(search_address_text);
-  $(".search_address").click(search_address);
+  $(".search_address").live("click",search_address);
 
   $("#search_map").hide();  
   $("#search_map").dialog({

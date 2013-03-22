@@ -61,8 +61,8 @@
               Reporte Detalle
     .box_bottom
       = render 'search'
-    .menu_actions.box_bottom      
-      - if company_id
+    - if company_id
+      .menu_actions.box_bottom      
         %ul
           %li
             = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 

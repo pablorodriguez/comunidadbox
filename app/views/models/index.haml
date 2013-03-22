@@ -4,22 +4,20 @@
 -# stylesheets 'demo_table'
 .vertical_menu
   = render "conf/menu"
+  = render "actions"
 .contentright_s
-  %h1 Listado de Modelos
-  %table{:id=>'sort_table',:class=>'display w'}
-    %thead
-      %tr
-        %th Nombre
-        %th Marca
-        %th
-    - for model in @models
-      %tr
-        %td
-          = link_to h(model.name),model
-        %td
-          = h(model.brand.name)
-        %td
-          = link_to image_tag('edit.png'), edit_model_path(model)
-          = link_to image_tag('delete.png'), model, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
-  %br
-  = link_to image_tag('new.png'), new_model_path
+  .box_bottom.all_models
+    %h1 Listado de Modelos
+  - for model in @models
+    .row
+      .left
+        = brand_logo model.brand.name,true
+      .left
+        = link_to h(model.name),model
+      .actions
+        = link_to image_tag('edit.png'), edit_model_path(model)
+        = link_to image_tag('delete.png'), model, :data =>{:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
+  .clear
+    = will_paginate @models
+  .buttons_container
+    = link_to "Nuevo", new_model_path,:class =>:button

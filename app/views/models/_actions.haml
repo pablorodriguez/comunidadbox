@@ -1,0 +1,12 @@
+.box_bottom
+  %h3 Buscar
+  = form_for :model, :url => models_path,:method => :get do |f|
+    %table.w
+      %tr
+        %td
+          = select_tag(:b,options_from_collection_for_select(Brand.order("name"), :id, :name,@brand_id), {:prompt=>"-- Marca --",:class=>"long_select"})
+      %tr
+        %td
+          = text_field_tag(:m,nil,:placeholder => "Modelo")
+        %td
+          = image_tag "find.png",:class => "link search_model"

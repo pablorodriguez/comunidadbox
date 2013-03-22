@@ -1,13 +1,15 @@
-%h1
-  Modificar Marca
-= form_for(@brand) do |f|
-  = render 'shared/error_messages', :target => @brand
-  %p
-    Nombre
-    %br
-    = f.text_field :name
-  %p
-    = f.submit "Grabar"
-= link_to image_tag('view.png'), @brand
-|
-= link_to_back
+.vertical_menu
+  = render "conf/menu"
+.contentright_s  
+  .box_bottom
+    %h1 Modificar Marca
+  = form_for(@brand) do |f|
+    = render 'shared/error_messages', :target => @brand
+    %p
+      Nombre
+      %br
+      = f.text_field :name
+    %p
+    .buttons_container
+      = f.submit "Grabar",:class =>:button
+      = link_to "Cancelar", brands_path

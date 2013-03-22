@@ -12,7 +12,6 @@ class CarsController < ApplicationController
     domain = (params[:domain].strip if params[:domain]) || "%"
     domain = "%" if domain.empty?
      
-    @user = current_user
     per_page = 12
     
     if company_id
@@ -88,22 +87,35 @@ class CarsController < ApplicationController
   # GET /cars/1.xml
   def show
     @car = Car.find(params[:id])
+    @company_services = get_service_types 
+    @service_type_ids =  params[:service_type_ids] || []
+    @all_service_type = params[:all_service_type]
+    
     authorize! :read, @car
     @json = []
     @car_id = params[:id]
     @usr = @car.user.id
+    @date_f = params[:date_from]
+    @date_t =params[:date_to]
+
     page = params[:page] || 1
     data = params[:d] || "all"
     filters ={}
+
+    filters[:service_type_ids] = @service_type_ids unless (@service_type_ids.empty?)
+    filters[:order_by] = "workorders.performed DESC"
+    filters[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
+    filters[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
+
     
     @notes = @car.notes.paginate(:per_page=>10,:page =>1)
     per_page = 10
     respond_to do |format|
       
     if data == "all"
-      @work_orders = Workorder.for_car(@car_id).paginate(:per_page=>per_page,:page =>page)
       filters[:domain] = @car.domain      
       filters[:user] = current_user unless company_id
+      @work_orders = Workorder.find_by_params(filters).paginate(:per_page=>per_page,:page =>page)
 
       @budgets = @car.budgets.paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))

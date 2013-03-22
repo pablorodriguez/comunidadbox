@@ -8,11 +8,27 @@ jQuery(document).ready(function(){
 
   $("#create_new_service").click(createNewService);
 
-
+  $(".company_detail").live("click",selectCompany);
 
   $(".new_note_link").click(new_note);  
 
   $(".new_service").click(createNewService);
+
+  var dates = $( "#date_from, #date_to" ).datepicker({
+      defaultDate: -60,      
+      changeMonth: true,
+      numberOfMonths: 3,
+      onSelect: function( selectedDate ) {
+        var option = this.id == "date_from" ? "minDate" : "maxDate",
+          instance = $( this ).data( "datepicker" ),
+          date = $.datepicker.parseDate(
+            instance.settings.dateFormat ||
+            $.datepicker._defaults.dateFormat,
+            selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+      }
+    });
+  
 
   $("#paginator_wo .pagination a").live("click",function(){
     $.setFragment({"page" : $.queryString(this.href).page,  
@@ -80,6 +96,11 @@ jQuery(document).ready(function(){
   });
 
 });
+
+function selectCompany(){
+  var url = $(this).parent().find(".new_service_link").attr("href");
+  window.location = url;
+}
 
 function createNewNoteCar(){
   

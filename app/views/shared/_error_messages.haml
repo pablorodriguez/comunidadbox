@@ -1,9 +1,10 @@
 - if target && target.errors.any?
-  .error_msg
-    .cruzroja.link
-    %h2
-      = pluralize(target.errors.count, "error")
-      prohibited this record from being saved:
-    %ul
-      - target.errors.full_messages.each do |msg|
-        %li= msg
+  .error_container
+    .error_msg
+      .cruzroja.link
+      %h2
+        = pluralize(target.errors.count, "error")
+        prohibited this record from being saved:
+      %ul
+        - target.errors.full_messages.each do |msg|
+          %li= msg

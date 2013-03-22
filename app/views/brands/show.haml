@@ -1,7 +1,12 @@
-%p
-  %b
-    Name:
-  = h @brand.name
-= link_to image_tag('edit.png'), edit_brand_path(@brand)
-|
-= link_to_back
+.vertical_menu
+  = render "conf/menu"
+.contentright_s  
+  .box_bottom
+    %h1 Marca
+  %p
+    %b
+      Name:
+    = h @brand.name
+  .buttons_container
+    = link_to "Modificar", edit_brand_path(@brand),:class =>:button
+    = link_to "Cancelar",brands_path

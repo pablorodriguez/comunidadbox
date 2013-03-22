@@ -1,0 +1,7 @@
+es-AR:
+  activerecord:
+    models:
+      user: "Usuario"
+    attributes:
+      user:
+        remember_me: "Recordar"        

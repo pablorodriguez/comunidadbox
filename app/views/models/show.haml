@@ -1,11 +1,16 @@
-%p
-  %b
-    Marca:
-  = h @model.brand.name
-%p
-  %b
-    Nombre:
-  = h @model.name  
-= link_to image_tag('edit.png'), edit_model_path(@model)
-|
-= link_to_back
+.vertical_menu
+  = render "conf/menu"  
+.contentright_s
+  .box_bottom
+    %h1 Modelo
+  %p
+    %b
+      Marca:  
+    = brand_logo @model.brand.name,true
+  %p
+    %b
+      Nombre:
+    = h @model.name  
+  .buttons_container
+    = link_to "Modificar", edit_model_path(@model),:class =>:button
+    = link_to "Cancelar",models_path

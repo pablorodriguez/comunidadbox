@@ -1,11 +1,14 @@
-%h1
-  Nueva Marca
-= form_for(@brand) do |f|
-  = render 'shared/error_messages', :target => @brand
-  %p
-    Nombre
-    %br
-    = f.text_field :name
-  %p
-    = f.submit "Grabar"
-  = link_to_back
+.vertical_menu
+  = render "conf/menu"
+.contentright_s  
+  %h1
+    Nueva Marca
+  = form_for(@brand) do |f|
+    = render 'shared/error_messages', :target => @brand
+    %p
+      Nombre
+      %br
+      = f.text_field :name
+    %p
+      = f.submit "Grabar"
+    = link_to_back

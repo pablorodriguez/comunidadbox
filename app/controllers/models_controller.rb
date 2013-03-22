@@ -3,7 +3,20 @@ class ModelsController < ApplicationController
   # GET /models
   # GET /models.xml
   def index
-    @models = Model.find(:all,:order=>'name',:include =>:brand)
+    page = params[:page] || 1
+    per_page = 20
+
+    @brand_id = params[:b]
+    @model = params[:m] || ""
+    @model = "%#{@model}%"
+    
+    @brand_id = nil if @brand_id.try(:empty?)
+
+    if @brand_id
+      @models = Model.includes("brand").where("brand_id = ? and models.name like ?",@brand_id,@model).order('brands.name,models.name').paginate(:page =>page,:per_page =>per_page)
+    else
+      @models = Model.includes("brand").where("models.name like ?",@model).order('brands.name,models.name').paginate(:page =>page,:per_page =>per_page)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

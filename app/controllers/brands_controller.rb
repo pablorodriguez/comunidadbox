@@ -4,7 +4,11 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.xml
   def index
-    @brands = Brand.find(:all,:order => 'name')
+    page = params[:page] || 1
+    per_page = 20
+    @brand = params[:b] || ""
+    @brand = "%#{@brand}%"    
+    @brands = Brand.where("name like ?",@brand).order('name').paginate(:page =>page,:per_page =>per_page)
       
     respond_to do |format|
       format.html # index.html.erb

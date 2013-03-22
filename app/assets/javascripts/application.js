@@ -50,6 +50,8 @@
 //= require client_messages
 //= require messages
 //= require notes
+//= require models
+//= require brands
 //= require notes_index
 //= require price_list
 //= require rank
