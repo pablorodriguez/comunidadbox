@@ -177,7 +177,7 @@ class Alarm < ActiveRecord::Base
   end
 
   def self.notify
-    logger.info "#### alarms notify called ###########"
+    logger.info "#{Time.zone.now} alarms notify called ###########"
     Alarm.next_minute.each do |alarm|        
         alarm.deliver_notify
     end      
