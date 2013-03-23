@@ -70,16 +70,14 @@ class User < ActiveRecord::Base
     return (self.company && self.company.id == comp.id)
   end
 
-  def find_service_offers(filters = nil)
-
-    if self.is_super_admin?
-      offers = ServiceOffer.confirmed
-    elsif self.is_administrator?
-      offers = company.service_offers
+  def find_service_offers(filters,ids)
+    
+    unless ids
+      offers = ServiceOffer.cars(cars.map(&:id)).sended        
     else
-      offers = ServiceOffer.cars(cars.map(&:id)).sended
+      offers = ServiceOffer.where("company_id IN (?)",ids)
     end
-
+  
     if filters
       offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
       offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
@@ -117,6 +115,10 @@ class User < ActiveRecord::Base
   def own(comp)
     return true if company_id == comp.id
     return companies.select{|c| c.id == comp.id}.size > 0 ? true : false
+  end
+
+  def cars_ids
+    
   end
 
   def own_car car

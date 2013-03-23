@@ -2,10 +2,11 @@
 -# javascript "notes_index"
 .vertical_menu
   = render "home/menu"
-  .menu_actions.box_bottom
-    %ul
-      %li
-        = link_to "Nuevo Cliente", new_client_path      
+  - if current_user.is_employee?
+    .menu_actions.box_bottom
+      %ul
+        %li
+          = link_to "Nuevo Cliente", new_client_path      
 .contentright_s
   .box_bottom
     %h1 Listado de Notas

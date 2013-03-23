@@ -2,10 +2,9 @@
   - @offers.each do |offer|
     #div{:id=>"row_#{offer.id}",:class=>"service_offer_row link row"}
       .service_offer_info
-        .service_offer_detail
-          - unless company_id
-            .company_name        
-              = offer.company.name
+        .service_offer_detail        
+          .company_name        
+            = offer.company.name
           .service_offer_title      
             = link_to offer.title, offer,:class =>"view"
           .service_offer_name

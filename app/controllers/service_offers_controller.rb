@@ -10,9 +10,8 @@ class ServiceOffersController < ApplicationController
     title = (params[:title] && (!params[:title].empty?)) ? params[:title] : ""   
     filters ={:form => from,:until=>until_d,:service_type_id=>service_type_id,:status=>params[:status],:title =>title}
     
-    @offers = current_user.find_service_offers(filters)
-    @offers = @offers.paginate(:per_page=>10,:page =>page)
-    logger.info "### offers size #{@offers.size}"    
+    @offers = current_user.find_service_offers(filters,company_id).paginate(:per_page=>10,:page =>page)
+    
     respond_to do |format|
       format.html
       format.js { render :layout => false}

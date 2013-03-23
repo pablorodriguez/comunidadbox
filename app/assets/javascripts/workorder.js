@@ -30,7 +30,7 @@ function new_message_wo(){
  var chart;
 jQuery(document).ready( function(){
 
-  if ($("#all-workorder").length == 0){return;};
+  if ($("#all-workorder").exist()){return;};
 
   
   $("#workorders").delegate(".new_note_link","click",new_note);
