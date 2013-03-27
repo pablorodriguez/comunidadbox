@@ -1,13 +1,23 @@
 :javascript
   $(document).ready(function() {;
-    build_price_graph([#{@price_data}],"price_graph","Gastos por Tipo de Servicio");
-    build_amt_graph([#{@amt_data}],"amt_graph");
+    var price_data = [#{@price_data}];
+    if (price_data.length > 0){
+      build_price_graph(price_data,"price_graph","Gastos por Tipo de Servicio");
+      $("#price_graph_title").show();
+    }
+    var amt_data = [#{@amt_data}];
+    if (amt_data.length > 0){
+      build_amt_graph(amt_data,"amt_graph");
+      $("#amt_graph_title").show();
+    }
   })
   
-.box_bottom
-  %h1 Reporte por Importes
+#price_graph_title.hide
+  .box_bottom
+    %h1 Reporte por Importes
+  #price_graph.clear.box_bottom.graph
 
-#price_graph.clear.box_bottom.graph
-.box_bottom
-  %h1 Reporte por Cantidades
-#amt_graph.clear.box_bottom.graph
+#amt_graph_title.hide
+  .box_bottom
+    %h1 Reporte por Cantidades
+  #amt_graph.clear.box_bottom.graph

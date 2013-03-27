@@ -71,6 +71,7 @@ class Ability
       Company.is_employee?(b.creator.get_companies_ids,user)
     end
 
+
      
     if user.has_company? || user.is_employee?
       can :manage, :control_panel
@@ -92,6 +93,10 @@ class Ability
       can :manage, PriceList
       can :manage, :employee
       can :manage, ServiceFilter      
+    end
+
+    can :view,ServiceOffer do |s|
+      s.can_show? user      
     end
 
     if user.is_super_admin?

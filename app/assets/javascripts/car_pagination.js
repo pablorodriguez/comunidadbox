@@ -1,7 +1,7 @@
 //#car_pagination.js
 jQuery(document).ready(function(){
 
-  if ($("#all_cars").length == 0){return;};
+  if ($("#all_cars").notExist()){return;};
   
   //$("#new_note_link").click(createNewNoteCar);
   //$("#workorders").delegate(".new_note_link","click",createNewNoteCar);
@@ -81,7 +81,7 @@ jQuery(document).ready(function(){
   $(".contentright .labelify").labelify({ labelledClass: "labelHighlight" });
 
   
-  $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");}).click();
+  $("#service_done").click(function(){showHideContent($(this),"#cars_work_orders");});
   $("#future_event").click(function(){showHideContent($(this),"#cars_future_events");});
   $("#report_graph").click(function(){showHideContent($(this),"#cars_report_graphics");});
   $("#create_new_message").click(function(){showHideContent($(this),"#cars_messages");});

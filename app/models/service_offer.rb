@@ -1,7 +1,7 @@
 class ServiceOffer < ActiveRecord::Base
   attr_accessible :service_type_id, :title, :status, :comment, :price, :percent, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
 
-  has_many :car_service_offer
+  has_many :car_service_offer  
   has_many :cars, :through => :car_service_offer
   belongs_to :service_type
   belongs_to :company
@@ -57,6 +57,12 @@ class ServiceOffer < ActiveRecord::Base
     return cars,service_offers
   end
   
+  #if user's car belong to service offer car the user can see it
+  def can_show? user
+    cars_ids = user.cars.map(&:id)
+    ids = cars.map(&:id)
+    (ids & cars_ids).size > 0
+  end
 
   #Notifico a los autos sus ofertas de servicios
   def self.notify
@@ -84,6 +90,8 @@ class ServiceOffer < ActiveRecord::Base
       CarServiceOffer.where("car_id = ? and service_offer_id = ?",car.id,so.id).update_all(status: Status::SENT)
     end  
   end
+
+
 
   private
   

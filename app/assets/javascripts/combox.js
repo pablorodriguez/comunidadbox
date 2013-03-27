@@ -10,6 +10,10 @@ $.fn.exist = function(){
     return jQuery(this).length > 0;
 };
 
+$.fn.notExist = function(){
+    return jQuery(this).length == 0;
+};
+
 jQuery(document).ready( function(){  
 
   $("#msgs .close").click(function(){
