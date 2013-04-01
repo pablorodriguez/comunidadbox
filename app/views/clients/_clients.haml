@@ -2,7 +2,7 @@
   %h1 Listado de Clientes
 
 - for client in @clients
-  - is_client = is_client(client)
+  - is_client = current_user.is_client?(client)
   .row
     .client      
       - if is_client
