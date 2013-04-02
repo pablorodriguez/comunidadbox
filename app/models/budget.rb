@@ -82,7 +82,7 @@ class Budget < ActiveRecord::Base
 
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
-    budget = Budget.order("budgets.created_at DESC").includes(:car,:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
+    budget = Budget.order("budgets.created_at DESC").joins(:car => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
     unless prop.any?{|k| filters.key?(k.to_sym)}
@@ -93,8 +93,8 @@ class Budget < ActiveRecord::Base
       budget = budget.where("budgets.model_id = :model_id OR cars.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
       budget = budget.where("cars.year = ?","#{filters[:year]}") if filters[:year]
 
-      budget = budget.where("budgets.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
-      budget = budget.where("budgets.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
+      budget = budget.where("budgets.first_name like :name OR users.first_name like :name",{name: "%#{filters[:first_name]}%"}) if filters[:first_name]
+      budget = budget.where("budgets.last_name like :name OR users.last_name like :name ",{name: "%#{filters[:last_name]}%"}) if filters[:last_name]
       budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
       
       budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
