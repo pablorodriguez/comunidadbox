@@ -1,4 +1,6 @@
 jQuery(document).ready( function(){
+  if ($("#company_services").notExist()){return};
+  
 	$(".service_type_id").change(function(){
 		var element = $(this);
 		var checked = element.attr("checked");
