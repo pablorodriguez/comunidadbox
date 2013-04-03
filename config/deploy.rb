@@ -15,7 +15,8 @@ set :workers, { "alarms" => 1,"mails" => 1 }
 
 set :scm, "git"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :repository,  "git@github.com:ComunidadBox/comunidadbox.git"
+# set :repository,  "git@github.com:ComunidadBox/comunidadbox.git"
+set :repository,  "git@bitbucket.org:comunidadbox/comunidadbox.git"
 set :branch, "master"
 
 default_run_options[:pty] = true
