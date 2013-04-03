@@ -9,8 +9,8 @@
   %tr
     %td{:colspan=>3}
       = f.text_area :description, :cols => 40, :rows => 3
-  %tr
-    %td{:colspan=>3}
-      = f.submit "Grabar"
-      = link_to_back
+
+.buttons_container
+  = f.submit "Grabar",:class => :button
+  = link_to "Cancelar",tasks_path
 

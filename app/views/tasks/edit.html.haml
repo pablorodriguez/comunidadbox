@@ -1,7 +1,13 @@
 -# javascript 'service_offer'
-%h1
-  Modificar Tarea
-= form_for @task do |f|
-  = render 'shared/error_messages', :target => @task
-  = render :partial => 'form', :locals => {:f => f}
+-# javascript 'service_offer'
+.vertical_menu
+  = render "conf/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1
+      Modificar Tarea
+  = form_for @task do |f|
+    = render 'shared/error_messages', :target => @task
+    = render :partial => 'form', :locals => {:f => f}
 

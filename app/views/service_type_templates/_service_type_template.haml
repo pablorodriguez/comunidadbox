@@ -14,4 +14,6 @@
     = material.amount
   .actions
     .action
+      = link_to image_tag('delete.png'), service_type_template, :data =>{:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete,:title =>"Borrar"
+    .action
       = link_to "",edit_service_type_template_path(service_type_template),:title => t(".edit"),:class => :edit

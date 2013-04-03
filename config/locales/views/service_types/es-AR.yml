@@ -1,0 +1,4 @@
+es-AR:
+  service_types:
+    tasks:
+      add_task: "Agregar Tarea"    

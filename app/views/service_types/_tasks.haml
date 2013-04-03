@@ -1,20 +1,23 @@
-= form_for :service_type,:remote => true, :url => save_task_service_types_path do
-  = select_tag 'task', options_for_select(['-Seleccione una Tarea-'] + @tasks.collect {|t| [t.name, t.id]}, :selected => '-Seleccione una Tarea-')
-  = hidden_field_tag 'service_type', @service_type.id
-  = submit_tag 'Agregar'
-%br
-%table#sort_table2.display
-  %thead
-    %tr
-      %th Name
-      %th Descripcion
-      %th
-  - for task in @service_type.tasks
-    %tr{:id=>"task_#{task.id}"}
-      %td
-        = task.name
-      %td
-        = task.description
-      %td
-        = link_to_remote image_tag('delete.png'), :url => {:action => 'destroy_task', :id => task.id, :service_type => @service_type.id}, :confirm => '¿Esta seguro que desea borrarlo?'
+= form_for @service_type,:url => add_task_service_type_path,:remote => true,:html =>{:id => :task_form} do |f|
+  %label 
+    = t :add_task
+  = f.select 'tasks', @tasks.collect {|t| [t.name, t.id]},{:include_blank => true}    
+  .hide
+    = submit_tag 'Agregar'
 
+- if @service_type.tasks.size > 0
+  %table.comboxtable
+    %thead
+      %tr
+        %th Name
+        %th Descripcion
+        %th
+    - for task in @service_type.tasks
+      %tr{:id=>"task_#{task.id}"}
+        %td
+          = task.name
+        %td
+          = task.description
+        %td
+          = link_to "", remove_task_service_type_path(@service_type,t: task), :confirm => '¿ Esta seguro que desea borrarlo ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
+          

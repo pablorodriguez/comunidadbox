@@ -1,33 +1,31 @@
-%h1 Tipo de Servicio
-%table
-  %tr
-    %td.label_title Nombre
-    %td
-      =@service_type.name
-  %tr
-    %td.label_title Kms
-    %td
-      = @service_type.kms
-  - if @service_type.parent
-    %tr
-      %td.label_title Pertence a
-      %td
-        = @service_type.parent.name
-  %tr
-    %td.label_title Activo
-    %td
-      = check_box_tag "active","1", @service_type.active,:disabled => true
-#buttons
-  = link_to image_tag('edit.png'), edit_service_type_path(@service_type)
-  = link_to image_tag('return.png'),service_types_path
-#tabs
-  %ul
-    %li
-      %a{:href=>"#material_list"} Materiales
-    %li
-      %a{:href=>"#tasks"} Tareas
-  #material_list.tab
-    = render :partial => 'materials'
-  #tasks.tab
+.vertical_menu
+  = render "conf/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Modificar", edit_service_type_path(@service_type) 
+.contentright_s
+  .box_bottom
+    %h1 Tipo de Servicio
+  .box_bottom
+    %table
+      %tr
+        %td.label_title Nombre
+        %td
+          =@service_type.name
+      %tr
+        %td.label_title Kms
+        %td
+          = @service_type.kms
+      - if @service_type.parent
+        %tr
+          %td.label_title Pertence a
+          %td
+            = @service_type.parent.name
+      %tr
+        %td.label_title Activo
+        %td
+          = check_box_tag "active","1", @service_type.active,:disabled => true  
+  #tasks
     = render :partial => 'tasks', :locals => { :tasks => @tasks, :service_type => @service_type }
 

@@ -19,5 +19,4 @@
         = link_to image_tag('delete.png'), model, :data =>{:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
   .clear
     = will_paginate @models
-  .buttons_container
-    = link_to "Nuevo", new_model_path,:class =>:button
+  

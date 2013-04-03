@@ -37,7 +37,7 @@ class Ability
       can :manage, Material
       can :manage, :conf
       can :manage, Task
-      can :manage, ServiceType
+      #can :manage, ServiceType
       can :manage, Brand
       can :manage, Model
       can :manage, State      
@@ -68,10 +68,12 @@ class Ability
     end
 
     can [:destroy,:update], Budget do |b|
-      Company.is_employee?(b.creator.get_companies_ids,user)
+      Company.is_employee?(b.creator.get_companies_ids,user.id)
     end
 
-
+    can [:destroy,:update],ServiceTypeTemplate do |t|
+      Company.is_employee?([t.company_id],user.id)
+    end
      
     if user.has_company? || user.is_employee?
       can :manage, :control_panel

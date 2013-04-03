@@ -246,15 +246,17 @@ ComunidadBox::Application.routes.draw do
     end
   end
 
-  resources :service_types do
+  resources :service_types do    
+
     member do
       get :task_list
+      put :add_task
+      delete :remove_task
     end
     collection do
       get :search_sub_category
       put :save_material
       put :destroy_material
-      put :save_task
     end
   end
 

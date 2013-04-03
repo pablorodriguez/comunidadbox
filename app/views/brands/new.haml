@@ -10,5 +10,6 @@
       %br
       = f.text_field :name
     %p
-      = f.submit "Grabar"
-    = link_to_back
+      .buttons_container
+        = f.submit "Grabar",:class => :button
+        = link_to "Cancelar",brands_path

@@ -23,7 +23,5 @@
           .action
             = link_to image_tag("edit.png"), edit_brand_path(brand),:title => "Modificar"
     .clear
-      = will_paginate @models
-    .buttons_container
-      = link_to "Nuevo", new_brand_path ,:class =>:button
+      = will_paginate @models   
 

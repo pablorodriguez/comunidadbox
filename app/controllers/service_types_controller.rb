@@ -1,6 +1,6 @@
 class ServiceTypesController < ApplicationController
-  layout "application", :except => [:task_list,:save_material,:save_task] 
-  authorize_resource
+  #layout "application", :except => [:task_list,:save_material,:add_task,:remove_task] 
+  #authorize_resource
   # GET /service_types
   # GET /service_types.xml
   def index
@@ -26,14 +26,12 @@ class ServiceTypesController < ApplicationController
 
   # GET /service_types/1
   # GET /service_types/1.xml
-  def show
-    session[:service_type] = params[:id]
-
+  def show    
     @service_type = ServiceType.find(params[:id])
-    @not_in = (res = (@service_type.materials.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
-    @materials = Material.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
+    #@not_in = (res = (@service_type.materials.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
+    #@materials = Material.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
 
-    @tasks = [] #Task.find(:all) - @service_type.tasks
+    @tasks = Task.find(:all) - @service_type.tasks
 
     respond_to do |format|
       format.html # show.html.erb
@@ -73,28 +71,28 @@ class ServiceTypesController < ApplicationController
     end
   end
 
-  def save_task
-    unless params[:task] == '-Seleccione una Tarea-'
-      task = Task.find(params[:task])
-      @service_type = ServiceType.find(params[:service_type])
-      @service_type.tasks << task
-      flash[:notice] = 'Tarea agregado a tipo de servicio'
+  def add_task
+    if params[:service_type][:tasks]
+      task = Task.find(params[:service_type][:tasks])
+      @service_type = ServiceType.find(params[:id])
+      @service_type.tasks << task      
       @tasks = Task.find(:all) - @service_type.tasks
+
       respond_to do |format|
-        format.js
+        format.js {render :layout => false}
       end
     else
       render :nothing => true
     end
   end
 
-  def destroy_task
-    @service_type = ServiceType.find(params[:service_type])
-    @service_type.tasks.delete(Task.find(params[:id]))
+  def remove_task
+    @service_type = ServiceType.find(params[:id])
+    @service_type.tasks.delete(Task.find(params[:t]))
     @row_id="#task_#{params[:id]}"
     @tasks = Task.find(:all) - @service_type.tasks
     respond_to do |format|
-      format.js { render :save_task}
+      format.js { render :file => "service_types/add_task",:layout => false}
     end
   end
 

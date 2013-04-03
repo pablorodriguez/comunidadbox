@@ -978,11 +978,8 @@ table.services thead tr th {
 .comboxtable th , .comboxform tr.header{
   border-bottom: thin double black;
   background-color: #F2EAB7;
-  
   text-align: center;
   padding: 3px;
-  
-  font-family: 'Open Sans', serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -2751,7 +2748,8 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 .task_list{
-  
+  clear: both;
+  width: 100%;
 }
 
 .tasks{

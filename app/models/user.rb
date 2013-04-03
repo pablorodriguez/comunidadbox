@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   end
 
   def self.company_clients companies_ids  
-    User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids).order("users.first_name")  
+    User.joins(:companies_users).where("companies_users.company_id in (?)", companies_ids).order("users.last_name")  
   end
 
   def nil_if_blank

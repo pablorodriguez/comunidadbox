@@ -9,6 +9,16 @@ class ServiceTypeTemplatesController < ApplicationController
     end
   end
 
+  def destroy                
+    @template = ServiceTypeTemplate.find(params[:id])
+    authorize! :destroy, @template
+    @template.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(:action => 'index') }      
+    end
+  end
+
   def new
       @template = ServiceTypeTemplate.new
       #@template.material_service_type_template.build
