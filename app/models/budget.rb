@@ -82,7 +82,7 @@ class Budget < ActiveRecord::Base
 
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
-    budget = Budget.order("budgets.created_at DESC").joins(:car => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
+    budget = Budget.order("budgets.created_at DESC").includes(:car => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
     unless prop.any?{|k| filters.key?(k.to_sym)}
