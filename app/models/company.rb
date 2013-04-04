@@ -107,7 +107,7 @@ class Company < ActiveRecord::Base
   end
   
   def self.is_employee?(companies_ids,user_id)
-    User.joins(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
+    User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
   end
 
 
