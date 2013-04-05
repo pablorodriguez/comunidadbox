@@ -3,7 +3,7 @@
   %p
     Marca
     %br
-    = collection_select(:model, :brand_id, Brand.find(:all,:order=>'name'), :id, :name, {:prompt => "Seleccione una marca"})
+    = f.select(:brand_id,options_from_collection_for_select(Brand.find(:all,:order=>'name'), :id, :name), {:prompt => "Seleccione una marca"})
   %p
     = f.label :name
     %br

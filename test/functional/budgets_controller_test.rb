@@ -9,8 +9,8 @@ class BudgetsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
     @request.cookies["company_id"]= @employer.company.id.to_s
-    @budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
     sign_in @employer
     get :index
     assert_response :success
@@ -19,9 +19,9 @@ class BudgetsControllerTest < ActionController::TestCase
     assert_select("a.edit",:count => 1)    
   end
 
-  test "employe should get index" do
-    @budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
-    @request.cookies["company_id"]= @employer.company.id.to_s
+  test "employee should get index" do
+    budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
+    @request.cookies["company_id"]= @emp_walter.company.id.to_s
     sign_in @emp_walter
     get :index
     assert_response :success

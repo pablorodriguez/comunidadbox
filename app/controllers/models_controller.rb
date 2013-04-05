@@ -57,13 +57,10 @@ class ModelsController < ApplicationController
     @model = Model.new(params[:model])
 
     respond_to do |format|
-      if @model.save
-        flash[:notice] = 'Model was successfully created.'
-        format.html { redirect_to(@model) }
-        format.xml  { render :xml => @model, :status => :created, :location => @model }
+      if @model.save        
+        format.html { redirect_to models_path }        
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @model.errors, :status => :unprocessable_entity }
+        format.html { render :action => "new" }        
       end
     end
   end
