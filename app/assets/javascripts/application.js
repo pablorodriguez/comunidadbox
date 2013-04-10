@@ -30,6 +30,7 @@
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require gmaps4rails/gmaps4rails.mapquest
 //= require gmaps4rails/gmaps4rails.openlayers
+//= require analitics.js
 //= require combox
 //= require registration
 //= require service_type_template

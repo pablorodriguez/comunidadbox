@@ -20,10 +20,11 @@
       #control_panel_link.menu
         = image_tag "budget.png"
         = link_to "Presupuestos",budgets_path      
-    %li
-      #service_offer.link.menu
-        = image_tag "service_offer.png"
-        = link_to "Ofertas de Servicio" , service_offers_path
+    - if company_id
+      %li
+        #service_offer.link.menu
+          = image_tag "service_offer.png"
+          = link_to "Ofertas de Servicio" , service_offers_path
     = render "/home/new_menu"
     %li
       #service_center_link.menu

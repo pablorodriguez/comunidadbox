@@ -9,9 +9,9 @@
         %table.login
           %tr
             %td
-              = f.text_field :email, {:class =>"textarea labelify",:title=>"Correo Eléctronico"}              
+              = f.text_field :email, {:class =>"textarea",:placeholder=>"Correo Eléctronico"}              
             %td
-              = f.password_field :password, {:class =>"textarea labelify",:title=>"Clave "}                        
+              = f.password_field :password, {:class =>"textarea",:placeholder=>"Clave "}                        
             - if devise_mapping.rememberable?
               %tr
                 %td                  
