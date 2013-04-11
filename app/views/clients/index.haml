@@ -12,4 +12,4 @@
 .contentright_s
   #cars.data
   #clients.data
-    = render "clients"
+    = render :partial => "list_clients",:locals => {:clients => @clients}

@@ -30,7 +30,7 @@ jQuery(document).ready( function(){
 
   $("form[data-remote='true']").live('ajax:success',function(){    
     if (!$(this).data("no-reset")){
-      this.reset();
+      //this.reset();
     }
   });
   

@@ -136,21 +136,9 @@ class ClientsController < ApplicationController
     end
   end
 
-  def index
-    per_page = 15
-    page = params[:page] || 1    
-    email = params[:email] || ""
-    first_name = params[:first_name] || ""
-    last_name = params[:last_name] || ""
-    company_name = params[:company_name] || ""
-
-
-    @clients = User.company_clients(company_id)
-    @clients = @clients.where("first_name like ?","%#{first_name}%") unless first_name.empty?
-    @clients = @clients.where("last_name like ?","%#{last_name}%") unless last_name.empty?
-    @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
-    @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?
-    @clients = @clients.order("last_name,first_name").paginate(:page =>page,:per_page =>per_page)
+  def index    
+    @clients = Company.clients current_user.get_companies_ids,params
+  
     respond_to do |format|
       format.html
       format.js { render :layout => false}
@@ -159,21 +147,8 @@ class ClientsController < ApplicationController
 
 
   def index_all
-    per_page = 15
-    page = params[:page] || 1    
-    email = params[:email] || ""
-    first_name = params[:first_name] || ""
-    last_name = params[:last_name] || ""
-    company_name = params[:company_name] || ""
+    @clients = Company.clients current_user.get_companies_ids,params
 
-
-    @clients = User.company_clients(current_user.get_companies_ids)
-    @clients = @clients.where("first_name like ?","%#{first_name}%") unless first_name.empty?
-    @clients = @clients.where("last_name like ?","%#{last_name}%") unless last_name.empty?
-    @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
-    @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?
-    @clients = @clients.order("last_name,first_name").paginate(:page =>page,:per_page =>per_page)
-    
     respond_to do |format|      
       format.js { render :action => "index", :layout => false}
     end

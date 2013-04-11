@@ -110,9 +110,18 @@ class Company < ActiveRecord::Base
     User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
   end
 
-
   def self.employees(companies_ids)
     User.where("employer_id IN (?)",companies_ids)
+  end
+
+  def self.clients(companies_ids,params)
+    page = params[:page] || 1 
+    clients = User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids)
+    clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") if params[:first_name]
+    clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") if params[:last_name]
+    clients = clients.where("users.email like ?","%#{params[:email]}%") if params[:email]
+    clients = clients.where("company_name like ?","%#{params[:company_name]}%") if params[:company_name]    
+    clients.order("users.last_name,users.first_name").paginate(:page =>page,:per_page =>15)    
   end
 
 end

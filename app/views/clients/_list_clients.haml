@@ -1,7 +1,7 @@
 .box_bottom
-  %h1 Listado de Clientes
-
-- for client in @clients
+  %h1 
+    = "Listado de Clientes"  
+- for client in clients  
   - is_client = current_user.is_client?(client)
   .row
     .client      
