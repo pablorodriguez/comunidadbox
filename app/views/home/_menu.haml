@@ -29,8 +29,7 @@
     %li
       #service_center_link.menu
         = image_tag "find.png"        
-        = link_to "Prestadores de Servicios", all_companies_path      
-    
+        = link_to "Prestadores de Servicios", all_companies_path         
 #menu_actions
   #cars_menu.menu_data.hide.box_bottom    
     =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}

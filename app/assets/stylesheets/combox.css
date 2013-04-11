@@ -288,6 +288,12 @@ a{
   font-weight: bold;
 }
 
+#avatar_login a#help_link{
+  background-color: white;
+  color: #A8AA3A;
+  padding: 0 3px;
+}
+
 #popup_menu a{
   color:#B2AC0C;
 }

@@ -173,6 +173,7 @@ class ClientsController < ApplicationController
     @clients = @clients.where("email like ?","%#{email}%") unless email.empty?
     @clients = @clients.where("company_name like ?","%#{company_name}%") unless company_name.empty?
     @clients = @clients.order("last_name,first_name").paginate(:page =>page,:per_page =>per_page)
+    
     respond_to do |format|      
       format.js { render :action => "index", :layout => false}
     end
