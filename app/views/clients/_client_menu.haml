@@ -4,6 +4,8 @@
       - if company_id
         %li
           = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}
+        %li
+          = link_to "Nuevo Presupuesto",new_budget_path(:c => @client.id),{:title=>"Nuevo Presupuesto"}
       - if current_user.can_edit?(@client)
         %li
           = link_to "Modificar Cliente",edit_client_path(@client),{:title=>"Modificar cliente"} 

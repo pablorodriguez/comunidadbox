@@ -39,9 +39,11 @@
 //= require s3Slider
 //= require alarms
 //= require budgets
+//= require new_budget
 //= require budgets_form
 //= require car_pagination
 //= require clients
+//= require new_client
 //= require company_service
 //= require company_map
 //= require control_panel

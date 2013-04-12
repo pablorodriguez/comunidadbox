@@ -3,7 +3,7 @@
     %thead
       %tr
         %th{:colspan=>2,:style=>'width:60%'}
-          %h2.inline
+          %h2.inline.left
             %label{:id=>"serviceType"}
             = f.hidden_field :service_type_id,:class=>:service_type_id
             = f.fields_for :service_type do |st_form|
@@ -11,7 +11,9 @@
                 = st_form.object.name
           .service_status
             - if company_id
-              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => "-- Seleccione Operario --",:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"})
+              %select{class: "operator template hide"}
+                %option{value: ""} -- Template --            
+              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => "-- Operario --",:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"})            
             = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status left',:title=>"Estado"})
             = f.hidden_field :_destroy            
             .actions

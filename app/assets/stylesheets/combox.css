@@ -754,6 +754,10 @@ input{
   width:120px; 
 }
 
+#new_client_budget input{
+  width: 222px;
+}
+
 .input_medium{
   width: 250px;
 }
@@ -964,6 +968,10 @@ table.comboxtable, .comboxform, .w{
 
 table.services {
   width:99.8%;
+}
+
+table.services h2{
+  padding: 3px 5px;
 }
 
 
@@ -1858,6 +1866,10 @@ td.number, th.number{
   border-radius: 5px 5px 5px 5px;
   border: 1px outset #636262; 
   min-height:20px;
+}
+
+select.operator{
+  width: 110px;
 }
 
 .operator{
@@ -2769,7 +2781,6 @@ ul.tasks li{
 }
 
 .budget .car, .budget .customer {
-  width:48%;
   padding:5px;
 }
 
@@ -2811,7 +2822,7 @@ ul.tasks li{
   background-color: #F2F2F2;
   border-radius:5px;  
   float: right;
-  padding: 5px;
+  padding: 4px;
   margin-left: 5px;
 }
 

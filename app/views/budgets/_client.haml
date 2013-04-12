@@ -1,14 +1,14 @@
-.customer.left
+.customer
   .box_bottom
     %h1 Cliente
     = f.hidden_field :user_id
-  %table
+  %table.w
     %tr
-      %td{:style=>"width:100px"} Nombre *
+      %td{:style=>"width:100px"} Nombre
       %td
         = client.first_name
     %tr
-      %td Apellido *
+      %td Apellido
       %td   
         = client.last_name
     %tr

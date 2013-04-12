@@ -82,5 +82,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def validate_domain
+    @car =  Car.find_by_domain(params[:domain])    
+    respond_to do |format|
+      if @car
+        @user = @car.user
+        format.js { render :file => "users/invalid_domain", :layout => false}
+      else
+        format.js { render :file => "users/valid_domain",:layout => false}
+      end
+    end
+  end
 end
 

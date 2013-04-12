@@ -438,8 +438,11 @@ function add_new_material_service_type(){
 }
 
 function addNewServiceType(){
-  getServiceTypeDiv("#new_service_type").show();
-  //$("#new_service_type").val("");
+  var ele = $(this);
+  if (ele.find("option:selected").val() != ""){
+    getServiceTypeDiv("#new_service_type").show();    
+    ele.val("");
+  }
 }
 
 function addTaskList(service_type_id){

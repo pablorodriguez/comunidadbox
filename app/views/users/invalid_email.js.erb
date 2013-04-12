@@ -1,1 +1,1 @@
-$(".validation_email").html("<%=escape_javascript(render(:partial=>'user_email'))%>").fadeIn();
+$("td#email .validation_email").html("<%=escape_javascript(render(:partial=>'user_email'))%>").fadeIn().children().first().effect("highlight", {color:"#F7DE4F"}, 3000);

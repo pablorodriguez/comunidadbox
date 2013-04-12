@@ -173,6 +173,7 @@ es-AR:
     email: "Correo Eléctronico"
     password: "Clave"
     email_duplicated: "Email ya registrado"
+    domain_duplicated: "Dominio ya registrado"
     
   car_updated_exit: 'Automóvil actualizado con exito.'
   car_created_exit: 'Automóvil creado con exito.'

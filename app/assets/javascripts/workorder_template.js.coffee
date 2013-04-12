@@ -1,22 +1,27 @@
 $ ->
+  window.templates = {}
 
   searchTemplate = ->
-    category = $(@).val()
+    serviceTypeId = parseInt($(@).val())
     $.ajax({
       url:"/service_type_templates.json",
-      data:{'id':category},
+      data:{'id':serviceTypeId},
       type:'GET',
       dataType:'json',
       success: (data)->
-          window.templates = data
-          populateTemplateCombo(data)
+          window.templates[serviceTypeId] = data
+          populateTemplateCombo(data,serviceTypeId)
     })
 
-  populateTemplateCombo = (templates) ->
-    combo = $("#template")
-    combo.empty().append('<option selected="selected" value="">-- Template --</option>')
-    for temp in templates
-      combo[0].options[combo[0].options.length] = new Option(temp.name,temp.id)
+  populateTemplateCombo = (templates,serviceTypeId) ->    
+    combo = $(".service_type_id[value=#{serviceTypeId}]").parent().parent().find(".template")
+    if templates.length > 0
+      combo.show()
+      combo.empty().append('<option selected="selected" value="">-- Template --</option>')
+      for temp in templates
+        combo[0].options[combo[0].options.length] = new Option(temp.name,temp.id)
+    else
+      combo.hide()
 
   populateMaterialRow = (row,material) ->    
     row.find("input:text.amount").val(material.amount)
@@ -42,15 +47,16 @@ $ ->
   getServiceType = (service_type_id) ->    
     $("#services_list table .service_type_id[value='#{service_type_id}']").parent().parent().parent().parent().parent()
 
-  
-
   applayTemplate = ->
     templateId = parseInt($(@).val())
-    template
-    for temp in window.templates
-      if templateId == temp.id
-        template = temp
-    populateServices(template)
+    serviceTypeId = $(@).parent().parent().find(".service_type_id").val()
+    if templateId != ""
+      template
+      for temp in window.templates[serviceTypeId]
+        if templateId == temp.id
+          template = temp
+      populateServices(template)
+      $(@).val("")
 
   $("#new_service_type").change(searchTemplate)
-  $("#template").change(applayTemplate)
+  $(".template").live("change",applayTemplate)

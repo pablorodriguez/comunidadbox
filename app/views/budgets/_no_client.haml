@@ -1,7 +1,5 @@
-.customer.left
-  .box_bottom
-    %h1 Cliente
-  %table
+.customer
+  %table#new_client_budget.w
     %tr
       %td{:style=>"width:100px"} Nombre *
       %td
@@ -16,5 +14,8 @@
         = f.text_field :phone
     %tr
       %td Correo Eléctronico
-      %td
-        = f.text_field :email
+      %td#email
+        .user_email
+          = f.text_field :email,class: :left
+          .ajax_loader.left
+        .validation_email.hide

@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   def validate_all
     unless self.creator.companies.find_by_id(self.employer_id)
-      errors.add_to_base("El empleador es incorrecto")
+      errors[:base] << "El empleador es incorrecto"
     end
   end
 

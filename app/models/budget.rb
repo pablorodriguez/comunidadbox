@@ -35,7 +35,7 @@ class Budget < ActiveRecord::Base
     # si lo encuentro y el budget no tiene un auto => agrego error
     # si lo encuentro y el budget tiene auto cuyo user es distinto al user del auto encontrado => agrego error 
     if (c && car.nil?) || (c && car && car.user.id != c.user.id)
-      errors.add_to_base("El dominio ingresado ya existe")  
+      errors[:base_base] << "El dominio ingresado ya existe"
     end  
 
     if email && user.nil?
@@ -44,14 +44,14 @@ class Budget < ActiveRecord::Base
       # si lo encuentro y el budget no tiene usuario => agrego error
       # si lo encuentro y el budget tine usuario cuyo id es distinto al id del usuario encontrado con el mismo email => agrego error
       if (u && user.nil?) || (u && user && u.id != user.id)
-        errors.add_to_base("El email ingresado ya existe")  
+        errors[:base] << "El email ingresado ya existe"
       end
     end
 
     # si el budget tiene usuario y auto y el auto no pertenece al usuario => agrego error
     if car && user
       if car.user.id != user.id
-        errors.add_to_base("El automovil no pertenece al usuario")  
+        errors[:base] << "El automovil no pertenece al usuario"
       end
     end
   
