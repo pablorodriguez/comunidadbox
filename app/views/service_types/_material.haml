@@ -1,0 +1,28 @@
+.box_bottom 
+  %h1 Materiales
+%table.comboxtable
+  %thead
+    %tr
+      %th Código Prov.
+      %th Código
+      %th Nombre
+      %th Marca
+      %th Proveedor
+      %th
+  %tbody
+  -@materials.each do |material|
+    %tr
+      %td
+        = material.prov_code
+      %td
+        = link_to material.code, material
+      %td
+        = h material.name
+      %td
+        = material.brand
+      %td
+        = material.provider
+      %td
+        = link_to image_tag("edit.png"), edit_material_path(material)
+        = link_to image_tag("delete.png"), material, :data => {:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
+= will_paginate @materials

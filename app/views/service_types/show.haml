@@ -3,7 +3,8 @@
   .menu_actions.box_bottom
     %ul
       %li
-        = link_to "Modificar", edit_service_type_path(@service_type) 
+        = link_to "Modificar", edit_service_type_path(@service_type)
+  = render "search"
 .contentright_s
   .box_bottom
     %h1 Tipo de Servicio
@@ -27,5 +28,9 @@
         %td
           = check_box_tag "active","1", @service_type.active,:disabled => true  
   #tasks
+    .box_bottom
+      %h1 Tareas
     = render :partial => 'tasks', :locals => { :tasks => @tasks, :service_type => @service_type }
-
+  #service_type_materials    
+    = render :partial =>"material",:locals => {:materials => @materials}
+   

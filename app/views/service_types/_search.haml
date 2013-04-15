@@ -1,0 +1,20 @@
+%div.box_bottom
+  %h3 Buscar
+  = form_tag @service_type, :method => :get do
+    %table
+      %tbody
+        %tr
+          %td
+            = text_field_tag 'brand', "", placeholder: "Marca"
+        %tr
+          %td
+            = text_field_tag 'provider', "", placeholder: "Proveedor"
+        %tr
+          %td
+            = text_field_tag 'code', "", placeholder: "Código"
+        %tr  
+          %td
+            = text_field_tag 'name', "",placeholder: "Nombre"    
+            .ajax_loader.right
+    .div
+      = image_submit_tag("find.png",:class =>"input_img")

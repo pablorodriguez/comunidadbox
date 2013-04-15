@@ -1,0 +1,5 @@
+if (<%=@materials.size%> > 0){
+  $("#materials").html("<%=escape_javascript(render(:partial=>'all_materials', :locals =>{:materials =>@materials}))%>");
+}else{
+  $("#materials").html("No se encontraron materiales")
+}

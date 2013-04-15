@@ -1,0 +1,16 @@
+%td 
+  = service_type_row.name
+%td
+  - mst = material.material_service_type.select{|s| s.service_type_id == service_type_row.id}.first
+  - if mst    
+    = form_tag remove_material_service_type_path(service_type_row),remote: true do      
+      = hidden_field_tag :mst_id,mst.id
+      = hidden_field_tag :material_id,material.id      
+      = check_box_tag "material_service_type", mst.id,true,:class =>"service_type_id left"
+  - else
+    = form_tag add_material_service_type_path(service_type_row),remote: true do
+      = hidden_field_tag :material_id,material.id
+      = check_box_tag "service_type", service_type_row.id,false,:class =>"service_type_id left"
+    
+  %div.ajax_loader.left{:style=>"display:none"}
+  %div{:id=>"msg_#{service_type_row.id}"}

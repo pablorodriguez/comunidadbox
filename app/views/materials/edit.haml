@@ -1,5 +1,18 @@
-%h1
-  Modificar Material
-=render :partial =>"material"
-
-= link_to 'Ver', @material
+.vertical_menu
+  = render "conf/menu"  
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Material", new_material_path   
+      %li
+        = link_to "Modificar",edit_material_path(@material)
+.contentright_s
+  .box_bottom
+    %h1
+      Modificar Material  
+  = form_for(@material) do |f|
+    =render :partial =>"form",:locals => {f: f}
+    .buttons_container  
+      = f.submit t(".update"),:class=>"button" 
+      = link_to t(".cancel"),materials_path
+  

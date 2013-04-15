@@ -1,5 +1,5 @@
 class ServiceType < ActiveRecord::Base
-
+  attr_accessible :name, :kms, :parent_id, :active
   default_scope :order => "name"
 
   has_many :material_service_type

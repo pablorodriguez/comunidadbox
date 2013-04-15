@@ -1,0 +1,1 @@
+$('tr#<%=@service_type.id%>').html("<%=escape_javascript(render(:partial=>'materials/service_type_row',:locals =>{:service_type_row => @service_type,:material => @material}))%>");

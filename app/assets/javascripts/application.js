@@ -52,6 +52,7 @@
 //= require materials_ajax
 //= require client_messages
 //= require messages
+//= require material
 //= require notes
 //= require models
 //= require brands

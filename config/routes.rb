@@ -253,10 +253,13 @@ ComunidadBox::Application.routes.draw do
       get :task_list
       put :add_task
       delete :remove_task
+      post :remove_material
+      post :add_material
+      get :search_material
     end
+    
     collection do
       get :search_sub_category
-      put :save_material
       put :destroy_material
     end
   end

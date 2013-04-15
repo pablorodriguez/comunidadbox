@@ -1,0 +1,25 @@
+%p
+  %label{ :for => "prov_code" } 
+    = t ".prov_code"
+  %br
+  = f.text_field :prov_code
+%p
+  %label{ :for => "code" }
+  = t ".code"
+  %br
+  = f.text_field :code,:placeholder=>"XXX999"
+%p
+  %label{ :for => "name"}
+  = t ".name"
+  %br
+  = f.text_field :name
+%p
+  %label{ :for => "brand"}
+  = t "brand"
+  %br
+  = f.text_field :brand
+%p
+  %label{ :for => "provider"}
+  = t "provider"
+  %br
+  = f.text_field :provider

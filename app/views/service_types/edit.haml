@@ -1,3 +1,11 @@
-#newService_type
-  %h1 Modificar Tipo de Servicio
-  = render :partial=>'service_type'
+.vertical_menu
+  = render "conf/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1 Modificar Tipo de Servicio  
+  = form_for @service_type do |f|
+    = render :partial=>'form',:locals => {f: f}
+    .buttons_container    
+      = submit_tag t(".save"),:class=>"button" 
+      = link_to t(".cancel"),service_types_path

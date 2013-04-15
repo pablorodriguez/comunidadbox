@@ -1,2 +1,2 @@
-= hidden_field_tag "id",@materials.id
+= hidden_field_tag "id",@material.id
 = collection_select(:ServiceType, :parent_id, @servicetypes, :id, :name, options ={:prompt => "-Seleccione un tipo de servicio"})

@@ -74,12 +74,12 @@ jQuery(document).ready( function(){
 
   $(".labelify").labelify({ labelledClass: "labelHighlight" });
 
-  $("[data-remote='true']").bind('ajax:before', function(){
+  $("[data-remote='true']").live('ajax:before', function(){
     $(this).parent().parent().find(".ajax_loader").show();
-  }).bind('ajax:complete',function(){
+  }).live('ajax:complete',function(){
     $(this).parent().parent().find(".ajax_loader").hide();
     $(".labelify").labelify({ labelledClass: "labelHighlight" });
-  }).bind('ajax:error',function(evt,xhr,status,error){
+  }).live('ajax:error',function(evt,xhr,status,error){
     var $form = $(this),
           errors,
           errorText;

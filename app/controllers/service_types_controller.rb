@@ -5,7 +5,7 @@ class ServiceTypesController < ApplicationController
   # GET /service_types.xml
   def index
     @service_types = ServiceType.find(:all,:order=>'name')
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @service_types }
@@ -17,6 +17,17 @@ class ServiceTypesController < ApplicationController
     @sub_categories = Category.all(:conditions =>["parent_id = ?",id])  
   end
   
+
+  def search_material
+    @service_type = ServiceType.find(params[:id])
+    params[:service_type_ids] = params[:id]
+    page = params[:page] || 1    
+    @materials = Material.find_by_params params    
+    respond_to do |format|
+      format.js {render :layout => false}
+    end
+  end
+
   def task_list    
     service_type = ServiceType.find(params[:id])
     @service = session[:service]
@@ -28,8 +39,9 @@ class ServiceTypesController < ApplicationController
   # GET /service_types/1.xml
   def show    
     @service_type = ServiceType.find(params[:id])
-    #@not_in = (res = (@service_type.materials.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
-    #@materials = Material.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
+    params[:service_type_ids] = params[:id]
+    page = params[:page] || 1    
+    @materials = Material.find_by_params params   
 
     @tasks = Task.find(:all) - @service_type.tasks
 
@@ -39,24 +51,32 @@ class ServiceTypesController < ApplicationController
     end
   end
 
-  def save_material
-    service_type_id=session[:service_type]
-    @material = MaterialServiceType.new
-    @material.service_type_id = service_type_id
-    @material.material_id = params[:Materials][:parent_id]
-
+  def add_material
+    @service_type = ServiceType.find params[:id]
+    @material = Material.find params[:material_id]
+    @material_service_type = MaterialServiceType.new
+    @material_service_type.service_type = @service_type
+    @material_service_type.material = @material
+    
     respond_to do |format|
-      if @material.save
-        @service_type = ServiceType.find(service_type_id)
-        @not_in = (res = (@service_type.materials.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
-        @materials = Material.find(:all, :conditions => ["id NOT IN (?)",  @not_in])
-
-        flash[:notice] = 'Material agregado a tipo de servicio'
-        format.html { redirect_to service_type_path(@service_type)}
-        format.js
+      if @material_service_type.save        
+        format.js { render :file => "service_types/add_material",:layout => false}
       else
-        @service_type = ServiceType.find(service_type_id)
-        format.html { render :action => :show, :id => service_type_id }
+        format.html :nothing => true
+      end
+    end
+  end
+
+  def remove_material
+    @service_type = ServiceType.find params[:id]
+    @material = Material.find params[:material_id]
+    @material_service_type = MaterialServiceType.find(params[:mst_id])
+    
+    respond_to do |format|
+      if @material_service_type.destroy
+        format.js { render :file => "service_types/add_material",:layout => false}
+      else
+        format.html :nothing => true
       end
     end
   end

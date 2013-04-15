@@ -1,0 +1,31 @@
+%div.box_bottom
+  %h3 Buscar
+  = form_tag materials_path, :method => :get do
+    .box_bottom
+      #service_types
+        %ul
+          %li
+            = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
+            %label.link{:for => 'all_service_type'}
+              Todos
+          -ServiceType.all.each do |service|
+            %li
+              = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
+              %label.link{:for=>"service_type_#{service.id}"}
+                =service.name
+    %table
+      %tbody
+        %tr
+          %td
+            = text_field_tag 'brand', "", placeholder: t(".brand")
+        %tr
+          %td
+            = text_field_tag 'provider', "", placeholder: t(".provider")
+        %tr
+          %td
+            = text_field_tag 'code', "", placeholder: "Código"
+        %tr  
+          %td
+            = text_field_tag 'name', "",placeholder: "Nombre"
+    .div
+      = image_submit_tag("find.png",:class =>"input_img")

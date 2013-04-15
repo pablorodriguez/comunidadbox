@@ -2,24 +2,43 @@
 -# javascript 'sort.table'
 -# stylesheets 'demo_page'
 -# stylesheets 'demo_table'
-%h1 Material
-%table
-  %tr
-    %td.label_title Codigo
-    %td
-      = h @materials.code
-  %tr
-    %td.label_title Nombre
-    %td
-      = h @materials.name
-%br
-= form_for :servicetype,:remote => true, :url=>{:action=>"save_service_type"},:html => {:id => 'form'} do |form|
-  #select_servicetype
-    = render 'select_services'
-  = submit_tag "Agregar" 
-  #ajax_loader.ajax_loader{:style=>"display:none"} 
-#servicestypes
-  = render 'servicetypes',:locals=>{:materials =>@materials} 
-
-= link_to image_tag('edit.png'), edit_material_path(@materials)
-= link_to image_tag('return.png'),materials_path
+.vertical_menu
+  = render "conf/menu"  
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Material", new_material_path   
+      %li
+        = link_to "Modificar",edit_material_path(@material)
+.contentright_s
+  #material_show
+  .box_bottom
+    %h1 Material
+  .box_bottom
+    %table.w
+      %tr
+        %td Código Proveedor
+        %td
+          = @material.prov_code
+      %tr
+        %td Código
+        %td
+          = @material.code
+      %tr
+        %td Nombre
+        %td
+          = @material.name
+      %tr
+        %td Marca
+        %td
+          = @material.brand
+      %tr
+        %td Proveedor
+        %td
+          = @material.provider
+  .box_bottom
+    %h1 Tipos de Servicios
+  #servicestypes
+    = render partial: 'service_types',:locals => {material: @material}
+  .buttons_container
+    = link_to "Cancelar", materials_path

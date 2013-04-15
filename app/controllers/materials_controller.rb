@@ -4,35 +4,13 @@ class MaterialsController < ApplicationController
   authorize_resource
   
   def index
-    page = params[:page] || 1
-    if params[:codigo] || params[:nombre]
-      @condition_select = ''
-      unless params[:codigo].empty?
-        unless @condition_select == ''
-          @condition_select += " AND "
-        end
-        @condition_select += "code LIKE '%" + params[:codigo].upcase + "%'"
-        @codigo = params[:codigo]
-      else
-        @codigo = nil
-      end
-      unless params[:nombre].empty?
-        unless @condition_select == ''
-          @condition_select += " AND "
-        end
-        @condition_select += 'name LIKE ' + "'%" + params[:nombre].to_s.upcase + "%'"
-        @nombre = params[:nombre]
-      else
-        @nombre = nil
-      end
-      page = params[:page] || 1
-      unless @condition_select == ''
-        @materials = Material.paginate(:per_page => 20, :page => page, :order=>'name', :conditions => @condition_select)
-      else
-        @materials = Material.paginate(:per_page => 20, :page => page, :order=>'name')
-      end
-    else
-      @materials = Material.paginate(:per_page => 20, :page => page, :order=>'name')
+    page = params[:page] || 1    
+    @materials = Material.find_by_params params
+    @service_type_ids =  params[:service_type_ids] || []
+    @all_service_type = @service_type_ids.size > 0 ? true : false
+    respond_to do |format|
+      format.js {render :layout => false}    
+      format.html # show.html.erb      
     end
   end
 
@@ -58,13 +36,12 @@ class MaterialsController < ApplicationController
   end
 
   def show
-    @materials = Material.find(params[:id])
-    @not_in = (res = (@materials.service_types.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
+    @material = Material.find(params[:id])
+    @not_in = (res = (@material.service_types.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
     @servicetypes = ServiceType.find(:all, :conditions => ["id NOT IN (?)",  @not_in],:order =>'name')
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @materials }
+      format.html # show.html.erb      
     end
   end
 
@@ -110,7 +87,9 @@ class MaterialsController < ApplicationController
   end
 
   def edit
-    @material = Material.find(params[:id])
+    @material = Material.find(params[:id])    
+    @not_in = (res = (@material.service_types.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
+    @servicetypes = ServiceType.find(:all, :conditions => ["id NOT IN (?)",  @not_in],:order =>'name')
   end
 
   def create

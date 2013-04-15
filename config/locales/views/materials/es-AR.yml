@@ -1,0 +1,15 @@
+es-AR:
+  materials:
+    new:
+      save: "Grabar"
+    edit:
+      update: "Actualizar"
+    form:
+      code: "Código"
+      prov_code: "Código Proveedor"
+      name: "Nombre"
+      provider: "Proveedor"
+      brand: "Marca"
+    search:
+      brand: "Marca"
+      provider: "Proveedor"

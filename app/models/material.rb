@@ -1,4 +1,6 @@
 class Material < ActiveRecord::Base
+  attr_accessible :prov_code, :code, :name, :brand, :provider
+
   has_many :material_service_type
   has_many :service_types, :through => :material_service_type
  
@@ -20,6 +22,25 @@ class Material < ActiveRecord::Base
   
   def detail
     "#{name} #{provider}"
+  end
+
+  def self.find_by_params params
+    params.delete_if {|k,v| v.empty?}
+
+    page = params[:page] || 1
+
+    material = Material.order(:name)
+    material = material.where("code LIKE ?","%#{params[:code]}%") if params[:code]
+    material = material.where("name LIKE ?","%#{params[:name]}%") if params[:name]
+    material = material.where("brand LIKE ?","%#{params[:brand]}%") if params[:brand]
+    material = material.where("provider LIKE ?","%#{params[:provider]}%") if params[:provider]
+    
+    if params[:service_type_ids]
+      material = material.includes(:material_service_type).where("material_service_types.service_type_id IN (?)",params[:service_type_ids]) 
+    end
+
+    material = material.paginate(:per_page => 50, :page => page, :order=>'name')
+    material
   end
 
   

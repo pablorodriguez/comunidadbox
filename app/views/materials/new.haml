@@ -1,4 +1,14 @@
-%h1
-  Crear Material
-=render :partial =>"material"
-
+.vertical_menu
+  = render "conf/menu"  
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Nuevo Material", new_material_path
+.contentright_s
+  .box_bottom
+    %h1 Nuevo Material
+  = form_for(@material) do |f|
+    = render :partial =>"form",:locals => {f: f}
+    .buttons_container
+      = f.submit "Grabar",:class=>"button" 
+      = link_to "Cancelar",materials_path
