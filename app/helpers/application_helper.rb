@@ -49,7 +49,7 @@ module ApplicationHelper
   end
 
   def get_service_types
-    company_id ? CompanyService.companies(company_id) : current_user.service_types
+    ids = company_id ? CompanyService.companies(company_id) : current_user.service_types    
   end
 
   def is_client client

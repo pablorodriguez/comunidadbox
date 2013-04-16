@@ -2,8 +2,11 @@
 
 -if current_user  
   .vertical_menu
-    = render "menu"
-    = render "default_actions"
+    - unless current_user.is_administrator?
+      = render "menu"
+      = render "default_actions"
+    - else
+      = render "conf/menu"
   .contentright_s  
     #default.data  
       = render "welcome_msg"    
