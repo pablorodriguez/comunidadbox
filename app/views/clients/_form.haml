@@ -13,7 +13,7 @@
     %h3 Información de su auto
     .box_bottom
       =f.fields_for :cars do |c|
-        = render 'users/car_fields',:f =>c
+        = render 'users/car_fields',:f => c
     %h3 Direccion Personal
     .personal_address.box_bottom
       =f.fields_for :address do |a|

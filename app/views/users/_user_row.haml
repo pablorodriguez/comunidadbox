@@ -18,8 +18,8 @@
     %label{ :for => "email" }Email *
   %td
     .user_email
-      = f.text_field :email,:class=>"input_medium left"  
-      - if current_user && current_user.has_company?
+      = f.text_field :email,:class=>"input_medium left"        
+      - if current_user && (current_user.id != f.object.id)
         = link_to "","#",:title => "Generar Email si el cliente no tiene",:class =>"generate_email left"      
         .ajax_loader.left
     .validation_email.hide
