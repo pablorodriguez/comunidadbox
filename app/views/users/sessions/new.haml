@@ -11,7 +11,7 @@
             %td
               = f.text_field :email, {:class =>"textarea",:placeholder=>"Correo Eléctronico"}              
             %td
-              = f.password_field :password, {:class =>"textarea",:placeholder=>"Clave "}                        
+              = f.password_field :password, {:class =>"textarea",:placeholder=>"Clave ",:size =>25}                        
             - if devise_mapping.rememberable?
               %tr
                 %td                  

@@ -2,6 +2,7 @@ es-AR:
   sign_up: Registrate
   forgot_your_password: ¿ Olvidaste tu clave ?
   remember_me: Recordar
+  not_receive_confirmation_instruction: Enviar instrucciones de confirmación
   errors:
     messages:
       not_found: 'no encontrado'
