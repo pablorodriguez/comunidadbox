@@ -1,4 +1,7 @@
 class Company < ActiveRecord::Base
+
+  attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes
+
   has_one :address
   has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   belongs_to :user
