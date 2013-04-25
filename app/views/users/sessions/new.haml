@@ -2,24 +2,25 @@
   #cont1
     %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
   #login_c
-    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-      .left{:style=>"margin-top:5px"}
-        %h2 INICIAR SESIÓN
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|      
       .left
         %table.login
           %tr
+            %td            
+              %h2 INICIAR SESIÓN
             %td
               = f.text_field :email, {:class =>"textarea",:placeholder=>"Correo Eléctronico"}              
             %td
               = f.password_field :password, {:class =>"textarea",:placeholder=>"Clave ",:size =>25}                        
-            - if devise_mapping.rememberable?
-              %tr
-                %td                  
-                  %h2
-                    = f.check_box :remember_me,:class=>"checkbox"
-                    = f.label :remember_me
-      .left{:style=>"margin-top:-5px"}
-        %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}  
+            %td
+              %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}        
+          - if devise_mapping.rememberable?
+            %tr
+              %td
+              %td                  
+                %h2
+                  = f.check_box :remember_me,:class=>"checkbox"
+                  = f.label :remember_me
       .login_links
         = render "devise/shared/links"
   = render "home/new_msgs"

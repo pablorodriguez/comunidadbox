@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311230442) do
+ActiveRecord::Schema.define(:version => 20130425215759) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -185,6 +185,14 @@ ActiveRecord::Schema.define(:version => 20130311230442) do
 
   add_index "company_services", ["company_id"], :name => "company_services_company_id_fk"
   add_index "company_services", ["service_type_id"], :name => "company_services_service_type_id_fk"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "from"
+    t.string   "name"
+    t.text     "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "countries", :force => true do |t|
     t.string   "name"

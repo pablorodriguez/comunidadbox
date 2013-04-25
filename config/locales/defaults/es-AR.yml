@@ -1,3 +1,9 @@
 es-AR:
   cancel: "Cancelar"
+  save: "Grabar"
+  name: "Nombre"
+  email: "Correo Electrónico"
+  message: "Mensaje"
   select_service_type: "Seleccione Tipo de Servicio"
+  message_exit_send: "Mensaje enviado con exito"
+  wrong_captcha: "Error en la validación del Captcha"

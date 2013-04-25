@@ -23,6 +23,13 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
+    can :read, Company
+    can :all, Company
+    can :manage, :contact
+    can :search_distance, Company
+    can :search, Company
+    can :index, ServiceOffer
+
     user ||= User.new
 
     can :manage, Car do |car|
@@ -83,11 +90,6 @@ class Ability
       #can :index_all, :client
     end
 
-    can :read, Company
-    can :all, Company
-    can :search_distance, Company
-    can :search, Company
-    can :index, ServiceOffer
 
     if user.is_administrator? || user.is_manager?
       can :manage, ServiceOffer

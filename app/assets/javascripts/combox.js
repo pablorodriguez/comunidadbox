@@ -20,7 +20,7 @@ jQuery(document).ready( function(){
     $(this).parent().hide();
   });
 
-  $(".cruzroja").live("click",function(){
+  $(".cruz").live("click",function(){
     $(this).parent().parent().hide();
   });
 

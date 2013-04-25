@@ -57,9 +57,6 @@
             = image_tag("down.gif",:id=>"down_menu")
             #home_menu.menu.hide
               %ul
-                - if current_user.is_super_admin?
-                  %li
-                    = link_to "Configurción", conf_path
                 - if current_user.is_administrator?
                   %li
                     = link_to "Administración",admin_path    

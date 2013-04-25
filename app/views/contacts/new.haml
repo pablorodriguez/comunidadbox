@@ -1,0 +1,36 @@
+.vertical_menu
+.box_bottom
+  %h1
+    = t ".title"
+.box_bottom
+  = form_for @contact do |f|
+    
+    %table.w
+      %tbody
+        %tr
+          %td
+            %label
+              = t "name"
+          %td
+            = f.text_field(:name)
+          
+        %tr
+          %td
+            %label
+              = t "email"
+          %td
+            = f.text_field(:from)
+        %tr
+          %td
+            %label
+              = t "message"
+          %td
+            .left
+              = f.text_area(:message,:cols => 60,:rows => 10)            
+            .recpatcha.right
+              #repatcha_tag
+                = recaptcha_tags  
+    
+    .buttons_container
+      = f.submit t("save"),:class=>"button"
+      = link_to t("cancel"),root_path

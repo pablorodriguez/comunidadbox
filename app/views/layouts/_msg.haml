@@ -1,12 +1,12 @@
 #msgs
   - if flash.notice
     .notice
+      .cruz.ok.link
       %h2= flash.notice
-      .close x
   -if flash.alert
     .alert
+      .cruz.roja.link
       %h2= flash.alert
-      .close x   
 
 -#:javascript
   $(".notice").delay(5000).fadeOut();

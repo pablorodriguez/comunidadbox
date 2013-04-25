@@ -1,0 +1,6 @@
+es-AR:
+  contacts:
+    new:
+      title: "Contáctenos"
+    send:
+      message_exit_send: "Mensaje enviado con exito"

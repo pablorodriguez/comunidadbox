@@ -263,7 +263,15 @@ body {
   bottom:0;
   width:100%;  
   height:44px;
-  background-image:url(images/background_footer.jpg);
+  background: #3f3f3f; /* Old browsers */
+background: -moz-linear-gradient(top,  #3f3f3f 21%, #666666 100%, #5e5e5e 100%, #1c1c1c 100%, #2b2b2b 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(21%,#3f3f3f), color-stop(100%,#666666), color-stop(100%,#5e5e5e), color-stop(100%,#1c1c1c), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f3f3f', endColorstr='#2b2b2b',GradientType=0 ); /* IE6-9 */
+
 }
 
 #footer img{
@@ -584,7 +592,7 @@ h2 a:hover {
 
 .nav{
   list-style:none;
-  font-size:8px;
+  font-size:10px;
   font-family:arial;
   font-weight:bold;
   color:#999999;
@@ -671,12 +679,20 @@ ul li label {
 
 }
 
-
-.cruzroja {
+.roja {
   margin:2px 5px;
   vertical-align:middle;
   float:left;
   background-image:url(images/cruz_roja.png);
+  width: 23px;
+  height: 23px;
+}
+
+.ok {
+  margin:2px 5px;
+  vertical-align:middle;
+  float:left;
+  background-image:url(images/cruz_verde.png);
   width: 23px;
   height: 23px;
 }

@@ -1,0 +1,5 @@
+es-AR:
+  activerecord:
+    models:
+      contact: "Contacto"  
+      name: "Nombre" 

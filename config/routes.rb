@@ -76,6 +76,7 @@ ComunidadBox::Application.routes.draw do
   resources :ranks
   resources :tasks
   resources :service_type_templates
+  resources :contacts
 
   resources :messages do     
     member do
@@ -87,6 +88,8 @@ ComunidadBox::Application.routes.draw do
       get :users
     end
   end
+
+
 
   resources :home do
     collection do
