@@ -70,6 +70,10 @@ class Ability
       w.car.user == user || w.can_show?(user)
     end
 
+    can :print,Workorder do |w|
+      user.company_id != nil
+    end
+
     can :read, Budget do |b|
       (b.car && b.car.user == user) || b.user == user || Company.is_employee?(b.creator.get_companies_ids,user.id)
     end

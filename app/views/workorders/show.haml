@@ -6,9 +6,12 @@
         %li
           %a.rank{:href=>"#"}Calificar
         %li
-          %a.send_msg{:href=>"#"}Enviar Mensaje
+          %a.send_msg{:href=>"#"}Enviar Mensaje        
         %li
-          = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+          - if current_user.company_id
+            = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+          - else
+            = link_to "Imprimir",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
         -if @work_order.can_edit?(current_user)
           %li
             = link_to "Modificar", edit_workorder_path(@work_order)

@@ -100,7 +100,7 @@ class WorkordersController < ApplicationController
       format.html
       format.pdf {
         prawnto :prawn => {
-        :page_size => 'A6',
+        :page_size => 'A4',
         :left_margin => 20,
         :right_margin => 20,
         :top_margin => 15,
@@ -115,7 +115,7 @@ class WorkordersController < ApplicationController
   def print
     @work_order = Workorder.find params[:id]
     @car = @work_order.car
-    authorize! :read, @work_order
+    authorize! :print, @work_order
 
     respond_to do |format|
       format.pdf {
