@@ -6,6 +6,7 @@ FactoryGirl.define do
     email "gustavo@comunidadbox.com"    
     password "gustavotest"
     confirmed 1
+    confirmed_at 1.months.ago
     roles {[Role.find(5)]}
     after(:build) do |user|
       user.companies << FactoryGirl.build(:valle_grande_mendoza_peru)
@@ -19,6 +20,7 @@ FactoryGirl.define do
     email "walter@vgneumaticos.com.ar"
     password "waltertest"
     confirmed 1
+    confirmed_at 1.months.ago
     roles {[create(:employee)]}
   end
 
@@ -28,6 +30,7 @@ FactoryGirl.define do
     email "imr@comunidadbox.com"    
     password "imrtest"
     confirmed 1    
+    confirmed_at 1.months.ago
     after(:build) do |user|
       user.companies << FactoryGirl.build(:imr)      
     end
@@ -39,7 +42,8 @@ FactoryGirl.define do
     last_name "Battle"
     email "marcelo_battle2@comunidadbox.com"    
     password "marcelotest"
-    confirmed 1        
+    confirmed 1   
+    confirmed_at 1.months.ago     
     roles {[Role.find(5)]}
   end 
 
@@ -49,6 +53,7 @@ FactoryGirl.define do
     email "marcelo@comunidadbox.com"    
     password "marcelotest"
     confirmed 1
+    confirmed_at 1.months.ago
     employer factory: :valle_grande_mendoza_plaza
     creator factory: :gustavo_de_antonio
     roles {[Role.find(5)]}
@@ -62,6 +67,7 @@ FactoryGirl.define do
     encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
     password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
     confirmed 1
+    confirmed_at 1.months.ago
     after(:build) do |user|
       user.cars << FactoryGirl.create(:HRJ549)
     end
@@ -75,6 +81,7 @@ FactoryGirl.define do
     encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
     password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
     confirmed 1
+    confirmed_at 1.months.ago
     after(:build) do |user|
       user.cars << FactoryGirl.create(:DDD549)
     end

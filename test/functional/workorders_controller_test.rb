@@ -4,17 +4,18 @@ class WorkordersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   setup do    
     create_all_default_data    
+    
     @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
     @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
   end
 
   test "list workorder" do
-    setup_controller_for_warden
+    
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @request.cookies["company_id"]= @employer.company.id.to_s
-
     sign_in @employer
+    
     get :index
     assert_response :success
     assert_template :index
