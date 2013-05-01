@@ -1,0 +1,14 @@
+= form_for material ,:remote=>true,:html => {:class => "edit_material w left"} do |f|
+  .material
+    = link_to material.code, material
+  .prov_code
+    = f.text_field :prov_code,:class => :prov_code,:placeholder => "Código Proveedor"
+  .name
+    = f.text_field :name,:class=>:name,:placeholder => "Nombre"
+  .brand
+    = f.text_field :brand,:placeholder => "Marca"
+  .provider
+    = f.text_field :provider,:placeholder =>"Proveedor"
+  .actions    
+    %a.confirm{:href => "#",:title =>"Grabar"}
+    %a.delete{:href => "#",:title =>"Cancelar"}    

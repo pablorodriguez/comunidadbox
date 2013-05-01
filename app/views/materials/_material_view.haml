@@ -1,14 +1,14 @@
-%tr
-  %td
-    = material.prov_code
-  %td
+.material
+  .material
     = link_to material.code, material
-  %td
+  .prov_code
+    = material.prov_code
+  .name
     = h material.name
-  %td
+  .brand
     = material.brand
-  %td
+  .provider
     = material.provider
-  %td
-    = link_to image_tag("edit.png"), edit_material_path(material)
-    = link_to image_tag("delete.png"), material, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete
+  .actions
+    %a.edit{:href => "#"}
+    = link_to "", material, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete,:class =>"delete"

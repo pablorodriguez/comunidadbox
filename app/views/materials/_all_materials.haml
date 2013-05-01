@@ -1,13 +1,4 @@
-%table.comboxtable
-  %thead
-    %tr
-      %th Código Prov.
-      %th Código
-      %th Nombre
-      %th Marca
-      %th Proveedor
-      %th
-
-  - for material in materials
-    = render :partial => "material_view",:locals => {material: material}    
+- for material in materials
+  .row[material]
+    = render :partial =>"material_row",:locals =>{:material => material}    
 = will_paginate materials

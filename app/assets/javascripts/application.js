@@ -53,6 +53,7 @@
 //= require client_messages
 //= require messages
 //= require material
+//= require material_index
 //= require notes
 //= require models
 //= require brands

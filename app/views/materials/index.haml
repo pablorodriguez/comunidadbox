@@ -2,9 +2,12 @@
   = render "conf/menu"
   = render "search"
   = render "actions"
-.contentright_s
+#materials_index.contentright_s
   .box_bottom
-    %h1
+    %h1.left
       Listado Materiales
+    %h2.right
+      Cantidad:
+      = @materials.count
   #materials
     = render :partial => "all_materials", :locals =>{materials: @materials}

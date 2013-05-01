@@ -6,8 +6,7 @@ class MaterialsController < ApplicationController
   def index
     page = params[:page] || 1    
     @materials = Material.find_by_params params
-    @service_type_ids =  params[:service_type_ids] || []
-    @all_service_type = @service_type_ids.size > 0 ? true : false
+    @service_type_ids =  params[:service_type_ids] || []    
     respond_to do |format|
       format.js {render :layout => false}    
       format.html # show.html.erb      
@@ -112,10 +111,9 @@ class MaterialsController < ApplicationController
     @material = Material.find(params[:id])
 
     respond_to do |format|
-      if @material.update_attributes(params[:material])
-        flash[:notice] = 'Material actualizado exitosamente.'
+      if @material.update_attributes(params[:material])        
         format.html { redirect_to(@material) }
-        format.xml  { head :ok }
+        format.js {render :layout => false}
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @material.errors, :status => :unprocessable_entity }

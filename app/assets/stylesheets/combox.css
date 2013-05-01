@@ -83,7 +83,7 @@ body {
   background-image:url(images/delete.png);
   height:16px;
   width:16px;
-  display:block;
+  display:inline-block;
 }
 
 .block{
@@ -91,25 +91,32 @@ body {
  overflow: auto;
 }
 
+.confirm{
+  background-image:url(images/confirm.png);
+  height:16px;
+  width:16px;
+  display:inline-block;
+}
+
 .edit{
   background-image:url(images/edit.png);
   height:16px;
   width:16px;
-  display:block;
+  display:inline-block;
 }
 
 .sent{
   background-image:url(images/sent.png);
   height:16px;
   width:16px;
-  display:block;
+  display:inline-block;
 }
 
 .new_budget{
   background-image:url(images/new_budget.png);
   height:16px;
   width:16px;
-  display:block;
+  display:inline-block;
 }
 
 .wo_note{
@@ -748,6 +755,28 @@ select{
   height:26px;
   width:175px;
   padding: 2px;  
+}
+
+.material_form input{
+  width: 90px;
+}
+
+.material_form .prov_code{
+  width: 70px;
+}
+
+.material_form input.name{
+  width: 250px;
+}
+
+
+.material_view .material div ,.material_form .edit_material div,.material_header div{
+  display:inline-block;
+  margin: 0px 3px  
+}
+
+.material_view,.material_view,.material_header{
+  width: 100%;  
 }
 
 input{
@@ -2314,15 +2343,6 @@ select.operator{
 #sort_by dl {
   margin: 0px;
   float: right;
-}
-
-.confirm{
-  background: url(images/ok.png) no-repeat scroll right center;
-  width:21px;
-  height:21px;
-  border:none;
-  margin: 0px 0px 0px 3px;
-  cursor: pointer;
 }
 
 .buttons{
