@@ -59,10 +59,6 @@ class ControlPanelsController < ApplicationController
   end
   
   def filter_alarms
-    logger.debug "### entro"
-    #@filters = ServiceFilter.find(:all,:order => :name)
-    
-    #search all event type (et = event type)
     @events_ids = params[:events_ids] || ""
     @event_types = {}    
     @event_types={:red =>:red,:yellow =>:yellow,:green =>:green} if params[:et] == "all"        
@@ -107,7 +103,6 @@ class ControlPanelsController < ApplicationController
     @events_count = @events.count
     @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
     @alarm = Alarm.new
-    logger.info "### salio Eventos IDS #{@events_ids}"
     
   end
   

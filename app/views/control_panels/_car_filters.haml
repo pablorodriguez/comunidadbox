@@ -1,5 +1,6 @@
 #search.box_bottom
-  %h3 Buscar
+  %h3 
+    = t "search"
   %table.w
     %tr
       %td
@@ -25,14 +26,15 @@
         =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>"-- Año --"},{:class=>"clear change long_select"})
     %tr        
       %td
-        = f.text_field 'date_from', :class =>"input_date",:title =>"Desde",:placeholder =>"Desde"
-        = f.text_field 'date_to', :class =>"input_date",:title=>"Hasta",:placeholder =>"Hasta"
+        = f.text_field 'date_from', :class =>"input_date",:title =>t("since"),:placeholder =>t("since")
+        = f.text_field 'date_to', :class =>"input_date",:title=>t("until"),:placeholder =>t("until")
 #event_types.box_bottom
-  %h3 Seleccione Eventos  
+  %h3 
+    = t ".select_events"
   %table.w  
     %tr      
       %td
-        Eventos Tipos
+        = t ".events_types"
       %td
         .rojo.left
           = check_box_tag :red,:red,@event_types[:red],:class =>:checkbox
@@ -42,12 +44,12 @@
           = check_box_tag :green,:green,@event_types[:green],:class =>:checkbox
     %tr
       %td
-        = label_tag :my_clients,"Mis Clientes",:class=>:link
+        = label_tag :my_clients,t(".my_clients"),:class=>:link
       %td  
         = check_box_tag :my_clients,true,@my_clients,:class =>:checkbox
     %tr
       %td
-        = label_tag :others,"Otros Clientes",:class=>:link
+        = label_tag :others,t(".others_clients"),:class=>:link
       %td  
         = check_box_tag :others,true,@others,:class =>:checkbox
     %tr
@@ -55,11 +57,12 @@
         = image_tag('find.png',{:id=>:reload,:class=>:link})
 
 #select.box_bottom
-  %h3 Seleccione Clientes
+  %h3 
+    = t(".select_clients")
   %table.w
     %tr
       %td
-        Mis
+        = t "my"
       %td
         .mi_amarillo.color
           = check_box_tag :select_yellow,:mi_domain_yellow,false,:class =>:checkbox
@@ -68,7 +71,7 @@
           = check_box_tag :select_red,:mi_domain_red,false,:class =>:checkbox
     %tr
       %td
-        Otros
+        =t "others"
       %td
         .amarillo.color
           = check_box_tag :select_yellow,:domain_yellow,false,:class =>:checkbox
