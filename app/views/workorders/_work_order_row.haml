@@ -31,14 +31,14 @@
       - if can_show
         %label.price_b{:title => "Total"}
           = number_to_currency work_order_row.total_price
-  - if multiple_company?
+  - if multiple_company? || current_user.company.nil?
     .clear.left
       = work_order_row.company_name
 
   - if can_show
     .actions
       .ajax_loader.left      
-      - if work_order_row.can_edit?(current_user)        
+      - if work_order_row.can_delete?(current_user)        
         .action
           = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
         .action

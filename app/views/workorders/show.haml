@@ -15,6 +15,9 @@
         -if @work_order.can_edit?(current_user)
           %li
             = link_to "Modificar", edit_workorder_path(@work_order)
+        - if @work_order.can_delete?(current_user)
+          %li
+            = link_to "Eliminar", workorder_path(@work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
 .contentright_s
   .div{:id=>"wo_#{@work_order.id}"} 
     .box_bottom

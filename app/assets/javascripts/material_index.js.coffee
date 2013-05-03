@@ -12,6 +12,5 @@ $ ->
     $(@).parent().parent().submit()
 
   $("#materials").delegate(".material_view .edit","click",show_form)
-
   $("#materials").delegate(".material_form .delete","click",hide_form)
   $("#materials").delegate(".material_form .confirm","click",confirm_form)

@@ -18,4 +18,31 @@ class WorkorderTest < ActiveSupport::TestCase
     assert(new_due_date == event.dueDate, "New Date: #{new_due_date} <> Event: #{event.dueDate} --- WO: #{@wo.performed} Car Km Avg: #{@wo.car.kmAverageMonthly} ST: #{event.service.service_type.kms}")
 
   end
+
+  test "user cant delete employer workorder close" do
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.can_delete?(@user) == false
+  end
+
+  test "user can edit his workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @user,:company => @employer.company)
+    assert @wo.can_edit?(@user)
+  end
+
+  test "employer cant delete his workorder close" do
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.can_delete?(@employer) == false
+  end
+
+  test "employer cant edit his workorder close" do
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.can_edit?(@empolyer) == false
+  end
+
+  test "employer can edit his workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.can_edit?(@employer)
+  end
+
+  
 end

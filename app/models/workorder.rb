@@ -210,6 +210,15 @@ class Workorder < ActiveRecord::Base
   def belong_to_user user
     user.cars.include?(car)
   end
+
+  def can_delete?(usr)
+    if (user.id == usr.id)
+      unless company.is_employee(user)
+        return true
+      end
+    end    
+    false
+  end
   
   def can_edit?(usr)
     if (is_open? || is_in_progress?)

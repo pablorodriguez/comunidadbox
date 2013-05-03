@@ -4,5 +4,5 @@
     = form_for :message,:url => "",:remote=>true, :html=>{:class=>:new_msg_form} do |f|      
       = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder =>"Por favor ingrese el texto del mensaje"
       = hidden_field_tag :element_id,0
-      .left
-        = f.submit "",:class=>:confirm,:title =>"Grabar"
+      .left        
+        = image_submit_tag "ok.png",:title =>"Grabar"

@@ -1,0 +1,11 @@
+es-AR:
+  messages:
+    index:
+      title: "Mensajes"
+      new_client: "Nuevo Cliente"
+      messages_for: "Mensajes para"
+    users:
+      new_client: "Nuevo Clienteww"
+      title: "Mensajes"
+      see_company: "Ver Compañia"
+      see_messages: "Ver Mensajes"

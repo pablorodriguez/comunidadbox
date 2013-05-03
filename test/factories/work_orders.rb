@@ -6,9 +6,22 @@ FactoryGirl.define do
     deliver 1.hour.since
   end
 
+
+  factory :wo_oc_open, class: Workorder do            
+    services {[FactoryGirl.build(:service_oc_open)]}
+    payment_method {PaymentMethod.find(1)}
+    deliver 1.hour.since
+  end
+
   factory :service_oc, class: Service do
     service_type {ServiceType.find(1)}
-    status 4
+    status Status::FINISHED
+    material_services {[build(:material_service_oc)]}
+  end
+
+  factory :service_oc_open, class: Service do
+    service_type {ServiceType.find(1)}
+    status Status::OPEN
     material_services {[build(:material_service_oc)]}
   end
 

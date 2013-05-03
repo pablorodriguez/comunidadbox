@@ -1,34 +1,38 @@
 .box_bottom
-  %h1 Mensajes
+  %h1 
+    = t ".title"
 
 - for client in @clients
   - is_client = is_client(client)
-  .row.link
+  .row
     .client
       .left
         %label
           %strong
-            = link_to client.full_name, client_path(client),:title=>"Ver"
-          
+            - if current_user.company
+              = link_to client.full_name, client_path(client),:title=>"Ver" 
+            - else
+              = client.full_name
+            %label
+              = link_to " : #{client.company.name}", company_path(client.company),:title => t(".see_company") if client.company
+
         - if is_client
           %label
             = client.email
           %label.phone
             = client.phone
-      %label.clear.left
-        = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
 
-      .actions.right.hide
+      .actions.right
         .action
-          = link_to "",user_messages_path(client),{:title=>"Ver Mensaje",:class=>"new_message"}
-
-    - client.cars.each_with_index do |car,index|  
-      .client_car.box_top.left
-        .detail.left
-          .left.domain_white
-            = link_to h(car.domain),car
-          %strong
-            = car.brand.name
-            = car.model.name
-            = car.year  
+          = link_to "",user_messages_path(client),{:title=> t(".see_messages"),:class=>"new_message"}
+    -if current_user.company_id
+      - client.cars.each_with_index do |car,index|  
+        .client_car.box_top.left
+          .detail.left
+            .left.domain_white
+              = link_to h(car.domain),car
+            %strong
+              = car.brand.name
+              = car.model.name
+              = car.year  
 = will_paginate @clients
