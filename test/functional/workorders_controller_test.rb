@@ -8,6 +8,7 @@ class WorkordersControllerTest < ActionController::TestCase
     @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
     @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
   end
 
   test "list workorder" do
@@ -21,7 +22,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_template :index
     
     assert_select("div",:id=>"workorders",:count=>1)
-    assert_select("div#workorders .wo_detail",:count => 2)
+    assert_select("div#workorders .wo_detail",:count => 3)
     assert_select("div",:id=>"price_graph_c",:count=>1)
     assert_select("div",:id=>"report_data",:count=>1)
     assert_select("div",:id=>"company_id",:count=>1)
@@ -29,7 +30,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("div#all_companies ul li",:count=>3)
     assert_select("#company[value='#{@employer.company.id}']")
 
-    assert_select(".price_b",:text => "$ 60,00",:count=>1)
+    assert_select(".price_b",:text => "$ 60,00",:count=>2)
     
   end
 

@@ -212,17 +212,21 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_delete?(usr)
-    if (user.id == usr.id)
-      unless company.is_employee(user)
-        return true
-      end
-    end    
-    false
+    if ((user.id == usr.id) && usr.is_car_owner?)
+      return true
+    end
+
+    can_edit?(usr)
+
   end
   
   def can_edit?(usr)
     if (is_open? || is_in_progress?)
-      if ((user.id == usr.id) || (company.is_employee(usr)))
+      if ((user.id == usr.id) && user.is_car_owner?)
+        return true
+      end
+
+      if company.is_employee(usr) && user.is_employee?
         return true
       end
     end

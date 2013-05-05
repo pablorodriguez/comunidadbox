@@ -7,6 +7,7 @@ class WorkorderTest < ActiveSupport::TestCase
     create_all_default_data    
     @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
+    @emp_walter =  create(:emp_walter)
     
   end
 
@@ -19,14 +20,34 @@ class WorkorderTest < ActiveSupport::TestCase
 
   end
 
-  test "user cant delete employer workorder close" do
+  test "user cant delete company workorder close" do
     @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
     assert @wo.can_delete?(@user) == false
+  end
+
+  test "user cant delete company workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.can_delete?(@user) == false
+  end
+
+  test "user can delete his workorder close" do
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @user,:company => @employer.company)
+    assert @wo.can_delete?(@user) 
+  end
+
+  test "user can delete his workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @user,:company => @employer.company)
+    assert @wo.can_delete?(@user) 
   end
 
   test "user can edit his workorder open" do
     @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @user,:company => @employer.company)
     assert @wo.can_edit?(@user)
+  end
+
+  test "user cant edit company workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)    
+    assert @wo.can_edit?(@user) == false
   end
 
   test "employer cant delete his workorder close" do
@@ -44,5 +65,19 @@ class WorkorderTest < ActiveSupport::TestCase
     assert @wo.can_edit?(@employer)
   end
 
+  test "employer cant edit user workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @user,:company => @employer.company)
+    assert @wo.can_edit?(@employer) == false
+  end
+
+  test "employer cant edit user workorder close" do
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @user,:company => @employer.company)
+    assert @wo.can_edit?(@employer) == false
+  end  
+
+  test "employer can delete workorder open" do
+    @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.can_delete?(@employer)
+  end
   
 end

@@ -204,17 +204,19 @@ class User < ActiveRecord::Base
     find_role Role::SUPER_ADMIN
   end
 
-  def is_employee?(usr=nil)
-    return employer != nil unless usr
-    (companies && companies.includes(:companies_users).where("companies_users.user_id = ?",id).size >= 0) ? true : false
+  def is_employee?
+    if employer == nil && company_active == nil
+      return false 
+    end
+
+    if employer
+      return true
+    end
+    company_active != nil
   end
 
   def is_car_owner?
-    car_owner = true
-    if has_company? || is_employee?
-      car_owner = false
-    end
-    car_owner
+    !is_employee?
   end
 
   def find_role(role_name)

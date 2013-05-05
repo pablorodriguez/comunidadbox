@@ -1,6 +1,7 @@
 FactoryGirl.define do
 
   factory :gustavo_de_antonio, class: User do
+    id 4
     first_name "Gustavo"
     last_name "De Antonio"
     email "gustavo@comunidadbox.com"    
@@ -22,6 +23,8 @@ FactoryGirl.define do
     confirmed 1
     confirmed_at 1.months.ago
     roles {[create(:employee)]}
+    employer {Company.find(1)}
+    creator {User.find(4)}
   end
 
   factory :imr_admin, class: User do
@@ -53,10 +56,10 @@ FactoryGirl.define do
     email "marcelo@comunidadbox.com"    
     password "marcelotest"
     confirmed 1
-    confirmed_at 1.months.ago
-    employer factory: :valle_grande_mendoza_plaza
-    creator factory: :gustavo_de_antonio
+    confirmed_at 1.months.ago  
     roles {[Role.find(5)]}
+    employer {Company.find(1)}
+    creator {User.find(4)}
   end
 
   factory :pablo_rodriguez,class: User do

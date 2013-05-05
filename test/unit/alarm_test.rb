@@ -3,7 +3,7 @@ require 'test_helper'
 class AlarmTest < ActiveSupport::TestCase
   
   setup do
-    create_all_default_data    
+    create_all_default_data  
   end
 
   test "validate alarm generated" do
