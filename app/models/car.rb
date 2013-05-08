@@ -39,7 +39,7 @@ class Car < ActiveRecord::Base
   end
 
   def update_km?
-    (self.kmUpdatedAt && (self.kmUpdatedAt < 1.month.ago)) ? true : false
+    (self.kmUpdatedAt && (Time.zone.now - self.kmUpdatedAt) < (60*60*24)) ? false : true
   end
 
   def future_events

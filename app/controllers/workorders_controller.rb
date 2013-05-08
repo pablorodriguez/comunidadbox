@@ -227,13 +227,6 @@ class WorkordersController < ApplicationController
     
     saveAction =false
 
-    car = @work_order.car
-    unless car.user.service_centers.map(&:id).include?(@work_order.company_id)
-      comp = Company.find_by_id(@work_order.company_id)
-      car.user.service_centers << comp if comp
-    end
-
-
     CarServiceOffer.update_with_services(@work_order.services,cso_ids)
     saveAction = @work_order.save
     if @work_order.is_finished?
@@ -260,7 +253,7 @@ class WorkordersController < ApplicationController
 
   def new
     @work_order = Workorder.new
-    company = get_company(params)
+    company = get_company(params)    
     
     @work_order.performed = I18n.l(Time.zone.now.to_date)
     @work_order.company_info  = params[:c] if params[:c]

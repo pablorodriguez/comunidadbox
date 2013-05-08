@@ -76,6 +76,19 @@ FactoryGirl.define do
     end
   end
 
+  factory :new_pablo_rodriguez,class: User do
+    first_name "Pablo"
+    last_name "Rodriguez"
+    email "pablorodriguez.ar@hotmail.com"
+    password "pablotest"
+    encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
+    password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."    
+    after(:build) do |user|
+      user.cars << FactoryGirl.create(:HRJ999)
+    end
+  end
+
+
   factory :hugo_rodriguez,class: User do
     first_name "Hugo"
     last_name "Rodriguez"

@@ -19,5 +19,15 @@ FactoryGirl.define do
     kmAverageMonthly 5000
     fuel "Diesel"
   end
+
+  factory :HRJ999, class: Car do
+    domain "HRJ999"    
+    model {Model.find(1)}
+    brand {Brand.find(2)}
+    year 2010
+    km 45000
+    kmAverageMonthly 5000
+    fuel "Diesel"
+  end
   
 end

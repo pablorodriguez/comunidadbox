@@ -276,9 +276,13 @@ class User < ActiveRecord::Base
   end
 
   def service_type_templates(id)
-    templates = company.service_type_templates
-    templates = templates.where("service_type_id = ?",id) if id
-    templates
+    if company
+      templates = company.service_type_templates
+      templates = templates.where("service_type_id = ?",id) if id
+      templates
+    else
+      []
+    end
   end
 
   def self.last_number

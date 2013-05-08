@@ -29,11 +29,24 @@ class Workorder < ActiveRecord::Base
 
   scope :for_car, lambda { |car_id| { :conditions =>  ["car_id = ?", car_id] ,:order => "performed desc"} }
   
-  before_save :set_status
+  before_save :before_save_call_back
   after_save :to_after_save
   after_initialize :init
 
   normalize_attributes :comment
+
+  def before_save_call_back
+    set_status
+    set_company_client
+  end
+
+  def set_company_client
+    car = self.car
+    unless car.user.service_centers.map(&:id).include?(self.company_id)
+      comp = Company.find_by_id(self.company_id)
+      car.user.service_centers << comp if comp
+    end
+  end
 
   def to_after_save
     regenerate_events if is_finished?
