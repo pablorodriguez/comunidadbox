@@ -27,9 +27,10 @@
           = number_to_currency work_order_row.total_price
   - if can_show
     .actions
-      - if work_order_row.can_edit?(current_user)
+      - if work_order_row.can_delete?(current_user)
         .action
-          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>"delete"
+          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
+      - if work_order_row.can_edit?(current_user)        
         .action
           = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")      
       .action

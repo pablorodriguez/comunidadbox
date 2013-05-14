@@ -161,7 +161,6 @@ class Workorder < ActiveRecord::Base
           #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
           service_future = Service.find_future(service).last
           if service_future
-            logger.debug "### Encontro servicio futuro #{service_future.id}"
             # si hay , cancelo el evento con el servicio a futuro realizado
             new_event.status =Status::CANCELLED
             new_event.service_done = service_future
@@ -185,7 +184,6 @@ class Workorder < ActiveRecord::Base
     Event.transaction do
       services.each do |service|                
         service.events.each do |e|
-          logger.debug "### Borro evento #{e.id} service #{service.id}" 
           e.destroy
         end
       end
@@ -234,11 +232,11 @@ class Workorder < ActiveRecord::Base
   end
   
   def can_edit?(usr)
-    if (is_open? || is_in_progress?)
-      if ((user.id == usr.id) && user.is_car_owner?)
-        return true
-      end
+    if ((user.id == usr.id) && user.is_car_owner?)
+      return true
+    end
 
+    if (is_open? || is_in_progress?)
       if company.is_employee(usr) && user.is_employee?
         return true
       end

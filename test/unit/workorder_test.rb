@@ -11,6 +11,22 @@ class WorkorderTest < ActiveSupport::TestCase
     
   end
 
+  test "event in 2 months" do
+    car = @user.cars.first
+    performed = Time.zone.now.to_date
+    @wo = create(:wo_oc,:car => car,:user => @employer,:company => @employer.company,:performed => performed)
+    event = @wo.services.first.events.first    
+    assert event.dueDate == performed + 2.months,"Event no esta a los 2 meses"
+
+    car.kmAverageMonthly = 2000
+    car.save
+    
+    @wo.reload
+    event = @wo.services.first.events.first    
+    assert event.dueDate == performed + 5.months
+
+  end
+
   test "validate dueDate of events generated" do
     @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
     
@@ -45,6 +61,11 @@ class WorkorderTest < ActiveSupport::TestCase
     assert @wo.can_edit?(@user)
   end
 
+  test "user can edit his workorder close" do
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @user,:company => @employer.company)
+    assert @wo.can_edit?(@user)
+  end
+
   test "user cant edit company workorder open" do
     @wo = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)    
     assert @wo.can_edit?(@user) == false
@@ -57,7 +78,7 @@ class WorkorderTest < ActiveSupport::TestCase
 
   test "employer cant edit his workorder close" do
     @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
-    assert @wo.can_edit?(@empolyer) == false
+    assert @wo.can_edit?(@employer) == false
   end
 
   test "employer can edit his workorder open" do
