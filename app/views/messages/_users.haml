@@ -25,6 +25,8 @@
       .actions.right
         .action
           = link_to "",user_messages_path(client),{:title=> t(".see_messages"),:class=>"new_message"}
+        #unread_message_nro.action
+          = unread_message_nro(client)
     -if current_user.company_id
       - client.cars.each_with_index do |car,index|  
         .client_car.box_top.left

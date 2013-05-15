@@ -132,14 +132,18 @@ module ApplicationHelper
     
   end
 
-  def unread_message_nro
-    if current_user
+  def unread_message_nro(user=nil)
+    nro =0
+    if user
+      nro = current_user.unread_messages_nro(user)
+    else
       nro = current_user.unread_messages_nro
-      if nro > 0
-        content_tag(:div,nro,:class=>'unread_msg_nro left')
-      else
-        ""
-      end
+    end
+
+    if nro > 0
+      content_tag(:div,nro,:class=>'unread_msg_nro left')
+    else
+      ""
     end
   end
 

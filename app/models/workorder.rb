@@ -222,6 +222,10 @@ class Workorder < ActiveRecord::Base
     user.cars.include?(car)
   end
 
+  def can_send_message?(usr)
+    user.id != usr.id
+  end
+
   def can_delete?(usr)
     if ((user.id == usr.id) && usr.is_car_owner?)
       return true

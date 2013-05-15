@@ -267,8 +267,12 @@ class User < ActiveRecord::Base
     Company.is_client?(get_companies_ids,user.id)
   end
 
-  def unread_messages_nro
-    Message.where("receiver_id = ?",self.id).unread.count
+  def unread_messages_nro(user=nil)
+    if user
+      Message.where("user_id = ? AND receiver_id = ?",user.id,self.id).unread.count
+    else
+      Message.where("receiver_id = ?",self.id).unread.count
+    end
   end
 
   def next_alarm_nro
