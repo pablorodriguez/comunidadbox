@@ -3,7 +3,7 @@
 -# javascript 'rank'
 -# javascript 'jquery.ba-bbq.min'
 -# javascript 'highcharts'
-- unless current_user.is_employee?
+- if current_user.is_administrator?
   :javascript
     $(document).ready(function() {;
       build_price_graph([#{@price_data}],"price_graph");
@@ -42,7 +42,7 @@
           #service_center_link.menu
             = image_tag "find.png"        
             = link_to "Prestadores de Servicios", all_companies_path   
-        - unless current_user.is_employee?
+        - if current_user.is_administrator?
           %li
             #report_amount.link.menu
               = image_tag "graph.png"
@@ -73,7 +73,7 @@
         #workorders_c.data          
           #workorders
             = render 'workorders'
-        - unless current_user.is_employee?
+        - if current_user.is_administrator?
           #price_graph_c.data.hide.chart            
             .box_bottom
               %h1 Importes por Tipo de Servicios
@@ -85,11 +85,10 @@
               %h1 Cantidad por Tipo de Servicios
             #amt_graph.box_bottom.graph
             #amt_report.box_bottom
-              = render "amount_report"       
-          - unless current_user.is_employee?
-            #amt_material_graph_c.data.hide.chart
-              = render "material_report"
-            #report_data.data.box_bottom.hide
-              = render 'totals'
+              = render "amount_report"                 
+          #amt_material_graph_c.data.hide.chart
+            = render "material_report"
+          #report_data.data.box_bottom.hide
+            = render 'totals'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"
