@@ -13,15 +13,15 @@ FactoryGirl.define do
     deliver 1.hour.since
   end
 
-  factory :service_oc, class: Service do
-    service_type {ServiceType.find(1)}
-    status Status::FINISHED
-    material_services {[build(:material_service_oc)]}
-  end
-
   factory :service_oc_open, class: Service do
     service_type {ServiceType.find(1)}
     status Status::OPEN
+    material_services {[build(:material_service_oc)]}
+  end
+
+  factory :service_oc, class: Service do
+    service_type {ServiceType.find(1)}
+    status Status::FINISHED
     material_services {[build(:material_service_oc)]}
   end
 

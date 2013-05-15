@@ -11,7 +11,7 @@ class WorkordersControllerTest < ActionController::TestCase
     @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
   end
 
-  test "list workorder" do
+  test "employer list workorder" do
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @request.cookies["company_id"]= @employer.company.id.to_s
@@ -31,9 +31,28 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("#company[value='#{@employer.company.id}']")
 
     assert_select(".price_b",:text => "$ 60,00",:count=>2)
-    
+
+    assert_select("div#report_amount")
+    assert_select("div#report_quantity")
+    assert_select("div#report_material")
+    assert_select("div#report_detail")
   end
 
+
+  test "user list workorder" do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in @user
+    
+    get :index
+    assert_response :success
+    assert_template :index
+    assert_select("div",:id=>"workorders",:count=>1)
+    assert_select(".price_b",:text => "$ 60,00",:count=>2)
+    assert_select("div#report_amount",:count =>0)
+    assert_select("div#report_quantity",:count =>0)
+    assert_select("div#report_material",:count =>0)
+    assert_select("div#report_detail",:count =>0)
+  end
 
   test "new work order form budget with car" do
     sign_in @employer    
