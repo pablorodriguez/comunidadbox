@@ -6,11 +6,10 @@
       =h alarm.name
     =h alarm.description
   .actions
+    .action      
+      = link_to "", alarm_path(alarm), :confirm => '¿ Esta seguro que desea borrar la Alarma ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete 
     .action        
       = link_to "",edit_alarm_path(alarm),:class=>"edit",:title =>"Modificar"
-    .action
-      -#= link_to image_tag('delete.png'), alarm, :confirm => 'Esta seguro?', :method => :delete
-      = link_to "", alarm_path(alarm), :confirm => '¿ Esta seguro que desea borrar la Alarma ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete 
   .dates
     -if alarm.time 
       .time.left        

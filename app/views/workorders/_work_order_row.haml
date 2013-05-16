@@ -38,11 +38,13 @@
 
   - if can_show
     .actions
-      .ajax_loader.left      
-      .action
-        = link_to("", workorder_path(work_order_row), :data =>{:confirm => '¿ Esta seguro que desea borrar el Servicio ?'},:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete") if work_order_row.can_delete?(current_user)
-      .action
-        = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>"Modificar") if work_order_row.can_edit?(current_user)
+      .ajax_loader.left
+      - if work_order_row.can_delete?(current_user)
+        .action
+          = link_to("", workorder_path(work_order_row), :data =>{:confirm => '¿ Esta seguro que desea borrar el Servicio ?'},:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete") 
+      - if work_order_row.can_edit?(current_user)
+        .action
+          = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>"Modificar")
       .action
         = print_to_pdf work_order_row
       .action        
