@@ -6,7 +6,10 @@ b = Watir::Browser.new :firefox
 puts "Setting Firefox as default browser"
 b.goto "http://deautos.com"
 
-brands = b.select_list(:id => "VehicleBrands").options
+brand_select = b.select_list(:id => "VehicleBrands")
+brand_select.option.wait_until_present
+
+brands = brand_select.options
 
 brand_id=1
 brands = brands.drop(1)
@@ -23,9 +26,12 @@ brand_id=0
 brands.each do |br|
   brand_id+=1
   puts "Brand ID: #{brand_id}: #{br.value} #{br.text}"
-  b.select_list(:id,"VehicleBrands").select(br.text)
+  brand_select.select_value(br.value)
+  brand_select.fire_event "change"
+  puts "waith until brand change"
+
   b.driver.manage.timeouts.implicit_wait = 5
-  #Watir::Wait.until { b.select_list(:id => "VehicleModels").selected? '-1' }
+  #Watir::Wait.until { b.select_list(:id => "VehicleModels").include? '-1' }
 
   models = b.select_list(:id => "VehicleModels").options
   models = models.drop(1)

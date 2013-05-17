@@ -10,7 +10,7 @@ jQuery(document).ready(function(){
 
   $(".company_detail").live("click",selectCompany);
 
-  $(".new_note_link").click(new_note);  
+  //$(".new_note_link").click(new_note);  
 
   $(".new_service").click(createNewService);
 

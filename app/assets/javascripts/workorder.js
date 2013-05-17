@@ -33,8 +33,8 @@ jQuery(document).ready( function(){
   if ($("#all-workorder").notExist()){return;};
 
   
-  $("#workorders").delegate(".new_note_link","click",new_note);
-  $("#workorders").delegate(".new_message","click",new_message_wo);
+  $("#all-workorder").delegate(".new_note_link","click",new_note);
+  $("#all-workorder").delegate(".new_message","click",new_message_wo);
 
     var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,      

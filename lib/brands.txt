@@ -1,0 +1,63 @@
+1	427	Acura
+2	359	Alfa Romeo
+3	422	AM General
+4	412	Aro
+5	360	Asia
+6	361	Audi
+7	457	Autounion
+8	476	Beijing
+9	362	BMW
+10	495	Chery
+11	363	Chevrolet
+12	364	Chrysler
+13	365	Citroen
+14	414	Dacia
+15	366	Daewoo
+16	367	Daihatsu
+17	368	Dodge
+18	369	Ferrari
+19	370	Fiat
+20	371	Ford
+21	470	GMC
+22	373	Honda
+23	474	Hummer
+24	372	Hyundai
+25	467	IKA
+26	484	Infiniti
+27	374	Isuzu
+28	375	Iveco
+29	376	Jaguar
+30	377	Jeep
+31	378	Kia
+32	423	Lancia
+33	379	Land Rover
+34	487	Lexus
+35	492	Lotus
+36	381	Mazda
+37	382	Mercedes Benz
+38	482	MG
+39	465	Mini
+40	383	Mitsubishi
+41	461	Motorhome
+42	384	Nissan
+43	415	Opel
+44	385	Peugeot
+45	386	Porsche
+46	445	Ranquel
+47	446	Rastrojero
+48	388	Renault
+49	416	Rolls Royce
+50	389	Rover
+51	479	Rugby
+52	390	Saab
+53	453	Scania
+54	392	Seat
+55	488	Smart
+56	458	Ssangyong
+57	393	Subaru
+58	391	Suzuki
+59	413	Tata
+60	394	Toyota
+61	395	Volkswagen
+62	396	Volvo
+63	448	Yuejin
