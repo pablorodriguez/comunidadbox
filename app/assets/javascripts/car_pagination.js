@@ -13,6 +13,7 @@ jQuery(document).ready(function(){
   //$(".new_note_link").click(new_note);  
 
   $(".new_service").click(createNewService);
+  $("#all_cars").delegate(".new_message","click",new_message_wo);
 
   var dates = $( "#date_from, #date_to" ).datepicker({
       defaultDate: -60,      
