@@ -56,8 +56,7 @@
 56	458	Ssangyong
 57	393	Subaru
 58	391	Suzuki
-59	413	Tata
-60	394	Toyota
-61	395	Volkswagen
-62	396	Volvo
-63	448	Yuejin
+59	394	Toyota
+60	395	Volkswagen
+61	396	Volvo
+62	448	Yuejin

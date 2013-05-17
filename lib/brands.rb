@@ -27,7 +27,7 @@ brands.each do |br|
   brand_id+=1
   puts "Brand ID: #{brand_id}: #{br.value} #{br.text}"
   brand_select.select_value(br.value)
-  brand_select.fire_event "change"
+  #brand_select.fire_event "change"
   puts "waith until brand change"
 
   b.driver.manage.timeouts.implicit_wait = 5
