@@ -12,9 +12,9 @@
       = "#{t(".messages_for")} :"
       = @user.full_name
   .box_bottom
-    .messages
-      = render :partial =>'message',:collection => @messages
     %div{:id=>"messages_container_#{@user.id}"}
       = render :partial =>'form_user',:locals => {:user => @user,:element_id => @user.id}
+    .messages
+      = render :partial =>'message',:collection => @messages
   .clear
     = will_paginate @messages

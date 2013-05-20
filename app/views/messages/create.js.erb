@@ -1,2 +1,2 @@
-$(".messages").append("<%=escape_javascript(render(:partial=>'message',:locals=>{:message =>@message}))%>");
+$(".messages").children().first().before("<%=escape_javascript(render(:partial=>'message',:locals=>{:message =>@message}))%>");
 $(".msg_errors").html("").hide();

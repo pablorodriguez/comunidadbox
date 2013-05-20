@@ -124,4 +124,15 @@ class Budget < ActiveRecord::Base
     ((user && car) || (user.nil? && car.nil?)) && user.company
   end
 
+  def can_send_message? usr
+    if usr.is_employee?
+      if self.user && self.user.id != nil 
+        return true
+      else
+        return false
+      end
+    end
+    return true
+  end
+
 end

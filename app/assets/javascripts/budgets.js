@@ -3,6 +3,8 @@ jQuery(document).ready( function(){
   if ($("#all_budgets").length == 0){return;}    
 
   $(".new_note_link").live("click",new_note);  
+  $(".budgets").delegate(".new_message","click",new_message_wo);
+
   
   $('#brand_id').change(searchModelBudget);
   

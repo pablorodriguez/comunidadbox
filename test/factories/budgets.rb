@@ -4,6 +4,10 @@ FactoryGirl.define do
     services {[FactoryGirl.build(:service_oc_b)]}
   end
 
+  factory :budget_hrj549, class: Budget do
+    services {[FactoryGirl.build(:service_oc_b)]}    
+  end
+
   factory :budget_two, class: Budget do
     services {[FactoryGirl.build(:service_oc_b)]}
     first_name "Martin"

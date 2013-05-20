@@ -9,8 +9,7 @@ jQuery(document).ready(function(){
   $("#create_new_service").click(createNewService);
 
   $(".company_detail").live("click",selectCompany);
-
-  //$(".new_note_link").click(new_note);  
+  $(".new_note_link").live("click",new_note);  
 
   $(".new_service").click(createNewService);
   $("#all_cars").delegate(".new_message","click",new_message_wo);
