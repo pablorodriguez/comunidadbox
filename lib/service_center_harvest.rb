@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
-require "watir-webdriver"
-
-b = Watir::Browser.new :firefox
+require "watir"
+b = Watir::Browser.new 'ie'
 
 b.goto 'http://www.paginasamarillas.com.ar/'
 

@@ -1,0 +1,338 @@
+361	Audi	145
+361	Audi	146
+361	Audi	147
+361	Audi	155
+361	Audi	156
+361	Audi	159
+361	Audi	164
+361	Audi	2000
+361	Audi	33
+361	Audi	Giulietta
+361	Audi	Mito
+361	Audi	Zagato
+457	Autounion	Towner
+476	Beijing	Hummer
+362	BMW	A1
+362	BMW	A3
+362	BMW	A4
+362	BMW	A4 Avant
+362	BMW	A5
+362	BMW	A6
+362	BMW	A6 Avant
+362	BMW	A7
+362	BMW	A8
+362	BMW	Allroad
+362	BMW	Q3
+362	BMW	Q5
+362	BMW	Q7
+362	BMW	R8
+362	BMW	RS4
+362	BMW	RS5
+362	BMW	S3
+362	BMW	S4
+362	BMW	S5
+362	BMW	TT
+495	Chery	BJ
+363	Chevrolet	BJ
+364	Chrysler	BJ
+365	Citroen	De Carlo
+365	Citroen	M3
+365	Citroen	M5
+365	Citroen	M6
+365	Citroen	Serie 3 Compact
+365	Citroen	Series 1
+365	Citroen	Series 3
+365	Citroen	Series 5
+365	Citroen	Series 6
+365	Citroen	Series 7
+365	Citroen	X1
+365	Citroen	X3
+365	Citroen	X5
+365	Citroen	X6
+365	Citroen	Z3
+365	Citroen	Z4
+414	Dacia	3CV
+414	Dacia	AMI
+414	Dacia	Berlingo
+414	Dacia	C15
+414	Dacia	C3
+414	Dacia	C3 AIRCROSS
+414	Dacia	C3 PICASSO
+414	Dacia	C4
+414	Dacia	C4 Picasso
+414	Dacia	C5
+414	Dacia	DS3
+414	Dacia	DS4
+414	Dacia	Dyane
+414	Dacia	Grand C4
+414	Dacia	Jumper
+414	Dacia	Mehari
+414	Dacia	Picasso
+414	Dacia	Saxo
+414	Dacia	Xsara
+414	Dacia	ZX
+366	Daewoo	3CV
+366	Daewoo	AMI
+366	Daewoo	Berlingo
+366	Daewoo	C15
+366	Daewoo	C3
+366	Daewoo	C3 AIRCROSS
+366	Daewoo	C3 PICASSO
+366	Daewoo	C4
+366	Daewoo	C4 Picasso
+366	Daewoo	C5
+366	Daewoo	DS3
+366	Daewoo	DS4
+366	Daewoo	Dyane
+366	Daewoo	Grand C4
+366	Daewoo	Jumper
+366	Daewoo	Mehari
+366	Daewoo	Picasso
+366	Daewoo	Saxo
+366	Daewoo	Xsara
+366	Daewoo	ZX
+367	Daihatsu	325
+368	Dodge	Cielo
+368	Dodge	Espero
+368	Dodge	Lanos
+368	Dodge	Matiz
+368	Dodge	Tico
+369	Ferrari	Applause
+369	Ferrari	Charade
+369	Ferrari	Delta Furgon
+370	Fiat	Applause
+370	Fiat	Charade
+370	Fiat	Delta Furgon
+371	Ford	Applause
+371	Ford	Charade
+371	Ford	Delta Furgon
+470	GMC	F 360
+470	GMC	F 430
+373	Honda	1500
+373	Honda	Avenger
+373	Honda	Coronado
+373	Honda	GTX
+373	Honda	Jeepon
+373	Honda	Journey
+373	Honda	Ram
+474	Hummer	125
+474	Hummer	128
+474	Hummer	147
+474	Hummer	1500
+474	Hummer	1600
+474	Hummer	600
+474	Hummer	Barchetta
+474	Hummer	Bravo
+474	Hummer	Cinquecento
+474	Hummer	Ducato
+474	Hummer	Duna
+474	Hummer	Fiorino
+474	Hummer	Fioruno
+474	Hummer	Idea
+474	Hummer	Linea
+474	Hummer	Marea
+474	Hummer	Palio
+474	Hummer	Palio Weekend
+474	Hummer	Punto
+474	Hummer	Punto 1,6 16V Essense Emotion
+474	Hummer	Qubo
+474	Hummer	Regatta
+474	Hummer	Siena
+474	Hummer	Spazio
+474	Hummer	Stilo
+474	Hummer	Strada
+474	Hummer	Tempra
+474	Hummer	Tipo
+474	Hummer	Uno
+474	Hummer	UNO EVO
+474	Hummer	Vivace
+372	Hyundai	Accord
+372	Hyundai	Acura
+372	Hyundai	City
+372	Hyundai	Civic
+372	Hyundai	CR-V
+372	Hyundai	Fit
+372	Hyundai	HR-V
+372	Hyundai	Integra
+372	Hyundai	Legend
+372	Hyundai	Passport
+372	Hyundai	Pilot
+372	Hyundai	Stream
+467	IKA	H2
+484	Infiniti	H2
+374	Isuzu	H2
+375	Iveco	Accent
+375	Iveco	Atos
+375	Iveco	Coupe
+375	Iveco	Elantra
+375	Iveco	Galloper
+375	Iveco	Genesis Coupe
+375	Iveco	H-1
+375	Iveco	H-100
+375	Iveco	HD
+375	Iveco	i10
+375	Iveco	i30
+375	Iveco	Migthy
+375	Iveco	S
+375	Iveco	Santa Fe
+375	Iveco	Santamo
+375	Iveco	Sonata
+375	Iveco	Terracan
+375	Iveco	Trajet
+375	Iveco	Tucson
+375	Iveco	Veloster
+375	Iveco	Veracruz
+376	Jaguar	Pick-up
+376	Jaguar	Trooper
+377	Jeep	Pick-up
+377	Jeep	Trooper
+378	Kia	Daily
+378	Kia	Daily TD
+378	Kia	Daily TDI-Chasis
+423	Lancia	Daily
+423	Lancia	Daily TD
+423	Lancia	Daily TDI-Chasis
+379	Land Rover	Cherokee
+379	Land Rover	Compass
+379	Land Rover	Gladiator
+379	Land Rover	Grand Cherokee
+379	Land Rover	IKA
+379	Land Rover	New Cherokee
+379	Land Rover	Patriot
+379	Land Rover	Willys
+379	Land Rover	Wrangler
+487	Lexus	Beta
+487	Lexus	Dedra
+492	Lotus	Beta
+492	Lotus	Dedra
+381	Mazda	Beta
+381	Mazda	Dedra
+382	Mercedes Benz	Seven
+482	MG	Seven
+465	Mini	323
+465	Mini	626
+465	Mini	929
+465	Mini	B 2200
+465	Mini	B 2500
+465	Mini	MX6
+465	Mini	RX-7
+383	Mitsubishi	F
+461	Motorhome	F
+384	Nissan	F
+415	Opel	Eclipse
+415	Opel	Galant
+415	Opel	L-200
+415	Opel	L-300
+415	Opel	Lancer
+415	Opel	Montero
+415	Opel	Nativa
+415	Opel	Outlander
+415	Opel	Sapporo
+415	Opel	Space Wagon
+385	Peugeot	
+385	Peugeot	350Z
+385	Peugeot	370Z
+385	Peugeot	Frontier
+385	Peugeot	March
+385	Peugeot	Murano
+385	Peugeot	New Frontier
+385	Peugeot	NP300
+385	Peugeot	Pathfinder
+385	Peugeot	Pick-Up
+385	Peugeot	Sentra
+385	Peugeot	Teana
+385	Peugeot	Terrano II
+385	Peugeot	Tiida
+385	Peugeot	X-Terra
+385	Peugeot	X-Trail
+386	Porsche	Astra
+386	Porsche	K
+445	Ranquel	Astra
+445	Ranquel	K
+446	Rastrojero	Astra
+446	Rastrojero	K
+388	Renault	Astra
+388	Renault	K
+416	Rolls Royce	911
+416	Rolls Royce	Boxster
+416	Rolls Royce	Cayenne
+416	Rolls Royce	Cayman
+416	Rolls Royce	Panamera
+389	Rover	11
+389	Rover	12
+389	Rover	18
+389	Rover	19
+389	Rover	21
+389	Rover	21 Nevada
+389	Rover	4
+389	Rover	6
+389	Rover	9
+389	Rover	Clio
+389	Rover	Duphine
+389	Rover	Duster
+389	Rover	Express
+389	Rover	Fluence
+389	Rover	Fuego
+389	Rover	Gordini
+389	Rover	Kangoo
+389	Rover	Kangoo 2
+389	Rover	Kangoo Express
+389	Rover	Koleos
+389	Rover	Laguna
+389	Rover	Latitude
+389	Rover	Logan
+389	Rover	Master
+389	Rover	Master Furgon
+389	Rover	Megane
+389	Rover	Megane III
+389	Rover	Rodeo
+389	Rover	Sandero
+389	Rover	Scenic
+389	Rover	Symbol
+389	Rover	Torino
+389	Rover	Trafic
+389	Rover	Trafic Furgon
+389	Rover	Twingo
+479	Rugby	Silver
+390	Saab	214
+390	Saab	216
+390	Saab	416
+390	Saab	420
+390	Saab	45
+390	Saab	75
+390	Saab	Serie 200
+390	Saab	Serie 400
+453	Scania	Phainton
+392	Seat	Phainton
+488	Smart	BR-116
+458	Ssangyong	BR-116
+393	Subaru	BR-116
+391	Suzuki	BR-116
+394	Toyota	BR-116
+395	Volkswagen	Cordoba
+395	Volkswagen	Ibiza
+395	Volkswagen	Inca
+395	Volkswagen	Leon
+395	Volkswagen	Toledo
+396	Volvo	Actyon
+396	Volvo	Korando
+396	Volvo	Musso
+396	Volvo	Rexton
+448	Yuejin	4 Runner
+448	Yuejin	86
+448	Yuejin	Avensis
+448	Yuejin	Camry
+448	Yuejin	Celica
+448	Yuejin	Corolla
+448	Yuejin	Corona
+448	Yuejin	Fielder
+448	Yuejin	Hiace
+448	Yuejin	Hilux
+448	Yuejin	Land Cruiser
+448	Yuejin	Land Cruiser 200
+448	Yuejin	Land Cruiser Prado
+448	Yuejin	New Corolla
+448	Yuejin	Prado
+448	Yuejin	Prius
+448	Yuejin	RAV-4
+448	Yuejin	SW 4
