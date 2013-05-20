@@ -45,6 +45,14 @@
     .action
       %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}      
     - n_css = budget.notes.empty? ? "hide" : ""
-      
+    -if budget.can_send_message?(current_user)
+      .action        
+        %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#"}
+
   = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes,:id=>budget.id}    
-  
+  -if budget.can_send_message?(current_user)
+    .hide.message{:id => "messages_container_#{budget.id}"}
+      - if current_user.is_employee?
+        = render :partial => "/messages/form_user",:locals => {user: budget.user,:element_id => budget.id}
+      -else
+        = render :partial => "/messages/form_user",:locals => {user: budget.creator,:element_id => budget.id}

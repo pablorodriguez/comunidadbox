@@ -28,7 +28,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.between(user_a,user_b)
-    where("(user_id = :USER_A and receiver_id = :USER_B) or (receiver_id = :USER_A and user_id = :USER_B)",USER_A: user_a.id, USER_B: user_b.id).order("created_at")
+    where("(user_id = :USER_A and receiver_id = :USER_B) or (receiver_id = :USER_A and user_id = :USER_B)",USER_A: user_a.id, USER_B: user_b.id).order("created_at DESC")
   end
 
   def self.for_user(user)
