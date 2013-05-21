@@ -243,8 +243,7 @@ class CarsController < ApplicationController
     
     respond_to do |format|
       if @car.update_attributes(params[:car])
-        @car.update_events
-        flash[:notice] = t :car_updated_exit
+        @car.update_events        
         format.html { redirect_to(@car) }
         format.xml  { head :ok }
       else
