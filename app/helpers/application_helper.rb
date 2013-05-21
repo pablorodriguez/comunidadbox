@@ -122,7 +122,11 @@ module ApplicationHelper
   end
   
   def print_to_pdf work_order
-    link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Formulario",:class =>:pdf 
+    if current_user.is_employee?
+      link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Formulario",:class =>:pdf 
+    else
+      link_to "",workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class=>:pdf
+    end
   end
   
   def link_to_back(arg)    

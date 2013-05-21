@@ -40,7 +40,7 @@
         .action
           = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")      
       .action
-        = print_to_pdf work_order_row
+        = print_to_pdf work_order_row        
       .action
         %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}
       -if work_order_row.can_send_message?(current_user)
