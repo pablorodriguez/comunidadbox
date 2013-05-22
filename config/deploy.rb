@@ -1,5 +1,6 @@
 
 require "bundler/capistrano"
+require "capistrano/maintenance"
 
 server "www.comunidadbox.com", :web, :app, :db, primary: true
 

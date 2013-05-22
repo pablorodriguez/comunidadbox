@@ -24,7 +24,7 @@
           = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
         %li  
           = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"}   
-      - if current_user.id != @car.user.id
+      - if current_user.is_employee?
         %li
           = link_to "Nuevo Mensaje","#",:data => {:car_id => "#{@car_id}"},:title=>"Nuev Mensaje",:id =>"create_new_message"
       %li
