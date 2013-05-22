@@ -1,6 +1,6 @@
 root = "/home/deployer/apps/comunidadbox/current"
 working_directory root
-pid "#{root}/tmp/pids/unicorn_combox.pid"
+pid "#{root}/tmp/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn_combox.log"
 stdout_path "#{root}/log/unicorn_combox.log"
 
