@@ -70,7 +70,12 @@ ComunidadBox::Application.routes.draw do
   resources :states
   resources :countries
   resources :brands
-  resources :models
+  resources :models do
+    collection do
+      post :import
+    end
+  end
+
   resources :item_services
   resources :car_filters
   resources :ranks

@@ -13,11 +13,12 @@ class ModelsController < ApplicationController
     @brand_id = nil if @brand_id.try(:empty?)
 
     if @brand_id
-      @models = Model.includes("brand").where("brand_id = ? and models.name like ?",@brand_id,@model).order('brands.name,models.name').paginate(:page =>page,:per_page =>per_page)
+      @models = Model.includes("brand").where("brand_id = ? and models.name like ?",@brand_id,@model)
     else
-      @models = Model.includes("brand").where("models.name like ?",@model).order('brands.name,models.name').paginate(:page =>page,:per_page =>per_page)
+      @models = Model.includes("brand").where("models.name like ?",@model)
     end
-
+    @models_count =  @models.count
+    @models = @models.order('brands.name,models.name').paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @models }
@@ -92,5 +93,10 @@ class ModelsController < ApplicationController
       format.html { redirect_to(models_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def import
+    Model.import(params[:file])
+    redirect_to models_path, notice: "Modelos importado con exito"
   end
 end

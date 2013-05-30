@@ -7,7 +7,9 @@
   = render "actions"
 .contentright_s
   .box_bottom.all_models
-    %h1 Listado de Modelos
+    = render "import"
+    %h1 
+      = "Listado de Modelos :#{@models_count}"
   - for model in @models
     .row
       .left
