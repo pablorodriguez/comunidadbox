@@ -1061,6 +1061,7 @@ table.services thead tr th {
   border-bottom-style:double;
 }
 
+
 .row{
   border-bottom-width:thin;
   border-bottom-color:#CCC;
@@ -1068,6 +1069,11 @@ table.services thead tr th {
   float: left;
   width: 99%;
   padding:3px;
+}
+
+.all_models .row{
+  width: 28%;
+  margin:0px 15px;
 }
 
 .row:hover{

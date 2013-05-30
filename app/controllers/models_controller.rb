@@ -4,7 +4,7 @@ class ModelsController < ApplicationController
   # GET /models.xml
   def index
     page = params[:page] || 1
-    per_page = 20
+    per_page = 42
 
     @brand_id = params[:b]
     @model = params[:m] || ""
@@ -19,9 +19,11 @@ class ModelsController < ApplicationController
     end
     @models_count =  @models.count
     @models = @models.order('brands.name,models.name').paginate(:page =>page,:per_page =>per_page)
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @models }
+      format.xls { send_data Model.to_csv(col_sep: "\t") }      
     end
   end
 

@@ -6,19 +6,23 @@
   = render "conf/menu"
   = render "actions"
 .contentright_s
-  .box_bottom.all_models
+  .box_bottom
     = render "import"
-    %h1 
-      = "Listado de Modelos :#{@models_count}"
-  - for model in @models
-    .row
-      .left
-        = brand_logo model.brand.name,true
-      .left
-        = link_to h(model.name),model
-      .actions
-        = link_to image_tag('edit.png'), edit_model_path(model)
-        = link_to image_tag('delete.png'), model, :data =>{:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
-  .clear
-    = will_paginate @models
-  
+    .box_bottom
+      %h1.left 
+        = "Listado de Modelos"
+      %h1.right
+        = @models_count
+    .all_models
+      - for model in @models
+        .row
+          .left
+            = brand_logo model.brand.name,true
+          .left
+            = link_to h(model.name),model
+          .actions
+            = link_to image_tag('edit.png'), edit_model_path(model)
+            = link_to image_tag('delete.png'), model, :data =>{:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
+      .clear
+        = will_paginate @models
+      
