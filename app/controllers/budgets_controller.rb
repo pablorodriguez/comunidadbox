@@ -150,7 +150,7 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(budgets_url) }
-      format.xml  { head :ok }
+      format.js { render :layout => false}
     end
   end
 

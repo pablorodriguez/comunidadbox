@@ -34,7 +34,7 @@
   .actions
     - if budget.can_edit?(current_user)
       .action     
-        = link_to "", budget_path(budget), :data => {:confirm => '¿ Esta seguro que desea borrar el Presupuesto ?'}, :method => :delete,:title =>"Eliminar",:class=>"delete"
+        = link_to "", budget_path(budget), :data => {:confirm => '¿ Esta seguro que desea borrar el Presupuesto ?'},:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
     - if company_id
       .action
         = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
