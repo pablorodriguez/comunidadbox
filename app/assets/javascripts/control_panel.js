@@ -177,9 +177,8 @@ jQuery(document).ready( function(){
   cp_eventDetailDialog = $("#event_detail").dialog({
 	autoOpen: false ,
     modal: true,
-    draggable:false,
-    resizable:false,
-    position: [500,150],
+    draggable:true,
+    resizable:false,    
     width:750,
     title:"Servicio",
     close:function(){    	
