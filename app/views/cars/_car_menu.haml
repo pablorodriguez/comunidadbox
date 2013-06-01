@@ -26,7 +26,7 @@
           = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"}   
       - if current_user.is_employee?
         %li
-          = link_to "Nuevo Mensaje","#",:data => {:car_id => "#{@car_id}"},:title=>"Nuev Mensaje",:id =>"create_new_message"
+          = link_to "Mensajes","#",:data => {:car_id => "#{@car_id}"},:title=>"Nuev Mensaje",:id =>"create_new_message"
       %li
         #service_done.link.menu
           = link_to "Servicios Realizados", "#"

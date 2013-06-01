@@ -67,7 +67,7 @@ class Ability
     end
 
     can :read, Workorder do |w|
-      w.car.user == user || w.can_show?(user)
+      w.car.user == user || user.is_employee?
     end
 
     can :print,Workorder do |w|

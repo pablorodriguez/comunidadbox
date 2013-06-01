@@ -62,6 +62,6 @@
   -if work_order_row.can_send_message?(current_user)
     .hide.message{:id => "messages_container_#{work_order_row.id}"}
       - if current_user.is_employee?
-        = render :partial => "/messages/form_user",:locals => {user: work_order_row.car.user,:element_id => work_order_row.id}
+        = render :partial => "/messages/form_user",:locals => {user: work_order_row.car.user,:element_id => work_order_row.id,:msg_object => work_order_row}
       -else
-        = render :partial => "/messages/form_user",:locals => {user: work_order_row.user,:element_id => work_order_row.id}
+        = render :partial => "/messages/form_user",:locals => {user: work_order_row.user,:element_id => work_order_row.id,:msg_object => work_order_row}

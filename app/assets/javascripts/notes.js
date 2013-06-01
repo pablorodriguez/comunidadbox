@@ -23,4 +23,5 @@ function show_notes(){
 function new_note(){  
   var parent = $(this).parent().parent().parent();
   parent.find(".notes_container").toggle();
+  return false;
 }

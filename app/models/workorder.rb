@@ -223,7 +223,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_send_message?(usr)
-    user.id != usr.id
+    car.user.id != usr.id
   end
 
   def can_delete?(usr)

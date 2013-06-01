@@ -14,12 +14,12 @@
             %label{title: "Operario"}          
             = "#{s.operator.first_name} #{s.operator.last_name}"
   .service_info    
+    .left
+      %label.wo_id{:title => "Número del Servicio"}
+        = link_to work_order_row.id,work_order_row
     - if can_show
-      .left
-        %label.wo_id{:title => "Número del Servicio"}
-          = link_to work_order_row.id,work_order_row
-        %label{:title =>"Prestador de Servicio"}
-          = link_to work_order_row.company_name,work_order_row.company,:target => :_blank          
+      %label{:title =>"Prestador de Servicio"}
+        = link_to work_order_row.company_name,work_order_row.company,:target => :_blank          
       - if work_order_row.user != current_user
         .clear.left
           %strong

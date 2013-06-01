@@ -21,6 +21,12 @@ function submitForm(sort_column,direction){
 
 function new_message_wo(){  
   $(this).parent().parent().parent().find(".message").toggle();
+  return false;
+}
+
+function submit_message_form(){
+  $(this).submit();
+  return false;
 }
 
 

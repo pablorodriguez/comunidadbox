@@ -1,84 +1,36 @@
 #work_order
-  %table.service_table
-    %tr.header 
-      %td{:colspan=>6}
-        = icon_status @work_order.status
-        Order de Trabajo
-        = "[#{@work_order.id}]"
-    %tr.header
-      %td{:colspan=>6}
-        Vehículo
-    %tr
-      %td.header Dominio
-      %td
-        = @work_order.car.domain
-      %td.header Año
-      %td
-        = @work_order.car.year
-      %td.header Modelo
-      %td
-        = "#{@work_order.car.brand.name} #{@work_order.car.model.name}" 
-    %tr
-      %td.header Km
-      %td
-        = @work_order.km
-      %td.header
-        Km Actual
-      %td
-        = @work_order.car.km
-      %td.header
-        Km Promedio Mensual
-      %td
-        = @work_order.car.kmAverageMonthly
-  %table.service_table
-    %tr.header
-      %td{:colspan=>5} Servicios Realizados
-    - for service in @work_order.services
-      - if service.car_service_offer
-        %tr.header
-          %td{:colspan=>5}
-            = link_to "Oferta de Servicio",service.car_service_offer
-        %tr
-          %td.header
-            Prestador de Servicio
-          %td
-            = service.car_service_offer.service_offer.company.name
-          %td.header
-            Detalle
-          %td
-            = service.car_service_offer.service_offer.title
-            = number_to_currency service.car_service_offer.service_offer.final_price
-      %tr.header
-        %td{:colspan=>5}
-          .service.left
-            = icon_status service.status
-            = service.service_type.name
-          - if service.comment
-            .right
-              ="Comentario: #{service.comment}"
-      %tr        
-        %td.header{:colspan=>2}
-          Materiales
-        %td.header.number
-          Cantidad
-      - for ms in service.material_services        
-        %tr
-          %td{:colspan=>2}
-            - if ms.material_service_type
-              = ms.material_service_type.material.name
-            - unless ms.material_service_type
-              = ms.material
-          %td.number
-            = ms.amount
-      - if service.service_type.tasks.size >0
-        %tr.table_header
-          %td{:colspan=>4} Tareas
-          %td Comentario
-        %tr
-          %td{:colspan=>3}
-            %ul.tasks
-              - for task in service.service_type.tasks
-                %li{:class=>service.tasks.include?(task)?"":"red"}
-                  = task.name
-          %td
-            = service.comment     
+  - if current_user.is_client? @work_order.car.user
+    = render :partial=>'car_info',:locals =>{:car=>@work_order.car}
+  -else
+    = render :partial=>'car_info_no_client',:locals =>{:car=>@work_order.car}
+  .box_bottom
+    .box_top
+      #services.overflow
+        #wo-actions.left
+          .service_type.box_bottom      
+            %label{title: "Realizado"}
+              = l(@work_order.performed)
+        #services_list.ordencontent    
+          - @work_order.services.each do |s|
+            .service_type.box_bottom
+              %table.services
+                %thead
+                  %tr
+                    %th{:colspan=>2,:style=>'width:60%'}
+                      %h2.inline
+                        %label.left{:id=>"serviceType"}                    
+                          = s.service_type.name              
+                    %th{:style=>'width:10%'}
+                      %label.right Cantidad
+                %tbody      
+                  - s.material_services.each do |ms|
+                    %tr
+                      %td{:colspan=>2}
+                        .material
+                          = ms.material unless ms.material_service_type
+                          - if ms.material_service_type
+                            %strong
+                              = ms.material_service_type.material.prov_code
+                            = ms.material_service_type.material.detail        
+                      %td.number    
+                        = ms.amount       

@@ -1,0 +1,15 @@
+#car_info.barradatos
+  .datos_personales
+    %table.tabla_datos_personales
+      %tr
+        %td
+          %p#domain.domain_white
+            = link_to car.domain, car          
+        %td
+          %h3 Año
+        %td
+          = car.year
+        %td
+          %h3 Marca y Modelo
+        %td
+          = "#{car.brand.name} #{car.model.name}"

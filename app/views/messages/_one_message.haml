@@ -3,12 +3,18 @@
     = link_to "read", read_message_path(message), :remote => true,:method => :post,:class => :read
   .info_note    
     .left
-      = message.message  
+      = message.message 
     .right
       .date
         %lable{:title =>"Creado el"}
           = l message.created_at,:format => :short  
   .actions
+    .notes_fk
+      - if message.workorder      
+        = link_to "",workorder_path(message.workorder),:class =>"service_s",:title =>"Servicio Realizado"
+      - if message.budget      
+        = link_to "",budget_path(message.budget),:class=>"budget_s",:title =>"Presupuesto"
+
     -if message.user == current_user
       .action
         = link_to "", message_path(message), :method => :delete,:data => {:confirm => '¿ Esta seguro que desea borrar el Mensaje ?'},:title =>"Eliminar",:remote=> true,:class=>:delete

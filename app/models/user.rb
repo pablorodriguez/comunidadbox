@@ -263,7 +263,7 @@ class User < ActiveRecord::Base
     self == car.user && is_client?(car.user)
   end
 
-  def is_client? user    
+  def is_client?(user)
     Company.is_client?(get_companies_ids,user.id)
   end
 

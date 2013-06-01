@@ -4,3 +4,5 @@ es-AR:
       save: "Grabar"
       rank_client: "Calificar cliente"
       rank_company: "Calificar Prestador de Servicio"
+    index:
+      workorders_done: "Servicios Realizados"

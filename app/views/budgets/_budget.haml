@@ -53,6 +53,6 @@
   -if budget.can_send_message?(current_user)
     .hide.message{:id => "messages_container_#{budget.id}"}
       - if current_user.is_employee?
-        = render :partial => "/messages/form_user",:locals => {user: budget.user,:element_id => budget.id}
+        = render :partial => "/messages/form_user",:locals => {user: budget.user,:element_id => budget.id,:msg_object => budget}
       -else
-        = render :partial => "/messages/form_user",:locals => {user: budget.creator,:element_id => budget.id}
+        = render :partial => "/messages/form_user",:locals => {user: budget.creator,:element_id => budget.id,:msg_object => budget}
