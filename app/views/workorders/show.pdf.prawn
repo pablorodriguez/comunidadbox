@@ -19,7 +19,7 @@ if @work_order.company
   pdf.text "Dirección: #{address.street}, #{address.zip}, Tel: #{company.phone}",:size=>fs
 end
 
-unless @work_order.company_info.empty?
+if (@work_order.company_info && !(@work_order.company_info.empty?))
   pdf.text "Prestador de Servicio: #{@work_order.company_info}", :size=>fs,:style =>:bold
 end
 

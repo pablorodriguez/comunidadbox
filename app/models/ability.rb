@@ -70,8 +70,12 @@ class Ability
       w.car.user == user || user.is_employee?
     end
 
+    can :pdf, Workorder do |w|
+      w.can_show_pdf? user
+    end
+
     can :print,Workorder do |w|
-      user.company_id != nil
+      w.can_print_pdf? user
     end
 
     can :read, Budget do |b|

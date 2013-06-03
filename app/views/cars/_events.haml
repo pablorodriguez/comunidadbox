@@ -1,29 +1,10 @@
 .box_top
-%h1
-  Servicios a Realizar
-.event.row
-- for event in @events  
-  .event.row
-    .event_info_col1.left
-      .status.left
-        = icon_status event.status
-      .service.left
-        = link_to event.service_type.name, event        
-      .workorder.left.clear
-        %br
-        = link_to "Generado por ... #{event.service.workorder.id}", event.service.workorder      
-        - if event.service_done
-          %br
-          = link_to "#{Status.status(event.status)} por ... #{event.service_done.workorder.id}", event.service_done.workorder    
-    .event_info_col2.right
-      %div{:class=>"#{event_class(event)}"}
-        = event.car.domain  
-      .due_date
-        = l event.dueDate
-      .clear.right
-        %strong
-          Km:
-        = event.km
+.box_bottom
+  %h1
+    Servicios a Realizar
+- @events.each do |e|
+  = render :partial => "events/s_event", :locals =>{:s_event => e}
+
 %br
 #paginator_event
   = will_paginate @events,:params => @e_pages  

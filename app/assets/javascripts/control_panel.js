@@ -348,7 +348,10 @@ function showBigEvent(){
 
 	$(".note_form").attr("action",url).find("#element_id").val(event_id);;
 	$("#new_alarm").attr("action",alarm_url);
-  $(".message .new_msg_form").attr("action",message_url).find("#element_id").val(event_id);
+  var msg_form = $(".message .new_msg_form");
+  msg_form.attr("action",message_url).find("#element_id").val(event_id);
+  msg_form.find("#message_event_id").val(event_id);
+
   $("#messages_container_").attr("id","messages_container_" + event_id);
   $("#notes_container_0").attr("id","notes_container_" + event_id);
   

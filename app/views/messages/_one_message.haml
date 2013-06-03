@@ -14,6 +14,8 @@
         = link_to "",workorder_path(message.workorder),:class =>"service_s",:title =>"Servicio Realizado"
       - if message.budget      
         = link_to "",budget_path(message.budget),:class=>"budget_s",:title =>"Presupuesto"
+      - if message.event
+        = link_to "",message.event,:class=>"event_s",:title =>"Evento"
 
     -if message.user == current_user
       .action

@@ -99,19 +99,22 @@ class WorkordersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
+        authorize! :pdf, @work_order
+        
         prawnto :prawn => {
-        :page_size => 'A4',
-        :left_margin => 20,
-        :right_margin => 20,
-        :top_margin => 15,
-        :bottom_margin => 15},
-        :filename=>"orden_de_trabajo_#{@work_order.id}.pdf"
+          :page_size => 'A4',
+          :left_margin => 20,
+          :right_margin => 20,
+          :top_margin => 15,
+          :bottom_margin => 15},
+          :filename=>"orden_de_trabajo_#{@work_order.id}.pdf"
 
-        render :layout => false
+          render :layout => false
         }
     end
   end
 
+  #print workorder for company
   def print
     @work_order = Workorder.find params[:id]
     @car = @work_order.car

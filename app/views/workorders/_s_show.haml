@@ -1,6 +1,7 @@
 .box_bottom
   %h1
-    Orden de Trabajo
+    Orden de Trabajo : 
+    = @work_order.id
 #work_order
   - if current_user.is_client? @work_order.car.user
     = render :partial=>'car_info',:locals =>{:car=>@work_order.car}

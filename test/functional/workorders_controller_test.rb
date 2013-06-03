@@ -11,6 +11,46 @@ class WorkordersControllerTest < ActionController::TestCase
     @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
   end
 
+  test "cant print other workorder company" do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in @employer
+
+    #Creo una orden de trabajo para otra empresa
+    @imr_admin =  create(:imr_admin)    
+    @wo_imr = create(:wo_tc,:car => @user.cars.first,:user => @imr_admin,:company => @imr_admin.company)
+
+    get :show,:id => @wo_imr.to_param, :format => "pdf"
+    assert_redirected_to root_path
+    
+  end
+
+  test "can print workorder company" do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in @employer
+
+    get :print,:id => @wo_1.to_param, :format => "pdf"
+    assert_response :success
+    
+  end
+
+  test "employee cant print workorder" do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in @employer
+
+    get :show,:id => @wo_1.to_param, :format => "pdf"
+    assert_redirected_to root_path
+
+  end
+  
+  test "user can print workorder" do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in @user
+
+    get :show,:id => @wo_1.to_param, :format => "pdf"
+    assert_response :success
+
+  end
+
   test "employer list workorder" do
     
     @request.env["devise.mapping"] = Devise.mappings[:user]

@@ -5,6 +5,7 @@ FactoryGirl.define do
     name "Valle Grande Neumaticos-Mendoza (Cnel. Plaza)"    
     phone "0261-4526157"
     website "www.neumaticosvallegrande.com.ar"
+    address {FactoryGirl.build(:valle_grande_mendoza_plaza_address)}
   end
   
   factory :valle_grande_mendoza_peru, class: Company do
@@ -13,7 +14,7 @@ FactoryGirl.define do
     phone "0261-4526157"
     website "www.neumaticosvallegrande.com.ar"
     active 1
-    #company_service {[FactoryGirl.create(:company_oil_change),FactoryGirl.create(:company_tire_change)]}
+    address {FactoryGirl.build(:valle_grande_mendoza_peru_address)}
   end
   
 
@@ -23,6 +24,7 @@ FactoryGirl.define do
     phone "0261-49494949"
     website "www.imr.com.ar"
     active 1
+    address {FactoryGirl.build(:imr_address)}
   end
   
 end

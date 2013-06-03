@@ -1,47 +1,6 @@
-.events
-  .service_event.left
-    %label.left.clear
-      Servicio Originador:
-      %strong
-        = link_to @event.service.workorder.id,@event.service.workorder
-    %label.left.clear
-      Realizado:
-      %strong
-        = l @event.service.workorder.performed
-    %label.left.clear
-      .service
-        =@event.service.service_type.name   
-    %label.left.clear
-      Precio:
-      %strong
-        = number_to_currency @event.service.total_price
-    %label.left.clear
-      Empresa:
-      %strong
-        = @event.service.workorder.company_name
-    %label.left.clear
-      Operario:
-      %strong
-        = @event.service.workorder.user.full_name
-    -if @event.service.workorder.user
-      %label.left.clear
-        Usuario:
-        %strong
-          = @event.service.workorder.user.full_name
-  .event_detail.service_event.left
-    %label.left.clear
-      Evento:
-      %strong
-        = @event.id
-    %label.left.clear
-      Realizar:
-      = event_class @event
-    .service.left.clear
-      = @event.service_type.name
-    %label.left.clear
-      Estado:
-      = icon_status @event.status  
-  -if @event.service_done
-    .service_event.right  
-      Servicio Cancelado
-      = @event.service_done.workorder.id
+.vertical_menu
+  = render "home/menu"
+.contentright_s
+  .box_bottom
+    %h1 Informacion del Evento
+  = render :partial => "s_event",:locals => {:s_event => @event}

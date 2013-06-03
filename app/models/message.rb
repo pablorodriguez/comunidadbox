@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :message,:receiver_id,:message_id,:workorder_id,:budget_id
+  attr_accessible :message,:receiver_id,:message_id,:workorder_id,:budget_id,:event_id
 
   belongs_to :alarm
   belongs_to :workorder

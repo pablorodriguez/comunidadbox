@@ -222,8 +222,20 @@ class Workorder < ActiveRecord::Base
     user.cars.include?(car)
   end
 
+  def can_show_pdf? user
+    car.user == user
+  end
+
+  def can_print_pdf? user
+    can_show? user
+  end
+
   def can_send_message?(usr)
     car.user.id != usr.id
+  end
+
+  def can_rank? user
+    car.user == user || company.is_employee(user)
   end
 
   def can_delete?(usr)
@@ -257,8 +269,6 @@ class Workorder < ActiveRecord::Base
 
     # si el usuario pertenece a la compania donde se realizo la worden de trabajo
     return true if (company && usr.belongs_to_company(company))
-
-    return false if (company && usr.belongs_to_company(company))
 
     # si el usuario es manager o empleado y pertenece a algunas de las sucursales
     # del prestador de servicios

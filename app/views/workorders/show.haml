@@ -1,17 +1,21 @@
+- can_show = @work_order.can_show? current_user
 .vertical_menu
   = render "home/menu"
   .box_bottom
     .menu_actions
       %ul
+        - if can_show
+          %li
+            %a.rank{:href=>"#"}Calificar
+        - if @work_order.can_send_message?(current_user)
+          %li
+            %a.send_msg{:href=>"#"}Enviar Mensaje
         %li
-          %a.rank{:href=>"#"}Calificar
-        %li
-          %a.send_msg{:href=>"#"}Enviar Mensaje        
-        %li
-          - if current_user.company_id
-            = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
-          - else
+          - if @work_order.can_show_pdf? current_user
             = link_to "Imprimir",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+          - elsif @work_order.can_print_pdf? current_user
+            = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+
         -if @work_order.can_edit?(current_user)
           %li
             = link_to "Modificar", edit_workorder_path(@work_order)
@@ -20,6 +24,25 @@
             = link_to "Eliminar", workorder_path(@work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
 .contentright_s
   .div{:id=>"wo_#{@work_order.id}"} 
-    - can_show = @work_order.can_show? current_user
     = render "show" if can_show
     = render "s_show" unless can_show
+
+  - if @work_order.can_rank? current_user
+    #ranks_container
+      #ranks.ranks.box_bottom
+        = render :partial => "ranks/rank",:locals => {:workorder =>@work_order}      
+      .rank_form.hide
+        .box_bottom
+          %h3 
+            = t('.rank_client') if current_user.company
+            = t('.rank_company') unless current_user.company
+        - if @rank.new_record?
+          = render :partial => "ranks/new",:locals => {:workorder =>@work_order,:rank => @rank}
+        - else
+          = render :partial => "ranks/edit",:locals => {:workorder =>@work_order,:rank => @rank}
+
+  - if @work_order.can_send_message?(current_user)
+    #msg_container.hide      
+      .box_bottom.w.message{:id=> "messages_container_#{@work_order.id}"}
+        = render :partial => "/messages/form_user",:locals => {user: current_user.company ? @work_order.car.user : @work_order.user,:element_id => @work_order.id}  
+     
