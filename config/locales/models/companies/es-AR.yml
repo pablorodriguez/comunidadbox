@@ -1,0 +1,13 @@
+es-AR:
+  activerecord:
+    models:
+      company: "Compañia"
+    attributes:
+      company:
+        name: "Nombre"
+        address: "Dirección"
+    errors:
+      models:
+        company:
+          attributes:
+            address:

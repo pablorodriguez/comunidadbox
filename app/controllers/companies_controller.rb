@@ -147,13 +147,12 @@ class CompaniesController < ApplicationController
         current_user.user_roles << user_role
         current_user.save
         PriceList.copy_default @company.id
-        format.html { redirect_to(@company) }
-        format.xml  { render :xml => @company, :status => :created, :location => @company }
+        format.html { redirect_to(@company) }        
         format.js { render :action => "show" }
-      else
+      else        
+        @company.build_address if @company.address.nil?
         format.html { render :action => "new" }
-        format.js { render :action => "new" }
-        format.xml  { render :xml => @company.errors, :status => :unprocessable_entity }
+        format.js { render :action => "new" }      
       end
     end
   end
