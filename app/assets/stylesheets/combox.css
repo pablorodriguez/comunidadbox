@@ -1612,9 +1612,6 @@ td.number, th.number{
 }
 
 .wo_detail{
-  float: left;
-  width: 100%; 
-  position:relative;
 }
 
 .wo_detail .hide_info{

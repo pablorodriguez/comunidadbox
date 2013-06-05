@@ -3,8 +3,10 @@
     .error_msg
       .cruzroja.link
       %h2
-        = pluralize(target.errors.count, "error")
-        prohibited this record from being saved:
+        - if target.errors.count > 1
+          = t('.errors_prohibited_plural',count: target.errors.count)
+        - else
+          = t('.errors_prohibited_singular')
       %ul
         - target.errors.full_messages.each do |msg|
           %li= msg

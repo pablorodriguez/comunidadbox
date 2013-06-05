@@ -205,3 +205,8 @@ es-AR:
       user: "Not allowed to manage other user accounts."
     update:
       project: "Not allowed to update this project."  
+
+  shared:
+    error_messages:
+      errors_prohibited_plural: "Se produjeron los siguientes %{count} errores"
+      errors_prohibited_singular: "Se produjo el siguiente error:"
