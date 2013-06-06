@@ -95,6 +95,14 @@ class Car < ActiveRecord::Base
     end
   end
 
+  def budgets_for user
+    if user.is_employee?
+      budgets.where("company_id IN (?)",user.get_companies_ids)
+    else
+      budgets
+    end
+  end
+
   
 end
 

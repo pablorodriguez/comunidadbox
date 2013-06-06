@@ -117,7 +117,7 @@ class CarsController < ApplicationController
       filters[:user] = current_user unless company_id
       @work_orders = Workorder.find_by_params(filters).paginate(:per_page=>per_page,:page =>page)
 
-      @budgets = @car.budgets.paginate(:per_page=>10,:page=>1)
+      @budgets = @car.budgets_for(current_user).paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
       
       amt_material = Workorder.group_by_material(filters)

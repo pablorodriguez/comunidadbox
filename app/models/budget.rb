@@ -13,6 +13,7 @@ class Budget < ActiveRecord::Base
   belongs_to :company
 
   scope :companies, lambda { |comp_id| {:conditions =>  ["company_id IN (?)", comp_id] } }
+  default_scope order("created_at DESC")
 
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   validate :service_not_empty
@@ -114,6 +115,10 @@ class Budget < ActiveRecord::Base
     
     logger.debug "### Filters SQL #{budget.to_sql}"
     budget
+  end
+
+  def can_show?(user)    
+    (self.car && self.car.user == user) || self.user == user || self.company.is_employee(user)
   end
 
   def can_edit? user
