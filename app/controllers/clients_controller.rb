@@ -28,6 +28,20 @@ class ClientsController < ApplicationController
     end
   end
 
+
+  # DELETE /cars/1
+  # DELETE /cars/1.xml
+  def destroy
+    @client = User.find(params[:id])
+    debugger
+    authorize! :destroy, @client
+    @client.destroy
+
+    respond_to do |format|      
+      format.js { render :layout => false}
+    end
+  end
+
   def update
     @client = User.find(params[:id])    
     @models = Array.new

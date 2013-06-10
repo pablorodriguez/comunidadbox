@@ -14,3 +14,5 @@ es-AR:
   since: "Desde"
   until: "Hasta"
   new_client: "Nuevo Cliente"
+  car_delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
+  client_delete_confirm: "¿Esta seguro que desea borrar al Cliente?"

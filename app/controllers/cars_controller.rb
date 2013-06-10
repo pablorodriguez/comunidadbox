@@ -225,13 +225,13 @@ class CarsController < ApplicationController
           b.car = @car
           b.save
         end
-        #flash[:notice] = t :car_created_exit        
         format.html { redirect_to(new_workorder_path(:b=>b))} if b
-        format.html { redirect_to(new_workorder_path(:car_id=>@car))} unless b
-        format.xml  { render :xml => @car, :status => :created, :location => @car }
+
+        format.html { redirect_to(new_workorder_path(:car_id=>@car))} if current_user.is_employee?
+
+        format.html { redirect_to(my_cars_path)} unless current_user.is_employee?
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @car.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -257,11 +257,13 @@ class CarsController < ApplicationController
   # DELETE /cars/1.xml
   def destroy
     @car = Car.find(params[:id])
+    authorize! :destroy, @car
+
     @car.destroy
 
     respond_to do |format|
       format.html { redirect_to(cars_url) }
-      format.xml  { head :ok }
+      format.js { render :layout => false}
     end
   end
   

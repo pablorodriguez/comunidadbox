@@ -172,11 +172,14 @@ es-AR:
   user:
     email: "Correo Eléctronico"
     password: "Clave"
-    email_duplicated: "Email ya registrado"
-    domain_duplicated: "Dominio ya registrado"
+    email_duplicated: "Email ya registrado"       
     
   car_updated_exit: 'Automóvil actualizado con exito.'
   car_created_exit: 'Automóvil creado con exito.'
+  delete: "Eliminar"
+  new_budget: "Nuevo Presupuesto"
+  new_service: "Nuevo Servicio"
+
   will_paginate:
     previous_label: "&#8592; Anterio"
     next_label: "Siguiente &#8594;"

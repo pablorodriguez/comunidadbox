@@ -40,6 +40,15 @@ class Ability
       car.user == user || user.company
     end
 
+    can :destroy, Car do |c|
+      user.can_edit?(c.user)
+    end
+
+    can :destroy, :client do |client|
+      debugger
+      user.can_edit?(client)
+    end
+
     if user.is_super_admin?
       can :manage, Material
       can :manage, :conf

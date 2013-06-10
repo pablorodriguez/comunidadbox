@@ -3,7 +3,7 @@
     = "Listado de Clientes"  
 - for client in clients  
   - is_client = current_user.is_client?(client)
-  .row
+  .row[client]
     .client      
       - if is_client
         %label       
@@ -16,19 +16,20 @@
     .left.clear.client
       = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
 
-    .actions.right
+    .actions
+      - if current_user.can_edit?(client)
+        .action
+          /= link_to "",client_path(client),:data => {:confirm =>t("client_delete_confirm")},:remote =>true, :method => :delete,:title =>t("delete"),:class =>"delete"
+        .action
+          = link_to "",edit_client_path(client),{:title=>"Modificar Cliente",:class =>"edit"} 
       .action
         = link_to "",new_budget_path(:c => client.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
       .action
-        %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(client)}}
-      .action
         = link_to "", new_car_path(:user_id=>client.id),  {:title =>"Nuevo Automóvil",:class =>"new_car"}        
-      - if current_user.can_edit?(client)
-        .action
-          = link_to "",edit_client_path(client),{:title=>"Modificar Cliente",:class =>"edit"} 
-
+      .action
+        %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(client)}}
     - client.cars.each_with_index do |car,index|  
-      .client_car.box_top.left
+      .client_car.box_top.left[car]
         .detail.left
           .left.domain_white
             = link_to h(car.domain),car
@@ -37,12 +38,15 @@
             = car.model.name
             = car.year
         .actions
+          - if current_user.can_edit?(car.user)
+            .action          
+              = link_to "",car, :data =>{:confirm =>t("car_delete_confirm")},:remote =>true, :method => :delete,:title =>t("delete"),:class=>"delete"
+            .action
+              = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"}
           .action
             = link_to "",new_budget_path(:ca => car.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
           .action
             = link_to "", new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
-          .action
-            = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"} if current_user.can_edit?(car.user)
     .hide.box_top.w.message{:id => "messages_container_#{client.id}"}
       = render :partial => "/messages/form_user",:locals => {user: client,:element_id =>client.id}
 = will_paginate @clients

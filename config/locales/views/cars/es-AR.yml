@@ -1,0 +1,11 @@
+es-AR:
+  cars:
+    cars:    
+      delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
+      update_car: "Modificar automóvil"
+      title: "Listado de Automóviles"
+      year: "Modelo"
+      km: "km"
+      kmAverageMonthly: "Km Promedio Mensual"
+    send:
+      message_exit_send: "Mensaje enviado con exito"

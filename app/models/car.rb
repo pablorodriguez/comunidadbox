@@ -15,15 +15,22 @@ class Car < ActiveRecord::Base
   #has_and_belongs_to_many :offers
   
   validates_presence_of :model,:domain,:year,:km,:kmAverageMonthly
-  validates_numericality_of :year,:km,:kmAverageMonthly
-  validates_uniqueness_of :domain
+  validates_numericality_of :year,:km,:kmAverageMonthly  
   validates_format_of :domain, :with => /^\D{3}\d{3}/
   before_save :set_new_attribute
   after_save :update_events
+  validate :unique_domain
+
+  def unique_domain
+    unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
+      errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
+    end
+  end
 
   def self.fuels
     %w(Nafta Diesel Gas)
   end
+
 
   def set_new_attribute
     # si se modifico el km 
@@ -44,6 +51,10 @@ class Car < ActiveRecord::Base
 
   def future_events
     Event.car(self.id).active.order("dueDate asc")
+  end
+
+  def can_delete?(usr)
+    can_edit?(usr)
   end
   
   def can_edit?(usr)
