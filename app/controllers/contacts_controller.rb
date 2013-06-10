@@ -16,11 +16,6 @@ class ContactsController < ApplicationController
     else
       flash[:alert] = t("wrong_captcha")
       render :action => "new"
-
     end
-    
-
-    
-
   end
 end

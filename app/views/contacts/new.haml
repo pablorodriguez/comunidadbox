@@ -2,35 +2,46 @@
 .box_bottom
   %h1
     = t ".title"
-.box_bottom
-  = form_for @contact do |f|
-    
-    %table.w
-      %tbody
-        %tr
-          %td
-            %label
-              = t "name"
-          %td
-            = f.text_field(:name)
-          
-        %tr
-          %td
-            %label
-              = t "email"
-          %td
-            = f.text_field(:from)
-        %tr
-          %td
-            %label
-              = t "message"
-          %td
-            .left
-              = f.text_area(:message,:cols => 58,:rows => 10)            
-            .recpatcha.right
-              #repatcha_tag
-                = recaptcha_tags  
-    
-    .buttons_container
-      = f.submit t("save"),:class=>"button"
-      = link_to t("cancel"),root_path
+= form_for @contact do |f|
+  
+  %table.w
+    %tbody
+      %tr
+        %td
+          %label
+            = t "name"
+        %td
+          = f.text_field(:name)
+      %tr
+        %td
+          %label
+            = t "email"
+        %td
+          = f.text_field(:from)
+      %tr
+        %td
+          %label
+            = t "message"
+        %td
+          .left
+            = f.text_area(:message,:cols => 58,:rows => 10)            
+          .recpatcha.right
+            #repatcha_tag
+              = recaptcha_tags               
+  .box_bottom
+  %h1
+    ComunidadBox
+  %table
+    %tbody    
+      %tr
+        %td
+          Portugal 1547 Depto 2 
+          %br
+          Godoy Cruz Mendoza CP:5501
+      %tr
+        %td
+          0261-156852249
+  
+  .buttons_container
+    = f.submit t("save"),:class=>"button"
+    = link_to t("cancel"),root_path

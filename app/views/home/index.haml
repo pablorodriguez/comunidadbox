@@ -8,15 +8,14 @@
       = render "menu"
       = render "default_actions"
   .contentright_s  
-    #default.data  
-      = render "welcome_msg"    
-      = render "new_msgs"    
+    #default.data
+      = render "welcome_msg"
+      = render "new_msgs"
 
--unless current_user
+-else
   #default.data  
     = render "welcome_msg"    
-    -unless current_user
-      = render "sliders"    
+    = render "what_is_combo"
       
 
 

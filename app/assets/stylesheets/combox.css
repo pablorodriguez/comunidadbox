@@ -3,6 +3,24 @@
 #F2F2F2
 */
 
+.doc_row{
+  padding:5px;
+}
+
+.doc_row h1{
+  padding: 5px 0px;
+}
+
+.video{  
+  padding-top: 10px;
+  width: 93%;
+}
+
+.video_home{  
+  padding-top: 10px;
+  width: 73%;
+}
+
 .field_with_errors{
   display: inline;
 }

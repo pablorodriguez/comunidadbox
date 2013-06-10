@@ -16,7 +16,7 @@
           = link_to "Prestadores de Servicios", all_companies_path,title: "Buscar Prestadores de Servicios"
       %li
         %h3          
-          = link_to "?", "#",:title => "Ayuda",:class => "help"
+          = link_to "?", help_path,:title => "Ayuda",:class => "help_link"
   -if user_signed_in? 
     %ul  
       %li
@@ -36,7 +36,7 @@
                   ="..."
       %li
         %h3          
-          = link_to "?", "#",:title => "Ayuda",:id => "help_link"
+          = link_to "?", help_path,:title => "Ayuda",:id => "help_link"
     - c_ids = get_companies.map(&:id)
     -if current_user.is_administrator? && (!current_user.get_companies.empty?)
       = form_tag set_company_home_index_path,:id=>:comp_form do |f|
