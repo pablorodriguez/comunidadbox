@@ -60,9 +60,9 @@ class WorkordersControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template :index
-    
+
     assert_select("div",:id=>"workorders",:count=>1)
-    assert_select("div#workorders .wo_detail",:count => 3)
+    assert_select("div#workorders .row",:count => 2)
     assert_select("div",:id=>"price_graph_c",:count=>1)
     assert_select("div",:id=>"report_data",:count=>1)
     assert_select("div",:id=>"company_id",:count=>1)

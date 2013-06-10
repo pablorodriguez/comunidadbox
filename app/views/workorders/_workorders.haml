@@ -1,6 +1,5 @@
-.wo_detail
-  .box_bottom
-    %h1 Servicios Realizados
-  = render :partial =>"work_order_row",:collection => @work_orders
+.box_bottom
+  %h1 Servicios Realizados
+= render :partial =>"work_order_row",:collection => @work_orders
 .clear
   = will_paginate @work_orders

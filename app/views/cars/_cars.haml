@@ -24,7 +24,7 @@
     .actions
       - if current_user.can_edit?(car.user)
         .action          
-          = link_to "",car, :confirm =>t("car_delete_confirm"),:remote =>true, :method => :delete,:title =>t("delete"),:class=>"delete"
+          = link_to "",car,:data =>{:confirm =>t("car_delete_confirm")},:remote =>true, :method => :delete,:title =>t("delete"),:class=>"delete"
       - if company_id
         .action
           = link_to "",new_budget_path(:ca => car),{:title=>t("new_budget"),:class=>"new_budget"}
