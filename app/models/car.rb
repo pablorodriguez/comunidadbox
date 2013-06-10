@@ -22,8 +22,10 @@ class Car < ActiveRecord::Base
   validate :unique_domain
 
   def unique_domain
-    unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
-      errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
+    if user
+      unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
+        errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
+      end
     end
   end
 

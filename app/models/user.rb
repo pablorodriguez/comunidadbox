@@ -259,6 +259,10 @@ class User < ActiveRecord::Base
     (self.id == user.id) || (user.confirmed_at.nil? && is_client?(user))
   end
 
+  def only_client user
+    
+  end
+
   def can_edit_car? car
     self == car.user && is_client?(car.user)
   end
