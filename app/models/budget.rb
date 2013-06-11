@@ -13,7 +13,7 @@ class Budget < ActiveRecord::Base
   belongs_to :company
 
   scope :companies, lambda { |comp_id| {:conditions =>  ["company_id IN (?)", comp_id] } }
-  default_scope order("created_at DESC")
+  default_scope order("budgets.created_at DESC")
 
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   validate :service_not_empty
@@ -83,7 +83,7 @@ class Budget < ActiveRecord::Base
 
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
-    budget = Budget.order("budgets.created_at DESC").includes(:car => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
+    budget = Budget.includes(:car => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
     unless prop.any?{|k| filters.key?(k.to_sym)}
@@ -113,7 +113,6 @@ class Budget < ActiveRecord::Base
     
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
     
-    logger.debug "### Filters SQL #{budget.to_sql}"
     budget
   end
 
