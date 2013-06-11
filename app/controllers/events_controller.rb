@@ -7,9 +7,9 @@ class EventsController < ApplicationController
 
   def search_notes
   	@event = Event.find params[:id]
-  	@notes = @event.notes
-    @alarms = @event.alarms
-    logger.debug "######## Event id for notes  #{@event.id}"
+  	@notes =  Note.for_event_end_user(@event,current_user)
+    @alarms = Alarm.for_event_end_user(@event,current_user)
+    
   	respond_to do |format|
       format.js {render :layout => false}
     end

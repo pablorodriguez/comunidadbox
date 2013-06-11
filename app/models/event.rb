@@ -37,6 +37,14 @@ class Event < ActiveRecord::Base
   def belongs_to_company company
     service.workorder.company.id == company.id
   end
+
+  def has_notes_for?(user)
+    Note.for_event_end_user(self,user).count() > 0    
+  end
+
+  def has_alarms_for?(user)
+    Alarm.for_event_end_user(self,user).count() > 0
+  end
   
   def is_yellow
     dueDate > Time.zone.now.months_since(Event::MONTH_RED).to_date && dueDate <= Time.zone.now.months_since(Event::MONTH_YELLOW).to_date ? true : false

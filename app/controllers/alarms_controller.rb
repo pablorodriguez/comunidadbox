@@ -24,7 +24,6 @@ class AlarmsController < ApplicationController
       @alarm = current_user.alarms.new(params[:alarm])      
     end
     
-    
     respond_to do |format|
       if @alarm.save        
         format.html { redirect_to alarms_path }

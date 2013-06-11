@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425215759) do
+ActiveRecord::Schema.define(:version => 20130611150224) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -56,8 +56,10 @@ ActiveRecord::Schema.define(:version => 20130425215759) do
     t.integer  "car_id"
     t.integer  "client_id"
     t.integer  "event_id"
+    t.integer  "company_id"
   end
 
+  add_index "alarms", ["company_id"], :name => "alarms_company_id_fk"
   add_index "alarms", ["user_id"], :name => "alarms_user_id_fk"
 
   create_table "authentications", :force => true do |t|
@@ -357,10 +359,12 @@ ActiveRecord::Schema.define(:version => 20130425215759) do
     t.integer  "respond_to_id"
     t.integer  "alarm_id"
     t.integer  "car_id"
+    t.integer  "company_id"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
   add_index "notes", ["car_id"], :name => "notes_car_id_fk"
+  add_index "notes", ["company_id"], :name => "notes_company_id_fk"
   add_index "notes", ["note_id"], :name => "notes_note_id_fk"
   add_index "notes", ["receiver_id"], :name => "notes_receiver_id_fk"
   add_index "notes", ["user_id"], :name => "notes_user_id_fk"
@@ -621,6 +625,7 @@ ActiveRecord::Schema.define(:version => 20130425215759) do
   add_foreign_key "addresses", "states", :name => "addresses_ibfk_2"
   add_foreign_key "addresses", "users", :name => "addresses_ibfk_3"
 
+  add_foreign_key "alarms", "companies", :name => "alarms_company_id_fk"
   add_foreign_key "alarms", "users", :name => "alarms_ibfk_1", :dependent => :delete
 
   add_foreign_key "budgets", "cars", :name => "budgets_car_id_fk", :dependent => :delete
@@ -662,6 +667,7 @@ ActiveRecord::Schema.define(:version => 20130425215759) do
 
   add_foreign_key "notes", "budgets", :name => "notes_budget_id_fk", :dependent => :delete
   add_foreign_key "notes", "cars", :name => "notes_car_id_fk", :dependent => :delete
+  add_foreign_key "notes", "companies", :name => "notes_company_id_fk"
   add_foreign_key "notes", "notes", :name => "notes_note_id_fk", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_receiver_id_fk", :column => "receiver_id", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete

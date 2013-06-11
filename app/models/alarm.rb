@@ -5,6 +5,7 @@ class Alarm < ActiveRecord::Base
   belongs_to :client, :class_name => 'User', :foreign_key => 'client_id'
   belongs_to :car, :class_name => 'Car', :foreign_key => 'car_id'
   belongs_to :event
+  belongs_to :company
 
   has_many :messages
   has_many :notes
@@ -51,7 +52,10 @@ class Alarm < ActiveRecord::Base
 
 
   def init_next_time    
-    self.next_time = generate_next_time    
+    self.next_time = generate_next_time
+    
+    #se the companyt if the user have one
+    self.company_id = self.user.company_id if self.user.company_id
   end
 
   def update_next_time
@@ -181,6 +185,10 @@ class Alarm < ActiveRecord::Base
     Alarm.next_minute.each do |alarm|        
         alarm.deliver_notify
     end      
+  end
+
+  def self.for_event_end_user(event,user)
+    Alarm.where("event_id = ? && company_id IN (?)",event.id,user.get_companies_ids)
   end
 end
 

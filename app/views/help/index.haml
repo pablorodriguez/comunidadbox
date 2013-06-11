@@ -1,0 +1,9 @@
+.box_bottom
+  %h1
+    Documentación
+.list_doc
+  - @docs.each do |d|
+    .doc_row.box_bottom
+      %h1
+        = link_to "#{d[1]}","http://vimeo.com/#{d[0]}"
+      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "281", :mozallowfullscreen => "", :src => "http://player.vimeo.com/video/#{d[0]}", :webkitallowfullscreen => "", :width => "500"}

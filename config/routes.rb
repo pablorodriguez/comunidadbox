@@ -64,7 +64,7 @@ ComunidadBox::Application.routes.draw do
 
   devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions' }
 
-  match "/help" => "help#show"
+  match "/help" => "help#index"
 
   resources :guests
   resources :authentications
