@@ -19,6 +19,16 @@ class BudgetsControllerTest < ActionController::TestCase
     assert_select("a.edit",:count => 1)    
   end
 
+  test "should get index with ajax" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s
+    budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
+
+    xhr :get,:index,:last_name => "Alvarez"
+    assert_response :success
+    assert_template "index" 
+  end
+
   test "employee should get index" do
     budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
     @request.cookies["company_id"]= @emp_walter.company.id.to_s
