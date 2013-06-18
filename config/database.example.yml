@@ -4,6 +4,6 @@ production:
   reconnect: false
   database: combox_prd
   pool: 5
-  username: combox
-  password: combox
+  username: combox_dev
+  password: combox_dev
   host: localhost
