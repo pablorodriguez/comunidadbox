@@ -235,7 +235,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_rank? user
-    car.user == user || company.is_employee(user)
+    car.user == user || (company && company.is_employee(user))
   end
 
   def can_delete?(usr)
