@@ -21,7 +21,7 @@ class Material < ActiveRecord::Base
   end
   
   def detail
-    "#{name} #{provider}"
+    "#{name}"
   end
 
   def self.find_by_params params

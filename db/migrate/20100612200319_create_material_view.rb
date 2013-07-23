@@ -12,8 +12,8 @@ class CreateMaterialView < ActiveRecord::Migration
         pl.id AS price_list_id,
         mst.id AS material_service_type_id,
         pli.price AS price,
-        concat('[',m.prov_code,'] ',ucase(m.name),' ',ifnull(m.provider,'')) AS detail_upper,
-        concat('[',m.prov_code,'] ',m.name,' ',ifnull(m.provider,'')) AS detail,
+        concat('[',m.prov_code,'] ',ucase(m.name)) AS detail_upper,
+        concat('[',m.prov_code,'] ',m.name) AS detail,
         pl.company_id AS company_id 
       from 
         ((((materials m 
