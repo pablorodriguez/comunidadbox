@@ -56,7 +56,8 @@ class Ability
       #can :manage, ServiceType
       can :manage, Brand
       can :manage, Model
-      can :manage, State      
+      can :manage, State
+      can :manage, ServiceOffer      
     elsif user.id
       can :details, Material      
     end 
