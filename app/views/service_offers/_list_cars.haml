@@ -1,12 +1,4 @@
 .box_bottom
-  %h3 Automóviles seleccionados
-.box_bottom
-  - @cars.each do |car_s|   
-    .left
-      .domain_white
-        = car_s.car.domain
-    -if current_user.cars.include?(car_s.car)
-      .actions
-      - if car_s.status == "Enviado"
-        = link_to "C",confirm_car_service_offer_path(car_s),:title =>"Confirmar"
-        = link_to "R",reject_car_service_offer_path(car_s),:title =>"Rechazar"
+  %h3 
+    Automóviles seleccionados:
+    = @cars.size

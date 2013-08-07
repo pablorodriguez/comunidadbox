@@ -9,7 +9,8 @@ class ServiceOffer < ActiveRecord::Base
   validates_numericality_of :price,:final_price,:percent
   validates_presence_of :title, :price, :final_price, :percent
   
-  scope :sended ,where("service_offers.status = ?",Status::SENT)
+  default_scope {order("service_offers.created_at DESC")}
+  scope :sended ,where("service_offers.status = ?",Status::SENT)  
   scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
   scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offer)}
   

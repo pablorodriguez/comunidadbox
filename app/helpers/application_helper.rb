@@ -87,7 +87,7 @@ module ApplicationHelper
   end
   
   def big_event_class event
-    if (event.service && company_id.include?(event.service.workorder.company.id.to_s))
+    if (event.service && event.service.workorder.company && company_id.include?(event.service.workorder.company.id.to_s))
       return "my_big_event"  
     else
       return "big_event"  
@@ -96,7 +96,9 @@ module ApplicationHelper
   
   def my_event_class event
     css = event_class event
-    css = "mi_" + css if company_id.include?(event.service.workorder.company.id.to_s)
+    if ((event.service.workorder.company) && (company_id.include?(event.service.workorder.company.id.to_s)))
+      css = "mi_" + css 
+    end
     return css
   end
   

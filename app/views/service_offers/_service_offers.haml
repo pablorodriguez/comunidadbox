@@ -14,7 +14,7 @@
               = icon_status offer.status
             - else
               = "offer.car_service_offer.status"
-          -if company_id && offer.company.id == get_company.id
+          -if (company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)
             .cars
               Autos:
               = offer.cars.size
@@ -50,6 +50,6 @@
             = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
   #paginator_wo
     = will_paginate @offers
-  - if current_user.is_super_admin?
-    .box_bottom    
-      = link_to "Enviar Ofertas de Servicio", notify_service_offers_path,:class =>"btn2"
+- if current_user.is_super_admin?
+  .box_bottom.clear
+    = link_to "Enviar Ofertas de Servicio", notify_service_offers_path,:class =>"btn2"

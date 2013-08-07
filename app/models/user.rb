@@ -70,12 +70,13 @@ class User < ActiveRecord::Base
     return (self.company && self.company.id == comp.id)
   end
 
-  def find_service_offers(filters,ids)
-    
-    unless ids
-      offers = ServiceOffer.cars(cars.map(&:id)).sended        
-    else
+  def find_service_offers(filters,ids)    
+    if is_super_admin?      
+      offers = ServiceOffer.confirmed
+    elsif ids
       offers = ServiceOffer.where("company_id IN (?)",ids)
+    elsif ids
+      offers = ServiceOffer.cars(cars.map(&:id)).sended
     end
   
     if filters
@@ -85,7 +86,7 @@ class User < ActiveRecord::Base
       offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
       offers = offers.where("status in (?)",filters[:status]) if filters[:status]
     end
-    offers.order("service_offers.created_at DESC")
+    offers
   end
 
   def service_types
