@@ -2,16 +2,9 @@ $ ->
    if $("#clients").notExist()
       return
   
-
   $("#clients").delegate ".new_message","click",->
     $(this).parent().parent().parent().find(".message").toggle()
 
-
-  $("#clients").delegate ".pagination a","click",->
-      page = $.queryString(this.href).page
-      $("#page").val(page)
-      $("#search_client_form").submit()
-      return false
 
   validate_email = ->
     ele = $(this)

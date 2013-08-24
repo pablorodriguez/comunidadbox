@@ -8,13 +8,5 @@ jQuery(document).ready( function(){
     $(this).parent().parent().parent().find(".message").toggle();
   });
 
-
-  $("#clients").delegate(".pagination a","click",function(){
-      page = $.queryString(this.href).page
-      $("#page").val(page);
-      $("#search_client_form").submit(); 
-      return false;      
-    });
-
  
 })

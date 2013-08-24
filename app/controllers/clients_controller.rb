@@ -151,7 +151,8 @@ class ClientsController < ApplicationController
   end
 
   def index    
-    @clients = Company.clients current_user.get_companies_ids,params
+    page = params[:page] || 1
+    @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
   
     respond_to do |format|
       format.html

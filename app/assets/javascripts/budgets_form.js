@@ -8,10 +8,6 @@ jQuery(document).ready( function(){
       autoCompleteMaterial();
     });
 
-    $(".pagination a").live("click",function(){
-      $.getScript(this.href);
-      return false;
-    });
 
     $("#material_form").bind('ajax:before', function(){
       $(this).find(".ajax_loader").show();

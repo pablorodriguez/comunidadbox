@@ -133,7 +133,7 @@ class Company < ActiveRecord::Base
     clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") unless last_name.empty?
     clients = clients.where("users.email like ?","%#{params[:email]}%") unless email.empty?
     clients = clients.where("company_name like ?","%#{params[:company_name]}%") unless company_name.empty?
-    clients.order("users.last_name,users.first_name").paginate(:page =>page,:per_page =>15)    
+    clients.order("users.last_name,users.first_name") 
   end
 
 end
