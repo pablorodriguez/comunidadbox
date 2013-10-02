@@ -12,3 +12,5 @@ public/price_files
 config/database.yml
 db/sphinx
 .sass-cache
+db/database.yml
+.rvmrc
