@@ -95,3 +95,5 @@ gem 'attribute_normalizer'
 gem 'recaptcha', :require => 'recaptcha/rails'
 #gem "exception_notification", :git => "https://github.com/sickill/exception_notification.git", :require => 'exception_notifier'
 #gem "breadcrumbs_on_rails"
+# status
+gem 'state_machine'
