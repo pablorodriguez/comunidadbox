@@ -18,7 +18,7 @@ class Company < ActiveRecord::Base
   has_many :cars
   has_many :service_offers
   has_many :service_type_templates
-
+  has_many :material_requests
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true

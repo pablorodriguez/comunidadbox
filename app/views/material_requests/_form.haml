@@ -1,0 +1,30 @@
+%p
+  %label{ :for => "provider" } 
+    = t ".Proveedor"
+  %br
+  = f.text_field :provider
+%p
+  %label{ :for => "cod_provider" }
+  = t ".Código proveedor"
+  %br
+  = f.text_field :cod_provider
+
+  %p
+  %label{ :for => "trademark" }
+  = t ".Marca"
+  %br
+  = f.text_field :trademark
+
+%p
+  %label{ :for => "description"}
+  = t ".Descripción"
+  %br
+  = f.text_field :description
+%p
+  %laber{:for => "service_type"}
+  = t ".Tipo de Servicio"
+  %br
+  %br
+  = f.collection_select(:service_type_id, current_user.service_types,:id,:name,{:prompt=>"-- Tipo --"},{:class=>'long_select',:style=>"width:265px"})
+  
+

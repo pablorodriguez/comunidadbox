@@ -84,6 +84,7 @@ ComunidadBox::Application.routes.draw do
   resources :tasks
   resources :service_type_templates
   resources :contacts
+  resources :material_requests
 
   resources :messages do     
     member do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611150224) do
+ActiveRecord::Schema.define(:version => 20131002180608) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -180,6 +180,9 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
     t.datetime "updated_at"
   end
 
+  add_index "companies_users", ["company_id"], :name => "companies_users_company_id_fk"
+  add_index "companies_users", ["user_id"], :name => "companies_users_user_id_fk"
+
   create_table "company_services", :force => true do |t|
     t.integer "company_id"
     t.integer "service_type_id"
@@ -247,17 +250,48 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
 
   create_table "material_details", :id => false, :force => true do |t|
     t.string  "prov_code",                :limit => 50
-    t.integer "material_id",                                    :default => 0, :null => false
+    t.integer "material_id",                             :default => 0, :null => false
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "service_type_id"
-    t.integer "price_list_id",                                  :default => 0, :null => false
-    t.integer "material_service_type_id",                       :default => 0, :null => false
+    t.integer "price_list_id",                           :default => 0, :null => false
+    t.integer "material_service_type_id",                :default => 0, :null => false
     t.float   "price"
-    t.text    "detail_upper",             :limit => 2147483647
-    t.text    "detail",                   :limit => 2147483647
+    t.string  "detail_upper",             :limit => 308
+    t.string  "detail",                   :limit => 308
     t.integer "company_id"
   end
+
+  create_table "material_details_old", :id => false, :force => true do |t|
+    t.string  "prov_code",                :limit => 50
+    t.integer "material_id",                             :default => 0, :null => false
+    t.integer "category_id"
+    t.integer "sub_category_id"
+    t.integer "service_type_id"
+    t.integer "price_list_id",                           :default => 0, :null => false
+    t.integer "material_service_type_id",                :default => 0, :null => false
+    t.float   "price"
+    t.string  "detail_upper",             :limit => 308
+    t.string  "detail",                   :limit => 308
+    t.integer "company_id"
+  end
+
+  create_table "material_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "company_id"
+    t.integer  "service_type_id"
+    t.text     "description"
+    t.string   "provider"
+    t.integer  "cod_provider"
+    t.string   "trademark"
+    t.string   "state"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "material_requests", ["company_id"], :name => "index_material_requests_on_company_id"
+  add_index "material_requests", ["service_type_id"], :name => "index_material_requests_on_service_type_id"
+  add_index "material_requests", ["user_id"], :name => "index_material_requests_on_user_id"
 
   create_table "material_service_type_templates", :force => true do |t|
     t.integer  "service_type_template_id"
@@ -279,19 +313,6 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
 
   add_index "material_service_types", ["material_id"], :name => "material_service_types_material_id_fk"
   add_index "material_service_types", ["service_type_id"], :name => "index_material_service_types_on_service_type_id"
-
-  create_table "material_services", :force => true do |t|
-    t.integer  "service_id"
-    t.integer  "amount"
-    t.float    "price"
-    t.string   "material"
-    t.integer  "material_service_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "material_services", ["material_service_type_id"], :name => "material_services_material_service_type_id_fk"
-  add_index "material_services", ["service_id"], :name => "material_services_service_id_fk"
 
   create_table "materials", :force => true do |t|
     t.string   "code",            :limit => 50
@@ -403,6 +424,8 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
     t.datetime "updated_at"
     t.integer  "workorder_id"
   end
+
+  add_index "ranks", ["workorder_id"], :name => "ranks_workorder_id_fk"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -623,7 +646,7 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
 
   add_foreign_key "addresses", "companies", :name => "addresses_ibfk_1", :dependent => :delete
   add_foreign_key "addresses", "states", :name => "addresses_ibfk_2"
-  add_foreign_key "addresses", "users", :name => "addresses_ibfk_3"
+  add_foreign_key "addresses", "users", :name => "addresses_ibfk_3", :dependent => :delete
 
   add_foreign_key "alarms", "companies", :name => "alarms_company_id_fk"
   add_foreign_key "alarms", "users", :name => "alarms_ibfk_1", :dependent => :delete
@@ -643,18 +666,22 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
   add_foreign_key "companies", "countries", :name => "companies_ibfk_1"
   add_foreign_key "companies", "users", :name => "companies_ibfk_2"
 
+  add_foreign_key "companies_users", "companies", :name => "companies_users_company_id_fk"
+  add_foreign_key "companies_users", "users", :name => "companies_users_user_id_fk"
+
   add_foreign_key "company_services", "companies", :name => "company_services_ibfk_1"
   add_foreign_key "company_services", "service_types", :name => "company_services_ibfk_2"
 
   add_foreign_key "events", "services", :name => "events_ibfk_1", :dependent => :delete
 
+  add_foreign_key "material_requests", "companies", :name => "material_requests_company_id_fk"
+  add_foreign_key "material_requests", "service_types", :name => "material_requests_service_type_id_fk"
+  add_foreign_key "material_requests", "users", :name => "material_requests_user_id_fk"
+
   add_foreign_key "material_service_type_templates", "service_type_templates", :name => "material_service_type_templates_service_type_template_id_fk", :dependent => :delete
 
   add_foreign_key "material_service_types", "materials", :name => "material_service_types_ibfk_1"
   add_foreign_key "material_service_types", "service_types", :name => "material_service_types_ibfk_2"
-
-  add_foreign_key "material_services", "material_service_types", :name => "material_services_ibfk_1"
-  add_foreign_key "material_services", "services", :name => "material_services_ibfk_2", :dependent => :delete
 
   add_foreign_key "messages", "alarms", :name => "messages_alarm_id_fk", :dependent => :delete
   add_foreign_key "messages", "budgets", :name => "messages_budget_id_fk", :dependent => :delete
@@ -675,6 +702,8 @@ ActiveRecord::Schema.define(:version => 20130611150224) do
 
   add_foreign_key "price_list_items", "material_service_types", :name => "price_list_items_ibfk_1"
   add_foreign_key "price_list_items", "price_lists", :name => "price_list_items_ibfk_2", :dependent => :delete
+
+  add_foreign_key "ranks", "workorders", :name => "ranks_workorder_id_fk"
 
   add_foreign_key "service_filters", "brands", :name => "service_filters_ibfk_1", :dependent => :delete
   add_foreign_key "service_filters", "models", :name => "service_filters_ibfk_2", :dependent => :delete

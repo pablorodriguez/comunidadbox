@@ -1,0 +1,14 @@
+-# javascript 'accounts'
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .box_bottom
+    %h1
+      Nueva Solicitud
+  
+  = form_for @material_request, :url => material_requests_path do |f|    
+    .box_bottom
+      = render :partial => 'form',:locals  =>{:f => f}
+    .box_bottom
+      = f.submit "Grabar",:class =>"button"
+    

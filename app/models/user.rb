@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
   has_many :alarms, :dependent => :destroy
   has_many :messages
+  has_many :material_requests
 
   validates_uniqueness_of :email, :case_sensitive => false
 

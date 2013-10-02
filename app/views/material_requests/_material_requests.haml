@@ -1,0 +1,27 @@
+#material_requests 
+  - if @material_requests.size > 0
+    %table#sort_table.comboxtable
+      %thead
+        %tr
+          %th Proovedor
+          %th Código del Proveedor
+          %th open
+          %th Descripción
+
+      -for mr in @material_requests
+        %tr
+          %td
+            = mr.provider
+          %td
+            = mr.cod_provider
+          %td
+            = mr.trademark
+          %td
+            = mr.description
+          %td
+            = mr.service_type.name
+         
+           
+            
+  -else
+  =render(:partial=>'shared/message',:locals =>{:msg =>"No hay solicitudes registradas."})
