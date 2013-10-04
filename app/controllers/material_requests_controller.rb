@@ -21,11 +21,12 @@ class MaterialRequestsController < ApplicationController
     @material_request = MaterialRequest.new(params[:material_request])
     @material_request.user_id = current_user.id
     @material_request.company_id = current_user.company.id
+    @material_request.state = Status::OPEN
 
     respond_to do |format|
       if @material_request.save
 
-        flash[:notice] = 'material_request was successfully created.'
+        flash[:notice] = 'La solicitud del material ah sido creada.'
         format.html { redirect_to(@material_request) }
         format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
       else
