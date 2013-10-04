@@ -5,8 +5,10 @@
         %tr
           %th Proovedor
           %th Código del Proveedor
-          %th open
+          %th Marca
           %th Descripción
+          %th Tipo de Servicio
+          %th Estado
 
       -for mr in @material_requests
         %tr
@@ -20,6 +22,8 @@
             = mr.description
           %td
             = mr.service_type.name
+          %td
+            = mr.state
          
            
             
