@@ -6,26 +6,13 @@
         = link_to "Nueva Solicitud", new_material_request_path
       %li
         = link_to "Modificar", edit_material_request_path(@material_request) 
-%table.comboxform
-  %tbody
-    %tr
-      %td
-        Proveedor
-      %td
-        = @material_request.provider
-      %td
-        Codigo
-      %td
-        = @material_request.cod_provider
-    %tr
-      %td
-        Descripcion
-      %td
-        = @material_request.description
-        = @material_request.service_type.name
-        = @material_request.user_id
-        = @material_request.company.name
-        = @material_request.trademark
+.contentright_s
+  #user
+    .box_bottom
+      %h1 Solicitudes
+    .box_bottom
+      = render 'material_request_show'
+
 
 
 
