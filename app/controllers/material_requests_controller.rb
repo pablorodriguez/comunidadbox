@@ -44,5 +44,32 @@ class MaterialRequestsController < ApplicationController
       format.xml  { render :xml => @material_request }
     end
   end
+
+   def edit
+    @material_request = MaterialRequest.find(params[:id])
+  end
+
+  def update
+    @material_request = MaterialRequest.find(params[:id])
+   
+    respond_to do |format|
+      if @material_request.update_attributes(params[:material_request])        
+        format.html { redirect_to :action => "show" }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @material_request = MaterialRequest.find(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to(material_requests_url) }
+      format.xml  { head :ok }
+    end
+  end
 end
 
