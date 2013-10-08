@@ -58,6 +58,10 @@ class ServiceOffersController < ApplicationController
   def get_offer_confirmerd
     ServiceOffer.where("company_id = ? and status= ?",get_company.id,:Confirmado)
   end
+
+  def confirm
+    redorect_to :index
+  end
   
   def create
     @offer = ServiceOffer.new(params[:service_offer])

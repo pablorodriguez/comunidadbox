@@ -10,7 +10,8 @@ class Status
   PERFORMED = 8
   SENT = 9
   PENDING = 10
-  REJECTED = 11
+  REJECTED = 11  
+  APPROVED = 12 
   
   WO_STATUS = {
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'

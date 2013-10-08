@@ -1,54 +1,38 @@
-%h1 
-  = " Servicio : #{@car_service_offer.service_offer.service_type.name}"  
-%table.comboxform
-  %tr
-    %td.current.header{:width=>"25%"}
-      Titulo
-    %td{:width=>"25%"}
-      = h @car_service_offer.service_offer.title
-    %td.current.header{:width=>"25%"}
-      Prestador de Servicios
-    %td{:width=>"25%"}
-      = @car_service_offer.service_offer.company.name
-  %tr
-    %td.current.header Precio
-    %td
-      =h number_to_currency(@car_service_offer.service_offer.price)
-    %td.current.header Descuento %
-    %td
-      = h @car_service_offer.service_offer.percent
-  %tr
-    %td.current.header Precio Final
-    %td
-      =h number_to_currency(@car_service_offer.service_offer.final_price)
-    %td.current.header Estado
-    %td
-      = icon_status @car_service_offer.status
-  %tr
-    %td.current.header Desde
-    %td
-      = (l @car_service_offer.service_offer.since) if @car_service_offer.service_offer.since
-    %td.current.header Hasta
-    %td
-      = (l @car_service_offer.service_offer.until) if @car_service_offer.service_offer.until    
-  %tr
-    %td.current.header Comentario
-    %td
-      =h @car_service_offer.service_offer.comment
-    %td.current.header Dias
-    %td.label_title{:colspan=>3}
-      =h @car_service_offer.service_offer.monday ? "Lunes" : " "
-      =h @car_service_offer.service_offer.tuesday ? "Martes" : " "
-      =h @car_service_offer.service_offer.wednesday ? "Miercoles" : " "
-      =h @car_service_offer.service_offer.thursday ? "Jueves" : " "
-      =h @car_service_offer.service_offer.friday ? "Viernes" : " "
-      =h @car_service_offer.service_offer.saturday ? "Sabado" : " "
-      =h @car_service_offer.service_offer.sunday ? "Domingo" : " "
-  -if @car_service_offer.service
-    %tr
-      %td
-        = link_to "Servicio", @car_service_offer.service.workorder
-%p
-  - if company_id
-    - if (@car_service_offer.service_offer.status == 'Pendiente' || @car_service_offer.service_offer.status == 'Abierto')
-      = link_to image_tag('edit.png'), edit_service_offer_path(@car_service_offer.service_offer) 
+#div{:id=>"row_#{car_service_offer.id}",:class=>"service_offer_row row"}
+  -service_offer = car_service_offer.service_offer
+  .service_offer_info
+    .service_offer_detail        
+      .company_name        
+        = link_to service_offer.company.name,service_offer.company
+      .service_offer_title      
+        = link_to service_offer.title, car_service_offer,:class =>"view"
+      .service_offer_name
+        = service_offer.service_type.name
+      = icon_status(car_service_offer.status)
+      -if (company_id && service_offer.company.id == get_company.id) || (current_user.is_super_admin?)
+        .cars
+          Autos:
+          = car_service_offer.cars.size
+    .price_detail
+      .price              
+        Precio:
+        = number_to_currency service_offer.final_price
+      .discount
+        Descuento:
+        = number_to_percentage(service_offer.percent, :precision =>2)
+    .valid
+      .service_offer_valid
+        %span
+          Valido
+        %span
+          = l service_offer.since unless service_offer.since.nil?
+        %span
+          = l service_offer.until unless service_offer.until.nil?
+      .service_offer_dates
+        %span
+          Dias
+        .days
+          %ul
+            - service_offer.valid_dates.each do |day|
+              %li
+                =day

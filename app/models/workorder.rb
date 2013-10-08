@@ -358,6 +358,7 @@ class Workorder < ActiveRecord::Base
   def self.group_by_service_type(params,price=true)
     wo = self.find_by_params(params)
     wo = wo.group("services.service_type_id")
+    debugger
     if price
       wo = wo.sum("amount * price")
     else
@@ -400,8 +401,7 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
     
     workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
-    logger.debug "### Filters SQL #{workorders.to_sql}"
-    
+    logger.debug "### Filters SQL #{workorders.to_sql}"    
     workorders
   end
   

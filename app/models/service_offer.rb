@@ -61,8 +61,7 @@ class ServiceOffer < ActiveRecord::Base
   #if user's car belong to service offer car the user can see it
   def can_show? user
     cars_ids = user.cars.map(&:id)
-    ids = cars.map(&:id)
-    (ids & cars_ids).size > 0
+    CarServiceOffer.where("service_offer_id = ? and car_id IN(?)",self.id,cars_ids).count > 0    
   end
 
   #Notifico a los autos sus ofertas de servicios

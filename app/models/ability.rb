@@ -45,7 +45,6 @@ class Ability
     end
 
     can :destroy, :client do |client|
-      debugger
       user.can_edit?(client)
     end
 
@@ -117,8 +116,12 @@ class Ability
       can :manage, ServiceFilter      
     end
 
-    can :view,ServiceOffer do |s|
+    can :read,ServiceOffer do |s|
       s.can_show? user      
+    end
+
+    can :confirm,ServiceOffer do |s|
+      s.can_confirm? user
     end
 
     if user.is_super_admin?

@@ -7,22 +7,24 @@ class CarServiceOffersController < ApplicationController
   end
   
   def index    
-    @offers = CarServiceOffer.where("car_id IN (?) and car_service_offers.status IN (?)",current_user.cars(&:id),
+    @car_service_offers = CarServiceOffer.where("car_id IN (?) and car_service_offers.status IN (?)",current_user.cars(&:id),
       [Status::CONFIRMED, Status::PERFORMED, Status::SENT]).includes(:service_offer).includes(:car)
   end
   
   def confirm
-    change_status Status::CONFIRMED
+    car_service_offer = CarServiceOffer.find params[:id]
+    debugger
+    car_service_offer.update_attribute(:status, Status::CONFIRMED)    
+    redirect_to car_service_offer
   end
   
   def reject
-    change_status Status::REJECTED
+    car_service_offer = CarServiceOffer.find params[:id]
+    car_service_offer.update_attribute(:status, Status::REJECTED)    
+    redirect_to car_service_offer
   end
   
   def change_status new_status 
-    car_service_offer = CarServiceOffer.find params[:id]
-    car_service_offer.status=new_status
-    car_service_offer.save
-    redirect_to service_offer_path(car_service_offer.service_offer)
+    
   end
 end

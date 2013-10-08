@@ -7,8 +7,7 @@
           = link_to "Modificar", edit_service_offer_path(@service_offer),:title =>"Modificar"
       -if company_id && @service_offer.status != Status::SENT
         %li
-          = link_to "Borrar", @service_offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
-
+          = link_to "Borrar", @service_offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"      
 .contentright_s
   .box_bottom
     %h1      
@@ -16,4 +15,5 @@
     %h1       
       = @service_offer.company.name
   = render @service_offer
-  = render "list_cars"
+  - if current_user.company_id
+    = render "list_cars"

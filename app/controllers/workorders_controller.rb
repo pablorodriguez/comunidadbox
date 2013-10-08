@@ -58,6 +58,7 @@ class WorkordersController < ApplicationController
       @price[ServiceType.find(k).name] = v if k
     end    
 
+    debugger
     @price_data = Workorder.build_graph_data(@report_data)
     @amt = Workorder.group_by_service_type(filters_params,false)
     @count_material = Workorder.group_by_material(filters_params,false)
@@ -87,7 +88,6 @@ class WorkordersController < ApplicationController
       format.csv { render text: "@work_orders.to_csv"}
     end
   end
-
 
   def show
 
@@ -301,7 +301,7 @@ class WorkordersController < ApplicationController
     
     @car_service_offers =[]
     #busco las ofertas de servicios para el auto asignado a la orden de trabajo
-    @car_service_offers = @work_order.find_car_service_offer(company.id)  if company
+    #@car_service_offers = @work_order.find_car_service_offer(company.id)  if company
     @update_km= @work_order.car.update_km?
     #authorize! :create, @work_order
     respond_to do |format|

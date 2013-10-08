@@ -1,4 +1,5 @@
 class CarServiceOffer < ActiveRecord::Base
+  default_scope order('created_at DESC')
   belongs_to :car
   belongs_to :service_offer
   belongs_to :service

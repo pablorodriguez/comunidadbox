@@ -70,12 +70,12 @@ class User < ActiveRecord::Base
     return (self.company && self.company.id == comp.id)
   end
 
-  def find_service_offers(filters,ids)    
+  def find_service_offers(filters,ids)        
     if is_super_admin?      
       offers = ServiceOffer.confirmed
     elsif ids
       offers = ServiceOffer.where("company_id IN (?)",ids)
-    elsif ids
+    else
       offers = ServiceOffer.cars(cars.map(&:id)).sended
     end
   
