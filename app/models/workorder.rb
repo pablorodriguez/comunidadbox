@@ -357,8 +357,7 @@ class Workorder < ActiveRecord::Base
   
   def self.group_by_service_type(params,price=true)
     wo = self.find_by_params(params)
-    wo = wo.group("services.service_type_id")
-    debugger
+    wo = wo.group("services.service_type_id")    
     if price
       wo = wo.sum("amount * price")
     else
