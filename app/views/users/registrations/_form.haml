@@ -19,7 +19,7 @@
     .recpatcha      
       #repatcha_tag
         = recaptcha_tags  
--unless current_user.is_super_admin?
+-if (current_user == nil) || (!current_user.is_super_admin?)
   #user_data
     #car_info.box_bottom
       %h3
