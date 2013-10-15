@@ -1,10 +1,11 @@
 .vertical_menu
   = render "admin/menu"
-  //= render "search"
-  .menu_actions.box_bottom
-    %ul
-      %li
-        = link_to "Nueva Solicitud", new_material_request_path
+  = render "search"
+  -if !(user_signed_in? && current_user.is_super_admin?)
+    .menu_actions.box_bottom
+      %ul
+        %li
+          = link_to "Nueva Solicitud", new_material_request_path
 
 .contentright_s  
   .box_bottom
