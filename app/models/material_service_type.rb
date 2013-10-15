@@ -1,4 +1,5 @@
 class MaterialServiceType < ActiveRecord::Base
+ attr_accessible :material_id, :service_type_id
   belongs_to :material
   belongs_to :service_type
   has_many :price_list_items
