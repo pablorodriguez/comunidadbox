@@ -24,7 +24,16 @@
 
 %p
   %label
-    Companía
+    Companía:
     = @material_request.company.name
 
+%p
+  %label
+    Cliente:
+    =@material_request.user.email
 
+-if user_signed_in? && current_user.is_super_admin? && !@material_request.message.nil?
+  %p
+    %label
+      Mensaje:
+      =@material_request.message
