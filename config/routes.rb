@@ -297,6 +297,16 @@ ComunidadBox::Application.routes.draw do
     end
   end
 
+  resources :material_requests do
+    collection do
+      post :search
+    end
+    member do
+      get :approved
+      get :disapproved
+    end
+ end
+
   root :to => "home#index"
   
   constraints CanAccessResque do
