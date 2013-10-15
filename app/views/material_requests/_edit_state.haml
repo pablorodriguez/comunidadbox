@@ -1,0 +1,13 @@
+.contentright_s
+  = form_for  @material_request, :url => material_request_path(@material_request)  do |f|
+    %p
+    %label{:for => "state"}
+    = f.select(:state, ['Aprobado', 'Rechazado'], {},{:class=>'long_select',:style=>"Width:265px"})
+    %p
+    %label{:for => "message"}
+    = t ".Mensaje"
+    = f.text_field :message
+    %br
+    %br
+    = f.submit "Actualizar",:class =>"button"
+    = link_to "Cancelar",material_requests_path

@@ -1,0 +1,16 @@
+.box_bottom
+  #material_request
+    %h3 Buscar
+    = form_for :material_request, :remote =>true, :url => search_material_requests_path do
+      %table.w
+        %thead
+          %tr
+            %td
+              = text_field_tag 'state',"",:class=>"labelify input",:title=>"Estado"
+          %tr
+            %td
+              = text_field_tag 'created_at',"",:class=>"labelify input",:title=>"Año-Mes-Día"
+          %tr
+            %td
+              = image_submit_tag("find.png",:class =>"input_img")
+
