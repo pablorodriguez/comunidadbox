@@ -1,7 +1,7 @@
 class MaterialRequestsController < ApplicationController
+
  def new
     @material_request = MaterialRequest.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @material_request }
@@ -9,11 +9,14 @@ class MaterialRequestsController < ApplicationController
   end
 
   def index
-    @material_requests = MaterialRequest.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @material_requests }
+    if user_signed_in? && current_user.is_super_admin?
+      @material_requests = MaterialRequest.find(:all)
+    else
+      @material_requests = current_user.material_requests
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @material_requests }
+      end
     end
   end
 
@@ -21,11 +24,9 @@ class MaterialRequestsController < ApplicationController
     @material_request = MaterialRequest.new(params[:material_request])
     @material_request.user_id = current_user.id
     @material_request.company_id = current_user.company.id
-    @material_request.state = Status::OPEN
-
+    @material_request.state = "ABIERTO"
     respond_to do |format|
       if @material_request.save
-
         flash[:notice] = 'La solicitud del material ah sido creada.'
         format.html { redirect_to(@material_request) }
         format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
@@ -38,7 +39,6 @@ class MaterialRequestsController < ApplicationController
 
   def show
     @material_request = MaterialRequest.find(params[:id])
-    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @material_request }
@@ -51,25 +51,95 @@ class MaterialRequestsController < ApplicationController
 
   def update
     @material_request = MaterialRequest.find(params[:id])
-   
-    respond_to do |format|
-      if @material_request.update_attributes(params[:material_request])        
-        format.html { redirect_to :action => "show" }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
+     respond_to do |format|
+      if !current_user.is_super_admin?
+        if @material_request.update_attributes(params[:material_request]) 
+           format.html { redirect_to(material_request_path) }
+           format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
+        end
+      end 
+      if @material_request.state == "Rechazado" && current_user.is_super_admin?
+        if @material_request.update_attributes(params[:material_request]) 
+            format.html { redirect_to :action => "approved" }
+            format.xml  { head :ok }
+          else
+            format.html { render :action => "edit" }
+            format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
+          end
+      end
+      if @material_request.state == "Aprobado" && current_user.is_super_admin?
+        if @material_request.update_attributes(params[:material_request]) 
+            format.html { redirect_to :action => "disapproved" }
+            format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
 
   def destroy
     @material_request = MaterialRequest.find(params[:id])
-
-    respond_to do |format|
-      format.html { redirect_to(material_requests_url) }
-      format.xml  { head :ok }
+    if user_signed_in? && current_user.is_super_admin?
+      @material_request.update_attribute(:state, 'Rechazado') 
+      respond_to do |format|
+        format.html { render :action => "show" }
+        format.xml  { head :ok }
+      end   
+    else
+      @material_request.destroy
+      respond_to do |format|
+        format.html { redirect_to(material_requests_url) }
+        format.xml  { head :ok }
+      end
     end
   end
+
+  def disapproved
+    @material_request = MaterialRequest.find(params[:id])
+    @material = Material.find(@material_request.material)
+    @material_service_type = MaterialServiceType.find_by_material_id(@material).delete
+    @material.delete
+     respond_to do |format|
+      flash[:notice] = 'La solicitud del material ah sido rechazada y eliminada de materiales.'
+        format.html {  redirect_to(@material_request) }
+        format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
+    end
+  end
+
+  def approved
+    @material_code = Material.where("code like ?","NM%").last
+    @code =  @material_code.code.succ
+    @material_request = MaterialRequest.find params[:id]
+    @material = Material.create(:code => @code,:prov_code => @code, :provider => @material_request.provider, :name => @material_request.description)
+    @material_service_type = MaterialServiceType.create(:service_type_id => @material_request.service_type_id, :material_id => @material.id)
+    @material_request.material = @material.id
+    respond_to do |format|
+    if @material_service_type.save
+       @material_request.update_attribute(:state, "Aprobado")
+        flash[:notice] = 'La solicitud del material ah sido aprobada.'
+        format.html {  redirect_to :action => "show" }
+        format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
+      else
+        flash[:notice] = 'No se pudo salvar'
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
+    end
+  end
+ end
+
+ def search
+    state = params[:state] || ""
+    created_at = params[:created_at] || ""
+    @material_requests = MaterialRequest.where("state like ? AND created_at like ?",
+      "%#{state}%","%#{created_at}%")
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
+   end
 end
 
