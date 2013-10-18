@@ -18,12 +18,16 @@ class ServiceOffersController < ApplicationController
     end
   end
 
+  def confirmed
+    
+  end
+
   def show
     @service_offer = ServiceOffer.find(params[:id])
     if current_user.is_administrator?
-      @cars = @service_offer.car_service_offer
+      @cars = @service_offer.car_service_offers
     end    
-    @cars = @service_offer.car_service_offer
+    @cars = @service_offer.car_service_offers
     
   end
 

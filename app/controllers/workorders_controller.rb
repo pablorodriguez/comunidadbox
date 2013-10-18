@@ -57,8 +57,7 @@ class WorkordersController < ApplicationController
     @report_data.each_pair do |k,v|
       @price[ServiceType.find(k).name] = v if k
     end    
-
-    debugger
+    
     @price_data = Workorder.build_graph_data(@report_data)
     @amt = Workorder.group_by_service_type(filters_params,false)
     @count_material = Workorder.group_by_material(filters_params,false)
@@ -155,25 +154,15 @@ class WorkordersController < ApplicationController
       params[:workorder][:notes_attributes]["0"][:creator_id] = "#{current_user.id}"
     end
     
-    cso_ids = params["cso_ids"] || []
-
-    if (@work_order.company_id.nil? && @work_order.company_info.nil?)
-      company_id =  get_company_id(params)
-    end
+    company_id =  get_company_id(params) if (@work_order.company_id.nil? && @work_order.company_info.nil?)
 
     respond_to do |format|
-    if @work_order.update_attributes(params[:workorder])
-      CarServiceOffer.update_with_services(@work_order.services,cso_ids)
-      if @work_order.is_finished?        
-        send_notification @work_order.id
-      end
-
-      @work_order.services.all.each do |service|
-        service.tasks.clear
-      end
-
+    if @work_order.update_attributes(params[:workorder])      
+      
+      @work_order.services.each{|service| service.tasks.clear}
       if params[:service_type_ids]
-        @work_order.services.all.each do |service|
+        @work_order.services.each do |service|
+          debugger
           unless params[:service_type_ids][service.service_type.id.to_s].nil?
             service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
           end
@@ -200,12 +189,9 @@ class WorkordersController < ApplicationController
 
     @service_types = current_user.service_types    
 
-    @car_service_offers = @work_order.car_service_offers
+    #@work_order.initialize_with_car_service_offer(company_id)
     @company = @work_order.company
-    if ((@car_service_offers.size == 0) && (@company))
-      @car_service_offers = @work_order.find_car_service_offer(@company.id)
-    end
-
+    
   end
 
   def create
@@ -214,7 +200,7 @@ class WorkordersController < ApplicationController
     @work_order = Workorder.new(params[:workorder])
     authorize! :create, @work_order
     
-    cso_ids = params["cso_ids"] || []
+    
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
       @work_order.company_id = company_id.id 
     end
@@ -225,8 +211,7 @@ class WorkordersController < ApplicationController
     @work_order.notes.first.user = current_user unless @work_order.notes.empty?
     
     saveAction =false
-
-    CarServiceOffer.update_with_services(@work_order.services,cso_ids)
+    
     saveAction = @work_order.save
     if @work_order.is_finished?
       #@work_order.generate_events
@@ -264,8 +249,9 @@ class WorkordersController < ApplicationController
     @work_order.car = current_user.cars.first if (params[:car_id].nil? && params[:b].nil?)
     
     # si viene un car_id lo busco y se lo asigno a la orden de trabajo    
-    @work_order.car = Car.find(params[:car_id]) if params[:car_id]    
-
+    @work_order.car = Car.find(params[:car_id]) if params[:car_id]
+    @work_order.initialize_with_car_service_offer(company_id)
+    
     @service_types = current_user.service_types
        
     if @work_order.company.nil? and @work_order.company_info.nil?
@@ -299,9 +285,7 @@ class WorkordersController < ApplicationController
       end
     end
     
-    @car_service_offers =[]
-    #busco las ofertas de servicios para el auto asignado a la orden de trabajo
-    #@car_service_offers = @work_order.find_car_service_offer(company.id)  if company
+    
     @update_km= @work_order.car.update_km?
     #authorize! :create, @work_order
     respond_to do |format|
@@ -318,15 +302,6 @@ class WorkordersController < ApplicationController
   end
 
   private
-
-  def send_notification(work_order_id)
-    work_order = Workorder.find work_order_id
-    
-    logger.info "### envio de notificacion mail #{work_order.id} Car: #{work_order.car.domain}"
-    #message = WorkOrderNotifier.notify(work_order).deliver
-    Resque.enqueue WorkorderJob,work_order_id
-    
-  end
 
   def order_by
     params[:order_by] && (not Workorder::ORDER_BY.values.select{|v| v == params[:order_by]}.empty?) ? params[:order_by] : "workorders.performed desc"

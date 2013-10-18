@@ -33,6 +33,10 @@ class Car < ActiveRecord::Base
     %w(Nafta Diesel Gas)
   end
 
+  def search_service_offer companies_ids
+    CarServiceOffer.search_for(self.id,companies_ids)
+  end
+
 
   def set_new_attribute
     # si se modifico el km 

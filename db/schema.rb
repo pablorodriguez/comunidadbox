@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925231943) do
+ActiveRecord::Schema.define(:version => 20131015182540) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -511,15 +511,17 @@ ActiveRecord::Schema.define(:version => 20130925231943) do
     t.string   "comment"
     t.integer  "workorder_id"
     t.integer  "service_type_id"
-    t.string   "material",        :limit => 250
+    t.string   "material",             :limit => 250
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status"
     t.integer  "operator_id"
     t.integer  "budget_id"
+    t.integer  "car_service_offer_id"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"
+  add_index "services", ["car_service_offer_id"], :name => "services_car_service_offer_id_fk"
   add_index "services", ["operator_id"], :name => "services_operator_id_fk"
   add_index "services", ["service_type_id"], :name => "services_service_type_id_fk"
   add_index "services", ["workorder_id"], :name => "services_workorder_id_fk"
@@ -716,6 +718,7 @@ ActiveRecord::Schema.define(:version => 20130925231943) do
   add_foreign_key "service_types_tasks", "tasks", :name => "service_types_tasks_ibfk_2", :dependent => :delete
 
   add_foreign_key "services", "budgets", :name => "services_budget_id_fk", :dependent => :delete
+  add_foreign_key "services", "car_service_offers", :name => "services_car_service_offer_id_fk"
   add_foreign_key "services", "service_types", :name => "services_ibfk_1"
   add_foreign_key "services", "users", :name => "services_operator_id_fk", :column => "operator_id"
   add_foreign_key "services", "workorders", :name => "services_ibfk_2", :dependent => :delete

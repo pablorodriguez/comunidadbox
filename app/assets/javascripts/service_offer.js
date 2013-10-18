@@ -23,7 +23,7 @@ jQuery(document).ready( function(){
 	$('#todos').click(function(){checkAll(this);});
 	$("#service_offer_final_price").blur(calculateValues);
 	$("#service_offer_percent").blur(calculateValues);
-	$(".service_offer_row").live("click",viewRow).live("mouseover",showActionButtons).live("mouseleave",hideActionButtons);
+	//$(".service_offer_row").live("click",viewRow).live("mouseover",showActionButtons).live("mouseleave",hideActionButtons);
 	
 });
 

@@ -245,7 +245,7 @@ ComunidadBox::Application.routes.draw do
       post :send_notification
       post :new_s
       get :notify_email
-      get :notify
+      get :notify      
     end
 
   end
@@ -254,6 +254,9 @@ ComunidadBox::Application.routes.draw do
     member do
       get :confirm
       get :reject
+    end
+    collection do
+      get :confirmed
     end
   end
 

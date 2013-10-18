@@ -34,13 +34,7 @@
         =h service_offer.comment
     %tr  
       %td Dias
-      %td.label_title{:colspan=>3}
-        =h service_offer.monday ? "Lunes" : " "
-        =h service_offer.tuesday ? "Martes" : " "
-        =h service_offer.wednesday ? "Miercoles" : " "
-        =h service_offer.thursday ? "Jueves" : " "
-        =h service_offer.friday ? "Viernes" : " "
-        =h service_offer.saturday ? "Sabado" : " "
-        =h service_offer.sunday ? "Domingo" : " "
-        
-      
+      %td.label_title{:colspan=>3}        
+        - service_offer.valid_dates.each do |day|          
+          = t day
+

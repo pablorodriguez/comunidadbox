@@ -1,15 +1,16 @@
 class Service < ActiveRecord::Base
 
-  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes
+  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:car_service_offer_id,:car_service_offer
 
   belongs_to :workorder, :inverse_of => :services
   has_many :events,:dependent => :destroy,:inverse_of => :service
   
   belongs_to :budget
+  belongs_to :car_service_offer
   belongs_to :service_type
   belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
   
-  has_one :car_service_offer
+  belongs_to :car_service_offer
   has_many :material_services
   
   
@@ -24,12 +25,9 @@ class Service < ActiveRecord::Base
   
   def total_price
     m_total_price=0
-    if car_service_offer
-      m_total_price = car_service_offer.service_offer.final_price
-    else
-      material_services.each do |m|
-        m_total_price += m.total_price
-      end
+    
+    material_services.each do |m|
+      m_total_price += m.total_price
     end
     
     m_total_price

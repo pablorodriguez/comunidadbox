@@ -1,11 +1,12 @@
 .vertical_menu
   = render "home/menu"
   = render "home/default_actions"  
-  .menu_actions.box_bottom
-    .menu_data
-      %ul
-        %li
-          = link_to "Confirmar", confirm_car_service_offer_path(@car_service_offer),:title =>"Confirmar oferta de servicio"          
+  - if @car_service_offer.is_sent?
+    .menu_actions.box_bottom
+      .menu_data
+        %ul
+          %li
+            = link_to "Confirmar", confirm_car_service_offer_path(@car_service_offer),:title =>"Confirmar oferta de servicio"          
 .contentright_s
   .box_bottom 
     %h1

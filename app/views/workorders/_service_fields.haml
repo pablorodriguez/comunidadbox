@@ -36,6 +36,15 @@
         %th.number{:style=>'width:5%'}
           .remove_service.right
             = link_to_remove_fields f,:services,"Borrar Servicio"
+      - if f.object.car_service_offer 
+        %tr          
+          %th.number{:colspan=>4}
+            = f.hidden_field :car_service_offer_id
+            = link_to "Oferta de Servicio", f.object.car_service_offer,:target => "_blank"
+          %th.number
+            =number_to_currency(f.object.car_service_offer.service_offer.final_price)
+          %th
+             
     %tbody
       = f.fields_for :material_services do |ms_form|
         =render "material_service_fields",:f => ms_form      

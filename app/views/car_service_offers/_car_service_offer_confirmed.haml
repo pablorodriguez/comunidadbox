@@ -7,11 +7,9 @@
       .service_offer_title      
         = link_to service_offer.title, car_service_offer,:class =>"view"
       .service_offer_name
-        = service_offer.service_type.name
-      = icon_status(car_service_offer.status)
+        = service_offer.service_type.name      
       .domain_white
-        = link_to car_service_offer.car.domain,car_service_offer.car
-      = link_to "Realizado en servicio",car_service_offer.service.workorder,:target =>"_blank" if car_service_offer.service
+        = car_service_offer.car.domain
     .price_detail
       .price              
         Precio:
@@ -34,4 +32,7 @@
           %ul
             - service_offer.valid_dates.each do |day|
               %li
-                =t day
+                =day
+    .actions
+      .action
+        = link_to "", new_workorder_path(:car_id=>car_service_offer.car),{:title=>"Nuevo Servicio",:class =>"new_service"}

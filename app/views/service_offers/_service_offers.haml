@@ -1,6 +1,6 @@
 #service_offers
   - @offers.each do |offer|
-    #div{:id=>"row_#{offer.id}",:class=>"service_offer_row link row"}
+    #div{:id=>"row_#{offer.id}",:class=>"service_offer_row row"}
       .service_offer_info
         .service_offer_detail        
           .company_name        
@@ -22,25 +22,25 @@
           .price              
             Precio:
             = number_to_currency offer.final_price
-          .discount
+          .price
             Descuento:
             = number_to_percentage(offer.percent, :precision =>2)
         .valid
           .service_offer_valid
-            %span
+            %strong
               Valido
             %span
               = l offer.since unless offer.since.nil?
             %span
               = l offer.until unless offer.until.nil?
           .service_offer_dates
-            %span
+            %strong
               Dias
             .days
               %ul
                 - offer.valid_dates.each do |day|
                   %li
-                    =day
+                    =t day
       .serivce_offer_actions
         -if company_id && offer.status != Status::SENT
           #d

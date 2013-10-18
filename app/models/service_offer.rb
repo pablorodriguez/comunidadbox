@@ -1,8 +1,8 @@
 class ServiceOffer < ActiveRecord::Base
   attr_accessible :service_type_id, :title, :status, :comment, :price, :percent, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
 
-  has_many :car_service_offer  
-  has_many :cars, :through => :car_service_offer
+  has_many :car_service_offers
+  has_many :cars, :through => :car_service_offers
   belongs_to :service_type
   belongs_to :company
 
@@ -25,20 +25,20 @@ class ServiceOffer < ActiveRecord::Base
     status == Status::CONFIRMED
   end
 
-  def valid_dates
-      dates = []
-      dates << "Lunes" if monday
-      dates << "Martes" if tuesday
-      dates << "Miercoles" if wednesday
-      dates << "Jueves" if thursday
-      dates << "Viernes" if friday
-      dates << "Sabado" if saturday
-      dates << "Domingo" if sunday
-      dates
+ def valid_dates
+    days = []
+    days << "sunday" if self.sunday
+    days << "monday" if self.monday
+    days << "tuesday" if self.tuesday
+    days << "wednesday" if self.wednesday
+    days << "thursday" if self.thursday
+    days << "friday" if self.friday
+    days << "saturday" if self.saturday  
+    days
   end
 
   def my_cars user
-    car_service_offer.select{|cs| cs.car.user.id == user.id}
+    car_service_offers.select{|cs| cs.car.user.id == user.id}
   end
 
   #Busco las ofertas de servicio y las agrupo por auto

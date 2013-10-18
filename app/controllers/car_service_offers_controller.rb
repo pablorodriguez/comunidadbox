@@ -12,10 +12,13 @@ class CarServiceOffersController < ApplicationController
   end
   
   def confirm
-    car_service_offer = CarServiceOffer.find params[:id]
-    debugger
+    car_service_offer = CarServiceOffer.find params[:id]    
     car_service_offer.update_attribute(:status, Status::CONFIRMED)    
     redirect_to car_service_offer
+  end
+
+  def confirmed
+    @car_service_offers = CarServiceOffer.confirmed.company(company_id)
   end
   
   def reject

@@ -49,7 +49,15 @@ class Workorder < ActiveRecord::Base
   end
 
   def to_after_save
-    regenerate_events if is_finished?
+    if is_finished?
+      regenerate_events
+      send_notification
+      update_car_service_offers
+    end
+  end
+
+  def update_car_service_offers
+    CarServiceOffer.update_with_services(self.services)
   end
 
   def type(type)
@@ -71,13 +79,27 @@ class Workorder < ActiveRecord::Base
     type Rank::COMPANY
   end
 
+  # inicializo uan orden de trabajo con ofertas de servicios realizados
+  def initialize_with_car_service_offer companies_ids
+    if car
+      car_services_offers =  car.search_service_offer(companies_ids)
+
+      car_services_offers.each do |car_service_offer|
+        n_s = Service.new(service_type_id: car_service_offer.service_offer.service_type.id,car_service_offer_id: car_service_offer.id)
+        n_s.car_service_offer = car_service_offer
+        n_s.material_services << MaterialService.new(amount: 1,price: 0)
+        self.services << n_s      
+      end
+    end
+  end
+  
   # inizializo una orden de trabajo con un budget
   def initialize_with_budget n_budget
     self.car = n_budget.car
     self.budget = n_budget
     n_budget.services.each do |s|
       
-      n_s = Service.new(service_type_id: s.service_type_id)      
+      n_s = Service.new(service_type_id: s.service_type_id)
       s.material_services.each do |ms|
         new_m_s= MaterialService.new
         new_m_s.amount = ms.amount
@@ -194,15 +216,13 @@ class Workorder < ActiveRecord::Base
   
   def set_status
     n_status = Status::FINISHED
-    self.services.each do |s|
-      logger.debug "### Status #{s.status} Destroy #{s._destroy}"
+    self.services.each do |s|      
       if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
         n_status = Status::OPEN
       end
     end
 
-    n_status = Status::OPEN if self.services.empty?
-    logger.debug "### New Status #{n_status}"
+    n_status = Status::OPEN if self.services.empty?    
     self.status = n_status    
   end
   
@@ -295,6 +315,12 @@ class Workorder < ActiveRecord::Base
     event
   end
   
+  def send_notification
+    logger.info "### envio de notificacion mail #{self.id} Car: #{self.car.domain}"
+    #message = WorkOrderNotifier.notify(work_order).deliver
+    Resque.enqueue WorkorderJob,self.id
+  end
+
   
   def delete_event service
     logger.debug "### #{service.id} #{service.workorder}"
