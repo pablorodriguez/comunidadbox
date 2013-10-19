@@ -1,9 +1,8 @@
 class CarServiceOffersController < ApplicationController
   
   def show
-    @car_service_offer = CarServiceOffer.find params[:id]
-    @cars = [] 
-    @cars << @car_service_offer
+    @car_service_offer = CarServiceOffer.find params[:id]    
+    authorize! :read, @car_service_offer    
   end
   
   def index    

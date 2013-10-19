@@ -1,4 +1,5 @@
 class CarServiceOffer < ActiveRecord::Base
+  attr_accessible :car,:status
   include Statused  
 
   default_scope order('car_service_offers.created_at DESC')
@@ -13,11 +14,9 @@ class CarServiceOffer < ActiveRecord::Base
   
   def self.update_with_services(services)
     services.each do |s|
-      if s.car_service_offer_id
-        debugger
+      if s.car_service_offer_id        
         car_service_offers = CarServiceOffer.find s.car_service_offer_id
-        car_service_offers.status = Status::PERFORMED
-        car_service_offers.service_id = s.id
+        car_service_offers.status = Status::PERFORMED        
         car_service_offers.save                
       end
       
@@ -52,11 +51,18 @@ class CarServiceOffer < ActiveRecord::Base
   end
 
   def self.search_for(car_ids,company_ids)
-    cso = CarServiceOffer.cars(car_ids).company(company_ids).includes(:service_offer)
+    cso = search_by_car_and_companies(car_ids,company_ids)
+    remove_not_valid(cso)
+  end
+
+  def self.search_by_car_and_companies(car_ids,company_ids)
+    cso = CarServiceOffer.cars(car_ids).company(company_ids).confirmed.includes(:service_offer)
     cso = cso.where("service_offers.since <= :DATE and service_offers.until >= :DATE",:DATE => Time.now)
-    cso = cso.joins("LEFT JOIN services ON services.car_service_offer_id=car_service_offers.id").where("services.id is null")
-    cos.delete_if{|offer| offer.is_not_valid_today?}
-    cso
+    cso.joins("LEFT JOIN services ON services.car_service_offer_id=car_service_offers.id").where("services.id is null")        
+  end
+
+  def self.remove_not_valid car_service_offers
+    car_service_offers.delete_if{|offer| offer.is_not_valid_today?}
   end
 
 end

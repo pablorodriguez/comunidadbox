@@ -43,16 +43,16 @@ class ServiceOffersController < ApplicationController
       flash[:error] = 'Debe elegir al menos un automovil'
       redirect_to :back
     else
-      @offer.car_service_offer = []
+      @offer.car_service_offers = []
       logger.debug "### Cars IDS #{@events_ids}"
       @events_ids.each do |car_id|
         car_service_offer = CarServiceOffer.new
         car_service_offer.car = Car.find(car_id)
         car_service_offer.service_offer = @offer
-        @offer.car_service_offer << car_service_offer
+        @offer.car_service_offers << car_service_offer
       end
     end    
-    @cars = @offer.car_service_offer
+    @cars = @offer.car_service_offers
   end
   
   def list_offer_confirmed
@@ -79,10 +79,10 @@ class ServiceOffersController < ApplicationController
       
       car_service_offer.car = Car.find(car_id.to_i)
       car_service_offer.service_offer = @offer
-      @offer.car_service_offer << car_service_offer      
+      @offer.car_service_offers << car_service_offer      
     end
 
-    @cars = @offer.car_service_offer
+    @cars = @offer.car_service_offers
     if @offer.save
       redirect_to service_offers_path
     else
@@ -93,7 +93,7 @@ class ServiceOffersController < ApplicationController
   def edit
     @title ="Editar Oferta de Servicio"
     @offer = ServiceOffer.find(params[:id])
-    @cars = @offer.car_service_offer
+    @cars = @offer.car_service_offers
     if @offer.status != Status::OPEN
       flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"
       redirect_to service_offers_path

@@ -120,15 +120,12 @@ ActiveRecord::Schema.define(:version => 20131015182540) do
   create_table "car_service_offers", :force => true do |t|
     t.integer  "car_id"
     t.integer  "service_offer_id"
-    t.integer  "service_id"
     t.integer  "status"
-    t.string   "status_old"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "car_service_offers", ["car_id"], :name => "car_service_offers_car_id_fk"
-  add_index "car_service_offers", ["service_id"], :name => "car_service_offers_idfk_3"
   add_index "car_service_offers", ["service_offer_id"], :name => "car_service_offers_service_offer_id_fk"
 
   create_table "cars", :force => true do |t|
@@ -655,7 +652,6 @@ ActiveRecord::Schema.define(:version => 20131015182540) do
 
   add_foreign_key "car_service_offers", "cars", :name => "car_service_offers_ibfk_1", :dependent => :delete
   add_foreign_key "car_service_offers", "service_offers", :name => "car_service_offers_ibfk_2", :dependent => :delete
-  add_foreign_key "car_service_offers", "services", :name => "car_service_offers_idfk_3", :dependent => :nullify
 
   add_foreign_key "cars", "brands", :name => "cars_ibfk_1"
   add_foreign_key "cars", "models", :name => "cars_ibfk_2"

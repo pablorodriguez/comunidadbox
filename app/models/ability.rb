@@ -79,6 +79,14 @@ class Ability
       w.car.user == user || user.is_employee?
     end
 
+    can :read, CarServiceOffer do |cso|    
+      if user.company
+        cso.service_offer.company == user.company 
+      else
+        user.own_car(cso.car)
+      end
+    end
+
     can :pdf, Workorder do |w|
       w.can_show_pdf? user
     end
