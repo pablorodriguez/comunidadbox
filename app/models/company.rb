@@ -1,5 +1,5 @@
 class Company < ActiveRecord::Base
-  default_scope order('active = 1')
+  default_scope where('active = 1')
   attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes
 
   validates :name,:presence => true
