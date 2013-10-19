@@ -17,13 +17,12 @@ class WorkorderTest < ActiveSupport::TestCase
     @wo = create(:wo_oc,:car => car,:user => @employer,:company => @employer.company,:performed => performed)
     event = @wo.services.first.events.first    
     assert event.dueDate == performed + 2.months,"Event no esta a los 2 meses"
-
     car.kmAverageMonthly = 2000
     car.save
     
     @wo.reload
-    event = @wo.services.first.events.first    
-    assert event.dueDate == performed + 5.months
+    event = @wo.services.first.events.first
+    assert event.dueDate == performed + 5.months ,"Error en dueDate despues de actualizar kilometraje al auto"
 
   end
 

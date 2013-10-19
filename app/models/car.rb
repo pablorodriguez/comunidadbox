@@ -90,12 +90,12 @@ class Car < ActiveRecord::Base
   end
 
   def update_events
-    future_events.active.each do |event|
+    future_events.active.each do |event|      
       months = (event.km - km) / kmAverageMonthly
       #old_date = event.dueDate
       e = Event.find event.id
-      e.dueDate = months.months.since
-      e.save
+      e.dueDate = months.months.since.to_date
+      e.save      
       #puts "Old Date: #{old_date}, KM: #{event.km} , New Date: #{event.dueDate} Months : #{months}"
     end    
   end
