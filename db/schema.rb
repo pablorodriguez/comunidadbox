@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131002180608) do
+ActiveRecord::Schema.define(:version => 20131015172251) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -282,11 +282,14 @@ ActiveRecord::Schema.define(:version => 20131002180608) do
     t.integer  "service_type_id"
     t.text     "description"
     t.string   "provider"
-    t.integer  "cod_provider"
+    t.string   "cod_provider"
     t.string   "trademark"
     t.string   "state"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "message"
+    t.string   "integer"
+    t.integer  "material"
   end
 
   add_index "material_requests", ["company_id"], :name => "index_material_requests_on_company_id"
