@@ -19,20 +19,21 @@
     .recpatcha      
       #repatcha_tag
         = recaptcha_tags  
-#user_data
-  #car_info.box_bottom
-    %h3
-      Información de su auto
-    =f.fields_for :cars do |c|
-      = render 'users/car_fields',:f =>c
-  #personal_address.box_bottom
-    %h3
-      Dirección Personal
-    =f.fields_for :address do |a|
-      = render 'users/user_address_fields', :f =>a
-=f.fields_for :companies do |c|
-  #company_data.hide
-    = render 'companies/form', :f => c
+-unless current_user.is_super_admin?
+  #user_data
+    #car_info.box_bottom
+      %h3
+        Información de su auto
+      =f.fields_for :cars do |c|
+        = render 'users/car_fields',:f =>c
+    #personal_address.box_bottom
+      %h3
+        Dirección Personal
+      =f.fields_for :address do |a|
+        = render 'users/user_address_fields', :f =>a
+  =f.fields_for :companies do |c|
+    #company_data.hide
+      = render 'companies/form', :f => c
 .buttons_container 
   = f.submit "Grabar",:class=>"button"
   = link_to "Cancelar",root_path
