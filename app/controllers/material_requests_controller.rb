@@ -8,16 +8,12 @@ class MaterialRequestsController < ApplicationController
   	end
   end
 
-  def index
-    if user_signed_in? && current_user.is_super_admin?
-      @material_requests = MaterialRequest.find(:all)
-    else
-      @material_requests = current_user.material_requests
-      respond_to do |format|
-        format.html # index.html.erb
-        format.xml  { render :xml => @material_requests }
-      end
-    end
+  def index  
+    @material_requests = current_user.search_material_request
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @material_requests }
+    end  
   end
 
  def create

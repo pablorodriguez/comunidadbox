@@ -17,9 +17,9 @@
       - else       
         .box_bottom
           = render 'form',:f => f
-        .buttons_container.box_bottom
-        = f.submit "Actualizar",:class =>"button"
-        = link_to "Cancelar",material_requests_path
+        .buttons_container
+          = f.submit "Actualizar",:class =>"button"
+          = link_to "Cancelar",material_requests_path
 
    
      

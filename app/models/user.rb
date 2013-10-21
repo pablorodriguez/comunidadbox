@@ -50,6 +50,14 @@ class User < ActiveRecord::Base
   before_save :nil_if_blank
   #validate :validate_all
 
+  def search_material_request
+    if self.is_super_admin?
+      MaterialRequest.find(:all)
+    else
+      self.material_requests
+    end
+  end
+
   def validate_all
     unless self.creator.companies.find_by_id(self.employer_id)
       errors[:base] << "El empleador es incorrecto"
