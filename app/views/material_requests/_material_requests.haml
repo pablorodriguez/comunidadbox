@@ -35,7 +35,7 @@
           = mr.service_type.name
         %td
           = mr.state
-        -if !current_user.is_super_admin?
+        -if user_signed_in? &&!current_user.is_super_admin?
           %td 
             = mr.message
         -if user_signed_in? && current_user.is_super_admin?
