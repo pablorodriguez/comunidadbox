@@ -17,8 +17,8 @@ class Status
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
     }
 
-  WO_STATUS_IDS ={
-    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN
+  STATUS_IDS ={
+    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN,approved: APPROVED,rejected: REJECTED
   }
   
   STATUS = {
