@@ -9,7 +9,7 @@
   = form_for @material_request, :url => material_requests_path do |f|    
     .box_bottom
       = render :partial => 'form',:locals  =>{:f => f}
-    .box_bottom
+    .buttons_container.box_bottom
       = f.submit "Grabar",:class =>"button"
       = link_to "Cancelar",material_requests_path
 

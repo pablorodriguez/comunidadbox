@@ -12,17 +12,16 @@
         %th Estado
         -if !current_user.is_super_admin?
           %th Mensaje
-
-        -if user_signed_in? && current_user.is_super_admin?
-          %th Descripción
+        %th Descripción
+        %th Detalles
         %th M
-        -if user_signed_in? && current_user.is_super_admin?
+        -if current_user.is_super_admin?
           %th A
           %th R
      
       -for mr in @material_requests
         %tr
-        -if user_signed_in? && current_user.is_super_admin?
+        -if current_user.is_super_admin?
           %td
             = link_to h(mr.user.first_name + mr.user.last_name) ,user_path(mr.user_id),:title =>"Ver Cliente"
         %td
@@ -35,12 +34,13 @@
           = mr.service_type.name
         %td
           = mr.state
-        -if user_signed_in? &&!current_user.is_super_admin?
+        -if !current_user.is_super_admin?
           %td 
             = mr.message
-        -if user_signed_in? && current_user.is_super_admin?
-          %td
-            = mr.description
+        %td
+          = mr.description
+        %td
+          = mr.details
         %td
           -if mr.state == "ABIERTO" && !current_user.is_super_admin?
             = link_to image_tag('edit.png',:title =>"Modificar"), edit_material_request_path(mr)
