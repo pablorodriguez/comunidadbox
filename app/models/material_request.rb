@@ -23,8 +23,17 @@ class MaterialRequest < ActiveRecord::Base
   def is_open?
     state == Status::OPEN
   end
+  def is_approved?
+    state == Status::APPROVED
+  end
+  def is_rejected?
+    state == Status::REJECTED
+  end
+
   private
     def init
       self.state = Status::OPEN unless self.state
     end
 end
+
+

@@ -14,10 +14,12 @@
           %th Mensaje
         %th Descripción
         %th Detalles
-        %th M
-        %th E
+        -if !current_user.is_super_admin?
+          %th M
+          %th E
 
         -if current_user.is_super_admin?
+          %th M
           %th A
           %th R
      
@@ -51,10 +53,12 @@
             = link_to image_tag('delete.png',:title =>"Eliminar"),material_request_path(mr), :confirm => '¿ Esta seguro que desea Eliminar la Solicitud?', :method => :delete
 
         -if !(mr.is_open?) && current_user.is_super_admin?
+
           %td
             = link_to image_tag('edit.png',:title =>"Modificar"),edit_material_request_path(mr)
             
         -if mr.is_open? && current_user.is_super_admin?
+          %td
           %td
             = link_to image_tag('active.png',:title =>"Pendientes de Aprobación"), approved_material_request_path(mr), :confirm => '¿ Esta seguro que desea aprobar la solicitud ?'
           %td

@@ -56,18 +56,18 @@ class MaterialRequestsController < ApplicationController
           format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
         end
       end 
-      if @material_request.state == 11 && current_user.is_super_admin?
+      if @material_request.is_rejected? && current_user.is_super_admin?
         if @material_request.update_attributes(params[:material_request]) 
-            format.html { redirect_to :action => "approved" }
+            format.html { redirect_to :action => "destroy" }
             format.xml  { head :ok }
           else
             format.html { render :action => "edit" }
             format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
           end
       end
-      if @material_request.state == 12 && current_user.is_super_admin?
+      if @material_request.is_approved? && current_user.is_super_admin?
         if @material_request.update_attributes(params[:material_request]) 
-            format.html { redirect_to :action => "destroy" }
+            format.html { redirect_to :action => "approved" }
             format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
@@ -80,9 +80,10 @@ class MaterialRequestsController < ApplicationController
   def destroy
     @material_request = MaterialRequest.find(params[:id])
     if user_signed_in? && current_user.is_super_admin?
-      @material_request.update_attribute(:state, '11') 
+      @material_request.update_attribute(:state, Status::REJECTED) 
       respond_to do |format|
-        format.html { render :action => "show" }
+       flash[:notice] = 'La solicitud del material ah sido Rechazada.'
+        format.html { render :action => "edit" }
         format.xml  { head :ok }
       end   
     else
@@ -94,18 +95,6 @@ class MaterialRequestsController < ApplicationController
     end
   end
 
-  def disapproved
-    @material_request = MaterialRequest.find(params[:id])
-    @material = Material.find(@material_request.material)
-    @material_service_type = MaterialServiceType.find_by_material_id(@material).delete
-    @material.delete
-     respond_to do |format|
-      flash[:notice] = 'La solicitud del material ah sido rechazada y eliminada de materiales.'
-        format.html {  redirect_to(@material_request) }
-        format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
-    end
-  end
-
   def approved
     @material_request = MaterialRequest.find params[:id]
     @code = @material_request.code
@@ -114,9 +103,9 @@ class MaterialRequestsController < ApplicationController
     @material_request.material = @material.id
     respond_to do |format|
     if @material_service_type.save
-       @material_request.update_attribute(:state, '12')
+       @material_request.update_attribute(:state, Status::APPROVED)
         flash[:notice] = 'La solicitud del material ah sido aprobada.'
-        format.html {  redirect_to :action => "show" }
+        format.html {  redirect_to :action => "edit" }
         format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
       else
         flash[:notice] = 'No se pudo salvar'
