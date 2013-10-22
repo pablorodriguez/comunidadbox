@@ -18,7 +18,7 @@ CREATE TABLE `addresses` (
   CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `addresses_ibfk_2` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`),
   CONSTRAINT `addresses_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5401 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5402 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `alarms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -155,7 +155,7 @@ CREATE TABLE `cars` (
   CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`),
   CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
   CONSTRAINT `cars_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12706 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12707 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -182,7 +182,7 @@ CREATE TABLE `companies` (
   KEY `companies_user_id_fk` (`user_id`) USING BTREE,
   CONSTRAINT `companies_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`),
   CONSTRAINT `companies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `companies_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -195,7 +195,7 @@ CREATE TABLE `companies_users` (
   KEY `companies_users_user_id_fk` (`user_id`),
   CONSTRAINT `companies_users_company_id_fk` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`),
   CONSTRAINT `companies_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11342 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11343 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `company_services` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -206,7 +206,7 @@ CREATE TABLE `company_services` (
   KEY `company_services_service_type_id_fk` (`service_type_id`) USING BTREE,
   CONSTRAINT `company_services_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`),
   CONSTRAINT `company_services_ibfk_2` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -257,7 +257,7 @@ CREATE TABLE `events` (
   PRIMARY KEY (`id`),
   KEY `events_service_id_fk` (`service_id`) USING BTREE,
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36859 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36857 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `guests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -314,7 +314,7 @@ CREATE TABLE `material_services` (
   KEY `material_services_material_service_type_id_fk` (`material_service_type_id`) USING BTREE,
   CONSTRAINT `material_services_ibfk_1` FOREIGN KEY (`material_service_type_id`) REFERENCES `material_service_types` (`id`),
   CONSTRAINT `material_services_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=84429 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84428 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -580,12 +580,12 @@ CREATE TABLE `services` (
   KEY `services_operator_id_fk` (`operator_id`),
   KEY `services_budget_id_fk` (`budget_id`),
   KEY `services_car_service_offer_id_fk` (`car_service_offer_id`),
-  CONSTRAINT `services_car_service_offer_id_fk` FOREIGN KEY (`car_service_offer_id`) REFERENCES `car_service_offers` (`id`),
   CONSTRAINT `services_budget_id_fk` FOREIGN KEY (`budget_id`) REFERENCES `budgets` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `services_car_service_offer_id_fk` FOREIGN KEY (`car_service_offer_id`) REFERENCES `car_service_offers` (`id`),
   CONSTRAINT `services_ibfk_1` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`id`),
   CONSTRAINT `services_ibfk_2` FOREIGN KEY (`workorder_id`) REFERENCES `workorders` (`id`) ON DELETE CASCADE,
   CONSTRAINT `services_operator_id_fk` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41686 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41685 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `services_tasks` (
   `service_id` int(11) DEFAULT NULL,
@@ -605,7 +605,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`id`),
   KEY `index_sessions_on_session_id` (`session_id`) USING BTREE,
   KEY `index_sessions_on_updated_at` (`updated_at`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=73818 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73829 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `states` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -650,7 +650,7 @@ CREATE TABLE `user_roles` (
   KEY `user_roles_role_id_fk` (`role_id`) USING BTREE,
   CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
   CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=450215529 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=450215530 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -691,7 +691,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`) USING BTREE,
   KEY `users_employer_id_fk` (`employer_id`) USING BTREE,
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `companies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11376 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11378 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `workorders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -720,7 +720,7 @@ CREATE TABLE `workorders` (
   CONSTRAINT `workorders_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`),
   CONSTRAINT `workorders_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `workorders_payment_method_id_fk` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18270 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18269 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO schema_migrations (version) VALUES ('20090310164025');
 

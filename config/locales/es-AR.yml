@@ -164,6 +164,7 @@ es-AR:
         less_than_or_equal_to: debe ser menor o igual que %{count}
         odd: debe ser par
         even: debe ser impar
+        record_invalid: El registro es invalido
   support:
     array:
       words_connector: ", "

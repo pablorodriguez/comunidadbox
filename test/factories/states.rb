@@ -4,7 +4,7 @@ FactoryGirl.define do
     id 1
     short_name "MDZ"
     name "Mendoza"
-    country_id {Country.find(1)}
+    association :country, factory: :argentina
   end
 
 end

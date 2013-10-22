@@ -57,7 +57,6 @@ class ControlPanelsControllerTest < ActionController::TestCase
   #test "filter alarms by dates" do
   #  sign_in @employer        
   #  @request.cookies["company_id"]= @employer.company.id.to_s
-  #  debugger
   #  get :filter_alarms,:st => 2,:service_filter =>{date_from: "01/02/2012",date_to: "29/02/2012"}
   #  assert_response :success
   #  assert_template :filter_alarms

@@ -1,5 +1,4 @@
 class Company < ActiveRecord::Base
-  default_scope where('active = 1')
   attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes
 
   validates :name,:presence => true
@@ -19,12 +18,18 @@ class Company < ActiveRecord::Base
   has_many :service_offers
   has_many :service_type_templates
 
+  scope :confirmed, includes(:user).where("users.confirmed = 1")
+
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
   
   def is_employee usr
     return (user.id == usr.id || ((usr.employer) && (usr.employer.id == id))) ? true : false
+  end
+
+  def is_confirmed?
+    user.confirmed
   end
 
   def full_address
@@ -86,8 +91,8 @@ class Company < ActiveRecord::Base
   end
 
   def self.best(state_id = nil)
-    return Company.includes(:address).where("addresses.state_id = ? and companies.id > 1",state_id) if state_id
-    return Company.where("companies.id > 1") unless state_id
+    return Company.confirmed.includes(:address).where("addresses.state_id = ? and companies.id > 1",state_id) if state_id
+    return Company.confirmed.where("companies.id > 1") unless state_id
   end
 
   def self.update_customer

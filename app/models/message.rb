@@ -21,7 +21,6 @@ class Message < ActiveRecord::Base
 
   def self.messages_for_user(user)    
     #ids = where("user_id = ? and message_id is not null", user.id).pluck(:message_id)
-    #debugger
     # where("(user_id = :USER_ID AND message_id is null)",USER_ID: user.id)
     #where("(user_id = :USER_ID AND message_id is null) or id IN (:IDS)",USER_ID: user.id,IDS: ids).order("created_at DESC")
     where("(user_id = :USER_ID) or (receiver_id = :USER_ID)",USER_ID: user.id).order("created_at")

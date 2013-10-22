@@ -3,7 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-	include FactoryGirl::Syntax::Methods
+  include FactoryGirl::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
@@ -17,7 +17,7 @@ end
 module ComunidadBox::TestHelpers
   def create_all_default_data
     #create country and states
-    create :argentina
+    #create :argentina
     create :mendoza
 
     #create brand
@@ -47,15 +47,17 @@ module ComunidadBox::TestHelpers
     create :hand_work_oil_change
     
     #create roles
-    create(:administrator)
+    create :administrator
   end
 end
 
 class ActionController::TestCase
-	include Devise::TestHelpers
+  include Devise::TestHelpers
   include ComunidadBox::TestHelpers
 end
 
 class ActiveSupport::TestCase  
   include ComunidadBox::TestHelpers
 end
+
+require "mocha/setup"

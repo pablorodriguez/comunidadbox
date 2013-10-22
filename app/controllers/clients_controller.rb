@@ -33,7 +33,6 @@ class ClientsController < ApplicationController
   # DELETE /cars/1.xml
   def destroy
     @client = User.find(params[:id])
-    debugger
     authorize! :destroy, @client
     @client.destroy
 

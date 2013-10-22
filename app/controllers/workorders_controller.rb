@@ -162,7 +162,6 @@ class WorkordersController < ApplicationController
       @work_order.services.each{|service| service.tasks.clear}
       if params[:service_type_ids]
         @work_order.services.each do |service|
-          debugger
           unless params[:service_type_ids][service.service_type.id.to_s].nil?
             service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
           end
@@ -198,8 +197,7 @@ class WorkordersController < ApplicationController
     params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]
     
     @work_order = Workorder.new(params[:workorder])
-    authorize! :create, @work_order
-    
+    authorize! :create, @work_order    
     
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
       @work_order.company_id = company_id.id 

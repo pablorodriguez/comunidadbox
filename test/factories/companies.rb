@@ -5,6 +5,7 @@ FactoryGirl.define do
     name "Valle Grande Neumaticos-Mendoza (Cnel. Plaza)"    
     phone "0261-4526157"
     website "www.neumaticosvallegrande.com.ar"
+    active 1
     address {FactoryGirl.build(:valle_grande_mendoza_plaza_address)}
   end
   

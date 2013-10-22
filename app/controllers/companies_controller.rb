@@ -196,7 +196,7 @@ class CompaniesController < ApplicationController
     companyService.save
     @msg ="Tipo de Servicio asociado exitosamente"
     respond_to do |format|
-        format.js {render :msg}
+        format.js {render :layout => false}
     end
   end
 
@@ -211,7 +211,7 @@ class CompaniesController < ApplicationController
       company_service[0].delete
     end
     respond_to do |format|
-        format.js {render :msg}
+        format.js {render :layout => false}
     end
   end
 

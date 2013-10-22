@@ -36,7 +36,7 @@ class BudgetsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:budgets)
-    assert_select("div",:class=>"budget_row")
+    assert_select("div",:class=>"budget_row",:count => 1)
     assert_select("a.edit",:count => 1)    
   end
 

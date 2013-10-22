@@ -7,7 +7,7 @@ end
 
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -42,6 +42,9 @@ group :development, :test do
   gem "timecop"
   gem "better_errors"
 end
+
+gem "mocha",:require => false
+
 
 # GEOLOCALIZACION Y MAPAS
 gem 'geocoder'
