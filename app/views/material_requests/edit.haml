@@ -8,10 +8,11 @@
 .contentright_s
   .box_bottom
     %h1 Modificar Solicitud 
+
   = form_for  @material_request, :url => material_request_path(@material_request)  do |f| 
     .box_bottom
       - if current_user.is_super_admin? 
-        = render "edit_state"
+        = render "edit_state",:f => f
       - else       
         = render 'form',:f => f
     .buttons_container.box_bottom

@@ -18,7 +18,7 @@ class Status
     }
 
   STATUS_IDS ={
-    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN,approved: APPROVED,rejected: REJECTED
+    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED
   }
   
   STATUS = {

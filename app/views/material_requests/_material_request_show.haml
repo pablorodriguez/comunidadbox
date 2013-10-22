@@ -27,6 +27,11 @@
     Tipo de Servicio:
     = @material_request.service_type.name
 
+%p
+  %label
+    Estado:
+    = @material_request.state
+
 -if user_signed_in? && current_user.is_super_admin? && !@material_request.message.nil?
   %p
     %label
@@ -42,7 +47,6 @@
       Cliente:
       =@material_request.user.email
 
--if user_signed_in? && current_user.is_super_admin? && !@material_request.message.nil?
   %p
     %label
       Mensaje:

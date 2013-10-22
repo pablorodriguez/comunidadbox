@@ -20,7 +20,6 @@ class MaterialRequestsController < ApplicationController
     @material_request = MaterialRequest.new(params[:material_request])
     @material_request.user_id = current_user.id
     @material_request.company_id = current_user.company.id
-    @material_request.state = "ABIERTO"
     respond_to do |format|
       if @material_request.save
         flash[:notice] = 'La solicitud del material ah sido creada.'
@@ -57,7 +56,7 @@ class MaterialRequestsController < ApplicationController
           format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
         end
       end 
-      if @material_request.state == "Rechazado" && current_user.is_super_admin?
+      if @material_request.state == 11 && current_user.is_super_admin?
         if @material_request.update_attributes(params[:material_request]) 
             format.html { redirect_to :action => "approved" }
             format.xml  { head :ok }
@@ -66,9 +65,9 @@ class MaterialRequestsController < ApplicationController
             format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
           end
       end
-      if @material_request.state == "Aprobado" && current_user.is_super_admin?
+      if @material_request.state == 12 && current_user.is_super_admin?
         if @material_request.update_attributes(params[:material_request]) 
-            format.html { redirect_to :action => "disapproved" }
+            format.html { redirect_to :action => "destroy" }
             format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
@@ -81,7 +80,7 @@ class MaterialRequestsController < ApplicationController
   def destroy
     @material_request = MaterialRequest.find(params[:id])
     if user_signed_in? && current_user.is_super_admin?
-      @material_request.update_attribute(:state, 'Rechazado') 
+      @material_request.update_attribute(:state, '11') 
       respond_to do |format|
         format.html { render :action => "show" }
         format.xml  { head :ok }
@@ -108,15 +107,14 @@ class MaterialRequestsController < ApplicationController
   end
 
   def approved
-    @material_code = Material.where("code like ?","NM%").last
-    @code =  @material_code.code.succ
     @material_request = MaterialRequest.find params[:id]
+    @code = @material_request.code
     @material = Material.create(:code => @code,:prov_code => @code, :provider => @material_request.provider, :name => @material_request.description)
     @material_service_type = MaterialServiceType.create(:service_type_id => @material_request.service_type_id, :material_id => @material.id)
     @material_request.material = @material.id
     respond_to do |format|
     if @material_service_type.save
-       @material_request.update_attribute(:state, "Aprobado")
+       @material_request.update_attribute(:state, '12')
         flash[:notice] = 'La solicitud del material ah sido aprobada.'
         format.html {  redirect_to :action => "show" }
         format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
