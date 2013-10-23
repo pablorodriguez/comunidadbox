@@ -8,7 +8,7 @@ class CreateMaterialRequests < ActiveRecord::Migration
       t.string :provider
       t.integer :cod_provider
       t.string :trademark
-      t.string :state
+      t.string :status
 
       t.timestamps
     end

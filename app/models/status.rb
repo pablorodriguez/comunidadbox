@@ -17,6 +17,10 @@ class Status
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
     }
 
+  MR_STATUS = {
+    OPEN =>'Abierto',APPROVED => 'Aprobado',REJECTED =>'Rechazado'
+  }
+
   STATUS_IDS ={
     finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED
   }
@@ -25,7 +29,7 @@ class Status
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
     FINISHED=>'Terminado',COMPLETED=>'Completado',ACTIVE =>'Activo',
     CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>"Enviado",PENDING=>'Pendiente',
-    REJECTED =>'Rechazado'
+    REJECTED =>'Rechazado',APPROVED =>"Aprobado"
     }
   
   ALARMS_STATUS ={

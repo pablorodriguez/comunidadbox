@@ -1,7 +1,10 @@
 %p
-%label{:for => "state"}
-= f.select(:state, [['Aprobar',12],['Rechazar',11]], {},{:class=>'long_select',:style=>"Width:265px"})
+	%label{:for => "status"}
+		Estado
+	%br
+	= f.select(:status,Status::MR_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'long_select',:title=>"Estado"})
 %p
-%label{:for => "message"}
-= t ".Enviar Mensaje"
-= f.text_field :message
+	%label{:for => "message"}		
+		Comentario
+	%br
+	= f.text_area :message,:cols => 40,:rows=>10

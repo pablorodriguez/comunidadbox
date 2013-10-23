@@ -46,33 +46,14 @@ class MaterialRequestsController < ApplicationController
 
   def update
     @material_request = MaterialRequest.find(params[:id])
-     respond_to do |format|
-      if !current_user.is_super_admin?
-        if @material_request.update_attributes(params[:material_request]) 
-           format.html { redirect_to(material_request_path) }
-           format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
-        end
-      end 
-      if @material_request.is_rejected? && current_user.is_super_admin?
-        if @material_request.update_attributes(params[:material_request]) 
-            format.html { redirect_to :action => "destroy" }
-            format.xml  { head :ok }
-          else
-            format.html { render :action => "edit" }
-            format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
-          end
-      end
-      if @material_request.is_approved? && current_user.is_super_admin?
-        if @material_request.update_attributes(params[:material_request]) 
-            format.html { redirect_to :action => "approved" }
-            format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @material_request.update_attributes(params[:material_request]) 
+         format.html { redirect_to(material_request_path) }
+         format.xml  { head :ok }
+      else
+        debugger
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -95,25 +76,6 @@ class MaterialRequestsController < ApplicationController
     end
   end
 
-  def approved
-    @material_request = MaterialRequest.find params[:id]
-    @code = @material_request.code
-    @material = Material.create(:code => @code,:prov_code => @code, :provider => @material_request.provider, :name => @material_request.description)
-    @material_service_type = MaterialServiceType.create(:service_type_id => @material_request.service_type_id, :material_id => @material.id)
-    @material_request.material = @material.id
-    respond_to do |format|
-    if @material_service_type.save
-       @material_request.update_attribute(:state, Status::APPROVED)
-        flash[:notice] = 'La solicitud del material ah sido aprobada.'
-        format.html {  redirect_to :action => "edit" }
-        format.xml  { render :xml => @material_request, :status => :created, :location => @material_request }
-      else
-        flash[:notice] = 'No se pudo salvar'
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
-    end
-  end
- end
 
  def search
     state = params[:state] || ""
