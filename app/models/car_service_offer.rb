@@ -1,7 +1,7 @@
 class CarServiceOffer < ActiveRecord::Base
   belongs_to :car
   belongs_to :service_offer
-  belongs_to :service
+  has_one :service
   
   scope :acepted, where("car_service_offers.status = ?", Status::CONFIRMED)
   scope :cars, lambda{|car_id |where("car_id =?",car_id)}

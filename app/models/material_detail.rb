@@ -24,7 +24,7 @@ class MaterialDetail < ActiveRecord::Base
     detail.gsub!(" ","%")
     MaterialDetail.where('detail_upper LIKE ? and service_type_id = ? and company_id = ?',"%#{detail}%",service_type_id,company_id)
   end
-    
+
   
   
 end
