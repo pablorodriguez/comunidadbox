@@ -50,12 +50,17 @@ class User < ActiveRecord::Base
   before_save :nil_if_blank
   #validate :validate_all
 
-  def search_material_request
+  def search_material_request(status,detail)
     if self.is_super_admin?
-      MaterialRequest.find(:all)
+      m = MaterialRequest.where("description like ?","%#{detail}%")    
     else
-      self.material_requests
+      m = self.material_requests.where("description like ?","%#{detail}%")
+    end    
+    
+    unless status.empty?
+      m = m.where("status = ?",status.to_i)
     end
+    m
   end
 
   def validate_all

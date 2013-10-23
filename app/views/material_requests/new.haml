@@ -6,7 +6,7 @@
     %h1
       Nueva Solicitud
   
-  = form_for @material_request, :url => material_requests_path do |f|    
+  = form_for @material_request do |f|    
     .box_bottom
       = render :partial => 'form',:locals  =>{:f => f}
     .buttons_container.box_bottom

@@ -14,17 +14,17 @@ class MaterialRequest < ActiveRecord::Base
   before_save :to_before_save
 
   def to_before_save
-    if change_to_approved?
+    if status_change_to_approved?
         generate_new_material
     end
   end
 
-  def change_to_approved?
+  def status_change_to_approved?
     ((self.status_was != Status::APPROVED ) && (self.status == Status::APPROVED)) ? true : false
   end
 
   def self.generate_new_code
-    material_code = Material.where("code like ?","NM%").last
+    material_code = Material.where("code like ?","NM%").order("code DESC").first
     if material_code.nil?
       "NM00000"
     else

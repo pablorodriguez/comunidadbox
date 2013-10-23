@@ -1,15 +1,15 @@
 .box_bottom
   #material_request
     %h3 Buscar
-    = form_for :material_request, :remote =>true, :url => search_material_requests_path do
+    = form_for :material_request, :url => material_requests_path,:method => :get do
       %table.w
         %thead
           %tr
             %td
-              = text_field_tag 'state',"",:class=>"labelify input",:title=>"Estado"
+              = text_field_tag 'status',"",:class=>"input",:title=>"Estado"
           %tr
             %td
-              = text_field_tag 'created_at',"",:class=>"labelify input",:title=>"Año-Mes-Día"
+              = text_field_tag 'detail',"",:class=>"input",:title=>"Año-Mes-Día",:placeholder =>"Descripción"
           %tr
             %td
               = image_submit_tag("find.png",:class =>"input_img")
