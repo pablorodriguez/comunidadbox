@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021164101) do
+ActiveRecord::Schema.define(:version => 20131021180548) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -284,7 +284,7 @@ ActiveRecord::Schema.define(:version => 20131021164101) do
     t.string   "provider"
     t.string   "cod_provider"
     t.string   "trademark"
-    t.string   "state"
+    t.integer  "state"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "message"
