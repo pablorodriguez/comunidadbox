@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
     end    
     
     unless status.empty?
-      m = m.where("status = ?",status.to_i)
+      m = m.where("status =?",status)
     end
     m
   end
