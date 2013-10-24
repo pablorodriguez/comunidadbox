@@ -1,12 +1,12 @@
 .box_bottom
   #material_request
     %h3 Buscar
-    = form_for :material_request, :url => material_requests_path,:method => :get do
+    = form_for :material_request, :url => material_requests_path,:method => :get do 
       %table.w
         %thead
           %tr
             %td
-              = text_field_tag 'status',"",:class=>"input",:title=>"Estado"
+              = select("","status",Status::MR_STATUS.collect{|k,v| [v,k]},{:prompt => "Seleccione un estado"},{:class=>'long_select',:title=>"Estado"})
           %tr
             %td
               = text_field_tag 'detail',"",:class=>"input",:title=>"Año-Mes-Día",:placeholder =>"Descripción"
