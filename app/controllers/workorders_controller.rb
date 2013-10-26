@@ -208,16 +208,7 @@ class WorkordersController < ApplicationController
     @work_order.notes.first.creator = current_user unless @work_order.notes.empty?
     @work_order.notes.first.user = current_user unless @work_order.notes.empty?
     
-    saveAction =false
-    
-    saveAction = @work_order.save
-    if @work_order.is_finished?
-      #@work_order.generate_events
-      # @work_order.reload      
-      send_notification @work_order.id
-    end
-
-    if saveAction
+    if @work_order.save
       if params[:service_type_ids]
         @work_order.services.all.each do |service|
           service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])

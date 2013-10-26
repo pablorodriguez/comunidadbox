@@ -5,9 +5,14 @@
   = f.text_field :name
 %p
   %label{ :for => "kms" }
-  = t(".kilometro")
+  = t(".km")
   %br
   = f.text_field :kms
+%p
+  %label{ :for => "days" }
+  = t(".days")
+  %br
+  = f.text_field :days
 %p
   %label{ :for => "parent_id" }
   = t(".belongs_to")

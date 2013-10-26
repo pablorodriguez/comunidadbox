@@ -30,8 +30,9 @@ class BudgetsControllerTest < ActionController::TestCase
   end
 
   test "employee should get index" do
-    budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
+    budget =  create(:budget_two,:creator => @emp_walter,:company => @emp_walter.company)
     @request.cookies["company_id"]= @emp_walter.company.id.to_s
+    
     sign_in @emp_walter
     get :index
     assert_response :success

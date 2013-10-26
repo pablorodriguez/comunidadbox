@@ -1,5 +1,5 @@
 class ServiceType < ActiveRecord::Base
-  attr_accessible :name, :kms, :parent_id, :active
+  attr_accessible :name, :kms, :parent_id, :active,:days
   default_scope :order => "name"
 
   has_many :material_service_type
@@ -12,9 +12,8 @@ class ServiceType < ActiveRecord::Base
 
   belongs_to  :parent, :class_name=>"ServiceType"
 
-  validates_presence_of :name,:kms
-  validates_uniqueness_of :name
-  validates_numericality_of :kms
+  validates_presence_of :name
+  validates_uniqueness_of :name  
   
 end
 

@@ -14,6 +14,8 @@
         %tr
           %th Nombre
           %th Pertenece a
+          %th Km
+          %th Días
           %th Seleccionados                   
       - for service_type in @all_service_types
         %tr
@@ -22,6 +24,10 @@
           %td 
             -if service_type.parent   
               = service_type.parent.name
+          %td
+            = service_type.kms
+          %td
+            = service_type.days
           %td                    
             %label.left
               = check_box_tag "service_type_#{service_type.id}", service_type.id,@company_service_type.include?(service_type),:class =>:service_type_id

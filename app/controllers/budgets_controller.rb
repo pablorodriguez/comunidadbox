@@ -29,9 +29,7 @@ class BudgetsController < ApplicationController
     filters_params[:model_id] = params[:service_filter][:model_id] if params[:service_filter] && !(params[:service_filter][:model_id].empty?)
     filters_params[:year] = params[:year] if(params[:year] && !(params[:year].empty?))
 
-    @budgets = Budget.find_by_params(filters_params)
-
-    @budgets = @budgets.paginate(:page =>page,:per_page =>per_page)
+    @budgets = Budget.find_by_params(filters_params).paginate(:page =>page,:per_page =>per_page)    
 
     @fuels = Car.fuels
     @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)

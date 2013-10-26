@@ -12,3 +12,8 @@
     %h1
       Oferta de Servicio  
   = render :partial =>"car_service_offer",:locals =>{:car_service_offer =>@car_service_offer}
+  //-if @car_service_offer.can_send_message?(current_user)    
+  .hide2.message{:id => "messages_container_#{@ok
+    car_service_offer.id}"}
+    = render :partial => "/messages/form_user",:locals => {user: @car_service_offer.car.user,:element_id => @car_service_offer.id,:msg_object => @car_service_offer}
+      

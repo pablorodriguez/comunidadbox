@@ -301,10 +301,15 @@ class Workorder < ActiveRecord::Base
   
   def create_event service
     service_type = service.service_type
-    months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i    
+    if service_type.kms > 0
+      months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i
+      newDueDate = (service.workorder.performed + months.month)
+    elsif service_type.days > 0
+      newDueDate = service_type.days.days.since
+    end
     event = service.events.build(car: self.car,km: (self.car.km + service_type.kms),
-      service_type: service_type,status: (Status::ACTIVE),
-      dueDate: (service.workorder.performed + months.month))
+      service_type: service_type,status: (Status::ACTIVE),dueDate: newDueDate)
+
     #event.car = self.car
     #event.km = self.car.km + service_type.kms
     #event.service_type=service_type

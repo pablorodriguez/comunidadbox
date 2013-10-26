@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131015182540) do
+ActiveRecord::Schema.define(:version => 20131022200308) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -494,6 +494,7 @@ ActiveRecord::Schema.define(:version => 20131015182540) do
     t.string   "code",       :limit => 10
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "days"
   end
 
   create_table "service_types_tasks", :id => false, :force => true do |t|

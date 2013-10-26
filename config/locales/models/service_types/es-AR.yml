@@ -4,4 +4,6 @@ es-AR:
       service_type: "Tipo de Servicio"
     attributes:
       service_type:
-        tasks: "Tareas"    
+        tasks: "Tareas"
+        km: "Kilometro"
+        days: "Días"
