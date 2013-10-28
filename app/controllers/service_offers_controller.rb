@@ -11,15 +11,10 @@ class ServiceOffersController < ApplicationController
     filters ={:form => from,:until=>until_d,:service_type_id=>service_type_id,:status=>params[:status],:title =>title}
     
     @offers = current_user.find_service_offers(filters,company_id).paginate(:per_page=>10,:page =>page)
-    
-    respond_to do |format|
-      format.html
-      format.js { render :layout => false}
-    end
-  end
 
-  def confirmed
-    
+    respond_to do |format|
+      format.html      
+    end
   end
 
   def show

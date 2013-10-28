@@ -9,5 +9,8 @@
         
       -if (defined?(msg_object) && (msg_object.class.name == "Budget"))
         = f.hidden_field :budget_id,:value => msg_object.id
+
+      -if (defined?(msg_object) && (msg_object.class.name == "CarServiceOffer"))
+        = f.hidden_field :car_service_offer_id,:value => msg_object.id
       .left        
         = image_submit_tag "ok.png",:title =>"Grabar"

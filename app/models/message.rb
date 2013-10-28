@@ -1,9 +1,10 @@
 class Message < ActiveRecord::Base
-  attr_accessible :message,:receiver_id,:message_id,:workorder_id,:budget_id,:event_id
+  attr_accessible :message,:receiver_id,:message_id,:workorder_id,:budget_id,:event_id,:car_service_offer_id
 
   belongs_to :alarm
   belongs_to :workorder
   belongs_to :budget
+  belongs_to :car_service_offer
   belongs_to :user
   belongs_to :event
   belongs_to :receiver, :class_name => 'User', :foreign_key => 'receiver_id'

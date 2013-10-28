@@ -62,6 +62,7 @@
 //= require rank
 //= require search_company_map
 //= require service_offer
+//= require car_service_offer
 //= require jquery.services
 //= require workorder
 //= require service_type

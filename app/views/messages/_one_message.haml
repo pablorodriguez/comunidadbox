@@ -9,13 +9,11 @@
         %lable{:title =>"Creado el"}
           = l message.created_at,:format => :short  
   .actions
-    .notes_fk
-      - if message.workorder      
-        = link_to "",workorder_path(message.workorder),:class =>"service_s",:title =>"Servicio Realizado"
-      - if message.budget      
-        = link_to "",budget_path(message.budget),:class=>"budget_s",:title =>"Presupuesto"
-      - if message.event
-        = link_to "",message.event,:class=>"event_s",:title =>"Evento"
+    .notes_fk      
+      = link_to "",workorder_path(message.workorder),:class =>"service_s",:title =>"Servicio Realizado" if message.workorder
+      = link_to "",budget_path(message.budget),:class=>"budget_s",:title =>"Presupuesto" if message.budget
+      = link_to "",message.event,:class=>"event_s",:title =>"Evento" if message.event
+      = link_to "",message.car_service_offer,:class=>"event_s",:title =>"Oferta de Servicio" if message.car_service_offer
 
     -if message.user == current_user
       .action

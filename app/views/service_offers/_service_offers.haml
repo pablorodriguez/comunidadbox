@@ -11,9 +11,7 @@
             =h offer.service_type.name
           .status
             - if company_id
-              = icon_status offer.status
-            - else
-              = "offer.car_service_offer.status"
+              = icon_status offer.status            
           -if (company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)
             .cars
               Autos:

@@ -1,4 +1,4 @@
-#div{:id=>"row_#{car_service_offer.id}",:class=>"service_offer_row row"}
+#service_offer.row[car_service_offer]
   -service_offer = car_service_offer.service_offer
   .service_offer_info
     .service_offer_detail        
@@ -35,3 +35,9 @@
             - service_offer.valid_dates.each do |day|
               %li
                 =t day
+    .actions
+      .action        
+        %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(car_service_offer.car.user)}} 
+  .clear.hide.message_container    
+    -usr = current_user.company ? car_service_offer.car.user : car_service_offer.service_offer.company.user
+    = render :partial => "/messages/form_user",:locals => {user: usr ,:element_id => car_service_offer.id,:msg_object => car_service_offer}

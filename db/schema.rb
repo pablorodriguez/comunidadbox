@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022200308) do
+ActiveRecord::Schema.define(:version => 20131028194753) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -325,7 +325,7 @@ ActiveRecord::Schema.define(:version => 20131022200308) do
 
   create_table "messages", :force => true do |t|
     t.text     "message"
-    t.boolean  "read",         :default => false
+    t.boolean  "read",                 :default => false
     t.integer  "user_id"
     t.integer  "receiver_id"
     t.integer  "event_id"
@@ -333,12 +333,14 @@ ActiveRecord::Schema.define(:version => 20131022200308) do
     t.integer  "budget_id"
     t.integer  "message_id"
     t.integer  "alarm_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.integer  "car_service_offer_id"
   end
 
   add_index "messages", ["alarm_id"], :name => "messages_alarm_id_fk"
   add_index "messages", ["budget_id"], :name => "messages_budget_id_fk"
+  add_index "messages", ["car_service_offer_id"], :name => "messages_car_service_offer_id_fk"
   add_index "messages", ["event_id"], :name => "messages_event_id_fk"
   add_index "messages", ["message_id"], :name => "messages_message_id_fk"
   add_index "messages", ["user_id"], :name => "messages_user_id_fk"
@@ -679,6 +681,7 @@ ActiveRecord::Schema.define(:version => 20131022200308) do
 
   add_foreign_key "messages", "alarms", :name => "messages_alarm_id_fk", :dependent => :delete
   add_foreign_key "messages", "budgets", :name => "messages_budget_id_fk", :dependent => :delete
+  add_foreign_key "messages", "car_service_offers", :name => "messages_car_service_offer_id_fk"
   add_foreign_key "messages", "events", :name => "messages_event_id_fk", :dependent => :delete
   add_foreign_key "messages", "messages", :name => "messages_message_id_fk", :dependent => :delete
   add_foreign_key "messages", "users", :name => "messages_user_id_fk", :dependent => :delete

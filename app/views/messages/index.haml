@@ -10,7 +10,7 @@
   .box_bottom
     %h1 
       = "#{t(".messages_for")} :"
-      = @user.full_name
+      = @user.full_name      
   .box_bottom
     %div{:id=>"messages_container_#{@user.id}"}
       = render :partial =>'form_user',:locals => {:user => @user,:element_id => @user.id}

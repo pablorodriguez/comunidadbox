@@ -12,7 +12,7 @@ class ServiceOffer < ActiveRecord::Base
   default_scope {order("service_offers.created_at DESC")}
   scope :sended ,where("service_offers.status = ?",Status::SENT)  
   scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
-  scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offer)}
+  scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offers)}
   
   
   STATUS = [
@@ -21,10 +21,6 @@ class ServiceOffer < ActiveRecord::Base
       [ Status.status(Status::CANCELLED), Status::CANCELLED ]
   ]
   
-  def confirmed?
-    status == Status::CONFIRMED
-  end
-
  def valid_dates
     days = []
     days << "sunday" if self.sunday
