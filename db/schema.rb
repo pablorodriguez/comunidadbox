@@ -271,24 +271,26 @@ ActiveRecord::Schema.define(:version => 20131028194753) do
     t.string  "detail_upper",             :limit => 308
     t.string  "detail",                   :limit => 308
     t.integer "company_id"
+  end
 
   create_table "material_requests", :force => true do |t|
     t.integer  "user_id"
     t.integer  "company_id"
     t.integer  "service_type_id"
+    t.integer  "material_id"
     t.text     "description"
+    t.text     "detail"
     t.string   "provider"
     t.string   "cod_provider"
     t.string   "trademark"
-    t.integer  "state"
+    t.string   "message"
+    t.integer  "status"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.string   "message"
-    t.integer  "material"
-    t.text     "details"
   end
 
   add_index "material_requests", ["company_id"], :name => "index_material_requests_on_company_id"
+  add_index "material_requests", ["material_id"], :name => "material_requests_material_id_fk"
   add_index "material_requests", ["service_type_id"], :name => "index_material_requests_on_service_type_id"
   add_index "material_requests", ["user_id"], :name => "index_material_requests_on_user_id"
 
@@ -691,6 +693,7 @@ ActiveRecord::Schema.define(:version => 20131028194753) do
   add_foreign_key "events", "services", :name => "events_ibfk_1", :dependent => :delete
 
   add_foreign_key "material_requests", "companies", :name => "material_requests_company_id_fk"
+  add_foreign_key "material_requests", "materials", :name => "material_requests_material_id_fk"
   add_foreign_key "material_requests", "service_types", :name => "material_requests_service_type_id_fk"
   add_foreign_key "material_requests", "users", :name => "material_requests_user_id_fk"
 
