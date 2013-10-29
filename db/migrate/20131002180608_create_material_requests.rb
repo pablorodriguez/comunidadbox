@@ -6,7 +6,7 @@ class CreateMaterialRequests < ActiveRecord::Migration
       t.references :service_type
       t.references :material
       t.text :description
-      t.text :detail
+      t.text :details
       t.string :provider
       t.string :cod_provider
       t.string :trademark
