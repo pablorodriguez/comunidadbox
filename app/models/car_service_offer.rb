@@ -3,7 +3,7 @@ class CarServiceOffer < ActiveRecord::Base
   belongs_to :service_offer
   has_one :service
   
-  scope :acepted, where("car_service_offers.status = ?", Status::CONFIRMED)
+  scope :confirmed, where("car_service_offers.status = ?", Status::CONFIRMED)
   scope :cars, lambda{|car_id |where("car_id =?",car_id)}
   scope :company , lambda{|company_ids| where("service_offers.company_id IN (?)",company_ids).includes(:service_offer)}
   scope :by_status,lambda{|status| where("car_service_offers.status = ?",status)}
