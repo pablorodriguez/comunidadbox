@@ -9,8 +9,7 @@ tmp/**/*
 *.swp
 db/schema.rb
 public/price_files
-/config/database.yml
+config/database.yml
 db/sphinx
 .sass-cache
 .rvmrc
-/db/migrate/20101128004009_add_device_column_to_user.rb
