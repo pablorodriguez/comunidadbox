@@ -10,22 +10,26 @@ class Status
   PERFORMED = 8
   SENT = 9
   PENDING = 10
-  REJECTED = 11  
-  APPROVED = 12 
+  REJECTED = 11
+  APPROVED = 12
   
   WO_STATUS = {
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
     }
 
+  MR_STATUS = {
+    OPEN =>'Abierto',APPROVED => 'Aprobado',REJECTED =>'Rechazado'
+  }
+
   STATUS_IDS ={
-    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, sent: SENT,confirmed: CONFIRMED
+    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED
   }
   
   STATUS = {
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
     FINISHED=>'Terminado',COMPLETED=>'Completado',ACTIVE =>'Activo',
     CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>"Enviado",PENDING=>'Pendiente',
-    REJECTED =>'Rechazado'
+    REJECTED =>'Rechazado',APPROVED =>"Aprobado"
     }
   
   ALARMS_STATUS ={

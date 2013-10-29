@@ -1,0 +1,16 @@
+-# javascript 'accounts'
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .box_bottom
+    %h1
+      Nueva Solicitud
+  
+  = form_for @material_request do |f|    
+    .box_bottom
+      = render :partial => 'form',:locals  =>{:f => f}
+    .buttons_container.box_bottom
+      = f.submit "Grabar",:class =>"button"
+      = link_to "Cancelar",material_requests_path
+
+    

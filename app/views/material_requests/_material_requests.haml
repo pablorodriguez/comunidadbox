@@ -1,0 +1,52 @@
+#material_requests 
+  - if @material_requests.size > 0 
+    %table#sort_table.comboxtable
+      %thead
+        %tr
+        -if user_signed_in? && current_user.is_super_admin?
+          %th Cliente
+        %th Proovedor
+        %th Código 
+        %th Marca
+        %th Tipo de Servicio
+        %th Estado
+        -if !current_user.is_super_admin?
+          %th Mensaje
+        %th Descripción
+        %th Detalles
+        %th 
+     
+      -for mr in @material_requests
+        %tr
+        -if current_user.is_super_admin?
+          %td
+            = link_to mr.user.full_name , mr.user,:title =>"Ver Cliente"
+        %td
+          = mr.provider
+        %td
+          = mr.cod_provider
+        %td
+          = mr.trademark
+        %td
+          = mr.service_type.name
+        %td
+          = Status::MR_STATUS[mr.status]
+        %td
+          = link_to mr.description,mr
+        %td
+          = mr.details
+        %td        
+          -if mr.is_open? && current_user.is_super_admin?                  
+            = link_to image_tag('delete.png',:title =>"Eliminar"),material_request_path(mr), :confirm => '¿ Esta seguro que desea Eliminar la Solicitud?', :method => :delete
+            = link_to image_tag('edit.png',:title =>"Modificar"),edit_material_request_path(mr)
+            
+        
+    
+
+
+        
+
+         
+           
+            
+  

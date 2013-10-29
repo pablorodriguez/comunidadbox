@@ -20,6 +20,7 @@ class Company < ActiveRecord::Base
 
   scope :confirmed, includes(:user).where("users.confirmed = 1")
 
+  has_many :material_requests
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true

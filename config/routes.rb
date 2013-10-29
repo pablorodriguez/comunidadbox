@@ -84,6 +84,7 @@ ComunidadBox::Application.routes.draw do
   resources :tasks
   resources :service_type_templates
   resources :contacts
+  resources :material_requests
 
   resources :messages do     
     member do
@@ -298,6 +299,16 @@ ComunidadBox::Application.routes.draw do
       get :import_price
     end
   end
+
+  resources :material_requests do
+    collection do
+      post :search
+    end
+    member do
+      get :approved
+      get :disapproved
+    end
+ end
 
   root :to => "home#index"
   

@@ -1,0 +1,61 @@
+%p
+  %label 
+    Proveedor:
+    = @material_request.provider
+%p
+  %label 
+    Código:
+    = @material_request.cod_provider
+
+%p
+  %label
+    Marca:
+    = @material_request.trademark
+    
+%p
+  %label 
+    Descripción:
+    = @material_request.description
+
+%p
+  %label 
+    Detalles:
+    = @material_request.details
+
+%p
+  %label
+    Tipo de Servicio:
+    = @material_request.service_type.name
+
+%p
+  %label
+    Estado:
+    = Status::STATUS[@material_request.status]
+
+-if user_signed_in? && current_user.is_super_admin? && !@material_request.message.nil?
+  %p
+    %label
+      Companía:
+      = @material_request.company.name
+  %p
+    %label
+      Cliente:
+      =@material_request.user.email      
+  %p
+    %label
+      Mensaje:
+      =@material_request.message
+  
+  - if @material_request.material
+    %p
+      %label
+        Material:
+        =@material_request.material.name
+        =@material_request.material.code
+    %p
+      %label
+        Tipo de Servicio:
+        =@material_request.material.service_types.map(&:name).join(" , ")
+
+
+  

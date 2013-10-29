@@ -1,0 +1,16 @@
+.box_bottom
+  #material_request
+    %h3 Buscar
+    = form_for :material_request, :url => material_requests_path,:method => :get do 
+      %table.w
+        %thead
+          %tr
+            %td              
+              = select_tag("status",options_for_select(Status::MR_STATUS.collect{|k,v| [v,k]},""),{:prompt => "Seleccione un estado",:class=>'long_select',:title=>"Estado"})              
+          %tr
+            %td
+              = text_field_tag 'detail',"",:class=>"input",:title=>"Año-Mes-Día",:placeholder =>"Descripción"
+          %tr
+            %td
+              = image_submit_tag("find.png",:class =>"input_img")
+

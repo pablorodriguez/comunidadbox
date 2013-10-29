@@ -1,0 +1,20 @@
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to "Modificar Solicitud", edit_material_request_path
+
+.contentright_s
+  .box_bottom
+    %h1 Modificar Solicitud 
+
+  = form_for  @material_request do |f| 
+    .box_bottom
+      = render 'form',:f => f
+    .buttons_container.box_bottom
+      = f.submit "Actualizar",:class =>"button"
+      = link_to "Cancelar",material_requests_path
+
+   
+     

@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
   has_many :alarms, :dependent => :destroy
   has_many :messages
+  has_many :material_requests
 
   validates_uniqueness_of :email, :case_sensitive => false
 
@@ -48,6 +49,19 @@ class User < ActiveRecord::Base
   NULL_ATTRS = %w( company_name cuit )
   before_save :nil_if_blank
   #validate :validate_all
+
+  def search_material_request(status,detail)
+    if self.is_super_admin?
+      m = MaterialRequest.where("description like ?","%#{detail}%")    
+    else
+      m = self.material_requests.where("description like ?","%#{detail}%")
+    end    
+    
+    unless status.empty?
+      m = m.where("status =?",status)
+    end
+    m
+  end
 
   def validate_all
     unless self.creator.companies.find_by_id(self.employer_id)

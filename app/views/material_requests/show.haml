@@ -1,0 +1,21 @@
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    %ul
+      -if !(user_signed_in? && current_user.is_super_admin?)
+        %li
+          = link_to "Nueva Solicitud", new_material_request_path
+      %li
+        = link_to "Modificar", edit_material_request_path(@material_request) 
+.contentright_s
+  #user
+    .box_bottom
+      %h1 Solicitudes
+    .box_bottom
+      = render 'material_request_show'
+
+
+
+
+
+  
