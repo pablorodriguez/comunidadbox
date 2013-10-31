@@ -1,7 +1,7 @@
 #wo_form
   .form
     %h3 Buscar
-    = form_tag workorders_path,:remote =>true,:id=>:filter,:method =>:get do
+    = form_tag workorders_path,:id=>:filter,:method =>:get do
       = hidden_field_tag :direction, @direction
       = hidden_field_tag :sort, @sort_column
 
@@ -9,7 +9,7 @@
         #service_types
           %ul
             %li
-              = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
+              = check_box_tag 'all_service_type',1,false,:class=>:checkbox
               %label.link{:for => 'all_service_type'}
                 Todos
             -@company_services.each do |service|
