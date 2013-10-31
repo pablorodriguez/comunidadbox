@@ -17,6 +17,10 @@ class Status
     OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
     }
 
+  SR_STATUS = {
+    OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
+    }
+
   MR_STATUS = {
     OPEN =>'Abierto',APPROVED => 'Aprobado',REJECTED =>'Rechazado'
   }

@@ -69,26 +69,25 @@
 
   .contentright_s
     - if @work_orders.size > 0
-      #workorders
-        #workorders_c.data          
-          #workorders
-            = render 'workorders'
-        - if current_user.is_administrator?
-          #price_graph_c.data.hide.chart            
-            .box_bottom
-              %h1 Importes por Tipo de Servicios
-            #price_graph.box_bottom.graph          
-            #price_report.box_bottom
-              = render "price_report"
-          #amt_graph_c.data.hide.chart
-            .box_bottom
-              %h1 Cantidad por Tipo de Servicios
-            #amt_graph.box_bottom.graph
-            #amt_report.box_bottom
-              = render "amount_report"                 
-          #amt_material_graph_c.data.hide.chart
-            = render "material_report"
-          #report_data.data.box_bottom.hide
-            = render 'totals'
+      #workorders_c.data          
+        #workorders
+          = render 'workorders'
+      - if current_user.is_administrator?
+        #price_graph_c.data.hide.chart            
+          .box_bottom
+            %h1 Importes por Tipo de Servicios
+          #price_graph.box_bottom.graph          
+          #price_report.box_bottom
+            = render "price_report"
+        #amt_graph_c.data.hide.chart
+          .box_bottom
+            %h1 Cantidad por Tipo de Servicios
+          #amt_graph.box_bottom.graph
+          #amt_report.box_bottom
+            = render "amount_report"                 
+        #amt_material_graph_c.data.hide.chart
+          = render "material_report"
+        #report_data.data.box_bottom.hide
+          = render 'totals'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"

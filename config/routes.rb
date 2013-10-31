@@ -1,5 +1,9 @@
 ComunidadBox::Application.routes.draw do
 
+  resources :item_service_requests
+  resources :service_requests
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

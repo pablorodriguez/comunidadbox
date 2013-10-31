@@ -1,0 +1,7 @@
+es-AR:
+  service_requests:
+    index:
+      new_service_request: Nueva Solicitud de Servicios
+      listing_service_request: Listado de Solicitudes de Servicios
+    new:
+      new_service_request: Nueva Solicitud de Servicio

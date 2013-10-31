@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028194753) do
+ActiveRecord::Schema.define(:version => 20131030145312) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -245,6 +245,17 @@ ActiveRecord::Schema.define(:version => 20131028194753) do
     t.datetime "updated_at"
   end
 
+  create_table "item_service_requests", :force => true do |t|
+    t.integer  "service_request_id"
+    t.integer  "service_type_id"
+    t.text     "description"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.float    "price"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "material_details", :id => false, :force => true do |t|
     t.string  "prov_code",                :limit => 50
     t.integer "material_id",                             :default => 0, :null => false
@@ -279,7 +290,7 @@ ActiveRecord::Schema.define(:version => 20131028194753) do
     t.integer  "service_type_id"
     t.integer  "material_id"
     t.text     "description"
-    t.text     "detail"
+    t.text     "details"
     t.string   "provider"
     t.string   "cod_provider"
     t.string   "trademark"
@@ -497,6 +508,15 @@ ActiveRecord::Schema.define(:version => 20131028194753) do
 
   add_index "service_offers", ["company_id"], :name => "service_offers_company_id_fk"
   add_index "service_offers", ["service_type_id"], :name => "service_offers_service_type_id_fk"
+
+  create_table "service_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.integer  "status"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "service_type_templates", :force => true do |t|
     t.string   "name"

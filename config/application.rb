@@ -61,7 +61,7 @@ module ComunidadBox
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     # Set your environment here.
-    # ENV["RAILS_ENV"] ||= "production"
+    #ENV["RAILS_ENV"] ||= "production"
     ENV['AUTH'] = "maverick"
     
     config.to_prepare do

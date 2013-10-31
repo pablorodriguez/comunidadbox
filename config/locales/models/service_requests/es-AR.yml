@@ -1,0 +1,11 @@
+es-AR:
+  activerecord:
+    models:
+      service_request: "Solicitud de Servicios"
+    attributes:
+      service_request:
+        user: "Usuario"
+        service_type: "Tipo de Servico"
+        company: "Compañia"
+        car: "Automóvil"
+        status: "Estado"

@@ -68,3 +68,8 @@
 //= require service_type
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+
+// Angular JS files
+//= require angular
+//= require app/main
+//= require_tree ./app/controllers

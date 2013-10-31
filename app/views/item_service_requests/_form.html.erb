@@ -1,0 +1,16 @@
+<%= simple_form_for(@item_service_request) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :service_request_id %>
+    <%= f.input :service_type_id %>
+    <%= f.input :description %>
+    <%= f.input :date_from %>
+    <%= f.input :date_to %>
+    <%= f.input :price %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+.vertical_menu
+  = render "home/menu"
+  = render "home/default_actions"
+  .menu_actions.box_bottom
+    %ul
+      = link_to t(".new_service_request"), new_service_request_path
+.contentright_s  
+  #default.data
+    .box_bottom
+      %h1
+        = t(".listing_service_request")
+    %table.w
+      %tr
+        %th User
+        %th Car
+        %th Status
+        %th Company
+        %th
+        %th
+        %th
+      - @service_requests.each do |service_request|
+        %tr
+          %td= service_request.user_id
+          %td= service_request.car_id
+          %td= service_request.status
+          %td= service_request.company_id
+          %td= link_to 'Show', service_request
+          %td= link_to 'Edit', edit_service_request_path(service_request)
+          %td= link_to 'Destroy', service_request, method: :delete, data: { confirm: 'Are you sure?' }    

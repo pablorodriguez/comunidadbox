@@ -56,6 +56,8 @@ class ActionController::TestCase
   include ComunidadBox::TestHelpers
 end
 
+require "mocha/setup"
+
 class ActiveSupport::TestCase  
   include ComunidadBox::TestHelpers
 end

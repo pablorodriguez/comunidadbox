@@ -1,0 +1,54 @@
+#serivce_request_app.ng-scope{"ng-app" => "app"}
+  %div{"ng-controller"=>"serviceRequestCtrl"}  
+    = form_for @service_request do |f|
+      .box_bottom
+        %table.w
+          %tbody
+            %tr
+              %td
+                = ServiceRequest.human_attribute_name(:user)
+              %td
+                = f.text_field :user_id
+            %tr
+              %td
+                = ServiceRequest.human_attribute_name(:car)
+              %td
+                = f.text_field :car_id
+            %tr
+              %td
+                = ServiceRequest.human_attribute_name(:status)
+              %td
+                = f.text_field :status
+                = f.select(:status,Status::SR_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'long_select',:title=>"Estado"})
+            %tr
+              %td
+                = ServiceRequest.human_attribute_name(:company)
+              %td
+                = f.text_field :company_id
+      .box_bottom
+        .left
+          %h1
+            Servicios
+        .left
+          .actions
+            .action
+              %a.new.left{:href=>"#","ng-click" =>"add_item()"}
+      .box_bottom
+        %table
+          %tbody
+
+            %tr{"ng-repeat" =>"item in items","ng-show" =>"item.show"}
+              %td        
+                %lable.hide
+                  {{$index}}
+                .hide2
+                  %select.input_short{:name => "service_request[item_service_requests_attributes][{{$index}}][service_type_id]", :type  => "text","ng-model" =>"item.prd_id",:placeholder =>"service type"}
+                  %input.input_short{:type => "text","ng-model" =>"item.id",:placeholder =>"id",:name =>"service_request[item_service_requests_attributes][{{$index}}][id]"}
+              %td                  
+                %textarea{:rows=>"4",:cols=>"50",:name => "service_request[item_service_requests_attributes][{{$index}}][description]",:placeholder =>"descripción",:autocomplete => true,"ng-model" =>"item.description"}              
+              %td
+                %a.remove_item_service_requests.delete{"data-association" => "item_service_requests", :href => "#", :title => "Borrar servicio","ng-click" =>"destroy(item)"}
+                  %i.icon-remove
+      .buttons_container
+        = f.button :submit,:class =>"button"
+        = link_to 'Cancelar', service_requests_path

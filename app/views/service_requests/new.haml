@@ -1,0 +1,13 @@
+.vertical_menu
+  = render "home/menu"
+  = render "home/default_actions"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = link_to t(".new_service_request"), new_service_request_path
+.contentright_s  
+  .box_bottom
+    %h1
+      = t ".new_service_request"
+  = render 'form'
+

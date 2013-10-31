@@ -1,0 +1,33 @@
+<h1>Listing item_service_requests</h1>
+
+<table>
+  <tr>
+    <th>Service request</th>
+    <th>Service type</th>
+    <th>Description</th>
+    <th>Date from</th>
+    <th>Date to</th>
+    <th>Price</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @item_service_requests.each do |item_service_request| %>
+  <tr>
+    <td><%= item_service_request.service_request_id %></td>
+    <td><%= item_service_request.service_type_id %></td>
+    <td><%= item_service_request.description %></td>
+    <td><%= item_service_request.date_from %></td>
+    <td><%= item_service_request.date_to %></td>
+    <td><%= item_service_request.price %></td>
+    <td><%= link_to 'Show', item_service_request %></td>
+    <td><%= link_to 'Edit', edit_item_service_request_path(item_service_request) %></td>
+    <td><%= link_to 'Destroy', item_service_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Item service request', new_item_service_request_path %>

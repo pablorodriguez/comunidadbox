@@ -3,6 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   
   setup do
+    Address.any_instance.stubs(:geocode).returns([1,1]) 
     create_all_default_data
     @pablo =  create(:pablo_rodriguez)
     @gustavo =  create(:gustavo_de_antonio)
@@ -11,7 +12,6 @@ class UserTest < ActiveSupport::TestCase
     @new_pablo =  create(:new_pablo_rodriguez)
 
     @imr_emp =  create(:imr_emp)
-    
   end
 
   test "user is employee" do   

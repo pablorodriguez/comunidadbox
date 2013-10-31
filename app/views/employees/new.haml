@@ -9,6 +9,7 @@
   = form_for @employee, :url => employees_path do |f|    
     .box_bottom
       = render :partial => 'form',:locals  =>{:f => f}
-    .box_bottom
+    .box_bottom.buttons_container
       = f.submit "Grabar",:class =>"button"
+      = link_to "Cancelar",employees_path
     

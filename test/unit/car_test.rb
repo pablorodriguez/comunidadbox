@@ -3,8 +3,9 @@ require 'test_helper'
 class CarTest < ActiveSupport::TestCase
   
   setup do
+    Address.any_instance.stubs(:geocode).returns([1,1]) 
     create_all_default_data
-    @pablo =  create(:pablo_rodriguez)    
+    @pablo =  create(:pablo_rodriguez) 
   end
 
   test "update km day ago" do
