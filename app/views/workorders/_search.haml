@@ -22,8 +22,8 @@
           %tbody
             %tr        
               %td
-                = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>"Desde"              
-                = text_field_tag 'date_to', @date_t,:class =>"input_date labelify",:title=>"Hasta"
+                = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>"Desde",:placeholder =>"Desde"
+                = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>"Hasta",:placeholder =>"Hasta"
             %tr
               %td
                 = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>"Número"
