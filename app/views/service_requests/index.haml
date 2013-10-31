@@ -1,9 +1,10 @@
 .vertical_menu
   = render "home/menu"
   = render "home/default_actions"
-  .menu_actions.box_bottom
-    %ul
+  - content_for :custom_actions do
+    %li
       = link_to t(".new_service_request"), new_service_request_path
+
 .contentright_s  
   #default.data
     .box_bottom

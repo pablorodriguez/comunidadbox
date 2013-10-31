@@ -9,7 +9,7 @@
         = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
       %li
         %span
-          = link_to "Enviar por Correro",email_budget_path(@budget),:remote =>true
+          = link_to "Enviar por Correo",email_budget_path(@budget),:remote =>true
         .ajax_loader.right
       -if company_id
         %li

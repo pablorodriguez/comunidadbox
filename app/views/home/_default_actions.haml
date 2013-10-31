@@ -4,3 +4,5 @@
       %ul        
         %li
           = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
+        - if content_for?(:custom_actions)
+          = yield(:custom_actions)
