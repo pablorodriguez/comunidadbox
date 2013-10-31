@@ -23,8 +23,7 @@ class WorkordersController < ApplicationController
     @company_services = get_service_types 
     
     @order_by = order_by
-    @service_type_ids =  params[:service_type_ids] || []
-    @all_service_type = @service_type_ids.size > 0 ? true : false
+    @service_type_ids =  params[:service_type_ids] || []    
     
     @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
         
