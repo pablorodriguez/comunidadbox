@@ -1,0 +1,19 @@
+es:
+  service_types:
+    tasks:
+      add_task: "Agregar Tarea"
+    search_material:
+      material_not_found: "Materiales no encontrados"
+    edit:
+      save: "Actualizar"
+      cancel: "Cancelar"
+    new:
+      save: "Grabar"
+      cancel: "Cancelar"
+    form:
+      name: "Nombre"
+      days: "Dias"
+      kilometro: "kilometro"
+      belongs_to: "Pertenece a"
+      status: "Estado"
+
