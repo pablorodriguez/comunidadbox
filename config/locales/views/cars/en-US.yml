@@ -1,0 +1,11 @@
+en:
+  cars:
+    cars:    
+      delete_confirm: Are you sure you want to delete the Car?
+      update_car: "Modify automovile"
+      title: "List of Cars"
+      year: "Model"
+      km: "km"
+      kmAverageMonthly: "Km monthly average"
+    send:
+      message_exit_send: "Message sent successfully"
