@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
    def set_locale
-    I18n.locale = from_http   
+    I18n.locale = from_http 
     logger.debug "* Locale set to '#{I18n.locale}'"
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
   end
