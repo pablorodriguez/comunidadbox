@@ -27,9 +27,10 @@ class ApplicationController < ActionController::Base
     logger.debug "* Locale set to '#{I18n.locale}'"
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
   end
-  def from_http
+  def from_http    
     if respond_to?(:request) && request.env && request.env['HTTP_ACCEPT_LANGUAGE']
-      request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+      #request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+      request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]
       #logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
       #logger.debug "* Locale set to '#{I18n.locale}'"
     end
