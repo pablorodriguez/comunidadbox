@@ -6,8 +6,8 @@
         = link_to service_offer.company.name,service_offer.company
       .service_offer_title      
         = link_to service_offer.title, car_service_offer,:class =>"view"
-      .service_offer_name
-        = service_offer.service_type.name
+      %strong
+        = service_offer.service_types_names
       = icon_status(car_service_offer.status)
       .domain_white
         = link_to car_service_offer.car.domain,car_service_offer.car

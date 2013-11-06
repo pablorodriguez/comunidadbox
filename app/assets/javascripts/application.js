@@ -66,10 +66,13 @@
 //= require jquery.services
 //= require workorder
 //= require service_type
+//= require service_requests
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
 // Angular JS files
 //= require angular
+//= require angular-resource
 //= require app/main
 //= require_tree ./app/controllers
+//= require_tree ./app/services

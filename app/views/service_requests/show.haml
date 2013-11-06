@@ -1,0 +1,78 @@
+- content_for :actions do
+  %li
+    = link_to t(".new_service_request"), new_service_request_path
+  - if @service_request.can_edit? current_user
+    %li
+      = link_to t(".edit"), edit_service_request_path(@service_request)
+  - if current_user.company
+    %li
+      %a#make_an_offer{:href =>"#"}
+        = t(".make_an_offer")
+    
+.vertical_menu
+  = render "home/menu"
+  = render "home/default_actions"
+.contentright_s  
+  .box_bottom
+    %h1
+      = t ".service_request"
+  .box_bottom
+    %table.w
+      %tbody
+        %tr
+          %td{:width =>"20%"}
+            %b 
+              = ServiceRequest.human_attribute_name(:car) 
+              \:
+          %td{:width =>"80%"}
+            .domain_white
+              = link_to @service_request.car.domain,@service_request
+        -if @service_request.user != current_user
+          %tr
+            %td
+              %b 
+                = ServiceRequest.human_attribute_name(:user)
+                \:
+            %td
+              = @service_request.user.full_name
+        %tr
+          %td
+            %b 
+              = ServiceRequest.human_attribute_name(:status)
+              \:
+          %td
+            = icon_status @service_request.status
+
+      - if @service_request.company
+        %tr
+          %td
+            %b Company:
+          %td
+            = @service_request.company.name
+  .box_bottom
+    %h1
+      = t(".services")
+  .box_bottom
+    %table.w
+      %thead
+        %tr
+          %th              
+            = ItemServiceRequest.human_attribute_name(:service_type)
+          %th
+            = ItemServiceRequest.human_attribute_name(:description)
+      %tbody
+      - @service_request.item_service_requests.each do |item|
+        %tr
+          %td
+            = item.service_type.name
+          %td
+            = item.description
+  
+  #service_offer_form.hide
+    .box_bottom
+      %h1 Oferta de Servicio
+
+    = form_for @offer,:remote => true,:html =>{"data-no-reset" => true} do |f|
+      = render :partial => 'service_offers/form', :locals => {:f => f}
+    
+  

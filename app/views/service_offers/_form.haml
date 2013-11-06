@@ -1,7 +1,8 @@
 - @offer.car_service_offers.each do |c_s_o|
   =hidden_field_tag 'car_ids[]', c_s_o.car.id
-= f.hidden_field :service_type_id
-
+= f.fields_for :offer_service_types do |st_form|
+  = st_form.text_field :service_type_id        
+= render 'shared/error_messages',:target => @offer
 %h3 Información
 .box_bottom
   %table.w
@@ -10,8 +11,8 @@
       %td
         = f.text_field :title,:class =>"input_long"
       %td Estado
-      %td
-        = f.select(:status,ServiceOffer::STATUS,{:selected =>f.object.status},{:class=>'status'})
+      %td        
+        = f.select(:status,Status::SO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status',:title=>"Estado"})
     %tr
       %td Comentario
       %td{:colspan=>3}

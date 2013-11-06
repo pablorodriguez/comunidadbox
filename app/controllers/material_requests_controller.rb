@@ -53,7 +53,6 @@ class MaterialRequestsController < ApplicationController
          format.html { redirect_to(material_request_path) }
          format.xml  { head :ok }
       else
-        debugger
         format.html { render :action => "edit" }
         format.xml  { render :xml => @material_request.errors, :status => :unprocessable_entity }
       end

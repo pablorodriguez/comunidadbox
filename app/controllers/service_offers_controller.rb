@@ -1,5 +1,6 @@
 class ServiceOffersController < ApplicationController
-  authorize_resource
+  authorize_resource  
+  
 
   def index
     page = params[:page] || 1
@@ -68,7 +69,7 @@ class ServiceOffersController < ApplicationController
     params[:car_ids].each do |car_id|
       car_service_offer = CarServiceOffer.new
       car_service_offer.status = Status::OPEN
-      if @offer.confirmed?
+      if @offer.is_confirmed?
         car_service_offer.status = Status::CONFIRMED
       end
       
@@ -78,10 +79,17 @@ class ServiceOffersController < ApplicationController
     end
 
     @cars = @offer.car_service_offers
+    
     if @offer.save
-      redirect_to service_offers_path
+      respond_to do |format|        
+        format.html { redirect_to service_offers_path}
+        format.js {render :layout => false}
+      end
     else
-      render :action => "new"
+      respond_to do |format|
+        format.html {render :action => "new_s"}
+        format.js {render :layout => false}
+      end
     end
   end
 

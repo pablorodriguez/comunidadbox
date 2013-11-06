@@ -14,6 +14,22 @@ class ServiceType < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name  
+
+
+  def self.to_builder service_types
+    Jbuilder.encode do |json|      
+      json.array! service_types do |st|           
+        json.id st.id
+        json.name st.name        
+      end
+    end
+  end
+
+  def to_builder
+    Jbuilder.new do |service_type|      
+      service_type.(self,:id,:name)      
+    end
+  end
   
 end
 

@@ -1,0 +1,10 @@
+es-AR:
+  activerecord:
+    models:
+      service_offer: "Oferta de Servicio"
+    attributes:
+      service_offer:
+        price: "Precio"
+        final_price: "Precio Final"        
+        percent: "Porcentaje"
+        title: "Titulo"

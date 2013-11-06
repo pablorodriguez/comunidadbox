@@ -25,8 +25,16 @@ class Status
     OPEN =>'Abierto',APPROVED => 'Aprobado',REJECTED =>'Rechazado'
   }
 
+  SO_STATUS = {    
+      OPEN => 'Abierto',
+      CONFIRMED => 'Confirmado',
+      CANCELLED => 'Cancelado'
+  }
+
+  
+
   STATUS_IDS ={
-    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED
+    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED,sent: SENT
   }
   
   STATUS = {

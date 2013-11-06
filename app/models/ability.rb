@@ -70,6 +70,10 @@ class Ability
       
       value
     end
+
+    can [:update,:destroy], ServiceRequest do |sr|
+      sr.can_edit? user      
+    end
   
     can [:update,:destroy], Workorder do |w|
       w.user == user || w.can_edit?(user)

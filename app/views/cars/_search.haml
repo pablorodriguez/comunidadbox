@@ -1,6 +1,2 @@
 .box_bottom
   =render :partial=>"search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
-.menu_actions.box_bottom
-  %ul        
-    %li        
-      = link_to "Nuevo Automóvil", new_car_path(:user_id=>@user.id)

@@ -1,8 +1,9 @@
-- if company_id
-  .menu_actions
-    .box_bottom
-      %ul        
-        %li
-          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
-        - if content_for?(:custom_actions)
-          = yield(:custom_actions)
+.menu_actions
+  .box_bottom
+    %ul
+      %li
+        - if company_id
+          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}           
+        - else      
+          = link_to "Nuevo Automóvil", new_car_path(:user_id=>current_user.id)
+      = yield :actions

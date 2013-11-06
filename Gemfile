@@ -61,7 +61,7 @@ gem 'capistrano-resque'
 gem 'rufus-scheduler'
 gem 'factory_girl_rails',"~> 3.0"
 gem 'cancan'
-gem 'jbuilder'
+gem 'jbuilder','~> 1.0.2'
 #gem 'omniauth-facebook'
 #gem 'rails3-jquery-autocomplete'
 # gem 'ruby-debug19', :require => 'ruby-debug'

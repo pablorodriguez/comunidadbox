@@ -120,6 +120,14 @@ class Car < ActiveRecord::Base
     end
   end
 
+  def self.to_builder cars
+    Jbuilder.encode do |json|
+      json.array! cars do |car|
+        json.id car.id
+        json.domain car.domain
+      end
+    end    
+  end
   
 end
 

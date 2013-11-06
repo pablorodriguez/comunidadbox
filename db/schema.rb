@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030145312) do
+ActiveRecord::Schema.define(:version => 20131105232858) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -418,6 +418,14 @@ ActiveRecord::Schema.define(:version => 20131030145312) do
   add_index "notes", ["user_id"], :name => "notes_user_id_fk"
   add_index "notes", ["workorder_id"], :name => "notes_workorder_id_fk"
 
+  create_table "offer_service_types", :force => true do |t|
+    t.integer "service_offer_id"
+    t.integer "service_type_id"
+  end
+
+  add_index "offer_service_types", ["service_offer_id"], :name => "offer_service_types_service_offer_id_fk"
+  add_index "offer_service_types", ["service_type_id"], :name => "offer_service_types_service_type_id_fk"
+
   create_table "payment_methods", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -742,6 +750,9 @@ ActiveRecord::Schema.define(:version => 20131030145312) do
   add_foreign_key "notes", "users", :name => "notes_receiver_id_fk", :column => "receiver_id", :dependent => :delete
   add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete
   add_foreign_key "notes", "workorders", :name => "notes_workorder_id_fk", :dependent => :delete
+
+  add_foreign_key "offer_service_types", "service_offers", :name => "offer_service_types_service_offer_id_fk"
+  add_foreign_key "offer_service_types", "service_types", :name => "offer_service_types_service_type_id_fk"
 
   add_foreign_key "price_list_items", "material_service_types", :name => "price_list_items_ibfk_1"
   add_foreign_key "price_list_items", "price_lists", :name => "price_list_items_ibfk_2", :dependent => :delete

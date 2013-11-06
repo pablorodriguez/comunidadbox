@@ -1,0 +1,8 @@
+es-AR:
+  activerecord:
+    models:
+      item_service_request: "Servicios"
+    attributes:
+      item_service_request:      
+        service_type: "Tipo de Servico"
+        description: "Descripción"

@@ -1,0 +1,5 @@
+- unless current_user.company
+  - content_for :actions do
+    %li
+      = link_to t(".new_service_request"), new_service_request_path
+    

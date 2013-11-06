@@ -1,27 +1,36 @@
 class ServiceOffer < ActiveRecord::Base
-  attr_accessible :service_type_id, :title, :status, :comment, :price, :percent, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
+  include Statused  
+  attr_accessible :service_type_id, :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types
 
   has_many :car_service_offers
   has_many :cars, :through => :car_service_offers
-  belongs_to :service_type
+  has_many :offer_service_types
+  has_many :service_types,:through => :offer_service_types
   belongs_to :company
 
   validates_numericality_of :price,:final_price,:percent
   validates_presence_of :title, :price, :final_price, :percent
+  accepts_nested_attributes_for :offer_service_types,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
   
   default_scope {order("service_offers.created_at DESC")}
   scope :sended ,where("service_offers.status = ?",Status::SENT)  
   scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
   scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offers)}
-  
-  
-  STATUS = [
-      [ Status.status(Status::OPEN),Status::OPEN ],
-      [ Status.status(Status::CONFIRMED), Status::CONFIRMED ],
-      [ Status.status(Status::CANCELLED), Status::CANCELLED ]
-  ]
-  
- def valid_dates
+  validate :validate_service_types
+
+  def validate_service_types
+    errors.add(:service_types, "debe tener al menos un tipo de servicio") if offer_service_types.length == 0
+  end
+
+  def build_offer_service_types service_types
+    service_types.each{|st| self.offer_service_types.build(service_type: st)}
+  end
+
+  def service_types_names
+    service_types.map(&:name).join(" - ")
+  end
+
+  def valid_dates
     days = []
     days << "sunday" if self.sunday
     days << "monday" if self.monday

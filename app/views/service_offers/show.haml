@@ -10,8 +10,8 @@
           = link_to "Borrar", @service_offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"      
 .contentright_s
   .box_bottom
-    %h1      
-      = @service_offer.service_type.name
+    %h1            
+      = @service_offer.service_types_names
     %h1       
       = @service_offer.company.name
   = render @service_offer

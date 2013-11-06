@@ -7,8 +7,9 @@
             = offer.company.name
           .service_offer_title      
             = link_to offer.title, offer,:class =>"view"
-          .service_offer_name
-            =h offer.service_type.name
+          %strong
+            - offer.service_types.each do |st|
+              = st.name
           .status
             - if company_id
               = icon_status offer.status            
