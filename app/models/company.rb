@@ -142,5 +142,9 @@ class Company < ActiveRecord::Base
     clients.order("users.last_name,users.first_name") 
   end
 
+  def perform_service_type? st
+    service_type.select{|stype| stype.id == st.id}.size > 0
+  end
+
 end
 

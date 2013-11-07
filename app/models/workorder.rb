@@ -87,13 +87,16 @@ class Workorder < ActiveRecord::Base
       car_services_offers.each do |car_service_offer|
         car_service_offer.service_offer.service_types.each do |st|
 
-          if self.services.find{|s| s.service_type_id == st.id}
-            errors.add(:service_types, "hay multiples ofertas de servicio para #{st.name}")
+          prev_service = self.services.find{|s| s.service_type_id == st.id}
+
+          if prev_service
+            prev_service.today_car_service_offer << car_service_offer
           else
-            n_s = Service.new(service_type_id: st.id,car_service_offer_id: car_service_offer.id)
-            n_s.car_service_offer = car_service_offer
-            n_s.material_services << MaterialService.new(amount: 1,price: 0)
-            self.services << n_s                
+            new_service = Service.new(service_type_id: st.id,car_service_offer_id: car_service_offer.id)
+            new_service.car_service_offer = car_service_offer
+            new_service.today_car_service_offer << car_service_offer
+            new_service.material_services << MaterialService.new(amount: 1,price: 0)
+            self.services << new_service
           end
         end
       end

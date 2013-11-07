@@ -1,6 +1,6 @@
 class ServiceOffer < ActiveRecord::Base
   include Statused  
-  attr_accessible :service_type_id, :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types
+  attr_accessible :service_type_id, :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id
 
   has_many :car_service_offers
   has_many :cars, :through => :car_service_offers
@@ -23,11 +23,18 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def build_offer_service_types service_types
-    service_types.each{|st| self.offer_service_types.build(service_type: st)}
+    service_types.each do |st|
+      if company_id
+        c = Company.find company_id
+        if c.perform_service_type?(st)
+          self.offer_service_types.build(service_type: st)
+        end
+      end
+    end
   end
 
   def service_types_names
-    service_types.map(&:name).join(" - ")
+    offer_service_types.map{|ost| ost.service_type.name}.join(" - ")    
   end
 
   def valid_dates
@@ -76,12 +83,12 @@ class ServiceOffer < ActiveRecord::Base
     logger.info "Service Offer notify"
     cars,so = get_service_offer_by_user      
     cars.each do |car,service_offers|        
-      if cars_id.include?(car.domain)
+      #if cars_id.include?(car.domain)
         ServiceOffer.transaction do
           self.notify_service_offer(car,service_offers) 
           self.update_car_service_offer_status(car,service_offers)
         end
-      end    
+      #end    
     end
   
     #Actualizo el estado de cada Oferta de Servicio a SENT    

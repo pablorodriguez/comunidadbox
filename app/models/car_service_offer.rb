@@ -1,3 +1,4 @@
+include ActionView::Helpers::NumberHelper
 class CarServiceOffer < ActiveRecord::Base
   attr_accessible :car,:status
   include Statused  
@@ -21,6 +22,10 @@ class CarServiceOffer < ActiveRecord::Base
       end
       
     end
+  end
+
+  def price
+    number_to_currency service_offer.final_price
   end
 
   def valid_dates

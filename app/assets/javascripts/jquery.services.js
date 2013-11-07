@@ -10,6 +10,8 @@ jQuery(document).ready( function(){
 
   if ($("#work_order_form").length == 0){return;};
 
+  $("#work_order_form").delegate(".service_offer_select","change",set_service_offer);  
+
 	$(".text_lable").each(function(){
 		$(this).disable();
 	});
@@ -158,7 +160,16 @@ jQuery(document).ready( function(){
 
 });
 
-
+function set_service_offer(){
+  var ele = $(this);
+  var opt = ele.children(':selected');
+  var id = opt.val();
+  var text = opt.text();
+  ele.next().val(id);  
+  var tr = ele.parent().parent();
+  tr.find(".car_service_offer_price").html(text);
+  tr.find(".car_service_offer_link").attr("href","/car_service_offers/" + id);  
+}
 
 function showTask(ele){
 	$(ele).parent().parent().parent().parent().parent().parent().find(".task_list").slideToggle();

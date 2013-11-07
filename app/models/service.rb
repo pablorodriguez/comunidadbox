@@ -1,3 +1,4 @@
+
 class Service < ActiveRecord::Base
 
   attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:car_service_offer_id,:car_service_offer
@@ -12,7 +13,14 @@ class Service < ActiveRecord::Base
   
   belongs_to :car_service_offer
   has_many :material_services
-  
+
+  attr_accessor :today_car_service_offer
+
+  after_initialize :init_default_value  
+
+  def init_default_value
+    @today_car_service_offer = []
+  end
   
   
   has_and_belongs_to_many :tasks

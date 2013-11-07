@@ -187,7 +187,7 @@ class WorkordersController < ApplicationController
 
     @service_types = current_user.service_types    
 
-    #@work_order.initialize_with_car_service_offer(company_id)
+    @work_order.initialize_with_car_service_offer(company_id)
     @company = @work_order.company
     
   end
@@ -218,7 +218,7 @@ class WorkordersController < ApplicationController
     else
       @service_types = current_user.service_types
       @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
-      @car_service_offers = @work_order.find_car_service_offer(company_id)
+      #@car_service_offers = @work_order.find_car_service_offer(company_id)
       render :action => 'new'
     end
   end

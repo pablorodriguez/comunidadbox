@@ -20,6 +20,7 @@ class Car < ActiveRecord::Base
   before_save :set_new_attribute
   after_save :update_events
   validate :unique_domain
+  attr_accessor :today_service_offer
 
   def unique_domain
     if user
@@ -34,7 +35,15 @@ class Car < ActiveRecord::Base
   end
 
   def search_service_offer companies_ids
-    CarServiceOffer.search_for(self.id,companies_ids)
+    @today_service_offer ||=  CarServiceOffer.search_for(self.id,companies_ids)
+  end
+  
+  def have_multiple_service_offer company_ids
+    car_service_offer = search_service_offer(company_ids)
+    return false if car_service_offer.size <= 1
+
+    car_service_offer.service_offer.service_types.map(&:id)
+
   end
 
 
@@ -101,6 +110,7 @@ class Car < ActiveRecord::Base
   end
 
 
+
   def update_kmUpdatedAt
     last_update = self.kmUpdatedAt.nil? ? self.updated_at : self.kmUpdatedAt
     months = ((Time.zone.now.to_i - last_update.to_i).to_f / Event::MONTHS_IN_SEC).round
@@ -128,6 +138,7 @@ class Car < ActiveRecord::Base
       end
     end    
   end
+
   
 end
 

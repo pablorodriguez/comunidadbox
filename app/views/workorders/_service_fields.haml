@@ -39,9 +39,11 @@
       - if f.object.car_service_offer 
         %tr          
           %th.number{:colspan=>4}
-            = f.hidden_field :car_service_offer_id
-            = link_to "Oferta de Servicio", f.object.car_service_offer,:target => "_blank"
-          %th.number
+            - if f.object.today_car_service_offer
+              = select_tag "car_service_type", options_from_collection_for_select(f.object.today_car_service_offer, "id", "price") ,:class =>"short_select service_offer_select"           
+            = f.text_field :car_service_offer_id
+            = link_to "Oferta de Servicio", f.object.car_service_offer,:target => "_blank",:class =>"car_service_offer_link"
+          %th.number.car_service_offer_price
             =number_to_currency(f.object.car_service_offer.service_offer.final_price)
           %th
              

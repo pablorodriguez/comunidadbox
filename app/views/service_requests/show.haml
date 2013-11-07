@@ -68,11 +68,14 @@
           %td
             = item.description
   
-  #service_offer_form.hide
-    .box_bottom
-      %h1 Oferta de Servicio
+  - if @offer
+    #service_offer_form.hide
+      .box_bottom
+        %h1 
+          = "Oferta de Servicio: #{@offer.service_types_names}"
+          
 
-    = form_for @offer,:remote => true,:html =>{"data-no-reset" => true} do |f|
-      = render :partial => 'service_offers/form', :locals => {:f => f}
+      = form_for @offer,:remote => true,:html =>{"data-no-reset" => true} do |f|
+        = render :partial => 'service_offers/form', :locals => {:f => f}
+      
     
-  

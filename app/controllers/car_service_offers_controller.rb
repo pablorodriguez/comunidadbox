@@ -6,7 +6,7 @@ class CarServiceOffersController < ApplicationController
   end
   
   def index    
-    @car_service_offers = CarServiceOffer.where("car_id IN (?) and car_service_offers.status IN (?)",current_user.cars(&:id),
+    @car_service_offers = CarServiceOffer.where("car_id IN (?) and car_service_offers.status IN (?)",current_user.cars.map(&:id),
       [Status::CONFIRMED, Status::PERFORMED, Status::SENT]).includes(:service_offer).includes(:car)
   end
   

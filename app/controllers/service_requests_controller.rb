@@ -14,10 +14,12 @@ class ServiceRequestsController < ApplicationController
   # GET /service_requests/1.json
   def show
     @service_request = ServiceRequest.find(params[:id])
-    @offer = ServiceOffer.new
-    @offer.build_offer_service_types @service_request.service_types      
-    @offer.car_service_offers << CarServiceOffer.new(:car => @service_request.car)
-    
+
+    if company_id
+      @offer = ServiceOffer.new(:company_id => get_company_id)
+      @offer.build_offer_service_types @service_request.service_types      
+      @offer.car_service_offers << CarServiceOffer.new(:car => @service_request.car)
+    end
     respond_to do |format|
       format.html # show.html.erb      
       format.json {render :layout => false}
