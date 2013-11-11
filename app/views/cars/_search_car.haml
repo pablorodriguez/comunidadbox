@@ -1,4 +1,4 @@
-%h3 Buscar Automóviles
+%h3=t(".search_cars")
 #car_search.left
   .form
     = form_tag cars_path, :remote =>true,:method =>:get do |f|      
@@ -6,7 +6,7 @@
       %table.w
         %tr
           %td
-            = text_field_tag 'domain',"",:class=>"input",:title=>"Dominio",:placeholder=>"Dominio"
+            = text_field_tag 'domain',"",:class=>"input",:title=>"Dominio",:placeholder=>t(".domain")
         %tr
           %td
             = image_submit_tag("find.png",:class =>"input_img")  
