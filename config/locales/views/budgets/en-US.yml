@@ -1,0 +1,48 @@
+en-US:
+  budgets:
+    budgets:
+      list_of_budgets: "List of Budgets"
+    budget:
+      number_of_budget: "Number of Budget"
+      client: "Client"
+      operator: "Operator"
+      message: "Are you sure you want to delete the budget?"
+      delete: "Delete"
+      create_service: "Create Service"
+      modify: "Modify"
+      print: "Print"
+      notes: "Notes"
+      send_message: "Send Message"
+    actions:
+      new_budget: "New Budget"
+      new_client: "New Client"
+    new:
+      new_budget: "New Budget"
+    no_client: 
+      name: "Name *"
+      last_name: "Last Name *"
+      phone: "Phone"
+      email: "Email"
+    no_car: 
+      car: "Car" 
+      domain: "Domain"
+      brand: "Marca"
+      model: "Modelo"
+    form:
+      comment: "Comment"
+    services_list:
+      services: "Services"
+      select_type_of_service: "Select Type of Service"
+      save: "Save"
+      saving: "saving ..."
+      cancel: "Cancel"
+
+      
+      
+
+
+
+
+
+
+    

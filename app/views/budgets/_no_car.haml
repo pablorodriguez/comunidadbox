@@ -1,6 +1,6 @@
 .customer
   .box_bottom
-    %h1 Autómovil
+    %h1=t(".car")
   %table.w
     - if f.object.user
       %tr
@@ -8,18 +8,18 @@
         %td
           = f.collection_select(:car_id,f.object.user.cars,:id,:domain,{:prompt=>"Seleccione un auto"},{:class=>"long_select"})
     %tr
-      %td{:style=>"width:100px"} Dominio
+      %td{:style=>"width:100px"}=t(".domain")
       %td#domain
         .left        
           = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"input_short left",:placeholder=>"XXX999"
           .ajax_loader.left
         .validation_domain.hide
     %tr
-      %td Marca
+      %td=t(".brand")
       %td        
         = f.collection_select(:brand_id, Brand.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"brand long_select"})
     %tr
-      %td Modelo
+      %td=t(".model")
       %td        
         #models
           = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model long_select'})

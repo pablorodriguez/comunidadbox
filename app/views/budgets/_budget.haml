@@ -10,16 +10,16 @@
       .service
         = s.service_type.name
   .budget_info.clear
-    %label.bg_id{:title => "Número del presupuesto"}
+    %label.bg_id{:title =>t(".number_of_budget")}
       = link_to budget.id, budget
-    %label{title: "Cliente"}
+    %label{title: t(".client")}
       %strong
-        Cliente:
+        =t(".client")
     %label
       = budget.full_name
     %label
       %strong
-        Operario:
+        =t(".operator")
     %label
       = budget.creator.full_name
     .right
@@ -34,20 +34,20 @@
   .actions
     - if budget.can_edit?(current_user)
       .action     
-        = link_to "", budget_path(budget), :data => {:confirm => '¿ Esta seguro que desea borrar el Presupuesto ?'},:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
+        = link_to "", budget_path(budget), :data => {:confirm => t(".message")},:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete"
     - if company_id
       .action
-        = link_to "",new_workorder_path(:b =>budget.id),:title =>"Crear servicio",:class=>:new_service
+        = link_to "",new_workorder_path(:b =>budget.id),:title =>t(".create_service"),:class=>:new_service
       .action
-        = link_to "",edit_budget_path(budget),:title=>"Modificar",:class=>"edit"
+        = link_to "",edit_budget_path(budget),:title=>t(".modify"),:class=>"edit"
     .action  
-      = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:pdf
+      = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>t(".print"),:class =>:pdf
     .action
-      %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}      
+      %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}      
     - n_css = budget.notes.empty? ? "hide" : ""
     -if budget.can_send_message?(current_user)
       .action        
-        %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#"}
+        %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#"}
 
   = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes,:id=>budget.id}    
   -if budget.can_send_message?(current_user)

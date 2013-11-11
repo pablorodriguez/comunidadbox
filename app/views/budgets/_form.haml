@@ -22,8 +22,7 @@
     .customer
       %table
         %tr
-          %td{:style=>"width:100px"}
-            Comentario
+          %td{:style=>"width:100px"}=t(".comment")
           %td
             = f.text_area :comment,:rows =>3,:cols =>67
     #services.box_top.customer
