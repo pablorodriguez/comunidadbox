@@ -7,7 +7,7 @@ FactoryGirl.define do
     status Status::SENT
     comment "Nuevo Cambio de Aceite"
     title "Nuevo Cambio de Aceite"
-    service_type_id 1
+    offer_service_types {[OfferServiceType.new(service_type_id: 1)]}
   end
 
   

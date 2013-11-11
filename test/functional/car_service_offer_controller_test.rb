@@ -30,8 +30,9 @@ class CarServiceOffersControllerTest < ActionController::TestCase
     Timecop.freeze(date_ini) do
 	    get :index
 	    assert_response :success
-	    assert_template :index
-    	assert_select("div.service_offer_row",:count => 2)
+	    assert_template :index      
+      assert_not_nil assigns(:car_service_offers)
+    	assert_select("div.row",:count => 2)
 	  
     end
 

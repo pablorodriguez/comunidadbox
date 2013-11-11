@@ -8,6 +8,9 @@ class ServiceRequest < ActiveRecord::Base
   belongs_to :car
   accepts_nested_attributes_for :item_service_requests,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
 
+
+  validates_presence_of :user,:car
+
   def can_edit? usr
     self.user == usr
   end

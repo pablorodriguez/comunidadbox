@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105232858) do
+ActiveRecord::Schema.define(:version => 20131106154315) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -419,8 +419,10 @@ ActiveRecord::Schema.define(:version => 20131105232858) do
   add_index "notes", ["workorder_id"], :name => "notes_workorder_id_fk"
 
   create_table "offer_service_types", :force => true do |t|
-    t.integer "service_offer_id"
-    t.integer "service_type_id"
+    t.integer  "service_offer_id"
+    t.integer  "service_type_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "offer_service_types", ["service_offer_id"], :name => "offer_service_types_service_offer_id_fk"
@@ -498,15 +500,14 @@ ActiveRecord::Schema.define(:version => 20131105232858) do
     t.integer  "status"
     t.date     "since"
     t.date     "until"
-    t.boolean  "monday",          :default => false
-    t.boolean  "tuesday",         :default => false
-    t.boolean  "wednesday",       :default => false
-    t.boolean  "thursday",        :default => false
-    t.boolean  "friday",          :default => false
-    t.boolean  "saturday",        :default => false
-    t.boolean  "sunday",          :default => false
+    t.boolean  "monday",      :default => false
+    t.boolean  "tuesday",     :default => false
+    t.boolean  "wednesday",   :default => false
+    t.boolean  "thursday",    :default => false
+    t.boolean  "friday",      :default => false
+    t.boolean  "saturday",    :default => false
+    t.boolean  "sunday",      :default => false
     t.text     "comment"
-    t.integer  "service_type_id"
     t.integer  "company_id"
     t.date     "send_at"
     t.string   "title"
@@ -515,7 +516,6 @@ ActiveRecord::Schema.define(:version => 20131105232858) do
   end
 
   add_index "service_offers", ["company_id"], :name => "service_offers_company_id_fk"
-  add_index "service_offers", ["service_type_id"], :name => "service_offers_service_type_id_fk"
 
   create_table "service_requests", :force => true do |t|
     t.integer  "user_id"
@@ -766,7 +766,6 @@ ActiveRecord::Schema.define(:version => 20131105232858) do
   add_foreign_key "service_filters", "users", :name => "service_filters_ibfk_5", :dependent => :delete
 
   add_foreign_key "service_offers", "companies", :name => "service_offers_ibfk_1"
-  add_foreign_key "service_offers", "service_types", :name => "service_offers_ibfk_2"
 
   add_foreign_key "service_type_templates", "companies", :name => "service_type_templates_company_id_fk"
   add_foreign_key "service_type_templates", "service_types", :name => "service_type_templates_service_type_id_fk"

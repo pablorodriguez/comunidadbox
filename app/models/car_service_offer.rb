@@ -55,6 +55,10 @@ class CarServiceOffer < ActiveRecord::Base
     
   end
 
+  def self.search_by_cars_ids cars_ids
+    CarServiceOffer.where("car_id IN (?) and car_service_offers.status IN (?)",cars_ids,[Status::CONFIRMED, Status::PERFORMED, Status::SENT]).includes(:service_offer).includes(:car)
+  end
+
   def self.search_for(car_ids,company_ids)
     cso = search_by_car_and_companies(car_ids,company_ids)
     remove_not_valid(cso)

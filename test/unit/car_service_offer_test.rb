@@ -24,13 +24,13 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 
   end
 
-  test "get car service offer different days" do
+  test "get car service offer different days 2" do
   	#sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
-	  cso1 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
+	  cso1 = create(:so_change_oil,:price =>333,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
 	  cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  cso2 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
@@ -41,13 +41,32 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 
 	  #Detengo el tiempo al sabado 1 de Diciembre del 2012
     Timecop.freeze(date_ini) do
-	  	cso = @pablo.cars.first.search_service_offer(@employer.company_id)
-	  	assert cso.size == 2
+      cso = @pablo.cars.first.search_service_offer(@employer.company_id)
+      assert cso.size == 2
     end
+  
+  end
 
+  test "get car service offer different days 1" do
+    #sabado 1 de Diciembre del 2012
+    date_ini = Time.new(2012,12,1)
+    date_end = date_ini + 1.month
+    now = date_ini + 2.days
+
+    cso1 = create(:so_change_oil,:price =>333,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
+    cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+
+    cso2 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
+    cso2.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+
+    cso3 = create(:so_change_oil,:company => @employer.company,:since =>date_end + 1.day,:until=>date_end + 15.days)
+    cso3.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+
+
+    #Detengo el tiempo al sabado 1 de Diciembre del 2012
     Timecop.freeze(date_end +2.days) do
-	  	cso = @pablo.cars.first.search_service_offer(@employer.company_id)	  	
-	  	assert cso.size == 1
+      cso = @pablo.cars.first.search_service_offer(@employer.company_id)
+      assert cso.size == 1
     end
 
   end

@@ -3,7 +3,7 @@
   window.service_request = #{@service_request.to_builder};
   window.services_types = #{ServiceType.to_builder(current_user.service_types)}
   window.cars = #{Car.to_builder(current_user.cars)}
-
+= render 'shared/error_messages', :target => @service_request
 #serivce_request_app{"ng-app" => "app"}
   %div{"ng-controller"=>"serviceRequestCtrl"}
     = form_for @service_request do |f|
@@ -17,7 +17,8 @@
                   \:
               %td
                 .inline-block
-                  = f.hidden_field :car_id,"ng-model" => "service_request.car.id"
+                  .hide
+                    = f.text_field :car_id,"ng-model" => "service_request.car.id"
                   - if @service_request.car
                     .domain_white
                       = @service_request.car.domain 
@@ -53,7 +54,7 @@
                 %br
                 %textarea{:rows=>"5",:cols=>"80",:name => "service_request[item_service_requests_attributes][{{$index}}][description]",:placeholder =>"descripción",:autocomplete => true,"ng-model" =>"item.description"}                            
       .buttons_container
-        = f.button :submit,:class =>"button"
+        = f.submit "Grabar",:class =>"button"
         = link_to 'Cancelar', service_requests_path
 
         

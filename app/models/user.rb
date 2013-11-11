@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   end
 
   def cars_ids
-    
+    self.cars.map(&:id)
   end
 
   def own_car car

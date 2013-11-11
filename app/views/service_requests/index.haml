@@ -11,7 +11,7 @@
         = t(".listing_service_request")    
     
     - @service_requests.each do |service_request|
-      .row
+      .row[service_request]
         .service_request_id{:title =>"Ver"}
           =link_to service_request.id , service_request
           = icon_status(service_request.status)
