@@ -2,52 +2,50 @@
   %table.tabla_datos_personales
     %tr
       %td
-        %h3 Nombre
+        %h3=t(".name")
       %td
         = car.user.full_name
         - if car.user.company_name
-          %label{:title=>"Razón Social"}
+          %label{:title=>t(".social_reason")}
             = "[#{car.user.company_name}]" 
         - if car.user.cuit
-          %label{:title=>"CUIT"}
+          %label{:title=>t(".cuit")}
             = "[#{car.user.cuit}]" 
       %td
-        %h3 Dominio
+        %h3=t(".domain")
       %td
         %p#domain
           = car.domain
       %td
-        %h3 Año
+        %h3=t(".year")
       %td
         = car.year
     %tr  
       %td
-        %h3 Email
+        %h3=t(".email")
       %td
         = car.user.email
       %td
-        %h3 Marca y Modelo
+        %h3=t(".brand_model")
       %td
         = "#{car.brand.name} #{car.model.name}"
       %td
-        %h3 Teléfono
+        %h3=t(".phone")
       %td
         = car.user.phone
     %tr
       %td
-        %h3
-          Kilometraje
+        %h3=t(".mileage")
       %td
         %span#km
           = car.km
       %td
-        %h3
-          Kilometraje promedio mensual
+        %h3=t(".mileage_monthly_average")
       %td
         %span#kmAverageMonthly
           = car.kmAverageMonthly
       %td
-        %h3 Ultima actualización
+        %h3=t(".last_update")
       %td 
         %span#kmUpdatedAt
           = l car.kmUpdatedAt.to_date if car.kmUpdatedAt

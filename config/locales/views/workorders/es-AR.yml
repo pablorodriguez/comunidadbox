@@ -7,8 +7,8 @@ es-AR:
       rank_company: "Calificar Prestador de Servicio"
     index:
       workorders_done: "Servicios Realizados"
-      client: Cliente
-      my_car: Mis autos
+      client: "Cliente"
+      my_car: "Mis autos"
       control_panel: "Panel de Control"
       budgets: "Presupuestos"
       service_offers: "Oferta de Servicios"

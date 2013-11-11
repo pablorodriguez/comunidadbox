@@ -9,3 +9,34 @@ es-AR:
       kmAverageMonthly: "Km Promedio Mensual"
     send:
       message_exit_send: "Mensaje enviado con exito"
+    search_car:
+      search_cars: "Buscar Automóvil" 
+      domain: "Dominio"
+    search_clients:
+      search_clients: "Buscar Clientes"
+      email: "Email"
+      name: "Nombre"
+      last_name: "Apellido"
+      social_reason: "Razón Social"
+    car_info:
+      name: "Nombre:"
+      social_reason: "Razón Social:"
+      cuit: "CUIT:"
+      domain: "Dominio:"
+      year: "Año:"
+      email: "Email:"
+      brand_model: "Marca y Modelo:"
+      phone: "Teléfono:"
+      mileage: "Kilometraje:"
+      mileage_monthly_average: "Kilometraje Promedio Mensual:"
+      last_update: "Ultima Actualización:"
+    new_km:
+      message: "Por favor actualize kilometraje para poder crear un servicio."
+      km_current: "Km Actual"
+      km_monthly_average: "Km Promedio Mensual"
+      update_km: "Actualizar Km"
+    services_list:
+      completed: "Completed"
+
+
+      
