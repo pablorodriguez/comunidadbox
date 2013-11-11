@@ -1,7 +1,4 @@
 es-AR:
-  layouts:    
-    logininfo:
-      login: "Ingresar"
   date:
     formats:
       default: "%e/%m/%Y"
@@ -214,3 +211,6 @@ es-AR:
     error_messages:
       errors_prohibited_plural: "Se produjeron los siguientes %{count} errores"
       errors_prohibited_singular: "Se produjo el siguiente error:"
+
+ 
+      
