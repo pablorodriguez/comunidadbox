@@ -15,15 +15,15 @@
             %label{title: "Operario"}              
               = "#{s.operator.first_name} #{s.operator.last_name}"
   .service_info.clear
-    %label.wo_id{:title => "Número del Servicio"}
+    %label.wo_id{:title => t(".service_number")}
       = link_to work_order_row.id,work_order_row
     %strong
-      Cliente:
+      =t(".client")
     %label
       = "#{work_order_row.car.user.first_name} #{work_order_row.car.user.last_name}"      
     - if work_order_row.user != current_user
       %strong
-        Vendedor:
+        =t(".seller")
       %label
         = "#{work_order_row.user.first_name} #{work_order_row.user.last_name}"
     .right
@@ -41,17 +41,17 @@
       .ajax_loader.left
       - if work_order_row.can_delete?(current_user)
         .action
-          = link_to("", workorder_path(work_order_row), :data =>{:confirm => '¿ Esta seguro que desea borrar el Servicio ?'},:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete") 
+          = link_to("", workorder_path(work_order_row), :data =>{:confirm => '¿ Esta seguro que desea borrar el Servicio ?'},:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete") 
       - if work_order_row.can_edit?(current_user)
         .action
-          = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>"Modificar")
+          = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>t(".modify"))
       .action
         = print_to_pdf work_order_row
       .action        
-        %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}      
+        %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}      
       -if work_order_row.can_send_message?(current_user)
         .action        
-          %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}      
+          %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}      
 
 
   -##rank.rank{:id =>"wo_#{work_order_row.id}"}      

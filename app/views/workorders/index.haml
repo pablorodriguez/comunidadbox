@@ -17,14 +17,14 @@
           #cars_link.menu
             = image_tag "cars.png"
             - if company_id
-              = link_to_unless_current "Clientes", clients_path
+              = link_to_unless_current t(".client"), clients_path
             - else
-              = link_to "Mis Autos", my_cars_path 
+              = link_to t(".my_car"), my_cars_path 
         - if company_id
           %li
             #control_panel_link.menu
               = image_tag "control-panel.png"
-              = link_to "Panel de Control",control_panels_path 
+              = link_to t(".control_panel"),control_panels_path 
         %li
           #service_done.link.menu
             = image_tag "service.png"
@@ -32,40 +32,40 @@
         %li
           #control_panel_link.menu
             = image_tag "budget.png"
-            = link_to "Presupuestos",budgets_path   
+            = link_to t(".budgets"),budgets_path   
         %li
           #service_offer.link.menu
             = image_tag "service_offer.png"
-            = link_to "Ofertas de Servicio" , service_offers_path
+            = link_to t(".service_offers") , service_offers_path
         = render "/home/new_menu"
         %li
           #service_center_link.menu
             = image_tag "find.png"        
-            = link_to "Prestadores de Servicios", all_companies_path   
+            = link_to t(".service_providers"), all_companies_path   
         - if current_user.is_administrator?
           %li
             #report_amount.link.menu
               = image_tag "graph.png"
-              Reporte Importes
+              =t(".report_amounts")
           %li
             #report_quantity.link.menu
               = image_tag "graph_money.png"
-              Reporte Cantidad        
+              = t(".report_sum")       
           %li
             #report_material.link.menu
               = image_tag "graph_money.png"
-              Reporte Materiales
+              = t(".report_materials")
           %li
             #report_detail.link.menu
               = image_tag "report.png"
-              Reporte Detalle
+              = t(".report_details")
     .box_bottom
       = render 'search'
     - if company_id
       .menu_actions.box_bottom      
         %ul
           %li
-            = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
+            = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")} 
 
   .contentright_s
     - if @work_orders.size > 0

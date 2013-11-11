@@ -1,4 +1,5 @@
 es-AR:
+  workorders_done: "Servicios Realizados"
   workorders:
     show:
       save: "Grabar"
@@ -6,3 +7,55 @@ es-AR:
       rank_company: "Calificar Prestador de Servicio"
     index:
       workorders_done: "Servicios Realizados"
+      client: Cliente
+      my_car: Mis autos
+      control_panel: "Panel de Control"
+      budgets: "Presupuestos"
+      service_offers: "Oferta de Servicios"
+      service_providers: "Prestadores de Servicios"
+      report_amounts: "Reporte Importes"
+      report_sum: "Reporte Cantidad"
+      report_materials: "Reporte Materiales"
+      report_details: "Reporte Detalles"
+      new_client: "Nuevo Cliente"
+      create_new_client: "Crear Nuevo Cliente"
+    form:
+      enter_services_done: "Ingrese Servicios Realizados"
+    search:
+      search: "Buscar"
+      all: "Todos"
+      from: "Desde"
+      even: "Hasta"
+      domain: "Dominio"
+      number: "Número"
+      order_by: "Ordernar por"
+    sort_by: 
+      order_by: "Ordenar por"
+    work_order_row: 
+      notes: "Notas"
+      send_message: "Enviar mensaje"
+      delete: "Borrar"
+      modify: "Modificar"
+      service_number: "Número de Servicio"
+      client: "Cliente"
+      print_form: "Imprimir Formulario"
+      seller: "Vendedor:"
+    services_list:
+      completed: "Realizado"
+      delivery_time: "Hora de Entrega"
+      delivered: Entregado
+      type_pay: "Tipo de Pago"
+      type_of_service: "-- Tipo de Servicio --"
+      new_type_of_service: "Agregar un nuevo servicio"
+      see_note: "Ver Nota"
+      see_alarm: "Ver Alarma"
+      see_comment: "Ver Comentario"
+      search_materials: "Buscar Materiales (Ctrl + M)"
+      save: "Grabar"
+      cancel: "Cancelar"
+      saving: "Grabando ...."
+    comment:
+      comment: "Comentario"
+      new_note: "Nueva Nota"
+
+

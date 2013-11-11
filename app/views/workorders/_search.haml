@@ -1,6 +1,6 @@
 #wo_form
   .form
-    %h3 Buscar
+    %h3=t('.search') 
     = form_tag workorders_path,:remote =>true,:id=>:filter,:method =>:get do
       = hidden_field_tag :direction, @direction
       = hidden_field_tag :sort, @sort_column
@@ -11,31 +11,30 @@
             %li
               = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
               %label.link{:for => 'all_service_type'}
-                Todos
+                =t('.all')
             -@company_services.each do |service|
               %li
                 = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
                 %label.link{:for=>"service_type_#{service.id}"}
-                  =service.name
+                =service.name
 
         %table
           %tbody
             %tr        
               %td
-                = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>"Desde"              
-                = text_field_tag 'date_to', @date_t,:class =>"input_date labelify",:title=>"Hasta"
+                = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>t(".from")            
+                = text_field_tag 'date_to', @date_t,:class =>"input_date labelify",:title=>t(".even")
             %tr
               %td
-                = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>"Número"
+                = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>t(".number")
             %tr
               %td
-                = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>"Dominio"              
+                = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>t(".domain")              
                 = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
         
-      %h3
-        Ordenar por
+      %h3= t(".order_by")
       .clear
-        = select_tag "order_by",options_for_select(Workorder::ORDER_BY.to_a,@order_by),{:style => "width:225px"}
+        = select_tag "order by",options_for_select(Workorder::ORDER_BY.to_a,@order_by),{:style => "width:225px"}
 
       %br
       .left
