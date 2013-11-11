@@ -1,0 +1,20 @@
+en-US:
+  clients:
+    list_clients:
+      list_of_clients: "List of Clients"
+      see: "See"
+      modify_client: "Modify Client"
+      edit: "Edit"
+      new_budget: "new Budget"
+      new_car: "New Car"
+      new_message: "New Message"
+      car_delete_confirm: "Delete Car?"
+      delete: "delete"
+      modify_car: "Modify Car"
+      new_service: "New Service"
+
+
+
+
+
+    

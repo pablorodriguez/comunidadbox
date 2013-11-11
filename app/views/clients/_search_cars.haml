@@ -1,12 +1,12 @@
 #car_search
-  %h1 Buscar Automóviles
+  %h1=t(".search_cars")
   #car_search.left
     = form_tag cars_path, :remote =>true,:method =>:get do |f|
       = hidden_field_tag :car_id,@car_id
       = hidden_field_tag :company_id,@company_id
       %table
         %tr
-          %td Dominio 
+          %td=t(".domain")
         %tr
           %td
             = text_field_tag 'domain',:html =>{:placeholder=>"Dominio"}
