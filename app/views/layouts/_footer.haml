@@ -4,11 +4,12 @@
   = image_tag "logo_footer.png"
   %ul#navcopy.nav
     %li 
-      = "Copyright #{Time.now.year}© Comunidad Box. Todos los derechos reservados"
+      = "Copyright #{Time.now.year}© Comunidad Box." 
+      =t(".all")
     %li
-      %a{:href => "#"} Términos y condiciones de uso
+      %a{:href => "#"}=t(".terms")
     %li
-      %a{:href => "#"} Politica de privacidad
+      %a{:href => "#"}=t(".policy")
   %ul#navmapa.nav    
     %li
-      = link_to "Contactenos",new_contact_path
+      = link_to t(".contact"),new_contact_path

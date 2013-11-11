@@ -1,13 +1,11 @@
 .shadown2.title
   #cont1
     #comunidadbox
-      %h1 ¡BIENVENIDO A COMUNIDAD BOX!
-      %span.hide
-        nosotros cuidamos tu auto, vos disfrutalo
-    %h2
-      %span#cont1
-        Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Disfrutelo!
+      %h1=t(".welcome")  
+      %span.hide=t(".message1")
+      %h2
+        %span#cont1=t(".message2")
         %br
       - if user_signed_in?
         - if company_id && get_service_types.empty?
-          = link_to "Por favor registre sus tipos de servicios", service_types_companies_path
+          = link_to t(".message3"), service_types_companies_path

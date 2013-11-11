@@ -7,16 +7,16 @@
     %ul
       %li
         %h3
-          = link_to t(".login"),new_user_session_path,title: "Ingresar a ComunidadBox"
+          = link_to t(".login") ,new_user_session_path, title: t(".sign_in")
       %li
         %h3
-          = link_to "Regístrate",new_user_registration_path,title: "Registrar nuevo usuario"
+          = link_to t(".register") ,new_user_registration_path, title: t(".register_a_new_user")
       %li
         %h3
-          = link_to "Prestadores de Servicios", all_companies_path,title: "Buscar Prestadores de Servicios"
+          = link_to t(".service_providers"), all_companies_path, title: t(".search")
       %li
         %h3          
-          = link_to "?", help_path,:title => "Ayuda",:class => "help_link"
+          = link_to "?", help_path, :title => t(".help"),:class => "help_link"
   -if user_signed_in? 
     %ul  
       %li

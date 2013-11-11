@@ -1,0 +1,20 @@
+es-AR:
+  layouts:    
+    logininfo:
+      login: "Ingresar"
+      register: "Regístrese"
+      service_providers: "Prestadores de Servicios" 
+      sign_in: Ingresar a Comunidadbox
+      register_a_new_user: "Registrar nuevo usuario"
+      search: "Buscar Prestadores de Servicios"
+      help: "Ayuda"
+    footer:
+      all: "Todos los derechos reservados"
+      terms: "Términos y condiciones de uso"
+      policy: "Politica de Privacidad"
+      contact: "Contáctenos"
+
+
+
+
+    
