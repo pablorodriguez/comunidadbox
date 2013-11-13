@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
   def from_http    
     if respond_to?(:request) && request.env && request.env['HTTP_ACCEPT_LANGUAGE']
       lang = request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]
+      debugger
       if lang == "es-AR" 
       then "es-AR" 
       elsif (lang =="en" or lang == "en-us")
