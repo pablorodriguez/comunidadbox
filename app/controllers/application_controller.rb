@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|    
     redirect_to root_url, :alert => exception.message
   end
-   def set_locale
+  
+  def set_locale
     I18n.locale = from_http || I18n.default_locale
     logger.debug "* Locale set to '#{I18n.locale }'"
   end
@@ -30,10 +31,10 @@ class ApplicationController < ActionController::Base
   def from_http    
     if respond_to?(:request) && request.env && request.env['HTTP_ACCEPT_LANGUAGE']
       lang = request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]
-      if lang == "es-419" 
-        then "es-AR" 
-         elsif lang =="en" 
-          then "en-US" 
+      if lang == "es-AR" 
+      then "es-AR" 
+      elsif (lang =="en" or lang == "en-us")
+      then "en-US" 
       end 
     end
   end
