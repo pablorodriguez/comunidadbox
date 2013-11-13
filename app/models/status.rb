@@ -18,7 +18,7 @@ class Status
     }
 
   SR_STATUS = {
-    OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
+    OPEN=>'Abierto',CONFIRMED=>'Confirmado'
     }
 
   MR_STATUS = {

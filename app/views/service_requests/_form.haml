@@ -26,9 +26,11 @@
                     %select.short_select{:type  => "text","ng-model" =>"service_request.car","ng-options" => "car.domain for car in cars"}               
                     .domain_white.inline-block
                       {{service_request.car.domain}}
-            %tr.hide
+            %tr
               %td
-                = ServiceRequest.human_attribute_name(:status)
+                %strong
+                  = ServiceRequest.human_attribute_name(:status)
+                  \:
               %td
                 = f.select(:status,Status::SR_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'long_select',:title=>"Estado"})
       .box_bottom

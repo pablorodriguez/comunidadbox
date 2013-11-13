@@ -5,7 +5,7 @@ class CarServiceOffer < ActiveRecord::Base
 
   default_scope order('car_service_offers.created_at DESC')
   belongs_to :car
-  belongs_to :service_offer
+  belongs_to :service_offer  
   has_one :service
 
   scope :confirmed, where("car_service_offers.status = ?", Status::CONFIRMED)

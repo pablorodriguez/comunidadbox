@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -56,10 +57,19 @@ class ActionController::TestCase
   include ComunidadBox::TestHelpers
 end
 
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = Rails.root.join("test", "vcr_cassettes")
+  c.hook_into :webmock
+  c.ignore_localhost = true
+  c.debug_logger = File.open("vcr.log", 'w')
+  c.allow_http_connections_when_no_cassette = true
+end
+
 require "mocha/setup"
 
 class ActiveSupport::TestCase  
   include ComunidadBox::TestHelpers
 end
 
-require "mocha/setup"

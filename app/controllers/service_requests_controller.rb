@@ -2,7 +2,8 @@ class ServiceRequestsController < ApplicationController
   # GET /service_requests
   # GET /service_requests.json
   def index
-    @service_requests = ServiceRequest.all
+    
+    @service_requests = ServiceRequest.for_user current_user
 
     respond_to do |format|
       format.html # index.html.erb

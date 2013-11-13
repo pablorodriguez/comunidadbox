@@ -3,16 +3,29 @@ class ServiceRequest < ActiveRecord::Base
 
   has_many :item_service_requests
   has_many :service_types,:through => :item_service_requests
+  has_many :car_service_offers
   belongs_to :user
   belongs_to :company
   belongs_to :car
+
+  default_scope order("service_requests.created_at DESC")
+  scope :confirmed, where("status = ?",Status::CONFIRMED)
+  scope :user, lambda { |user| where("user_id = ?",user.id)}
   accepts_nested_attributes_for :item_service_requests,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
 
 
   validates_presence_of :user,:car
 
+  def self.for_user user
+    if user.company_active
+      ServiceRequest.confirmed
+    else
+      ServiceRequest.user(user)
+    end
+  end
+
   def can_edit? usr
-    self.user == usr
+    self.user == usr && self.status == Status::OPEN
   end
 
   def can_delete? usr
