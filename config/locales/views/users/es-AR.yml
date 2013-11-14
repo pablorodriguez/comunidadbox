@@ -1,0 +1,41 @@
+es-AR:
+  users:
+    sessions:
+      new:
+        message: "¡BIENVENIDOS A COMUNIDAD BOX!"
+        login: "Iniciar Sesión"
+        email: "Correo Electrónico"
+        password: "Clave"
+        log_in: "Ingresar"
+    user_row:
+      name: "Nombre"
+      last_name: "Apellido"
+      phone: "Teléfono"
+      email: "Email *"
+      cuit: "CUIT"
+      social_reason: "Razón Social"
+    car_fields:
+      domain: "Dominio"
+      brand: "Marca"
+      year: "Año"
+      model: "Modelo"
+      mileage_monthly_average: "Kilometraje promedio mensual"
+      fuel: "Combustible"
+      mileage: "Kilometraje"
+    user_address_fields:
+      state: "Provincia"
+      city: "Cuidad"
+      street: "Calle"
+      zip: "Código Postal"
+    registrations:
+      new:
+        new_user: "Nuevo Usuarios"
+      form:
+        personal_info: "Información Personal"
+        password: "Clave *"
+        password_confirmation: "Confirmar Clave *"
+        information_car: "Información de su auto"
+        personal_address: "Dirección Personal"
+        save: "Grabar"
+        cancel: "Cancelar"
+   

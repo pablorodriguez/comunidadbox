@@ -1,4 +1,6 @@
 es-AR:
+  access: "'No pude ingresar al sitio con un usuario deshabilitado'"
+  user_update: "Usuario actualizado exitosamente"
   date:
     formats:
       default: "%e/%m/%Y"

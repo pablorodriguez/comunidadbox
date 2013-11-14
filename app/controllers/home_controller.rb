@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     end
 
     if current_user && current_user.disable
-      flash[:notice] = 'No pude ingresar al sitio con un usuario deshabilitado'
+      flash[:notice] = t(".access")
       redirect_to destroy_user_session_path
     end
   end
