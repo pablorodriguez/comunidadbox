@@ -29,15 +29,6 @@ class ApplicationController < ActionController::Base
     logger.debug "*locale'#{I18n.locale}"
     logger.debug "*locale default '#{I18n.default_locale}"
     logger.debug "*locale from'#{from_http}"
-
-
-  end
-
- def set_locale
-    I18n.locale = from_http || I18n.default_locale
-    logger.debug "*locale'#{I18n.locale}"
-    logger.debug "*locale default '#{I18n.default_locale}"
-    logger.debug "*locale from'#{from_http}"
   end
 
   def from_http    
