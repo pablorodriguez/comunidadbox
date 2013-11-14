@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   
   def set_locale
     I18n.locale = from_http || I18n.default_locale
-  
     logger.debug "*locale'#{I18n.locale}"
     logger.debug "*locale default '#{I18n.default_locale}"
     logger.debug "*locale from'#{from_http}"
@@ -33,11 +32,10 @@ class ApplicationController < ActionController::Base
 
   def from_http    
     if respond_to?(:request) && request.env && request.env['HTTP_ACCEPT_LANGUAGE']
-      logger.debug "*requesttt'#{request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]}'" 
-      logger.debug " lenguajes del navegador--------- '#{pp request.env['HTTP_ACCEPT_LANGUAGE']}'" 
+      logger.debug "*request'#{request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]}'" 
+      logger.debug " lenguajes del navegador-'#{pp request.env['HTTP_ACCEPT_LANGUAGE']}'" 
       return request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]
-      logger.debug "*requesttt'#{request.env['HTTP_ACCEPT_LANGUAGE'].split(",")[0]}'" 
-     end
+    end
   end
 end
 
