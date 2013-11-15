@@ -12,8 +12,7 @@
     
     - @service_requests.each do |service_request|
       .row[service_request]
-        .service_request_id{:title =>"Ver"}
-          =link_to service_request.id , service_request
+        .service_request_id{:title =>"Ver"}          
           = icon_status(service_request.status)
         .left
           - if service_request.car
@@ -24,14 +23,22 @@
         .left
           - service_request.item_service_requests.each do |isr|
             %strong
-              = isr.service_type.name            
+              = link_to isr.service_type.name,service_request,:title =>t("view")
             = isr.description
             %br
-
         = service_request.company.try(:name)
-        .actions
+        .actions.right
+          -if service_request.can_delete? current_user
+            .action
+              = link_to '', service_request, method: :delete, data: { confirm: t('.sure_delete_service_request') },:class =>"delete",:title => t("delete")
           -if service_request.can_edit? current_user
             .action
-              = link_to '', service_request, method: :delete, data: { confirm: t('.sure_delete_service_request') },:class =>"delete"
-            .action
-              = link_to "", edit_service_request_path(service_request),:class =>"edit"
+              = link_to "", edit_service_request_path(service_request),:class =>"edit",:title =>t("edit")
+        - service_request.car_service_offers.each do |cso|
+          - if cso.can_show?(current_user)
+            .right.clear
+              = link_to cso.service_offer.company.name, cso.service_offer.company,:title => t(".service_provider")
+              %strong
+                = link_to cso.service_offer.title, cso,:title =>t(".service_offer")
+              %strong
+                = number_to_currency(cso.service_offer.final_price)

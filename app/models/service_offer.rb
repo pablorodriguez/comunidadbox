@@ -1,12 +1,13 @@
 class ServiceOffer < ActiveRecord::Base
   include Statused  
-  attr_accessible :service_type_id, :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id
+  attr_accessible :service_type_id, :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id
 
   has_many :car_service_offers
   has_many :cars, :through => :car_service_offers
   has_many :offer_service_types
   has_many :service_types,:through => :offer_service_types
   belongs_to :company
+  belongs_to :service_request
 
   validates_numericality_of :price,:final_price,:percent
   validates_presence_of :title, :price, :final_price, :percent
@@ -17,6 +18,7 @@ class ServiceOffer < ActiveRecord::Base
   scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
   scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offers)}
   validate :validate_service_types
+
 
   def validate_service_types
     errors.add(:service_types, "debe tener al menos un tipo de servicio") if offer_service_types.length == 0

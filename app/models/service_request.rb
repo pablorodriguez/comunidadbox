@@ -3,7 +3,7 @@ class ServiceRequest < ActiveRecord::Base
 
   has_many :item_service_requests
   has_many :service_types,:through => :item_service_requests
-  has_many :car_service_offers
+  has_many :service_offers
   belongs_to :user
   belongs_to :company
   belongs_to :car
@@ -15,6 +15,10 @@ class ServiceRequest < ActiveRecord::Base
 
 
   validates_presence_of :user,:car
+
+  def car_service_offers
+    CarServiceOffer.where("service_offer_id IN (?) and car_id = ?",service_offers.map(&:id),car.id)
+  end
 
   def self.for_user user
     if user.company_active
@@ -29,7 +33,7 @@ class ServiceRequest < ActiveRecord::Base
   end
 
   def can_delete? usr
-    can_edit? usr
+    self.user == usr
   end
 
   def to_builder

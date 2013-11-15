@@ -17,7 +17,7 @@ class ServiceRequestsController < ApplicationController
     @service_request = ServiceRequest.find(params[:id])
 
     if company_id
-      @offer = ServiceOffer.new(:company_id => get_company_id)
+      @offer = ServiceOffer.new(:company_id => get_company_id,:service_request_id =>@service_request.id)
       @offer.build_offer_service_types @service_request.service_types      
       @offer.car_service_offers << CarServiceOffer.new(:car => @service_request.car)
     end

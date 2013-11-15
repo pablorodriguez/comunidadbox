@@ -1,6 +1,8 @@
 es-AR:
   service_requests:
     index:
+      service_provider: "Prestador de Servicio"
+      service_offer: "Oferta de Servicio"
       new_service_request: Nueva Solicitud de Servicios
       listing_service_request: Listado de Solicitudes de Servicios
       sure_delete_service_request: "¿ Esta serguro de queres eliminar la Solicitud de Servicio ?"

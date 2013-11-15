@@ -24,6 +24,10 @@ class CarServiceOffer < ActiveRecord::Base
     end
   end
 
+  def can_show? user
+    car.user.id == user.id || service_offer.company.is_employee?(user)
+  end
+
   def price
     number_to_currency service_offer.final_price
   end

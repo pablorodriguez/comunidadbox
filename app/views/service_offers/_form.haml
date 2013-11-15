@@ -1,5 +1,7 @@
 - @offer.car_service_offers.each do |c_s_o|
   =hidden_field_tag 'car_ids[]', c_s_o.car.id
+- if f.object.service_request_id
+  = f.hidden_field :service_request_id 
 = f.fields_for :offer_service_types do |st_form|
   = st_form.hidden_field :service_type_id        
 = render 'shared/error_messages',:target => @offer
