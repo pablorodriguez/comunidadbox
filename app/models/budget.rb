@@ -117,11 +117,11 @@ class Budget < ActiveRecord::Base
   end
 
   def can_show?(user)    
-    (self.car && self.car.user == user) || self.user == user || self.company.is_employee(user)
+    (self.car && self.car.user == user) || self.user == user || self.company.is_employee?(user)
   end
 
   def can_edit? user
-    creator.id == user.id || company.is_employee(user)
+    creator.id == user.id || company.is_employee?(user)
   end
 
   def can_create_service? user

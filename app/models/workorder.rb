@@ -147,7 +147,7 @@ class Workorder < ActiveRecord::Base
       unless deliver
         errors[:deliver] << "no puede ser vacio"
       end
-      unless user.company.is_employee(user)
+      unless user.company.is_employee?(user)
         errors[:services] << "El prestador de servicios es incorrecto"
       end
 
@@ -265,7 +265,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_rank? user
-    car.user == user || (company && company.is_employee(user))
+    car.user == user || (company && company.is_employee?(user))
   end
 
   def can_delete?(usr)
@@ -283,7 +283,7 @@ class Workorder < ActiveRecord::Base
     end
 
     if (is_open? || is_in_progress?)
-      if company.is_employee(usr) && user.is_employee?
+      if company.is_employee?(usr) && user.is_employee?
         return true
       end
     end
