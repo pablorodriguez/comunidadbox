@@ -75,4 +75,3 @@
 //= require angular-resource
 //= require app/main
 //= require_tree ./app/controllers
-//= require_tree ./app/services
