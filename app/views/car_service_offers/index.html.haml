@@ -6,5 +6,42 @@
   .box_bottom
     %h1 Ofertas de Servicios
   #service_offers
-    = render :partial => "car_service_offer",:collection => @car_service_offers
-    
+  -@car_service_offers.each do |car_service_offer|
+    #service_offer.row[car_service_offer]
+      //= render :partial => "car_service_offer",:collection => 
+      -service_offer = car_service_offer.service_offer
+      .service_offer_info
+        .service_offer_detail        
+          .company_name        
+            = link_to service_offer.company.name,service_offer.company
+          .service_offer_title      
+            = link_to service_offer.title, car_service_offer,:class =>"view"
+          %strong
+            = service_offer.service_types_names
+          = icon_status(car_service_offer.status)
+          .domain_white
+            = link_to car_service_offer.car.domain,car_service_offer.car
+          = link_to "Realizado en servicio",car_service_offer.service.workorder,:target =>"_blank" if car_service_offer.service
+        .price_detail
+          .price              
+            Precio:
+            = number_to_currency service_offer.final_price
+          .discount
+            Descuento:
+            = number_to_percentage(service_offer.percent, :precision =>2)
+        .valid
+          .service_offer_valid
+            %strong
+              Valido
+            %span
+              = l service_offer.since unless service_offer.since.nil?
+            %span
+              = l service_offer.until unless service_offer.until.nil?
+          .service_offer_dates
+            %strong
+              Dias
+            .days
+              %ul
+                - service_offer.valid_dates.each do |day|
+                  %li
+                    =t day    
