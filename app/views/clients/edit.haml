@@ -5,21 +5,21 @@
 .contentright_s
   #user_company_address
     .box_bottom
-      %h1 Modificar Cliente
+      %h1=t(".modify_client")
     = render 'shared/error_messages', :target => @client
     = form_for @client, :url => client_path(@client) do |f|
       #user_data
-        %h3 Información Personal
+        %h3=t(".personal_information")
         .personal_info.box_bottom
           %table
             %tbody
               = render 'client_row',:f => f
-        %h3 Direccion Personal
+        %h3=t(".address_information")
         .personal_address.box_bottom      
           =f.fields_for :address do |a|
             = render 'users/user_address_fields', :f =>a
       .buttons.box_bottom        
-        = f.submit "Grabar",:class=>:button
-        = link_to "Cancelar",client_path(@client)
+        = f.submit t(".save"),:class=>:button
+        = link_to t(".cancel"),client_path(@client)
 
 

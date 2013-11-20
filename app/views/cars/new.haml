@@ -4,9 +4,8 @@
   = render "home/default_actions"
 .contentright_s
   .box_bottom
-    %h1
-      Nuevo Auto para 
-      = @car.user.full_name
-      = @car.user.company_name if @car.user.company_name
+    %h1=t(".new_car_for") 
+    = @car.user.full_name 
+    = @car.user.company_name if @car.user.company_name
   = render :partial=>'car'
   

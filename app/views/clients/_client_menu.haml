@@ -3,11 +3,11 @@
     %ul
       - if company_id
         %li
-          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}
+          = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")}
         %li
-          = link_to "Nuevo Presupuesto",new_budget_path(:c => @client.id),{:title=>"Nuevo Presupuesto"}
+          = link_to t(".new_budget"),new_budget_path(:c => @client.id),{:title=>t(".new_budget")}
       - if current_user.can_edit?(@client)
         %li
-          = link_to "Modificar Cliente",edit_client_path(@client),{:title=>"Modificar cliente"} 
+          = link_to t(".modify_client"),edit_client_path(@client),{:title=>t(".modify_client")} 
         %li
-          = link_to "Nuevo Automóvil", new_car_path(:user_id=>@client.id),  {:title =>"Nuevo Automóvil"}
+          = link_to t(".new_car"), new_car_path(:user_id=>@client.id),  {:title =>t(".new_car")}

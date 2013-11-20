@@ -35,6 +35,14 @@ en-US:
       km_current: "Km Current"
       km_monthly_average: "Km Monthly Average"
       update_km: "Km Update"
+    services_list:
+      completed: "Completed"  
+    new:
+      new_car_for: "New Car for"
+    car:
+      save: "Save"
+      cancel: "Cancel"
+
     
       
 

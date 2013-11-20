@@ -1,14 +1,14 @@
 %table.w
   %tr
-    %td{:style=>"width:100px"} Marca
+    %td{:style=>"width:100px"}=t(".brand")
     %td
       = @car.brand.name if @car.brand 
   %tr
-    %td Modelo
+    %td=t(".model")
     %td        
       = @car.model.name if @car.model
   %tr
-    %td Dominio
+    %td=t(".domain")
     %td
       - unless @car.domain.empty?
         .domain_white

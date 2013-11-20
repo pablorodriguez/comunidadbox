@@ -1,18 +1,18 @@
 .car.right
   .box_bottom
-    %h1 Autómovil
+    %h1=t(".car")
     = f.hidden_field :car_id
   %table
     %tr
-      %td Dominio
+      %td=t(".domain")
       %td
         = car.domain
     %tr
-      %td{:style=>"width:100px"} Marca
+      %td{:style=>"width:100px"}=t(".brand")
       %td 
         = car.brand.name       
     %tr
-      %td Modelo
+      %td=t(".model")
       %td 
         = car.model.name       
    

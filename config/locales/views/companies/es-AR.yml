@@ -1,0 +1,18 @@
+es-AR:
+  companies:
+    show:
+      service provider: "Prestador de Servicio"
+      name: "Nombre"
+      web: "Sito Web"
+      phone: "Teléfono"
+      ranking: "Ranking"
+      address: "Dirección"
+      state: "Provincia"
+      city: "Cuidad"
+      street: "Calle"
+      zip: "Código Postal"
+    search_map: 
+      service_provider: "Prestadores de Servicio"
+      address: "Dirección:"
+      radius: "Radio de"
+ 

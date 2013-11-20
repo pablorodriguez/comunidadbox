@@ -1,14 +1,14 @@
 .box_bottom
-  %h1 Prestadores de Servicios
+  %h1=t(".service_provider")
 .box_bottom
   .google_map
     = render "gmap4rails"    
 .box_bottom
   %strong
-    Dirección:
+    =t(".address")
   = @street
   %strong
-    radio de:
+    =t(".radius")
   = " #{@distance} km"
   %ul#markers_list
 

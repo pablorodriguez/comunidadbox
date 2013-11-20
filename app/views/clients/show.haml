@@ -3,56 +3,56 @@
   = render "client_menu"
 .contentright_s
   .box_bottom
-    %h1 Cliente
+    %h1=t(".client")
   .box_bottom
-    %h3 Información Personal
+    %h3=t(".personal_information")
     %table.w
       %tbody
         %tr
-          %td{:width=>"100px"}
-            Nombre
+          %td{:width=>"100px"}=t(".name")
+   
           %td
             = @client.first_name
         %tr
-          %td Apellido
+          %td=t(".last_name")
           %td
             = @client.last_name
         - if @is_client
           %tr
-            %td Email
+            %td=t(".email")
             %td
               = @client.email
           %tr
-            %td Razón Social
+            %td=t(".social_reason")
             %td
               = @client.company_name
           %tr
-            %td CUIT
+            %td=t(".cuit")
             %td
               = @client.cuit
           %tr
-            %td Teléfono
+            %td=t(".phone")
             %td
               = @client.phone
   - if @client.address && @is_client
     .box_bottom
-      %h3 Dirección
+      %h3=t(".address")
       %table.w
         %tbody
           %tr
-            %td{:width=>"100px"} Provincia
+            %td{:width=>"100px"}=t(".state")
             %td
               = @client.address.state.name
           %tr
-            %td Ciudad
+            %td=t(".city")
             %td
               = @client.address.city
           %tr
-            %td Calle
+            %td=t(".street")
             %td
               = @client.address.street
           %tr
-            %td Código Postal
+            %td=t(".zip")
             %td
               = @client.address.zip
   .client_cars
@@ -66,8 +66,8 @@
           = "#{car.model.name} #{car.year}"
         .actions
           .action
-            = link_to "",new_budget_path(:ca => car.id),{:title=>"Nuevo Presupuesto",:class=>"new_budget"}
+            = link_to "",new_budget_path(:ca => car.id),{:title=>t(".new_budget"),:class=>"new_budget"}
           .action
-            = link_to "", new_workorder_path(:car_id =>car),{:title=>"Nuevo Servicio",:class =>"new_service"}
+            = link_to "", new_workorder_path(:car_id =>car),{:title=>t(".new_service"),:class =>"new_service"}
           .action
-            = link_to "",edit_car_path(car),{:title=>"Modificar automóvil",:class =>"edit"} if current_user.can_edit?(car.user)
+            = link_to "",edit_car_path(car),{:title=>t(".modify_car"),:class =>"edit"} if current_user.can_edit?(car.user)

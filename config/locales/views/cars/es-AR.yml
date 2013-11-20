@@ -36,7 +36,13 @@ es-AR:
       km_monthly_average: "Km Promedio Mensual"
       update_km: "Actualizar Km"
     services_list:
-      completed: "Completed"
+      completed: "Completado"
+    new:
+      new_car_for: "Nuevo Auto para"
+    car:
+      save: "Grabar"
+      cancel: "Cancelar"
+
 
 
       

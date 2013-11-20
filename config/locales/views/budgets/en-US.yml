@@ -23,11 +23,31 @@ en-US:
       last_name: "Last Name *"
       phone: "Phone"
       email: "Email"
+    client:
+      client: "Client"
+      name: "Name"
+      last_name: "Last Name"
+      phone: "Phone"
+      email: "Email"
+    client_row:
+      name: "Name"
+      last_name: "Last Name"
+      phone: "Phone"
+      email: "Email"
     no_car: 
       car: "Car" 
       domain: "Domain"
       brand: "Marca"
       model: "Modelo"
+    car:
+      car: "Car"
+      domain: "Domain"
+      brand: "Brand"
+      model: "Model"
+    car_row:
+      domain: "Domain"
+      brand: "Brand"
+      model: "Model"
     form:
       comment: "Comment"
     services_list:

@@ -2,46 +2,45 @@
 %table.service_table
   %tbody
     %tr
-      %td{width:'100px'}
-        Nombre
+      %td{width:'100px'}=t(".name")
       %td
         = @company.name
     %tr.header
-      %td Sitio Web
+      %td=t(".web")
       %td
         = link_to(h(@company.website),"http://#{h(@company.website)}" , :target => "_blank")
     %tr
-      %td Teléfono
+      %td=t(".phone")
       %td
         = h @company.phone
     %tr
-      %td Ranking
+      %td=t(".ranking")
       %td
         = @company.user_rank
 -if @company.address
   .box_bottom
-    %h3 Dirección
+    %h3=t(".address")
   %table
     %tbody
       = hidden_field_tag :full_address, @company.address.to_text        
       %tr
-        %td{width:'100px'}
-          Provincia
+        %td{width:'100px'}=t(".state")
+
         %td
           = @company.address.state.name
       %tr
         %td
-          %label{ :for => "city" }Ciudad    
+          %label{ :for => "city" }=t(".city")    
         %td
           = @company.address.city    
       %tr
         %td
-          %label{ :for => "street" }Calle
+          %label{ :for => "street" }=t(".street")
         %td
           = @company.address.street
       %tr
         %td
-          %label{ :for => "zip" }Código Postal    
+          %label{ :for => "zip" }=t(".zip")    
         %td
           = @company.address.zip
 
