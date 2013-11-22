@@ -5,3 +5,4 @@ class CanAccessResque
     Ability.new(current_user).can? :manage, Resque
   end
 end
+
