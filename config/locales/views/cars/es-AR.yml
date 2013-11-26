@@ -17,10 +17,9 @@ es-AR:
       email: "Email"
       name: "Nombre"
       last_name: "Apellido"
-      social_reason: "Razón Social"
     car_info:
       name: "Nombre:"
-      social_reason: "Razón Social:"
+      business_name: "Razón Social:"
       cuit: "CUIT:"
       domain: "Dominio:"
       year: "Año:"

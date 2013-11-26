@@ -6,7 +6,7 @@
       %td
         = car.user.full_name
         - if car.user.company_name
-          %label{:title=>t(".social_reason")}
+          %label{:title=>t(".business_name")}
             = "[#{car.user.company_name}]" 
         - if car.user.cuit
           %label{:title=>t(".cuit")}

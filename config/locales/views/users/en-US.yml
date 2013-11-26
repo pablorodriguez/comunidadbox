@@ -13,7 +13,6 @@ en-US:
       phone: "Phone"
       email: "Email *"
       cuit: "CUIT"
-      social_reason: "Social Reason"
     car_fields:
       domain: "Domain"
       brand: "Brand"

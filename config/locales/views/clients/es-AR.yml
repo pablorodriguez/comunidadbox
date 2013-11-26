@@ -37,7 +37,6 @@ es-AR:
       name: "Nombre"
       last_name: "Apellido"
       email: "Correo Electrónico *"
-      social_reason: "Razón Social"
       cuit: "CUIT"
       phone: "Teléfono"
     user:
@@ -51,7 +50,6 @@ es-AR:
       name: "Nombre"
       last_name: "Apellido"
       email: "Correo Electrónico *"
-      social_reason: "Razón Social"
       cuit: "CUIT"
       phone: "Teléfono"
       address: "Dirección"

@@ -17,10 +17,9 @@ en-US:
       email: "Email"
       name: "Name"
       last_name: "Last Name"
-      social_reason: "Social Reason"
     car_info:
       name: "Name:"
-      social_reason: "Social Reason:"
+      business_name: "Business Name:"
       cuit: "CUIT:"
       domain: "Domain:"
       year: "Year:"
@@ -42,7 +41,4 @@ en-US:
     car:
       save: "Save"
       cancel: "Cancel"
-
-    
-      
 
