@@ -10,6 +10,9 @@ es-AR:
       help: "Ayuda"
       select_company: "Seleccionar Compañia"
       update_user: "Modificar Usuario"
+      exit: "Salir"
+      all_companies: "Todas"
+      administration: "Administración"      
     footer:
       all: "Todos los derechos reservados"
       terms: "Términos y condiciones de uso"

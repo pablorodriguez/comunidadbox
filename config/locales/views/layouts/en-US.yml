@@ -9,7 +9,10 @@ en-US:
       search: "Search for Service Providers"
       help: "Help"
       select_company: "Select Company"
-      update_user: "Update Users"
+      update_user: "Update User"
+      exit: "Exit"
+      all_companies: "All"
+      administration: "Administration"      
     footer:
       all: "All rights reserved"
       terms: "Terms and conditions of use"

@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   helper :all # include all helpers, all the time
-  before_filter :set_locale
+
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -24,8 +24,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
   
-  def set_locale2
-  end
   
 end
 

@@ -11,7 +11,7 @@ en-US:
       clients: "Clients"
       my_cars: "My cars"
       control_panel: "Control Panel"
-      services_made: "Services Made"
+      services_made: "Services Performed"
       budgets: "Budgets"
       service_offers: "Service Offers"
       service_providers: "Service Providers"
@@ -22,11 +22,3 @@ en-US:
       alarms: "Alarms"
       messages: "Messages"
       notes: "Notes"
-
-
-
-    
-
-
-
-    
