@@ -12,83 +12,53 @@
 #all-workorder
   .vertical_menu
     #menu_options.box_bottom
-      %ul
+      = render "home/menu"
+      - if current_user.is_administrator?
         %li
-          #cars_link.menu
-            = image_tag "cars.png"
-            - if company_id
-              = link_to_unless_current t(".client"), clients_path
-            - else
-              = link_to t(".my_car"), my_cars_path 
-        - if company_id
-          %li
-            #control_panel_link.menu
-              = image_tag "control-panel.png"
-              = link_to t(".control_panel"),control_panels_path 
+          #report_amount.link.menu
+            = image_tag "graph.png"
+            Reporte Importes
         %li
-          #service_done.link.menu
-            = image_tag "service.png"
-            = link_to t(".workorders_done"),workorders_path            
+          #report_quantity.link.menu
+            = image_tag "graph_money.png"
+            Reporte Cantidad        
         %li
-          #control_panel_link.menu
-            = image_tag "budget.png"
-            = link_to t(".budgets"),budgets_path   
+          #report_material.link.menu
+            = image_tag "graph_money.png"
+            Reporte Materiales
         %li
-          #service_offer.link.menu
-            = image_tag "service_offer.png"
-            = link_to t(".service_offers") , service_offers_path
-        = render "/home/new_menu"
-        %li
-          #service_center_link.menu
-            = image_tag "find.png"        
-            = link_to t(".service_providers"), all_companies_path   
-        - if current_user.is_administrator?
-          %li
-            #report_amount.link.menu
-              = image_tag "graph.png"
-              =t(".report_amounts")
-          %li
-            #report_quantity.link.menu
-              = image_tag "graph_money.png"
-              = t(".report_sum")       
-          %li
-            #report_material.link.menu
-              = image_tag "graph_money.png"
-              = t(".report_materials")
-          %li
-            #report_detail.link.menu
-              = image_tag "report.png"
-              = t(".report_details")
+          #report_detail.link.menu
+            = image_tag "report.png"
+            Reporte Detalle
     .box_bottom
       = render 'search'
     - if company_id
       .menu_actions.box_bottom      
         %ul
           %li
-            = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")} 
+            = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
 
   .contentright_s
     - if @work_orders.size > 0
-      #workorders
-        #workorders_c.data          
-          #workorders
-            = render 'workorders'
-        - if current_user.is_administrator?
-          #price_graph_c.data.hide.chart            
-            .box_bottom
-              %h1 Importes por Tipo de Servicios
-            #price_graph.box_bottom.graph          
-            #price_report.box_bottom
-              = render "price_report"
-          #amt_graph_c.data.hide.chart
-            .box_bottom
-              %h1 Cantidad por Tipo de Servicios
-            #amt_graph.box_bottom.graph
-            #amt_report.box_bottom
-              = render "amount_report"                 
-          #amt_material_graph_c.data.hide.chart
-            = render "material_report"
-          #report_data.data.box_bottom.hide
-            = render 'totals'
+      #workorders_c.data          
+        #workorders
+          = render 'workorders'
+      - if current_user.is_administrator?
+        #price_graph_c.data.hide.chart            
+          .box_bottom
+            %h1 Importes por Tipo de Servicios
+          #price_graph.box_bottom.graph          
+          #price_report.box_bottom
+            = render "price_report"
+        #amt_graph_c.data.hide.chart
+          .box_bottom
+            %h1 Cantidad por Tipo de Servicios
+          #amt_graph.box_bottom.graph
+          #amt_report.box_bottom
+            = render "amount_report"                 
+        #amt_material_graph_c.data.hide.chart
+          = render "material_report"
+        #report_data.data.box_bottom.hide
+          = render 'totals'
     - else
       = render 'shared/message', :msg =>"No hay servicios realizados"
