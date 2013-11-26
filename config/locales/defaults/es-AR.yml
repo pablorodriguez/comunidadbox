@@ -21,6 +21,8 @@ es-AR:
   help_what_is_comunidadbox: "¿ Que es ComunidadBox ?"
   help_new_client_service_budget: "Nuevo Cliente, Servicio y Presupuesto"
   help_confirm_user: "Confirmar Usuario"
+  help_title: "Tutorials - ComunidadBox"
+  help_documentation: "Documentación"
   sunday: "Domingo"
   monday: "Lunes"
   tuesday: "Martes"
