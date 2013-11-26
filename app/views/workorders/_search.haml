@@ -1,7 +1,7 @@
 #wo_form
   .form
-    %h3=t('.search') 
-    = form_tag workorders_path,:remote =>true,:id=>:filter,:method =>:get do
+    %h3 Buscar
+    = form_tag workorders_path,:id=>:filter,:method =>:get do
       = hidden_field_tag :direction, @direction
       = hidden_field_tag :sort, @sort_column
 
@@ -9,38 +9,36 @@
         #service_types
           %ul
             %li
-              = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
+              = check_box_tag 'all_service_type',1,false,:class=>:checkbox
               %label.link{:for => 'all_service_type'}
-                =t('.all')
+                Todos
             -@company_services.each do |service|
               %li
                 = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
                 %label.link{:for=>"service_type_#{service.id}"}
-                =service.name
+                  =service.name
 
         %table
           %tbody
             %tr        
               %td
-                = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>t(".from")            
-                = text_field_tag 'date_to', @date_t,:class =>"input_date labelify",:title=>t(".even")
+                = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>"Desde",:placeholder =>"Desde"
+                = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>"Hasta",:placeholder =>"Hasta"
             %tr
               %td
-                = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>t(".number")
+                = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>"Número"
             %tr
               %td
-                = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>t(".domain")              
+                = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>"Dominio"              
                 = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
         
-      %h3= t(".order_by")
+      %h3
+        Ordenar por
       .clear
-        = select_tag "order by",options_for_select(Workorder::ORDER_BY.to_a,@order_by),{:style => "width:225px"}
+        = select_tag "order_by",options_for_select(Workorder::ORDER_BY.to_a,@order_by),{:style => "width:225px"}
 
       %br
       .left
         = image_submit_tag("find.png",:class =>"input_img")
 
   .ajax_loader.right
-          
-          
-
