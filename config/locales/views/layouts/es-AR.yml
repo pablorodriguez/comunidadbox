@@ -8,6 +8,8 @@ es-AR:
       register_a_new_user: "Registrar nuevo usuario"
       search: "Buscar Prestadores de Servicios"
       help: "Ayuda"
+      select_company: "Seleccionar Compañia"
+      update_user: "Modificar Usuario"
     footer:
       all: "Todos los derechos reservados"
       terms: "Términos y condiciones de uso"

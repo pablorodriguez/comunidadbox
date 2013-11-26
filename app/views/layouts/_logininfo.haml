@@ -21,7 +21,7 @@
     %ul  
       %li
         %h3
-          = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w",title: "Modificar Usuario"   
+          = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w",title: t(".update_user")
 
       -if company_id
         = hidden_field_tag("company",company_id.join(","))

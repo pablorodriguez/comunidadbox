@@ -8,7 +8,8 @@ en-US:
       register_a_new_user: "Register a new user"
       search: "Search for Service Providers"
       help: "Help"
-      select_company: "Seleccionar Compañia"
+      select_company: "Select Company"
+      update_user: "Update Users"
     footer:
       all: "All rights reserved"
       terms: "Terms and conditions of use"

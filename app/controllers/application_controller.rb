@@ -24,7 +24,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
   
- 
+  def set_locale2
+  end
   
 end
 
