@@ -17,15 +17,14 @@
       %tbody
         %tr
           %td
-            = text_field_tag 'brand', "", placeholder: t(".brand")
+            = text_field_tag 'brand', "", placeholder: t(".brand"),:class =>"input"
         %tr
           %td
-            = text_field_tag 'provider', "", placeholder: t(".provider")
+            = text_field_tag 'provider', "", placeholder: t(".provider"),:class =>"input"
         %tr
           %td
-            = text_field_tag 'code', "", placeholder: "Código"
+            = text_field_tag 'code', "", placeholder: "Código",:class =>"input"
         %tr  
           %td
-            = text_field_tag 'name', "",placeholder: "Nombre"
-    .div
-      = image_submit_tag("find.png",:class =>"input_img")
+            = text_field_tag 'name', "",placeholder: "Nombre",:class =>"input"
+            = image_submit_tag("find.png",:class =>"input_img")    

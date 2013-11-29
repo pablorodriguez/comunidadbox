@@ -1,5 +1,6 @@
 es-AR:
   models:
     import:
-      import_title: "Importare modelos desde un archivo"
+      import_title: "Importar modelos desde un archivo"
       import: "Importar"
+    index:

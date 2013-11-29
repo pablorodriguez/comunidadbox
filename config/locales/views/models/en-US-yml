@@ -1,0 +1,6 @@
+es-AR:
+  models:
+    import:
+      import_title: "Import car's models from a file"
+    index:
+      import: "Import"

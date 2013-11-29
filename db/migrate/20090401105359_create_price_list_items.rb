@@ -3,7 +3,7 @@ class CreatePriceListItems < ActiveRecord::Migration
     create_table :price_list_items do |t|
       t.integer :price_list_id
       t.integer :material_service_type_id
-      t.float :price
+      t.decimal :price,precision: 10, scale: 2
       t.timestamps
     end
     

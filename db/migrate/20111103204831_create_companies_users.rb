@@ -8,6 +8,8 @@ class CreateCompaniesUsers < ActiveRecord::Migration
     end
 
     Company.update_customer
+    add_foreign_key(:companies_users,:users,:dependent => :delete)
+    add_foreign_key(:companies_users,:company,:dependent => :delete)
   end
 
   def self.down
