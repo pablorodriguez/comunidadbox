@@ -126,7 +126,6 @@ class Workorder < ActiveRecord::Base
   
   def init  
     if self.performed.nil?
-      debugger
       self.performed = I18n.l(Time.zone.now.to_date)       
     else
       logger.debug "########################  no inicializo performed #{self.performed}"
