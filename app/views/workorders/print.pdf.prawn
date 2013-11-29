@@ -48,7 +48,7 @@ pdf.grid(0,0).bounding_box do
 
   pdf.move_down 3
   
-  column_widths = [222,58,57,58]
+  column_widths = [242,38,57,58]
   # materials  = [["Material","Cantidad","Precio","Total"]]
   # pdf.table materials do      
   #   cells.padding=2       
@@ -78,14 +78,14 @@ pdf.grid(0,0).bounding_box do
       cells.padding=0      
       columns(0..1).width = 197 
       cells.borders=[]
-      column(1).style{|c| c.align = :right}      
+      column(1).style{|c| c.align = :right}
     end
     pdf.move_down 2
 
   	materials =  service.material_services.map do |ms|
   		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
   		[
-  			mat,
+  			ms.material,
   			ms.amount,
   			number_to_currency(ms.price),
   			number_to_currency(ms.total_price)			
@@ -101,7 +101,7 @@ pdf.grid(0,0).bounding_box do
     	pdf.table materials do      
         cells.padding= [1,5]       
         [1,2,3].each{|c1|column(c1).style{|c| c.align = :right}}
-        column_widths.each_index{|i| column(i).width = column_widths[i] }
+        column_widths.each_index{|i| column(i).width = column_widths[i] }      
       end
     end
 
@@ -193,12 +193,12 @@ pdf.grid(0,1).bounding_box do
     materials = service.material_services.map do |ms|
       mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
       [
-        mat,
+        ms.material,
         ms.amount
       ] 
     end
     
-    column_widths = [293,97]
+    column_widths = [360,30]
     if materials.size > 0
       pdf.table materials do
         column_widths.each_index{|i| column(i).width = column_widths[i] }

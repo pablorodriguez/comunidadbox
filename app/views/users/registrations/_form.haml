@@ -1,18 +1,17 @@
 = render 'shared/error_messages', :target => @user
 #personal_info.box_bottom
-  %h3
-    Información Personal
+  %h3=t(".personal_info")
   %table.w
     %tbody        
       = render 'users/user_row',:f => f
       %tr
         %td
-          %label{ :for => "password" }Clave *
+          %label{ :for => "password" }=t(".password")
         %td
           = f.password_field :password,:class=>"input_medium"  
       %tr
         %td    
-          Confirmar Clave *
+          =t(".password_confirmation")
         %td
           = f.password_field :password_confirmation,:class=>"input_medium"  
   -if recaptcha
@@ -22,19 +21,17 @@
 -if (current_user == nil) || (!current_user.is_super_admin?)
   #user_data
     #car_info.box_bottom
-      %h3
-        Información de su auto
+      %h3=t(".information_car")
       =f.fields_for :cars do |c|
         = render 'users/car_fields',:f =>c
     #personal_address.box_bottom
-      %h3
-        Dirección Personal
+      %h3=t(".personal_address")
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
   =f.fields_for :companies do |c|
     #company_data.hide
       = render 'companies/form', :f => c
 .buttons_container 
-  = f.submit "Grabar",:class=>"button"
-  = link_to "Cancelar",root_path
+  = f.submit t(".save"),:class=>"button"
+  = link_to t(".cancel"),root_path
     

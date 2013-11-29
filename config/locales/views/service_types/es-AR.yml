@@ -14,4 +14,4 @@ es-AR:
       name: "Nombre"
       kilometro: "kilometro"
       belongs_to: "Pertenece a"
-      status: "Estado"
+      status: "Estado"  

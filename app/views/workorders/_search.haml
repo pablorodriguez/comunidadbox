@@ -1,6 +1,7 @@
 #wo_form
   .form
-    %h3 Buscar
+    %h3
+      = t(".search")
     = form_tag workorders_path,:id=>:filter,:method =>:get do
       = hidden_field_tag :direction, @direction
       = hidden_field_tag :sort, @sort_column
@@ -42,6 +43,3 @@
         = image_submit_tag("find.png",:class =>"input_img")
 
   .ajax_loader.right
-          
-          
-

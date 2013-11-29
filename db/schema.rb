@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131115180624) do
+ActiveRecord::Schema.define(:version => 20131129113962) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -258,15 +258,17 @@ ActiveRecord::Schema.define(:version => 20131115180624) do
 
   create_table "material_details", :id => false, :force => true do |t|
     t.string  "prov_code",                :limit => 50
-    t.integer "material_id",                             :default => 0, :null => false
+    t.integer "material_id",                            :default => 0, :null => false
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "service_type_id"
-    t.integer "price_list_id",                           :default => 0, :null => false
-    t.integer "material_service_type_id",                :default => 0, :null => false
+    t.integer "price_list_id",                          :default => 0, :null => false
+    t.integer "material_service_type_id",               :default => 0, :null => false
     t.float   "price"
-    t.string  "detail_upper",             :limit => 308
-    t.string  "detail",                   :limit => 308
+    t.text    "detail_upper"
+    t.text    "detail"
+    t.string  "brand"
+    t.string  "provider"
     t.integer "company_id"
   end
 

@@ -1,6 +1,6 @@
 .budgets
   .box_bottom
-    %h1 Listado de Presupuestos
+    %h1=t(".list_of_budgets")
   - unless @budgets.empty?
     = render @budgets
     = will_paginate @budgets

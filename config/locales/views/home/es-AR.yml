@@ -1,0 +1,27 @@
+es-AR:
+  home:
+    welcome_msg:
+      welcome: "¡BIENVENIDOS A COMUNIDADBOX!"
+      message1: "nosotros cuidamos tu auto, vos disfrutalo"
+      message2: "Ud. ha ingresado al mejor sitio sobre Gestión de Clientes y Servicios para el sector automotor. Difrútelo!"
+      message3: "Por favor registre sus tipos de servicios"
+    what_is_combo:
+      tutorials: "Tutoriales - Comunidadbox"
+    menu:
+      clients: "Clientes"
+      my_cars: "Mis Autos"
+      control_panel: "Panel de Control"
+      services_made: "Servicios Realizados"
+      budgets: "Presupuestos"
+      service_offers: "Ofertas de Servicio"
+      service_providers: "Prestadores de Servicio"
+    default_actions:
+      new_client: "Nuevo Cliente"
+      create_new_client: "Crear Nuevo Cliente"
+    new_menu:
+      alarms: "Alarmas"
+      messages: "Mensajes"
+      notes: "Notas"
+
+
+    

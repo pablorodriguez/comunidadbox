@@ -1,19 +1,19 @@
 .c
   #cont1
-    %h1 ¡BIENVENIDOS A COMUNIDAD BOX!
+    %h1=t(".message")
   #login_c
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|      
       .left
         %table.login
           %tr
             %td            
-              %h2 INICIAR SESIÓN
+              %h2=t(".login")
             %td
-              = f.text_field :email, {:class =>"textarea",:placeholder=>"Correo Eléctronico"}              
+              = f.text_field :email, {:class =>"textarea",:placeholder=>t(".email")}              
             %td
-              = f.password_field :password, {:class =>"textarea",:placeholder=>"Clave ",:size =>25}                        
+              = f.password_field :password, {:class =>"textarea",:placeholder=>t(".password"),:size =>25}                        
             %td
-              %input.send{:name => "send", :type => "submit", :value => "Ingresar",:class=>"button"}        
+              %input.send{:name => "send", :type => "submit", :value =>t(".log_in"),:class=>"button"}        
           - if devise_mapping.rememberable?
             %tr
               %td

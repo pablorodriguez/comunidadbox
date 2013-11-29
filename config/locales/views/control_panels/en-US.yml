@@ -1,0 +1,11 @@
+en-US:
+  control_panels:
+    filter_alarms:
+      title: "List of Cars"
+      create_service_offer: "Create Service Offering"
+    car_filters:
+      select_events: "Select Events"
+      select_clients: "Select Clients"
+      events_types: "Events types"
+      my_clients: "My Clients"
+      other_clients: "Other Clients"

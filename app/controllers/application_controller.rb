@@ -4,6 +4,8 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   helper :all # include all helpers, all the time
+
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery :secret => 'eee70de2e239c7e16b4f9229f56b8209'
@@ -16,9 +18,12 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").
   # filter_parameter_logging :password
   before_filter :authenticate_user!
+  
 
   rescue_from CanCan::AccessDenied do |exception|    
     redirect_to root_url, :alert => exception.message
   end
+  
+  
 end
 

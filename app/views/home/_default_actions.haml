@@ -3,7 +3,7 @@
     %ul
       %li
         - if company_id
-          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}           
+          = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")}
         - else      
-          = link_to "Nuevo Automóvil", new_car_path(:user_id=>current_user.id)
+          = link_to t(".new_car"), new_car_path(:user_id=>current_user.id)
       = yield :actions

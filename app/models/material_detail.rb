@@ -23,8 +23,6 @@ class MaterialDetail < ActiveRecord::Base
   def self.search(company_id,service_type_id,detail)
     detail.gsub!(" ","%")
     MaterialDetail.where('detail_upper LIKE ? and service_type_id = ? and company_id = ?',"%#{detail}%",service_type_id,company_id)
-  end
-
-  
+  end  
   
 end

@@ -1,0 +1,43 @@
+en-US:
+  users:
+    sessions:
+      new:
+        message: "WELCOME TO COMUNIDAD BOX!"
+        login: "Login"
+        email: "Email"
+        password: "Password"
+        log_in: "Log In"
+    user_row:
+      name: "Name"
+      last_name: "Last Name"
+      phone: "Phone"
+      email: "Email *"
+      cuit: "CUIT"
+    car_fields:
+      domain: "Domain"
+      brand: "Brand"
+      year: "Year"
+      model: "Model"
+      mileage_monthly_average: Mileage Monthly Average
+      fuel: "Fuel"
+      mileage: "Kilometraje"
+    user_address_fields:
+      state: "State"
+      city: "City"
+      street: "Street"
+      zip: "Zip"
+
+    registrations:
+      new: 
+        new_user: "New User"
+      form:
+        personal_address: "Personal Address"
+        password: "Password *"
+        password_confiramtion: "Password Confirmation *"
+        information_car: "Information from your car"
+        personal_address: "Information Personal"
+        save: "Save"
+        cancel: "Cancel"
+
+
+

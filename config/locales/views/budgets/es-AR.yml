@@ -1,0 +1,72 @@
+es-AR:
+  budgets:
+    budgets:
+      list_of_budgets: "Listado de Presupuestos"
+    budget:
+      number_of_budget: "Número del Presupuesto"
+      client: "Cliente"
+      operator: "Operario"
+      message: "¿Está seguro que desea borrar el Presupuesto?"
+      delete: "Eliminar"
+      create_service: "Crear Servicio"
+      modify: "Modificar"
+      print: "Imprimir"
+      notes: "Notas"
+      send_message: "Enviar Mensaje"
+    actions:
+      new_budget: "Nuevo Presupuesto"
+      new_client: "Nuevo Cliente"
+    new:
+      new_budget: "Nuevo Presupuesto"
+    no_client: 
+      name: "Nombre *"
+      last_name: "Apellido *"
+      phone: "Teléfono"
+      email: "Correo Electrónico"
+    client:
+      client: "Cliente"
+      name: "Nombre"
+      last_name: "Apellido"
+      phone: "Teléfono"
+      email: "Correo Electrónico"
+    client_row: 
+      name: "Nombre"
+      last_name: "Apellido"
+      phone: "Teléfono"
+      email: "Correo Electrónico"
+    no_car:
+      car: "Automóvil" 
+      domain: "Dominio"
+      brand: "Marca"
+      model: "Modelo"
+      phone: "Teléfono"
+      email: "Correo "
+    car:
+      car: "Automóvil"
+      domain: "Dominio"
+      brand: "Marca"
+      model: "Modelo"
+    car_row:
+      domain: "Dominio"
+      brand: "Marca"
+      model: "Modelo"
+    form:
+      comment: "Comentario"
+    services_list:
+      services: "Servicios"
+      select_type_of_service: "Seleccione Tipo de Servicio"
+      save: "Grabar"
+      saving: "Grabando..."
+      cancel: "Cancelar"
+
+
+
+     
+
+
+      
+
+
+
+
+    

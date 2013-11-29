@@ -173,6 +173,22 @@ body {
   float: left;  
 }
 
+.es{
+  background-image:url(ar_flag.png);
+  background-position:center;
+  height:16px;
+  width:16px;
+  margin: 0px 2px;
+}
+
+.en{
+  background-image:url(usa_flag.png);
+  background-position:center;
+  height:16px;
+  width:16px;
+  margin: 0px 2px;
+}
+
 
 .budget_s{
   background-image:url(images/budget_s.png);

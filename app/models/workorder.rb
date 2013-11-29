@@ -125,15 +125,14 @@ class Workorder < ActiveRecord::Base
   end
   
   def init  
-    if self.attributes.has_key?('performed')
-      self.performed = I18n.l(Time.zone.now.to_date) unless self.performed  
-    end
-    
-    if self.attributes.has_key?('status')
-      self.status = Status::OPEN unless self.status  
+    if self.performed.nil?
+      self.performed = I18n.l(Time.zone.now.to_date)       
     end
 
+    self.status = Status::OPEN unless self.status
+
     self.payment_method = PaymentMethod.find_by_name("Efectivo") unless self.payment_method  
+
   end
   
   def validate_all

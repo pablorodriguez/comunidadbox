@@ -26,7 +26,9 @@ class MaterialService < ActiveRecord::Base
     amount * price
   end
   
-  
+  def material_no_code
+    material.gsub(/\[\d+\]/,'').lstrip
+  end
   
   def detail
     if self.material_service_type

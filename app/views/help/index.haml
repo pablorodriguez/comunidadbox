@@ -1,8 +1,9 @@
 .box_bottom
   %h1
-    Documentación
+    = t ("help_documentation")
     %label    
-      %a{:href => "http://vimeo.com/comunidadbox"} Tutoriales - ComunidadBox 
+      %a{:href => "http://vimeo.com/comunidadbox"}
+        = t("help_title")
 .list_doc
   - @docs.each do |d|
     .doc_row.box_bottom

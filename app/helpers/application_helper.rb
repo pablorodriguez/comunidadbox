@@ -125,7 +125,7 @@ module ApplicationHelper
   
   def print_to_pdf work_order
     if current_user.is_employee?
-      link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Formulario",:class =>:pdf 
+      link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>t(".print_form"),:class =>:pdf 
     else
       link_to "",workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class=>:pdf
     end

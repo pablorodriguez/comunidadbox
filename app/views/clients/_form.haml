@@ -6,18 +6,18 @@
   = render 'shared/error_messages', :target => @client
   #user_data
     .box_bottom
-      %h3 Información Personal
+      %h3=t(".personal_information")
       %table.w
         %tbody
           = render 'users/user_row',:f => f
-    %h3 Información de su auto
+    %h3=t(".car_information")
     .box_bottom
       =f.fields_for :cars do |c|
         = render 'users/car_fields',:f => c
-    %h3 Direccion Personal
+    %h3=t(".address_information")
     .personal_address.box_bottom
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
   .buttons_container    
-    = f.submit "Grabar",:class=>:button
-    = link_to "Cancelar",clients_path
+    = f.submit t(".save"),:class=>:button
+    = link_to t(".cancel"),clients_path

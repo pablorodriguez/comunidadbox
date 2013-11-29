@@ -1,0 +1,44 @@
+en-US:
+  cars:
+    cars:    
+      car_delete_confirm: Are you sure you want to delete the Car?
+      update_car: "Modify automovile"
+      title: "List of Cars"
+      year: "Model"
+      km: "km"
+      kmAverageMonthly: "Km monthly average"
+    send:
+      message_exit_send: "Message sent successfully"
+    search_car:
+      domain: "Domain"
+      search_cars: "Search Cars"
+    search_clients: 
+      search_clients: "Search Clients"
+      email: "Email"
+      name: "Name"
+      last_name: "Last Name"
+    car_info:
+      name: "Name:"
+      business_name: "Business Name:"
+      cuit: "CUIT:"
+      domain: "Domain:"
+      year: "Year:"
+      email: "Email:"
+      brand_model: "Brand and Model:"
+      phone: "Phone:"
+      mileage: "Mileage:"
+      mileage_monthly_average: "Mileage Monthly Average:"
+      last_update: "Last Update:"
+    new_km:
+      message: "Please upgrade mileage in order to create a service."
+      km_current: "Km Current"
+      km_monthly_average: "Km Monthly Average"
+      update_km: "Km Update"
+    services_list:
+      completed: "Completed"  
+    new:
+      new_car_for: "New Car for"
+    car:
+      save: "Save"
+      cancel: "Cancel"
+

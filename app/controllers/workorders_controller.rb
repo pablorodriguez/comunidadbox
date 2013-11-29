@@ -226,8 +226,7 @@ class WorkordersController < ApplicationController
   def new
     @work_order = Workorder.new
     company = get_company(params)    
-    
-    @work_order.performed = I18n.l(Time.zone.now.to_date)
+        
     @work_order.company_info  = params[:c] if params[:c]
     
     @work_order.company = company if company
@@ -272,7 +271,6 @@ class WorkordersController < ApplicationController
         return
       end
     end
-    
     
     @update_km= @work_order.car.update_km?
     #authorize! :create, @work_order

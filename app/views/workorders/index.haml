@@ -36,7 +36,7 @@
       .menu_actions.box_bottom      
         %ul
           %li
-            = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"} 
+            = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")} 
 
   .contentright_s
     - if @work_orders.size > 0

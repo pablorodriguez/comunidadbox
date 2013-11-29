@@ -7,27 +7,27 @@
     %ul
       %li
         %h3
-          = link_to t(".login"),new_user_session_path,title: "Ingresar a ComunidadBox"
+          = link_to t(".login") ,new_user_session_path, title: t(".sign_in")
       %li
         %h3
-          = link_to "Regístrate",new_user_registration_path,title: "Registrar nuevo usuario"
+          = link_to t(".register") ,new_user_registration_path, title: t(".register_a_new_user")
       %li
         %h3
-          = link_to "Prestadores de Servicios", all_companies_path,title: "Buscar Prestadores de Servicios"
+          = link_to t(".service_providers"), all_companies_path, title: t(".search")
       %li
         %h3          
-          = link_to "?", help_path,:title => "Ayuda",:class => "help_link"
+          = link_to "?", help_path, :title => t(".help"),:class => "help_link"
   -if user_signed_in? 
     %ul  
       %li
         %h3
-          = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w",title: "Modificar Usuario"   
+          = link_to current_user.full_name ,edit_user_registration_path,:class =>"link_w",title: t(".update_user")
 
       -if company_id
         = hidden_field_tag("company",company_id.join(","))
         %li          
           #company_id.company_id.right                        
-            %h3.link{:title => "Seleccionar Compañia"}
+            %h3.link{:title => t(".select_company")}
               = get_company.name
               - if current_user.is_administrator? && (current_user.get_companies.size > 1)
                 - if multiple_company?
@@ -36,7 +36,7 @@
                   ="..."
       %li
         %h3          
-          = link_to "?", help_path,:title => "Ayuda",:id => "help_link"
+          = link_to "?", help_path,:title => t(".help"),:id => "help_link"
     - c_ids = get_companies.map(&:id)
     -if current_user.is_administrator? && (!current_user.get_companies.empty?)
       = form_tag set_company_home_index_path,:id=>:comp_form do |f|
@@ -49,23 +49,28 @@
                   =c.name
             %li
             = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
-            %label.link{:for=>"all_company_check"} Todos
+            %label.link{:for=>"all_company_check"}
+              = t(".all_companies")
     - if company_id
-      .clear
-        %ul  
-          %li{:class=>"down_icon link",:id=>"popup_menu"}
-            = image_tag("down.gif",:id=>"down_menu")
-            #home_menu.menu.hide
-              %ul
-                - if current_user.is_administrator?
+      .clear        
+        .right
+          %ul  
+            %li{:class=>"down_icon link",:id=>"popup_menu"}
+              = image_tag("down.gif",:id=>"down_menu")
+              #home_menu.menu.hide
+                %ul
+                  - if current_user.is_administrator?
+                    %li
+                      = link_to t(".administration"),admin_path    
                   %li
-                    = link_to "Administración",admin_path    
-                %li
-                  = link_to "Salir", destroy_user_session_path
+                    = link_to t("exit"), destroy_user_session_path
+        .right.hide        
+          = link_to "",request.parameters.merge({:locale => "es-AR"}),:class => "es left"
+          = link_to "",request.parameters.merge({:locale => "en-US"}),:class => "en left"
     -else      
       .clear
         %ul
           %li
-            = link_to "Salir", destroy_user_session_path
+            = link_to t(".exit"), destroy_user_session_path
 
             

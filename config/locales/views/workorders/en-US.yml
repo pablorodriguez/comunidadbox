@@ -1,0 +1,57 @@
+en-US:
+  workorders:
+    show:
+      save: "Save"
+      rank_client: "Client Rate"
+      rank_company: "Rate Service Provider"
+    index:      
+      workorders_performed: "Services Performed"
+      client: "Client"
+      my_car: "My cars"
+      control_panel: "Control Panel"
+      budgets: "Budgets"
+      service_offers: "Service Offers"
+      service_providers: "Service Providers"
+      report_amounts: "Report Amounts"
+      report_sum: "Report Sum"
+      report_materials: "Report Materials"
+      report_details: "Report Details"
+      new_client: "New Client"
+      create_new_client: "Create New Client"
+      search: "Searchsss"
+    form:
+      enter_services_done: "Enter Services Done"
+    search:
+      all: "All"
+      from: "From"
+      even: "Even"
+      domain: "Domain"
+      number: "Number"
+      order_by: "Order by"
+    sort_by: 
+      order_by: "Order by"
+    work_order_row: 
+      notes: "Notes"
+      send_message: "Send message"
+      delete: "Delete"
+      modify: "Modify"
+      service_number: "Service Number"
+      client: "Client"
+      print_form: "Print Form"
+      seller: "Salesman"
+    services_list:
+      completed: "Completed"
+      delivery_time: "Delivery Time"
+      delivered: "Delivered"
+      type_pay: "Type of Payment"
+      type_of_service: "-- Type of Service --"
+      new_type_of_service: "Add new type of service"
+      see_note: "See note"
+      see_comment: "See comment"
+      search_materials: "Search materials (Ctrl + M)"
+      save: "Save"
+      cancel: "Cancel"
+      saving: "Saving"
+    comment: 
+      comment: "Comment"
+      new_note: "New Note"

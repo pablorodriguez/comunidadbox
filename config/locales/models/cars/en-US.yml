@@ -1,0 +1,9 @@
+en-US:
+  activerecord:
+    models:
+      car: "car"
+    attributes:
+      car:
+        domain: "domain"
+    erros:
+      unique_domain_per_user: "already registered"     

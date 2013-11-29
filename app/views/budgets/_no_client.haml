@@ -1,19 +1,19 @@
 .customer
   %table#new_client_budget.w
     %tr
-      %td{:style=>"width:100px"} Nombre *
+      %td{:style=>"width:100px"}=t(".name")
       %td
         = f.text_field :first_name
     %tr
-      %td Apellido *
+      %td=t(".last_name")
       %td   
         = f.text_field :last_name
     %tr
-      %td Teléfono
+      %td=t(".phone")
       %td
         = f.text_field :phone
     %tr
-      %td Correo Eléctronico
+      %td=t(".email")
       %td#email
         .user_email
           = f.text_field :email,class: :left

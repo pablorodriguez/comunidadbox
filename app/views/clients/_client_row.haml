@@ -2,32 +2,32 @@
   %tbody
     %tr
       %td{:style=>"width:100px"}
-        %label{ :for => "login" }Nombre
+        %label{ :for => "login" }=t(".name")
       %td
         = f.text_field :first_name,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "login" }Apellido
+        %label{ :for => "login" }=t(".last_name")
       %td
         = f.text_field :last_name,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "email" }Email *
+        %label{ :for => "email" }=t(".email")
       %td
         = f.text_field :email,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "email" } Razón Social
+        %label{ :for => "email" }=t("business_name")
       %td
         = f.text_field :company_name,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "email" }CUIT
+        %label{ :for => "email" }=t(".cuit")
       %td
         = f.text_field :cuit,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "phone" }Teléfono
+        %label{ :for => "phone" }=t(".phone")
       %td
         = f.text_field :phone,:class=>"input_medium"
         

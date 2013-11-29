@@ -1,0 +1,75 @@
+es-AR:
+  clients:
+    list_clients:
+      list_of_clients: "Lista de Clientes"
+      see: "Ver"
+      modify_client: "Modificar Cliente"
+      edit: "Editar"
+      new_budget: "Nuevo Presupuesto"
+      new_car: "Nuevo Automóvil"
+      send_message: "Enviar Mensaje"
+      car_delete_confirm: "Desea eliminar Automóvil?"
+      delete: "Borrar"
+      modify_car: "Modificar Automóvil"
+      new_service: "Nuevo Servicio"
+    new:
+      new_client: "Nuevo Cliente"
+      budget_number: "Presupuesto N°:"
+    form:
+      personal_information: "Información Personal"
+      car_information: "Información de su auto"
+      address_information: "Dirección Personal"
+      save: "Grabar"
+      cancel: "Cancelar"
+    client_menu:
+      new_client: "Nuevo Cliente"
+      new_budget: "Nuevo Presupuesto"
+      create_new_client: "Crear Nuevo Cliente"
+      modify_client: "Modificar Cliente"
+      new_car: "Nuevo Automóvil"
+    edit:
+      modify_client: "Modificar Cliente"
+      personal_information: "Información Personal"
+      address_information: "Dirección Personal"
+      save: "Grabar"
+      cancel: "Cancelar"
+    client_row:
+      name: "Nombre"
+      last_name: "Apellido"
+      email: "Correo Electrónico *"
+      cuit: "CUIT"
+      phone: "Teléfono"
+    user:
+      name: "Nombre"
+      last_name: "Apellido"
+      phone: "Teléfono"
+      email: "Correo Electrónico *"
+    show:
+      client: "Cliente"
+      ersonal_information: "Información Personal"
+      name: "Nombre"
+      last_name: "Apellido"
+      email: "Correo Electrónico *"
+      cuit: "CUIT"
+      phone: "Teléfono"
+      address: "Dirección"
+      state: "Provincia"
+      city: "Cuidad"
+      street: "Calle"
+      zip: "Código Postal"
+      new_budget: "Nuevo Presupuesto"
+      new_service: "Nuevo Servicio"
+      modify_car: "Modificar Automóvil"
+
+
+
+
+
+
+
+
+
+
+
+
+    

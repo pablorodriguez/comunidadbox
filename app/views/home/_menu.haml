@@ -4,18 +4,18 @@
       #cars_link.menu        
         = image_tag "cars.png"
         - if company_id
-          = link_to "Clientes", clients_path
+          = link_to t(".clients"), clients_path
         - else
-          = link_to "Mis Autos", my_cars_path          
+          = link_to t(".my_cars"), my_cars_path          
     - if company_id
       %li
         #control_panel_link.menu
           = image_tag "control-panel.png"
-          = link_to "Panel de Control",control_panels_path            
+          = link_to t(".control_panel"),control_panels_path            
     %li
       #service_done_link.menu
         = image_tag "service.png"
-        = link_to "Servicios Realizados",workorders_path
+        = link_to t(".services_made"),workorders_path
     %li
       #service_done_link.menu
         = image_tag "service.png"    
@@ -23,20 +23,20 @@
     %li
       #control_panel_link.menu
         = image_tag "budget.png"
-        = link_to "Presupuestos",budgets_path      
+        = link_to t(".budgets"),budgets_path      
     %li
       #service_offer.link.menu
         = image_tag "service_offer.png"          
         - if company_id
-          = link_to "Ofertas de Servicio" , service_offers_path
+          = link_to t(".service_offers") , service_offers_path
         - else
-          = link_to "Ofertas de Servicio" , car_service_offers_path
+          = link_to t(".service_offers") , car_service_offers_path
 
     = render "/home/new_menu"
     %li
       #service_center_link.menu
         = image_tag "find.png"        
-        = link_to "Prestadores de Servicios", all_companies_path         
+        = link_to t(".service_providers"), all_companies_path         
 #menu_actions
   #cars_menu.menu_data.hide.box_bottom    
     =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}

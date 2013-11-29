@@ -1,0 +1,24 @@
+en-US:
+  home:
+    welcome_msg:
+      welcome: "WELCOME TO COMUNIDADBOX!"
+      message1: "we take care of your car, you enjoy it"
+      message2: "You have entered the best site on Customer Management and Services for the automotive sector. Enjoy"
+      message3: "Please register your types of services"
+    what_is_combo:
+      tutorials: "Tutorials - Comunidadbox"
+    menu:
+      clients: "Clients"
+      my_cars: "My cars"
+      control_panel: "Control Panel"
+      services_made: "Services Performed"
+      budgets: "Budgets"
+      service_offers: "Service Offers"
+      service_providers: "Service Providers"
+    default_actions:
+      new_client: "New Client"
+      create_new_client: "Crear Nuevo Cliente"
+    new_menu:
+      alarms: "Alarms"
+      messages: "Messages"
+      notes: "Notes"

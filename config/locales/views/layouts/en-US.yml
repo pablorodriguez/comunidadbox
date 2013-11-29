@@ -1,0 +1,20 @@
+en-US:
+  layouts:    
+    logininfo:
+      login: "Login"
+      register: "Register"
+      service_providers: "Service Providers" 
+      sign_in: Sign in to Comunidadbox
+      register_a_new_user: "Register a new user"
+      search: "Search for Service Providers"
+      help: "Help"
+      select_company: "Select Company"
+      update_user: "Update User"
+      exit: "Exit"
+      all_companies: "All"
+      administration: "Administration"      
+    footer:
+      all: "All rights reserved"
+      terms: "Terms and conditions of use"
+      policy: "Privacy Policy"
+      contact: "Contact"

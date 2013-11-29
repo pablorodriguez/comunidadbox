@@ -6,28 +6,28 @@
     = wo_form.hidden_field :company_info
     #wo-actions.box_bottom
       = icon_status @work_order.status                                
-      = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>"Realizado",:placeholder=> "Realizado"
+      = wo_form.text_field :performed,:class =>"date",:value => l(@work_order.performed),:title=>t(".completed"),:placeholder=> t(".completed")
       - if current_user.company
-        = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>"Hora de Entrega",:placeholder => "Hora de Entrega"
+        = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>t(".delivery_time"),:placeholder => t(".delivery_time")
       
       - if @work_order.deliver && current_user.company
-        = wo_form.text_field :deliver_actual,:class =>"date_time input_date_time",:value => (@work_order.deliver_actual ? l(@work_order.deliver_actual) : ""),:title=>"Entregado",:placeholder => "Entregado"
+        = wo_form.text_field :deliver_actual,:class =>"date_time input_date_time",:value => (@work_order.deliver_actual ? l(@work_order.deliver_actual) : ""),:title=>t(".delivered"),:placeholder => t(".delivered")
       - if current_user.is_employee?
-        = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>"Forma de Pago"})
+        = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
       - else
         = wo_form.hidden_field :payment_method_id
 
-      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> "-- Tipo de Servicio --"},{:class=>"sp_input",:title=>"Agregar nuevo tipo de servicio"}      
+      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> t(".type_of_service")},{:class=>"sp_input",:title=>t(".new_type_of_service")}      
 
       .actions.clear
         .action.hide
-          = link_to "","#",:title =>"Ver alarma",:class=>"add_alarm "
+          = link_to "","#",:title =>t(".see_alamrs"),:class=>"add_alarm"
         .action
-          = link_to "","#",:title =>"Ver nota",:class=>"notes_link"
+          = link_to "","#",:title =>t(".see_note"),:class=>"notes_link"
         .action
-          = link_to "","#",:title =>"Ver comentario",:class=>"add_comment"
+          = link_to "","#",:title =>t(".see_comment"),:class=>"add_comment"
         .action
-          = link_to "","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"      
+          = link_to "","#",:title=>t(".search_materials"),:id=>:material_dialog,:class=>"link new"      
 
       - if wo_form.object.budget
         .right
@@ -49,5 +49,5 @@
     -#  = render "alarm_fields",:f => a_form
     #wo_save.buttons_container      
       - dis = @update_km ? "disabled" : nil 
-      = wo_form.submit "Grabar",:class =>"button",:data => {"disable-with" => 'Grabando...'},:id => :workorder_submit,:disabled => dis      
-      = link_to "Cancelar",car_path(@work_order.car)
+      = wo_form.submit t(".save"),:class =>"button",:data => {"disable-with" => t(".saving")},:id => :workorder_submit,:disabled => dis      
+      = link_to  t(".cancel"),car_path(@work_order.car)

@@ -1,5 +1,6 @@
 class CreateMaterialView < ActiveRecord::Migration
   def self.up
+    execute "DROP VIEW material_details"
     execute "
       CREATE VIEW material_details      
       as
@@ -11,9 +12,11 @@ class CreateMaterialView < ActiveRecord::Migration
         mst.service_type_id AS service_type_id,
         pl.id AS price_list_id,
         mst.id AS material_service_type_id,
-        pli.price AS price,
-        concat('[',m.prov_code,'] ',ucase(m.name)) AS detail_upper,
-        concat('[',m.prov_code,'] ',m.name) AS detail,
+        pli.price AS price,        
+        concat('[',m.prov_code,'] ',ucase(m.name),' ',coalesce(brand,'')) AS detail_upper,
+        concat('[',m.prov_code,'] ',m.name,' ',coalesce(brand,'')) AS detail,
+        brand,
+        provider,
         pl.company_id AS company_id 
       from 
         ((((materials m 
