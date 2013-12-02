@@ -34,8 +34,8 @@ en-US:
         personal_address: "Personal Address"
         password: "Password *"
         password_confiramtion: "Password Confirmation *"
-        information_car: "Information from your car"
-        personal_address: "Information Personal"
+        information_car: "Car's Information"
+        personal_address: "Address"
         save: "Save"
         cancel: "Cancel"
 

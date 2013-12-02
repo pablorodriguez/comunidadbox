@@ -14,5 +14,7 @@ es-AR:
     search_map: 
       service_provider: "Prestadores de Servicio"
       address: "Dirección:"
-      radius: "Radio de"
- 
+      radius: "En un radio de"
+    form:
+      service_senter_information: "Información Prestador de Servicios"
+      service_center_address: "Dirección Prestador de Servicios"

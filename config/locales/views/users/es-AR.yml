@@ -12,8 +12,7 @@ es-AR:
       last_name: "Apellido"
       phone: "Teléfono"
       email: "Email *"
-      cuit: "CUIT"
-      social_reason: "Razón Social"
+      cuit: "CUIT"      
     car_fields:
       domain: "Dominio"
       brand: "Marca"
@@ -29,7 +28,7 @@ es-AR:
       zip: "Código Postal"
     registrations:
       new:
-        new_user: "Nuevo Usuarios"
+        new_user: "Nuevo Usuario"
       form:
         personal_info: "Información Personal"
         password: "Clave *"
@@ -38,4 +37,3 @@ es-AR:
         personal_address: "Dirección Personal"
         save: "Grabar"
         cancel: "Cancelar"
-   

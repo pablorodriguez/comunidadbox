@@ -40,8 +40,11 @@ end
 
 group :development, :test do
   #gem 'turn'
-  gem "timecop"
   gem "better_errors"
+end
+
+group :test do
+  gem "timecop"
   gem "vcr"
   gem "webmock"
 end
