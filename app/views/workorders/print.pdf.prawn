@@ -82,10 +82,10 @@ pdf.grid(0,0).bounding_box do
     end
     pdf.move_down 2
 
-  	materials =  service.material_services.map do |ms|
-  		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
+  	materials =  service.material_services.map do |ms|  		
+      mat = ms.material_service_type ? "[#{ms.material_service_type.material.prov_code}] #{ms.material_service_type.material.detail}" : ms.material  
   		[
-  			ms.material,
+  			mat,
   			ms.amount,
   			number_to_currency(ms.price),
   			number_to_currency(ms.total_price)			
@@ -191,9 +191,9 @@ pdf.grid(0,1).bounding_box do
     pdf.move_down 2
     
     materials = service.material_services.map do |ms|
-      mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
+      mat = ms.material_service_type ? "[#{ms.material_service_type.material.prov_code}] #{ms.material_service_type.material.detail}" : ms.material 
       [
-        ms.material,
+        mat,
         ms.amount
       ] 
     end
