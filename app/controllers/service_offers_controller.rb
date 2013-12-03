@@ -29,7 +29,8 @@ class ServiceOffersController < ApplicationController
 
   def new_s
     @title ="Oferta de Servicio"
-    @offer = ServiceOffer.new(params[:service_offer])
+    @offer = ServiceOffer.new()
+    debugger
 
     @events_ids = params[:events_ids_chk] || []
     @events_ids.slice!(0) if @events_ids

@@ -1,4 +1,4 @@
-function buildControlPanelChart(service_names,data){
+function buildControlPanelChart(service_names,data,title){
      chart1 = new Highcharts.Chart({
         chart: {
            renderTo: 'graph_container',
@@ -14,7 +14,7 @@ function buildControlPanelChart(service_names,data){
         yAxis: {
            min: 0,
            title: {
-              text: 'Cantidad de Eventos Futuros'
+              text: title
            }
         },
         legend: {         

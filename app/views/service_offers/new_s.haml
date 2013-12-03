@@ -9,7 +9,7 @@
   .box_bottom
     %h1 
       Nueva Oferta de Servicio:  
-      =@offer.service_type.name
+      = @offer.service_types_names
   #service_offer
     = form_for @offer do |f|    
       = render :partial => 'form', :locals => {:f => f}  

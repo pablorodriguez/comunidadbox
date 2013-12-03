@@ -19,11 +19,11 @@ class ControlPanelsController < ApplicationController
                             :group => ['service_type'])
     
     
-    @services_names= @company_services.inject(""){|result,service| result += "'#{service.name}',"}.chop
+    @services_names= @company_services.inject(""){|result,service| result += "'#{service.native_name}',"}.chop
     
-    g_data="name: '> 2 Meses',data:["
-    y_data="name:'1 < Meses < 2',data:["
-    r_data="name:'Meses < 1',data:["
+    g_data="name: '> 2 #{t('months')}',data:["
+    y_data="name:'1 < #{t('months')} < 2',data:["
+    r_data="name:'#{t('months')} < 1',data:["
     
     @no_data=false
     if (@eventos_verde.size == 0 && @eventos_amarillo.size == 0 && @eventos_rojo.size == 0)

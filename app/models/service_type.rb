@@ -1,4 +1,4 @@
-class ServiceType < ActiveRecord::Base
+class ServiceType < ActiveRecord::Base  
   attr_accessible :name, :kms, :parent_id, :active,:days
   default_scope :order => "name"
 
@@ -23,6 +23,10 @@ class ServiceType < ActiveRecord::Base
         json.name st.name        
       end
     end
+  end
+
+  def native_name
+    I18n.t(name)
   end
 
   def to_builder

@@ -3,9 +3,21 @@ en-US:
     filter_alarms:
       title: "List of Cars"
       create_service_offer: "Create Service Offering"
+      service_type: "Service Typesss"
     car_filters:
+      state: "-- States --"
+      service_type: "-- Service Types --"
+      city: "City"
+      brand: "-- Brand --"
+      model: "-- Model --"
+      fuel: "-- Fuel --"
+      year: "-- Year --"
       select_events: "Select Events"
       select_clients: "Select Clients"
       events_types: "Events types"
       my_clients: "My Clients"
       other_clients: "Other Clients"
+    index:
+      control_panel: "Control Panel"
+      due_date_services: "Due Date Services"
+      no_service_to_perform: "No services to perform"

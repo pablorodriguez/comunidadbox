@@ -4,26 +4,26 @@
   %table.w
     %tr
       %td
-        =f.collection_select(:service_type_id, @company_services,:id,:name,{:include_blank=>"-- Tipo de Servicio --"},{:class=>"change long_select"})
+        =f.collection_select(:service_type_id, @company_services,:id,:native_name,{:include_blank=>t(".service_type")},{:class=>"change long_select"})
     %tr
       %td
-        = f.collection_select(:state_id, @states, :id, :name, {:include_blank=>"-- Provincia --"},{:class=>"clear change long_select",:placeholder=>"Provincia"})
+        = f.collection_select(:state_id, @states, :id, :name, {:include_blank=> t(".state")},{:class=>"clear change long_select",:placeholder=> t(".state")})
     %tr  
       %td
-        =f.text_field :city,{:class=>"clear change",:style=>"width:192px",:placeholder=>"Ciudad"}
+        =f.text_field :city,{:class=>"change",:style=>"width:192px",:placeholder=>t(".city")}
     %tr
       %td
-        = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>"-- Marca --"},{:class=>"clear change long_select"})
+        = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>t(".brand")},{:class=>"change long_select"})
     %tr
       %td
         #models
-          = f.collection_select(:model_id, @models, :id, :name, {:prompt=>"-- Modelo --"},{:class=>'model clear change long_select'})  
+          = f.collection_select(:model_id, @models, :id, :name, {:prompt=>t(".model")},{:class=>'model change long_select'})  
     %tr
       %td
-        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:include_blank=>"-- Combustible --"},{:class=>"clear change long_select"})
+        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:include_blank=>t(".fuel")},{:class=>"change long_select"})
     %tr
       %td
-        =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>"-- Año --"},{:class=>"clear change long_select"})
+        =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>t(".year")},{:class=>"change long_select"})
     %tr        
       %td
         = f.text_field 'date_from', :class =>"input_date",:title =>t("since"),:placeholder =>t("since")

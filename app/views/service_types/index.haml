@@ -16,10 +16,10 @@
     - for service_type in @service_types    
       %tr
         %td
-          = link_to service_type.name,service_type              
+          = link_to service_type.native_name,service_type              
         %td 
           -if service_type.parent   
-            = service_type.parent.name
+            = service_type.parent.native_name
         %td
           = service_type.kms
         %td

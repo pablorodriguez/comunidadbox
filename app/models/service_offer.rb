@@ -1,6 +1,6 @@
 class ServiceOffer < ActiveRecord::Base
   include Statused  
-  attr_accessible :service_type_id, :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id
+  attr_accessible :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id
 
   has_many :car_service_offers
   has_many :cars, :through => :car_service_offers

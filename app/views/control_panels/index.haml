@@ -8,15 +8,17 @@
     var data = #{@series_data};
     var service_names = [#{@services_names}];
     url = "#{filter_alarms_control_panels_path}";
-    chart = buildControlPanelChart(service_names,data);             
+    chart = buildControlPanelChart(service_names,data,"#{t('nro_future_events')}");
   });
 .title.box_bottom  
-  %h1 Panel de Control 
+  %h1 
+    = t ".control_panel"
 .box_bottom
   -unless @no_data
-    %h1 Vencimientos de Servicios
+    %h1 
+      = t(".due_date_services")
     #graph_container
   -else
-    = render 'shared/message', :msg =>"No hay servicios a realizar"
+    = render 'shared/message', :msg => t(".no_service_to_perform")
 .buttons_container
-  = link_to "Cancelar", root_path
+  = link_to t("cancel"), root_path

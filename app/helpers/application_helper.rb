@@ -52,6 +52,9 @@ module ApplicationHelper
     ids = company_id ? CompanyService.companies(company_id) : current_user.service_types    
   end
 
+  def t_st service_types
+  end
+
   def is_client client
     Company.is_client?(company_id,client.id)
   end

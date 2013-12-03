@@ -3,9 +3,21 @@ es-AR:
     filter_alarms:
       title: "Listado de Autos"
       create_service_offer: "Crear Oferta de Servicio"
+      service_type: "Tipo de Serviciossss"    
     car_filters:
+      state: "-- Provincia --"
+      service_type: "-- Tipo de Servicios --"
+      city: "Ciudad"
+      brand: "-- Marca --"
+      model: "-- Model --"
+      fuel: "-- Combustible --"
+      year: "-- Año --"
       select_events: "Seleccione Eventos"
       select_clients: "Seleccione Clientes"
       events_types: "Eventos Tipos"
       my_clients: "Mis Clientes"
       other_clients: "Otros Clientes"
+    index:
+      control_panel: "Panel de Control"
+      due_date_services: "Vencimientos de Servicios"
+      no_service_to_perform: "No hay servicios a realizar"
