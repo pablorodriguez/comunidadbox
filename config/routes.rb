@@ -1,7 +1,5 @@
 ComunidadBox::Application.routes.draw do
 
-  resources :item_service_requests
-  resources :service_requests
 
 
   # The priority is based upon order of creation:
@@ -66,258 +64,259 @@ ComunidadBox::Application.routes.draw do
   match "conf" => "conf#show"
   match "vgneumaticos"=>"guests#new"
 
-  devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions' }
+  scope '(:locale)' do
+    devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions' }
+    match "/help" => "help#index"
 
-  match "/help" => "help#index"
-
-  resources :guests
-  resources :authentications
-  resources :service_filters
-  resources :states
-  resources :countries
-  resources :brands
-  resources :models do
-    collection do
-      post :import
-    end
-  end
-
-  resources :item_services
-  resources :car_filters
-  resources :ranks
-  resources :tasks
-  resources :service_type_templates
-  resources :contacts
-  resources :material_requests
-
-  resources :messages do     
-    member do
-      get :email
-      post :read
+    resources :item_service_requests
+    resources :service_requests
+    resources :guests
+    resources :authentications
+    resources :service_filters
+    resources :states
+    resources :countries
+    resources :brands
+    resources :models do
+      collection do
+        post :import
+      end
     end
 
-    collection do
-      get :users
-    end
-  end
-
-
-
-  resources :home do
-    collection do
-      post :set_company
-    end
-  end
-
-  resources :messages do
-    member do
-      post :respond
-    end
-  end
-
-  resources :events do
     resources :notes
-    resources :alarms
+    resources :item_services
+    resources :car_filters
+    resources :ranks
+    resources :tasks
+    resources :service_type_templates
+    resources :contacts
+    resources :material_requests
 
-    member do
-      get :search_notes
-    end
-  end
+    resources :messages do     
+      member do
+        get :email
+        post :read
+      end
 
-  resources :notes
-
-  resources :budgets do
-    resources :notes
-
-    member do      
-      get :print
-      get :email
-      get :email_s
-    end
-  end
-
-  resources :employees do
-    collection do
-      post :search
+      collection do
+        get :users
+      end
     end
 
-    member do
-      get :activate
+    resources :home do
+      collection do
+        post :set_company
+      end
     end
 
-  end
-
-  resources :workorders do
-    collection do
-      get :filter
-      post :task_list
-    end
-    member do
-      get :notify
-      get :print
-    end    
-  end
-
- resources :companies do
-    collection do
-      get :service_types
-      get :all
-      post :search
-      post :search_distance
-      post :add_service_type
-      post :remove_service_type
+    resources :messages do
+      member do
+        post :respond
+      end
     end
 
-    member do
-      get :activate
-    end
-  end
+    resources :events do
+      resources :notes
+      resources :alarms
 
-  resources :cars do
-    resources :alarms
-    resources :notes
-
-    collection do
-      post :find_models
-      post :search
-      post :search_companies      
-      get :my
+      member do
+        get :search_notes
+      end
     end
 
-    member do   
-      put :km   
-      get :services_done
-      get :future_events
-      get :report_graph
-      get :notes
-      get :alarms
-      get :messages
-    end
-  end
 
-  resources :users do
-    resources :messages
+    resources :budgets do
+      resources :notes
 
-    collection do
-      get :generate_email
-      get :validate_email
-      get :validate_domain
-      get :new_employee
-      get :list_service_offer
-      get :companies
-      get :future_events
-      post :find_models
-      get :mail_confirmation
-      get :reset_password
-      get :unlock
+      member do      
+        get :print
+        get :email
+        get :email_s
+      end
     end
 
-   
-  end
+    resources :employees do
+      collection do
+        post :search
+      end
 
-  resources :alarms do
-    collection do
-      get :list_alarm_now
-      get :send_alarm
-    end
-  end
+      member do
+        get :activate
+      end
 
-  resources :clients do
-    collection do
-      post :search
-      get :index_all
-    end
-  end
-
-  resources :services do
-    collection do
-      post :add_material
-      post :add_service
-    end
-  end
-
-  resources :control_panels do
-    collection do
-      post :filter_alarms
-      get :filter_alarms
-      post :find_models      
-      post :save_filter
-    end
-  end
-
-  resources :service_offers do
-    collection do
-      post :send_notification
-      post :new_s
-      get :notify_email
-      get :notify      
     end
 
-  end
-
-  resources :car_service_offers do
-    member do
-      get :confirm
-      get :reject
+    resources :workorders do
+      collection do
+        get :filter
+        post :task_list
+      end
+      member do
+        get :notify
+        get :print
+      end    
     end
-    collection do
-      get :confirmed
-    end
-  end
 
-  resources :service_types do    
+   resources :companies do
+      collection do
+        get :service_types
+        get :all
+        post :search
+        post :search_distance
+        post :add_service_type
+        post :remove_service_type
+      end
 
-    member do
-      get :task_list
-      put :add_task
-      delete :remove_task
-      post :remove_material
-      post :add_material
-      get :search_material
+      member do
+        get :activate
+      end
     end
+
+    resources :cars do
+      resources :alarms
+      resources :notes
+
+      collection do
+        post :find_models
+        post :search
+        post :search_companies      
+        get :my
+      end
+
+      member do   
+        put :km   
+        get :services_done
+        get :future_events
+        get :report_graph
+        get :notes
+        get :alarms
+        get :messages
+      end
+    end
+
+    resources :users do
+      resources :messages
+
+      collection do
+        get :generate_email
+        get :validate_email
+        get :validate_domain
+        get :new_employee
+        get :list_service_offer
+        get :companies
+        get :future_events
+        post :find_models
+        get :mail_confirmation
+        get :reset_password
+        get :unlock
+      end
+
+     
+    end
+
+    resources :alarms do
+      collection do
+        get :list_alarm_now
+        get :send_alarm
+      end
+    end
+
+    resources :clients do
+      collection do
+        post :search
+        get :index_all
+      end
+    end
+
+    resources :services do
+      collection do
+        post :add_material
+        post :add_service
+      end
+    end
+
+    resources :control_panels do
+      collection do
+        post :filter_alarms
+        get :filter_alarms
+        post :find_models      
+        post :save_filter
+      end
+    end
+
+    resources :service_offers do
+      collection do
+        post :send_notification
+        post :new_s
+        get :notify_email
+        get :notify      
+      end
+
+    end
+
+    resources :car_service_offers do
+      member do
+        get :confirm
+        get :reject
+      end
+      collection do
+        get :confirmed
+      end
+    end
+
+    resources :service_types do    
+
+      member do
+        get :task_list
+        put :add_task
+        delete :remove_task
+        post :remove_material
+        post :add_material
+        get :search_material
+      end
+      
+      collection do
+        get :search_sub_category
+        put :destroy_material
+      end
+    end
+
+    resources :materials do
+      collection do
+        get :details
+        post :save_service_type
+        get :destroy_servicetype
+      end
+    end
+
+    resources :price_lists do
+      member do
+        get :activate
+        get :items
+        get :copy
+        put :update_item_price
+        put :price_upload
+      end
+
+      collection do
+        get :import_price
+      end
+    end
+
+    resources :material_requests do
+      collection do
+        post :search
+      end
+      member do
+        get :approved
+        get :disapproved
+      end
+    end
+
+    root :to => "home#index"
     
-    collection do
-      get :search_sub_category
-      put :destroy_material
+    constraints CanAccessResque do
+      mount Resque::Server, at: '/resque'
     end
-  end
-
-  resources :materials do
-    collection do
-      get :details
-      post :save_service_type
-      get :destroy_servicetype
-    end
-  end
-
-  resources :price_lists do
-    member do
-      get :activate
-      get :items
-      get :copy
-      put :update_item_price
-      put :price_upload
-    end
-
-    collection do
-      get :import_price
-    end
-  end
-
-  resources :material_requests do
-    collection do
-      post :search
-    end
-    member do
-      get :approved
-      get :disapproved
-    end
- end
-
-  root :to => "home#index"
-  
-  constraints CanAccessResque do
-    mount Resque::Server, at: '/resque'
   end
 
 end

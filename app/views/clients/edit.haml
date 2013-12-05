@@ -18,7 +18,7 @@
         .personal_address.box_bottom      
           =f.fields_for :address do |a|
             = render 'users/user_address_fields', :f =>a
-      .buttons.box_bottom        
+      .buttons_container
         = f.submit t(".save"),:class=>:button
         = link_to t(".cancel"),client_path(@client)
 

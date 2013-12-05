@@ -64,7 +64,7 @@
                       = link_to t(".administration"),admin_path    
                   %li
                     = link_to t("exit"), destroy_user_session_path
-        .right.hide        
+        .right        
           = link_to "",request.parameters.merge({:locale => "es-AR"}),:class => "es left"
           = link_to "",request.parameters.merge({:locale => "en-US"}),:class => "en left"
     -else      

@@ -23,7 +23,6 @@ gem "packet"
 gem 'prawn'
 gem 'prawnto'
 gem "geokit"
-gem "locale_setter"
 
 # Gems used only for assets and not required
 # in production environments by default.
