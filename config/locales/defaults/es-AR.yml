@@ -53,3 +53,21 @@ es-AR:
   nro_future_events: "Cantidad de Eventos Futuros"
   suspension_old: "Suspensión-No Usar"
   print: "Imprimir"
+  spanish: "Español"
+  english: "Ingles"
+  check: "Cheque"
+  debit_card: "Tarjeta Débito"
+  credit_card: "Tarjeta Crédito"
+  cash: "Efectivo"
+  open: Abierto
+  in_process: En Proceso
+  cancelled: Cancelado
+  finished: Terminado
+  completed: Completado
+  active: Activo
+  confirmed: Confirmado
+  performed: Realizado
+  sent: Enviado
+  pending: Pendiente
+  rejected: Rechazado
+  approved: Aprobado

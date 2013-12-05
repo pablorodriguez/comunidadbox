@@ -1,4 +1,6 @@
 en-US:
+  access: Could not access the site with a disabled user
+  user_update: User updated successfully
   exit: "Exit"
   cancel: "Cancel"
   save: "Save"
@@ -53,3 +55,21 @@ en-US:
   nro_future_events: "Number of Future Events"
   suspension_old: "Suspension-Not Use"
   print: "Print"
+  spanish: "Spanish"
+  english: "English"
+  check: "Check"
+  debit_card: "Debit Card"
+  credit_card: "Credit Card"
+  cash: "Cash"
+  open: Open
+  in_process: In Process
+  cancelled: Cancelled
+  finished: Finished
+  completed: Completed
+  active: Active
+  confirmed: Confirmed
+  performed: Performed
+  sent: Sent
+  pending: Pending
+  rejected: Rejected
+  approved: Approved

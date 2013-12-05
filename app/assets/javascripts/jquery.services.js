@@ -72,7 +72,7 @@ jQuery(document).ready( function(){
     resizable:false,
     position: [500,150],
     width:650,
-    title:"Buscador de Materiales",
+    title: search_material_title,
     close:function(){
       $("#materials_list").html("");
       $("#material_erros").hide();
@@ -82,11 +82,11 @@ jQuery(document).ready( function(){
     },
     buttons: [
           {
-            text:"Buscar",
+            text:search_title,
             click:function(){$("#material_form").submit();}
           },
           {
-            text: "Agregar Material",
+            text: add_material_title,
             click: function() {
               if (($("#service_type_id").val() == "")
                     && ($("#new_material").val() != "")){
@@ -104,7 +104,7 @@ jQuery(document).ready( function(){
             }
           },
           {
-            text:"Listo",
+            text: done_title,
             click:function(){$(this).dialog("close");}
           }
         ]

@@ -1,0 +1,11 @@
+es-AR:
+  activerecord:
+    models:
+      budgets: "Automovil"
+    attributes:
+      budgets:
+        first_name: "Nombre"
+        last_name: "Apellido"
+        domain: "Dominio"
+    errors:
+      unique_domain_per_user: "El Dominio ya existe"

@@ -1,0 +1,11 @@
+en-US:
+  activerecord:
+    models:
+      budgets: "Automobile"
+    attributes:
+      budgets:
+        first_name: "First Name"
+        last_name: "Last Name"
+        domain: "Domain"
+    errors:
+      unique_domain_per_user: "Domain already exist"     

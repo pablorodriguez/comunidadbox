@@ -21,7 +21,7 @@ class Workorder < ActiveRecord::Base
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
   #validates :services ,:length =>{:minimum => 1}
   #validates_presence_of :deliver, :message => "Debe ingresar una hora de entrega"
-  validates_presence_of :performed, :message =>"Debe ingresar una fecha de realizado"
+  validates_presence_of :performed, :message => I18n.t(".must_enter_performed_date")
   
 
   #,:message =>"La orden de trabajo debe contener servicios"
@@ -133,7 +133,7 @@ class Workorder < ActiveRecord::Base
 
     self.status = Status::OPEN unless self.status
 
-    self.payment_method = PaymentMethod.find_by_name("Efectivo") unless self.payment_method  
+    self.payment_method = PaymentMethod.find PaymentMethod.default_payment unless self.payment_method  
 
   end
   

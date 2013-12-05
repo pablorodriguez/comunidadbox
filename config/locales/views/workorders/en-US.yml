@@ -20,7 +20,7 @@ en-US:
       create_new_client: "Create New Client"
       search: "Searchsss"
     form:
-      enter_services_done: "Enter Services Done"
+      enter_services_done: "Enter Services Performed"
     search:
       all: "All"
       from: "From"
@@ -44,14 +44,30 @@ en-US:
       delivery_time: "Delivery Time"
       delivered: "Delivered"
       type_pay: "Type of Payment"
-      type_of_service: "-- Type of Service --"
-      new_type_of_service: "Add new type of service"
+      type_of_service: "-- Service Type --"
+      new_type_of_service: "Add new service type"
       see_note: "See note"
       see_comment: "See comment"
       search_materials: "Search materials (Ctrl + M)"
       save: "Save"
       cancel: "Cancel"
       saving: "Saving"
+      budget_nro: Budget Nro
+    service_fields:
+      operator: "-- Operator --"
+      add_comment: "Add Comment"
+      add_new_material: "Add New Material"
+      delete_service: Remove Service
+    materials:
+      service: Service
+      material: Material
+      new_material: New Material
+      material_seeker: Search Materials
+      search: Search
+      add_material: Add Material
+      done: Done
+    material_service_fields:
+      delete_material: Remove Material
     comment: 
       comment: "Comment"
       new_note: "New Note"

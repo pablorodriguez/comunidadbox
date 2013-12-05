@@ -5,7 +5,7 @@
       %label{title: "Realizado"}
         = l(@work_order.performed)
       %label{title: "Forma de Pago"}
-        = @work_order.payment_method.name
+        = @work_order.payment_method.native_name
       = link_to "[#{@work_order.budget.id}]",budget_path(@work_order.budget),:title => "Presupuesto" if @work_order.budget
       - if @work_order.deliver
         %label.right{title: "Hora de Entrega"}

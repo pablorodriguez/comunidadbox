@@ -13,7 +13,7 @@
       - if @work_order.deliver && current_user.company
         = wo_form.text_field :deliver_actual,:class =>"date_time input_date_time",:value => (@work_order.deliver_actual ? l(@work_order.deliver_actual) : ""),:title=>t(".delivered"),:placeholder => t(".delivered")
       - if current_user.is_employee?
-        = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
+        = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.native_name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
       - else
         = wo_form.hidden_field :payment_method_id
 
@@ -32,7 +32,8 @@
       - if wo_form.object.budget
         .right
           %h1
-            Presupuesto Nro:
+            = t(".budget_nro")
+            \:
             = link_to wo_form.object.budget.id,wo_form.object.budget
     = render "comment",:c => wo_form          
     #services_list.ordencontent

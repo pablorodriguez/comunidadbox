@@ -33,7 +33,7 @@ en-US:
       message: "Please upgrade mileage in order to create a service."
       km_current: "Km Current"
       km_monthly_average: "Km Monthly Average"
-      update_km: "Km Update"
+      update_km: "Update KM"
     services_list:
       completed: "Completed"  
     new:

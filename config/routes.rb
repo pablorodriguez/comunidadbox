@@ -87,6 +87,7 @@ ComunidadBox::Application.routes.draw do
     resources :car_filters
     resources :ranks
     resources :tasks
+    resources :payment_methods
     resources :service_type_templates
     resources :contacts
     resources :material_requests

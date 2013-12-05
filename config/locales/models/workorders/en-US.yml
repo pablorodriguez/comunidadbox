@@ -1,0 +1,8 @@
+en-US:
+  activerecord:
+    models:
+      workorder: "Work Order"
+    attributes:
+      workorder:
+        deliver: "Deliver Time"
+        services: "Services"

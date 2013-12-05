@@ -52,7 +52,7 @@ en-US:
       comment: "Comment"
     services_list:
       services: "Services"
-      select_type_of_service: "Select Type of Service"
+      select_type_of_service: "Select Service Type"
       save: "Save"
       saving: "saving ..."
       cancel: "Cancel"

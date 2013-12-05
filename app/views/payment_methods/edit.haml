@@ -1,0 +1,13 @@
+-# javascript 'service_offer'
+-# javascript 'service_offer'
+.vertical_menu
+  = render "conf/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1
+      Modificar Forma de Pago
+  = form_for @payment_method do |f|
+    = render 'shared/error_messages', :target => @payment_method
+    = render :partial => 'form', :locals => {:f => f}
+

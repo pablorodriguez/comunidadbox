@@ -12,6 +12,7 @@ en-US:
       my_cars: "My cars"
       control_panel: "Control Panel"
       services_made: "Services Performed"
+      services_requests: "Services Requests"
       budgets: "Budgets"
       service_offers: "Service Offers"
       service_providers: "Service Providers"

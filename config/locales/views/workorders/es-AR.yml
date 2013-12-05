@@ -54,6 +54,23 @@ es-AR:
       save: "Grabar"
       cancel: "Cancelar"
       saving: "Grabando"
+      budget_nro: Presupuesto Nro
+    service_fields:
+      operator: "-- Operario --"
+      add_comment: "Agregar Comentario"
+      add_new_material: "Agregar nuevo material"
+      delete_service: Borrar Servicio
+      delete_material: Borrar Material
+    materials:
+      service: Servicio
+      material: Material
+      new_material: Nuevo Material
+      material_seeker: Buscar Materiales
+      search: Buscar
+      add_material: Agregar Material
+      done: Listo
+    material_service_fields:
+      delete_material: Remove Material
     comment:
       comment: "Comentario"
       new_note: "Nueva Nota"

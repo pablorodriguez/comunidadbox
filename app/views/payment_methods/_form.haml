@@ -1,0 +1,10 @@
+%table.w
+  %tr
+    %td Nombre
+  %tr
+    %td
+      = f.text_field :name      
+  
+.buttons_container
+  = f.submit t("save"),:class => :button
+  = link_to t("cancel"),payment_methods_path

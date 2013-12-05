@@ -1,3 +1,10 @@
+:javascript
+  var search_material_title = "#{t('.material_seeker')}";
+  var done_title = "#{t('.done')}";
+  var search_title = "#{t('.search')}";
+  var add_material_title = "#{t('.add_material')}";
+
+
 #material_erros.errorExplanation.hide
   %h2
     Debe seleccionar un servicio para agregar un nuevo material
@@ -6,17 +13,17 @@
     = form_for :material,:remote=>true,:url=>details_materials_path,:html=>{:id=>:material_form,:method=>:get} do |f|
       %table.service_table
         %tr
-          %td Servicio
+          %td= t(".service")
           %td
-            = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:name),{:class=>"input_medium"}
+            = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:native_name),{:class=>"input_medium"}
             -#=link_to image_tag('max.png',:class=>"input_img",:title =>"Maximizar Orden de Trabajo"),"#",:id=>"maxim"
         %tr
-          %td Material
+          %td= t(".material")
           %td
             = text_field_tag :term,@detail,:class=>"input_medium"
             -#= image_submit_tag("find.png",:class =>"input_img")
         %tr
-          %td Material Nuevo        
+          %td=t(".new_material")
           %td
             %input{:id=>"new_material",:class=>"input_medium"}
             -#= link_to_function image_tag('add.png',:class=>:input_img,:title =>"Agregar Materiales"),"add_new_material_service_type(this)"

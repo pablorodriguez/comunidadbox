@@ -4,8 +4,8 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   helper :all # include all helpers, all the time
-
-
+  LANGUAGES = {'en' => 'en-US','en-US' => 'en-US','es' => 'es-AR','es-AR' =>'es-AR'}    
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery :secret => 'eee70de2e239c7e16b4f9229f56b8209'
@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
   protected
   def set_i18n_locale_from_params
       if params[:locale]
-        if I18n.available_locales.include?(params[:locale].to_sym)
-          I18n.locale = params[:locale]
+        if LANGUAGES[params[:locale]]
+          I18n.locale = LANGUAGES[params[:locale]]
         else
           flash.now[:notice] = "#{params[:locale]} translation not available"
           logger.error flash.now[:notice]

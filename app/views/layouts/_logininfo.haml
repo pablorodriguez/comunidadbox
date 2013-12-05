@@ -18,8 +18,8 @@
         %h3          
           = link_to "?", help_path, :title => t(".help"),:class => "help_link"
     .clear.right
-      = link_to "",request.parameters.merge({:locale => "es-AR"}),:class => "es left"
-      = link_to "",request.parameters.merge({:locale => "en-US"}),:class => "en left"
+      = link_to "",request.parameters.merge({:locale => "es"}),:class => "es left"
+      = link_to "",request.parameters.merge({:locale => "en"}),:class => "en left"
   -if user_signed_in? 
     %ul  
       %li
@@ -68,8 +68,8 @@
                   %li
                     = link_to t("exit"), destroy_user_session_path
         .right        
-          = link_to "",request.parameters.merge({:locale => "es-AR"}),:class => "es left"
-          = link_to "",request.parameters.merge({:locale => "en-US"}),:class => "en left"
+          = link_to "",request.parameters.merge({:locale => "es"}),:class => "es left",:title => t("spanish")
+          = link_to "",request.parameters.merge({:locale => "en"}),:class => "en left",:title => t("english")
     -else      
       .clear
         %ul

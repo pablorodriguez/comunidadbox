@@ -14,7 +14,7 @@ class Status
   APPROVED = 12
   
   WO_STATUS = {
-    OPEN=>'Abierto',IN_PROCESS=>'En Proceso',FINISHED=>'Terminado'
+    OPEN=> I18n.t("open"),IN_PROCESS=>I18n.t('in_process'),FINISHED=>I18n.t('finished')
     }
 
   SR_STATUS = {

@@ -4,8 +4,9 @@
 -# javascript 'materials_ajax'
 #work_order_info
   .cont1.box_bottom
-    %h1=t(".enter_services_done")
-    = @work_order.company_name
+    %h1.left=t(".enter_services_done")
+    %h1.right
+      = @work_order.company_name
   #err
     = render 'shared/error_messages', :target => @work_order
   #work_order

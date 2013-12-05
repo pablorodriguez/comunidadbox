@@ -13,7 +13,7 @@
             - if company_id
               %select{class: "operator template hide"}
                 %option{value: ""} -- Template --            
-              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => "-- Operario --",:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"}) 
+              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => t(".operator"),:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"}) 
             - if current_user.is_employee?           
               = f.select(:status,Status::WO_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'status left',:title=>"Estado"})
             -else
@@ -22,20 +22,22 @@
             .actions
               .action
                 -#= link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
-                = link_to "","#",{:class =>"new_material new",:title=>"Agregar nuevo material"}
+                = link_to "","#",{:class =>"new_material new",:title=> t(".add_new_material")}
                 -#= link_to_function("","showTask(this)",{:class =>"taks new"});
               .action
-                %a{:class=>"add_comment comment link",:title=>"Agregar Comentario"}
+                %a{:class=>"add_comment comment link",:title=> t(".add_comment")}
         %th{:style=>'width:10%'}
-          %label.right Cantidad
+          %label.right
+            =t("amount")
         %th{:style=>'width:10%'}
-          %label.right Precio
+          %label.right 
+            = t("price")
         %th.number{:style=>'width:15%'}
           .total_service
             = number_to_currency(f.object.total_price)
         %th.number{:style=>'width:5%'}
           .remove_service.right
-            = link_to_remove_fields f,:services,"Borrar Servicio"
+            = link_to_remove_fields f,:services,t(".delete_service")
       - if f.object.car_service_offer 
         %tr          
           %th.number{:colspan=>4}

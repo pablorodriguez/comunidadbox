@@ -28,7 +28,8 @@ class Budget < ActiveRecord::Base
 
   def service_not_empty
     if services.empty?
-      errors[:base] << "El presupuesto debe contener servicios"
+      errors[:base] << I18n.l(".must_have_services") 
+      #{}"El presupuesto debe contener servicios"
     end
     
     #busco auto con el mismo dominio
