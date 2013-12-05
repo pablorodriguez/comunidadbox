@@ -9,7 +9,7 @@
           .left
             %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
         .left
-          = s.service_type.name
+          = s.service_type.native_name
         .operator.clear
           -if s.operator
             %label{title: "Operario"}              

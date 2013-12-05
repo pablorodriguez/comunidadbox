@@ -20,10 +20,10 @@
       - for service_type in @all_service_types
         %tr
           %td
-            = service_type.name
+            = service_type.native_name
           %td 
             -if service_type.parent   
-              = service_type.parent.name
+              = service_type.parent.native_name
           %td
             = service_type.kms
           %td

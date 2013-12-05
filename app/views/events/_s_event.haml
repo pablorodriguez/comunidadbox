@@ -3,7 +3,7 @@
     .status.left
       = icon_status s_event.status
     .service.left
-      = link_to s_event.service_type.name, s_event        
+      = link_to s_event.service_type.native_name, s_event        
     .workorder.left.clear
       %br
       = link_to "Generado por ... #{s_event.service.workorder.id}", s_event.service.workorder      

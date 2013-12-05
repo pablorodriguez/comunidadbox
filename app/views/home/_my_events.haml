@@ -2,7 +2,7 @@
 %ul
   - @events.each do |e|
     %li
-      ="#{e.service_type.name} #{e.dueDate}"
+      ="#{e.service_type.native_name} #{e.dueDate}"
 %p
 #sendprestadores
   = button_to "Ver" , control_panels_path,:method =>:get,:class=>"button"

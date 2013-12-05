@@ -5,7 +5,7 @@
   = label service_type_template, :service_type
 
   %label
-    = service_type_template.service_type.name
+    = service_type_template.service_type.native_name
 
   - for material in service_type_template.material_service_type_templates
     %br

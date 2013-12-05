@@ -17,7 +17,7 @@
       = ServiceTypeTemplate.human_attribute_name(:service_type)
     
     %label
-      = @template.service_type.name
+      = @template.service_type.native_name
 
     - for material in @template.material_service_type_templates
       %br

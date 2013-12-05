@@ -23,7 +23,7 @@
         .left
           - service_request.item_service_requests.each do |isr|
             %strong
-              = link_to isr.service_type.name,service_request,:title =>t("view")
+              = link_to isr.service_type.native_name,service_request,:title =>t("view")
             = isr.description
             %br
         = service_request.company.try(:name)
