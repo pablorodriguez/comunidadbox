@@ -5,7 +5,7 @@ es-AR:
       service_offer: "Oferta de Servicio"
       new_service_request: Nueva Solicitud de Servicios
       listing_service_request: Listado de Solicitudes de Servicios
-      sure_delete_service_request: "¿ Esta serguro de queres eliminar la Solicitud de Servicio ?"
+      sure_delete_service_request: "¿ Estas seguro de eliminar la Solicitud de Servicio ?"
     new:
     edit:
       edit_service_request: Modificar Solicitud de Servicios
@@ -14,7 +14,6 @@ es-AR:
       services: Servicios
       service_request: Solicitud de Servicio
       edit: Modificar
-      description: Descripción
       make_an_offer: Hacer una oferta
     form:
       services: Servicios

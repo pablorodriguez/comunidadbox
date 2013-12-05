@@ -1,0 +1,9 @@
+en-US:
+  activerecord:
+    models:
+      service_type: "Service Type"
+    attributes:
+      service_type:
+        tasks: "Task"
+        km: "Kilometer"
+        days: "Days"   

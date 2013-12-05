@@ -1,0 +1,11 @@
+en-US:
+  activerecord:
+    models:
+      service_request: "Service Request"
+    attributes:
+      service_request:
+        user: "User"
+        service_type: "Service Type"
+        company: "Company"
+        car: "Car"
+        status: "Status"

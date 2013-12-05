@@ -5,4 +5,3 @@ es-AR:
     attributes:
       item_service_request:      
         service_type: "Tipo de Servico"
-        description: "Descripción"

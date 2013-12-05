@@ -8,6 +8,7 @@ en-US:
   delete: "Delete"
   view: "View"
   message: "Message"
+  description: "Description"
   select_service_type: "Select Service Type"
   message_exit_send: "Message send"
   wrong_captcha: "Validation error in Captcha"
