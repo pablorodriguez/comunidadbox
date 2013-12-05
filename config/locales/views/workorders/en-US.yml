@@ -34,7 +34,7 @@ en-US:
       notes: "Notes"
       send_message: "Send message"
       delete: "Delete"
-      modify: "Modify"
+      modify: "Update"
       service_number: "Service Number"
       client: "Client"
       print_form: "Print Form"

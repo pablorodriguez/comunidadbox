@@ -9,7 +9,7 @@ en-US:
       message: "Are you sure you want to delete the budget?"
       delete: "Delete"
       create_service: "Create Service"
-      modify: "Modify"
+      modify: "Update"
       print: "Print"
       notes: "Notes"
       send_message: "Send Message"

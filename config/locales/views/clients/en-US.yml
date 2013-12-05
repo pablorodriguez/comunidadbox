@@ -3,14 +3,14 @@ en-US:
     list_clients:
       list_of_clients: "List of Clients"
       see: "See"
-      modify_client: "Modify Client"
+      modify_client: "Update Client"
       edit: "Edit"
       new_budget: "New Budget"
       new_car: "New Car"
       new_message: "New Message"
       car_delete_confirm: "Delete Car?"
       delete: "delete"
-      modify_car: "Modify Car"
+      modify_car: "Update Automovile"
       new_service: "New Service"
       send_message: "Send Message"
     new:
@@ -26,10 +26,10 @@ en-US:
       new_client: "New Client"
       new_budget: "New Budget"
       create_new_client: "Create New Client"
-      modify_client: "Modify Client"
+      modify_client: "Update Client"
       new_car: "New Car"
     edit:
-      modify_client: "Modify Client"
+      modify_client: "Update Client"
       personal_information: "Personal Information"
       address_information: "Personal Address"
       save: "Save"
@@ -61,25 +61,4 @@ en-US:
       zip: "Zip"
       new_budget: "New Budget"
       new_service: "New Service"
-      modify_car: "Modify Car"
-
-
-
-
-
-
-     
-
-
-      
-
-
-
-
-
-
-
-
-
-
-    
+      modify_car: "Update Automovile"

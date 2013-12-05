@@ -17,6 +17,9 @@
       %li
         %h3          
           = link_to "?", help_path, :title => t(".help"),:class => "help_link"
+    .clear.right
+      = link_to "",request.parameters.merge({:locale => "es-AR"}),:class => "es left"
+      = link_to "",request.parameters.merge({:locale => "en-US"}),:class => "en left"
   -if user_signed_in? 
     %ul  
       %li
