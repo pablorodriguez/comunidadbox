@@ -1,0 +1,9 @@
+es-AR:
+  service_offers:
+    new_s:
+      title: "Nueva Oferta de Servicio"
+    form:
+      information: "Información"
+      days: "Días"
+      valid: "Valido"
+      all: "Todos"

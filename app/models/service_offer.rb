@@ -36,7 +36,7 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def service_types_names
-    offer_service_types.map{|ost| ost.service_type.name}.join(" - ")    
+    offer_service_types.map{|ost| ost.service_type.native_name}.join(" - ")    
   end
 
   def valid_dates

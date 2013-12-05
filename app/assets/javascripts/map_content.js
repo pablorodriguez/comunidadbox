@@ -35,8 +35,13 @@ function buildControlPanelChart(service_names,data,title){
               point: {
                 events: {
                     click: function() {               
-                        var st = this.options.st;         
-                        location.href = url + "?st=" + st+"&et=all";
+                        var st = this.options.st;
+                        if (url.indexOf("?") > 0){
+                          location.href = url + "&st=" + st+"&et=all";
+                        }else{
+                          location.href = url + "?st=" + st+"&et=all";
+                        }
+                        
                     }
                 }
             }

@@ -1,0 +1,9 @@
+en-US:
+  service_offers:
+    new_s:
+      title: "New Service Offer"
+    form:
+      information: "Information"
+      days: "Days"
+      valid: "Valid"
+      all: "All"

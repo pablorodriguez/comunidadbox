@@ -8,3 +8,8 @@ es-AR:
         final_price: "Precio Final"        
         percent: "Porcentaje"
         title: "Titulo"
+        comment: "Comentario"
+        status: "Estado"
+        discount: "Descuento"
+        since: "Desde"
+        until: "Hasta"

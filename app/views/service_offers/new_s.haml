@@ -7,8 +7,9 @@
 
 .contentright_s
   .box_bottom
-    %h1 
-      Nueva Oferta de Servicio:  
+    %h1
+      = t(".title")       
+      \:  
       = @offer.service_types_names
   #service_offer
     = form_for @offer do |f|    

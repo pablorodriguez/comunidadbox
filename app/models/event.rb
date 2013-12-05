@@ -122,8 +122,7 @@ class Event < ActiveRecord::Base
       totalEvents = events.red if event_types[:red]
       totalEvents += events.yellow if event_types[:yellow]
       totalEvents += events.green if event_types[:green]  
-    end    
-    
+    end        
     totalEvents  
   end
 

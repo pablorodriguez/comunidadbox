@@ -30,7 +30,7 @@ class ServiceOffersController < ApplicationController
   def new_s
     @title ="Oferta de Servicio"
     @offer = ServiceOffer.new()
-    debugger
+    @offer.offer_service_types.build(:service_type_id => params[:service_type_id])
 
     @events_ids = params[:events_ids_chk] || []
     @events_ids.slice!(0) if @events_ids

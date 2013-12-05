@@ -100,8 +100,10 @@ class ControlPanelsController < ApplicationController
     #logger.debug "### SQL #{@events.to_sql}"
     @page = params[:page] || 1
     per_page=90
-    @events_count = @events.count
+    @events[0]
+    @events_count = @events.size
     @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
+
     @alarm = Alarm.new
     
   end

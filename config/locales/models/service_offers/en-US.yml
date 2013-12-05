@@ -1,0 +1,13 @@
+en-US:
+  activerecord:
+    models:
+      service_offer: "Service Offer"
+    attributes:
+      service_offer:
+        price: "Price"
+        final_price: "Final Price"
+        percent: "Percentaje"
+        title: "Title"
+        comment: "Comment"
+        status: "Status"
+        discount: "Descuento"
