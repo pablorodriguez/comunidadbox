@@ -11,3 +11,5 @@ en-US:
         comment: "Comment"
         status: "Status"
         discount: "Descuento"
+        since: "Since"
+        until: "Until"

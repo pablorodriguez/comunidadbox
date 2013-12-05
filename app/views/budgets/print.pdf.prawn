@@ -73,7 +73,7 @@ pdf.move_down(5)
 
 @budget.services.each do |service|
     data = [
-        [service.service_type.name,"Cantidad","Precio",number_to_currency(service.total_price)]
+        [service.service_type.native_name,"Cantidad","Precio",number_to_currency(service.total_price)]
     ]
 
     service.material_services.each do |ms|      

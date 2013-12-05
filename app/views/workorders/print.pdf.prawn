@@ -62,7 +62,7 @@ pdf.grid(0,0).bounding_box do
     operario = service.operator ? "Operario: #{service.operator.full_name} \n" :""
   
   	data =[[
-  			"#{service.service_type.name} [#{Status.status service.status}]",
+  			"#{service.service_type.native_name} [#{Status.status service.status}]",
   			"#{operario}"
   			]]
     
@@ -170,7 +170,7 @@ pdf.grid(0,1).bounding_box do
     operario = service.operator ? "Operario: #{service.operator.full_name} " : ""
     
     data =[[
-        "#{service.service_type.name} [#{Status.status service.status}]",
+        "#{service.service_type.native_name} [#{Status.status service.status}]",
         "#{operario}"
       ]]
     
