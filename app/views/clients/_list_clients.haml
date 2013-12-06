@@ -9,7 +9,7 @@
         %label       
           = link_to client.full_name, client_path(client),:title=>t(".see") 
         %label.phone
-          = client.phone
+          = number_to_phone client.phone
         %label
           = client.email
 

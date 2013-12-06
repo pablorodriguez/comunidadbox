@@ -10,7 +10,7 @@
   -unless address.company.phone.blank?
     %br
     Tel:
-    = address.company.phone
+    = number_to_phone address.company.phone
   %br
   Distancia:
   = @distance_km

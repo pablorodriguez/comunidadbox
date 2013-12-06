@@ -9,7 +9,7 @@
         .address
           = company.full_address
         .phone
-          = company.phone              
+          = number_to_phone company.phone              
         .rank  
           ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{number_with_precision(company.user_rank)}]"
       .actions
