@@ -76,9 +76,10 @@ pdf.move_down(5)
         [service.service_type.native_name,"Cantidad","Precio",number_to_currency(service.total_price)]
     ]
 
-    service.material_services.each do |ms|      
-        data << [ms.material,ms.amount,number_to_currency(ms.price),number_to_currency(ms.total_price)] if ms.material_service_type
-        data << [ms.material,ms.amount,number_to_currency(ms.price),number_to_currency(ms.total_price)] unless ms.material_service_type    end
+    service.material_services.each do |ms|          
+        mat = ms.material_service_type ? "[#{ms.material_service_type.material.prov_code}] #{ms.material_service_type.material.detail}" : ms.material  
+        data << [mat,ms.amount,number_to_currency(ms.price),number_to_currency(ms.total_price)] if ms.material_service_type        
+    end
                 
     pdf.table data do
       cells.borders=[]            
