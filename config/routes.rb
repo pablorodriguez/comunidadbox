@@ -2,6 +2,8 @@ ComunidadBox::Application.routes.draw do
 
 
 
+  get "promotions/scaffold"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -81,7 +83,7 @@ ComunidadBox::Application.routes.draw do
         post :import
       end
     end
-
+    resources :promotions
     resources :notes
     resources :item_services
     resources :car_filters
