@@ -1,6 +1,4 @@
-en-US:
-  access: Could not access the site with a disabled user
-  user_update: User updated successfully
+en-US:  
   exit: "Exit"
   cancel: "Cancel"
   save: "Save"
@@ -73,3 +71,13 @@ en-US:
   pending: Pending
   rejected: Rejected
   approved: Approved
+  access: Could not access the site with a disabled user
+  user_update: User updated successfully
+  unauthorized:
+    manage:
+      all: You are not authorized to perform the requested action
+      user: Not allowed to manage other user accounts    
+  shared:
+    error_messages:
+      errors_prohibited_plural: "There were the following %{count} errors "
+      errors_prohibited_singular: The following error occurred

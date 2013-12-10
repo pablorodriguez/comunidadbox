@@ -71,3 +71,13 @@ es-AR:
   pending: Pendiente
   rejected: Rechazado
   approved: Aprobado
+  access: Could not access the site with a disabled user
+  user_update: User updated successfully
+  unauthorized:
+    manage:
+      all: Ud. no esta autorizado a realizar la accion solicitada
+      user: No se les permite administrar otras cuentas de usuario    
+  shared:
+    error_messages:
+      errors_prohibited_plural: "Se produjeron los siguientes %{count} errores"
+      errors_prohibited_singular: "Se produjo el siguiente error"

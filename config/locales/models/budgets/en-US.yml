@@ -1,4 +1,5 @@
 en-US:
+  must_have_services: Must have one services
   activerecord:
     models:
       budgets: "Automobile"
@@ -9,3 +10,7 @@ en-US:
         domain: "Domain"
     errors:
       unique_domain_per_user: "Domain already exist"     
+      models:
+        budgets:
+          attributes:
+            services:

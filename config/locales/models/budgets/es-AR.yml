@@ -1,4 +1,5 @@
 es-AR:
+  must_have_services: Debe tener un servicio
   activerecord:
     models:
       budgets: "Automovil"

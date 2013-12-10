@@ -28,7 +28,7 @@ class Budget < ActiveRecord::Base
 
   def service_not_empty
     if services.empty?
-      errors[:base] << I18n.l(".must_have_services") 
+      errors[:base] << I18n.t(".must_have_services") 
       #{}"El presupuesto debe contener servicios"
     end
     
@@ -37,7 +37,7 @@ class Budget < ActiveRecord::Base
     # si lo encuentro y el budget no tiene un auto => agrego error
     # si lo encuentro y el budget tiene auto cuyo user es distinto al user del auto encontrado => agrego error 
     if (c && car.nil?) || (c && car && car.user.id != c.user.id)
-      errors[:base_base] << "El dominio ingresado ya existe"
+      errors[:base] << "El dominio ingresado ya existe"
     end  
 
     if email && user.nil?
