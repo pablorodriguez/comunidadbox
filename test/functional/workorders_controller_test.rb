@@ -70,7 +70,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("div#all_companies ul li",:count=>3)
     assert_select("#company[value='#{@employer.company.id}']")
 
-    assert_select(".price_b",:text => "$ 60,00",:count=>2)
+    assert_select(".price_b",:text => "$60,00",:count=>2)
 
     assert_select("div#report_amount")
     assert_select("div#report_quantity")
@@ -87,7 +87,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     assert_select("div",:id=>"workorders",:count=>1)
-    assert_select(".price_b",:text => "$ 60,00",:count=>2)
+    assert_select(".price_b",:text => "$60,00",:count=>2)
     assert_select("div#report_amount",:count =>0)
     assert_select("div#report_quantity",:count =>0)
     assert_select("div#report_material",:count =>0)

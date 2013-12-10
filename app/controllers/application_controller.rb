@@ -28,14 +28,14 @@ class ApplicationController < ActionController::Base
 
   protected
   def set_i18n_locale_from_params
-      if params[:locale]
-        if LANGUAGES[params[:locale]]
-          I18n.locale = LANGUAGES[params[:locale]]
-        else
-          flash.now[:notice] = "#{params[:locale]} translation not available"
-          logger.error flash.now[:notice]
-        end
-      end  
+    if params[:locale]
+      if LANGUAGES[params[:locale]]
+        I18n.locale = LANGUAGES[params[:locale]]
+      else
+        flash.now[:notice] = "#{params[:locale]} translation not available"
+        logger.error flash.now[:notice]
+      end
+    end  
   end
 
   def default_url_options

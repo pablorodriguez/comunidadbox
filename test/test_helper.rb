@@ -52,6 +52,14 @@ module ComunidadBox::TestHelpers
   end
 end
 
+class ActionDispatch::Routing::RouteSet
+  def url_for_with_locale_fix(options)
+    url_for_without_locale_fix({:locale => I18n.default_locale}.merge(options))
+  end
+
+  alias_method_chain :url_for, :locale_fix
+end
+
 class ActionController::TestCase
   include Devise::TestHelpers
   include ComunidadBox::TestHelpers

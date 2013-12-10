@@ -73,6 +73,7 @@ class ControlPanelsControllerTest < ActionController::TestCase
   test "filter alarms company no user" do
     get :filter_alarms
     assert_response 302
+
     assert_redirected_to new_user_session_path
     
   end

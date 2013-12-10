@@ -1,9 +1,5 @@
 ComunidadBox::Application.routes.draw do
 
-
-
-  get "promotions/scaffold"
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -65,6 +61,10 @@ ComunidadBox::Application.routes.draw do
   match "admin" => "admin#show"
   match "conf" => "conf#show"
   match "vgneumaticos"=>"guests#new"
+
+  constraints CanAccessResque do
+    mount Resque::Server, at: '/resque'
+  end
 
   scope '(:locale)' do
     devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions' }
@@ -316,10 +316,7 @@ ComunidadBox::Application.routes.draw do
     end
 
     root :to => "home#index"
-    
-    constraints CanAccessResque do
-      mount Resque::Server, at: '/resque'
-    end
+        
   end
 
 end
