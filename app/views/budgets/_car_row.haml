@@ -1,4 +1,13 @@
-%table.w
+%table.w  
+  %tr
+    %td
+      =t(".domain")
+    %td
+      .domain_white
+        - if @budget.car
+          = link_to(@budget.car.domain, car_path(@budget.car)) 
+        -else
+          = @budget.domain
   %tr
     %td{:style=>"width:100px"}=t(".brand")
     %td
@@ -7,9 +16,3 @@
     %td=t(".model")
     %td        
       = @car.model.name if @car.model
-  %tr
-    %td=t(".domain")
-    %td
-      - unless @car.domain.empty?
-        .domain_white
-          = link_to @car.domain, @car

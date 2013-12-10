@@ -2266,11 +2266,6 @@ select.operator{
   margin-left:0px;
 }
 
-.car, .client_name{
-  float:left;
-  padding: 10px;
-}
-
 .cars{
   background: none repeat scroll 0 0 #F9F7CF;
   overflow: auto;
@@ -2868,8 +2863,8 @@ ul.tasks li{
   margin:5px;
 }
 
-.budget .car, .budget .customer {
-  padding:5px;
+.budget .car, .budget .customer {  
+  width: 48%;
 }
 
 .budget_service{

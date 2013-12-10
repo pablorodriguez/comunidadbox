@@ -6,7 +6,8 @@
     %tr
       %td=t(".domain")
       %td
-        = car.domain
+        .domain_white
+          = link_to car.domain,car
     %tr
       %td{:style=>"width:100px"}=t(".brand")
       %td 
