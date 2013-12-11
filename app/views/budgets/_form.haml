@@ -25,5 +25,5 @@
           %td{:style=>"width:100px"}=t(".comment")
           %td
             = f.text_area :comment,:rows =>3,:cols =>67
-    #services.box_top.customer
+    #services.box_top
       = render :partial=>'services_list',:locals =>{:f=>f}
