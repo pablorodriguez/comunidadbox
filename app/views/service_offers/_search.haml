@@ -9,13 +9,11 @@
         %tbody
           %tr
             %td
-              = text_field_tag 'service_offer_since', @date_f,:class =>"labelify",:title =>"Desde"
+              = text_field_tag 'service_offer_since', @date_f,:class =>"input_date",:placeholder =>"Desde"          
+              = text_field_tag 'service_offer_until', @date_t,:class =>"input_date",:placeholder =>"Hasta"
           %tr
             %td
-              = text_field_tag 'service_offer_until', @date_t,:class =>"labelify",:title =>"Hasta"
-          %tr
-            %td
-              = text_field_tag 'title', @title,:class=>"labelify",:title =>"Nombre"
+              = text_field_tag 'title', @title,:class=>"input",:title =>"Nombre"
 
     .box_bottom
       %h3 Estado

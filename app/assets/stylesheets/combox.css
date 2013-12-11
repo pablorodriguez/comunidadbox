@@ -259,7 +259,7 @@ body {
   width:100%;
 }
 
-#car_search input, #client_search input, #service_center input,#service_offer_search input, #employees input{ 
+#car_search input, #client_search input, #service_center input,#service_offer_search input, #employees input,.search input{ 
   margin:2px;
 }
 
@@ -307,7 +307,7 @@ body {
   height:44px;
   background: #3f3f3f; /* Old browsers */
 background: -moz-linear-gradient(top,  #3f3f3f 21%, #666666 100%, #5e5e5e 100%, #1c1c1c 100%, #2b2b2b 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(21%,#3f3f3f), color-stop(100%,#666666), color-stop(100%,#5e5e5e), color-stop(100%,#1c1c1c), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+background: -webkit-gradient(linear, left top, left bottom, col#car_searchor-stop(21%,#3f3f3f), color-stop(100%,#666666), color-stop(100%,#5e5e5e), color-stop(100%,#1c1c1c), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
 background: -o-linear-gradient(top,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* Opera 11.10+ */
 background: -ms-linear-gradient(top,  #3f3f3f 21%,#666666 100%,#5e5e5e 100%,#1c1c1c 100%,#2b2b2b 100%); /* IE10+ */
@@ -319,7 +319,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f3f3f', end
 #footer img{
   margin-top:8px;
   padding:0px;
-  float:left;
+  float:left;#car_search
 }
 
 #wrapper_footer{
@@ -340,7 +340,7 @@ a{
 
 #avatar_login a#help_link{
   background-color: white;
-  color: #A8AA3A;
+  color: #A8AA3A;#car_search
   padding: 0 3px;
 }
 
@@ -374,7 +374,7 @@ h4{
 h1.contentright{
   margin-top: -31px;
 }
-
+#car_search
 h2 {
   font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
   font-size:14px;
@@ -461,7 +461,7 @@ h2 a:hover {
   background-image: -webkit-linear-gradient(top, #DBDB39, #C9C20D);
   background-image: -moz-linear-gradient(top,  #DBDB39, #C9C20D);
   background-image: -ms-linear-gradient(top, #DBDB39, #C9C20D);
-  background-image: -o-linear-gradient(top, #DBDB39, #C9C20D);
+  background-image: -o-linear-gradient(top, #DBDB39, #C9C20D);#car_search
   background-image: linear-gradient(top, #DBDB39, #C9C20D);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#DBDB39', EndColorStr='#C9C20D');
   margin-top:-5px;
@@ -508,7 +508,7 @@ h2 a:hover {
 
 #login_c form{
   margin: 0 auto;
-  overflow: auto;   
+  overflow: auto;   #car_search
   padding: 10px;  
 }
 
@@ -557,7 +557,7 @@ h2 a:hover {
 #part3 {
   width:165px;
   height:0px;
-
+#car_search
 }
 #cont3 {  
   margin-top:10px;
@@ -621,7 +621,7 @@ h2 a:hover {
 
 .cuadro li a {
   color:#BDCD00;
-  text-decoration:none;
+  text-decoration:none;#car_search
   font-weight:bold;
 }
 .gray {
@@ -651,7 +651,7 @@ h2 a:hover {
 #navcopy {
   
   margin-left:90px;
-  float:left;
+  float:left;#car_search
 }
 #navmapa{
   float:right;
@@ -696,7 +696,7 @@ ul li label {
   background-color:#C1BB00;
 }
 
-
+#car_search
 
 
 /*-----------------------------------------##FIN MENU##-------------------------------*/
@@ -740,7 +740,7 @@ ul li label {
 }
 
 .msj_error{
-  float:right;
+  float:right;#car_search
   margin-top:-60px;
   margin-left:486px;
   list-style:none;
@@ -765,7 +765,7 @@ margin:0px;
   display:inline;
   text-align:left;
   font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
-  font-size:20px;
+  font-size:20px;#car_search
   font-weight:bold;
   color:#B3B3B3;
   float:left;
@@ -787,7 +787,7 @@ margin:0px;
 }
 
 select{
-  height:26px;
+  height:26px;#car_search
   width:175px;
   padding: 2px;  
 }
@@ -822,12 +822,12 @@ input{
   width: 180px;
 }
 
-.input_short{
+.input_short{#car_search
   width:100px;
 }
 
 .input_date{
-  width:86px; 
+  width:88px; 
 }
 
 .input_date_time{
@@ -849,7 +849,7 @@ input{
 
 #calle:hover {
   border-style:solid;
-  border-color:#F00;
+  border-color:#F00;#car_search
   border-width:thin;
 }
   
@@ -927,7 +927,7 @@ input{
 }
 
 .vertical_menu .input{
-  width:180px;
+  width:190px;
 }
 
 .contentleft{
