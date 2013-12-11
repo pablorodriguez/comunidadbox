@@ -2,16 +2,16 @@
   = render "home/nu_menu"
 .contentright_s  
   .box_bottom
-    %h1 Enviar instrucciones de cambio
+    %h1=t(".send_instructions")
   .box_bottom
     = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
       = devise_error_messages!
       %table
         %tr
           %td
-            = f.label :email, "Correo Electrónico"
+            = f.label :email, t(".email")
           %td 
             = f.text_field :email,:class =>:input_long
       .box_bottom
-      = f.submit "Enviar Instrucciones",:class=>"button"
+      = f.submit t(".send"),:class=>"button"
   

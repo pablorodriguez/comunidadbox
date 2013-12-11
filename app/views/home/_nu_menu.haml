@@ -2,16 +2,16 @@
   %li
     #register_link.menu
       = image_tag "sign-up.png"
-      = link_to "Registrarse",new_user_registration_path
+      = link_to t(".register"),new_user_registration_path
     .ajax_loader.right
   %li
     #service_center_link.menu
       = image_tag "find.png"
-      = link_to "Prestadores de Servicios", all_companies_path
+      = link_to t(".service_providers"), all_companies_path
   %li
     #service_center_link.menu
       = image_tag "help.png"
-      = link_to "Ayuda", help_path
+      = link_to t(".help"), help_path
 
 #menu_actions
   #service_center_menu.menu_data.hide      

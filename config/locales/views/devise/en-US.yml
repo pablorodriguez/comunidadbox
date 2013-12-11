@@ -1,0 +1,12 @@
+en-US:
+  devise:
+    passwords:
+      new:
+        send_instructions: "Send change instructions"
+        email: "Email:"
+        send: "Send Instructions"
+    confirmations:
+      new:
+        send_instructions: "Send change instructions"
+        email: "Email:"
+        send: "Send Instructions"
