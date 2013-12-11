@@ -23,3 +23,6 @@ es-AR:
       alarms: "Alarmas"
       messages: "Mensajes"
       notes: "Notas"
+    show: "Registrarse"
+    service_providers: "Prestadores de Servicio"
+    help: "Ayuda"

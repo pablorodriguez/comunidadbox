@@ -2,24 +2,24 @@
   %tbody
     %tr
       %td{:style=>"width:100px"}
-        %label{ :for => "state" }Provincia
+        %label{ :for => "state" }=t(".state")
       %td
         = ad.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:id=>@state_id,:class=>"state medium_select"})
         = ad.hidden_field :lat
         = ad.hidden_field :lng
     %tr
       %td
-        %label{ :for => "city" }Ciudad    
+        %label{ :for => "city" }=t(".city")    
       %td
         = ad.text_field :city,:size=>15 ,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "street" }Calle
+        %label{ :for => "street" }=t(".street")
       %td
         = ad.text_field :street,:size=>20,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "zip" }Código Postal    
+        %label{ :for => "zip" }=t(".state")   
       %td
         = ad.text_field :zip,:size=>5,:class=>"input_short"
     
