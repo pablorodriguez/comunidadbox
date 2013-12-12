@@ -219,6 +219,8 @@ ComunidadBox::Application.routes.draw do
     resources :alarms do
       collection do
         get :list_alarm_now
+      end
+      member do
         get :send_alarm
       end
     end

@@ -70,10 +70,14 @@
         .right        
           = link_to "",request.parameters.merge({:locale => "es"}),:class => "es left",:title => t("spanish")
           = link_to "",request.parameters.merge({:locale => "en"}),:class => "en left",:title => t("english")
-    -else      
+    -else
       .clear
-        %ul
-          %li
-            = link_to t("exit"), destroy_user_session_path
+        .right
+          %ul
+            %li
+              = link_to t("exit"), destroy_user_session_path
+        .right
+          = link_to "",request.parameters.merge({:locale => "es"}),:class => "es left"
+          = link_to "",request.parameters.merge({:locale => "en"}),:class => "en left"      
 
             

@@ -1,0 +1,11 @@
+en-US:
+  messages:
+    index:
+      title: "Menssages"
+      new_client: "New Client"
+      messages_for: "Menssage fpr"
+    users:
+      new_client: "New Client"
+      title: "Menssages"
+      see_company: "See Company"
+      see_messages: "See Messages"

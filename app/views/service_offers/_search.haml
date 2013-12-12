@@ -34,7 +34,7 @@
               = label_tag 'status_cancel',"Cancelado",:class =>"link"
         %tr
           %td
-            = collection_select(:service_type, :id, @service_types, :id, :name, {:prompt=>"-- Tipo de Servicio --",:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
+            = collection_select(:service_type, :id, @service_types, :id, :native_name, {:prompt=>"-- Tipo de Servicio --",:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
         %tr
           %td
             = image_submit_tag("find.png",:class =>"input_img")

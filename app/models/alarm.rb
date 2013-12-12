@@ -18,11 +18,11 @@ class Alarm < ActiveRecord::Base
   scope :now, where("(date_ini <= :now and date_end >= :now) or no_end = true", :now => Time.zone.now)
   scope :no_end, where("no_end = true")
 
-  def self.next_minute
-    now = Time.now
-    puts "##### #{now}"
+  def self.next_minute    
     where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.zone.now)
   end
+
+
   %W"monday tuesday wednesday thursday friday saturday sunday".each do |d|
     scope d,where(d => 1)
   end
@@ -180,10 +180,10 @@ class Alarm < ActiveRecord::Base
     AlarmMailer.alarm(self).deliver
   end
 
-  def self.notify
-    logger.info "#{Time.zone.now} alarms notify called ###########"
-    Alarm.next_minute.each do |alarm|        
-        alarm.deliver_notify
+  def self.notify    
+    logger.debug "#{Time.zone.now} alarms notify called ###########"
+    Alarm.next_minute.each do |alarm|
+      alarm.deliver_notify
     end      
   end
 

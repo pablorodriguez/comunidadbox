@@ -332,8 +332,7 @@ class Workorder < ActiveRecord::Base
   end
   
   def send_notification
-    logger.info "### envio de notificacion mail #{self.id} Car: #{self.car.domain}"
-    #message = WorkOrderNotifier.notify(work_order).deliver
+    logger.info "### envio de notificacion mail #{self.id} Car: #{self.car.domain}"    
     Resque.enqueue WorkorderJob,self.id
   end
 

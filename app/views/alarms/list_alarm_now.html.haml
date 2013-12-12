@@ -1,32 +1,13 @@
--# javascript 'jquery.dataTables'
 -# javascript 'sort.table'
 -# stylesheets 'demo_page'
 -# stylesheets 'demo_table'
-%h1 Notificación de Alarmas
-%table#sort_table.display
-  %thead
-    %tr
-      %th Titulo
-      %th Descripcion
-      %th Usuario
-      %th Tiempo
-      %th Unidad
-      %th Estado
-      %th Alarma
-      %th Inicio
-      %th Fin
-      %th
-  - @alarms.each do |alarm|
-    %tr
-      %td=h alarm.name
-      %td=h alarm.description
-      %td=h "#{alarm.user.full_name} : #{alarm.user.email}"
-      %td=h alarm.time
-      %td=h alarm.time_unit
-      %td=h alarm.status
-      %td=h alarm.date_alarm
-      %td=h alarm.date_ini
-      %td=h alarm.date_end
-      %td
-        = link_to 'Enviar Alarma', :action => 'send_alarm', :user => User.find(alarm.user_id), :alarm => alarm
+-# javascript 'jquery.dataTables'
+.vertical_menu
+  = render "conf/menu"
+.contentright_s
+  .alarms
+    .box_bottom      
+      %h1 Notificación de Alarmas    
+    - @alarms.each do |alarm|
+      = render alarm              
 
