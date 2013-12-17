@@ -18,10 +18,15 @@ en-US:
       report_details: "Report Details"
       new_client: "New Client"
       create_new_client: "Create New Client"
-      search: "Searchsss"
+      search: "Search"
+      sums_report: "Sums Report" 
+      amount_report: "Amount Report"
+      materials_report: "Materials Report"
+      details_report: "Details Report"
     form:
       enter_services_done: "Enter Services Performed"
     search:
+      search: "Search"
       all: "All"
       from: "From"
       even: "Even"
@@ -70,4 +75,6 @@ en-US:
       delete_material: Remove Material
     comment: 
       comment: "Comment"
+      new_note: "New Note"
+    note_fields:
       new_note: "New Note"

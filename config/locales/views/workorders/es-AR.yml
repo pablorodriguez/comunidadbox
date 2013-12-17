@@ -19,6 +19,10 @@ es-AR:
       report_details: "Reporte Detalles"
       new_client: "Nuevo Cliente"
       create_new_client: "Crear Nuevo Cliente"
+      sums_report: "Reporte Importes" 
+      amount_report: "Reporte Cantidad"
+      materials_report: "Reporte Materiales"
+      details_report: "Reporte Detalles"
     form:
       enter_services_done: "Ingrese Servicios Realizados"
     search:
@@ -73,6 +77,8 @@ es-AR:
       delete_material: Remove Material
     comment:
       comment: "Comentario"
+      new_note: "Nueva Nota"
+    note_fields:
       new_note: "Nueva Nota"
 
 

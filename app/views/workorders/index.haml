@@ -17,19 +17,19 @@
         %li
           #report_amount.link.menu
             = image_tag "graph.png"
-            Reporte Importes
+            =t(".sums_report")
         %li
           #report_quantity.link.menu
             = image_tag "graph_money.png"
-            Reporte Cantidad        
+            =t(".amount_report")       
         %li
           #report_material.link.menu
             = image_tag "graph_money.png"
-            Reporte Materiales
+            =t(".materials_report")
         %li
           #report_detail.link.menu
             = image_tag "report.png"
-            Reporte Detalle
+            =t(".details_report")
     .box_bottom
       = render 'search'
     - if company_id
