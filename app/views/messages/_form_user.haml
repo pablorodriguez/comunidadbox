@@ -2,7 +2,7 @@
   .msg_errors.hide
   .my_msg
     = form_for :message,:url => user_messages_path(user),:remote=>true,:html=>{:class=>:message_form}  do |f|  
-      = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder =>"Por favor ingrese el texto del mensaje"
+      = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder => t(".message")
       = hidden_field_tag :element_id,element_id
       -if (defined?(msg_object) && (msg_object.class.name == "Workorder"))
         = f.hidden_field :workorder_id,:value => msg_object.id

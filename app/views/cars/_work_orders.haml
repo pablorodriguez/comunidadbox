@@ -1,6 +1,6 @@
 .box_top
 .box_bottom
-  %h1 Servicios Realizados
+  %h1=t(".services_performed")
 #workorders
   = render :partial =>"work_order_row",:collection => @work_orders
 %br

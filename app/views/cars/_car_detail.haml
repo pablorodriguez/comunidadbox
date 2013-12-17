@@ -32,5 +32,5 @@
               = number_to_currency @car.total_spend
           - if company_id
             %strong.right
-              %lable{:title=>"Total Consumido en tu empresa"}  
+              %lable{:title=>t(".total_consumed_in_your_company")}  
                 = number_to_currency @car.total_spend(company_id)

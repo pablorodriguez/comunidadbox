@@ -2,7 +2,7 @@
   .msg_errors.hide
   .new_note_form
     = form_for :message,:url => "",:remote=>true, :html=>{:class=>:new_msg_form} do |f|      
-      = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder =>"Por favor ingrese el texto del mensaje"
+      = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder =>t(".message")
       = hidden_field_tag :element_id,0
       = f.hidden_field :event_id
       .left        
