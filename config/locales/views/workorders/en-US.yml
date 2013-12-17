@@ -4,8 +4,9 @@ en-US:
       save: "Save"
       rank_client: "Client Rate"
       rank_company: "Rate Service Provider"
+    workorders:
+      workorders_performed: "Workorders Performed"
     index:      
-      workorders_performed: "Services Performed"
       client: "Client"
       my_car: "My cars"
       control_panel: "Control Panel"

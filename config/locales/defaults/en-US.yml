@@ -63,6 +63,12 @@ en-US:
   credit_card: "Credit Card"
   cash: "Cash"
   open: Open
+  state: "-- State --"
+  order_by: "-- Order by --"
+  domain_descendant: "Domain: Descendant"
+  domain_ascendant: "Domain: Ascendant"
+  done_descendant: "Done: Descendant"
+  done_ascendant: "Done: Ascendant"
   in_process: In Process
   cancelled: Cancelled
   canceled: "Canceled"

@@ -22,7 +22,7 @@ class Status
     }
 
   MR_STATUS = {
-    OPEN =>'Abierto',APPROVED => 'Aprobado',REJECTED =>'Rechazado'
+    OPEN =>I18n.t("open"),APPROVED => 'Aprobado',REJECTED =>'Rechazado'
   }
 
   SO_STATUS = {    

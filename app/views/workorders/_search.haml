@@ -23,8 +23,8 @@
           %tbody
             %tr        
               %td
-                = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>"Desde",:placeholder =>t(".from")
-                = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>"Hasta",:placeholder =>t(".even")
+                = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>t(".from"),:placeholder =>t(".from")
+                = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>t(".even"),:placeholder =>t(".even")
             %tr
               %td
                 = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>t(".number")
