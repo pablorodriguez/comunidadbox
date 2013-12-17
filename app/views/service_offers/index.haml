@@ -7,11 +7,11 @@
     %ul
       - if company_id
         %li
-          = link_to "Nuevo Cliente", new_client_path      
+          = link_to t(".new_client"), new_client_path      
       %li
-        = link_to "Confirmados" ,confirmed_car_service_offers_path
+        = link_to t(".confirmed") ,confirmed_car_service_offers_path
 .contentright_s
   .box_bottom
-    %h1 Ofertas de Servicio  
+    %h1=t(".service_offers") 
   #service_offers.box_bottom
     = render "service_offers"
