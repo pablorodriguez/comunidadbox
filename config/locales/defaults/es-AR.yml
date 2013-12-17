@@ -28,16 +28,19 @@ es-AR:
   help_confirm_user: "Confirmar Usuario"
   help_title: "Tutorials - ComunidadBox"
   help_documentation: "Documentación"
+  all: "Todos"
+  days: "Días"
   sunday: "Domingo"
-  monday: "Lunes"
+  monday: "Lúnes"
   tuesday: "Martes"
   wednesday: "Miércoles"
   thursday: "Jueves"
   friday: "Viernes"
-  saturday: "Sabado"
+  saturday: "Sábado"
   business_name: "Razón Social"
   web_site: "Sitio Web"
   months: "Meses"
+  years: "Años"
   alignment_and_balance: "Alineación y Balanceo"
   damping: "Amortiguaciṕon / Suspensión"
   oil_change: "Cambio de Aceite"
@@ -59,15 +62,16 @@ es-AR:
   debit_card: "Tarjeta Débito"
   credit_card: "Tarjeta Crédito"
   cash: "Efectivo"
-  open: Abierto
+  open: "Abierto"
   in_process: En Proceso
   cancelled: Cancelado
+  canceled: "Cancelado"
   finished: Terminado
   completed: Completado
-  active: Activo
+  active: "Activo"
   confirmed: Confirmado
   performed: Realizado
-  sent: Enviado
+  sent: "Enviado"
   pending: Pendiente
   rejected: Rechazado
   approved: Aprobado

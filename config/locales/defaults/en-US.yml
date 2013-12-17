@@ -28,6 +28,7 @@ en-US:
   help_confirm_user: "Confirm User"
   help_title: "Tutorials - ComunidadBox"
   help_documentation: "Documentation"
+  all: "All"
   sunday: "Sunday"
   monday: "Monday"
   tuesday: "Tuesday"
@@ -38,6 +39,8 @@ en-US:
   business_name: "Business Name"
   web_site: "Web Site"
   months: "Months"
+  days: "days"
+  years: "Years"
   alignment_and_balance: "Alignment and Balance"
   damping: "Dumping"
   oil_change: "Oil Change"
@@ -62,9 +65,10 @@ en-US:
   open: Open
   in_process: In Process
   cancelled: Cancelled
+  canceled: "Canceled"
   finished: Finished
   completed: Completed
-  active: Active
+  active: "Active"
   confirmed: Confirmed
   performed: Performed
   sent: Sent
