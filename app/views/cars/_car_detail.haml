@@ -12,23 +12,23 @@
       .big_domain
         %label
           %strong
-            = link_to @car.user.full_name, client_path(@car.user),:title => "Ver Cliente"
-        %label{:title=>"Teléfono"}
+            = link_to @car.user.full_name, client_path(@car.user),:title => t(".see_client")
+        %label{:title=>t(".phone")}
           =number_to_phone(@car.user.phone)
         .right
           = @car.user.email
         .clear
-          .left{:title =>"Kilometraje Total"}
+          .left{:title =>t(".total_mileage")}
             Km:
             %strong
               = number_with_precision @car.km,:precision=>0
-          .right{:title =>"Kilometraje promedio mensual"}
-            Km Promedio
+          .right{:title =>t(".monthly_average_mileage")}
+            =t(".km_average")
             %strong               
               = number_with_precision @car.kmAverageMonthly,:precision=>0
         .car_spend.clear
           %left
-            %label{:title=>"Total Consumido"}
+            %label{:title=>t(".total_consumed")}
               = number_to_currency @car.total_spend
           - if company_id
             %strong.right

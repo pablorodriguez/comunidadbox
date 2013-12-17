@@ -1,0 +1,8 @@
+en-US:
+  messages:
+    form_user:
+      message: "Please enter the message text"
+    form: 
+      message: "Please enter the text message"
+
+   

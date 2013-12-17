@@ -3,7 +3,7 @@ en-US:
     filter_alarms:
       title: "List of Cars"
       create_service_offer: "Create Service Offering"
-      service_type: "Service Typesss"
+      service_type: "Service Types"
     car_filters:
       state: "-- States --"
       service_type: "-- Service Types --"
@@ -16,8 +16,20 @@ en-US:
       select_clients: "Select Clients"
       events_types: "Events types"
       my_clients: "My Clients"
-      other_clients: "Other Clients"
+      others_clients: "Other Clients"
     index:
       control_panel: "Control Panel"
       due_date_services: "Due Date Services"
       no_service_to_perform: "No services to perform"
+    event_detail:
+      new_alarm: "New Alarm"
+      new_note: "New Note"
+      new_message: "New Message"
+      email: "Email:"
+      phone: "Phone:"
+      mileage: "Mileage:"
+      average_mileage: "Average Mileage:"
+      total_service_provider: "Total Service Provider:"
+      total_spent: "Total Spent:"
+      title: "Service"
+      done: "Done"

@@ -1,5 +1,9 @@
 es-AR:
   messages:
+    form_user:
+      message: "Por favor ingrese el texto del mensaje"
+    form:
+      message: "Por favor ingrese el texto del mensaje"
     index:
       title: "Mensajes"
       new_client: "Nuevo Cliente"
@@ -9,3 +13,4 @@ es-AR:
       title: "Mensajes"
       see_company: "Ver Compañia"
       see_messages: "Ver Mensajes"
+    

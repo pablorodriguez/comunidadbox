@@ -1,0 +1,22 @@
+en-US:
+  alarms:
+    cp_ajax_form:
+      new_alarm: "New Alarm"
+      repeat: "Repeat"
+      save: "Save"
+    form:
+      name: "Name"
+      description: "Description"
+      date_hour: "Date and Hour"
+      repeat: "Repeat"
+      next_notification: "Next Notification"
+      for: "For"
+      init: "Initiation"
+      end: "End"
+      not_end: "Not End"
+      days: "Days"
+      
+   
+    
+    
+   

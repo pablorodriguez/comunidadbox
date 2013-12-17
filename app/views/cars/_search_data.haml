@@ -1,6 +1,6 @@
 #wo_form
   .form
-    %h3 Buscar
+    %h3=t(".search")
     = form_for @car,:id=>:filter,:method =>:get do
       .box_bottom
         #service_types
@@ -8,7 +8,7 @@
             %li
               = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
               %label.link{:for => 'all_service_type'}
-                Todos
+                =t(".all")
             -@company_services.each do |service|
               %li
                 = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
@@ -18,8 +18,8 @@
           %tbody
             %tr        
               %td
-                = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>"Desde",:placeholder => "Desde"              
-                = text_field_tag 'date_to', @date_t,:class =>"input_date ",:title=>"Hasta",:placeholder => "Hasta"
+                = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>t(".from"),:placeholder =>t(".from")              
+                = text_field_tag 'date_to', @date_t,:class =>"input_date ",:title=>t(".even"),:placeholder =>t(".even")
                 = image_submit_tag("find.png",:class =>"input_img")
 
   .ajax_loader.right

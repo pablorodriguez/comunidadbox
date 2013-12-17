@@ -40,9 +40,9 @@ class Alarm < ActiveRecord::Base
 
   TIME_UNIT_TYPES = [
     [ 'Hs' , 'hour' ],
-    [ 'Dias' , 'day' ],
-    [ 'Meses' , 'month' ],
-    [ 'Anos' , 'year' ]
+    [ I18n.t("days") , 'day' ],
+    [ I18n.t("months") , 'month' ],
+    [ I18n.t("years") , 'year' ]
   ]
 
   STATUS_TYPES = [
