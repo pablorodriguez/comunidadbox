@@ -5,5 +5,14 @@ es-AR:
     attributes:
       car:
         domain: "Dominio"
+        model: "Modelo"
+        brand: "Marca"
+        year: "Año"
+        fuel: "Combustible"
+        brand: "Marca"
+        kmaveragemonthly: "Kilometraje promedio mensual"
+        km: "Kilometraje"
+        kmAverageMonthly: "Kilometraje promedio mensual"
+     
     erros:
       unique_domain_per_user: "ya registrado"     
