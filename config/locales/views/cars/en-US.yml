@@ -7,6 +7,8 @@ en-US:
       year: "Model"
       km: "km"
       kmAverageMonthly: "Km monthly average"
+      new_service: "New Service"
+      new_budget: "New Budget"
     send:
       message_exit_send: "Message sent successfully"
     search_car:

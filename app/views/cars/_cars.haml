@@ -27,12 +27,12 @@
           = link_to "",car,:data =>{:confirm =>t("car_delete_confirm")},:remote =>true, :method => :delete,:title =>t("delete"),:class=>"delete"
       - if company_id
         .action
-          = link_to "",new_budget_path(:ca => car),{:title=>t("new_budget"),:class=>"new_budget"}
+          = link_to "",new_budget_path(:ca => car),{:title=>t(".new_budget"),:class=>"new_budget"}
         .action
-          = link_to "", new_workorder_path(:car_id =>car),{:title=>t("new_service"),:class=>"new_service"}
+          = link_to "", new_workorder_path(:car_id =>car),{:title=>t(".new_service"),:class=>"new_service"}
       - else
         .action
-          = link_to "","#",:data => {:car_id=>"#{car.id}"},:title=>t("new_service"),:class=>"new_service"
+          = link_to "","#",:data => {:car_id=>"#{car.id}"},:title=>t(".new_service"),:class=>"new_service"
       - if current_user.can_edit?(car.user)
         .action
           = link_to "",edit_car_path(car),{:title=>t(".update_car"),:class=>"edit"}
