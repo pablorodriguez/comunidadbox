@@ -286,14 +286,13 @@ module ApplicationHelper
     model
   end
 
-  def create_service_type_tool_tip oe    
+  def create_service_type_tool_tip oe
     st=""
     if (oe && oe.respond_to?(:length))
-      st = ServiceType.find(oe).map(&:name).join(",")
+      st = ServiceType.find(oe).map(&:native_name).join(",")
     elsif oe      
-      st = ServiceType.find(oe).name
-    end
-    logger.debug "### search id #{oe} #{st}"
+      st = ServiceType.find(oe).native_name
+    end    
     return st
   end
 
