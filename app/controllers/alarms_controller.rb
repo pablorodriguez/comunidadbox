@@ -64,7 +64,8 @@ class AlarmsController < ApplicationController
   end
 
   def send_alarm
-    AlarmMailer.deliver_alarm(User.find(params[:user]), Alarm.find(params[:alarm]))
+    
+    AlarmMailer.deliver_alarm(User.find(params[:id]), Alarm.find(params[:alarm]))
 
     alarm = Alarm.find(params[:alarm])
     unless alarm.time == 0

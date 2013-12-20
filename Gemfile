@@ -39,8 +39,10 @@ end
 
 group :development, :test do
   #gem 'turn'
-  gem "better_errors"
+  gem "better_errors"  
 end
+
+gem 'pry', :group => :development
 
 group :test do
   gem "timecop"
