@@ -12,6 +12,5 @@ en-US:
         brand: "Brand"
         kmAverageMonthly: "Mileage Monthly Average"
         km: "Mileage"
-
     erros:
       unique_domain_per_user: "already registered"     

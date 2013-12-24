@@ -15,20 +15,23 @@ class Car < ActiveRecord::Base
   #has_and_belongs_to_many :offers
   
   validates_presence_of :model,:domain,:year,:km,:kmAverageMonthly
-  validates_numericality_of :year,:km,:kmAverageMonthly  
-  validates_format_of :domain, :with => /^\D{3}\d{3}/
+  validates_numericality_of :year, :only_integer => true, :greater_than_or_equal_to => 1885
+  validates_numericality_of :km, :only_integer => true
+  validates_numericality_of :kmAverageMonthly
+  validates_uniqueness_of :domain
   before_save :set_new_attribute
   after_save :update_events
-  validate :unique_domain
+  #validate :unique_domain
+  
   attr_accessor :today_service_offer
 
-  def unique_domain
-    if user
-      unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
-        errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
-      end
-    end
-  end
+  #def unique_domain
+  #  if user
+  #    unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
+  #      errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
+  #    end
+  #  end
+  #end
 
   def self.fuels
     %w(Nafta Diesel Gas)
@@ -138,7 +141,6 @@ class Car < ActiveRecord::Base
       end
     end    
   end
-
-  
+ 
 end
 

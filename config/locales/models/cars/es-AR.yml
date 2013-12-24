@@ -1,7 +1,7 @@
 es-AR:
   activerecord:
     models:
-      car: "Automóvil"
+      car: "car"
     attributes:
       car:
         domain: "Dominio"
@@ -9,10 +9,7 @@ es-AR:
         brand: "Marca"
         year: "Año"
         fuel: "Combustible"
-        brand: "Marca"
-        kmaveragemonthly: "Kilometraje promedio mensual"
+        kmAverageMonthly: "Kilometraje promedio mensual"
         km: "Kilometraje"
-        
-     
-    erros:
-      unique_domain_per_user: "ya registrado"     
+erros:
+      unique_domain_per_user: "Ya está registrado"
