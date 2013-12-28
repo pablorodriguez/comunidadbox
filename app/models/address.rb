@@ -6,7 +6,7 @@ class Address < ActiveRecord::Base
   belongs_to :state
 
   validates_presence_of :state,:city,:street,:zip
-
+  
   acts_as_gmappable :lat => 'lat', :lng => 'lng', :process_geocoding => false
 
   geocoded_by :to_text, :latitude => :lat, :longitude => :lng

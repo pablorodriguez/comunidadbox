@@ -3,7 +3,7 @@ es-AR:
     models:
       car: "car"
     attributes:
-      cars:
+      car:
         domain: "Dominio"
         model: "Modelo"
         brand: "Marca"

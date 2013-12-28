@@ -19,19 +19,21 @@ class Car < ActiveRecord::Base
   validates_numericality_of :km, :only_integer => true
   validates_numericality_of :kmAverageMonthly
   validates_uniqueness_of :domain
+  validates_format_of :domain, :with => /^\D{3}\d{3}/
+  validate :unique_domain
   before_save :set_new_attribute
   after_save :update_events
-  #validate :unique_domain
+  
   
   attr_accessor :today_service_offer
 
-  #def unique_domain
-  #  if user
-  #    unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
-  #      errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
-  #    end
-  #  end
-  #end
+  def unique_domain
+    if user
+      unless user.cars.select{|c| c.domain == self.domain && c.id != self.id}.empty?
+        errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
+      end
+    end
+  end
 
   def self.fuels
     %w(Nafta Diesel Gas)

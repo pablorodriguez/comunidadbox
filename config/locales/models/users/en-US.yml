@@ -1,9 +1,13 @@
 en-US:
   activerecord:
     models:
-      car: "car"
+      user: "User"
     attributes:
-      car:
-        domain: "domain"
+      user:
+        first_name: "First Name"
+        last_name: "Last Name"
+        password: "Password"
+        cars: "Information from your Car"
+        address: "Personal Address"
     erros:
       unique_domain_per_user: "already registered"     

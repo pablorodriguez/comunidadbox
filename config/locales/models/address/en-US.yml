@@ -1,0 +1,11 @@
+en-US:
+  activerecord:
+    models:
+      address: "address"
+    attributes:
+      address:
+        state: "Street"
+        city: "City"
+        street: "Street"
+        zip: "Zip"
+      erros:   

@@ -3,13 +3,12 @@ en-US:
     models:
       car: "car"
     attributes:
-      cars:
+      car:
         domain: "Domain"
         model: "Model"
         brand: "Brand"
         year: "Year"
         fuel: "Fuel"
-        brand: "Brand"
         kmAverageMonthly: "Mileage Monthly Average"
         km: "Mileage"
     erros:
