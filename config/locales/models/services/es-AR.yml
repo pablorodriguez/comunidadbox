@@ -1,0 +1,11 @@
+es-AR:
+  activerecord:
+    models:
+      service: 
+    attributes:
+       services:
+         material: "Material" 
+         operator: "Operario"
+
+
+

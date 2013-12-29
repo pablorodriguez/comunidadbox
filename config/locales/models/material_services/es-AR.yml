@@ -1,0 +1,12 @@
+es-AR:
+  activerecord:
+    models:
+      material_services: "Servicios"
+    attributes:
+      services/material_services: 
+        material: "Material"
+        price: "Precio"
+        amount: "Cantidad"
+        operator: "Operador"
+    erros:
+

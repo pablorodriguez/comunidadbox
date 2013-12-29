@@ -1,0 +1,13 @@
+en-US:
+  activerecord:
+    models:
+      material_services: 
+    attributes:
+      services/material_services: 
+        material: "Material"
+        price: "Price"
+        amount: "Amount"
+        operator: "Operator"
+    erros:
+
+
