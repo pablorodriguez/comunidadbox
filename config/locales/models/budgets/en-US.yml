@@ -1,16 +1,17 @@
 en-US:
-  must_have_services: Must have one services
+  #must_have_services: You must have a Service Type
+  car_not_user: "The car does not belong to user"
   activerecord:
     models:
-      budgets: "Automobile"
+      budget: 
     attributes:
-      budgets:
-        first_name: "First Name"
+      budget:
+        car: "Car"
+        user: "Client"
+        first_name: "First first_name"
         last_name: "Last Name"
         domain: "Domain"
+        brand: "Marca"
+        model: "Model"
     errors:
-      unique_domain_per_user: "Domain already exist"     
-      models:
-        budgets:
-          attributes:
-            services:
+      unique_domain_per_user: "The domain already exists" 

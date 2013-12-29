@@ -1,12 +1,18 @@
 es-AR:
-  must_have_services: Debe tener un servicio
+  must_have_services: Debe tener un Tipo de Servicio
+  car_not_user: "El automovil no pertenece al usuario"
   activerecord:
     models:
-      budgets: "Automovil"
+      budget: "Automóvil"
     attributes:
-      budgets:
+      budget:
+        car: "Automóvil"
+        user: "Cliente"
         first_name: "Nombre"
         last_name: "Apellido"
         domain: "Dominio"
+        brand: "Marca"
+        model: "Modelo"
+        
     errors:
       unique_domain_per_user: "El Dominio ya existe"

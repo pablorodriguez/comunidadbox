@@ -12,15 +12,19 @@ class Budget < ActiveRecord::Base
   belongs_to :car
   belongs_to :company
 
+
   scope :companies, lambda { |comp_id| {:conditions =>  ["company_id IN (?)", comp_id] } }
   default_scope order("budgets.created_at DESC")
 
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
+ 
   validate :service_not_empty
 
-  validates_presence_of :first_name, :if => lambda{(user.nil? && car.nil?)}
-  validates_presence_of :last_name, :if => lambda{(user.nil? && car.nil?)}
+  validates_presence_of :first_name, :last_name, :if => lambda{(user.nil? && car.nil?)}
+  validates_presence_of :domain, :brand, :model ,:if => lambda{car.nil?}
+  validates_presence_of :services
 
+    
 
   def has_car
     (car || (domain && brand && model)) != nil
@@ -53,7 +57,7 @@ class Budget < ActiveRecord::Base
     # si el budget tiene usuario y auto y el auto no pertenece al usuario => agrego error
     if car && user
       if car.user.id != user.id
-        errors[:base] << "El automovil no pertenece al usuario"
+        errors[:base] <<  I18n.t(".car_not_user")
       end
     end
   
