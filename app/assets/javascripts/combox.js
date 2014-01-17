@@ -22,7 +22,7 @@ jQuery(document).ready( function(){
 
   $(".cruz").live("click",function(){
     $(this).parent().parent().hide();
-  });u
+  });
 
   $(".back").click(function(){
     history.back(-1);

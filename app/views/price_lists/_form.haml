@@ -6,5 +6,6 @@
         %td Nombre
         %td
           = f.text_field :name
-  .box_bottom
+  .box_bottom.buttons_container
     = f.submit "Grabar",:class=>"button"
+    = link_to t("cancel"), price_lists_path

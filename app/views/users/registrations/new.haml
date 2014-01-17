@@ -4,9 +4,7 @@
       %h1=t(".new_user")
 
     .right
-      %h1 
-        = resource.type     
+      %h1         
         = select_tag(:user_type,options_for_select(User::TYPES.collect{|k,v| [v,k]},:selected =>resource.type),{:class=>'long_selec'})
-        //= select_tag "user_type", raw("<option value='u'>Usuario</option><option value='ps'>Prestador de Servicio</option>"),:class=>"long_selec"
   .clear
     = render "form", :f => f,:recaptcha => true
