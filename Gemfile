@@ -39,7 +39,8 @@ end
 
 group :development, :test do
   #gem 'turn'
-  gem "better_errors"  
+  gem "better_errors"
+  gem 'rack-mini-profiler'  
 end
 
 gem 'pry', :group => :development
@@ -105,4 +106,3 @@ gem 'attribute_normalizer'
 gem 'recaptcha', :require => 'recaptcha/rails'
 #gem "exception_notification", :git => "https://github.com/sickill/exception_notification.git", :require => 'exception_notifier'
 #gem "breadcrumbs_on_rails"
-gem 'rack-mini-profiler'
