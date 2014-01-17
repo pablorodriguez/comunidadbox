@@ -1,0 +1,12 @@
+es-AR:
+  activerecord:
+    models:
+      address: "Dirección"
+    attributes:
+      address:
+        state: "Provincia"
+        city: "Cuidad"
+        street: "Calle"
+        zip: "Código Postal"
+
+      

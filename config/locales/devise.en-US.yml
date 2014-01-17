@@ -1,4 +1,18 @@
 en-US:
+  sign_up: Sign Up
+  forgot_your_password: ¿ Forgot your password ?
+  remember_me: Remember me
+  not_receive_confirmation_instruction: Send confirmation instructions
+  errors:
+    messages:
+      not_found: 'not found'
+      already_confirmed: 'already confirmed'
+      not_locked: 'Not locked'
+      expired: "has expired, please request a new one"
+      not_saved:
+        one: "1 error prevented this store %{resource}:"
+        other: "%{count} save this prevented errors %{resource}:"
+
   devise:
     confirmations:
       confirmed: "Your account was successfully confirmed. You are now signed in."

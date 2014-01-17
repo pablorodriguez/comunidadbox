@@ -180,8 +180,8 @@ jQuery(document).ready( function(){
     draggable:true,
     resizable:false,    
     width:750,
-    title:"Servicio",
-    close:function(){    	
+    title: title,
+     close:function(){    	
     	var notes_txt = [];
     	$(".notes .note").each(function(){
     		notes_txt.push($(this).children().first().children().first().html().trim());
@@ -213,7 +213,7 @@ jQuery(document).ready( function(){
     },
     buttons: [          
           {
-            text:"Listo",
+            text: done,
             click:function(){
             	$(this).dialog("close");
             }

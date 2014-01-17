@@ -1,0 +1,14 @@
+es-AR:
+  devise:
+    passwords:
+      new:
+        send_instructions: "Enviar instrucciones de cambio"
+        email: "Email:"
+        send: "Enviar instrucciones"
+    confirmations:
+      new:
+        send_instructions: "Enviar instrucciones de cambio"
+        email: "Email:"
+        send: "Enviar instrucciones"
+
+ 

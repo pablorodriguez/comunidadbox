@@ -36,3 +36,4 @@ $ ->
   
   $("#user_email").blur(validate_email)  
   $(".generate_email").click(generate_email)
+

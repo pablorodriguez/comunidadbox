@@ -1,0 +1,13 @@
+en-US:
+  activerecord:
+    models:
+      user: "User"
+    attributes:
+      user:
+        first_name: "First Name"
+        last_name: "Last Name"
+        password: "Password"
+        cars: "Information from your Car"
+        address: "Personal Address"
+    erros:
+      unique_domain_per_user: "already registered"     

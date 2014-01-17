@@ -71,9 +71,9 @@ FactoryGirl.define do
     password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
     confirmed 1
     confirmed_at 1.months.ago
-    after(:build) do |user|
-      user.cars << FactoryGirl.create(:HRJ549)
-    end
+    
+    cars {[FactoryGirl.build(:HRJ549)]}
+    
   end
 
   factory :new_pablo_rodriguez,class: User do

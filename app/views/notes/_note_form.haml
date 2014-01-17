@@ -1,6 +1,6 @@
 .new_note_form
   = form_for :note,:remote=>true,:url => notes_path,:html=>{:class=>:note_form} do |f|    
-    = f.text_area :message,:cols=>64,:rows=>2,:class =>:left,:title =>"",:placeholder =>"Por favor ingrese el texto de la nota"
+    = f.text_area :message,:cols=>64,:rows=>2,:class =>:left,:title =>"",:placeholder =>t(".note")
     = hidden_field_tag :element_id,element_id
     - if defined? wo
       = f.hidden_field :workorder_id,:value => wo

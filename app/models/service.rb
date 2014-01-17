@@ -1,35 +1,33 @@
-
 class Service < ActiveRecord::Base
 
   attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:car_service_offer_id,:car_service_offer
+  attr_accessor :today_car_service_offer
 
-  belongs_to :workorder, :inverse_of => :services
+  after_initialize :init_default_value 
+  
+
   has_many :events,:dependent => :destroy,:inverse_of => :service
+  has_and_belongs_to_many :tasks
   
   belongs_to :budget
   belongs_to :car_service_offer
   belongs_to :service_type
   belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
-  
+
   belongs_to :car_service_offer
   has_many :material_services
-
-  attr_accessor :today_car_service_offer
-
-  after_initialize :init_default_value  
-
-  def init_default_value
-    @today_car_service_offer = []
-  end
+  belongs_to :workorder, :inverse_of => :services  
   
-  
-  has_and_belongs_to_many :tasks
-   
+     
   accepts_nested_attributes_for :material_services, :allow_destroy => true
   accepts_nested_attributes_for :car_service_offer
   accepts_nested_attributes_for :service_type
   
   normalize_attributes :comment
+
+  def init_default_value
+    @today_car_service_offer = []
+  end
   
   def total_price
     m_total_price=0

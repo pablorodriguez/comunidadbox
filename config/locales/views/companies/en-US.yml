@@ -18,3 +18,39 @@ en-US:
     form:
       service_senter_information: "Service Center's Information"
       service_center_address: "Service Center's Address"
+    company_address_fields:
+      state: "State"
+      city: "City"
+      street: "Street"
+      zip: "Zip"
+    all:
+      new_client: "New Client"
+    search:
+      search: "Search"
+      name: "Name"
+      address: "Address"
+      city: "City"
+      state: "State"
+      search_by_address: "Search by address"
+      radius: "In a radius of (Km)"
+    all_companies:
+     service_providers: Service Providers
+    company: 
+      search_map: "Find Address on Map"
+    show:
+      register: "Register"
+      service_providers: "Service providers"
+      help: "Help"
+      name: "Name"
+      web: "Web"
+      phone: "Phone"
+      ranking: "Ranking"
+      address: "Address"
+      state: "State"
+      city: "City"
+      street: "Street"
+      zip: "Zip"
+
+
+
+

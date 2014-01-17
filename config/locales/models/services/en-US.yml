@@ -1,0 +1,12 @@
+en-US:
+  activerecord:
+    models:
+      service: 
+    attributes:
+      services:
+        operator: "Operator"
+        material_services: "Material"
+
+   
+
+

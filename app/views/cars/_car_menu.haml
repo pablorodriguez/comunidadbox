@@ -6,39 +6,39 @@
     %ul
       - if company_id
         %li
-          = link_to "Nuevo Cliente",new_client_path,{:title=>"Crear nuevo cliente"}
+          = link_to t(".new_client"),new_client_path,:title=>t(".create_new_client")
         %li
-          = link_to "Nuevo Servicio",new_workorder_path(:car_id =>@car),:id=>"create_new_service_2",:title=>"Nuevo Servicio"
+          = link_to t(".new_service"),new_workorder_path(:car_id =>@car),:id=>"create_new_service_2",:title=>t(".new_service")
         %li          
-          = link_to "Nuevo Presupuesto",new_budget_path(:ca => @car.id),{:title=>"Nuevo Presupuesto"}
+          = link_to t(".new_budget"),new_budget_path(:ca => @car.id),:title=>t("..new_budget")
         - if current_user.can_edit?(@car.user)
           %li
-            = link_to "Modificar Cliente",edit_client_path(@car.user),{:title=>"Modificar cliente"} 
+            = link_to t(".modify_client"),edit_client_path(@car.user),{:title=>t(".modify_client")} 
       - else
         %li
-          = link_to "Nuevo Servicios","#",:data =>{:car_id => "#{@car_id}"},:title=>"Nuevo Servicio",:id =>"create_new_service"
+          = link_to t(".new_services"),"#",:data =>{:car_id => "#{@car_id}"},:title=>t(".new_services"),:id =>"create_new_service"
         .hide      
           = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
       - if current_user.can_edit?(@car.user)
         %li
-          = link_to "Nuevo Automóvil", new_car_path(:user_id=>@car.user.id),  {:title =>"Nuevo Automóvil"}
+          = link_to t(".new_car"), new_car_path(:user_id=>@car.user.id),  {:title =>t(".new_car")}
         %li  
-          = link_to "Modificar Autómovil",edit_car_path(@car),{:title=>"Modificar automóvil"}   
+          = link_to t(".modify_car"),edit_car_path(@car),{:title=>t(".modify_car")}   
       - if current_user.is_employee?
         %li
-          = link_to "Mensajes","#",:data => {:car_id => "#{@car_id}"},:title=>"Nuev Mensaje",:id =>"create_new_message"
+          = link_to t(".messages"),"#",:data => {:car_id => "#{@car_id}"},:title=>t(".new_message"),:id =>"create_new_message"
       %li
         #service_done.link.menu
-          = link_to "Servicios Realizados", "#"
+          = link_to t(".services_performed"), "#"
       %li
         #future_event.link.menu
-          = link_to "Servicios a Realizar","#"
+          = link_to t(".services_to_do"),"#"
       %li
         #budgets_link.link.menu
-          = link_to "Presupuestos","#"
+          = link_to t(".budgets"),"#"
       %li
         #report_graph.link.menu
-          = link_to "Reporte Gráfico","#"
+          = link_to t(".graphic_report"),"#"
 
 =render "search_data"
     

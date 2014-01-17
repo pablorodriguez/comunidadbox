@@ -1,6 +1,6 @@
 -if @companies && @companies.size > 0
   .box_bottom
-    %h1 Prestadores de Servicios  
+    %h1=t(".service_providers") 
   = render :partial=>"companies/company",:collection => @companies,:locals =>{:active =>false}
 -else
   %label

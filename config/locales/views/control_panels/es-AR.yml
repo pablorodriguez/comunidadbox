@@ -16,8 +16,21 @@ es-AR:
       select_clients: "Seleccione Clientes"
       events_types: "Eventos Tipos"
       my_clients: "Mis Clientes"
-      other_clients: "Otros Clientes"
+      others_clients: "Otros Clientes"
     index:
       control_panel: "Panel de Control"
       due_date_services: "Vencimientos de Servicios"
       no_service_to_perform: "No hay servicios a realizar"
+    event_detail:
+      new_alarm: "Nueva Alarma"
+      new_note: "Nueva Nota"
+      new_message: "Nuevo Mensaje"
+      email: "Email:"
+      phone: "Teléfono"
+      mileage: "Kilometraje:"
+      average_mileage: "Kilometraje Promedio:"
+      total_service_provider: "Total Prestador Servicio:"
+      total_spent: "Total Gastado:"
+      title: "Servicio"
+      done: "Listo"
+

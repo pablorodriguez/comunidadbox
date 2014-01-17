@@ -1,3 +1,7 @@
+:javascript
+  var title = "#{t('.title')}";
+  var done = "#{t('.done')}";
+
 #event_detail.event_detail
   .detail
     .box_bottom
@@ -9,32 +13,32 @@
       .right
         .actions
           .action
-            .add_alarm{:title => "Nueva Alarma"}
+            .add_alarm{:title => t(".new_alarm")}
           .action
-            .new_note{:title => "Nueva Nota"}
+            .new_note{:title => t(".new_note")}
           .action
-            .new_message{:title => "Enviar Mensaje"}            
+            .new_message{:title => t(".new_message")}            
     .box_bottom
       .block
         .left
-          %label.user_email_label Email:
+          %label.user_email_label=t("email") 
           %label.user_email
         .right
-          %label.user_phone_label Teléfono:
+          %label.user_phone_label=t(".phone")
           %label.user_phone
       .block
         .left
-          %label.km_label Kilometraje:
+          %label.km_label=t(".mileage")
           %label.km
         .right
-          %label.km_avg_label Kilometraje Promedio:
+          %label.km_avg_label=t(".average_mileage")
           %label.km_avg
       .block
         .left
-          %label.total_company_spend_label Total Prestadaor Servicio:
+          %label.total_company_spend_label=t(".total_service_provider")
           %label.total_company_spend
         .right
-          %label.total_spend_label Total Gastado:
+          %label.total_spend_labelTotal=t(".total_spent")
           %label.total_spend  
   #event_notes
     = render :partial =>"notes/note_form_np",:locals=>{:wo => nil,:b=>nil,:c => nil,:notes =>[],:id=>0 }

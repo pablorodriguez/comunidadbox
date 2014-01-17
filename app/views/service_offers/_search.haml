@@ -3,38 +3,40 @@
     = hidden_field_tag :direction, @direction
     = hidden_field_tag :sort, @sort_column
     .box_bottom
-      %h3 Buscar
+      %h3=t(".search")
       %table
         %thead
         %tbody
           %tr
             %td
-              = text_field_tag 'service_offer_since', @date_f,:class =>"input_date",:placeholder =>"Desde"          
-              = text_field_tag 'service_offer_until', @date_t,:class =>"input_date",:placeholder =>"Hasta"
+              = text_field_tag 'service_offer_since', @date_f,:class =>"input_date",:title =>t(".from")
           %tr
             %td
-              = text_field_tag 'title', @title,:class=>"input",:title =>"Nombre"
+              = text_field_tag 'service_offer_until', @date_t,:class =>"input_date",:title =>t(".even")
+          %tr
+            %td
+              = text_field_tag 'title', @title,:class=>"input",:title =>t(".name")
 
     .box_bottom
-      %h3 Estado
+      %h3=t(".state")
       %table
         %tr
           %td          
             #sended
               = check_box_tag("status[]",Status::SENT,false,:class=>"checkbox",:id=>"status_sended")
-              = label_tag 'status_sended',"Enviado",:class =>"link"
+              = label_tag 'status_sended',t(".send"),:class =>"link"
             #open
               = check_box_tag("status[]",Status::OPEN,false,:class=>"checkbox",:id=>"status_open")
-              = label_tag 'status_open',"Abierto",:class =>"link"
+              = label_tag 'status_open',t(".open"),:class =>"link"
             #confirm
               = check_box_tag("status[]",Status::CONFIRMED,false,:class=>"checkbox",:id=>"status_confirm")
-              = label_tag 'status_confirm',"Confirmado",:class =>"link" 
+              = label_tag 'status_confirm',t(".confirmed"),:class =>"link" 
             #cancel
               = check_box_tag("status[]",Status::CANCELLED,false,:class=>"checkbox",:id=>"status_cancel")
-              = label_tag 'status_cancel',"Cancelado",:class =>"link"
+              = label_tag 'status_cancel',t(".canceled"),:class =>"link"
         %tr
           %td
-            = collection_select(:service_type, :id, @service_types, :id, :native_name, {:prompt=>"-- Tipo de Servicio --",:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
+            = collection_select(:service_type, :id, @service_types, :id, :native_name, {:prompt=>t(".service_type"),:selected => @service_type_id},{:id=>"service_type_id",:name =>"service_type_id"})
         %tr
           %td
             = image_submit_tag("find.png",:class =>"input_img")

@@ -23,3 +23,11 @@ es-AR:
       alarms: "Alarmas"
       messages: "Mensajes"
       notes: "Notas"
+    nu_menu:
+      register: "Registrar"
+      service_providers: "Prestadores de servicio"
+      help: "Ayuda"
+    
+  
+ 
+    

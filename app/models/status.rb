@@ -18,15 +18,15 @@ class Status
     }
 
   SR_STATUS = {
-    OPEN=>'Abierto',CONFIRMED=>'Confirmado'
+    OPEN=>I18n.t("open"),CONFIRMED=>'Confirmado'
     }
 
   MR_STATUS = {
-    OPEN =>'Abierto',APPROVED => 'Aprobado',REJECTED =>'Rechazado'
+    OPEN =>I18n.t("open"),APPROVED => 'Aprobado',REJECTED =>'Rechazado'
   }
 
   SO_STATUS = {    
-      OPEN => 'Abierto',
+      OPEN => I18n.t("open"),
       CONFIRMED => 'Confirmado',
       CANCELLED => 'Cancelado'
   }
@@ -38,14 +38,14 @@ class Status
   }
   
   STATUS = {
-    OPEN=>'Abierto',IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
+    OPEN=>I18n.t("open"),IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
     FINISHED=>'Terminado',COMPLETED=>'Completado',ACTIVE =>'Activo',
-    CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>"Enviado",PENDING=>'Pendiente',
+    CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>I18n.t("sent"),PENDING=>'Pendiente',
     REJECTED =>'Rechazado',APPROVED =>"Aprobado"
     }
   
   ALARMS_STATUS ={
-    'Activo' =>ACTIVE,'Cancelado' =>CANCELLED
+    I18n.t("active") => 'Active',I18n.t("canceled") =>'Cancelado'
   }
 
   NOTES_STATUS = {"SOON"=>""}

@@ -1,9 +1,15 @@
 es-AR:
   activerecord:
     models:
-      car: "Automóvil"
+      car: "car"
     attributes:
-      car:
+      cars:
         domain: "Dominio"
-    erros:
-      unique_domain_per_user: "ya registrado"     
+        model: "Modelo"
+        brand: "Marca"
+        year: "Año"
+        fuel: "Combustible"
+        kmAverageMonthly: "Kilometraje promedio mensual"
+        km: "Kilometraje"
+erros:
+      unique_domain_per_user: "Ya está registrado"

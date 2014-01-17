@@ -1,0 +1,19 @@
+es-AR:
+  alarms:
+    cp_ajax_form:
+      save: "Grabar"
+      new_alarm: "Nueva Alarma"
+    form:
+      name: "Nombre"
+      description: "Descripción"
+      date_hour: "Fecha y Hora"
+      save: "Grabar"
+      repeat: "Repetir"
+      next_notification: "Próxima Notificación"
+      for: "Cada"
+      init: "Inicio"
+      end: "Fin"
+      not_end: "No termina"
+      days: "Días"
+   
+   

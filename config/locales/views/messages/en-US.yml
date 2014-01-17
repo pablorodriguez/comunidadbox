@@ -9,3 +9,7 @@ en-US:
       title: "Menssages"
       see_company: "See Company"
       see_messages: "See Messages"
+    form_user:
+      message: "Please enter the message text"
+    form: 
+      message: "Please enter the text message"

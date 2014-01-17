@@ -4,4 +4,10 @@ es-AR:
       user: "Usuario"
     attributes:
       user:
-        remember_me: "Recordar"    
+        first_name: "Nombre"
+        last_name: "Apellido"
+        password: "Contraseña"
+        cars: "Información de su auto"
+        address: "Dirección Personal"
+        domain_duplicated: "Dominio Duplicado"
+  

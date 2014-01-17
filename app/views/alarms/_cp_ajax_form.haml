@@ -1,7 +1,7 @@
 .box_bottom
-  %h1 Nueva Alarma
+  %h1= t('.new_alarm')
 - @alarm = Alarm.new
 = form_for @alarm,:remote=>true do |f|
   = render :partial => '/alarms/form', :locals => {:f => f}
   .buttons_container
-    = f.submit "Grabar",:class=>"button"    
+    = f.submit t 'save',:class=>"button"    

@@ -20,7 +20,7 @@ en-US:
       model: "Model"
       mileage_monthly_average: Mileage Monthly Average
       fuel: "Fuel"
-      mileage: "Kilometraje"
+      mileage: "Mileage"
     user_address_fields:
       state: "State"
       city: "City"

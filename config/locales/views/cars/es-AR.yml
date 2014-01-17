@@ -4,9 +4,11 @@ es-AR:
       delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
       update_car: "Modificar automóvil"
       title: "Listado de Automóviles"
-      year: "Modelo"
+      year: "Año"
       km: "km"
       kmAverageMonthly: "Km Promedio Mensual"
+      new_service: "Nuevo Servicio"
+      new_budget: "Nuevo Presupuesto"
     send:
       message_exit_send: "Mensaje enviado con exito"
     search_car:
@@ -41,3 +43,43 @@ es-AR:
     car:
       save: "Grabar"
       cancel: "Cancelar"
+    car_menu:
+      new_client: "Nuevo Cliente"
+      new_service: "Nuevo Servicio"
+      new_budget: "Nuevo Presupuesto"
+      modify_client: "Modificar Cliente"
+      new_service: "Nuevo Servicios"
+      new_car: "Nuevo Automóvil"
+      modify_car: "Modificar Automóvil"
+      messages: "Mensajes"
+      new_message: "Nuevo Mensaje"
+      create_new_client: "Crear Nuevo Cliente"
+      services_performed: "Servicios Realizados"
+      services_to_do: "Servicios a Realizar"
+      budgets: "Presupuestos"
+      graphic_report: "Reporte Gráfico"
+    search_data:
+      search: "Buscar"
+      all: "Todos"
+      from: "Desde"
+      even: "Hasta"
+    car_detail:
+      see_client: "Ver Cliente"
+      phone: "Teléfono"
+      total_mileage: "Kilometraje total"
+      monthly_average_mileage: "Promedio de Kilometros Mensual"
+      km_average: "Km Promedio"
+      total_consumed: "Total Consumido"
+      total_consumed_in_your_company: "Total consumido en tu empresa"
+    work_orders:
+      services_performed: "Servicios Realizados"
+    work_order_row:
+      operator: "Operario"
+      number_of_service: "Número de Servicio"
+      service_provider: "Prestador de Servicio"
+      message_delete: ¿ Esta seguro que desea borrar el Servicio ?
+      delete: "Eliminar"
+      modify: "Modificar"
+      notes: "Notas"
+      send_message: "Enviar Mensaje"
+

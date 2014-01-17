@@ -2,14 +2,14 @@
   = render "home/nu_menu"
 .contentright_s
   .box_bottom
-    %h1 Enviar instrucciones de confirmación  
+    %h1=t(".send_instructions")
   = form_for resource,:as => resource_name, :url => confirmation_path(resource_name) do |f|
     .box_bottom
       %table
         %tr
           %td
-            = f.label :email,"Correo Electrónico"
+            = f.label :email,t(".email")
           %td
             = f.text_field :email,:class=>:input_long
     .box_bottom.buttons_container
-      = f.submit "Enviar Instrucciones",:class =>"button"
+      = f.submit t(".send"),:class =>"button"

@@ -23,3 +23,8 @@ en-US:
       alarms: "Alarms"
       messages: "Messages"
       notes: "Notes"
+    nu_menu:
+      register: "Register"
+      service_providers: "Service Providers"
+      help: "Help"
+    

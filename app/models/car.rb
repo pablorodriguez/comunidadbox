@@ -15,11 +15,16 @@ class Car < ActiveRecord::Base
   #has_and_belongs_to_many :offers
   
   validates_presence_of :model,:domain,:year,:km,:kmAverageMonthly
-  validates_numericality_of :year,:km,:kmAverageMonthly  
+  validates_numericality_of :year, :only_integer => true, :greater_than_or_equal_to => 1885
+  validates_numericality_of :km, :only_integer => true
+  validates_numericality_of :kmAverageMonthly
+  validates_uniqueness_of :domain
   validates_format_of :domain, :with => /^\D{3}\d{3}/
+  validate :unique_domain
   before_save :set_new_attribute
   after_save :update_events
-  validate :unique_domain
+  
+  
   attr_accessor :today_service_offer
 
   def unique_domain
@@ -138,7 +143,6 @@ class Car < ActiveRecord::Base
       end
     end    
   end
-
-  
+ 
 end
 

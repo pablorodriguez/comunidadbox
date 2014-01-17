@@ -33,6 +33,7 @@
 //= require analytics.js
 //= require combox
 //= require registration
+//= require user_sign_up
 //= require service_type_template
 //= require workorder_template
 //= require highcharts

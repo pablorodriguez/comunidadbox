@@ -3,22 +3,25 @@
 .box_bottom  
   %table.w
     %tr
-      %td{:style=>"width:100px"} Nombre
+      %td{:style=>"width:100px"}
+        = t 'name'
       %td
         = f.text_field :name
         = f.select :status, Status::ALARMS_STATUS,{},:class => :short_select
     %tr
-      %td Descripcion  
+      %td  
+        = t 'description'
       %td
         = f.text_area :description, :cols => 57, :rows => 3                    
     %tr
-      %td Fecha y Hora
+      %td  
+        = t('.date_hour')
       %td
         = f.text_field :date_alarm, :default => Time.zone.now,:value => (l(f.object.date_alarm,format: :short) if f.object.date_alarm),:class =>:input_date_time
         = check_box_tag "repit","1",f.object.replay?
-        = label_tag "repit","Repetir"
+        = label_tag "repit",t(".repeat")
         %strong
-          Proxima notificación
+          = t('.next_notification')
         - if f.object.next_time
           = l(f.object.next_time,format: :short)
 - css_hide = f.object.replay? ? "" : "hide"
@@ -27,48 +30,48 @@
     %tbody
       %tr
         %td{:style=>"width:100px"}
-          %label Cada 
+          %label=t(".for")
         %td{:colspan=>2}
           = f.text_field :time,:class =>:input_short
           = f.select :time_unit, Alarm::TIME_UNIT_TYPES,{},:class => :short_select
       %tr
         %td
-          %label Inicio
+          %label=t(".init")
         %td{:colspan=>2}
           = f.text_field :date_ini, :default => Time.zone.now,:value => (l(f.object.date_ini,format: :short) if f.object.date_ini),:class =>"input_date_time date_range"
-          %label Fin
+          %label=t(".end")
           = f.text_field :date_end, :default => Time.zone.now,:value => (l(f.object.date_end,format: :short) if f.object.date_ini),:class =>"input_date_time date_range"
           = f.check_box :no_end
-          =label_tag "alarm_no_end","No Termina"
+          =label_tag "alarm_no_end",t(".not_end")
       %tr
         %td
-          %lable.left Dias
+          %lable.left=t(".days")
         %td{:colspan=>2}
           #days.left
             %ul
               %li 
                 = f.check_box :monday,{:class=>"day checkbox"}
-                = label_tag :alarm_monday, "Lunes",:class => :link
+                = label_tag :alarm_monday, I18n.t("monday"),:class => :link
               %li 
                 = f.check_box :tuesday,{:class=>"day checkbox"}
-                = label_tag :alarm_tuesday, "Martes",:class => :link
+                = label_tag :alarm_tuesday, I18n.t("tuesday"),:class => :link
               %li
                 = f.check_box :wednesday,{:class=>"day checkbox"}
-                = label_tag :alarm_wednesday, "Miercoles",:class => :link
+                = label_tag :alarm_wednesday, I18n.t("wednesday"),:class => :link
               %li
                 = f.check_box :thursday,{:class=>"day checkbox"}
-                = label_tag :alarm_thursday, "Jueves",:class => :link
+                = label_tag :alarm_thursday, I18n.t("thursday"),:class => :link
               %li
                 = f.check_box :friday,{:class=>"day checkbox"}
-                = label_tag :alarm_friday, "Viernes",:class => :link
+                = label_tag :alarm_friday, I18n.t("friday"),:class => :link
               %li
                 = f.check_box :saturday,{:class=>"day checkbox"}
-                = label_tag :alarm_saturday, "Sabado",:class => :link
+                = label_tag :alarm_saturday, I18n.t("saturday"),:class => :link
               %li
                 = f.check_box :sunday,{:class=>"day checkbox"}
-                = label_tag :alarm_domingo, "Domingo",:class => :link
+                = label_tag :alarm_domingo, I18n.t("sunday"),:class => :link
               %li
                 = check_box_tag :all,"1",false,{:class=>"day checkbox"}
-                = label_tag :all, "Todos",:class => :link
+                = label_tag :all, I18n.t("all"),:class => :link
    
 

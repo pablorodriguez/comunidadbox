@@ -5,9 +5,10 @@ class Workorder < ActiveRecord::Base
   
   include Statused  
 
-  ORDER_BY = {"-- Ordenar por ---" =>"workorders.performed desc","Dominio: Descendiente"=>"cars.domain desc","Dominio: Ascendiente"=>"cars.domain asc",
-    "Realizado: Descendiente"=>"workorders.performed desc","Realizado: Ascendiente" => "workorders.performed asc"}
+  ORDER_BY = {I18n.t("order_by") =>"workorders.performed desc",I18n.t("domain_descendant")=>"cars.domain desc",I18n.t("domain_ascendant")=>"cars.domain asc",
+   I18n.t("done_descendant")=>"workorders.performed desc",I18n.t("done_ascendant") => "workorders.performed asc"}
     
+       
   has_many :services, :dependent => :destroy,:inverse_of => :workorder
   has_many :notes,:dependent => :destroy
   belongs_to :car

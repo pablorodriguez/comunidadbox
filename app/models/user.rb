@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 	# :http_authenticatable, :token_authenticatable, :confirmable,:lockable, :timeoutable and :activatable
   devise :registerable, :database_authenticatable, :recoverable,:rememberable, :trackable, :validatable, :confirmable
   # Setup accessible (or protected) attributes for your model
-  # attr_accessible :email, :password, :password_confirmation
+  #attr_accessible :email, :password, :password_confirmation
 
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
@@ -43,15 +43,18 @@ class User < ActiveRecord::Base
   has_many :material_requests
 
   validates_uniqueness_of :email, :case_sensitive => false
-
-  accepts_nested_attributes_for :address,:reject_if =>lambda {|a| a[:street].blank?}
+  validates_presence_of :first_name, :last_name
+  #validates_presence_of :cars, :on => :create
+  
+  
+  accepts_nested_attributes_for :address,:reject_if => :all_blank
   accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
-  accepts_nested_attributes_for :cars,:reject_if =>lambda {|a| a[:domain].blank?}
+  accepts_nested_attributes_for :cars,:reject_if => :all_blank
 
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
 
   NULL_ATTRS = %w( company_name cuit )
-  before_save :nil_if_blank
+  #before_save :nil_if_blank
   #validate :validate_all
 
   def search_material_request(status,detail)

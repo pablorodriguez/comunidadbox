@@ -1,15 +1,14 @@
 class MaterialService < ActiveRecord::Base
   attr_accessible :material_service_type_id, :material, :amount, :price
+  
   belongs_to :service
   belongs_to :material_service_type
   
-  validates_numericality_of :amount,:price
-  
-  validates_presence_of :amount, :greater_than_or_equal_to => 0.01
-  validates_presence_of :price, :greater_than_or_equal_to => 0.01
-  
+  validates_numericality_of :price, :greater_than_or_equal_to => 0.01
+  validates_numericality_of :amount, :only_integer => true, :greater_than_or_equal_to => 1   
+   
   accepts_nested_attributes_for :material_service_type
-  
+ 
   #validate :validate_number
   
   def validate_number

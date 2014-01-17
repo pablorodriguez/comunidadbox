@@ -18,3 +18,35 @@ es-AR:
     form:
       service_senter_information: "Información Prestador de Servicios"
       service_center_address: "Dirección Prestador de Servicios"
+    company_address_fields:
+      state: "Provincia"
+      city: "Cuidad"
+      street: "Calle"
+      zip: "Código Postal"
+    all:
+      new_client: "Nuevo CLiente"
+    search:
+      search: "Buscar"
+      name: "Nombre"
+      address: "Direción"
+      city: "Cuidad"
+      state: "Provincia"
+      search_by_address: "Buscar por dirección"
+      radius: "En un radio de (en Km)"
+    all_companies:
+      service_providers: "Proveedores de Servicio"
+    company:
+      search_map: "Buscar dirección en el mapa"
+    show:
+      register: "Registar"
+      service_providers: "Prestador de servicios"
+      help: "Ayuda"
+      name: "Nombre"
+      web: "Web"
+      phone: "Télefono"
+      ranking: "Ranking"
+      address: "Dirección"
+      state: "Provincia"
+      city: "Cuidad"
+      street: "Calle"
+      zip: "Código Postal"

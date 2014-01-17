@@ -11,14 +11,14 @@
           = s.service_type.native_name
         -if s.operator
           .operator.clear
-            %label{title: "Operario"}          
+            %label{title: t(".operator")}          
             = "#{s.operator.first_name} #{s.operator.last_name}"
   .service_info    
     .left
-      %label.wo_id{:title => "Número del Servicio"}
+      %label.wo_id{:title => t(".number_of_service")}
         = link_to work_order_row.id,work_order_row
     - if can_show
-      %label{:title =>"Prestador de Servicio"}
+      %label{:title =>t(".service_provider")}
         = link_to work_order_row.company_name,work_order_row.company,:target => :_blank          
       - if work_order_row.user != current_user
         .clear.left
@@ -35,17 +35,17 @@
     .actions
       - if work_order_row.can_delete?(current_user)
         .action
-          = link_to "", workorder_path(work_order_row), :confirm => '¿ Esta seguro que desea borrar el Servicio ?',:remote =>true, :method => :delete,:title =>"Eliminar",:class=>"delete"
+          = link_to "", workorder_path(work_order_row), :confirm => t(".message_delete"),:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete"
       - if work_order_row.can_edit?(current_user)        
         .action
-          = link_to("", edit_workorder_path(work_order_row),:title =>"Modificar",:class=>"edit")      
+          = link_to("", edit_workorder_path(work_order_row),:title =>t(".modify"),:class=>"edit")      
       .action
         = print_to_pdf work_order_row        
       .action
-        %a{:title=>"Notas",:class=>"new_note_link",:href=>"#"}
+        %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}
       -if work_order_row.can_send_message?(current_user)
         .action        
-          %a{:title=>"Enviar Mensaje",:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}
+          %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}
  
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes clear"}
     = render :partial =>"notes/note_form_np",:locals=>{:wo => work_order_row.id,:b=>nil,:c => nil,:notes =>work_order_row.notes,:id=>work_order_row.id}

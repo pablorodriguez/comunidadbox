@@ -1,10 +1,11 @@
 class MaterialServiceType < ActiveRecord::Base
  attr_accessible :material_id, :service_type_id
+
   belongs_to :material
   belongs_to :service_type
   has_many :price_list_items
-  has_one :price_list_item_active, :class_name =>"PriceListItem",
-    :include=>"price_list", :conditions =>["price_lists.active =1"]
+  has_one :price_list_item_active, :class_name =>"PriceListItem",:include=>"price_list", :conditions =>["price_lists.active =1"]
+
   
   accepts_nested_attributes_for :material
   accepts_nested_attributes_for :service_type
