@@ -11,7 +11,7 @@
     -unless event.is_green
       .hide
         = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"checkbox"})
-    - e_css = event.has_notes_for?(current_user) ? "has_notes" : ""
+    - e_css = event.notes.empty? ? "" : "has_notes"
     - a_css = event.has_alarms_for?(current_user) ? "has_alarms" : ""
     .left
       .event_notes{:class=>e_css,:title=>event.notes_txt}

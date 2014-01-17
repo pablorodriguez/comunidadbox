@@ -1,4 +1,6 @@
 class PriceList < ActiveRecord::Base
+  attr_accessible :name
+  
   has_many :price_list_items
   belongs_to :company
   

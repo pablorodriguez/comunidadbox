@@ -9,6 +9,7 @@ es-AR:
       search: "Buscar Prestadores de Servicios"
       help: "Ayuda"
       select_company: "Seleccionar Compañia"
+      company_name: "Nombre del Prestador de Servico"
       update_user: "Modificar Usuario"      
       all_companies: "Todas"
       administration: "Administración"      

@@ -134,7 +134,7 @@ jQuery(document).ready( function(){
 
   $('.brand').live("change",searchModel);
   $("#user_type").live("click",setUserType);
-
+  setUserType();
       
 });
 
@@ -146,7 +146,7 @@ function set_link_to_function(links,func){
 
 
 function setUserType(){
-  if ($("#user_type").val() == "u"){
+  if ($("#user_type").val() == "fu"){
     $("#user_data").show();
     $("#company_data").hide();
   }else{

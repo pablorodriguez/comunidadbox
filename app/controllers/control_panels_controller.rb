@@ -103,7 +103,6 @@ class ControlPanelsController < ApplicationController
     @events[0]
     @events_count = @events.size
     @page_events = @events.paginate(:page=>@page,:per_page=>per_page)
-
     @alarm = Alarm.new
     
   end

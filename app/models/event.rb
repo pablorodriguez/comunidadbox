@@ -110,7 +110,9 @@ class Event < ActiveRecord::Base
     events = events.where("cars.year = ?",service_filter.year) if service_filter.year
     events = events.where("addresses.state_id = ?",service_filter.state_id) if service_filter.state_id?
     events = events.where("addresses.city = ? ",service_filter.city) if service_filter.city?
-    events = events.group("events.car_id").group("services.service_type_id")
+    events = events.group("events.car_id") #.group("services.service_type_id")
+
+    events = events.joins("LEFT OUTER JOIN notes on notes.event_id = events.id") #.where("notes.company_id in (?)",company_id)
 
     totalEvents = []
 

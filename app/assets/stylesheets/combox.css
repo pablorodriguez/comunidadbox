@@ -896,7 +896,7 @@ input{
 .all_companies {
   width:60%;
   position: absolute;
-  left:150px;
+  left:187px;
   top:26px;
   font-size:12px;  
   background:white;
@@ -908,7 +908,7 @@ input{
   -moz-box-shadow: 2px 2px 5px #888888;
   -webkit-box-shadow: 2px 2px 5px #888888;
   box-shadow: 2px 2px 5px #888888;
-  margin-top:-2px;
+  margin-top: 0px;
   margin-right:1px;
   z-index:1000;
 

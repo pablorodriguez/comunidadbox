@@ -1,10 +1,12 @@
-.box_bottom
-  .left
-    %h1=t(".new_user")
+= form_for resource, :url => user_registration_path do |f|
+  .box_bottom
+    .left
+      %h1=t(".new_user")
 
-  .right
-    %h1
-      =  select_tag "user_type", "<option value='u'>Usuario</option><option value='ps'>Prestador de Servicio</option>".html_safe,:class=>"long_selec"
-.clear
-  = form_for resource, :url => user_registration_path do |f|
+    .right
+      %h1 
+        = resource.type     
+        = select_tag(:user_type,options_for_select(User::TYPES.collect{|k,v| [v,k]},:selected =>resource.type),{:class=>'long_selec'})
+        //= select_tag "user_type", raw("<option value='u'>Usuario</option><option value='ps'>Prestador de Servicio</option>"),:class=>"long_selec"
+  .clear
     = render "form", :f => f,:recaptcha => true

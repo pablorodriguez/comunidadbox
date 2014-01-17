@@ -1,6 +1,21 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
+  def set_company_id    
+    if current_user && current_user.company
+      set_company_in_cookie(Array(current_user.company.id))
+      logger.info "##### #{current_user.company.id}"
+    end
+    logger.info "##### sali de set_company_id"
+    flash[:notice]=nil
+  end
+
+  def clear_company_id
+    cookies.delete(:company_id)
+    flash[:notice]=nil
+    logger.info "##### clear company id"
+  end
+
   #devuleve un Array del company id del Cookies o si ID de todas las compañias del Usuario registrado si en la cookie hay -1
   def company_id
     id = cookies[:company_id]    

@@ -67,7 +67,7 @@ ComunidadBox::Application.routes.draw do
   end
 
   scope '(:locale)' do
-    devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions' }
+    devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions',:confirmations =>"users/confirmations" }
     match "/help" => "help#index"
 
     resources :item_service_requests

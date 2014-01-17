@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
 
+  TYPES = {
+    "fu"=> "Usuario","ps"=>"Prestador de Servicios"
+    }
+
   @@lock = Mutex.new
   @@last_number = 0
 

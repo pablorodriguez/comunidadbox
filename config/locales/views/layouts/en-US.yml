@@ -9,6 +9,7 @@ en-US:
       search: "Search for Service Providers"
       help: "Help"
       select_company: "Select Company"
+      company_name: "Service Center's Name"
       update_user: "Update User"
       exit: "Exit"
       all_companies: "All"

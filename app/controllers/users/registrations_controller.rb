@@ -24,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
     no_company = @user.company == nil ? true:false
     
-    @user.type = params[:user][:type]
+    @user.type = params[:user_type]
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = "Usuario actualizado exitosamente"
@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def create
     build_resource
-    resource.type = params[:user][:type]
+    resource.type = params[:user_type]
     resource.confirmed = true
     if resource.companies.size > 0
        resource.companies.first.active = true
