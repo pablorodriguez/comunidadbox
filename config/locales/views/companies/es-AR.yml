@@ -24,7 +24,7 @@ es-AR:
       street: "Calle"
       zip: "Código Postal"
     all:
-      new_client: "Nuevo CLiente"
+      new_client: "Nuevo Cliente"
     search:
       search: "Buscar"
       name: "Nombre"

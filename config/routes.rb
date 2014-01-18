@@ -163,6 +163,7 @@ ComunidadBox::Application.routes.draw do
       collection do
         get :service_types
         get :all
+        get :admin
         post :search
         post :search_distance
         post :add_service_type

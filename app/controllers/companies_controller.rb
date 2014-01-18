@@ -20,6 +20,10 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def admin
+    @companies = Company.not_confirmed
+  end
+
   def search
     @companies = Company.search params
     respond_to do |format|

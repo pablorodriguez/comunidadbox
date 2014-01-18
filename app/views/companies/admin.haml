@@ -1,0 +1,8 @@
+-# javascript 'maps'
+-# javascript 'search_company_map'
+.vertical_menu
+  = render "conf/menu"  
+.contentright_s
+  - @companies.each do |c|
+    = c.name
+    %br

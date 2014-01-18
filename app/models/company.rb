@@ -19,6 +19,7 @@ class Company < ActiveRecord::Base
   has_many :service_type_templates
 
   scope :confirmed, includes(:user).where("users.confirmed = 1")
+  scope :not_confirmed, includes(:user).where("users.confirmed = 0")
 
   has_many :material_requests
   DEFAULT_COMPANY_ID = 1
