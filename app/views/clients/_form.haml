@@ -19,5 +19,5 @@
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
   .buttons_container    
-    = f.submit t(".save"),:class=>:button
+    = f.submit t(".save"),:class=>:button,:data => {"disable-with" => t("saving")}
     = link_to t(".cancel"),clients_path

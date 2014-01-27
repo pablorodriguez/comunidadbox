@@ -2,6 +2,7 @@ es-AR:
   exit: "Salir"
   cancel: "Cancelar"
   save: "Grabar"
+  saving: "Grabando..."
   name: "Nombre"
   email: "Correo Electrónico"
   edit: "Modificar"

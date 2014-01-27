@@ -54,7 +54,6 @@ en-US:
       services: "Services"
       select_type_of_service: "Select Service Type"
       save: "Save"
-      saving: "saving ..."
       cancel: "Cancel"
 
       

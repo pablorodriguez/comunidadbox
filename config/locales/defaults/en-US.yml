@@ -2,6 +2,7 @@ en-US:
   exit: "Exit"
   cancel: "Cancel"
   save: "Save"
+  saving: "Saving..."
   name: "Name"
   email: "Email"
   edit: "Edit"

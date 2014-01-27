@@ -12,7 +12,7 @@
             %li
               = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
               %label.link{:for=>"service_type_#{service.id}"}
-                =service.name
+                =service.native_name
     %table
       %tbody
         %tr

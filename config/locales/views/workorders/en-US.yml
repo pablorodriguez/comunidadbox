@@ -56,8 +56,7 @@ en-US:
       see_comment: "See comment"
       search_materials: "Search materials (Ctrl + M)"
       save: "Save"
-      cancel: "Cancel"
-      saving: "Saving"
+      cancel: "Cancel"      
       budget_nro: Budget Nro
     service_fields:
       operator: "-- Operator --"

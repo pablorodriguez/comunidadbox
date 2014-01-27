@@ -50,5 +50,5 @@
     -#  = render "alarm_fields",:f => a_form
     #wo_save.buttons_container      
       - dis = @update_km ? "disabled" : nil 
-      = wo_form.submit t(".save"),:class =>"button",:data => {"disable-with" => t(".saving")},:id => :workorder_submit,:disabled => dis      
+      = wo_form.submit t(".save"),:class =>"button",:data => {"disable-with" => t("saving")},:id => :workorder_submit,:disabled => dis      
       = link_to  t(".cancel"),car_path(@work_order.car)
