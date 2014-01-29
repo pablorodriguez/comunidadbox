@@ -11,7 +11,7 @@
   .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px;clear:both"}      
   .left{:style=>"clear:both;float:left;margin-top:5px;width:100%"}
     .left{:style=>"float:left"}
-      = link_to image_tag("company_logos/vg_logo.png",:alt =>"company logo"),company_url(@budget.creator.company),:target=>"_blank"  
+      -#= link_to image_tag("company_logos/vg_logo.png",:alt =>"company logo"),company_url(@budget.creator.company),:target=>"_blank"  
     .right{:style=>"float:right"}
       = @budget.creator.company.address.to_text
     .left{:style=>"float:right;clear:both"}
