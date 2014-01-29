@@ -3,7 +3,7 @@
     %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"}
       Presupuesto Nro:
       = @budget.id      
-      -#= link_to image_tag('pdf.png',:style=>"border-style:hidden;"),print_budget_url(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+      = link_to image_tag('pdf.png',:style=>"border-style:hidden;"),print_budget_url(@budget,:format =>'pdf',:locale => I18n.locale),:target => "_blank",:title =>"Imprimir"
   .right{:style=>"float:right"}
     %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"}
       Realizado:
@@ -11,7 +11,7 @@
   .box_bottom{:style=>"border-bottom:thin double #CCCCCC;overflow:auto;padding-bottom:5px;clear:both"}      
   .left{:style=>"clear:both;float:left;margin-top:5px;width:100%"}
     .left{:style=>"float:left"}
-      -#= link_to image_tag("company_logos/vg_logo.png",:alt =>"company logo"),company_url(@budget.creator.company),:target=>"_blank"  
+      = link_to image_tag("company_logos/vg_logo.png",:alt =>"company logo"),company_url(@budget.creator.company,:locale => I18n.locale),:target=>"_blank"  
     .right{:style=>"float:right"}
       = @budget.creator.company.address.to_text
     .left{:style=>"float:right;clear:both"}
