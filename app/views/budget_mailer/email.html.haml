@@ -3,7 +3,7 @@
     %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"}
       Presupuesto Nro:
       = @budget.id      
-      = link_to image_tag('pdf.png',:style=>"border-style:hidden;"),print_budget_url(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
+      -#= link_to image_tag('pdf.png',:style=>"border-style:hidden;"),print_budget_url(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
   .right{:style=>"float:right"}
     %h1{:style=>"color:#75787A;font-size:20px;font-weight:bold;font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;margin:0"}
       Realizado:

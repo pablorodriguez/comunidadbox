@@ -181,7 +181,7 @@ class BudgetsController < ApplicationController
 
   def email
     budget_id = params[:id]
-    logger.info "### envo de email del budget #{budget_id}"
+    logger.info "### envio de email del budget #{budget_id}"
     Resque.enqueue(BudgetJob,budget_id)
 
     respond_to do |format|
