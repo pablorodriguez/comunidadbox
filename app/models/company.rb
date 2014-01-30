@@ -42,7 +42,7 @@ class Company < ActiveRecord::Base
   end
 
   def operators
-    User.where("employer_id = ? and roles.name = ? and disable is NULL", self.id,Role::OPERATOR).includes(:roles).order("users.first_name,users.last_name")
+    self.employees.enabled.includes(:roles).where("roles.name = ?",Role::OPERATOR).order("users.first_name,users.last_name")
   end
 
   def all_materials

@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
   accepts_nested_attributes_for :cars,:reject_if => :all_blank
 
+  scope :enabled , where("disable is NULL")
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
 
   NULL_ATTRS = %w( company_name cuit )
