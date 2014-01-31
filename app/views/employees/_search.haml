@@ -1,18 +1,38 @@
 .box_bottom
-  #employees
+  #employees_search
     %h3 Buscar
-    = form_for :employee, :remote =>true, :url => search_employees_path do
+    = form_for @employee_search,:url => employees_path,:method => :get do |f|
       %table.w
         %thead
           %tr
             %td
-              = text_field_tag 'email',"",:class=>"labelify input",:title=>"Email"
+              = f.text_field :email,:class=>"input",:title=>"Email",:placeholder =>"Email"
           %tr
             %td
-              = text_field_tag 'first_name',"",:class=>"labelify input",:title=>"Nombre"
+              = f.text_field :first_name,:class=>"input",:title=>"Nombre",:placeholder =>"Nombre"
           %tr
             %td
-              = text_field_tag 'last_name',"",:class=>"labelify input",:title=>"Apellido"
+              = f.text_field :last_name,:class=>"input",:title=>"Apellido",:placeholder =>"Apellido"
+          %tr
+            %td              
+              %ul
+                -Role.employee_roles.each do |role|
+                  %li                    
+                    = check_box_tag "employee_search[roles][]",role.id,checked = @employee_search.roles.include?(role.id.to_s),:id =>"role_#{role.id}"
+                    %label.link{:for=>"role_#{role.id}"}
+                      = role.detail
+          %tr
+            %td
+              %ul                
+                %li
+                  = f.radio_button 'status', 'active',{checked: @employee_search.status == "active"}
+                  %label.link{:for=>"employee_search_status_active"} Activos
+                %li
+                  = f.radio_button 'status', 'deleted',{checked: @employee_search.status == "deleted"}
+                  %label.link{:for=>"employee_search_status_deleted"} Eliminados
+                %li
+                  = f.radio_button 'status', 'all',{checked:@employee_search.status == "all"}
+                  %label.link{:for=>"employee_search_status_all"} Todos
           %tr
             %td
               = image_submit_tag("find.png",:class =>"input_img")

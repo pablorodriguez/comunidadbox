@@ -5,6 +5,10 @@ class Role < ActiveRecord::Base
   SUPER_ADMIN ='super_admin'
   OPERATOR ='operator'
   MANAGER='manager'
+
+  def self.employee_roles
+    Role.where("name IN (?)",[OPERATOR,ADMINISTRATOR,EMPLOYEE]).order("detail")
+  end
   
   
   def self.administrator

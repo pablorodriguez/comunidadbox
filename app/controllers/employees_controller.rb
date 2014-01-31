@@ -53,10 +53,16 @@ class EmployeesController < ApplicationController
   end
   
   def index
-    @employees = Company.employees(company_id)    
+    @employee_search = EmployeeSearch.new(params[:employee_search])    
+    @employees = Company.employees(company_id,@employee_search)
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false}
+    end
   end
   
   def edit
+    debugger
     @employee = User.find(params[:id])
   end
   
@@ -77,12 +83,12 @@ class EmployeesController < ApplicationController
    def search
     email = params[:email] || ""
     first_name = params[:first_name] || ""
-    last_name = params[:last_name] || ""
-    @employees = User.where("employer_id like ? and first_name like ? and last_name like ? and email like ?",
-      current_user.company.id,"%#{first_name}%","%#{last_name}%","%#{email}%")
-   
+    last_name = params[:last_name] || ""    
+    @roles_ids = params[:roles_ids] ? params[:roles_ids].map{|v|v.to_i} : []    
+    @active = true    
+    @employees = Company.employees(company_id,@roles_ids,@active)    
     respond_to do |format|
-      format.js 
+      format.js { render :layout => false}
     end
    end
 end

@@ -3,6 +3,10 @@
 #F2F2F2
 */
 
+.user_status_radio{
+  margin-left: -4px;
+}
+
 .doc_row{
   padding:5px;
 }

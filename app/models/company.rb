@@ -123,8 +123,29 @@ class Company < ActiveRecord::Base
     User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
   end
 
-  def self.employees(companies_ids)
-    User.where("employer_id IN (?)",companies_ids)
+  def self.employees(companies_ids,employee_search)
+    #email = params[:email] || ""
+    #first_name = params[:first_name] || ""
+    #last_name = params[:last_name] || ""    
+    roles_ids = employee_search.roles ? employee_search.roles.map{|v|v.to_i} : []
+    active = employee_search.status || "active"
+    
+    emp = User.where("employer_id IN (?)",companies_ids)
+    if  active == "active"
+      emp = emp.where("disable is NULL")
+    elsif active == "deleted"
+      emp = emp.where("disable = 1")
+    end
+
+    if  roles_ids.size > 0
+      emp = emp.includes(:roles).where("roles.id in (?)",roles_ids)
+    end
+
+    emp = emp.where("email like ?","%#{employee_search.email}%") if employee_search.email
+    emp = emp.where("first_name like ?","%#{employee_search.first_name}%") if employee_search.first_name
+    emp = emp.where("last_name like ?","%#{employee_search.last_name}%") if employee_search.last_name
+    emp
+    
   end
 
   def self.clients(companies_ids,params)
