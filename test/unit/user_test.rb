@@ -4,6 +4,7 @@ class UserTest < ActiveSupport::TestCase
   
   setup do
     Address.any_instance.stubs(:geocode).returns([1,1]) 
+
     create_all_default_data
     @pablo =  create(:pablo_rodriguez)
     @gustavo =  create(:gustavo_de_antonio)

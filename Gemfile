@@ -40,7 +40,7 @@ end
 group :development, :test do
   #gem 'turn'
   gem "better_errors"
-  gem 'rack-mini-profiler'  
+  #gem 'rack-mini-profiler'  
 end
 
 gem 'pry', :group => :development
