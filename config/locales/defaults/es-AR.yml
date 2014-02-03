@@ -23,9 +23,9 @@ es-AR:
   car_delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
   client_delete_confirm: "¿Esta seguro que desea borrar al Cliente?"
   help_user_registration: "Registración de Usuario"
-  help_new_service_own_car: "Registrar Servicio Dueno de Automóvil"
+  help_new_service_own_car: "Dueño de Automóvil registra un servicio"
   help_what_is_comunidadbox: "¿ Que es ComunidadBox ?"
-  help_new_client_service_budget: "Nuevo Cliente, Servicio y Presupuesto"
+  help_new_client_service_budget: "Prestado de Servicio registra un Cliente, Servicio y Presupuesto"
   help_confirm_user: "Confirmar Usuario"
   help_title: "Tutorials - ComunidadBox"
   help_documentation: "Documentación"
