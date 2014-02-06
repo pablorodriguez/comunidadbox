@@ -2,11 +2,14 @@ es-AR:
   service_offers:
     new_s:
       title: "Nueva Oferta de Servicio"
+    new:
+      title: "Nueva Oferta de Servicio"
     form:
       information: "Información"
       days: "Días"
       valid: "Valido"
       all: "Todos"
+      service_types: "Tipos de Servicios"
     search:
       search: "Buscar"
       from: "Desde"
@@ -22,6 +25,7 @@ es-AR:
       service_offers: "Oferta de Servicio"
       new_client: "Nuevo Cliente"
       confirmed: "Confirmado"
+      new_service_offer: "Nueva Oferta de Servicio"
     service_offers:
       cars: "Autos:"
       cost: "Precio:"

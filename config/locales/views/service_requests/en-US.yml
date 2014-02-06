@@ -7,6 +7,7 @@ en-US:
       listing_service_request: "Services Request List"
       sure_delete_service_request: "Are you sure to remove the Service Request ?"
     new:
+      new_service_request: New Service Request
     edit:
       edit_service_request: Update Serivce Request
     show:

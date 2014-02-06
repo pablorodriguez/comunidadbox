@@ -71,8 +71,28 @@ class Ability
       value
     end
 
-    can [:update,:destroy], ServiceRequest do |sr|
+    can [:update], ServiceRequest do |sr|
       sr.can_edit? user      
+    end
+
+    can [:destroy], ServiceRequest do |sr|
+      sr.can_delete? user      
+    end
+
+    can :read,ServiceOffer do |s|
+      s.can_show? user      
+    end
+
+    can :update,ServiceOffer do |so|
+      so.can_edit? user
+    end
+
+    can :destroy,ServiceOffer do |so|
+      so.can_delete? user
+    end
+
+    can :confirm,ServiceOffer do |s|
+      s.can_confirm? user
     end
   
     can [:update,:destroy], Workorder do |w|
@@ -126,14 +146,6 @@ class Ability
       can :manage, PriceList
       can :manage, :employee
       can :manage, ServiceFilter      
-    end
-
-    can :read,ServiceOffer do |s|
-      s.can_show? user      
-    end
-
-    can :confirm,ServiceOffer do |s|
-      s.can_confirm? user
     end
 
     if user.is_super_admin?

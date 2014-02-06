@@ -92,3 +92,4 @@ en-US:
     error_messages:
       errors_prohibited_plural: "There were the following %{count} errors "
       errors_prohibited_singular: The following error occurred
+  new_car: "New Car"

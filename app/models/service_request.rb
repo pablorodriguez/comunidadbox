@@ -32,8 +32,8 @@ class ServiceRequest < ActiveRecord::Base
     self.user == usr && self.status == Status::OPEN
   end
 
-  def can_delete? usr
-    self.user == usr
+  def can_delete? usr    
+    self.user.id == usr.id
   end
 
   def to_builder

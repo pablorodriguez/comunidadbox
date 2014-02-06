@@ -2,11 +2,14 @@ en-US:
   service_offers:
     new_s:
       title: "New Service Offer"
+    new:
+      title: "New Service Offer"
     form:
       information: "Information"
       days: "Days"
       valid: "Valid"
       all: "All"
+      service_types: "Service Types"
     search:
       search: "Search"
       from: "From"
@@ -22,6 +25,7 @@ en-US:
       service_offers: "Offer Service"
       new_client: "New Client"
       confirmed: "Confirmed"
+      new_service_offer: "New Service Offer"
     service_offers:
       cars: "Cars:"
       cost: "Cost:"

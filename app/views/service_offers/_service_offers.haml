@@ -1,15 +1,14 @@
 #service_offers
   - @offers.each do |offer|
     #div{:id=>"row_#{offer.id}",:class=>"service_offer_row row"}
+      %strong
+        = offer.service_types.map(&:native_name).join(", ")          
       .service_offer_info
         .service_offer_detail        
           .company_name        
             = offer.company.name
           .service_offer_title      
             = link_to offer.title, offer,:class =>"view"
-          %strong
-            - offer.service_types.each do |st|
-              = st.native_name
           .status
             - if company_id
               = icon_status offer.status            
@@ -40,12 +39,12 @@
                 - offer.valid_dates.each do |day|
                   %li
                     =t day
-      .serivce_offer_actions
-        -if company_id && offer.status != Status::SENT
-          #d
+      .actions        
+        - if offer.can_delete?(current_user)
+          .action
             = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
         - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
-          #e
+          .action
             = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
   #paginator_wo
     = will_paginate @offers

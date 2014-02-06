@@ -1569,7 +1569,7 @@ td.number, th.number{
 
 .service_offer_info{
   padding: 5px;
-  width: 95%;
+  width: 99%;
   float: left;
 }
 
@@ -1610,8 +1610,9 @@ td.number, th.number{
  text-align:right;
 }
 
-.service_offer_dates ul li{
-  text-align:right;
+.service_offer_dates ul li{  
+  float: right;
+  margin: 0 3px;
 }
 
 .date_from{
@@ -2924,4 +2925,18 @@ ul.tasks li{
   width: 694px;
   overflow: auto;
   margin: 0 auto;
+}
+
+#service_offer_app .offer_service_type_row{
+  float: left;
+  margin: 5px;
+  font-weight: bold;
+}
+
+#service_offer_app .offer_service_type_row label{
+  margin-right: 5px;
+}
+
+#new_service_offer select.service_types{
+  margin-top: 4px
 }

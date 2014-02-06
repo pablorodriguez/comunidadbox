@@ -16,16 +16,15 @@
                   = ServiceRequest.human_attribute_name(:car)
                   \:
               %td
-                .inline-block
-                  .hide
-                    = f.text_field :car_id,"ng-model" => "service_request.car.id"
-                  - if @service_request.car
-                    .domain_white
-                      = @service_request.car.domain 
-                  - else
-                    %select.short_select{:type  => "text","ng-model" =>"service_request.car","ng-options" => "car.domain for car in cars"}               
-                    .domain_white.inline-block
-                      {{service_request.car.domain}}
+                .hide
+                  = f.text_field :car_id,"ng-model" => "service_request.car.id"
+                - if @service_request.car
+                  .domain_white
+                    = @service_request.car.domain 
+                - else
+                  .domain_white.inline-block
+                    {{service_request.car.domain}}
+                  %select.short_select{:type  => "text","ng-model" =>"service_request.car","ng-options" => "car.domain for car in cars"}               
             %tr
               %td
                 %strong

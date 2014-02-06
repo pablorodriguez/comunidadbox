@@ -78,6 +78,10 @@ class ServiceOffer < ActiveRecord::Base
     CarServiceOffer.where("service_offer_id = ? and car_id IN(?)",self.id,cars_ids).count > 0    
   end
 
+  def can_delete? user
+     user.is_employee? && status != Status::SENT
+   end
+
   #Notifico a los autos sus ofertas de servicios
   def self.notify
     #enviar solo a estos autos..prueba
@@ -105,7 +109,19 @@ class ServiceOffer < ActiveRecord::Base
     end  
   end
 
-
+  def to_builder
+    Jbuilder.encode do |json| 
+      json.price self.price
+      json.percent self.percent
+      json.final_price self.final_price
+      json.offer_service_types self.offer_service_types do |ost|
+        json.id ost.id
+        json.service_type_id ost.service_type.id
+        json.name ost.service_type.native_name
+        json.show true                
+      end
+    end
+  end 
 
   private
   

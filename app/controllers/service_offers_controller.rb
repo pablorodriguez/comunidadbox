@@ -27,6 +27,10 @@ class ServiceOffersController < ApplicationController
     
   end
 
+  def new    
+    @offer = ServiceOffer.new()    
+  end
+
   def new_s
     @title ="Oferta de Servicio"
     @offer = ServiceOffer.new()
@@ -67,7 +71,8 @@ class ServiceOffersController < ApplicationController
   def create
     @offer = ServiceOffer.new(params[:service_offer])
     @offer.company = get_company
-    params[:car_ids].each do |car_id|
+    @car_ids = params[:car_ids] || []
+    @car_ids.each do |car_id|
       car_service_offer = CarServiceOffer.new
       car_service_offer.status = Status::OPEN
       if @offer.is_confirmed?
