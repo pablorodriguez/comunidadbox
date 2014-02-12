@@ -4,7 +4,7 @@
   - @count_data.keys.sort.each do |k|              
     %tr
       %td
-        = k
+        = t(k)
       %td.number
         = @count_data[k]
         - total += @count_data[k]

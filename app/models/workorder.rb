@@ -377,7 +377,7 @@ class Workorder < ActiveRecord::Base
           entity = "Otro"
           entity = class_name.send(:find,key) if key
           data_str = data_str + "{ 
-            name: '#{entity.name}', 
+            name: '#{entity.native_name}', 
             p: #{number_with_precision(value,:precision=>2,:separator=>".",:delimiter=>"")},
             y: #{number_with_precision(percentage,:precision=>2,:separator=>".",:delimiter=>"")},
             },"
@@ -441,8 +441,7 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("workorders.id = ?", filters[:workorder_id]) if filters[:workorder_id]
     workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
     
-    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
-    logger.debug "### Filters SQL #{workorders.to_sql}"    
+    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]    
     workorders
   end
   

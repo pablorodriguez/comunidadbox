@@ -4,7 +4,7 @@
     - @price.keys.sort.each do |k|
       %tr
         %td
-          = k
+          = t k
         %td.number
           = number_to_currency(@price[k])
           - total += @price[k]
