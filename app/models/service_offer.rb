@@ -6,12 +6,15 @@ class ServiceOffer < ActiveRecord::Base
   has_many :cars, :through => :car_service_offers
   has_many :offer_service_types
   has_many :service_types,:through => :offer_service_types
+  has_one :advertisement
   belongs_to :company
   belongs_to :service_request
+
 
   validates_numericality_of :price,:final_price,:percent
   validates_presence_of :title, :price, :final_price, :percent
   accepts_nested_attributes_for :offer_service_types,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :advertisement,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
   
   default_scope {order("service_offers.created_at DESC")}
   scope :sended ,where("service_offers.status = ?",Status::SENT)  
@@ -109,7 +112,29 @@ class ServiceOffer < ActiveRecord::Base
     end  
   end
 
+  def self.weeks(date = Date.today)
+    first = date.beginning_of_month.beginning_of_week(:sunday)
+    last = date.end_of_month.end_of_week(:sunday)
+    (first..last).to_a.in_groups_of(7)
+  end
+
+  def self.weeks_to_json(date= Date.today)
+    weeks = self.weeks(date)
+    Jbuilder.encode do |json| 
+      json.array! weeks do |week|
+        json.array! week do |day|
+          json.day day.day
+          json.date day
+          json.today date == day
+          json.notmonth date.month != day.month
+        end
+      end
+    end
+  end
+
+
   def to_builder
+    date = Date.today
     Jbuilder.encode do |json| 
       json.price self.price
       json.percent self.percent
@@ -119,6 +144,41 @@ class ServiceOffer < ActiveRecord::Base
         json.service_type_id ost.service_type.id
         json.name ost.service_type.native_name
         json.show true                
+      end
+
+      days_nro = Hash.new
+
+      json.advertisement do 
+        json.id self.advertisement.id
+        json.advertisement_days self.advertisement.advertisement_days do |ad_day|
+          nro = days_nro[ad_day.published_on.to_s] || 1          
+          days_nro[ad_day.published_on.to_s] = nro
+          json.id ad_day.id
+          json.published_on ad_day.published_on
+        end
+      end
+      json.weeks ServiceOffer.weeks do |week|
+        json.array! week do |day|
+          json.day day.day
+          json.date day
+          json.today date == day
+          json.notmonth date.month != day.month                    
+          
+          nro = days_nro[day.to_s] || 0
+          if (nro > 0)
+            json.ad_nro nro
+            json.has_ad true
+          end
+          
+          ads = (1..3).to_a
+
+          json.ads do
+            json.array! ads do |ad|
+              json.ad true if ad < nro
+            end
+          end
+
+        end
       end
     end
   end 

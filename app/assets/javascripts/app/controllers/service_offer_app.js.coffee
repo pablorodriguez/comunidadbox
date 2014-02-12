@@ -11,6 +11,8 @@
       final_price: 0
   
     $scope.service_offer.offer_service_types = []
+    $scope.service_offer.weeks = window.weeks
+
 
       
 

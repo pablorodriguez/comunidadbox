@@ -1,7 +1,7 @@
 :javascript  
   window.services_types = #{ServiceType.to_builder(current_user.service_types)};
-  window.service_offer = #{@offer.to_builder};
-
+  window.service_offer = #{@offer.to_builder};  
+  window.weeks = #{Advertisement.weeks_to_json};
 #service_offer_app{"ng-app" => "service_offer_app"}
   %div{"ng-controller"=>"serviceOfferCtrl"}
     = form_for @offer do |f|    
@@ -54,7 +54,7 @@
             %td
               = ServiceOffer.human_attribute_name(:price)
             %td
-              = f.text_field :price, :size=>4,:class =>:price, "ng-keyup" => "update_final_price()","ng-model" =>"service_offer.price"
+              = f.text_field :price, :size=>4,:clahas_addss =>:price, "ng-keyup" => "update_final_price()","ng-model" =>"service_offer.price"
             %td
               = ServiceOffer.human_attribute_name(:discount)
               \%
@@ -96,7 +96,7 @@
                 %li
                   = f.check_box :friday,{:class=>"day checkbox"}
                   = label_tag :service_offer_friday,t("friday"),:class => :link
-                %li
+                %lihas_add
                   = f.check_box :saturday,{:class=>"day checkbox"}
                   = label_tag :service_offer_saturday,t("saturday"),:class => :link
             %td
@@ -107,7 +107,58 @@
                 %li
                   = check_box_tag :todos,"1",false,{:class=>"day checkbox"}
                   = label_tag :todos, t(".all"),:class => :link
-       
+      #advertisements_test
+        = f.fields_for :advertisement do |ad_form|
+          %h3 Advertisement
+          = ad_form.label :id
+          = ad_form.text_field :id
+          %br
+          = ad_form.label :service_offer_id
+          = ad_form.text_field :service_offer_id
+          %h3 Ad Days
+          = ad_form.fields_for :advertisement_days do |ad_days_form|            
+            = ad_days_form.label :id
+            = ad_days_form.text_field :id
+            %br
+            = ad_days_form.label :advertisement_id
+            = ad_days_form.text_field :advertisement_id
+            %br
+            = ad_days_form.label :published_on
+            = ad_days_form.text_field :published_on
+      #advertisements_fields
+        %h3 Angular Fields
+        %lable Ad ID
+        %input{"ng-model" => "service_offer.advertisment.id"}
+        %div{"ng-repeat" =>"ad_day in service_offer.advertisement.advertisement_days"}
+          %br
+          %lable Ad Days Id
+          %input.input_short{:type => "text","ng-model" =>"ad_day.id",:placeholder =>"id",:name =>"service_offer[offer_service_types_attributes][{{$index}}][id]"}
+          %br
+          %lable Ad Days Published On
+          %input{:type => "text","ng-model" =>"ad_day.published_on",:placeholder =>"id",:name =>"service_offer[offer_service_types_attributes][{{$index}}][id]"}
+        
+      .advertisements  
+        %table.calendar
+          %thead
+            %tr
+              %th Domingo
+              %th Lunes
+              %th Martes
+              %th Miercoles
+              %th Jueves
+              %th Viernes
+              %th Sabado
+          %tbody              
+            %tr{"ng-repeat" =>"week in service_offer.weeks"}                
+              %td{"ng-repeat" => "day in week","ng-class" => "{today: day.today,notmonth: day.notmonth,has_ad: day.has_ad}"}
+                {{day.day}}
+                {{day.has_ad}}
+                {{day.ad_nro}}
+                .ad{"ng-repeat" =>"ad in day.ads"}
+                  
+
+      #calendar
+        = render "calendar"
       .buttons_container
         = f.submit t("save"),:class=>"button"
         = link_to 'Cancelar', service_offers_path

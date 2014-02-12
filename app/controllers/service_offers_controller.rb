@@ -28,8 +28,14 @@ class ServiceOffersController < ApplicationController
   end
 
   def new    
-    @offer = ServiceOffer.new()    
+    @offer = ServiceOffer.new
+    @offer.build_advertisement
+    @offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
+    @offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @advertisements_by_date = Advertisement.search_by_date @date
   end
+
 
   def new_s
     @title ="Oferta de Servicio"
@@ -122,7 +128,11 @@ class ServiceOffersController < ApplicationController
     @offer = ServiceOffer.find(params[:id])
     @offer.destroy
     redirect_to service_offers_path
-  end
+  enddef weeks
+      first = date.beginning_of_month.beginning_of_week(START_DAY)
+      last = date.end_of_month.end_of_week(START_DAY)
+      (first..last).to_a.in_groups_of(7)
+    end
   
     
   def notify      
@@ -144,6 +154,8 @@ class ServiceOffersController < ApplicationController
       
     end
   end
+   
+
  
 end
 

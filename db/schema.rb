@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129113962) do
+ActiveRecord::Schema.define(:version => 20140210214012) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -30,6 +30,19 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
   add_index "addresses", ["company_id"], :name => "addresses_company_id_fk"
   add_index "addresses", ["state_id"], :name => "addresses_state_id_fk"
   add_index "addresses", ["user_id"], :name => "addresses_user_id_fk"
+
+  create_table "advertisement_days", :force => true do |t|
+    t.date     "published_on"
+    t.integer  "advertisement_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "advertisements", :force => true do |t|
+    t.integer  "service_offer_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "alarms", :force => true do |t|
     t.string   "name"
@@ -145,8 +158,11 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
   end
 
   add_index "cars", ["brand_id"], :name => "cars_brand_id_fk"
+  add_index "cars", ["domain"], :name => "cars_domain_fk"
+  add_index "cars", ["fuel"], :name => "cars_fuel_fk"
   add_index "cars", ["model_id"], :name => "cars_model_id_fk"
   add_index "cars", ["user_id"], :name => "cars_user_id_fk"
+  add_index "cars", ["year"], :name => "cars_year_fk"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -230,7 +246,11 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
     t.datetime "updated_at"
   end
 
+  add_index "events", ["car_id"], :name => "events_cars_id_index"
+  add_index "events", ["dueDate"], :name => "events_dueDate_index"
   add_index "events", ["service_id"], :name => "events_service_id_fk"
+  add_index "events", ["service_id"], :name => "events_service_id_index"
+  add_index "events", ["service_type_id"], :name => "events_service_type_id_index"
 
   create_table "guests", :force => true do |t|
     t.string   "name"
@@ -258,13 +278,13 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
 
   create_table "material_details", :id => false, :force => true do |t|
     t.string  "prov_code",                :limit => 50
-    t.integer "material_id",                            :default => 0, :null => false
+    t.integer "material_id",                                                           :default => 0, :null => false
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "service_type_id"
-    t.integer "price_list_id",                          :default => 0, :null => false
-    t.integer "material_service_type_id",               :default => 0, :null => false
-    t.float   "price"
+    t.integer "price_list_id",                                                         :default => 0, :null => false
+    t.integer "material_service_type_id",                                              :default => 0, :null => false
+    t.decimal "price",                                  :precision => 10, :scale => 2
     t.text    "detail_upper"
     t.text    "detail"
     t.string  "brand"
@@ -274,13 +294,13 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
 
   create_table "material_details_old", :id => false, :force => true do |t|
     t.string  "prov_code",                :limit => 50
-    t.integer "material_id",                             :default => 0, :null => false
+    t.integer "material_id",                                                            :default => 0, :null => false
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "service_type_id"
-    t.integer "price_list_id",                           :default => 0, :null => false
-    t.integer "material_service_type_id",                :default => 0, :null => false
-    t.float   "price"
+    t.integer "price_list_id",                                                          :default => 0, :null => false
+    t.integer "material_service_type_id",                                               :default => 0, :null => false
+    t.decimal "price",                                   :precision => 10, :scale => 2
     t.string  "detail_upper",             :limit => 308
     t.string  "detail",                   :limit => 308
     t.integer "company_id"
@@ -439,7 +459,7 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
   create_table "price_list_items", :force => true do |t|
     t.integer  "price_list_id"
     t.integer  "material_service_type_id"
-    t.float    "price"
+    t.decimal  "price",                    :precision => 10, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -717,7 +737,7 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
   add_foreign_key "companies", "users", :name => "companies_ibfk_2"
 
   add_foreign_key "companies_users", "companies", :name => "companies_users_company_id_fk"
-  add_foreign_key "companies_users", "users", :name => "companies_users_user_id_fk"
+  add_foreign_key "companies_users", "users", :name => "companies_users_user_id_fk", :dependent => :delete
 
   add_foreign_key "company_services", "companies", :name => "company_services_ibfk_1"
   add_foreign_key "company_services", "service_types", :name => "company_services_ibfk_2"
@@ -755,7 +775,7 @@ ActiveRecord::Schema.define(:version => 20131129113962) do
   add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete
   add_foreign_key "notes", "workorders", :name => "notes_workorder_id_fk", :dependent => :delete
 
-  add_foreign_key "offer_service_types", "service_offers", :name => "offer_service_types_service_offer_id_fk"
+  add_foreign_key "offer_service_types", "service_offers", :name => "offer_service_types_service_offer_id_fk", :dependent => :delete
   add_foreign_key "offer_service_types", "service_types", :name => "offer_service_types_service_type_id_fk"
 
   add_foreign_key "price_list_items", "material_service_types", :name => "price_list_items_ibfk_1"
