@@ -1,10 +1,10 @@
 class Advertisement < ActiveRecord::Base
-  attr_accessible :service_offer_id
+  attr_accessible :service_offer_id,:advertisement_days_attributes
 
   belongs_to :service_offer
   has_many :advertisement_days
 
-  accepts_nested_attributes_for :advertisement_days,:reject_if => lambda { |m| m[:advertisement_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :advertisement_days,:allow_destroy => true
 
   def self.search_by_date today
     Advertisement.includes("advertisement_days").group("advertisement_days.published_on").all

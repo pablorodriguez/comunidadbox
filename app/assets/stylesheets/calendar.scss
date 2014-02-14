@@ -35,6 +35,15 @@
     cursor: default;
 
   }
+
+  .can_no_ad_add{
+    cursor: default;    
+  }
+
+  .can_ad_add:hover{
+    border: 2px solid red;    
+  }
+
   .today { background-color: #D7F2FF; }
 }
 
@@ -65,10 +74,19 @@
   background-color: #D2E6F4;
   margin: 2px;
   height: 8px;
+  width: 60%;
+  float: right;
 }
 
 .advertisements .ad{
   background-color: #F7D1CD;
   margin: 2px;
   height: 8px;
+  width: 60%;
+  float: right;
+}
+
+
+.ad_day {
+  float: left;
 }

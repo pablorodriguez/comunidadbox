@@ -39,6 +39,9 @@
                 - offer.valid_dates.each do |day|
                   %li
                     =t day
+        .advertisements      
+          - offer.advertisement_days.each do |ad_days|
+            = l ad_days.published_on
       .actions        
         - if offer.can_delete?(current_user)
           .action

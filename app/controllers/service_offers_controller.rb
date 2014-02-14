@@ -29,6 +29,8 @@ class ServiceOffersController < ApplicationController
 
   def new    
     @offer = ServiceOffer.new
+    @offer.offer_service_types.build :service_type_id => current_user.service_types.first.id
+
     @offer.build_advertisement
     @offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
     @offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
@@ -75,6 +77,7 @@ class ServiceOffersController < ApplicationController
   end
   
   def create
+    debugger
     @offer = ServiceOffer.new(params[:service_offer])
     @offer.company = get_company
     @car_ids = params[:car_ids] || []
@@ -108,6 +111,7 @@ class ServiceOffersController < ApplicationController
   def edit
     @title ="Editar Oferta de Servicio"
     @offer = ServiceOffer.find(params[:id])
+    @offer.build_advertisement if @offer.advertisement.nil?
     @cars = @offer.car_service_offers
     if @offer.status != Status::OPEN
       flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"
@@ -128,12 +132,7 @@ class ServiceOffersController < ApplicationController
     @offer = ServiceOffer.find(params[:id])
     @offer.destroy
     redirect_to service_offers_path
-  enddef weeks
-      first = date.beginning_of_month.beginning_of_week(START_DAY)
-      last = date.end_of_month.end_of_week(START_DAY)
-      (first..last).to_a.in_groups_of(7)
-    end
-  
+  end
     
   def notify      
     #Resque.enqueue ServiceOfferJob

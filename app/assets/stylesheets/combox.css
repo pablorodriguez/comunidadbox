@@ -2940,3 +2940,15 @@ ul.tasks li{
 #new_service_offer select.service_types{
   margin-top: 4px
 }
+
+.add_days{
+  float: left;
+  width: 40%;
+  border-style: solid;
+  border-width: 1px;
+  margin: 2px;
+}
+
+#advertisements_fields{
+  overflow: auto;
+}

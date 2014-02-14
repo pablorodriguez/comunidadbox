@@ -1,11 +1,12 @@
 class ServiceOffer < ActiveRecord::Base
   include Statused  
-  attr_accessible :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id
+  attr_accessible :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id,:advertisement_attributes
 
   has_many :car_service_offers
   has_many :cars, :through => :car_service_offers
   has_many :offer_service_types
   has_many :service_types,:through => :offer_service_types
+  has_many :advertisement_days,:through => :advertisement
   has_one :advertisement
   belongs_to :company
   belongs_to :service_request
@@ -14,7 +15,7 @@ class ServiceOffer < ActiveRecord::Base
   validates_numericality_of :price,:final_price,:percent
   validates_presence_of :title, :price, :final_price, :percent
   accepts_nested_attributes_for :offer_service_types,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
-  accepts_nested_attributes_for :advertisement,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :advertisement,:allow_destroy => true
   
   default_scope {order("service_offers.created_at DESC")}
   scope :sended ,where("service_offers.status = ?",Status::SENT)  
@@ -68,7 +69,7 @@ class ServiceOffer < ActiveRecord::Base
         unless cars[c]
           cars[c]=Array.new
         end         
-        cars[c] << s
+        cars[c] << sremove_advertisement_entity
       end
     end
     
@@ -136,6 +137,7 @@ class ServiceOffer < ActiveRecord::Base
   def to_builder
     date = Date.today
     Jbuilder.encode do |json| 
+      json.id self.id
       json.price self.price
       json.percent self.percent
       json.final_price self.final_price
@@ -151,8 +153,9 @@ class ServiceOffer < ActiveRecord::Base
       json.advertisement do 
         json.id self.advertisement.id
         json.advertisement_days self.advertisement.advertisement_days do |ad_day|
-          nro = days_nro[ad_day.published_on.to_s] || 1          
-          days_nro[ad_day.published_on.to_s] = nro
+          nro = days_nro[ad_day.published_on.to_s] || 0          
+          days_nro[ad_day.published_on.to_s] = nro + 1
+          json.advertisement_id ad_day.advertisement_id
           json.id ad_day.id
           json.published_on ad_day.published_on
         end
@@ -162,19 +165,19 @@ class ServiceOffer < ActiveRecord::Base
           json.day day.day
           json.date day
           json.today date == day
-          json.notmonth date.month != day.month                    
+          json.notmonth date.month != day.month  
+          json.can_no_ad_add  date >= day
           
           nro = days_nro[day.to_s] || 0
-          if (nro > 0)
-            json.ad_nro nro
-            json.has_ad true
-          end
+          json.ad_nro (nro > 0) ? nro : 0
+          json.has_ad (nro > 0) ? true : false
           
           ads = (1..3).to_a
 
           json.ads do
             json.array! ads do |ad|
-              json.ad true if ad < nro
+              json.so (ad <= nro ? self.id : nil)
+              json.has_ad (ad <= nro ? true : false)
             end
           end
 
