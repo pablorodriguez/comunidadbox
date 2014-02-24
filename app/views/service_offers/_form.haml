@@ -33,7 +33,7 @@
       .box_bottom
         %table.w
           %tr
-            %td 
+            %td{:style =>"width:100px"} 
               = ServiceOffer.human_attribute_name(:title)
             %td
               = f.text_field :title,:class =>"input_long"
@@ -51,7 +51,7 @@
       .box_bottom
         %table.w  
           %tr
-            %td
+            %td{:style =>"width:100px"} 
               = ServiceOffer.human_attribute_name(:price)
             %td
               = f.text_field :price, :size=>4,:clahas_addss =>:price, "ng-keyup" => "update_final_price()","ng-model" =>"service_offer.price"
@@ -69,7 +69,8 @@
       .box_bottom
         %table.w
           %tr
-            %td= ServiceOffer.human_attribute_name(:since)
+            %td{:style =>"width:100px"} 
+              = ServiceOffer.human_attribute_name(:since)
             %td
               = f.text_field :since ,:size =>10,:class =>:date,:value => (l(f.object.since) if f.object.since)
             %td= ServiceOffer.human_attribute_name(:until)
@@ -109,7 +110,8 @@
                   = label_tag :todos, t(".all"),:class => :link
       #advertisements_test
         = f.fields_for :advertisement do |ad_form|
-          %h3 Advertisement
+          %h3 
+            = t ".advertisement"
           .hide
             = ad_form.label :id,:class =>"input_short"
             = ad_form.text_field :id,:class =>"input_short"        
@@ -158,6 +160,7 @@
                 .ad_day
                   {{day.day}}
                 %div{"ng-repeat" =>"ad in day.ads","ng-class" => "{ad: ad.has_ad,no_ad: !ad.has_ad}"}                
+                  {{ad.other_add}}
 
       #calendar.hide
         //= render "calendar"create

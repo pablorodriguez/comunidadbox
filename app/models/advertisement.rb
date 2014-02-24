@@ -10,6 +10,16 @@ class Advertisement < ActiveRecord::Base
     Advertisement.includes("advertisement_days").group("advertisement_days.published_on").all
   end
 
+  def self.search_other_by_weeks(service_offer,weeks)
+    date_from = weeks[0][0]
+    date_until= weeks[weeks.size-1][weeks[weeks.size-1].size-1]
+    ads = Advertisement.includes(:service_offer,:advertisement_days).where("advertisement_days.published_on BETWEEN ? AND ?",date_from,date_until)
+    if service_offer.id
+      ads = ads.where("service_offers.id <> ?",service_offer.id)
+    end
+    ads
+  end
+
   def self.weeks(date = Date.today)
     first = date.beginning_of_month.beginning_of_week(:sunday)
     last = date.end_of_month.end_of_week(:sunday)

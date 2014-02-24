@@ -29,11 +29,11 @@ class ServiceOffersController < ApplicationController
 
   def new    
     @offer = ServiceOffer.new
-    @offer.offer_service_types.build :service_type_id => current_user.service_types.first.id
+    #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id
 
     @offer.build_advertisement
-    @offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
-    @offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
+    #@offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
+    #@offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @advertisements_by_date = Advertisement.search_by_date @date
   end
@@ -76,8 +76,7 @@ class ServiceOffersController < ApplicationController
     redorect_to :index
   end
   
-  def create
-    debugger
+  def create    
     @offer = ServiceOffer.new(params[:service_offer])
     @offer.company = get_company
     @car_ids = params[:car_ids] || []

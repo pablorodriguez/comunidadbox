@@ -38,11 +38,15 @@ ActiveRecord::Schema.define(:version => 20140210214012) do
     t.datetime "updated_at",       :null => false
   end
 
+  add_index "advertisement_days", ["advertisement_id"], :name => "advertisement_days_advertisement_id_fk"
+
   create_table "advertisements", :force => true do |t|
     t.integer  "service_offer_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  add_index "advertisements", ["service_offer_id"], :name => "advertisements_service_offer_id_fk"
 
   create_table "alarms", :force => true do |t|
     t.string   "name"
@@ -718,6 +722,10 @@ ActiveRecord::Schema.define(:version => 20140210214012) do
   add_foreign_key "addresses", "companies", :name => "addresses_ibfk_1", :dependent => :delete
   add_foreign_key "addresses", "states", :name => "addresses_ibfk_2"
   add_foreign_key "addresses", "users", :name => "addresses_ibfk_3", :dependent => :delete
+
+  add_foreign_key "advertisement_days", "advertisements", :name => "advertisement_days_advertisement_id_fk", :dependent => :delete
+
+  add_foreign_key "advertisements", "service_offers", :name => "advertisements_service_offer_id_fk", :dependent => :delete
 
   add_foreign_key "alarms", "companies", :name => "alarms_company_id_fk"
   add_foreign_key "alarms", "users", :name => "alarms_ibfk_1", :dependent => :delete

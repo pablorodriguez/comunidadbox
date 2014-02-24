@@ -10,6 +10,8 @@ es-AR:
       valid: "Valido"
       all: "Todos"
       service_types: "Tipos de Servicios"
+      price: "Precio"
+      advertisement: "Publicidad"
     search:
       search: "Buscar"
       from: "Desde"

@@ -30,10 +30,8 @@
     cursor: pointer;
   }
 
-  .notmonth, .notmonth a { color: #CCC; 
-    font-weight: normal;
-    cursor: default;
-
+  .notmonth, .notmonth a {     
+    font-weight: normal;    
   }
 
   .can_no_ad_add{
@@ -41,7 +39,7 @@
   }
 
   .can_ad_add:hover{
-    border: 2px solid red;    
+    background-color: #F7D1CD;
   }
 
   .today { background-color: #D7F2FF; }

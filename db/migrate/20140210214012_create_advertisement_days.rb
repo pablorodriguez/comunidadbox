@@ -6,5 +6,6 @@ class CreateAdvertisementDays < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_foreign_key(:advertisement_days,:advertisements,:dependent => :delete)
   end
 end

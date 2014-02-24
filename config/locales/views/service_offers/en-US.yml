@@ -10,6 +10,8 @@ en-US:
       valid: "Valid"
       all: "All"
       service_types: "Service Types"
+      price: "Price"
+      advertisement: "Advertisement"
     search:
       search: "Search"
       from: "From"

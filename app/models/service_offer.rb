@@ -114,8 +114,9 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def self.weeks(date = Date.today)
-    first = date.beginning_of_month.beginning_of_week(:sunday)
-    last = date.end_of_month.end_of_week(:sunday)
+    first = date.beginning_of_week(:sunday)
+
+    last = (first + 30).end_of_week(:sunday)
     (first..last).to_a.in_groups_of(7)
   end
 
@@ -148,19 +149,32 @@ class ServiceOffer < ActiveRecord::Base
         json.show true                
       end
 
-      days_nro = Hash.new
+      days_with_ad = Hash.new
 
       json.advertisement do 
         json.id self.advertisement.id
         json.advertisement_days self.advertisement.advertisement_days do |ad_day|
-          nro = days_nro[ad_day.published_on.to_s] || 0          
-          days_nro[ad_day.published_on.to_s] = nro + 1
+          ad = days_with_ad[ad_day.published_on.to_s] || Hash.new
+          ad[ad_day.advertisement.id] = ad_day
+          days_with_ad[ad_day.published_on.to_s] = ad
+
           json.advertisement_id ad_day.advertisement_id
           json.id ad_day.id
           json.published_on ad_day.published_on
         end
       end
-      json.weeks ServiceOffer.weeks do |week|
+      weeks = ServiceOffer.weeks
+
+      Advertisement.search_other_by_weeks(self,weeks).each do |ad|      
+        ad.advertisement_days.each do |ad_day|          
+          ad = days_with_ad[ad_day.published_on.to_s] || Hash.new
+          ad[ad_day.advertisement.id] = ad_day
+          days_with_ad[ad_day.published_on.to_s] = ad
+        end
+      end
+      
+
+      json.weeks weeks do |week|
         json.array! week do |day|
           json.day day.day
           json.date day
@@ -168,16 +182,23 @@ class ServiceOffer < ActiveRecord::Base
           json.notmonth date.month != day.month  
           json.can_no_ad_add  date >= day
           
-          nro = days_nro[day.to_s] || 0
+          day_ad = days_with_ad[day.to_s] || Hash.new
+          nro = day_ad.keys.size
+
           json.ad_nro (nro > 0) ? nro : 0
+          json.my_ad (nro > 0) ? true : false
           json.has_ad (nro > 0) ? true : false
           
           ads = (1..3).to_a
 
           json.ads do
-            json.array! ads do |ad|
-              json.so (ad <= nro ? self.id : nil)
-              json.has_ad (ad <= nro ? true : false)
+            json.array! ads do |index|              
+              if days_with_ad[day.to_s]
+                temp = days_with_ad[day.to_s].values[index-1]                
+                json.other_add true if (temp && (temp.advertisement.service_offer.id != self.id))                
+              end
+              json.so (index <= nro ? self.id : nil)
+              json.has_ad (index <= nro ? true : false)
             end
           end
 
