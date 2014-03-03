@@ -10,8 +10,8 @@
       %td
         =h number_to_currency(service_offer.price)
       %td Descuento %
-      %td
-        = h service_offer.percent
+      %td        
+        = number_to_percentage(service_offer.percent, :precision =>2)
     %tr
       %td Precio Final
       %td

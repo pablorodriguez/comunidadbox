@@ -28,11 +28,11 @@
 
       $scope.service_request.item_service_requests.push prd    
 
-    $scope.destroy = (item_service_requests) ->
+    $scope.destroy = (item_service_requests,index) ->
       if item_service_requests.id
         item_service_requests.show = false
         item_service_requests.destroy = 1
       else
-        $scope.service_request.item_service_requests.splice(item_service_requests, 1)
+        $scope.service_request.item_service_requests.splice(index, 1)
     
 @serviceRequestCtrl.$inject = ['$scope']

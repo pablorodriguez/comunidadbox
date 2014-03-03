@@ -10,6 +10,6 @@ es-AR:
         title: "Titulo"
         comment: "Comentario"
         status: "Estado"
-        discount: "Descuento"
+        discount: "Descuento"        
         since: "Desde"
         until: "Hasta"

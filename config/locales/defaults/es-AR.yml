@@ -83,6 +83,8 @@ es-AR:
   rejected: Rechazado
   approved: Aprobado
   price: "Precio"
+  final_price: "Precio Final"
+  discount: "Descuento"
   access: Could not access the site with a disabled user
   user_update: User updated successfully
   unauthorized:
@@ -94,3 +96,4 @@ es-AR:
       errors_prohibited_plural: "Se produjeron los siguientes %{count} errores"
       errors_prohibited_singular: "Se produjo el siguiente error"
   new_car: "Nuevo Automóvil"
+  service_offer: Oferta de Servicio

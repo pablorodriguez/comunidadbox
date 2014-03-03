@@ -42,14 +42,12 @@
           %tbody
 
             %tr{"ng-repeat" =>"item in service_request.item_service_requests","ng-show" =>"item.show"}
-              %td
-                %lable.hide
-                  {{$index}}                
-                .hide
-                  %input.input_short{:type => "text","ng-model" =>"item.id",:placeholder =>"id",:name =>"service_request[item_service_requests_attributes][{{$index}}][id]"}
+              %td                
                 %select.big_select{:type  => "text","ng-model" =>"item.service_type","ng-options" => "value.name for value in services_types"}
-                %a.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(item)"}
+                %a.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(item,$index)"}                
                 .hide
+                  {{$index}}                
+                  %input.input_short{:type => "text","ng-model" =>"item.id",:placeholder =>"id",:name =>"service_request[item_service_requests_attributes][{{$index}}][id]"}
                   %input.input_short{:type => "text","ng-model" =>"item.service_type.id",:placeholder =>"st_id",:name =>"service_request[item_service_requests_attributes][{{$index}}][service_type_id]"}              
                   %input{:name => "service_request[item_service_requests_attributes][{{$index}}][_destroy]", :type => "text", :value => "false","ng-model" => "item.destroy"}
                 %br

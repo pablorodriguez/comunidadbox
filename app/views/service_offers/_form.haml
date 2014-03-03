@@ -20,6 +20,7 @@
             %td{:colspan =>"4"}
               %div.offer_service_type_row{"ng-repeat" =>"offer_service_type in service_offer.offer_service_types","ng-show" =>"offer_service_type.show"}
                 .hide
+                  {{$index}}
                   %input.input_short{:type => "text","ng-model" =>"offer_service_type.id",:placeholder =>"id",:name =>"service_offer[offer_service_types_attributes][{{$index}}][id]"}
                   %input.input_short{:type => "text","ng-model" =>"offer_service_type.service_type_id",:placeholder =>"id",:name =>"service_offer[offer_service_types_attributes][{{$index}}][service_type_id]"}
                   %input.input_short{:type => "text","ng-model" => "offer_service_type.destroy",:placeholder => "destroy", :name => "service_offer[offer_service_types_attributes][{{$index}}][_destroy]"}
@@ -27,7 +28,7 @@
                   %label
                     {{offer_service_type.name}}
                   .action
-                    .link.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(offer_service_type)"}
+                    .link.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(offer_service_type,$index)"}
       %h3
         = t(".information")
       .box_bottom
@@ -143,24 +144,30 @@
           %input.input_short{:type => "text","ng-model" =>"ad_day.published_on",:placeholder =>"id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][published_on]"}
           %input.input_short{:type => "text","ng-model" => "ad_day.destroy",:placeholder =>"destroy",:name => "service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][_destroy]"}
         
-      .advertisements  
+      .advertisements{"ng-show" =>"service_offer.advertisement"}
         %table.calendar
           %thead
             %tr
-              %th Domingo
-              %th Lunes
-              %th Martes
-              %th Miercoles
-              %th Jueves
-              %th Viernes
-              %th Sabado
+              %th 
+                = t("sunday")
+              %th 
+                = t("monday")
+              %th
+                = t("tuesday")
+              %th
+                = t("wednesday")
+              %th 
+                = t("thursday")
+              %th 
+                = t("friday")
+              %th
+                = t("saturday")
           %tbody              
             %tr{"ng-repeat" =>"week in service_offer.weeks"}                
               %td{"ng-repeat" => "day in week","ng-class" => "{today: day.today,notmonth: day.notmonth,has_ad: day.has_ad,can_no_ad_add: day.can_no_ad_add,can_ad_add: !day.can_no_ad_add}","ng-click" =>"add_day(day)"}
                 .ad_day
-                  {{day.day}}
-                %div{"ng-repeat" =>"ad in day.ads","ng-class" => "{ad: ad.has_ad,no_ad: !ad.has_ad}"}                
-                  {{ad.other_add}}
+                  {{day.day}}                  
+                .ad{"ng-repeat" =>"ad in day.ads","ng-class" => "{my_ad: ad.my_ad,no_ad: !ad.has_ad,other_ad: ad.other_add}"}                  
 
       #calendar.hide
         //= render "calendar"create

@@ -26,11 +26,13 @@ es-AR:
     index:
       service_offers: "Oferta de Servicio"
       new_client: "Nuevo Cliente"
-      confirmed: "Confirmado"
+      confirmed: "Confirmado"      
       new_service_offer: "Nueva Oferta de Servicio"
     service_offers:
-      cars: "Autos:"
-      cost: "Precio:"
-      discount: "Descuento:"
+      publish_day: Publicidad
+      cars: "Autos"
+      price: "Precio"
+      final_price: Precio Final
+      discount: "Descuento"
       valid: "Válido"
       days: "Días"

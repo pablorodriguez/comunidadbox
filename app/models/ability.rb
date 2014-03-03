@@ -79,7 +79,11 @@ class Ability
       sr.can_delete? user      
     end
 
-    can :read,ServiceOffer do |s|
+    can :show_ad,ServiceOffer do |s|
+      true
+    end
+
+    can :read,ServiceOffer do |s|      
       s.can_show? user      
     end
 
@@ -103,7 +107,7 @@ class Ability
       w.car.user == user || user.is_employee?
     end
 
-    can :read, CarServiceOffer do |cso|    
+    can :read, CarServiceOffer do |cso|          
       if user.company
         cso.service_offer.company == user.company 
       else

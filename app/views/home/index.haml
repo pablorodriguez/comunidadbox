@@ -10,11 +10,13 @@
   .contentright_s  
     #default.data
       = render "welcome_msg"
+      = render "advertisements"
       = render "new_msgs"
 
 -else
   #default.data  
-    = render "welcome_msg"    
+    = render "welcome_msg"   
+    = render "advertisements" 
     = render "what_is_combo"
       
 

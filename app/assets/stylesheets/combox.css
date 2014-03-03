@@ -1568,18 +1568,19 @@ td.number, th.number{
 }
 
 .service_offer_info{
-  padding: 5px;
-  width: 99%;
-  float: left;
+  
+}
+
+.service_offer_title{
+  font-weight: bold;    
+  width: 100%;
 }
 
 .info_s{
   overflow: auto;
 }
 
-.service_offer_detail{
-  float: left;
-  width: 25%;
+.service_offer_detail{  
 }
 
 .service_offer_row{
@@ -1650,7 +1651,7 @@ td.number, th.number{
   float: right;
 }
 .valid{
-  float:left;
+  float:right;
   width:50%;
 }
 
@@ -2951,4 +2952,65 @@ ul.tasks li{
 
 #advertisements_fields{
   overflow: auto;
+}
+.advertisements {
+  text-align: center;
+}
+
+.advertisement {
+  width: 28%;
+  background-color: #F7D1CD;
+  padding: 10px;
+  margin: 5px;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 105px;
+}
+
+.advertisements .company_name a{
+  font-weight: bold;
+  color: red;
+}
+
+.advertisements .ad_name a{
+  font-weight: bold;
+  background-color: #EF978F;
+  color: white;
+}
+
+.advertisements span.final_price{
+  background-color: #FF0000;
+  color: #FFFFFF;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.advertisements span{ 
+  font-size: 15px;
+}
+.advertisements span{
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}
+
+.ad_days {
+  width: 90%;
+  display: inline-block;
+}
+
+.ad_days .ad_day{
+  float: left;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
+.ad_days .ad_day span{
+  background-color: #A8AA3A;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 1px 10px;
 }

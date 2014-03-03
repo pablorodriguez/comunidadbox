@@ -1,27 +1,34 @@
 #service_offers
   - @offers.each do |offer|
     #div{:id=>"row_#{offer.id}",:class=>"service_offer_row row"}
-      %strong
-        = offer.service_types.map(&:native_name).join(", ")          
+      .service_offer_title.left
+        - if company_id
+          .status.left
+            = icon_status offer.status
+        = link_to offer.title, offer,:class =>"view"
+        .right
+          = offer.service_types.map(&:native_name).join(", ")          
       .service_offer_info
         .service_offer_detail        
-          .company_name        
-            = offer.company.name
-          .service_offer_title      
-            = link_to offer.title, offer,:class =>"view"
-          .status
-            - if company_id
-              = icon_status offer.status            
-          -if (company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)
-            .cars
+          - if multiple_company?
+            .company_name        
+              = offer.company.name
+          -if (((company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)) && (offer.cars.size > 0))
+            .cars              
               =t(".cars")
               = offer.cars.size
         .price_detail
           .price              
-            =t(".cost")
+            =t(".price")
+            \:
+            = number_to_currency offer.price
+          .price              
+            =t(".final_price")
+            \:
             = number_to_currency offer.final_price
           .price
             =t(".discount")
+            \:
             = number_to_percentage(offer.percent, :precision =>2)
         .valid
           .service_offer_valid
@@ -39,9 +46,11 @@
                 - offer.valid_dates.each do |day|
                   %li
                     =t day
-        .advertisements      
-          - offer.advertisement_days.each do |ad_days|
-            = l ad_days.published_on
+      .ad_days
+        - offer.advertisement_days.each do |ad_days|
+          .ad_day{:title => t(".publish_day")}
+            %span
+              = l ad_days.published_on
       .actions        
         - if offer.can_delete?(current_user)
           .action

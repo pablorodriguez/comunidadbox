@@ -1,4 +1,5 @@
-class ServiceOffersController < ApplicationController
+class ServiceOffersController < ApplicationController    
+  skip_before_filter :authenticate_user!,:only =>:show_ad
   authorize_resource  
   
 
@@ -16,6 +17,10 @@ class ServiceOffersController < ApplicationController
     respond_to do |format|
       format.html      
     end
+  end
+
+  def show_ad    
+    @service_offer = ServiceOffer.find(params[:id])    
   end
 
   def show

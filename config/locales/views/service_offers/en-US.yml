@@ -29,8 +29,10 @@ en-US:
       confirmed: "Confirmed"
       new_service_offer: "New Service Offer"
     service_offers:
+      publish_day: Publish On
       cars: "Cars:"
-      cost: "Cost:"
-      discount: "Discount:"
+      price: "Price"
+      final_price: Final Price
+      discount: "Discount"
       valid: "Valid"
       days: "Days"
