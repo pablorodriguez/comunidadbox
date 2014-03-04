@@ -129,7 +129,7 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def self.advertisements_for_day day
-    ServiceOffer.includes("advertisement_days").where("advertisement_days.published_on = ?",day)
+    ServiceOffer.confirmed.includes("advertisement_days").where("advertisement_days.published_on = ?",day)
   end
 
   def self.weeks_to_json(date= Date.today)

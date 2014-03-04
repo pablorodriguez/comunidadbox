@@ -13,10 +13,6 @@
           - if multiple_company?
             .company_name        
               = offer.company.name
-          -if (((company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)) && (offer.cars.size > 0))
-            .cars              
-              =t(".cars")
-              = offer.cars.size
         .price_detail
           .price              
             =t(".price")
@@ -54,10 +50,15 @@
       .actions        
         - if offer.can_delete?(current_user)
           .action
-            = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
+            = link_to image_tag('delete.png'), offer, :confirm => t(".service_offer_delete_confirm_msg"), :method => :delete,:title=> t("delete")
         - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
           .action
-            = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
+            = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title => t("edit")
+      -if (((company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)) && (offer.cars.size > 0))
+        .cars              
+          =t(".cars")
+          \:
+          = offer.cars.size
   #paginator_wo
     = will_paginate @offers
 - if current_user.is_super_admin?

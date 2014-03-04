@@ -2271,9 +2271,6 @@ select.operator{
 }
 
 .cars{
-  background: none repeat scroll 0 0 #F9F7CF;
-  overflow: auto;
-  padding-top: 3px;
 }
 
 .cars a{

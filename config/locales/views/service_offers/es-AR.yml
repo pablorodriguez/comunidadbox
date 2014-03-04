@@ -36,3 +36,4 @@ es-AR:
       discount: "Descuento"
       valid: "Válido"
       days: "Días"
+      service_offer_delete_confirm_msg: '¿ Está seguro que desea borrar la Oferta de Servicio?'

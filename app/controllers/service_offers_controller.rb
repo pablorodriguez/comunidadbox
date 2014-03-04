@@ -36,7 +36,7 @@ class ServiceOffersController < ApplicationController
     @offer = ServiceOffer.new
     #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id
 
-    @offer.build_advertisement
+    @offer.build_advertisement unless @offer.car_service_offers
     #@offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
     #@offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
@@ -115,7 +115,7 @@ class ServiceOffersController < ApplicationController
   def edit
     @title ="Editar Oferta de Servicio"
     @offer = ServiceOffer.find(params[:id])
-    @offer.build_advertisement if @offer.advertisement.nil?
+    @offer.build_advertisement if @offer.advertisement.nil? && @offer.car_service_offers.empty?
     @cars = @offer.car_service_offers
     if @offer.status != Status::OPEN
       flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"
