@@ -36,4 +36,14 @@ es-AR:
       discount: "Descuento"
       valid: "Válido"
       days: "Días"
-      service_offer_delete_confirm_msg: '¿ Está seguro que desea borrar la Oferta de Servicio?'
+      service_offer_delete_confirm_msg: '¿ Está seguro que desea borrar la Oferta de Servicio?'  
+    service_offer:
+      title: Titulo
+      days: "Días"
+      valid: "Valido"
+      all: "Todos"
+      service_types: "Tipos de Servicios"
+      price: "Precio"
+      final_price: Precio Final
+    show:
+      advertisement: Publicidad

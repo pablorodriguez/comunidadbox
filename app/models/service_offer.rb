@@ -23,6 +23,14 @@ class ServiceOffer < ActiveRecord::Base
   scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offers)}
   validate :validate_service_types
 
+  after_initialize :custom_init
+
+  def custom_init
+    if car_service_offers.empty?
+      build_advertisement       
+    end
+  end
+
 
   def validate_service_types
     errors.add(:service_types, "debe tener al menos un tipo de servicio") if offer_service_types.length == 0
@@ -220,6 +228,7 @@ class ServiceOffer < ActiveRecord::Base
               json.array! ads do |index|              
                 if days_with_ad[day.to_s]
                   temp = days_with_ad[day.to_s].values[index-1]                
+                  debugger
                   json.other_add true if (temp && (temp.advertisement.service_offer.id != self.id))
                   if (temp && (temp.advertisement.service_offer.id == self.id))
                     json.my_ad true 

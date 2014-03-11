@@ -97,3 +97,6 @@ en-US:
       errors_prohibited_singular: The following error occurred
   new_car: "New Car"
   service_offer: Service Offer
+  show_ad_title: "Title"
+  show_ad_name: Name
+  comment: Comment

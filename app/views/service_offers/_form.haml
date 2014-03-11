@@ -24,10 +24,10 @@
                   %input.input_short{:type => "text","ng-model" =>"offer_service_type.id",:placeholder =>"id",:name =>"service_offer[offer_service_types_attributes][{{$index}}][id]"}
                   %input.input_short{:type => "text","ng-model" =>"offer_service_type.service_type_id",:placeholder =>"id",:name =>"service_offer[offer_service_types_attributes][{{$index}}][service_type_id]"}
                   %input.input_short{:type => "text","ng-model" => "offer_service_type.destroy",:placeholder => "destroy", :name => "service_offer[offer_service_types_attributes][{{$index}}][_destroy]"}
-                .offer_service_type
-                  %label
+                .offer_service_type.w
+                  %span
                     {{offer_service_type.name}}
-                  .action
+                  %span
                     .link.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(offer_service_type,$index)"}
       %h3
         = t(".information")
@@ -167,10 +167,7 @@
               %td{"ng-repeat" => "day in week","ng-class" => "{today: day.today,notmonth: day.notmonth,has_ad: day.has_ad,can_no_ad_add: day.can_no_ad_add,can_ad_add: !day.can_no_ad_add}","ng-click" =>"add_day(day)"}
                 .ad_day
                   {{day.day}}                  
-                .ad{"ng-repeat" =>"ad in day.ads","ng-class" => "{my_ad: ad.my_ad,no_ad: !ad.has_ad,other_ad: ad.other_add}"}                  
-
-      #calendar.hide
-        //= render "calendar"create
+                .ad{"ng-repeat" =>"ad in day.ads","ng-class" => "{my_ad: ad.my_ad,no_ad: !ad.has_ad,other_ad: ad.other_add}"}
       .buttons_container
         = f.submit t("save"),:class=>"button"
         = link_to 'Cancelar', service_offers_path

@@ -20,7 +20,21 @@ class ServiceOffersController < ApplicationController
   end
 
   def show_ad    
-    @service_offer = ServiceOffer.find(params[:id])    
+    @service_offer = ServiceOffer.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf {
+          prawnto :prawn => {
+            :page_size => 'A4',
+            :left_margin => 20,
+            :right_margin => 20,
+            :top_margin => 15,
+            :bottom_margin => 15},            
+            :filename=>"advertisement_#{@service_offer.id}.pdf"
+        
+        render :layout => false
+        }       
+    end  
   end
 
   def show
@@ -34,9 +48,8 @@ class ServiceOffersController < ApplicationController
 
   def new    
     @offer = ServiceOffer.new
-    #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id
-
-    @offer.build_advertisement unless @offer.car_service_offers
+    #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id    
+    
     #@offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
     #@offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
@@ -112,10 +125,9 @@ class ServiceOffersController < ApplicationController
     end
   end
 
-  def edit
-    @title ="Editar Oferta de Servicio"
+  def edit    
     @offer = ServiceOffer.find(params[:id])
-    @offer.build_advertisement if @offer.advertisement.nil? && @offer.car_service_offers.empty?
+  
     @cars = @offer.car_service_offers
     if @offer.status != Status::OPEN
       flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"

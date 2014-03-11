@@ -37,3 +37,13 @@ en-US:
       valid: "Valid"
       days: "Days"
       service_offer_delete_confirm_msg: ' Are you sure you want to delete this Serivice Offer?'
+    service_offer:
+      title: Title
+      days: "Days"
+      valid: "Vald"
+      all: "All"
+      service_types: "Service Types"
+      price: "Price"
+      final_price: Final Price
+    show:
+      advertisement: Advertisement
