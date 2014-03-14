@@ -10,9 +10,7 @@
               = f.fields_for :service_type do |st_form|
                 %label.header_text_lable
                   = st_form.object.native_name
-          .budget_service
-            = f.hidden_field :_destroy            
-            -#= link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})
+          .budget_service                        
             = link_to "","#",{:class =>"new_material new",:title=>"Agregar nuevo material"}         
             .hide
               = f.text_area :comment, :rows => 3,:cols=>"28",:class=>"comment"

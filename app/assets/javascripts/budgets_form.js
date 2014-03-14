@@ -201,13 +201,9 @@ function remove_fields_budget(){
 
     if (association=="services"){
         //$(link).prev("input[type=hidden]").attr("value", '1');
-        var trs = $(link).parent().parent().parent().parent().parent().find("tbody tr");
-        trs.each(function(){
-          var tr = $(this);
-          tr.find("a").prev().attr("value", '1');
-          tr.hide();
-        });
-        $(link).parent().parent().parent().parent().parent().parent().hide();
+        var trs = $(link).parent().parent().parent().parent().parent().find("thead tr");
+        trs.find("a").prev().attr("value", '1');
+        trs.hide();        
     }else{
         $(link).prev("input[type=hidden]").attr("value", '1');
         $(link).parent().parent().hide()

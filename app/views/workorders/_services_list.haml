@@ -6,12 +6,10 @@
     = wo_form.hidden_field :company_info
     #wo-actions.box_bottom
       = icon_status @work_order.status                                
-      = wo_form.text_field :performed,:class =>"date_time",:value => l(@work_order.performed),:title=>t(".completed"),:placeholder=> t(".completed")
+      = wo_form.text_field :performed,:class =>"date input_date_time",:value => l(@work_order.performed),:title=>t(".completed"),:placeholder=> t(".completed")
       - if current_user.company
         = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>t(".delivery_time"),:placeholder => t(".delivery_time")
-      
-      - if @work_order.deliver && current_user.company
-        = wo_form.text_field :deliver_actual,:class =>"date_time input_date_time",:value => (@work_order.deliver_actual ? l(@work_order.deliver_actual) : ""),:title=>t(".delivered"),:placeholder => t(".delivered")
+            
       - if current_user.is_employee?
         = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.native_name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
       - else
