@@ -12,7 +12,10 @@ class Status
   PENDING = 10
   REJECTED = 11
   APPROVED = 12
-  
+  WAITING = 13
+  RUNNING = 14
+  DONE = 15
+
   WO_STATUS = {
     OPEN=> I18n.t("open"),IN_PROCESS=>I18n.t('in_process'),FINISHED=>I18n.t('finished')
     }
@@ -31,6 +34,9 @@ class Status
       CANCELLED => 'Cancelado'
   }
 
+  EX_STATUS = {
+    WAITING =>"En espera",RUNNING=>'Corriendo',DONE=>'Terminado'
+  }
   
 
   STATUS_IDS ={
@@ -41,7 +47,7 @@ class Status
     OPEN=>I18n.t("open"),IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
     FINISHED=>'Terminado',COMPLETED=>'Completado',ACTIVE =>'Activo',
     CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>I18n.t("sent"),PENDING=>'Pendiente',
-    REJECTED =>'Rechazado',APPROVED =>"Aprobado"
+    REJECTED =>'Rechazado',APPROVED =>"Aprobado",WAITING =>'Esperando',RUNNING=>'Corriendo',DONE=>'Terminado'
     }
   
   ALARMS_STATUS ={

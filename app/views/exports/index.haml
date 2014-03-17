@@ -1,0 +1,25 @@
+.vertical_menu
+	=render "admin/menu"
+	.menu_actions.box_bottom
+		%ul
+			%li
+				= link_to (t".export_data"), new_export_path
+					
+.contentright_s
+	.box_bottom
+		%h1= t '.file_list'
+		-if @export.present?
+			%strong= (t '.status') + ': ' + Status::EX_STATUS[@export.status]
+	%table#sort_table.comboxtable
+		%thead
+			%tr
+				%th= t'.file_name'
+				%th= t'.download'
+		- if @export.present?
+			- for item in @export.export_items 
+				%tbody
+					%tr
+						%td
+							= item.data_type
+						%td
+							= link_to (t'download'), '#'

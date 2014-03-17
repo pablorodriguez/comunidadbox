@@ -387,16 +387,22 @@ class Workorder < ActiveRecord::Base
     end
     data_str.chop
   end
+  
 
-  def to_csv(options = {})
-    CSV.generate(options) do |csv|
+  def self.to_csv(filePath, company_id)
+    filters_params = {}
+    filters_params[:company_id] = company_id    
+    wos = find_by_params(filters_params)
+
+    CSV.open(filePath, "w+") do |csv|
       csv << column_names
-      all.each do |workorder|
-        csv << workorder.attributes.values_at(*column_names)
-      end
+      wos.each do |wo|
+        csv << wo.attributes.values_at(*column_names)
+      end    
     end
   end
-  
+
+
   def self.group_by_service_type(params,price=true)
     wo = self.find_by_params(params)
     wo = wo.group("services.service_type_id")    

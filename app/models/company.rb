@@ -18,6 +18,8 @@ class Company < ActiveRecord::Base
   has_many :service_offers
   has_many :service_type_templates
 
+  has_one :export
+
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
 

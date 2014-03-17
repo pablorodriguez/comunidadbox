@@ -318,6 +318,8 @@ ComunidadBox::Application.routes.draw do
       end
     end
 
+    resources :exports
+    
     root :to => "home#index"
         
   end

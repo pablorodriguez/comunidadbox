@@ -1,0 +1,8 @@
+es-AR:
+  exports:
+    index:
+      export_data: "Generar CSV's"
+      file_list: 'Lista de Archivos'
+      file_name: 'Nombre del Archivo'
+      download: 'Descargar'
+      status: 'Estado'

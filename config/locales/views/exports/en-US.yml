@@ -1,0 +1,8 @@
+en-US:
+  exports:
+    index:
+      export_data: "Create CSV's"
+      file_list: 'File List'
+      file_name: 'File Name'
+      download: 'Download'
+      status: 'Status'

@@ -83,7 +83,8 @@ class WorkordersController < ApplicationController
     respond_to do |format|
       format.html
       format.js { render :layout => false}
-      format.csv { render text: "@work_orders.to_csv"}
+   #   format.csv { render text: @workorders.to_csv}
+   #   format.json {render text: @workorders.to_json}
     end
   end
 

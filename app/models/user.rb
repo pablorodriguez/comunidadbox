@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :material_requests
 
+  has_one :export
+  
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of :first_name, :last_name
   #validates_presence_of :cars, :on => :create
