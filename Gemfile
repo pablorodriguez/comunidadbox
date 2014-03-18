@@ -87,7 +87,7 @@ gem "simple_form"
 # gem 'ruby-debug19'
 gem 'debugger', group: [:development,:test]
 
-
+gem 'enumerize'
 
 # Bundle the extra gems:
 # gem 'bj'

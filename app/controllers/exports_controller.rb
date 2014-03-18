@@ -14,9 +14,6 @@ class ExportsController < ApplicationController
 #		Workorder.to_csv(my_file_path + "workorders.csv", 12)
 	end
 
-	def show
-	end
-
 	def new
 		export = current_user.export
 		export.destroy if export.present?
@@ -26,5 +23,45 @@ class ExportsController < ApplicationController
 		export.save
 
 		redirect_to exports_path
+	end
+
+	def download
+		file = ExportItem.get_file(params['id'])
+		if file.present?
+			respond_to do |format|
+      	format.html { send_file file}
+  	  end
+		else
+			flash[:alert] = t("file_not_found")
+   		redirect_to exports_path
+		end
+	end
+
+	def run
+		export = current_user.export
+		puts 'cambiando estado a Running'
+		export.status = Status::RUNNING
+		export.save
+		puts 'guardado estado = running'
+
+		puts 'generando archivos csv'
+		export.run_export
+		puts 'archivos csv generados'
+
+
+		puts 'cambiando estado a Running'
+    export.status = Status::DONE
+		export.save
+		puts 'guardado estado = running'
+
+
+		redirect_to exports_path
+#		@export.export_items.each |item| do
+#			if item.workorders?
+#				Workorder.to_csv(item.file_path + item.file_name, @export.company.id)
+#			elsif item.customers?
+#			elsif item.budgets?
+#			end
+#		end
 	end
 end

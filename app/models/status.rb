@@ -35,7 +35,7 @@ class Status
   }
 
   EX_STATUS = {
-    WAITING =>"En espera",RUNNING=>'Corriendo',DONE=>'Terminado'
+    WAITING =>"En espera",RUNNING=>'Generando los archivos..',DONE=>'Terminado'
   }
   
 
@@ -47,7 +47,7 @@ class Status
     OPEN=>I18n.t("open"),IN_PROCESS=>'En Proceso',CANCELLED=>'Cancelado',
     FINISHED=>'Terminado',COMPLETED=>'Completado',ACTIVE =>'Activo',
     CONFIRMED =>'Confirmado',PERFORMED =>'Realizado',SENT =>I18n.t("sent"),PENDING=>'Pendiente',
-    REJECTED =>'Rechazado',APPROVED =>"Aprobado",WAITING =>'Esperando',RUNNING=>'Corriendo',DONE=>'Terminado'
+    REJECTED =>'Rechazado',APPROVED =>"Aprobado"
     }
   
   ALARMS_STATUS ={

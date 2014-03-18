@@ -394,14 +394,42 @@ class Workorder < ActiveRecord::Base
     filters_params[:company_id] = company_id    
     wos = find_by_params(filters_params)
 
-    CSV.open(filePath, "w+") do |csv|
-      csv << column_names
+    CSV.open(filePath, "w+",{:col_sep => "|"}) do |csv|
+      csv << csv_column_names
+
       wos.each do |wo|
-        csv << wo.attributes.values_at(*column_names)
+        
+        wo_values = csv_workorder_row_values(wo)
+        
+        wo.services.each do |service|
+          wo_service_values = wo_values.clone
+          wo_service_values << service.service_type.native_name
+          
+          service.material_services.each do |mat_service|
+            row = wo_service_values.clone
+            row << mat_service.material_detail
+            row << mat_service.amount
+            row << mat_service.price
+            csv << row
+          end
+
+        end
       end    
+
     end
   end
 
+  def self.csv_column_names
+    puts '.'
+    ["id","company","car","car_kms","customer","performed","comment","status","payment_method","budget_id","deliver","created_at","updated_at","service","material","material_amount","material_price"]
+  end
+
+  def self.csv_workorder_row_values(wo)
+    print '.'
+#               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
+    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.native_name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
+
+  end
 
   def self.group_by_service_type(params,price=true)
     wo = self.find_by_params(params)

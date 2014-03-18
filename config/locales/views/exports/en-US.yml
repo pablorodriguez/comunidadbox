@@ -3,6 +3,9 @@ en-US:
     index:
       export_data: "Create CSV's"
       file_list: 'File List'
-      file_name: 'File Name'
+      data_type: 'Data Type'
       download: 'Download'
       status: 'Status'
+      workorders: 'Workorders'
+      customers: 'Customers'
+      budgets: 'Budgets'

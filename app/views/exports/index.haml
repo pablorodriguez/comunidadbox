@@ -13,13 +13,13 @@
 	%table#sort_table.comboxtable
 		%thead
 			%tr
-				%th= t'.file_name'
+				%th= t'.data_type'
 				%th= t'.download'
 		- if @export.present?
 			- for item in @export.export_items 
 				%tbody
 					%tr
+						%td= t("." + item.data_type.to_s)
 						%td
-							= item.data_type
-						%td
-							= link_to (t'download'), '#'
+							-if @export.status == Status::DONE
+								= link_to (t'.download'), download_export_path(item)

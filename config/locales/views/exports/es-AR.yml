@@ -3,6 +3,9 @@ es-AR:
     index:
       export_data: "Generar CSV's"
       file_list: 'Lista de Archivos'
-      file_name: 'Nombre del Archivo'
+      data_type: 'Datos'
       download: 'Descargar'
       status: 'Estado'
+      workorders: 'Servicios Realizados'
+      customers: 'Clientes'
+      budgets: 'Presupuestos'
