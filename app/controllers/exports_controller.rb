@@ -10,7 +10,10 @@ class ExportsController < ApplicationController
 	def new		
 		export = Export.create_for_user current_user
 		#Correr el export en el controller
-		export.run_export	
+		#export.run_export	
+
+		#Esto si queres que el export lo corra en background, tenes que tener a REDIS up y RESQUE
+		Resque.enqueue ExportJob,export.id
 		redirect_to exports_path
 	end
 

@@ -142,7 +142,7 @@ class Budget < ActiveRecord::Base
   def self.to_csv(filePath, company_id)
     filters_params = {}
     filters_params[:company_id] = company_id    
-    budgets = find_by_params(filters_params).paginate(:page =>1,:per_page =>30)
+    budgets = find_by_params(filters_params).limit(30)
 
 
     CSV.open(filePath, "w+",{:col_sep => ","}) do |csv|

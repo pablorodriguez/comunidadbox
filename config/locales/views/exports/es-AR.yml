@@ -9,3 +9,5 @@ es-AR:
       workorders: 'Servicios Realizados'
       customers: 'Clientes'
       budgets: 'Presupuestos'
+      generated: Generado
+      user: Usuario

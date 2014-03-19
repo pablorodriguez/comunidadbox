@@ -9,3 +9,5 @@ en-US:
       workorders: 'Workorders'
       customers: 'Customers'
       budgets: 'Budgets'
+      generated: generated
+      user: User

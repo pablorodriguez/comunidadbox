@@ -392,7 +392,7 @@ class Workorder < ActiveRecord::Base
   def self.to_csv(filePath, company_id)
     filters_params = {}
     filters_params[:company_id] = company_id    
-    wos = find_by_params(filters_params).paginate(:page =>1,:per_page =>30)
+    wos = find_by_params(filters_params).limit(30)
 
     CSV.open(filePath, "w+",{:col_sep => ","}) do |csv| #, :force_quotes => true
       csv << csv_column_names

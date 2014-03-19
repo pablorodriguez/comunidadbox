@@ -15,6 +15,8 @@
 			%tr
 				%th= t'.data_type'
 				%th= t'.download'
+				%th= t'.generated'
+				%th= t'.user'
 		- if @export.present?
 			- for item in @export.export_items 
 				%tbody
@@ -23,3 +25,7 @@
 						%td
 							-if @export.status == Status::DONE
 								= link_to (t'.download'), download_export_path(item)
+						%td
+							= l @export.created_at,:format =>:short
+						%td
+							= @export.user.full_name

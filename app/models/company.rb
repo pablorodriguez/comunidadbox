@@ -172,7 +172,7 @@ class Company < ActiveRecord::Base
 
   def self.clients_to_csv(filePath, company_id)
     params = {}
-    clients = self.clients([company_id],params).paginate(:page =>1,:per_page =>30)
+    clients = self.clients([company_id],params).limit(30)
 
     CSV.open(filePath, "w+",{:col_sep => ","}) do |csv|
       csv << ['id', 'first_name','last_name','email','company_name','cuit', 'phone','created_at','updated_at','car_domain','car_brand','car_model','car_year','car_fuel','car_km']
