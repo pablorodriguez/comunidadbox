@@ -5,13 +5,15 @@ class Export < ActiveRecord::Base
   belongs_to :company
   has_many :export_items, :dependent => :destroy 
   
-  attr_accessible :status
+  attr_accessible :status,:user,:company
 
   before_create :initial_status
 
   #after_update :run_export 
 
   def run_export
+    update_attribute(:status,Status::RUNNING)
+    
     self.export_items.each do |item| 
       if item.workorders?
         Workorder.to_csv(item.file_path + item.file_name, self.company.id)
@@ -21,9 +23,13 @@ class Export < ActiveRecord::Base
         Budget.to_csv(item.file_path + item.file_name, self.company.id)
       end
     end
-    
+    update_attribute(:status,Status::DONE)        
   end  
 
+  def self.create_for_user user    
+    user.export.destroy if user.export.present?
+    Export.create(:user => user,:company => user.company_active)
+  end
 
   private
   def initial_status

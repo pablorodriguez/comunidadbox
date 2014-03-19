@@ -7,14 +7,10 @@ class ExportsController < ApplicationController
 		@export = current_user.export
 	end
 
-	def new
-		export = current_user.export
-		export.destroy if export.present?
-		export = Export.new
-		export.user = current_user
-		export.company = current_user.company_active
-		export.save
-
+	def new		
+		export = Export.create_for_user current_user
+		#Correr el export en el controller
+		export.run_export	
 		redirect_to exports_path
 	end
 
@@ -31,22 +27,14 @@ class ExportsController < ApplicationController
 	end
 
 	def run
-		export = current_user.export
-		puts 'cambiando estado a Running'
-		export.status = Status::RUNNING
-		export.save
-		puts 'guardado estado = running'
+		export = current_user.export		
+		logger.debug 'generando archivos csv'
 
-		puts 'generando archivos csv'
-		export.run_export
-		puts 'archivos csv generados'
+		#Correr el export en el controller
+		export.run_export		
 
-
-		puts 'cambiando estado a Done'
-    export.status = Status::DONE
-		export.save
-		puts 'guardado estado = Done'
-
+		#Esto si queres que el export lo corra en background, tenes que tener a REDIS up y RESQUE
+		#Resque.enqueue ExportJob,export.id
 		redirect_to exports_path
 	end
 end
