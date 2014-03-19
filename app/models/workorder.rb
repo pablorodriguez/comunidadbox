@@ -392,9 +392,9 @@ class Workorder < ActiveRecord::Base
   def self.to_csv(filePath, company_id)
     filters_params = {}
     filters_params[:company_id] = company_id    
-    wos = find_by_params(filters_params)
+    wos = find_by_params(filters_params).paginate(:page =>1,:per_page =>30)
 
-    CSV.open(filePath, "w+",{:col_sep => "|"}) do |csv|
+    CSV.open(filePath, "w+",{:col_sep => ","}) do |csv| #, :force_quotes => true
       csv << csv_column_names
 
       wos.each do |wo|
@@ -402,14 +402,10 @@ class Workorder < ActiveRecord::Base
         wo_values = csv_workorder_row_values(wo)
         
         wo.services.each do |service|
-          wo_service_values = wo_values.clone
-          wo_service_values << service.service_type.native_name
+          wo_service_values = wo_values.clone + [service.service_type.native_name]
           
           service.material_services.each do |mat_service|
-            row = wo_service_values.clone
-            row << mat_service.material_detail
-            row << mat_service.amount
-            row << mat_service.price
+            row = wo_service_values.clone + [mat_service.material_detail, mat_service.amount, mat_service.price]
             csv << row
           end
 
@@ -420,7 +416,6 @@ class Workorder < ActiveRecord::Base
   end
 
   def self.csv_column_names
-    puts '.'
     ["id","company","car","car_kms","customer","performed","comment","status","payment_method","budget_id","deliver","created_at","updated_at","service","material","material_amount","material_price"]
   end
 
@@ -428,7 +423,6 @@ class Workorder < ActiveRecord::Base
     print '.'
 #               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
     wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.native_name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
-
   end
 
   def self.group_by_service_type(params,price=true)

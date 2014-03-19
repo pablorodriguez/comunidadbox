@@ -152,7 +152,7 @@ class ClientsController < ApplicationController
   def index    
     page = params[:page] || 1
     @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
-  
+
     respond_to do |format|
       format.html
       format.js { render :layout => false}

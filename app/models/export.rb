@@ -16,7 +16,9 @@ class Export < ActiveRecord::Base
       if item.workorders?
         Workorder.to_csv(item.file_path + item.file_name, self.company.id)
       elsif item.customers?
+        Company.clients_to_csv(item.file_path + item.file_name, self.company.id)
       elsif item.budgets?
+        Budget.to_csv(item.file_path + item.file_name, self.company.id)
       end
     end
     

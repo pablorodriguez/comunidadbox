@@ -170,5 +170,32 @@ class Company < ActiveRecord::Base
     service_type.select{|stype| stype.id == st.id}.size > 0
   end
 
+  def self.clients_to_csv(filePath, company_id)
+    params = {}
+    clients = self.clients([company_id],params).paginate(:page =>1,:per_page =>30)
+
+    CSV.open(filePath, "w+",{:col_sep => ","}) do |csv|
+      csv << ['id', 'first_name','last_name','email','company_name','cuit', 'phone','created_at','updated_at','car_domain','car_brand','car_model','car_year','car_fuel','car_km']
+    
+      clients.each do |client|
+        print '.'
+
+        user_row = [client.id, client.first_name, client.last_name, client.email, client.company_name, client.cuit, client.phone, client.created_at, client.updated_at]
+        
+        if client.cars.blank?
+          csv << user_row
+        else
+          client.cars.each do |car|
+            row = user_row.clone
+            row = row + [car.domain, car.brand.name, car.model.name, car.year, car.fuel, car.km]
+            csv << row
+          end
+        end
+      end
+      puts '.'
+
+    end
+
+  end
 end
 

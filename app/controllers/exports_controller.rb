@@ -5,13 +5,6 @@ class ExportsController < ApplicationController
 
 	def index
 		@export = current_user.export
-#		root_export_directory = Rails.root.to_s + '/export/'
-#		my_file_path = root_export_directory + '/12/'
-#
-#		unless File.exist?(File.dirname(my_file_path))
-#			FileUtils.mkdir_p(File.dirname(my_file_path))
-#		end
-#		Workorder.to_csv(my_file_path + "workorders.csv", 12)
 	end
 
 	def new
@@ -49,19 +42,11 @@ class ExportsController < ApplicationController
 		puts 'archivos csv generados'
 
 
-		puts 'cambiando estado a Running'
+		puts 'cambiando estado a Done'
     export.status = Status::DONE
 		export.save
-		puts 'guardado estado = running'
-
+		puts 'guardado estado = Done'
 
 		redirect_to exports_path
-#		@export.export_items.each |item| do
-#			if item.workorders?
-#				Workorder.to_csv(item.file_path + item.file_name, @export.company.id)
-#			elsif item.customers?
-#			elsif item.budgets?
-#			end
-#		end
 	end
 end

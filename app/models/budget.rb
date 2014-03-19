@@ -139,4 +139,69 @@ class Budget < ActiveRecord::Base
     return true
   end
 
+  def self.to_csv(filePath, company_id)
+    filters_params = {}
+    filters_params[:company_id] = company_id    
+    budgets = find_by_params(filters_params).paginate(:page =>1,:per_page =>30)
+
+
+    CSV.open(filePath, "w+",{:col_sep => ","}) do |csv|
+      csv << csv_column_names
+
+      budgets.each do |budget|
+        
+        bg_values = csv_budget_row_values(budget)
+        
+        budget.services.each do |service|
+          bg_service_values = bg_values.clone + [service.service_type.native_name]
+          
+          service.material_services.each do |mat_service|
+            row = bg_service_values.clone + [mat_service.material_detail, mat_service.amount, mat_service.price] 
+            csv << row
+          end
+
+        end
+      end    
+    end
+  end
+
+  def self.csv_column_names
+    ["id","company","customer","customer_phone","customer_email","car_domain","car_brand","car_model","comment","created_at","updated_at","service","material","material_amount","material_price"]
+  end
+
+  def self.csv_budget_row_values(budget)
+    print '.'
+    bg_values = []
+    bg_values << budget.id
+    bg_values << budget.company.name
+    bg_values << budget.full_name 
+    
+    if budget.user.present?
+      bg_values << budget.user.phone
+      bg_values << budget.user.email
+    elsif budget.car.present?
+      bg_values << budget.car.user.phone
+      bg_values << budget.car.user.email
+    else
+      bg_values << budget.phone
+      bg_values << budget.email
+    end      
+      
+
+    if budget.car.present?
+      bg_values << budget.car.domain
+      bg_values << budget.car.brand.name
+      bg_values << budget.car.model.name
+    else
+      bg_values << budget.domain
+      bg_values << budget.brand_name
+      bg_values << budget.model_name
+    end       
+
+    bg_values << budget.comment
+    bg_values << budget.created_at
+    bg_values << budget.updated_at
+
+  end
+
 end
