@@ -126,6 +126,7 @@ class Ability
       can :manage, PriceList
       can :manage, :employee
       can :manage, ServiceFilter      
+      can :manage, Export
     end
 
     can :read,ServiceOffer do |s|

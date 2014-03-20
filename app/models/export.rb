@@ -31,9 +31,22 @@ class Export < ActiveRecord::Base
     Export.create(:user => user,:company => user.company_active)
   end
 
+  def self.can_download?(user, export_item_id)
+    return false if user.export.blank?
+
+    #la siguiente linea no se por que no funciona
+    #user.export.export_item_ids.include? export_item_id
+    
+    #esta si funciona :S
+    ExportItem.includes(:export => :user).where("users.id = ? and export_items.id=?",user.id,export_item_id).present?
+
+  end
+
   private
   def initial_status
   	export_root = Rails.root.to_s + '/export/' + self.company.id.to_s + "/"
+
+    FileUtils.mkdir_p(File.dirname(export_root + "/files")) unless File.exist?(File.dirname(export_root + "/files"))
 
   	self.status = Status::WAITING
 

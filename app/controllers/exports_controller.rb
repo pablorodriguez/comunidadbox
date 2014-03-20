@@ -9,6 +9,7 @@ class ExportsController < ApplicationController
 
 	def new		
 		export = Export.create_for_user current_user
+		
 		#Correr el export en el controller
 		#export.run_export	
 
@@ -18,6 +19,15 @@ class ExportsController < ApplicationController
 	end
 
 	def download
+
+		#esto de alguna forma deberia estar en abilities?----
+		if !Export.can_download? current_user, params['id']
+			flash[:alert] = t("Error")
+			redirect_to exports_path
+			return
+		end
+		#----------------------------
+
 		file = ExportItem.get_file(params['id'])
 		if file.present?
 			respond_to do |format|
