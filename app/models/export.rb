@@ -9,7 +9,7 @@ class Export < ActiveRecord::Base
 
   before_create :initial_status
 
-  #after_update :run_export 
+  after_update :send_notification 
 
   def run_export
     update_attribute(:status,Status::RUNNING)
@@ -36,7 +36,7 @@ class Export < ActiveRecord::Base
 
     #la siguiente linea no se por que no funciona
     #user.export.export_item_ids.include? export_item_id
-    
+
     #esta si funciona :S
     ExportItem.includes(:export => :user).where("users.id = ? and export_items.id=?",user.id,export_item_id).present?
 
@@ -64,4 +64,18 @@ class Export < ActiveRecord::Base
     export_item    
   end
 
+  def send_notification
+    
+    # el metodo is_done? me devuelve false.. aunque el estado sea DONE
+
+    if self.status == Status::DONE
+      logger.info "### envio mail de notificacion de archivos csv's generados"    
+      
+      #corre en backgound
+      Resque.enqueue ExportNotifierJob,self.id
+      
+      #Corre sin encolar
+      #ExportNotifier.notify(self).deliver 
+    end
+  end
 end

@@ -1,0 +1,15 @@
+#mail-content
+	%h3{:style=>"margin:0px"}
+		Notificación de Archivos Generados
+
+	%p
+		Estimado #{@user.full_name},
+	%p
+		Los archivos solicitados ya se encuentran disponibles para ser descargados.
+		%br
+		Ud. puede descargarlos desde el siguiente link: 
+		= link_to 'Datos Exportados', exports_url
+	%p
+		Muchas gracias por confiar en ComunidadBox.
+
+	
