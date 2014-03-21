@@ -31,6 +31,12 @@
   =f.fields_for :companies do |c|
     #company_data.hide
       = render 'companies/form', :f => c
+  #autopartist_data.hide
+    #personal_address.box_bottom
+      %h3=t(".address")
+      =f.fields_for :address do |a|
+        = render 'users/user_address_fields', :f =>a
+
 .buttons_container 
   = f.submit t(".save"),:class=>"button"
   = link_to t(".cancel"),root_path

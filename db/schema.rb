@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140317144443) do
+ActiveRecord::Schema.define(:version => 20140321154008) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -712,6 +712,7 @@ ActiveRecord::Schema.define(:version => 20140317144443) do
     t.datetime "locked_at"
     t.string   "authenticatable"
     t.string   "invitation_token"
+    t.integer  "user_type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

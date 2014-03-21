@@ -145,12 +145,18 @@ function set_link_to_function(links,func){
 
 
 function setUserType(){
-  if ($("#user_type").val() == "fu"){
+  if ($("#user_type").val() == 1){
     $("#user_data").show();
     $("#company_data").hide();
-  }else{
+    $("#autopartist_data").hide();    
+  }else if($("#user_type").val() == 2){
     $("#user_data").hide();
     $("#company_data").show();
+    $("#autopartist_data").hide();
+  }else{
+    $("#autopartist_data").show();
+    $("#user_data").hide();
+    $("#company_data").hide();    
   }
 }
 

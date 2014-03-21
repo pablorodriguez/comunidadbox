@@ -29,6 +29,9 @@ es-AR:
     registrations:
       new:
         new_user: "Nuevo Usuario"
+        car_owner: 'Usuario'
+        service_center: 'Prestador de Servicio'
+        auto_part: 'Autopartista'
       form:
         personal_info: "Información Personal"
         password: "Clave *"
