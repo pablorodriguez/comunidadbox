@@ -2925,3 +2925,7 @@ ul.tasks li{
   overflow: auto;
   margin: 0 auto;
 }
+
+.vertical_center{
+  vertical-align: middle
+}

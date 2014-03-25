@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
   has_many :material_requests
 
   has_one :export
+  has_many :price_offers
   
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of :first_name, :last_name

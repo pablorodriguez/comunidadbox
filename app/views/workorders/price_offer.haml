@@ -1,0 +1,7 @@
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .div{:id=>"wo_#{@work_order.id}"} 
+    = render "show"
+  .price_offer
+    = render "price_offer_fields"

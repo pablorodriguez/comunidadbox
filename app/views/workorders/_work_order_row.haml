@@ -16,7 +16,10 @@
               = "#{s.operator.first_name} #{s.operator.last_name}"
   .service_info.clear
     %label.wo_id{:title => t(".service_number")}
-      = link_to work_order_row.id,work_order_row
+      -if current_user.user_type.present? && current_user.user_type.auto_part?
+        = link_to work_order_row.id, price_offer_workorder_path(work_order_row)
+      -else
+        = link_to work_order_row.id,work_order_row
     %strong
       =t(".client")
     %label

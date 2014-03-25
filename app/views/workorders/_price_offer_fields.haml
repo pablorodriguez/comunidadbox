@@ -1,0 +1,5 @@
+= simple_form_for @price_offer, :method => 'post', :url => save_price_offer_workorder_path(@price_offer.workorder) do |f|
+  -if @price_offer.id.present?
+    =f.input :id, as: :hidden
+  =f.input :price
+  =f.button :submit

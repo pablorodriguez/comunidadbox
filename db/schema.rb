@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140321154008) do
+ActiveRecord::Schema.define(:version => 20140325185435) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -501,6 +501,18 @@ ActiveRecord::Schema.define(:version => 20140321154008) do
     t.datetime "updated_at"
   end
 
+  create_table "price_offers", :force => true do |t|
+    t.text     "price"
+    t.integer  "workorder_id"
+    t.integer  "user_id"
+    t.boolean  "confirmed",    :default => true
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "price_offers", ["user_id"], :name => "index_price_offers_on_user_id"
+  add_index "price_offers", ["workorder_id"], :name => "index_price_offers_on_workorder_id"
+
   create_table "ranks", :force => true do |t|
     t.integer  "type_rank"
     t.text     "comment"
@@ -816,6 +828,9 @@ ActiveRecord::Schema.define(:version => 20140321154008) do
 
   add_foreign_key "price_list_items", "material_service_types", :name => "price_list_items_ibfk_1"
   add_foreign_key "price_list_items", "price_lists", :name => "price_list_items_ibfk_2", :dependent => :delete
+
+  add_foreign_key "price_offers", "users", :name => "price_offers_user_id_fk"
+  add_foreign_key "price_offers", "workorders", :name => "price_offers_workorder_id_fk"
 
   add_foreign_key "ranks", "workorders", :name => "ranks_workorder_id_fk"
 

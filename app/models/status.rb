@@ -18,8 +18,9 @@ class Status
   OPEN_FOR_AUTOPART = 16
 
   WO_STATUS = {
-    OPEN=> I18n.t("open"),IN_PROCESS=>I18n.t('in_process'),FINISHED=>I18n.t('finished'),OPEN_FOR_AUTOPART => 'Disponible para cotizar'
+    OPEN=> I18n.t("open"),IN_PROCESS=>I18n.t('in_process'),FINISHED=>I18n.t('finished')
     }
+    #,OPEN_FOR_AUTOPART => 'Disponible para cotizar'
 
   SR_STATUS = {
     OPEN=>I18n.t("open"),CONFIRMED=>'Confirmado'

@@ -17,6 +17,8 @@ class Workorder < ActiveRecord::Base
   belongs_to :budget
   belongs_to :payment_method
   has_many :ranks
+  has_many :price_offers
+
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :payment_method
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
@@ -227,15 +229,17 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    n_status = Status::FINISHED
-    self.services.each do |s|      
-      if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
-        n_status = Status::OPEN
+    if self.status != Status::OPEN_FOR_AUTOPART
+      n_status = Status::FINISHED
+      self.services.each do |s|      
+        if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
+          n_status = Status::OPEN
+        end
       end
-    end
 
-    n_status = Status::OPEN if self.services.empty?    
-    self.status = n_status    
+      n_status = Status::OPEN if self.services.empty?    
+      self.status = n_status    
+    end
   end
   
   def finish_old?

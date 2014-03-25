@@ -58,6 +58,7 @@ es-AR:
       save: "Grabar"
       cancel: "Cancelar"      
       budget_nro: Presupuesto Nro
+      open_for_autopart: "Disponible para cotizar"
     service_fields:
       operator: "-- Operario --"
       add_comment: "Agregar Comentario"

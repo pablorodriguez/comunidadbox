@@ -152,10 +152,13 @@ ComunidadBox::Application.routes.draw do
       collection do
         get :filter
         post :task_list
+        get :autopart
       end
       member do
         get :notify
         get :print
+        get :price_offer
+        post :save_price_offer
       end    
     end
 

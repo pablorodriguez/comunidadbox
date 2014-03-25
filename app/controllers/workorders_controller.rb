@@ -16,6 +16,19 @@ class WorkordersController < ApplicationController
     
   end
 
+  def autopart
+    page = params[:page] || 1
+    per_page = 10
+
+    filters_params = {}
+    filters_params[:wo_status_id] = Status::OPEN_FOR_AUTOPART
+
+    @workorders = Workorder.find_by_params(filters_params)
+    
+    @count= @workorders.count()   
+    @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)
+  end
+
   def index
     page = params[:page] || 1
     per_page = 10
@@ -191,12 +204,16 @@ class WorkordersController < ApplicationController
     @work_order.initialize_with_car_service_offer(company_id)
     @company = @work_order.company
     
+    @work_order.status == Status::OPEN_FOR_AUTOPART ? @open_for_autopart = true : @open_for_autopart = false
   end
 
   def create
     params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]
     
     @work_order = Workorder.new(params[:workorder])
+    
+    @work_order.status = Status::OPEN_FOR_AUTOPART if params['open_for_autopart'].present?
+
     authorize! :create, @work_order    
     
     if (@work_order.company_id.nil? && @work_order.company_info.nil?)
@@ -226,6 +243,8 @@ class WorkordersController < ApplicationController
 
   def new
     @work_order = Workorder.new
+    @open_for_autopart = false
+
     company = get_company(params)    
         
     @work_order.company_info  = params[:c] if params[:c]
@@ -288,14 +307,31 @@ class WorkordersController < ApplicationController
     end
   end
 
+  def price_offer
+    @work_order = Workorder.find params[:id]
+    @price_offer = PriceOffer.find_by_user_and_workorder current_user, @work_order
+  end
+
+  def save_price_offer
+    if params['price_offer']['id'].present?
+      @price_offer = PriceOffer.find params['price_offer']['id']  
+      @price_offer.update_attributes(params['price_offer'])
+    else 
+      @price_offer = PriceOffer.new(params['price_offer'])
+      @price_offer.user = current_user
+      @price_offer.workorder = Workorder.find params[:id]
+      @price_offer.confirmed = false
+      @price_offer.save
+    end
+
+    redirect_to autopart_workorders_path
+  end
+
   private
 
   def order_by
     params[:order_by] && (not Workorder::ORDER_BY.values.select{|v| v == params[:order_by]}.empty?) ? params[:order_by] : "workorders.performed desc"
   end
-
-  
-
 
 end
 

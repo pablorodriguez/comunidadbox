@@ -1,0 +1,13 @@
+#all-workorder
+  .vertical_menu
+    =render "admin/menu"
+
+  .contentright_s
+    .box_bottom
+      - if @work_orders.size > 0
+        #workorders_c.data          
+          #workorders
+            = render 'workorders'
+      - else
+        = render 'shared/message', :msg =>"No hay ordenes para cotizar"
+
