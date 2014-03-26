@@ -1,9 +1,14 @@
 es-AR:
   activerecord:
     models:
-      workorder: "Orden de Trabajo"        
+      workorder: "Orden de Trabajo" 
+      price_offer: "Cotización"        
     attributes:
       workorder:
         deliver: "Hora de Entrega"
         services: "Servicios"
-        
+      price_offer:
+        user: "Autopartista"
+        workorder: "Orden de Trabajo"
+        price: "Cotización"
+        confirmed: "Confirmada"

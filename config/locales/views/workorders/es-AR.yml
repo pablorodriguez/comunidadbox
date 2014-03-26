@@ -6,6 +6,7 @@ es-AR:
       rank_company: "Calificar Prestador de Servicio"
     workorders:
       workorders_performed: "Servicios Realizados"
+      workorders_autopart: "Ordenes de Trabajo para Cotizar"
     index:
       client: "Cliente"
       my_car: "Mis autos"

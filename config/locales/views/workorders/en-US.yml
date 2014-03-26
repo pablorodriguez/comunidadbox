@@ -6,6 +6,7 @@ en-US:
       rank_company: "Rate Service Provider"
     workorders:
       workorders_performed: "Workorders Performed"
+      workorders_autopart: "Workorders to Price"
     index:      
       client: "Client"
       my_car: "My cars"

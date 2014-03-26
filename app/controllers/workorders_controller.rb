@@ -313,18 +313,23 @@ class WorkordersController < ApplicationController
   end
 
   def save_price_offer
+
     if params['price_offer']['id'].present?
       @price_offer = PriceOffer.find params['price_offer']['id']  
-      @price_offer.update_attributes(params['price_offer'])
+      @price_offer.assign_attributes(params['price_offer'])
     else 
       @price_offer = PriceOffer.new(params['price_offer'])
       @price_offer.user = current_user
       @price_offer.workorder = Workorder.find params[:id]
       @price_offer.confirmed = false
-      @price_offer.save
     end
 
-    redirect_to autopart_workorders_path
+    if @price_offer.save
+      redirect_to autopart_workorders_path
+    else
+      @work_order = Workorder.find params[:id]
+      render :action => 'price_offer'
+    end
   end
 
   private

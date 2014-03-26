@@ -3,7 +3,7 @@ class PriceOffer < ActiveRecord::Base
   belongs_to :user
   attr_accessible :confirmed, :price
 
-	validates_presence_of :price, :message => I18n.t(".must_enter_price")
+	validates_presence_of :price, :message => I18n.t(".errors.messages.blank")
 
   def self.find_by_user_and_workorder(user, workorder)
   	priceOffer = PriceOffer.where("user_id = ? and workorder_id = ?", user, workorder).first

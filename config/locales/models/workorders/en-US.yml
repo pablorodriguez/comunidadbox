@@ -2,8 +2,13 @@ en-US:
   activerecord:
     models:
       workorder: "Work Order"
+      price_offer: "Price Offer"
     attributes:
       workorder:
         deliver: "Deliver Time"
         services: "Services"
-        
+      price_offer:
+        user: "Auto Part"
+        workorder: "Work Order"
+        price: "Price"
+        confirmed: "Confirmed"

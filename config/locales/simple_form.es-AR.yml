@@ -1,15 +1,15 @@
-en:
+es-AR:
   simple_form:
-    "yes": 'Yes'
+    "yes": 'Si'
     "no": 'No'
     required:
-      text: 'required'
+      text: 'requerido'
       mark: '*'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message: "Por favor revise los siguientes errores:"
     # Labels and hints examples
     # labels:
     #   defaults:
@@ -25,4 +25,4 @@ en:
     #     password: 'No special characters, please.'
     placeholders:
       price_offer:
-        price: 'Please enter your price here.'
+        price: 'Por favor ingrese su cotización aquí.'
