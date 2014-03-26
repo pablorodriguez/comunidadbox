@@ -141,6 +141,13 @@ body {
   display:inline-block;
 }
 
+.autopart_price_offer{
+  background-image:url(images/budget_s.png);
+  height:16px;
+  width:16px;
+  display:inline-block;
+}
+
 .wo_note{
   overflow: auto;
   width:100%;

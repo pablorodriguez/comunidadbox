@@ -159,6 +159,8 @@ ComunidadBox::Application.routes.draw do
         get :print
         get :price_offer
         post :save_price_offer
+        get :price_offers
+        put :confirm_price_offer
       end    
     end
 

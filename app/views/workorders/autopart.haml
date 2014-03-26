@@ -7,7 +7,7 @@
       - if @work_orders.size > 0
         #workorders_c.data          
           #workorders
-            = render 'workorders'
+            = render 'autopart_workorders'
       - else
         = render 'shared/message', :msg =>"No hay ordenes para cotizar"
 

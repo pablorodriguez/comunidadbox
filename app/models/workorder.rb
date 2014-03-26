@@ -288,7 +288,7 @@ class Workorder < ActiveRecord::Base
       return true
     end
 
-    if (is_open? || is_in_progress?)
+    if (is_open? || is_in_progress? || is_open_for_autopart? )
       if company.is_employee?(usr) && user.is_employee?
         return true
       end

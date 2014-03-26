@@ -332,6 +332,19 @@ class WorkordersController < ApplicationController
     end
   end
 
+  #GET
+  def price_offers
+    @work_order = Workorder.find params[:id]    
+  end
+
+  #POST
+  def confirm_price_offer
+    puts '******************'
+    puts params.to_yaml
+    puts '******************'
+    #TODO :)
+  end
+
   private
 
   def order_by

@@ -42,7 +42,7 @@ class Status
   
 
   STATUS_IDS ={
-    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED,sent: SENT
+    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED,sent: SENT, open_for_autopart: OPEN_FOR_AUTOPART
   }
   
   STATUS = {

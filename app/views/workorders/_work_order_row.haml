@@ -55,7 +55,9 @@
       -if work_order_row.can_send_message?(current_user)
         .action        
           %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}      
-
+      -if work_order_row.is_open_for_autopart?
+        .action
+          = link_to("", price_offers_workorder_path(work_order_row),:class=>"autopart_price_offer",:title =>t(".select_price"))
 
   -##rank.rank{:id =>"wo_#{work_order_row.id}"}      
     -#= render 'ranks/view',:workorder => work_order_row

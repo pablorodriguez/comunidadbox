@@ -6,6 +6,7 @@ en-US:
       rank_company: "Rate Service Provider"
     workorders:
       workorders_performed: "Workorders Performed"
+    autopart_workorders:
       workorders_autopart: "Workorders to Price"
     index:      
       client: "Client"
@@ -46,6 +47,7 @@ en-US:
       client: "Client"
       print_form: "Print Form"
       seller: "Salesman"
+      select_price: "Seleccionar Cotización"
     services_list:
       completed: "Completed"
       delivery_time: "Delivery Time"
