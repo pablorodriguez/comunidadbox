@@ -2835,6 +2835,25 @@ input.labelHighlight,textarea.labelHighlight {
   overflow: auto;
 }
 
+.price_offer .head .selected{
+  margin: 0px 3px;
+  display: inline-block;
+  width: 5%;
+  vertical-align: top;
+}
+
+.price_offer .head .auto_part{
+  display: inline-block;
+  width: 92%;
+  vertical-align: middle;
+}
+
+.price_offer .body{
+  margin: 2px 11px;
+  width: 92%;
+  float: right;
+}
+
 .dates{
   width:69%;
 }

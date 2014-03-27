@@ -82,3 +82,9 @@ en-US:
       new_note: "New Note"
     note_fields:
       new_note: "New Note"
+    price_offers:
+      price_offers_availables: 'Prices Availables'
+      empty_price_offers_list: 'Without price offers.'
+    price_offers_fields:
+      auto_part: 'Auto Part'
+      price: 'Price'

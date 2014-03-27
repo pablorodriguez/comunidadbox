@@ -83,5 +83,10 @@ es-AR:
       new_note: "Nueva Nota"
     note_fields:
       new_note: "Nueva Nota"
-
+    price_offers:
+      price_offers_availables: 'Cotizaciones Disponibles'
+      empty_price_offers_list: 'Aun no se han recibido cotizaciones para esta orden de trabajo.'
+    price_offers_fields:
+      auto_part: 'Autopartista'
+      price: 'Cotización'
 

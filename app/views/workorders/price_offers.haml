@@ -3,12 +3,12 @@
 .contentright_s
   .div{:id=>"wo_#{@work_order.id}"} 
     = render "show"
+  %br
   .price_offers
-    %h3=t'price_offers_availables'
+    .box_bottom
+      %h3=t'.price_offers_availables'
     -if @work_order.price_offers.present?
       = render "price_offers_fields"
     -else
       %span
-        Aun no se han recibido ofertas para esta orden de trabajo.
-      .buttons_container
-        =link_to "Cancelar",autopart_workorders_path
+        =t'.empty_price_offers_list'

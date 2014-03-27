@@ -424,9 +424,14 @@ class Workorder < ActiveRecord::Base
   end
 
   def self.csv_workorder_row_values(wo)
-    print '.'
 #               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
     wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.native_name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
+  end
+
+  def confirm_price_offer(price_offer_id)
+    self.price_offers.update_all(confirmed: false)
+    price_offer = PriceOffer.find price_offer_id
+    price_offer.update_attributes(confirmed: true) if price_offer.present?
   end
 
   def self.group_by_service_type(params,price=true)

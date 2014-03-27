@@ -22,6 +22,7 @@ class WorkordersController < ApplicationController
 
     filters_params = {}
     filters_params[:wo_status_id] = Status::OPEN_FOR_AUTOPART
+    filters_params[:company_id] = current_user.company_active.id if current_user.user_type.blank? || current_user.user_type.service_center?
 
     @workorders = Workorder.find_by_params(filters_params)
     
@@ -161,6 +162,8 @@ class WorkordersController < ApplicationController
   # PUT /brands/1.xml
   def update
     @work_order = Workorder.find(params[:id])
+    @work_order.status = Status::OPEN_FOR_AUTOPART if params['open_for_autopart'].present?
+
     authorize! :update, @work_order
     if params[:workorder][:notes_attributes]
       params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" 
@@ -186,6 +189,7 @@ class WorkordersController < ApplicationController
       @car_service_offers = []
       @car_service_offers = @work_order.find_car_service_offer(company_id) if company_id
       @service_types = get_service_types
+      @work_order.is_open_for_autopart ? @open_for_autopart = true : @open_for_autopart = false 
       format.html { render :action => "edit" }
     end
 
@@ -237,6 +241,7 @@ class WorkordersController < ApplicationController
       @service_types = current_user.service_types
       @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
       #@car_service_offers = @work_order.find_car_service_offer(company_id)
+      @work_order.is_open_for_autopart ? @open_for_autopart = true : @open_for_autopart = false 
       render :action => 'new'
     end
   end
@@ -339,10 +344,11 @@ class WorkordersController < ApplicationController
 
   #POST
   def confirm_price_offer
-    puts '******************'
-    puts params.to_yaml
-    puts '******************'
-    #TODO :)
+    if params[:price_offer_selected_id].present?
+      workorder = Workorder.find params[:id]
+      workorder.confirm_price_offer(params[:price_offer_selected_id].to_i) if workorder.present?
+    end
+    redirect_to autopart_workorders_path
   end
 
   private
