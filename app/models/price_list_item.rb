@@ -11,7 +11,6 @@ class PriceListItem < ActiveRecord::Base
     PriceListItem.all :select =>"price_list_items.price_list_id,price_list_items.price,
     mst.service_type_id",:joins =>"right outer join material_service_types as mst on price_list_items.material_service_type_id = mst.id"  
   end
-  
-  
+
 end
 

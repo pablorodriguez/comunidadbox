@@ -62,8 +62,8 @@ class PriceList < ActiveRecord::Base
   
   # usar este metodo para importar lista de precios
   def self.import_price_from_file pl_id,file_name
-    #fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
-    fileName = "/home/pablo/price_files/input/#{file_name}"
+    fileName = "#{RAILS_ROOT}/public/price_files/input/#{file_name}"
+    #fileName = "/home/pablo/price_files/input/#{file_name}"
     file = File.open(fileName)
     logger.info "Importing price from #{fileName}"
     import_item_price_file(pl_id,file,file_name)

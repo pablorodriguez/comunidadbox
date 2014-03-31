@@ -42,7 +42,59 @@ class MaterialServiceType < ActiveRecord::Base
     end
   end
   
-  
+  def self.to_csv_for_update_price(plid, user)
+    #para desarrollar mas rapido.. solo traigo la pagina uno para exportar
+    msList = m(user.company_active.id, plid, [], nil, 1) if PriceList.find_by_id(plid).present?
+    
+    #sin paginar.. trae todos los items
+    #msList = m(user.company_active.id, plid, [], nil, -1) if PriceList.find_by_id(plid).present?
+
+    CSV.generate do |csv|
+      csv << ['id', 'plid', 'service', 'material code', 'material name', 'price']
+
+      if msList.present?
+        msList.each do |item| 
+          csv << [item.id, plid, I18n.t(item.name), item.code, item.material.name, item.price]
+        end
+      end
+    end
+
+  end
+
+  def self.import_to_update_price(plid, file, current_user)
+    pl = PriceList.find_by_id plid
+
+    CSV.foreach(file.path, headers: true) do |row|
+      #si la playlist no existe o es distinta a la de la que se hizo el export => no actualizo nada
+      if pl.blank? || plid.to_i != row['plid'].to_i
+        puts 'placeList incorrecta'
+        return
+      end
+
+      mst = find_by_id(row["id"].to_i)
+      item = PriceListItem.find_by_price_list_id_and_material_service_type_id(plid, row['id'])
+      if row['price'].present?
+        if item && item.price != row['price'].to_f
+          #puts '>>>>> actualizando price:' + row.to_yaml
+          item.price = row['price'].to_f
+          item.save
+        else
+          #puts '>>>>> creando priceListItem:' + row.to_yaml
+          pli = PriceListItem.new
+          pli.material_service_type = mst
+          pli.price = row['price'].to_f
+          pl.price_list_items << pli
+        end
+      else
+        if item
+          #puts '>>>>> eliminando priceListItem:' + row.to_yaml
+          item.delete
+        end
+      end
+
+    end
+  end
+
 end
 
 

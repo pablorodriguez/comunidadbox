@@ -306,6 +306,7 @@ ComunidadBox::Application.routes.draw do
         get :copy
         put :update_item_price
         put :price_upload
+        get :export
       end
 
       collection do

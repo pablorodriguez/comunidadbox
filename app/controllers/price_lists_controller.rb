@@ -140,30 +140,57 @@ class PriceListsController < ApplicationController
     @price_list = PriceList.find id
   end
   
-
   def price_upload
-    require 'fileutils'
-    id = params[:id]
-    @price_list = PriceList.find id
-    tmp = params[:price][:file].tempfile
-    file_name = params[:price][:file].original_filename
-    @result = PriceList.import_item_price_file(@price_list,tmp,file_name)
-    #file = File.join("#{RAILS_ROOT}/files/", params[:price][:file].original_filename)
-    #FileUtils.cp tmp.path, file,"Bridgestone")
-    #redirect_to items_price_list_path(PriceList.find(id))    
-    @result[:file_name] =params[:price][:file].original_filename
-    @page = 1
-    @service_type_ids = []
-    @percentage = ""
-    @material =  ""
-    company_id= get_company.id
-    @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
+
+    if params[:price][:file].present?
+      MaterialServiceType.import_to_update_price params[:id], params[:price][:file], current_user
+    else
+      flash[:alert] = t("Error")
+    end
+
+    redirect_to items_price_list_path
+
+  end
+
+#  def price_upload
+#    require 'fileutils'
+#    id = params[:id]
+#    @price_list = PriceList.find id
+#    tmp = params[:price][:file].tempfile
+#    file_name = params[:price][:file].original_filename
+#    @result = PriceList.import_item_price_file(@price_list,tmp,file_name)
+#    #file = File.join("#{RAILS_ROOT}/files/", params[:price][:file].original_filename)
+#    #FileUtils.cp tmp.path, file,"Bridgestone")
+#    #redirect_to items_price_list_path(PriceList.find(id))    
+#    @result[:file_name] =params[:price][:file].original_filename
+#    @page = 1
+#    @service_type_ids = []
+#    @percentage = ""
+#    @material =  ""
+#    company_id= get_company.id
+#    @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
+#      
+#    respond_to do |format|
+#      format.html { render :action => "items" }
+#    end
+#  end
+  
+  def export
+    csv = MaterialServiceType.to_csv_for_update_price params[:id], current_user
+
+    unless csv.empty?
+
+      respond_to do |format|
+        format.csv { send_data csv, :filename => "priceList.csv"}
+        format.html {redirect_to price_lists_path}
+      end
       
-    respond_to do |format|
-      format.html { render :action => "items" }
+    else
+      flash[:alert] = t("Error")
+      redirect_to price_lists_path
     end
   end
-  
+
   private
   
   def get_materials
@@ -214,5 +241,5 @@ class PriceListsController < ApplicationController
     percentage = 1 + (percentage.to_f / 100)
     ActiveRecord::Base.connection.execute("update price_list_items set price = price * #{percentage} where price_list_id =#{plid}")
   end
-  
+
 end
