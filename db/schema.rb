@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325185435) do
+ActiveRecord::Schema.define(:version => 20140331173414) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -199,6 +199,17 @@ ActiveRecord::Schema.define(:version => 20140325185435) do
 
   add_index "companies_users", ["company_id"], :name => "companies_users_company_id_fk"
   add_index "companies_users", ["user_id"], :name => "companies_users_user_id_fk"
+
+  create_table "company_material_codes", :force => true do |t|
+    t.string   "code"
+    t.integer  "company_id"
+    t.integer  "material_service_type_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "company_material_codes", ["company_id"], :name => "index_company_material_codes_on_company_id"
+  add_index "company_material_codes", ["material_service_type_id"], :name => "index_company_material_codes_on_material_service_type_id"
 
   create_table "company_services", :force => true do |t|
     t.integer "company_id"
@@ -781,6 +792,9 @@ ActiveRecord::Schema.define(:version => 20140325185435) do
 
   add_foreign_key "companies_users", "companies", :name => "companies_users_company_id_fk"
   add_foreign_key "companies_users", "users", :name => "companies_users_user_id_fk", :dependent => :delete
+
+  add_foreign_key "company_material_codes", "companies", :name => "company_material_codes_company_id_fk"
+  add_foreign_key "company_material_codes", "material_service_types", :name => "company_material_codes_material_service_type_id_fk"
 
   add_foreign_key "company_services", "companies", :name => "company_services_ibfk_1"
   add_foreign_key "company_services", "service_types", :name => "company_services_ibfk_2"

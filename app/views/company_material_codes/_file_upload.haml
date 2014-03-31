@@ -1,0 +1,10 @@
+.upload_file
+  .box_bottom
+    %h1 Actualizar desde archivo
+  .box_bottom  
+    = form_tag import_company_material_codes_path, multipart: true do
+      .left
+        = file_field_tag :file, :class => :file_margin_top 
+      .left
+        = submit_tag "Importar",:disable_with => 'Importando...',:class =>:button
+        = link_to "Exportar", export_company_material_codes_path(:format => :csv), :class => :button 

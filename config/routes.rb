@@ -331,6 +331,13 @@ ComunidadBox::Application.routes.draw do
       end
     end
     
+    resources :company_material_codes do
+      collection do
+        get :export
+        post :import
+      end
+    end
+
     root :to => "home#index"
         
   end

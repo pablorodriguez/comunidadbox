@@ -246,4 +246,7 @@ class PriceList < ActiveRecord::Base
     return ""
   end
   
+  def self.find_active_price_list(user)
+    PriceList.where("company_id = ? && active = ?", user.company_active.id, 1).first
+  end
 end

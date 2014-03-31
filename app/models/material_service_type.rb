@@ -5,7 +5,7 @@ class MaterialServiceType < ActiveRecord::Base
   belongs_to :service_type
   has_many :price_list_items
   has_one :price_list_item_active, :class_name =>"PriceListItem",:include=>"price_list", :conditions =>["price_lists.active =1"]
-
+  has_one :company_material_code
   
   accepts_nested_attributes_for :material
   accepts_nested_attributes_for :service_type

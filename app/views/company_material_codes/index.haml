@@ -1,0 +1,20 @@
+#code_materials_list  
+  .vertical_menu
+    = render "admin/menu"    
+  .contentright_s
+    = render "file_upload.haml"
+    .box_bottom
+      %h1 
+        =t '.material_codes'
+    %table#sort_table.comboxtable
+      %thead
+        %tr.table_header
+          %th{:width=>"25%"}
+            Tipo de Servicio
+          %th{:width=>"45%"}
+            Material
+          %th{:width=>"30%"}
+            Código
+      = render :partial => "item", :collection =>@companyMaterialCodes
+    %br      
+    = will_paginate @totalCMCs
