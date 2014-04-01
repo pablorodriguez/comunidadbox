@@ -10,11 +10,12 @@
       %thead
         %tr.table_header
           %th{:width=>"25%"}
-            Tipo de Servicio
+            =t '.service_type'
           %th{:width=>"45%"}
-            Material
+            =t '.material'
           %th{:width=>"30%"}
-            Código
+            =t '.custom_code'
+            
       = render :partial => "item", :collection =>@companyMaterialCodes
     %br      
     = will_paginate @totalCMCs

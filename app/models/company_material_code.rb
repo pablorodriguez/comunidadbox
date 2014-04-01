@@ -8,18 +8,31 @@ class CompanyMaterialCode < ActiveRecord::Base
 
   	if plid.present?
 
-  		pli = PriceListItem.where("price_list_id = ?", plid).limit(1000) if page.blank? || page.to_i < 0
-  		pli = PriceListItem.where("price_list_id = ?", plid).paginate(:per_page=>20,:page =>page) if page.to_i >= 0
+      query_str = "price_list_items.id, mst.id as mst_id, cmc.id as cmc_id"
 
-  		#pli.sort! {|a,b| a.material_service_type.service_type.name + a.material.name <=> b.material_service_type.service_type.name + b.material.name}
+      join_str = "LEFT OUTER JOIN material_service_types as mst on mst.id = price_list_items.material_service_type_id 
+      INNER JOIN service_types as st ON st.id = mst.service_type_id
+      LEFT OUTER JOIN company_material_codes as cmc ON mst.id = cmc.material_service_type_id 
+      LEFT OUTER JOIN materials as m ON m.id = mst.material_id"
+
+      pli = []
+      if page.present? && page.to_i >= 0
+        pli = PriceListItem.paginate(:per_page => 20, :page => page, :select => query_str, :conditions =>['price_list_items.price_list_id = ?',plid], :joins => join_str, :order =>"st.name,m.name")
+      else
+        # trae solo 1000 registros para exportar
+        pli = PriceListItem.find(:all, :limit => 1000, :select => query_str, :conditions =>['price_list_items.price_list_id = ?',plid], :joins => join_str, :order =>"st.name,m.name")
+
+        # esta linea trae todos los registros que se deben exportar
+        #pli = PriceListItem.find(:all, :select => query_str, :conditions =>['price_list_items.price_list_id = ?',plid], :joins => join_str, :order =>"st.name,m.name")
+      end
 
   		pli.each do |item|
-  			if item.company_material_code.present?
-  				list << item.company_material_code
+  			if item.cmc_id.present?
+  				list << CompanyMaterialCode.find(item.cmc_id)
   			else
   				compMaterialCode = CompanyMaterialCode.new
   				compMaterialCode.company = user.company_active
-  				compMaterialCode.material_service_type = item.material_service_type
+  				compMaterialCode.material_service_type = MaterialServiceType.find(item.mst_id)
   				list << compMaterialCode
   			end
   		end 
@@ -52,30 +65,35 @@ class CompanyMaterialCode < ActiveRecord::Base
       #busco el material_service_type para editarle su company_material_code
       mst = MaterialServiceType.find_by_id(row["mst_id"].to_i)
 
-      #item = PriceListItem.find_by_price_list_id_and_material_service_type_id(plid, row['mst_id'])
 
-      #si el usuario cargo 'custom_code'
-      if mst.present? && row['custom code'].present?
+      #verifico que el materialServiceType pertenezca a un priceListItem de la priceList activa del usuario
+      #si no no hago nada con ese registro (con esto evito que un usuario cambie el mst_id en el csv y pueda actualizar 
+      #cualquier registro)
+      if mst.present? && mst.price_list_item_active.present? && mst.price_list_item_active.price_list_id == plid.to_i
 
-        #si existe el company_material_code lo actualizo
-        if mst.company_material_code.present?
-          mst.company_material_code.code = row['custom code']
-          mst.company_material_code.save
+        #si el usuario cargo 'custom_code'
+        if mst.present? && row['custom code'].present?
 
-        #sino.. lo creo
-        else
-          cmc = CompanyMaterialCode.new
-          cmc.material_service_type = mst
-          cmc.company = user.company_active
-          cmc.code = row['custom code']
-          cmc.save
+          #si existe el company_material_code lo actualizo
+          if mst.company_material_code.present?
+            mst.company_material_code.code = row['custom code']
+            mst.company_material_code.save
+
+          #sino.. lo creo
+          else
+            cmc = CompanyMaterialCode.new
+            cmc.material_service_type = mst
+            cmc.company = user.company_active
+            cmc.code = row['custom code']
+            cmc.save
+          end
+
+        #si el usuario no cargo o borro el 'custom_code' y existe un company_material_code lo elmino
+        elsif mst.present? && mst.company_material_code.present?
+          mst.company_material_code.delete
         end
-
-      #si el usuario no cargo o borro el 'custom_code' y existe un company_material_code lo elmino
-      elsif mst.present? && mst.company_material_code.present?
-        mst.company_material_code.delete
-      end
     
+      end
     end    
   end
 
