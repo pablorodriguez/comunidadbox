@@ -13,9 +13,8 @@ class MaterialServiceType < ActiveRecord::Base
   def self.materials company_id
     MaterialServiceType.includes({:price_list_items_active=>{:price_list=>{}},:service_type=>{:companies=>{}}}).where("companies.id = ? ",company_id)
   end
-  
-  def self.m(company_id,price_list_id,service_type_ids,material,page)
-        
+
+  def self.generate_select_join_str(company_id,price_list_id,service_type_ids)
     select_str ="material_service_types.id,material_service_types.material_id,m.code,m.name,material_service_types.service_type_id,st.name,pli.price  "
     
     join_str ="LEFT OUTER JOIN price_list_items as pli ON pli.material_service_type_id = material_service_types.id and pli.price_list_id=#{price_list_id} 
@@ -24,28 +23,29 @@ class MaterialServiceType < ActiveRecord::Base
     if (service_type_ids.size > 0)
       join_str += " and material_service_types.service_type_id in (#{service_type_ids.join(",")})"
     end
-    
     join_str += " INNER JOIN company_services as cs ON cs.service_type_id = st.id and cs.company_id=#{company_id} LEFT OUTER JOIN materials as m ON material_service_types.material_id = m.id" 
+
+    return [select_str,join_str]
     
-    unless material.blank?
-    #  join_str += " and m.name LIKE '%#{material}%'"
-    end
-    
-    #join_str +=" ORDER BY st.name,m.code"
-    
-    #data = MaterialServiceType.find(:all,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str)
-    
+  end
+  
+  def self.m(company_id,price_list_id,service_type_ids,material,page)
+    select_str,join_str = MaterialServiceType.generate_select_join_str(company_id,price_list_id,service_type_ids)
     if (page >=0)  
       return MaterialServiceType.paginate(:per_page=>20,:page =>page,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str,:order =>"st.name,m.name")  
     else
       return MaterialServiceType.find(:all,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str)
     end
   end
+
+  def self.material_to_export company_id,price_list_id,service_type_ids
+    select_str,join_str = MaterialServiceType.generate_select_join_str(company_id,price_list_id,service_type_ids)
+    MaterialServiceType.select(select_str).joins(join_str).limit(50)
+  end
   
   def self.to_csv_for_update_price(plid, user)
     #para desarrollar mas rapido.. solo traigo la pagina uno para exportar
-    msList = m(user.company_active.id, plid, [], nil, 1) if PriceList.find_by_id(plid).present?
-    
+    msList = material_to_export(user.company_active.id, plid, []) if PriceList.find_by_id(plid).present?
     #sin paginar.. trae todos los items
     #msList = m(user.company_active.id, plid, [], nil, -1) if PriceList.find_by_id(plid).present?
 
@@ -53,8 +53,12 @@ class MaterialServiceType < ActiveRecord::Base
       csv << ['id', 'plid', 'service', 'material code', 'material name', 'price']
 
       if msList.present?
-        msList.each do |item| 
-          csv << [item.id, plid, I18n.t(item.name), item.code, item.material.name, item.price]
+        msList.each do |item|
+          if item.material
+            csv << [item.id, plid, I18n.t(item.name), item.code, item.material.name, item.price]
+          else
+            logger.debugger "##### #{item.name} : #{item.id}" 
+          end
         end
       end
     end
