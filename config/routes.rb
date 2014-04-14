@@ -93,6 +93,7 @@ ComunidadBox::Application.routes.draw do
     resources :service_type_templates
     resources :contacts
     resources :material_requests
+    resources :advertising
 
     resources :messages do     
       member do
