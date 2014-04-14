@@ -1,0 +1,12 @@
+en-US:
+  company_material_codes:
+    index:
+      material_codes: Material Codes
+      service_type: Service Type
+      material: Material
+      custom_code: Custom Code
+    file_upload:
+      update_from_file: Update from file
+      import: Import
+      export: Export
+      importing: Loading...

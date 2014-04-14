@@ -6,6 +6,8 @@ en-US:
       rank_company: "Rate Service Provider"
     workorders:
       workorders_performed: "Workorders Performed"
+    autopart_workorders:
+      workorders_autopart: "Workorders to Price"
     index:      
       client: "Client"
       my_car: "My cars"
@@ -45,6 +47,7 @@ en-US:
       client: "Client"
       print_form: "Print Form"
       seller: "Salesman"
+      select_price: "Seleccionar Cotización"
     services_list:
       completed: "Completed"
       delivery_time: "Delivery Time"
@@ -58,6 +61,7 @@ en-US:
       save: "Save"
       cancel: "Cancel"      
       budget_nro: Budget Nro
+      open_for_autopart: "Open for auto parts"
     service_fields:
       operator: "-- Operator --"
       add_comment: "Add Comment"
@@ -78,3 +82,9 @@ en-US:
       new_note: "New Note"
     note_fields:
       new_note: "New Note"
+    price_offers:
+      price_offers_availables: 'Prices Availables'
+      empty_price_offers_list: 'Without price offers.'
+    price_offers_fields:
+      auto_part: 'Auto Part'
+      price: 'Price'

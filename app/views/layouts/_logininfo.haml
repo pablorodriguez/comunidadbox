@@ -55,7 +55,7 @@
             = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
             %label.link{:for=>"all_company_check"}
               = t(".all_companies")
-    - if company_id
+    - if company_id || current_user.is_administrator?
       .clear        
         .right
           %ul  

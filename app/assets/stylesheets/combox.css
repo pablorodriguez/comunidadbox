@@ -141,6 +141,13 @@ body {
   display:inline-block;
 }
 
+.autopart_price_offer{
+  background-image:url(images/budget_s.png);
+  height:16px;
+  width:16px;
+  display:inline-block;
+}
+
 .wo_note{
   overflow: auto;
   width:100%;
@@ -2828,6 +2835,25 @@ input.labelHighlight,textarea.labelHighlight {
   overflow: auto;
 }
 
+.price_offer .head .selected{
+  margin: 0px 3px;
+  display: inline-block;
+  width: 5%;
+  vertical-align: top;
+}
+
+.price_offer .head .auto_part{
+  display: inline-block;
+  width: 92%;
+  vertical-align: middle;
+}
+
+.price_offer .body{
+  margin: 2px 11px;
+  width: 92%;
+  float: right;
+}
+
 .dates{
   width:69%;
 }
@@ -2924,4 +2950,12 @@ ul.tasks li{
   width: 694px;
   overflow: auto;
   margin: 0 auto;
+}
+
+.vertical_center{
+  vertical-align: middle
+}
+
+.file_margin_top{
+  margin-top: 7px!important;
 }

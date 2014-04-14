@@ -16,7 +16,10 @@
               = "#{s.operator.first_name} #{s.operator.last_name}"
   .service_info.clear
     %label.wo_id{:title => t(".service_number")}
-      = link_to work_order_row.id,work_order_row
+      -if current_user.user_type.present? && current_user.user_type.auto_part?
+        = link_to work_order_row.id, price_offer_workorder_path(work_order_row)
+      -else
+        = link_to work_order_row.id,work_order_row
     %strong
       =t(".client")
     %label
@@ -52,7 +55,9 @@
       -if work_order_row.can_send_message?(current_user)
         .action        
           %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}      
-
+      -if work_order_row.is_open_for_autopart?
+        .action
+          = link_to("", price_offers_workorder_path(work_order_row),:class=>"autopart_price_offer",:title =>t(".select_price"))
 
   -##rank.rank{:id =>"wo_#{work_order_row.id}"}      
     -#= render 'ranks/view',:workorder => work_order_row

@@ -38,4 +38,10 @@ class MaterialService < ActiveRecord::Base
     end
   end
   
+  def material_detail
+    det = self.detail  
+    det = self.material if det.blank?
+
+    det.to_s
+  end
 end

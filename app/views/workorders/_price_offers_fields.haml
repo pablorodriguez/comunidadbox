@@ -1,0 +1,17 @@
+= form_for @work_order, :url => confirm_price_offer_workorder_path(@work_order) do |f|
+  .price_offers
+    -@work_order.price_offers.each do |price_offer|
+      .price_offer.row
+        .head
+          .selected
+            =radio_button_tag('price_offer_selected_id', price_offer.id ,price_offer.confirmed)
+          .auto_part
+            %strong=(t '.auto_part') + ":"
+            =price_offer.user.full_name  
+        .body
+          %strong=(t '.price') + ':'
+          %br=price_offer.price
+
+  .buttons_container
+    =f.submit "Grabar",:class=>"button"
+    =link_to "Cancelar",autopart_workorders_path

@@ -1,0 +1,31 @@
+.vertical_menu
+	=render "admin/menu"
+	.menu_actions.box_bottom
+		%ul
+			%li
+				= link_to (t".export_data"), new_export_path
+					
+.contentright_s
+	.box_bottom
+		%h1= t '.file_list'
+		-if @export.present?
+			%strong= (t '.status') + ': ' + Status::EX_STATUS[@export.status]
+	%table#sort_table.comboxtable
+		%thead
+			%tr
+				%th= t'.data_type'
+				%th= t'.download'
+				%th= t'.generated'
+				%th= t'.user'
+		- if @export.present?
+			- for item in @export.export_items 
+				%tbody
+					%tr
+						%td= t("." + item.data_type.to_s)
+						%td
+							-if @export.status == Status::DONE
+								= link_to (t'.download'), download_export_path(item)
+						%td
+							= l @export.created_at,:format =>:short
+						%td
+							= @export.user.full_name

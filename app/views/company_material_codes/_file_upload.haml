@@ -1,0 +1,10 @@
+.upload_file
+  .box_bottom
+    %h1=t '.update_from_file'
+  .box_bottom  
+    = form_tag import_company_material_codes_path, multipart: true do
+      .left
+        = file_field_tag :file, :class => :file_margin_top 
+      .left
+        = submit_tag (t".import"),:disable_with => (t'.importing'),:class =>:button
+        = link_to (t".export"), export_company_material_codes_path(:format => :csv), :class => :button 

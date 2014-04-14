@@ -23,4 +23,6 @@ en:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
-
+    placeholders:
+      price_offer:
+        price: 'Please enter your price here.'

@@ -12,10 +12,15 @@ class Status
   PENDING = 10
   REJECTED = 11
   APPROVED = 12
-  
+  WAITING = 13
+  RUNNING = 14
+  DONE = 15
+  OPEN_FOR_AUTOPART = 16
+
   WO_STATUS = {
     OPEN=> I18n.t("open"),IN_PROCESS=>I18n.t('in_process'),FINISHED=>I18n.t('finished')
     }
+    #,OPEN_FOR_AUTOPART => 'Disponible para cotizar'
 
   SR_STATUS = {
     OPEN=>I18n.t("open"),CONFIRMED=>'Confirmado'
@@ -31,10 +36,13 @@ class Status
       CANCELLED => 'Cancelado'
   }
 
+  EX_STATUS = {
+    WAITING =>"En espera",RUNNING=>'Generando los archivos..',DONE=>'Terminado'
+  }
   
 
   STATUS_IDS ={
-    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED,sent: SENT
+    finished: FINISHED,in_progress: IN_PROCESS, open: OPEN, approved: APPROVED, rejected: REJECTED,sent: SENT, open_for_autopart: OPEN_FOR_AUTOPART
   }
   
   STATUS = {

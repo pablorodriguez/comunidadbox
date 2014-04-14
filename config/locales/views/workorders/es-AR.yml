@@ -6,6 +6,8 @@ es-AR:
       rank_company: "Calificar Prestador de Servicio"
     workorders:
       workorders_performed: "Servicios Realizados"
+    autopart_workorders:
+      workorders_autopart: "Ordenes de Trabajo para Cotizar"
     index:
       client: "Cliente"
       my_car: "Mis autos"
@@ -44,6 +46,7 @@ es-AR:
       client: "Cliente"
       print_form: "Imprimir Formulario"
       seller: "Vendedor"
+      select_price: "Seleccionar Cotización"
     services_list:
       completed: "Realizado"
       delivery_time: "Hora de Entrega"
@@ -58,6 +61,7 @@ es-AR:
       save: "Grabar"
       cancel: "Cancelar"      
       budget_nro: Presupuesto Nro
+      open_for_autopart: "Disponible para cotizar"
     service_fields:
       operator: "-- Operario --"
       add_comment: "Agregar Comentario"
@@ -79,5 +83,10 @@ es-AR:
       new_note: "Nueva Nota"
     note_fields:
       new_note: "Nueva Nota"
-
+    price_offers:
+      price_offers_availables: 'Cotizaciones Disponibles'
+      empty_price_offers_list: 'Aun no se han recibido cotizaciones para esta orden de trabajo.'
+    price_offers_fields:
+      auto_part: 'Autopartista'
+      price: 'Cotización'
 

@@ -1,0 +1,13 @@
+en-US:
+  exports:
+    index:
+      export_data: "Create CSV's"
+      file_list: 'File List'
+      data_type: 'Data Type'
+      download: 'Download'
+      status: 'Status'
+      workorders: 'Workorders'
+      customers: 'Customers'
+      budgets: 'Budgets'
+      generated: generated
+      user: User

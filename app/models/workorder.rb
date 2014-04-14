@@ -17,6 +17,8 @@ class Workorder < ActiveRecord::Base
   belongs_to :budget
   belongs_to :payment_method
   has_many :ranks
+  has_many :price_offers
+
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :payment_method
   accepts_nested_attributes_for :notes,:reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
@@ -227,15 +229,17 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    n_status = Status::FINISHED
-    self.services.each do |s|      
-      if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
-        n_status = Status::OPEN
+    if self.status != Status::OPEN_FOR_AUTOPART
+      n_status = Status::FINISHED
+      self.services.each do |s|      
+        if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
+          n_status = Status::OPEN
+        end
       end
-    end
 
-    n_status = Status::OPEN if self.services.empty?    
-    self.status = n_status    
+      n_status = Status::OPEN if self.services.empty?    
+      self.status = n_status    
+    end
   end
   
   def finish_old?
@@ -284,7 +288,7 @@ class Workorder < ActiveRecord::Base
       return true
     end
 
-    if (is_open? || is_in_progress?)
+    if (is_open? || is_in_progress? || is_open_for_autopart? )
       if company.is_employee?(usr) && user.is_employee?
         return true
       end
@@ -387,16 +391,49 @@ class Workorder < ActiveRecord::Base
     end
     data_str.chop
   end
+  
 
-  def to_csv(options = {})
-    CSV.generate(options) do |csv|
-      csv << column_names
-      all.each do |workorder|
-        csv << workorder.attributes.values_at(*column_names)
-      end
+  def self.to_csv(filePath, company_id)
+    filters_params = {}
+    filters_params[:company_id] = company_id    
+    wos = find_by_params(filters_params).limit(30)
+
+    CSV.open(filePath, "w+",{:col_sep => ","}) do |csv| #, :force_quotes => true
+      csv << csv_column_names
+
+      wos.each do |wo|
+        
+        wo_values = csv_workorder_row_values(wo)
+        
+        wo.services.each do |service|
+          wo_service_values = wo_values.clone + [service.service_type.native_name]
+          
+          service.material_services.each do |mat_service|
+            row = wo_service_values.clone + [mat_service.material_detail, mat_service.amount, mat_service.price]
+            csv << row
+          end
+
+        end
+      end    
+
     end
   end
-  
+
+  def self.csv_column_names
+    ["id","company","car","car_kms","customer","performed","comment","status","payment_method","budget_id","deliver","created_at","updated_at","service","material","material_amount","material_price"]
+  end
+
+  def self.csv_workorder_row_values(wo)
+#               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
+    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.native_name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
+  end
+
+  def confirm_price_offer(price_offer_id)
+    self.price_offers.update_all(confirmed: false)
+    price_offer = PriceOffer.find price_offer_id
+    price_offer.update_attributes(confirmed: true) if price_offer.present?
+  end
+
   def self.group_by_service_type(params,price=true)
     wo = self.find_by_params(params)
     wo = wo.group("services.service_type_id")    

@@ -1,0 +1,12 @@
+es-AR:
+  company_material_codes:
+    index:
+      material_codes: Códigos de Materiales
+      service_type: Tipo de Servicio
+      material: Material
+      custom_code: Código Personalizado
+    file_upload:
+      update_from_file: Actualizar desde archivo
+      import: Importar
+      export: Exportar
+      importing: Importando...

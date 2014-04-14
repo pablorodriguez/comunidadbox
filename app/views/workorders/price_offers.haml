@@ -1,0 +1,14 @@
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .div{:id=>"wo_#{@work_order.id}"} 
+    = render "show"
+  %br
+  .price_offers
+    .box_bottom
+      %h3=t'.price_offers_availables'
+    -if @work_order.price_offers.present?
+      = render "price_offers_fields"
+    -else
+      %span
+        =t'.empty_price_offers_list'

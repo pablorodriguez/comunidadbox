@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   LANGUAGES = {'en' => 'en-US','en-US' => 'en-US','es' => 'es-AR','es-AR' =>'es-AR'}    
   
+  require 'csv'
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery :secret => 'eee70de2e239c7e16b4f9229f56b8209'

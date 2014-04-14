@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
+  extend Enumerize
 
   TYPES = {
-    "fu"=> "Usuario","ps"=>"Prestador de Servicios"
+    "fu"=> "Usuario","ps"=>"Prestador de Servicios","au" => "Autopartista"
     }
 
   @@lock = Mutex.new
@@ -16,9 +17,11 @@ class User < ActiveRecord::Base
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
 
-  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :cars_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes,:employer_id, :role_ids
+  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :cars_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes,:employer_id, :role_ids, :user_type
 
   attr :type, true
+
+  enumerize :user_type, in: {:car_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
   has_many :service_filters,:order =>'name'
   has_many :cars
@@ -42,6 +45,9 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :material_requests
 
+  has_one :export
+  has_many :price_offers
+  
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of :first_name, :last_name
   #validates_presence_of :cars, :on => :create

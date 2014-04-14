@@ -30,6 +30,9 @@ en-US:
     registrations:
       new: 
         new_user: "New User"
+        car_owner: 'User'
+        service_center: 'Service Center'
+        auto_part: 'Auto Part'
       form:
         personal_address: "Personal Address"
         password: "Password *"

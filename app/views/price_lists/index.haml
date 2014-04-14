@@ -24,6 +24,7 @@
         %td
           = is_active(price_list,activate_price_list_path(price_list))
         %td
+          = link_to '-Exp-', export_price_list_path(price_list,:format => :csv), :title => "Exportar Lista de precios"
           -unless price_list.company.nil?
             = link_to image_tag('edit.png'), edit_price_list_path(price_list),:title =>"Modificar"
           -unless price_list.active

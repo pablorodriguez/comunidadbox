@@ -1,0 +1,11 @@
+= simple_form_for @price_offer, :method => 'post', :url => save_price_offer_workorder_path(@price_offer.workorder) do |f|
+  = render 'shared/error_messages', :target => @price_offer
+  
+  -if @price_offer.id.present?
+    =f.input :id, as: :hidden
+
+  =f.label :price
+  =f.input :price, :label => false, :error => false, :input_html => { :rows => 15, :cols => 84 }
+  .buttons_container
+    =f.button :submit, "Grabar",:class=>"button"
+    =link_to "Cancelar",autopart_workorders_path

@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout 'application'
   def new
     build_resource({})
-    resource.type ="fu"
+    resource.type ="1"
     set_default_data resource
     respond_to do |format|
       format.js { render :layout => false}
@@ -50,6 +50,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource
     resource.type = params[:user_type]
+
+    resource.user_type = params[:user_type].to_i
+    if resource.user_type.auto_part?
+      resource.roles << Role.find_by_name(Role::ADMINISTRATOR)
+    end
+
     resource.confirmed = true
     if resource.companies.size > 0
        resource.companies.first.active = true

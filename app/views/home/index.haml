@@ -1,9 +1,9 @@
 -# javascript 'jquery.shuffleLetters.js'
 
--if current_user    
+-if current_user
   .vertical_menu
     - if current_user.is_super_admin?
-      = render "conf/menu"
+      = render "conf/menu"      
     - else
       = render "menu"
       = render "default_actions"

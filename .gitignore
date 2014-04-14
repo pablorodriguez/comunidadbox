@@ -11,6 +11,7 @@ db/schema.rb
 public/price_files
 config/database.yml
 db/sphinx
+export/**/*
 .sass-cache
 .rvmrc
 vcr.log

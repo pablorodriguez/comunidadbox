@@ -152,10 +152,15 @@ ComunidadBox::Application.routes.draw do
       collection do
         get :filter
         post :task_list
+        get :autopart
       end
       member do
         get :notify
         get :print
+        get :price_offer
+        post :save_price_offer
+        get :price_offers
+        put :confirm_price_offer
       end    
     end
 
@@ -301,6 +306,7 @@ ComunidadBox::Application.routes.draw do
         get :copy
         put :update_item_price
         put :price_upload
+        get :export
       end
 
       collection do
@@ -315,6 +321,20 @@ ComunidadBox::Application.routes.draw do
       member do
         get :approved
         get :disapproved
+      end
+    end
+
+    resources :exports do
+      member do
+        get :download
+        get :run
+      end
+    end
+    
+    resources :company_material_codes do
+      collection do
+        get :export
+        post :import
       end
     end
 

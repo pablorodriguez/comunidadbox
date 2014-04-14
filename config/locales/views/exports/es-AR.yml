@@ -1,0 +1,13 @@
+es-AR:
+  exports:
+    index:
+      export_data: "Generar CSV's"
+      file_list: 'Lista de Archivos'
+      data_type: 'Datos'
+      download: 'Descargar'
+      status: 'Estado'
+      workorders: 'Servicios Realizados'
+      customers: 'Clientes'
+      budgets: 'Presupuestos'
+      generated: Generado
+      user: Usuario
