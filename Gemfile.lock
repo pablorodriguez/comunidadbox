@@ -74,6 +74,8 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
+    enumerize (0.8.0)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -239,6 +241,7 @@ DEPENDENCIES
   debugger
   devise
   devise-encryptable
+  enumerize
   factory_girl_rails (~> 3.0)
   foreigner
   geocoder
