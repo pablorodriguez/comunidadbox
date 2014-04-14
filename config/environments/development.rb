@@ -55,6 +55,7 @@ ComunidadBox::Application.configure do
     :enable_starttls_auto => true  
   }
 
-
+  #config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+  ENV['file_path'] = '/home/pablo/sites/comunidadbox_export_files'
 end
 

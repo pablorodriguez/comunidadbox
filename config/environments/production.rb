@@ -70,5 +70,6 @@ ComunidadBox::Application.configure do
     :password             => '5624mail',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
-
+  
+  ENV['file_path'] = '/home/deployer/apps/comunidadbox/export_files'
 end
