@@ -40,7 +40,8 @@ class Users::RegistrationsControllerTest < ActionController::TestCase
             :zip => "5501",
             :state_id => State.find(1).id
           }
-        }
+        },
+        :user_type =>1
       end
       assert_redirected_to new_user_session_path
     end
@@ -80,7 +81,8 @@ class Users::RegistrationsControllerTest < ActionController::TestCase
                 :state_id => State.find(1).id
             }
           }]
-        }
+        },
+        :user_type =>2
       end
     end
     assert_redirected_to new_user_session_path

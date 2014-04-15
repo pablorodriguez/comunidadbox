@@ -83,7 +83,7 @@ ComunidadBox::Application.routes.draw do
         post :import
       end
     end
-    resources :promotions
+    
     resources :notes
     resources :item_services
     resources :car_filters
