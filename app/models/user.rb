@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
       offers = offers.where("until <= ?",filters[:until].to_datetime.in_time_zone) unless filters[:until].empty?
       offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
       offers = offers.where("status in (?)",filters[:status]) if filters[:status]
-    end
+    end    
     offers
   end
 

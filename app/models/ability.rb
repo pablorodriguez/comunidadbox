@@ -71,8 +71,32 @@ class Ability
       value
     end
 
-    can [:update,:destroy], ServiceRequest do |sr|
+    can [:update], ServiceRequest do |sr|
       sr.can_edit? user      
+    end
+
+    can [:destroy], ServiceRequest do |sr|
+      sr.can_delete? user      
+    end
+
+    can :show_ad,ServiceOffer do |s|
+      true
+    end
+
+    can :read,ServiceOffer do |s|      
+      s.can_show? user      
+    end
+
+    can :update,ServiceOffer do |so|
+      so.can_edit? user
+    end
+
+    can :destroy,ServiceOffer do |so|
+      so.can_delete? user
+    end
+
+    can :confirm,ServiceOffer do |s|
+      s.can_confirm? user
     end
   
     can [:update,:destroy], Workorder do |w|
@@ -83,7 +107,7 @@ class Ability
       w.car.user == user || user.is_employee?
     end
 
-    can :read, CarServiceOffer do |cso|    
+    can :read, CarServiceOffer do |cso|          
       if user.company
         cso.service_offer.company == user.company 
       else
@@ -127,14 +151,6 @@ class Ability
       can :manage, :employee
       can :manage, ServiceFilter      
       can :manage, Export
-    end
-
-    can :read,ServiceOffer do |s|
-      s.can_show? user      
-    end
-
-    can :confirm,ServiceOffer do |s|
-      s.can_confirm? user
     end
 
     if user.is_super_admin?

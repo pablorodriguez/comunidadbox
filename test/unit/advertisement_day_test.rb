@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ItemServiceRequestTest < ActiveSupport::TestCase
+class AdvertisementDayTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

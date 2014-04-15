@@ -4,8 +4,6 @@
 .contentright_s
   .box_bottom
     %h1 
-      Modificar Oferta de Servicio:
-      = @offer.service_types_names
-  = form_for @offer do |f|
-    = render :partial => 'form', :locals => {:f => f}
-  = render 'list_cars'
+      Modificar Oferta de Servicio  
+  = render :partial => 'form'
+  

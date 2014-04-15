@@ -1,0 +1,17 @@
+- ads = ServiceOffer.today_advertisements
+- unless ads.empty?
+  .box_bottom
+  .advertisements
+    - ServiceOffer.today_advertisements.each do |service_offer|
+      .advertisement
+        .company_name
+          = link_to service_offer.company.name,service_offer.company,:target =>"_blank"
+        .ad_name
+          = link_to service_offer.title,show_ad_service_offer_path(service_offer),:target =>"_blank",:title => t("service_offer")
+        .price_info
+          %span{:title =>t("price")}
+            = number_to_currency(service_offer.price)
+          %span{:title =>t("discount")}
+            = number_to_percentage(service_offer.percent, :precision =>2)            
+          %span.final_price{:title =>t("final_price")}
+            = number_to_currency(service_offer.final_price)

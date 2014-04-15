@@ -1575,18 +1575,19 @@ td.number, th.number{
 }
 
 .service_offer_info{
-  padding: 5px;
-  width: 95%;
-  float: left;
+  
+}
+
+.service_offer_title{
+  font-weight: bold;    
+  width: 100%;
 }
 
 .info_s{
   overflow: auto;
 }
 
-.service_offer_detail{
-  float: left;
-  width: 25%;
+.service_offer_detail{  
 }
 
 .service_offer_row{
@@ -1617,8 +1618,9 @@ td.number, th.number{
  text-align:right;
 }
 
-.service_offer_dates ul li{
-  text-align:right;
+.service_offer_dates ul li{  
+  float: right;
+  margin: 0 3px;
 }
 
 .date_from{
@@ -1656,7 +1658,7 @@ td.number, th.number{
   float: right;
 }
 .valid{
-  float:left;
+  float:right;
   width:50%;
 }
 
@@ -2276,9 +2278,6 @@ select.operator{
 }
 
 .cars{
-  background: none repeat scroll 0 0 #F9F7CF;
-  overflow: auto;
-  padding-top: 3px;
 }
 
 .cars a{
@@ -2958,4 +2957,91 @@ ul.tasks li{
 
 .file_margin_top{
   margin-top: 7px!important;
+}
+
+#service_offer_app .offer_service_type_row{
+  float: left;
+  margin: 5px;
+  font-weight: bold;
+}
+
+#service_offer_app .offer_service_type_row label{
+  margin-right: 5px;
+}
+
+#new_service_offer select.service_types{
+  margin-top: 4px
+}
+
+.add_days{
+  float: left;
+  width: 40%;
+  border-style: solid;
+  border-width: 1px;
+  margin: 2px;
+}
+
+#advertisements_fields{
+  overflow: auto;
+}
+.advertisements {
+  text-align: center;
+}
+
+.advertisement {
+  width: 28%;
+  background-color: #F7D1CD;
+  padding: 10px;
+  margin: 5px;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 105px;
+}
+
+.advertisements .company_name a{
+  font-weight: bold;
+  color: red;
+}
+
+.advertisements .ad_name a{
+  font-weight: bold;
+  background-color: #EF978F;
+  color: white;
+}
+
+.advertisements span.final_price{
+  background-color: #FF0000;
+  color: #FFFFFF;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.advertisements span{ 
+  font-size: 15px;
+}
+.advertisements span{
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}
+
+.ad_days {
+  width: 90%;
+  display: inline-block;
+}
+
+.ad_days .ad_day{
+  float: left;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
+.ad_days .ad_day span{
+  background-color: #A8AA3A;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 1px 10px;
 }

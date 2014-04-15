@@ -82,6 +82,9 @@ en-US:
   pending: Pending
   rejected: Rejected
   approved: Approved
+  price: "Price"
+  final_price: "Final Price"
+  discount: "Discount"
   access: Could not access the site with a disabled user
   user_update: User updated successfully
   unauthorized:
@@ -92,3 +95,8 @@ en-US:
     error_messages:
       errors_prohibited_plural: "There were the following %{count} errors "
       errors_prohibited_singular: The following error occurred
+  new_car: "New Car"
+  service_offer: Service Offer
+  show_ad_title: "Title"
+  show_ad_name: Name
+  comment: Comment

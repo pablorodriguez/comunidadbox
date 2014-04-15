@@ -1,13 +1,13 @@
 -# javascript 'jquery.ui.datepicker-es'
 -# javascript 'service_offer'
+  
+.vertical_menu
+  = render "home/menu"
+  = render "layouts/default_actions"
 
-%h1
-  = vineta 
-  Nueva Oferta de Servicio
-.contentleft
-  = render 'list_cars'
-.contentright
+.contentright_s
+  .box_bottom
+    %h1
+      = t(".title")             
   #service_offer
-    = form_for(@offer) do |f|
-      = render :partial => 'form', :locals => {:f => f}
-  = render 'list_cars'
+    = render :partial => 'form'

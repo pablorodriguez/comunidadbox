@@ -262,13 +262,16 @@ ComunidadBox::Application.routes.draw do
         get :notify_email
         get :notify      
       end
+      member do
+        get :show_ad
+      end
 
     end
 
     resources :car_service_offers do
       member do
         get :confirm
-        get :reject
+        get :reject        
       end
       collection do
         get :confirmed

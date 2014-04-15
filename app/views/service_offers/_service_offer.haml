@@ -2,28 +2,35 @@
   %table.comboxform
     %tr
       %td
-        Titulo
+        = t ".title"
       %td
         = h service_offer.title
     %tr
-      %td Precio
+      %td 
+        = t ".precio"
       %td
         =h number_to_currency(service_offer.price)
-      %td Descuento %
-      %td
-        = h service_offer.percent
+      %td 
+        = t ".discount"
+        \%
+      %td        
+        = number_to_percentage(service_offer.percent, :precision =>2)
     %tr
-      %td Precio Final
+      %td
+        = t ".final_price"
       %td
         =h number_to_currency(service_offer.final_price)
-      %td Estado
+      %td
+        = t "status"
       %td
         =icon_status service_offer.status
     %tr
-      %td Desde
+      %td
+        = t "since"
       %td
         = (l service_offer.since) if service_offer.since
-      %td Hasta
+      %td 
+        = t "until"
       %td
         = (l service_offer.until) if service_offer.until    
 .box_bottom  
@@ -35,6 +42,5 @@
     %tr  
       %td Dias
       %td.label_title{:colspan=>3}        
-        - service_offer.valid_dates.each do |day|          
-          = t day
+        = service_offer.valid_dates.map{|d| I18n.t(d)}.join(" , ")
 

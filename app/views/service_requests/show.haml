@@ -75,7 +75,6 @@
           = "Oferta de Servicio: #{@offer.service_types_names}"
           
 
-      = form_for @offer,:remote => true,:html =>{"data-no-reset" => true} do |f|
-        = render :partial => 'service_offers/form', :locals => {:f => f}
+      = render :partial => 'service_offers/form'
       
     

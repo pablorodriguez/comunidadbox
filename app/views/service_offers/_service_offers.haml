@@ -1,28 +1,30 @@
 #service_offers
   - @offers.each do |offer|
     #div{:id=>"row_#{offer.id}",:class=>"service_offer_row row"}
+      .service_offer_title.left
+        - if company_id
+          .status.left
+            = icon_status offer.status
+        = link_to offer.title, offer,:class =>"view"
+        .right
+          = offer.service_types.map(&:native_name).join(", ")          
       .service_offer_info
         .service_offer_detail        
-          .company_name        
-            = offer.company.name
-          .service_offer_title      
-            = link_to offer.title, offer,:class =>"view"
-          %strong
-            - offer.service_types.each do |st|
-              = st.native_name
-          .status
-            - if company_id
-              = icon_status offer.status            
-          -if (company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)
-            .cars
-              =t(".cars")
-              = offer.cars.size
+          - if multiple_company?
+            .company_name        
+              = offer.company.name
         .price_detail
           .price              
-            =t(".cost")
+            =t(".price")
+            \:
+            = number_to_currency offer.price
+          .price              
+            =t(".final_price")
+            \:
             = number_to_currency offer.final_price
           .price
             =t(".discount")
+            \:
             = number_to_percentage(offer.percent, :precision =>2)
         .valid
           .service_offer_valid
@@ -40,13 +42,23 @@
                 - offer.valid_dates.each do |day|
                   %li
                     =t day
-      .serivce_offer_actions
-        -if company_id && offer.status != Status::SENT
-          #d
-            = link_to image_tag('delete.png'), offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>"Borrar"
+      .ad_days
+        - offer.advertisement_days.each do |ad_days|
+          .ad_day{:title => t(".publish_day")}
+            %span
+              = l ad_days.published_on
+      .actions        
+        - if offer.can_delete?(current_user)
+          .action
+            = link_to image_tag('delete.png'), offer, :confirm => t(".service_offer_delete_confirm_msg"), :method => :delete,:title=> t("delete")
         - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
-          #e
-            = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title =>"Modificar"
+          .action
+            = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title => t("edit")
+      -if (((company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)) && (offer.cars.size > 0))
+        .cars              
+          =t(".cars")
+          \:
+          = offer.cars.size
   #paginator_wo
     = will_paginate @offers
 - if current_user.is_super_admin?

@@ -1,0 +1,9 @@
+%div
+  .box_bottom
+    %h1            
+      = @service_offer.service_types_names
+    %h1       
+      = @service_offer.company.name
+  = render @service_offer
+  .buttons_container    
+    = link_to t('print'), show_ad_service_offer_path(@service_offer,:format => :pdf),:class =>"button",:target =>"_blank"

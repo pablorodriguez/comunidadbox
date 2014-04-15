@@ -1,4 +1,5 @@
-class ServiceOffersController < ApplicationController
+class ServiceOffersController < ApplicationController    
+  skip_before_filter :authenticate_user!,:only =>:show_ad
   authorize_resource  
   
 
@@ -18,6 +19,24 @@ class ServiceOffersController < ApplicationController
     end
   end
 
+  def show_ad    
+    @service_offer = ServiceOffer.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf {
+          prawnto :prawn => {
+            :page_size => 'A4',
+            :left_margin => 20,
+            :right_margin => 20,
+            :top_margin => 15,
+            :bottom_margin => 15},            
+            :filename=>"advertisement_#{@service_offer.id}.pdf"
+        
+        render :layout => false
+        }       
+    end  
+  end
+
   def show
     @service_offer = ServiceOffer.find(params[:id])
     if current_user.is_administrator?
@@ -26,6 +45,17 @@ class ServiceOffersController < ApplicationController
     @cars = @service_offer.car_service_offers
     
   end
+
+  def new    
+    @offer = ServiceOffer.new
+    #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id    
+    
+    #@offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
+    #@offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @advertisements_by_date = Advertisement.search_by_date @date
+  end
+
 
   def new_s
     @title ="Oferta de Servicio"
@@ -64,10 +94,11 @@ class ServiceOffersController < ApplicationController
     redorect_to :index
   end
   
-  def create
+  def create    
     @offer = ServiceOffer.new(params[:service_offer])
     @offer.company = get_company
-    params[:car_ids].each do |car_id|
+    @car_ids = params[:car_ids] || []
+    @car_ids.each do |car_id|
       car_service_offer = CarServiceOffer.new
       car_service_offer.status = Status::OPEN
       if @offer.is_confirmed?
@@ -94,9 +125,9 @@ class ServiceOffersController < ApplicationController
     end
   end
 
-  def edit
-    @title ="Editar Oferta de Servicio"
+  def edit    
     @offer = ServiceOffer.find(params[:id])
+  
     @cars = @offer.car_service_offers
     if @offer.status != Status::OPEN
       flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"
@@ -118,7 +149,6 @@ class ServiceOffersController < ApplicationController
     @offer.destroy
     redirect_to service_offers_path
   end
-  
     
   def notify      
     #Resque.enqueue ServiceOfferJob
@@ -139,6 +169,8 @@ class ServiceOffersController < ApplicationController
       
     end
   end
+   
+
  
 end
 
