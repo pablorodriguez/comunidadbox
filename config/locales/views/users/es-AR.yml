@@ -40,3 +40,7 @@ es-AR:
         personal_address: "Dirección Personal"
         save: "Grabar"
         cancel: "Cancelar"
+    user_domain:
+        domain_duplicated: "Dominio duplicado"
+    user_email:
+        email_duplicated: "Correo duplicado"

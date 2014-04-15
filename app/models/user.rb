@@ -327,7 +327,7 @@ class User < ActiveRecord::Base
   end
 
   def self.get_last_email
-    User.where("email like ?","test%@comunidadbox.com").order("email DESC").pluck("email").first
+    User.where("email like ?","test%@comunidadbox.com").order("id DESC").pluck("email").first
   end
 
 
@@ -336,9 +336,9 @@ class User < ActiveRecord::Base
     email = get_last_email
     nro = email.scan(/\d+/).first.to_i if email
   
-    @@last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
+    last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
 
-    @@last_number
+    last_number
     
   end
 

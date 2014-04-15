@@ -41,6 +41,10 @@ en-US:
         personal_address: "Address"
         save: "Save"
         cancel: "Cancel"
+    user_domain:
+        domain_duplicated: "Domain duplicated"
+    user_email:
+        email_duplicated: "Email duplicated"
 
 
 

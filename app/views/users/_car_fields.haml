@@ -4,7 +4,10 @@
       %td{:style=>"width:100px"}
         %label{ :for => "domain" }=t(".domain")
       %td
-        = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"input_short",:placeholder =>"XXX999"
+        .car_domain
+          = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"input_short user_domain",:placeholder =>"XXX999"
+      %td{:colspan=>"2"}  
+        .validation_car_domain.hide
     %tr
       %td
         %label{ :for => "brand_id" }=t(".brand")
