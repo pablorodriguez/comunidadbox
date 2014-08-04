@@ -70,8 +70,8 @@ module ApplicationHelper
   def t_st service_types
   end
 
-  def is_client client
-    Company.is_client?(company_id,client.id)
+  def is_client client    
+    Company.is_client?(current_user.get_companies_ids,client.id)
   end
 
   def can_show? client
