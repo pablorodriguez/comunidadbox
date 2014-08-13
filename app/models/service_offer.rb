@@ -89,7 +89,6 @@ class ServiceOffer < ActiveRecord::Base
     unless self.advertisement_days.empty?
       return true
     end
-    debugger
     cars_ids = user.cars.map(&:id)
     CarServiceOffer.where("service_offer_id = ? and car_id IN(?)",self.id,cars_ids).count > 0    
   end
@@ -228,7 +227,6 @@ class ServiceOffer < ActiveRecord::Base
               json.array! ads do |index|              
                 if days_with_ad[day.to_s]
                   temp = days_with_ad[day.to_s].values[index-1]                
-                  debugger
                   json.other_add true if (temp && (temp.advertisement.service_offer.id != self.id))
                   if (temp && (temp.advertisement.service_offer.id == self.id))
                     json.my_ad true 

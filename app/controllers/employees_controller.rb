@@ -62,7 +62,6 @@ class EmployeesController < ApplicationController
   end
   
   def edit
-    debugger
     @employee = User.find(params[:id])
   end
   

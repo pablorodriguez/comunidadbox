@@ -46,7 +46,6 @@ class Export < ActiveRecord::Base
   def initial_status
   	export_root = ENV['file_path'] + '/export/' + self.company.id.to_s + "/"
 
-    debugger
     FileUtils.mkdir_p(File.dirname(export_root + "/files")) unless File.exist?(File.dirname(export_root + "/files"))
 
   	self.status = Status::WAITING
