@@ -1,9 +1,10 @@
+
 class Company < ActiveRecord::Base
-  attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes
+  attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes,:images_attributes
 
   validates :name,:presence => true
-  validates :address, :presence => true
-
+  validates :address, :presence => true  
+  
   has_one :address
   has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   belongs_to :user
@@ -17,6 +18,7 @@ class Company < ActiveRecord::Base
   has_many :cars
   has_many :service_offers
   has_many :service_type_templates
+  has_many :images,:dependent => :destroy
 
   has_one :export
   has_many :company_material_code
@@ -28,6 +30,7 @@ class Company < ActiveRecord::Base
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
+  accepts_nested_attributes_for :images,:reject_if => lambda {|a| a[:image].blank?},:allow_destroy => true
   
   def is_employee? usr
     return (user.id == usr.id || ((usr.employer) && (usr.employer.id == id))) ? true : false    

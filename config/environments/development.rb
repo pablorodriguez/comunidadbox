@@ -57,5 +57,6 @@ ComunidadBox::Application.configure do
 
   #config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
   ENV['file_path'] = '/home/pablo/sites/comunidadbox_export_files'
+  ENV['image_file_path'] = '/home/pablo/sites/comunidadbox_images_files'
 end
 

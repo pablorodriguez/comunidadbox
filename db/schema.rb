@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140331173414) do
+ActiveRecord::Schema.define(:version => 20140814150153) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -137,12 +137,15 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
   create_table "car_service_offers", :force => true do |t|
     t.integer  "car_id"
     t.integer  "service_offer_id"
+    t.integer  "service_id"
     t.integer  "status"
+    t.string   "status_old"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "car_service_offers", ["car_id"], :name => "car_service_offers_car_id_fk"
+  add_index "car_service_offers", ["service_id"], :name => "car_service_offers_idfk_3"
   add_index "car_service_offers", ["service_offer_id"], :name => "car_service_offers_service_offer_id_fk"
 
   create_table "cars", :force => true do |t|
@@ -162,11 +165,8 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
   end
 
   add_index "cars", ["brand_id"], :name => "cars_brand_id_fk"
-  add_index "cars", ["domain"], :name => "cars_domain_fk"
-  add_index "cars", ["fuel"], :name => "cars_fuel_fk"
   add_index "cars", ["model_id"], :name => "cars_model_id_fk"
   add_index "cars", ["user_id"], :name => "cars_user_id_fk"
-  add_index "cars", ["year"], :name => "cars_year_fk"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -261,11 +261,7 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
     t.datetime "updated_at"
   end
 
-  add_index "events", ["car_id"], :name => "events_cars_id_index"
-  add_index "events", ["dueDate"], :name => "events_dueDate_index"
   add_index "events", ["service_id"], :name => "events_service_id_fk"
-  add_index "events", ["service_id"], :name => "events_service_id_index"
-  add_index "events", ["service_type_id"], :name => "events_service_type_id_index"
 
   create_table "export_items", :force => true do |t|
     t.integer  "export_id"
@@ -301,6 +297,17 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "images", :force => true do |t|
+    t.integer  "car_id"
+    t.integer  "company_id"
+    t.string   "image"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "images", ["car_id"], :name => "index_images_on_car_id"
+  add_index "images", ["company_id"], :name => "index_images_on_company_id"
 
   create_table "item_service_requests", :force => true do |t|
     t.integer  "service_request_id"
@@ -579,6 +586,7 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
     t.boolean  "saturday",           :default => false
     t.boolean  "sunday",             :default => false
     t.text     "comment"
+    t.integer  "service_type_id"
     t.integer  "company_id"
     t.date     "send_at"
     t.string   "title"
@@ -589,6 +597,7 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
 
   add_index "service_offers", ["company_id"], :name => "service_offers_company_id_fk"
   add_index "service_offers", ["service_request_id"], :name => "service_offers_service_request_id_fk"
+  add_index "service_offers", ["service_type_id"], :name => "service_offers_service_type_id_fk"
 
   create_table "service_requests", :force => true do |t|
     t.integer  "user_id"
@@ -763,15 +772,12 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
   add_index "workorders", ["payment_method_id"], :name => "workorders_payment_method_id_fk"
+  add_index "workorders", ["performed"], :name => "workorders_performed_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
   add_foreign_key "addresses", "companies", :name => "addresses_ibfk_1", :dependent => :delete
   add_foreign_key "addresses", "states", :name => "addresses_ibfk_2"
   add_foreign_key "addresses", "users", :name => "addresses_ibfk_3", :dependent => :delete
-
-  add_foreign_key "advertisement_days", "advertisements", :name => "advertisement_days_advertisement_id_fk", :dependent => :delete
-
-  add_foreign_key "advertisements", "service_offers", :name => "advertisements_service_offer_id_fk", :dependent => :delete
 
   add_foreign_key "alarms", "companies", :name => "alarms_company_id_fk"
   add_foreign_key "alarms", "users", :name => "alarms_ibfk_1", :dependent => :delete
@@ -782,6 +788,7 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
 
   add_foreign_key "car_service_offers", "cars", :name => "car_service_offers_ibfk_1", :dependent => :delete
   add_foreign_key "car_service_offers", "service_offers", :name => "car_service_offers_ibfk_2", :dependent => :delete
+  add_foreign_key "car_service_offers", "services", :name => "car_service_offers_idfk_3", :dependent => :nullify
 
   add_foreign_key "cars", "brands", :name => "cars_ibfk_1"
   add_foreign_key "cars", "models", :name => "cars_ibfk_2"
@@ -805,6 +812,9 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
 
   add_foreign_key "exports", "companies", :name => "exports_company_id_fk"
   add_foreign_key "exports", "users", :name => "exports_user_id_fk"
+
+  add_foreign_key "images", "cars", :name => "images_car_id_fk"
+  add_foreign_key "images", "companies", :name => "images_company_id_fk"
 
   add_foreign_key "material_requests", "companies", :name => "material_requests_company_id_fk"
   add_foreign_key "material_requests", "materials", :name => "material_requests_material_id_fk"
@@ -856,6 +866,7 @@ ActiveRecord::Schema.define(:version => 20140331173414) do
 
   add_foreign_key "service_offers", "companies", :name => "service_offers_ibfk_1"
   add_foreign_key "service_offers", "service_requests", :name => "service_offers_service_request_id_fk", :dependent => :delete
+  add_foreign_key "service_offers", "service_types", :name => "service_offers_ibfk_2"
 
   add_foreign_key "service_type_templates", "companies", :name => "service_type_templates_company_id_fk"
   add_foreign_key "service_type_templates", "service_types", :name => "service_type_templates_service_type_id_fk"

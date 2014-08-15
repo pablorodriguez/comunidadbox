@@ -110,6 +110,7 @@ class CompaniesController < ApplicationController
     @company = Company.new
     @company.user = current_user
     @company.build_address if @company.address.nil?
+    (3-@company.images.size).times{@company.images.build}
     respond_to do |format|
       format.js { render :layout => false}
       format.html # new.html.erb
@@ -134,6 +135,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1/edit
   def edit
     @company = Company.find(params[:id])
+    (3-@company.images.size).times{@company.images.build}
     @user = current_user
   end
 

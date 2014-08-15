@@ -19,12 +19,26 @@ jQuery(document).ready(function(){
     autoOpen: false,
     draggable: false,
     resizable:false,
-    modal: true});
+    modal: true
+  });
+
+  $("#company_big_image").dialog({
+    height: 500,
+    width:650,
+    autoOpen: false,
+    draggable: false,
+    resizable:false,
+    modal: true
+  });
+
+  $(".company_image").click(function(ele){
+    $("#company_big_image img").attr("src",$(ele.target).parent().data("image-url"));
+    $("#company_big_image").dialog('open');
+  });
     
-	  var address = $("#full_address").val();
-    search_companies(address);
-	  $("#address_map").val(address);
-	
+  var address = $("#full_address").val();
+  search_companies(address);
+  $("#address_map").val(address);	
 });
 
 function newServiceNewCompany(){

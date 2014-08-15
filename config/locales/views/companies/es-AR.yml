@@ -18,6 +18,8 @@ es-AR:
     form:
       service_senter_information: "Información Prestador de Servicios"
       service_center_address: "Dirección Prestador de Servicios"
+      image: "Imagen"
+      company_image_title: "Imagenes de la Compañia"
     company_address_fields:
       state: "Provincia"
       city: "Cuidad"

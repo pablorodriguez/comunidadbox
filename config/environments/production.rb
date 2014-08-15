@@ -72,4 +72,5 @@ ComunidadBox::Application.configure do
     :enable_starttls_auto => true  }
   
   ENV['file_path'] = '/home/deployer/apps/comunidadbox/export_files'
+  ENV['image_file_path'] = '/home/deployer/apps/comunidadbox/image_files'
 end

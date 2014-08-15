@@ -18,6 +18,8 @@ en-US:
     form:
       service_senter_information: "Service Center's Information"
       service_center_address: "Service Center's Address"
+      image: "Image"
+      company_image_title: "Company's Image"
     company_address_fields:
       state: "State"
       city: "City"
