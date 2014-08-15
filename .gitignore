@@ -9,6 +9,7 @@ tmp/**/*
 *.swp
 db/schema.rb
 public/price_files
+public/uploads
 config/database.yml
 db/sphinx
 export/**/*
