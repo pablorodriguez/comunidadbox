@@ -26,7 +26,7 @@ class ServiceOffer < ActiveRecord::Base
   after_initialize :custom_init
 
   def custom_init
-    if car_service_offers.empty?
+    if car_service_offers.empty? and advertisement.nil?      
       build_advertisement       
     end
   end
@@ -226,7 +226,7 @@ class ServiceOffer < ActiveRecord::Base
             json.ads do
               json.array! ads do |index|              
                 if days_with_ad[day.to_s]
-                  temp = days_with_ad[day.to_s].values[index-1]                
+                  temp = days_with_ad[day.to_s].values[index-1]                  
                   json.other_add true if (temp && (temp.advertisement.service_offer.id != self.id))
                   if (temp && (temp.advertisement.service_offer.id == self.id))
                     json.my_ad true 

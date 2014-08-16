@@ -71,7 +71,6 @@ class ServiceOffersController < ApplicationController
       redirect_to :back
     else
       @offer.car_service_offers = []
-      logger.debug "### Cars IDS #{@events_ids}"
       @events_ids.each do |car_id|
         car_service_offer = CarServiceOffer.new
         car_service_offer.car = Car.find(car_id)
