@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140814150153) do
+ActiveRecord::Schema.define(:version => 20140818141558) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20140814150153) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo"
   end
 
   add_index "companies", ["country_id"], :name => "companies_country_id_fk"
@@ -299,15 +300,12 @@ ActiveRecord::Schema.define(:version => 20140814150153) do
   end
 
   create_table "images", :force => true do |t|
-    t.integer  "car_id"
-    t.integer  "company_id"
     t.string   "image"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
-
-  add_index "images", ["car_id"], :name => "index_images_on_car_id"
-  add_index "images", ["company_id"], :name => "index_images_on_company_id"
 
   create_table "item_service_requests", :force => true do |t|
     t.integer  "service_request_id"
@@ -812,9 +810,6 @@ ActiveRecord::Schema.define(:version => 20140814150153) do
 
   add_foreign_key "exports", "companies", :name => "exports_company_id_fk"
   add_foreign_key "exports", "users", :name => "exports_user_id_fk"
-
-  add_foreign_key "images", "cars", :name => "images_car_id_fk"
-  add_foreign_key "images", "companies", :name => "images_company_id_fk"
 
   add_foreign_key "material_requests", "companies", :name => "material_requests_company_id_fk"
   add_foreign_key "material_requests", "materials", :name => "material_requests_material_id_fk"

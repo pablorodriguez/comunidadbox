@@ -3045,3 +3045,8 @@ ul.tasks li{
   font-weight: bold;
   padding: 1px 10px;
 }
+
+.image_galery .image{
+  padding: 5px;
+  float: left;
+}

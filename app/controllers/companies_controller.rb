@@ -169,6 +169,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
 
     respond_to do |format|
+      debugger
       if @company.update_attributes(params[:company])
         flash[:notice] = 'La empresa se actualizo correctamente'
         format.html { redirect_to(@company) }

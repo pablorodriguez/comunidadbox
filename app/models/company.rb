@@ -1,6 +1,6 @@
 
 class Company < ActiveRecord::Base
-  attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes,:images_attributes
+  attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes,:images_attributes,:logo
 
   validates :name,:presence => true
   validates :address, :presence => true  
@@ -18,7 +18,8 @@ class Company < ActiveRecord::Base
   has_many :cars
   has_many :service_offers
   has_many :service_type_templates
-  has_many :images,:dependent => :destroy
+  has_many :images,:dependent => :destroy,as: :imageable
+  has_one :logo,:class_name =>"Image",as: :imageable
 
   has_one :export
   has_many :company_material_code

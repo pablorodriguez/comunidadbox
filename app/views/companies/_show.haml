@@ -47,14 +47,12 @@
     .box_bottom
       %h3
         Imagenes
-    %table
-      %tbody
-        %tr
-          %td{width:'100px'}
-            - @company.images.each do |image|
-              - if image.image_url
-                %a.company_image{:href =>"#","data-image-url" =>image.image_url.to_s}
-                  = image_tag image.image_url(:thumb).to_s,:alt => ""
+    .image_galery
+      - @company.images.each do |image|
+        - if image.image_url
+          .image
+            %a.company_image{:href =>"#","data-image-url" =>image.image_url.to_s}
+              = image_tag image.image_url(:thumb).to_s,:alt => ""
     #company_big_image      
       %img{:src=>"", :alt=>""}
 

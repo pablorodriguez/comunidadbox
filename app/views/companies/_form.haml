@@ -36,16 +36,21 @@
   #d_address_sc.company_address.box_bottom
     = f.fields_for :address do |ad|
       = render 'companies/company_address_fields', :ad => ad
+  .box_bottom
+    %h3
+      = t ".company_logo"
+    .image_galery
+      .image
+        = f.file_field :logo
   #image.box_bottom
     %h3
       = t ".company_image_title"
-    %table.w
-      %tbody
-        = f.fields_for :images do |img_form|
-          - if img_form.object.image
-            %tr
-              %td{:style=>"width:100px",:colspan=>2}              
-                = image_tag img_form.object.image_url(:thumb),:alt => ""
-                = img_form.file_field :image
-                = img_form.check_box :_destroy if img_form.object.image_url
-                = img_form.object.image_url
+    .image_galery
+      = f.fields_for :images do |img_form|
+        - if img_form.object.image
+          .image
+            = image_tag img_form.object.image_url(:thumb),:alt => ""
+            %br
+            = img_form.check_box :_destroy if img_form.object.image_url
+            = img_form.file_field :image
+            //= img_form.object.image_url
