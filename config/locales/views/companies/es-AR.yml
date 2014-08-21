@@ -19,7 +19,9 @@ es-AR:
       service_senter_information: "Información Prestador de Servicios"
       service_center_address: "Dirección Prestador de Servicios"
       image: "Imagen"
-      company_image_title: "Imagenes de la Compañia"
+      company_image_title: "Imagenes"
+      headquarter: "Casa Central"
+      company_logo: "Logo"
     company_address_fields:
       state: "Provincia"
       city: "Cuidad"
@@ -39,6 +41,7 @@ es-AR:
       service_providers: "Proveedores de Servicio"
     company:
       search_map: "Buscar dirección en el mapa"
+      headquarter: "Casa Central"
     show:
       register: "Registar"
       service_providers: "Prestador de servicios"
@@ -52,3 +55,9 @@ es-AR:
       city: "Cuidad"
       street: "Calle"
       zip: "Código Postal"
+      headquarter: "Casa Central"
+      subsidiary: "Sucursal"
+      images: "Imagenes"
+      logo: "Logo"
+    index:
+      my_companies: "Mis Empresas"

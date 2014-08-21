@@ -5,6 +5,8 @@
       %td{width:'100px'}=t(".name")
       %td
         = @company.name
+        %strong
+          = @company.headquarter ? t('.headquarter') : t('.subsidiary')
     %tr.header
       %td=t(".web")
       %td
@@ -43,16 +45,25 @@
           %label{ :for => "zip" }=t(".zip")    
         %td
           = @company.address.zip
+  - if @company.logo_url
+    .box_bottom
+      %h3
+        = t ".logo"
+    .image_galery
+      .image        
+        %a.company_image{:href =>"#","data-image-url" =>@company.logo_url.to_s}
+          = image_tag @company.logo_url(:logo).to_s,:alt => ""
+
   - unless @company.images.empty?
     .box_bottom
       %h3
-        Imagenes
+        = t ".images"
     .image_galery
       - @company.images.each do |image|
-        - if image.image_url
+        - if image.image        
           .image
             %a.company_image{:href =>"#","data-image-url" =>image.image_url.to_s}
-              = image_tag image.image_url(:thumb).to_s,:alt => ""
+              = image_tag image.image_url(:thumb).to_s,:alt => ""              
     #company_big_image      
       %img{:src=>"", :alt=>""}
 

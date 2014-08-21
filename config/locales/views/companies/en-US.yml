@@ -19,7 +19,9 @@ en-US:
       service_senter_information: "Service Center's Information"
       service_center_address: "Service Center's Address"
       image: "Image"
-      company_image_title: "Company's Image"
+      company_image_title: "Images"
+      headquarter: "Headquarter"
+      company_logo: "Logo"
     company_address_fields:
       state: "State"
       city: "City"
@@ -52,6 +54,12 @@ en-US:
       city: "City"
       street: "Street"
       zip: "Zip"
+      headquarter: "Headquarter"
+      subsidiary: "Subsidiary"
+      images: "Images"
+      logo: "Logo"
+    index:
+      my_companies: "My Companies"
 
 
 

@@ -3,3 +3,13 @@ en-US:
     show:
     menu:
       promotions: Promotions
+      my_services: My Services
+      filter_list: "Filter list"
+      material_request: "Material Request"
+      price_list: "Price List"
+      materials: "Materials"
+      my_companies: "My Companies"
+      my_employess: "My Employees"
+      templates: "Templates"
+      order_to_quote: "Orders to Quote"
+      export_data: "Export Datos"

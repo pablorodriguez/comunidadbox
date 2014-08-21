@@ -3046,7 +3046,17 @@ ul.tasks li{
   padding: 1px 10px;
 }
 
+.image_galery{
+  overflow: auto;
+  width: 100%;
+}
+
 .image_galery .image{
   padding: 5px;
   float: left;
+}
+
+#company_big_image img{
+  width: 100%;
+  padding-top: 4px;
 }

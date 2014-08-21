@@ -62,6 +62,7 @@
 //= require price_list
 //= require rank
 //= require search_company_map
+//= require company_image
 //= require service_offer
 //= require car_service_offer
 //= require jquery.services

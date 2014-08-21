@@ -1,6 +1,9 @@
 .row
   .company_detail
     .actions        
+      - if user_signed_in? and current_user.own(company)
+        .action
+          = link_to "",edit_company_path(company),{:title =>"Modificar",:class=>"edit"}
       - if company.address
         .action
           = link_to image_tag("find.png"),"#",{:title => t(".search_map"),:class => :search_address} 
@@ -10,13 +13,21 @@
           = link_to image_tag('new.png'), new_workorder_path(:company_id=>company.id),{:title=>"Nuevo Servicio",:class=>"new_service_link"}
       - if active && user_signed_in? && company_id && current_user.is_administrator?
         .action 
-          = is_active(company,activate_company_path(company)) 
+          = is_active(company,activate_company_path(company))
     .left
       .nombre
         = link_to company.name,company_path(company),{:title => "Ver"}
+        %strong
+          = company.headquarter ? t('.headquarter') : ""
       .address
         = company.full_address
       .phone
         = number_to_phone company.phone              
     .rank  
       ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{number_with_precision(company.user_rank)}]"
+    .image_galery
+      - company.images.each do |image|
+        - if image.image        
+          .image
+            %a.company_image{:href =>"#","data-image-url" =>image.image_url.to_s}              
+              = image_tag image.image_url(:small_thumb).to_s,:alt => ""  

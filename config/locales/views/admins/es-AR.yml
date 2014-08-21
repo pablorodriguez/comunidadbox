@@ -3,3 +3,13 @@ es-AR:
     show:
     menu:
       promotions: Promociones
+      my_services: Mis Servicios
+      filter_list: "Listado de Filtros"
+      material_request: "Solicitud de material"
+      price_list: "Lista de Precios"
+      materials: "Materiales"
+      my_companies: "Mis Empresas"
+      my_employess: "Mis Empleados"
+      templates: "Plantillas"
+      order_to_quote: "Ordenes para Cotizar"
+      export_data: "Exportar Datos"

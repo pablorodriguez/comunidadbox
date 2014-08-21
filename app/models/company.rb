@@ -1,6 +1,6 @@
 
 class Company < ActiveRecord::Base
-  attr_accessible :user_id, :name, :active, :cuit, :phone, :website, :address_attributes,:images_attributes,:logo
+  attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo
 
   validates :name,:presence => true
   validates :address, :presence => true  
@@ -19,7 +19,7 @@ class Company < ActiveRecord::Base
   has_many :service_offers
   has_many :service_type_templates
   has_many :images,:dependent => :destroy,as: :imageable
-  has_one :logo,:class_name =>"Image",as: :imageable
+  mount_uploader :logo, LogoUploader
 
   has_one :export
   has_many :company_material_code
@@ -27,14 +27,39 @@ class Company < ActiveRecord::Base
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
 
+
   has_many :material_requests
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
-  accepts_nested_attributes_for :images,:reject_if => lambda {|a| a[:image].blank?},:allow_destroy => true
-  
+  accepts_nested_attributes_for :images,:reject_if => lambda {|a| a[:image].blank?},:allow_destroy => true  
+
+  before_save :update_headquarter
+
+  def update_headquarter
+    if headquarter
+      Company.where("user_id =? and id != ?",self.user.id,self.id).update_all(:headquarter => false)
+    end
+  end
+
   def is_employee? usr
     return (user.id == usr.id || ((usr.employer) && (usr.employer.id == id))) ? true : false    
+  end
+
+  def get_logo_url(format=:logo)
+    return logo_url(format) if logo_url
+    headquarter = get_headquarter
+    headquarter.logo ? headquarter.logo_url(format) : ""
+  end
+
+  def get_headquarter
+    comp = self.headquarter ? self : Company.where("user_id = ? AND headquarter = 1",self.user.id).first
+    comp = self unless comp
+    comp
+  end
+
+  def is_logo(image)
+    logo && (logo.id == image.id)
   end
 
   def is_confirmed?

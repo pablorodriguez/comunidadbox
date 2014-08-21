@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class ImageUploader < CarrierWave::Uploader::Base
+class LogoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -25,7 +25,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_fit => [600, 800]  
+  # process :scale => [200, 300]
+  process :resize_to_fit => [600, 800]
 
   #
   # def scale(width, height)
@@ -33,23 +34,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_fit => [200, 300]
-  end
-
   version :logo do
     process :resize_to_fill => [300,100]
   end 
 
-  version :small_thumb,:from_version => :thumb do
-    process resize_to_fill: [100, 75]
-  end
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  def extension_white_list
-    %w(jpg jpeg gif png)
-  end
+  # def extension_white_list
+  #   %w(jpg jpeg gif png)
+  # end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

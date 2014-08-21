@@ -31,6 +31,11 @@
               = t :web_site
           %td
             = f.text_field :website,:class=>"input_medium"
+        %tr
+          %td
+            =label_tag "company_headquarter",t(".headquarter")
+          %td
+            = f.check_box :headquarter
   %h3#h_address_sc
     = t ".service_center_address"
   #d_address_sc.company_address.box_bottom
@@ -40,17 +45,17 @@
     %h3
       = t ".company_logo"
     .image_galery
-      .image
+      .image        
+        = image_tag @company.logo_url(:logo),:alt => ""
+        = f.check_box :remove_logo
+        //= logo_form.check_box :_destroy if logo_form.object.image_url
         = f.file_field :logo
   #image.box_bottom
     %h3
       = t ".company_image_title"
     .image_galery
       = f.fields_for :images do |img_form|
-        - if img_form.object.image
-          .image
-            = image_tag img_form.object.image_url(:thumb),:alt => ""
-            %br
-            = img_form.check_box :_destroy if img_form.object.image_url
-            = img_form.file_field :image
-            //= img_form.object.image_url
+        .image
+          = image_tag img_form.object.image_url(:thumb),:alt => ""
+          = img_form.check_box :_destroy if img_form.object.image_url
+          = img_form.file_field :image

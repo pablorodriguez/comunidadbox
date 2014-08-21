@@ -4,6 +4,8 @@ user = car.user
 table_w = 390
 fs=9
 
+logo_path = company.get_logo_url ? "#{::Rails.root.join('public')}#{company.get_logo_url}" : "" 
+
 pdf.define_grid(:columns => 2, :rows => 1, :gutter => 30)
 
 pdf.grid(0,0).bounding_box do
@@ -11,7 +13,7 @@ pdf.grid(0,0).bounding_box do
   pdf.move_up(15)
 
   pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[290,570],:scale =>0.40
-  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,570],:scale =>0.40
+  pdf.image "#{logo_path}",:at=>[10,570],:scale =>0.40 unless logo_path.empty?
 
   pdf.move_down(40)
   pdf.text @work_order.company.name
@@ -123,15 +125,13 @@ end
 
 
 
-
 pdf.grid(0,1).bounding_box do
  
   pdf.font_size fs
   pdf.move_up(15)
 
   pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[290,570],:scale =>0.40
-  pdf.image "#{::Rails.root.join('public','images','company_logos','vg_logo.png')}",:at=>[10,570],:scale =>0.40
-
+  pdf.image "#{logo_path}",:at=>[10,570],:scale =>0.40 unless logo_path.empty?
 
   pdf.move_down(40)
   pdf.text @work_order.company.name

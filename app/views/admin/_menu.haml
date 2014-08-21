@@ -3,41 +3,41 @@
     %li
       #my_services.link.menu
         = image_tag "my_services.png"
-        = link_to "Mis Servicios", service_types_companies_path
+        = link_to t('.my_services'), service_types_companies_path
     %li
       #filters_services.link.menu
         = image_tag "filters2.png"
-        = link_to "Listado de Filtros" , service_filters_path
+        = link_to t(".filter_list") , service_filters_path
     %li
       #material_request.link.menu
         = image_tag "my_services.png"
-        = link_to "Solicitud de material" , material_requests_path 
+        = link_to t(".material_request") , material_requests_path 
     %li
       #price.link.menu
         = image_tag "price.png"
-        = link_to "Lista de Precios", price_lists_path
+        = link_to t(".price_list"), price_lists_path
     %li
       #price.link.menu
         = image_tag "price.png"
-        = link_to "Materiales", company_material_codes_path
+        = link_to t(".materials"), company_material_codes_path
     %li
       #company.link.menu
         = image_tag "company.png"
-        = link_to "Mis Empresas", companies_path
+        = link_to t(".my_companies"), companies_path
     %li
       #employee.link.menu
         = image_tag "employee.png"
-        = link_to "Mis Empleados", employees_path
+        = link_to t(".my_employess"), employees_path
     %li
       #employee.link.menu
         = image_tag "report.png"
-        = link_to "Templates", service_type_templates_path
+        = link_to  t(".templates"), service_type_templates_path
     %li
       #employee.link.menu
         = image_tag "my_services.png"
-        = link_to "Ordenes para Cotizar", autopart_workorders_path
+        = link_to t(".order_to_quote"), autopart_workorders_path
     %li
       #employee.link.menu
         = image_tag "nota.png"
-        = link_to "Exportar Datos", exports_path
+        = link_to t(".export_data"), exports_path
 

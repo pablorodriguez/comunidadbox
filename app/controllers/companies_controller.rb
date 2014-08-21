@@ -136,6 +136,7 @@ class CompaniesController < ApplicationController
   def edit
     @company = Company.find(params[:id])
     (3-@company.images.size).times{@company.images.build}
+    @company.build_logo unless @company.logo
     @user = current_user
   end
 
@@ -168,8 +169,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
 
-    respond_to do |format|
-      debugger
+    respond_to do |format|      
       if @company.update_attributes(params[:company])
         flash[:notice] = 'La empresa se actualizo correctamente'
         format.html { redirect_to(@company) }
