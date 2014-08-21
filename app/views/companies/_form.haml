@@ -46,7 +46,7 @@
       = t ".company_logo"
     .image_galery
       .image        
-        = image_tag @company.logo_url(:logo),:alt => ""
+        //= image_tag @company.logo_url(:logo),:alt => ""
         = f.check_box :remove_logo
         = f.file_field :logo
   #image.box_bottom
