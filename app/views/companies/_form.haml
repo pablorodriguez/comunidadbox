@@ -48,7 +48,6 @@
       .image        
         = image_tag @company.logo_url(:logo),:alt => ""
         = f.check_box :remove_logo
-        //= logo_form.check_box :_destroy if logo_form.object.image_url
         = f.file_field :logo
   #image.box_bottom
     %h3
