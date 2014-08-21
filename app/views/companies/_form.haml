@@ -55,6 +55,6 @@
     .image_galery
       = f.fields_for :images do |img_form|
         .image
-          //= image_tag img_form.object.image_url(:thumb),:alt => ""
+          = image_tag img_form.object.image_url(:thumb),:alt => ""
           = img_form.check_box :_destroy if img_form.object.image_url
           = img_form.file_field :image
