@@ -25,6 +25,18 @@ class ServiceType < ActiveRecord::Base
     end
   end
 
+  def is_periodic?
+    is_kms_periodic? || is_days_periodic?
+  end
+
+  def is_kms_periodic?
+    self.kms and self.kms > 0
+  end
+
+  def is_days_periodic?
+    self.days and self.days > 0
+  end
+
   def native_name
     I18n.t(name)
   end

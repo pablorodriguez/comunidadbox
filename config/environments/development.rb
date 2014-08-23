@@ -44,16 +44,23 @@ ComunidadBox::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'comunidadbox.com',
-    :user_name            => 'mail1@comunidadbox.com',
-    :password             => '5624mail',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true  
-  }
+  config.action_mailer.delivery_method = :smtp  
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  
+  #
+  #config.action_mailer.smtp_settings = {
+  #  :address              => "smtp.gmail.com",
+  #  :port                 => 587,
+  #  :domain               => 'comunidadbox.com',
+  #  :user_name            => 'mail1@comunidadbox.com',
+  #  :password             => '5624mail',
+  #  :authentication       => 'plain',
+  #  :enable_starttls_auto => true  
+  #}
+
+
+
+
 
   #config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
   ENV['file_path'] = '/home/pablo/sites/comunidadbox_export_files'
