@@ -10,3 +10,8 @@ MailCatcher y Resque
 
 mailcatcher
 bundle exec rake resque:work QUEUE=*
+
+For Testing
+
+rake db:test:prepare
+ruby -I"lib:test" test/functional/companies_controller_test.rb 
