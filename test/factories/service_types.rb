@@ -24,8 +24,7 @@ FactoryGirl.define do
 
   factory :general_maintenance, class: ServiceType do
     id 4
-    name "Mantenimiento General"
-    kms 20000
+    name "Mantenimiento General"    
     active 1
   end
 
@@ -38,8 +37,7 @@ FactoryGirl.define do
 
   factory :suspension, class: ServiceType do
     id 7
-    name "Suspension"
-    kms 60000    
+    name "Suspension"    
     active 1
   end
 

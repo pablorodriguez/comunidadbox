@@ -191,22 +191,21 @@ class Workorder < ActiveRecord::Base
   def generate_events
     if (self.car.kmAverageMonthly && (self.car.kmAverageMonthly > 0))
       services.each do |service| 
-        unless service.cancelled          
-          new_event = create_event(service)
-          
-          #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
-          service_future = Service.find_future(service).last
-          if service_future
-            # si hay , cancelo el evento con el servicio a futuro realizado
-            new_event.status =Status::CANCELLED
-            new_event.service_done = service_future
-            #grabo el evento en la base de datos y no hago nada mas
-            new_event.save          
-          else
-            # si no hay servicios del mismo tipo en el futuro
-            # busco los eventos y actualizo su estado a CANCELLED por este nuevo servicio
-            #actualizo el estado de eventos futuros o pasados
-            Workorder.update_event_status service
+        unless service.cancelled
+          if service.service_type.is_periodic?
+            new_event = create_event(service)
+            #busco evento a futuro para el mismo tipo de servicio, me quedo con el ultimo realizado
+            service_future = Service.find_future(service).last
+            if service_future
+              # si hay , cancelo el evento con el servicio a futuro realizado
+              new_event.status =Status::CANCELLED
+              new_event.service_done = service_future            
+            else
+              # si no hay servicios del mismo tipo en el futuro
+              # busco los eventos y actualizo su estado a CANCELLED por este nuevo servicio
+              # actualizo el estado de eventos futuros o pasados
+              Workorder.update_event_status service
+            end
             #grabo el evento en la base de datos
             new_event.save
           end
@@ -317,22 +316,22 @@ class Workorder < ActiveRecord::Base
   
   def create_event service
     service_type = service.service_type
-    if service_type.kms > 0
+
+    return nil unless service_type.is_periodic?
+
+    newDueDate = nil    
+    if (service_type.kms && service_type.kms > 0)
       months = (service_type.kms / car.kmAverageMonthly.to_f).round.to_i
       newDueDate = (service.workorder.performed + months.month)
-    elsif service_type.days > 0
+    elsif (service_type.days && service_type.days > 0)
       newDueDate = service_type.days.days.since
     end
-    event = service.events.build(car: self.car,km: (self.car.km + service_type.kms),
-      service_type: service_type,status: (Status::ACTIVE),dueDate: newDueDate)
 
-    #event.car = self.car
-    #event.km = self.car.km + service_type.kms
-    #event.service_type=service_type
-    #event.service = service
-    #event.status= Status::ACTIVE
-    #event.dueDate = service.workorder.performed + months.month
-    logger.debug "### Event created DueDate: #{event.dueDate} Service Performed: #{service.workorder.performed} Months: #{months} Service #{event.service_id}"
+    if newDueDate
+      event = service.events.build(car: self.car,km: (self.car.km + service_type.kms),
+        service_type: service_type,status: (Status::ACTIVE),dueDate: newDueDate)
+    end
+
     event
   end
   

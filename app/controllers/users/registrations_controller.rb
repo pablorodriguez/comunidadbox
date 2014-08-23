@@ -88,11 +88,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def set_default_data user
     user.cars.build if user.cars.empty?
     user.build_address unless user.address
-    user.companies.build unless user.companies
     
     if user.companies.empty?
       company = user.companies.build
       company.build_address if company.address.nil?
     end
+    (3-user.companies.first.images.size).times{user.companies.first.images.build}
+    
   end
 end
