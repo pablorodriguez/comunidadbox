@@ -78,8 +78,8 @@ ComunidadBox::Application.configure do
     :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => ENV['MANDRILL_USERNAME'],
     :password  => ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
-    :authentication => 'login', # Mandrill supports 'plain' or 'login'
-    :domain => 'comunidadbox.com' # your domain to identify your server when connecting
+    :authentication => 'login' # Mandrill supports 'plain' or 'login'
+    #:domain => 'comunidadbox.com' # your domain to identify your server when connecting
   }
 
   ENV['file_path'] = '/home/deployer/apps/comunidadbox/export_files'
