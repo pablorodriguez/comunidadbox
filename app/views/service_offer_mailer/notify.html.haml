@@ -11,7 +11,7 @@
         - for service in @service_offers
           %tr
             %td
-              = link_to image_tag("company_logos/vg_logo.png"), company_url(service.company),:target =>"_blank"
+              = link_to image_tag("company_logos/vg_logo.png"), company_url(service.company,:locale => I18n.locale),:target =>"_blank"
             %td
               = link_to service.title, service_offer_url(service),:target =>"_blank"
             %td
