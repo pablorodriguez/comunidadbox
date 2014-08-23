@@ -90,8 +90,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user.build_address unless user.address
     
     if user.companies.empty?
-      company = user.companies.build
-      company.build_address if company.address.nil?
+      @company = user.companies.build
+      @company.build_address if @company.address.nil?
     end
     (3-user.companies.first.images.size).times{user.companies.first.images.build}
     
