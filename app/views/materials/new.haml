@@ -8,6 +8,7 @@
   .box_bottom
     %h1 Nuevo Material
   = form_for(@material) do |f|
+    = render 'shared/error_messages', :target => @material
     = render :partial =>"form",:locals => {f: f}
     .buttons_container
       = f.submit "Grabar",:class=>"button" 
