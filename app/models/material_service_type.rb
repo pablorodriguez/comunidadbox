@@ -67,14 +67,12 @@ class MaterialServiceType < ActiveRecord::Base
 
   def self.import_to_update_price(plid, file, current_user)
     pl = PriceList.find_by_id plid
-
     CSV.foreach(file.path, headers: true) do |row|
       #si la playlist no existe o es distinta a la de la que se hizo el export => no actualizo nada
       if pl.blank? || plid.to_i != row['plid'].to_i
         puts 'placeList incorrecta'
         return
       end
-
       mst = find_by_id(row["id"].to_i)
       item = PriceListItem.find_by_price_list_id_and_material_service_type_id(plid, row['id'])
       if row['price'].present?

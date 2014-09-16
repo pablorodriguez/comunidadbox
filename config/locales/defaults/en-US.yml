@@ -49,6 +49,10 @@ en-US:
   front_end: "Front End"
   rear_axle: "Rear Axle"
   laundry: "Laundry"
+  service_not_on_warranty: Service no Warranty
+  service_on_warranty: Service with Warranty
+  alignment: Aignment
+  balance: Balance
   tire_sports_original: "Tire Sports - Original"
   general_maintenance: "General Maintenance"
   brakes_clutches: "Brakes / Clutches"

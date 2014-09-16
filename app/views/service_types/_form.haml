@@ -17,7 +17,7 @@
   %label{ :for => "parent_id" }
   = t(".belongs_to")
   %br
-  = f.collection_select :parent_id, ServiceType.find(:all), :id, :name, { :include_blank => true }, :style => "width: 200px;"
+  = f.collection_select :parent_id, ServiceType.find(:all), :id, :native_name, { :include_blank => true }, :style => "width: 200px;"
 %p
   %label{ :for => "active" }
   = t(".status")

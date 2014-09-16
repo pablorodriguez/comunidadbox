@@ -49,6 +49,10 @@ es-AR:
   front_end: "Tren Delantero"
   rear_axle: "Tren Trasero"
   laundry: "Lavadero"
+  service_not_on_warranty: Servicio sin Garantía
+  service_on_warranty: Servicio con Garnatía
+  alignment: Alineación
+  balance: Balanceo
   tire_sports_original: "LLantas Deportivas - Originales"
   general_maintenance: "Mantenimiento General"
   brakes_clutches: "Frenos y Embragues"
