@@ -16,7 +16,7 @@
             = link_to t(".modify_client"),edit_client_path(@car.user),{:title=>t(".modify_client")} 
       - else
         %li
-          = link_to t(".new_services"),"#",:data =>{:car_id => "#{@car_id}"},:title=>t(".new_services"),:id =>"create_new_service"
+          = link_to t(".new_service"),"#",:data =>{:car_id => "#{@car_id}"},:title=>t(".new_service"),:id =>"create_new_service"
         .hide      
           = text_field_tag "new_service_url",new_workorder_path(:car_id =>@car)
       - if current_user.can_edit?(@car.user)

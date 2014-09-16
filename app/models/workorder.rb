@@ -54,7 +54,7 @@ class Workorder < ActiveRecord::Base
   def to_after_save
     if is_finished?
       regenerate_events
-      send_notification
+      send_notification if car.user.confirmed_at
       update_car_service_offers
     end
   end

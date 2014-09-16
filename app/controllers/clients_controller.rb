@@ -62,7 +62,8 @@ class ClientsController < ApplicationController
   end
 
   def create
-    @client = User.new(params[:user])    
+    @client = User.new(params[:user])
+
     @client.confirmed = true
 
     @client.creator = current_user

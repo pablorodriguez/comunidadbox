@@ -97,7 +97,7 @@ class Event < ActiveRecord::Base
     if service_filter.model_id
       events = events.where("cars.model_id = ?",service_filter.model_id)        
     end
-    
+
     if (my_clients && !(others))
       events = events.where("workorders.company_id in (?)",company_id)
     end
@@ -130,6 +130,10 @@ class Event < ActiveRecord::Base
 
   def notes_txt
     self.notes.map(&:message).join(" | ");
+  end
+
+  def user
+    car.user
   end
 
 end

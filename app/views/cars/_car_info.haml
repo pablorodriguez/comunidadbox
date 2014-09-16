@@ -5,12 +5,7 @@
         %h3=t(".name")
       %td
         = car.user.full_name
-        - if car.user.company_name
-          %label{:title=>t(".business_name")}
-            = "[#{car.user.company_name}]" 
-        - if car.user.cuit
-          %label{:title=>t(".cuit")}
-            = "[#{car.user.cuit}]" 
+        = show_company_info car
       %td
         %h3=t(".domain")
       %td

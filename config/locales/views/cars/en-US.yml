@@ -45,7 +45,7 @@ en-US:
       cancel: "Cancel"
     car_menu:
       new_client: "New Client"
-      new_service: "New Services"
+      new_service: "New Service"
       new_budget: "New Bugdet"
       modify_client: "Modify Client"
       new_service: "New Service"
