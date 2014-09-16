@@ -35,6 +35,7 @@ en-US:
       even: "Even"
       domain: "Domain"
       number: "Number"
+      material: "Material"
       order_by: "Order by"
     sort_by: 
       order_by: "Order by"

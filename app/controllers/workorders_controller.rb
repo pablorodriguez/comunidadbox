@@ -46,19 +46,23 @@ class WorkordersController < ApplicationController
     @date_t =params[:date_to]
     @domain = params[:domain]
     @wo_id = params[:number]
-    
+    @material = params[:material]
+
     filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
     filters_params[:domain] = @domain if (@domain && (!@domain.empty?))
     filters_params[:service_type_ids] = @service_type_ids unless (@service_type_ids.empty?)
     filters_params[:wo_status_id] = @status_id if @status_id
     filters_params[:company_id] = company_id if company_id
+    filters_params[:material] = @material if (@material && (!@material.empty?))
     filters_params[:user] = current_user
     filters_params[:workorder_id] = @wo_id if (@wo_id && (!@wo_id.empty?))
     filters_params[:order_by] = @order_by
 
     @workorders = Workorder.find_by_params(filters_params)
     
+    @material = nil;
+
     @count= @workorders.count()   
     @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)
 

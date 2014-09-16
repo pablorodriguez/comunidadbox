@@ -457,7 +457,8 @@ class Workorder < ActiveRecord::Base
   
 
   def self.find_by_params(filters)
-    workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:car =>:user,:services => [{:material_services => [{:material_service_type =>:service_type}]}])
+
+    workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:car =>:user,:services => [{:material_services => [{:material_service_type =>[:service_type, :material]}]}])
     
     workorders = workorders.where("cars.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
 
@@ -472,6 +473,7 @@ class Workorder < ActiveRecord::Base
     
     workorders = workorders.where("workorders.company_id IN (?)",filters[:company_id]) if filters[:company_id]
     
+    workorders = workorders.where("lower(materials.name) like ? or lower(material_services.material) like ?" ,"%#{filters[:material].downcase}%", "%#{filters[:material].downcase}%") if filters[:material]
     #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     
     workorders = workorders.where("workorders.id = ?", filters[:workorder_id]) if filters[:workorder_id]
