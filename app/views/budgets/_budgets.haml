@@ -1,6 +1,8 @@
 .budgets
   .box_bottom
     %h1=t(".list_of_budgets")
+    = link_to (t'export'), export_budgets_path(:format => :csv, :params => @filters_params_exp), :title => "Exportar"
+
   - unless @budgets.empty?
     = render @budgets
     = will_paginate @budgets

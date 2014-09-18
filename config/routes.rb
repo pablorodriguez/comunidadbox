@@ -130,7 +130,9 @@ ComunidadBox::Application.routes.draw do
 
     resources :budgets do
       resources :notes
-
+      collection do
+        get :export
+      end
       member do      
         get :print
         get :email

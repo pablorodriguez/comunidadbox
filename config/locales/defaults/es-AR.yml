@@ -116,3 +116,7 @@ es-AR:
   material_price: Precio Unitario
   material_amount: Cantidad
   material_total_price: Total Material
+  budget: Presupuesto
+  budget_price: Total Presupuesto
+  budget_date: Fecha
+  operator: Operario

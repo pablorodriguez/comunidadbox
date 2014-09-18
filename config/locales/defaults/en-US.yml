@@ -116,3 +116,7 @@ en-US:
   material_price: Material Price
   material_amount: Amount
   material_total_price: Total Material
+  budget: Budget
+  budget_price: Budget Price
+  budget_date: Date
+  operator: Operator
