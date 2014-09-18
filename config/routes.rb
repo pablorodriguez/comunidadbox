@@ -154,6 +154,7 @@ ComunidadBox::Application.routes.draw do
         get :filter
         post :task_list
         get :autopart
+        get :export
       end
       member do
         get :notify

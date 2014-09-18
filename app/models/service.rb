@@ -47,4 +47,5 @@ class Service < ActiveRecord::Base
     Service.includes(:service_type,:workorder).where("service_types.id = ? and car_id = ? and performed > ? 
       and services.id != ?",service.service_type.id,service.workorder.car.id,service.workorder.performed,service.id).order("performed desc")
   end
+
 end

@@ -44,4 +44,29 @@ class MaterialService < ActiveRecord::Base
 
     det.to_s
   end
+
+  def material_code
+    if self.material_service_type
+      m = material_service_type.material
+      "#{m.code}"
+    else
+      ""
+    end
+  end
+  def material_prov_code
+    if self.material_service_type
+      m = material_service_type.material
+      "#{m.prov_code}"
+    else
+      ""
+    end
+  end
+  def material_name
+    if self.material_service_type
+      m = material_service_type.material
+      "#{m.name}"
+    else
+      "#{material}"
+    end
+  end
 end

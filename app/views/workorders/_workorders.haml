@@ -1,7 +1,7 @@
 .box_bottom
   %h1
     = t ".workorders_performed"
-
+  = link_to (t'export'), export_workorders_path(:format => :csv, :params => @filters_params_exp), :title => "Exportar"
 = render :partial =>"work_order_row",:collection => @work_orders
 .clear
   = will_paginate @work_orders

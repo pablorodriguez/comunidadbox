@@ -100,3 +100,19 @@ en-US:
   show_ad_title: "Title"
   show_ad_name: Name
   comment: Comment
+  workorder: Workorder
+  car: Car
+  client: Client
+  salesman: Salesman
+  workorder_date: Date
+  total_price: Total Price
+  service_id: Service Id
+  service: Service
+  service_price: Total Service
+  employee: Employee
+  material: Material
+  material_code: Material Code
+  material_prov_code: Material Prov Code
+  material_price: Material Price
+  material_amount: Amount
+  material_total_price: Total Material

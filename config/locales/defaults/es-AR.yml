@@ -100,3 +100,19 @@ es-AR:
   show_ad_title: "Titulo"
   show_ad_name: Nombre
   comment: Comentario
+  workorder: Orden de Trabajo
+  car: Automóvil
+  client: Cliente
+  salesman: Vendedor
+  workorder_date: Fecha
+  total_price: Total Orden
+  service_id: Id Servicio
+  service: Servicio
+  service_price: Total Servicio
+  employee: Empleado
+  material: Material
+  material_code: Código Material
+  material_prov_code: Código Prov. Material
+  material_price: Precio Unitario
+  material_amount: Cantidad
+  material_total_price: Total Material

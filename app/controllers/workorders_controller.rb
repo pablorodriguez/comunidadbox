@@ -57,6 +57,9 @@ class WorkordersController < ApplicationController
     filters_params[:workorder_id] = @wo_id if (@wo_id && (!@wo_id.empty?))
     filters_params[:order_by] = @order_by
 
+    @filters_params_exp = filters_params
+    @filters_params_exp[:user] = nil
+    
     @workorders = Workorder.find_by_params(filters_params)
     
     @count= @workorders.count()   
@@ -99,6 +102,23 @@ class WorkordersController < ApplicationController
       format.js { render :layout => false}
    #   format.csv { render text: @workorders.to_csv}
    #   format.json {render text: @workorders.to_json}
+    end
+  end
+
+  def export
+    params[:user] = current_user
+    
+    csv = Workorder.workorder_report_to_csv params
+
+    unless csv.empty?
+
+      respond_to do |format|
+        format.csv { send_data csv, :filename => "workordersReport.csv"}
+      end
+      
+    else
+      flash[:alert] = t("Error")
+      redirect_to workorders_path
     end
   end
 

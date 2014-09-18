@@ -29,7 +29,6 @@ function submit_message_form(){
   return false;
 }
 
-
 /**
  * @author Hernan
  */
@@ -110,5 +109,84 @@ jQuery(document).ready( function(){
       $(this).parent().next().toggle();
     });
 
-  
+  $("#export_price_report").click(function(){exportTableToCSV.apply(this, [$('#price_report table'), 'PriceReport.csv', ["Tipo de Servicio","Importe"]]);});
+  $("#export_amount_report").click(function(){exportTableToCSV.apply(this, [$('#amt_report table'), 'AmountReport.csv', ["Tipo de Servicio","Cantidad"]]);});
+  $("#export_material_report").click(function(){exportTableToCSV.apply(this, [$('#amt_material_graph table'), 'AmountMaterial.csv', ["Material","Total Facturado","Cantidad","Porcentaje"]]);});
+  $("#export_detail_report").click(function(){exportTableToCSV.apply(this, [$('#report_data table'), 'DetailReport.csv', ["Detalle", "Valor"]]);});
+
+
+  /*
+  function export_price_report_to_csv(){
+    exportTableToCSV.apply(this, [$('#price_report table'), 'PriceReport.csv']);
+  }
+  */
+
+  function exportTableToCSV($table, filename, titles) {
+
+    var $rows = $table.find('tr:has(td)'),
+
+      // Temporary delimiter characters unlikely to be typed by keyboard
+      // This is to avoid accidentally splitting the actual contents
+      tmpColDelim = String.fromCharCode(11), // vertical tab character
+      tmpRowDelim = String.fromCharCode(0), // null character
+
+      // actual delimiter characters for CSV format
+      colDelim = '","',
+      rowDelim = '"\r\n"',
+
+      // Grab text from table into CSV formatted string
+      csv = '"';
+      
+      //agrego los titulos
+      for(var index=0; index < titles.length; index++){
+        csv += titles[index];
+        if(index < (titles.length -1)){
+          csv += colDelim;
+        }else{
+          csv += rowDelim;
+        }
+      }
+      
+      csv += $rows.map(function (i, row) {
+          var $row = $(row),
+              $cols = $row.find('td');
+
+          return $cols.map(function (j, col) {
+              var $col = $(col),
+                  text = $col.text().trim();
+
+              //verifico si es numero y lo formateo
+              var colClasses = $(col).attr('class')
+              if(colClasses != undefined && colClasses != null && colClasses.indexOf("number") > -1){
+                text = text.replace("$","");
+                text = text.replace("%","");
+
+                while(text.match(/,/g) != null && text.match(/,/g).length > 1){text = text.replace(",","");}
+
+                text = text.replace(/\./g, "");
+                text = text.replace(",", ".");
+                //text = parseFloat(text).toFixed(2).toLocaleString();
+
+              }
+              
+
+              return text.replace('"', '""'); // escape double quotes
+
+          }).get().join(tmpColDelim);
+
+
+      }).get().join(tmpRowDelim)
+          .split(tmpRowDelim).join(rowDelim)
+          .split(tmpColDelim).join(colDelim) + '"',
+
+    // Data URI
+    csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+    $(this)
+      .attr({
+      'download': filename,
+        'href': csvData,
+        'target': '_blank'
+    });
+  }
 });
