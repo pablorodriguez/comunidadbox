@@ -1,4 +1,6 @@
 class Brand < ActiveRecord::Base
+  attr_accessible :name
+
   has_many :cars
   has_many :models
   
