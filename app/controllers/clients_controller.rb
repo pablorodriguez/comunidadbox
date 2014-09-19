@@ -183,5 +183,23 @@ class ClientsController < ApplicationController
       format.js
     end
   end
+
+  def import
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  #require csv
+  def upload
+    file = params[:file]
+    
+    csv_text = File.read(file.open)
+   # csv = CSV.parse(csv_text, :headers => true)
+    
+    @import_result = csv_text
+
+    render :action => 'import'
+  end
 end
 

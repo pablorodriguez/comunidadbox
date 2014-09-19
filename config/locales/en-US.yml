@@ -1,4 +1,6 @@
 en-US:
+  import: Import
+  importing: Importing...
   file_not_found: File not found yet.
   date:
     abbr_day_names:

@@ -1,0 +1,12 @@
+.upload_file
+  .box_bottom
+    %h1=t(".import_clients")
+  .box_bottom  
+    = form_tag({action: :upload}, multipart: true, method: :put) do
+      .left
+        = file_field_tag :file
+      .left
+        = submit_tag (t"import"),:disable_with => (t'importing'),:class =>:button
+  = unless @import_result.nil?
+    .box_bottom
+      = @import_result

@@ -236,6 +236,8 @@ ComunidadBox::Application.routes.draw do
       collection do
         post :search
         get :index_all
+        get :import
+        put :upload
       end
     end
 

@@ -1,4 +1,6 @@
 es-AR:
+  import: Importar
+  importing: Importando...
   file_not_found: El archivo solicitado aun no está disponible
   date:
     abbr_day_names:
