@@ -120,3 +120,14 @@ es-AR:
   budget_price: Total Presupuesto
   budget_date: Fecha
   operator: Operario
+  client_id: Cliente
+  first_name: Nombre
+  last_name: Apellido
+  company_name: Razón Social
+  email: E-Mail
+  phone: Teléfono
+  car_domain: Dominio
+  car_brand: Marca
+  car_model: Modelo
+  car_year: Año
+  creator: Creador

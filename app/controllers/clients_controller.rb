@@ -153,6 +153,8 @@ class ClientsController < ApplicationController
     page = params[:page] || 1
     @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
 
+    @filters_params_exp = params
+
     respond_to do |format|
       format.html
       format.js { render :layout => false}
@@ -180,6 +182,22 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       format.js
+    end
+  end
+
+  def export
+
+    csv = Company.clients_report_to_csv current_user.get_companies_ids, params
+
+    unless csv.empty?
+
+      respond_to do |format|
+        format.csv { send_data csv, :filename => "clientsReport.csv"}
+      end
+      
+    else
+      flash[:alert] = t("Error")
+      redirect_to clients_path
     end
   end
 end

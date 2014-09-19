@@ -120,3 +120,14 @@ en-US:
   budget_price: Budget Price
   budget_date: Date
   operator: Operator
+  client_id: Client
+  first_name: First Name
+  last_name: Last Name
+  company_name: Company Name
+  email: E-Mail
+  phone: Phone
+  car_domain: Domain
+  car_brand: Brand
+  car_model: Model
+  car_year: Year
+  creator: Creator

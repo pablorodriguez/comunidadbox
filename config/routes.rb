@@ -239,6 +239,7 @@ ComunidadBox::Application.routes.draw do
       collection do
         post :search
         get :index_all
+        get :export
       end
     end
 
