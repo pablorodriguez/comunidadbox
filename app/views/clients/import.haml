@@ -2,12 +2,6 @@
 -# javascript 'jquery.ba-url.min'
 .vertical_menu
   =render "home/menu"
-  -if company_id && current_user.confirmed
-    .box_bottom
-      =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
-  -if company_id
-    .box_bottom
-      = render "cars/search_clients"      
   = render "home/default_actions"
 .contentright_s
   = render :partial => "file_upload"

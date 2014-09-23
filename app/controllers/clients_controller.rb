@@ -190,14 +190,12 @@ class ClientsController < ApplicationController
     end
   end
 
-  #require csv
   def upload
     file = params[:file]
     
-    csv_text = File.read(file.open)
-   # csv = CSV.parse(csv_text, :headers => true)
-    
-    @import_result = csv_text
+    #validar que exista un file.. sino mostrar algun mensaje de error
+
+    @import_result = User.import_clients file, current_user, company_id, get_company
 
     render :action => 'import'
   end

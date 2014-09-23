@@ -7,6 +7,28 @@
         = file_field_tag :file
       .left
         = submit_tag (t"import"),:disable_with => (t'importing'),:class =>:button
-  = unless @import_result.nil?
-    .box_bottom
-      = @import_result
+  - unless @import_result.nil?
+    %table.comboxtable
+      %thead
+        %tr
+          %th{"colspan" => 2} Resultado
+      %tbody
+        - @import_result[:summary].each do |item|
+          %tr
+            %td
+              = item[0]
+            %td.number
+              = item[1]
+    - unless @import_result[:errors].nil?
+      %table.comboxtable
+        %thead
+          %tr
+            %th{"width" => "100px"} Nro Registro
+            %th Error
+        %tbody
+          - @import_result[:errors].each do |item|
+            %tr
+              %td.number
+                = item[0]
+              %td
+                = item[1]

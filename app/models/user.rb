@@ -355,7 +355,168 @@ class User < ActiveRecord::Base
     mail
   end
 
+# 0  ["Id externo","123456"],
+# 1  ["Nombre","Jaime"],
+# 2  ["Apellido","Gil"],
+# 3  ["Teléfono","2616585858"],
+# 4  ["Email","jaimito@jaime.com"],
+# 5  ["CUIT",null],
+# 6  ["Razón Social",null],
+# 7  ["Provincia","Mendoza"],
+# 8  ["Ciudad","Mendoza"],
+# 9  ["Calle","Beltran 158"],
+# 10 ["Código Postal","5500"],
+# 11 ["Dominio","UGB376"],
+# 12 ["Marca","Fiat"],
+# 13 ["Modelo","Palio"],
+# 14 ["Combusitble","Diesel"],
+# 15 ["Año","2000"],
+# 16 ["kilometraje promedio mensual","2000"],
+# 17 ["kilometraje","252025"]
   
+  def self.import_clients(file, current_user, company_id, get_company)
+    csv_text = File.read(file.open)
+    csv = CSV.parse(csv_text, :headers => true)
+    
+    result = {}
+    result[:summary] = []
+    result[:errors]  = []
 
+
+    i = 1
+    success = 0
+    failure = 0
+
+    csv.each do |row|
+      i+=1
+      external_id = row[0]
+      email = row[4]
+
+      if external_id.nil?
+        failure += 1
+        result[:errors] << [i, "Falta Id Externo"]
+        next
+      end
+
+      client = User.find_by_email email if email.present?
+      
+      if client.present? && client.external_id != external_id
+        failure += 1
+        result[:errors] << [i, "Ya existe un cliente con el email indicado"]
+        next
+      end
+
+      client = User.find_by_external_id external_id
+      client = User.new if client.nil?            
+
+      email = generate_email if email.nil?
+
+      client.assign_attributes({ 
+        :first_name => row[1], 
+        :last_name => row[2],
+        :cuit => row[5],
+        :phone => row[3],
+        :company_name => row[6],
+        :email => email
+      })
+
+      if client.id.nil?
+        client.external_id = external_id
+        client.confirmed = true
+
+        client.creator = current_user
+        client.password = client.first_name + "test" unless client.first_name.nil?
+        client.password = "test" if client.first_name.nil?
+        client.password_confirmation = client.password
+
+        if client && company_id
+          unless client.service_centers.include?(get_company)
+            client.service_centers << get_company
+          end
+        end
+
+      end
+
+      if client.first_name.nil?
+        failure += 1
+        result[:errors] << [i, "Falta nombre del cliente"]
+        next
+      end
+      if client.last_name.nil?
+        failure += 1
+        result[:errors] << [i, "Falta apellido del cliente"]
+        next
+      end
+      #cargo direccion
+      state = State.find_by_name(row[7]) if row[7]
+      if state.nil?
+        failure += 1
+        result[:errors] << [i, "Provincia incorrecta"]
+        next
+      end
+      
+      client.address = Address.new({
+        :state_id => state.id,
+        :city => row[8],
+        :street => row[9],
+        :zip => row[10]
+      })
+
+
+      #cargo automovil
+      domain = row[11]
+      
+      if domain.nil?
+        failure += 1
+        result[:errors] << [i, "Dominio del vehiculo vacio"]
+        next
+      end
+      brand = Brand.find_by_name(row[12])
+      if brand.nil?
+        failure += 1
+        result[:errors] << [i, "Marca de vehiculo incorrecta"]
+        next
+      end
+      model = Model.find_by_name(row[13])
+      if model.nil?
+        failure += 1
+        result[:errors] << [i, "Modelo de vehiculo incorrecto"]
+        next
+      end
+
+      client.cars = [] if client.cars.nil?
+      car = client.cars.detect{|c| c.domain == domain}
+      
+      if car.nil?
+        car = Car.new({:domain => domain})
+        client.cars << car
+      end
+
+      car.assign_attributes({
+        :km => row[17], 
+        :kmAverageMonthly => row[16],
+        :brand_id => brand.id, 
+        :year => row[15], 
+        :model_id => model.id, 
+        :fuel => row[14]
+      })
+
+      
+      if client.save
+        success += 1
+      else
+        puts "ERRORES!!!"
+        puts client.errors.messages.inspect
+        failure += 1
+      end
+      
+    end
+
+    result[:summary] << ["Registros procesados", (success + failure)]
+    result[:summary] << ["Clientes agregados/actualizados", success]
+    result[:summary] << ["Clientes que no se han agregado", failure]
+
+    result
+  end
 end
 
