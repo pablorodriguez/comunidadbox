@@ -44,18 +44,26 @@
   .box_bottom
     %h3
       = t ".company_logo"
+
     .image_galery
       .image        
-        //= image_tag @company.logo_url(:logo).to_s,:alt => ""
+        - if f.object.logo_url
+          = image_tag @company.logo_url(:logo).to_s,:alt => ""
+        
         = f.check_box :remove_logo
         = f.file_field :logo
+        .small_text
+          La Imagen se va a modificar hasta ajustarse a 300 x 100 pixels
   #image.box_bottom
     %h3
       = t ".company_image_title"
     .image_galery
+      .small_text
+        Las Imagenes se modificaran hasta ajustarse a 600 x 400 pixels
       = f.fields_for :images do |img_form|
         .image
           - if img_form.object.image_url
             = image_tag img_form.object.image_url(:thumb).to_s,:alt => ""
+            %br
             = img_form.check_box :_destroy 
           = img_form.file_field :image

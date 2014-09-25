@@ -1,16 +1,5 @@
 es-AR:
-  companies:
-    show:
-      service provider: "Prestador de Servicio"
-      name: "Nombre"
-      web: "Sito Web"
-      phone: "Teléfono"
-      ranking: "Ranking"
-      address: "Dirección"
-      state: "Provincia"
-      city: "Cuidad"
-      street: "Calle"
-      zip: "Código Postal"
+  companies:    
     search_map: 
       service_provider: "Prestadores de Servicio"
       address: "Dirección:"
@@ -47,9 +36,9 @@ es-AR:
       service_providers: "Prestador de servicios"
       help: "Ayuda"
       name: "Nombre"
-      web: "Web"
+      web: "Sitio Web"
       phone: "Télefono"
-      ranking: "Ranking"
+      ranking: "Reputación"
       address: "Dirección"
       state: "Provincia"
       city: "Cuidad"
@@ -59,5 +48,6 @@ es-AR:
       subsidiary: "Sucursal"
       images: "Imagenes"
       logo: "Logo"
+      update: "Actualizar"
     index:
       my_companies: "Mis Empresas"

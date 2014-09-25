@@ -1,16 +1,5 @@
 en-US:
-   companies:
-    show:
-      service_provider: "Service Provider"
-      name: "Name"
-      web: "Web"
-      phone: "Phone"
-      ranking: "Ranking"
-      address: "Address"
-      state: "State"
-      city: "Cuidad"
-      street: "Street"
-      zip: "Zip"
+   companies:   
     search_map: 
       service_provider: "Service Provider"
       address: "Address:"
@@ -58,6 +47,7 @@ en-US:
       subsidiary: "Subsidiary"
       images: "Images"
       logo: "Logo"
+      update: "Update"
     index:
       my_companies: "My Companies"
 
