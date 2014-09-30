@@ -1,5 +1,8 @@
 .box_bottom
-  %h1 Detalle del Reporte
+  %h1.left Detalle del Reporte
+  .title_actions
+    .action                
+      %a.export_link#export_detail_report{:href => "#",:title => t('export')}
 %table.w
   %col{:width=>"60%"}
   %col{:width=>"40%"}

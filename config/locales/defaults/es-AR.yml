@@ -123,17 +123,34 @@ es-AR:
       multi_page: "Mostrando %{model} %{from} - %{to} de %{count} en total"
       multi_page_html: "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b> en total"
 
-    # models:
-    #   entry:
-    #     zero:  entries
-    #     one:   entry
-    #     few:   entries
-    #     other: entries
-
-    # line_item:
-    #   page_entries_info:
-    #     single_page:
-    #       zero:  "Your shopping cart is empty"
-    #       one:   "Displaying one item in your cart"
-    #       other: "Displaying all %{count} items"
-    #     multi_page: "Displaying items %{from} - %{to} of %{count} in total"
+  workorder: Orden de Trabajo
+  car: Automóvil
+  client: Cliente
+  salesman: Vendedor
+  workorder_date: Fecha
+  total_price: Total Orden
+  service_id: Id Servicio
+  service: Servicio
+  service_price: Total Servicio
+  employee: Empleado
+  material: Material
+  material_code: Código Material
+  material_prov_code: Código Prov. Material
+  material_price: Precio Unitario
+  material_amount: Cantidad
+  material_total_price: Total Material
+  budget: Presupuesto
+  budget_price: Total Presupuesto
+  budget_date: Fecha
+  operator: Operario
+  client_id: Cliente
+  first_name: Nombre
+  last_name: Apellido
+  company_name: Razón Social
+  email: E-Mail
+  phone: Teléfono
+  car_domain: Dominio
+  car_brand: Marca
+  car_model: Modelo
+  car_year: Año
+  creator: Creador

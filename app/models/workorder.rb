@@ -427,6 +427,59 @@ class Workorder < ActiveRecord::Base
     wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.native_name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
   end
 
+  def self.workorder_report_to_csv(params)
+    wsList = find_by_params(params)
+
+    #La lista wsList contiene los workorders solo con los services seleccionados en el filtro de la UI
+    #Por ejemplo si un workorder tiene los services "Alineacion y Balancio" y "Cambio de Neumatico"
+    #y se ha filtrado en la UI por "Cambio de Neumatico" esa workorder en la lista wsList contiene solo el servicio
+    # "Cambio de neumatico" por ello para tener la orden completa antes de escribir el csv voy a traer 
+    #cada workorder de la base de datos 
+
+    CSV.generate do |csv|
+      csv << [I18n.t('workorder'), I18n.t('car'), I18n.t('client'), I18n.t('salesman'), I18n.t('workorder_date'), I18n.t('total_price'), I18n.t('service_id'), I18n.t('service'), I18n.t('service_price'), I18n.t('material_amount'), I18n.t('material_price'), I18n.t('material_total_price'), I18n.t('material_code'), I18n.t('material_prov_code'), I18n.t('material'), I18n.t('employee')]
+
+      if wsList.present?
+        wsList.each do |wo|
+          
+          wo = Workorder.find(wo.id) #para obtener la orden completa
+
+          wo_full_data = true
+          row_ws = [wo.id, nil, nil, nil, nil, nil]
+          row_ws_full_data = [wo.id, wo.car.domain, wo.car.user.full_name, wo.user.full_name, I18n.l(wo.performed), wo.total_price]          
+          
+          wo.services.each do |service|
+            s_full_data = true
+            row_s = [service.service_type.id, service.service_type.native_name, nil]
+            row_s_full_data = [service.service_type.id, service.service_type.native_name, service.total_price]
+            
+            service.operator.present? ? row_s_empl = [service.operator.full_name] : row_s_empl = [nil]
+            
+            service.material_services.each do |mat_service|
+
+              if wo_full_data
+                row = row_ws_full_data
+                wo_full_data = false
+              else
+                row = row_ws
+              end
+
+              row_m = [mat_service.amount, mat_service.price, mat_service.total_price, mat_service.material_code, mat_service.material_prov_code, mat_service.material_name]
+
+              if s_full_data
+                csv << row + row_s_full_data + row_m + row_s_empl
+                s_full_data = false
+              else
+                csv << row + row_s + row_m
+              end
+
+            end
+          end
+        end
+      end
+    end
+  end
+
   def confirm_price_offer(price_offer_id)
     self.price_offers.update_all(confirmed: false)
     price_offer = PriceOffer.find price_offer_id

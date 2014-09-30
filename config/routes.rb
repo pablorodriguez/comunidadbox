@@ -130,7 +130,9 @@ ComunidadBox::Application.routes.draw do
 
     resources :budgets do
       resources :notes
-
+      collection do
+        get :export
+      end
       member do      
         get :print
         get :email
@@ -154,6 +156,7 @@ ComunidadBox::Application.routes.draw do
         get :filter
         post :task_list
         get :autopart
+        get :export
       end
       member do
         get :notify
@@ -236,6 +239,7 @@ ComunidadBox::Application.routes.draw do
       collection do
         post :search
         get :index_all
+        get :export
       end
     end
 

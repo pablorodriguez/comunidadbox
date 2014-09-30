@@ -123,17 +123,34 @@ en-US:
       multi_page: "Displaying %{model} %{from} - %{to} of %{count} in total"
       multi_page_html: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"
 
-    # models:
-    #   entry:
-    #     zero:  entries
-    #     one:   entry
-    #     few:   entries
-    #     other: entries
-
-    # line_item:
-    #   page_entries_info:
-    #     single_page:
-    #       zero:  "Your shopping cart is empty"
-    #       one:   "Displaying one item in your cart"
-    #       other: "Displaying all %{count} items"
-    #     multi_page: "Displaying items %{from} - %{to} of %{count} in total"
+  workorder: Workorder
+  car: Car
+  client: Client
+  salesman: Salesman
+  workorder_date: Date
+  total_price: Total Price
+  service_id: Service Id
+  service: Service
+  service_price: Total Service
+  employee: Employee
+  material: Material
+  material_code: Material Code
+  material_prov_code: Material Prov Code
+  material_price: Material Price
+  material_amount: Amount
+  material_total_price: Total Material
+  budget: Budget
+  budget_price: Budget Price
+  budget_date: Date
+  operator: Operator
+  client_id: Client
+  first_name: First Name
+  last_name: Last Name
+  company_name: Company Name
+  email: E-Mail
+  phone: Phone
+  car_domain: Domain
+  car_brand: Brand
+  car_model: Model
+  car_year: Year
+  creator: Creator

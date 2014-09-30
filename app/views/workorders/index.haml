@@ -47,13 +47,20 @@
       - if current_user.is_administrator?
         #price_graph_c.data.hide.chart            
           .box_bottom
-            %h1 Importes por Tipo de Servicios
+            %h1.left Importes por Tipo de Servicios            
+            .title_actions
+              .action
+                %a.export_link#export_price_report{:href => "#",:title => t('export')}
+
           #price_graph.box_bottom.graph          
           #price_report.box_bottom
             = render "price_report"
         #amt_graph_c.data.hide.chart
           .box_bottom
-            %h1 Cantidad por Tipo de Servicios
+            %h1.left Cantidad por Tipo de Servicios            
+            .title_actions
+              .action
+                %a.export_link#export_amount_report{:href => "#",:title => t('export')}
           #amt_graph.box_bottom.graph
           #amt_report.box_bottom
             = render "amount_report"                 

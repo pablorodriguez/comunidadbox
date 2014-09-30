@@ -227,5 +227,41 @@ class Company < ActiveRecord::Base
     end
 
   end
+
+  def self.clients_report_to_csv(companies_ids,params)
+    cList = clients companies_ids, params
+
+    CSV.generate do |csv|
+      csv << [I18n.t('client_id'),I18n.t('last_name'),I18n.t('first_name'),I18n.t('company_name'),I18n.t('email'),I18n.t('phone'),I18n.t('creator'),I18n.t('car_domain'),I18n.t('car_brand'),I18n.t('car_model'),I18n.t('car_year')]
+
+      if cList.present?
+        cList.each do |client|
+          
+          client_fd = true
+          row_client = [client.id, nil, nil, nil, nil, nil, nil]
+          row_client_fd = [client.id, client.last_name, client.first_name, client.company_name, client.email, client.phone]
+
+          client.creator ? row_client_fd += [client.creator.company.name] : row_client_fd += [nil]
+
+          if client.cars.blank?
+            csv << row_client_fd
+          else
+            client.cars.each do |car|
+              row_car = [car.domain, car.brand.name, car.model.name, car.year]
+
+              if client_fd
+                csv << row_client_fd + row_car
+                client_fd = false
+              else
+                csv << row_client + row_car
+              end
+            end
+          end
+
+        end
+      end
+    end
+  end
+
 end
 

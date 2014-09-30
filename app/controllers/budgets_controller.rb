@@ -29,6 +29,9 @@ class BudgetsController < ApplicationController
     filters_params[:model_id] = params[:service_filter][:model_id] if params[:service_filter] && !(params[:service_filter][:model_id].empty?)
     filters_params[:year] = params[:year] if(params[:year] && !(params[:year].empty?))
 
+    @filters_params_exp = filters_params
+    @filters_params_exp[:user] = nil
+
     @budgets = Budget.find_by_params(filters_params).paginate(:page =>page,:per_page =>per_page)    
 
     @fuels = Car.fuels
@@ -39,11 +42,28 @@ class BudgetsController < ApplicationController
 
     @models = Array.new
     @models = Model.find_all_by_brand_id(filters_params[:brand_id],:order=>:name) if filters_params[:brand_id]
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @budgets }
       format.js { render :layout => false}
+    end
+  end
+
+  def export
+    params[:user] = current_user
+
+    csv = Budget.budget_report_to_csv params
+
+    unless csv.empty?
+
+      respond_to do |format|
+        format.csv { send_data csv, :filename => "budgetsReport.csv"}
+      end
+      
+    else
+      flash[:alert] = t("Error")
+      redirect_to badgets_path
     end
   end
 

@@ -1703,6 +1703,10 @@ td.number, th.number{
   padding:0px 0px 5px 0px;
 }
 
+.title_actions{
+  float:right;
+  padding-top: 7px;
+}
 .wo_detail .performed{
   float: right;
 }
@@ -2589,6 +2593,13 @@ select.operator{
   height: 16px;
   width: 16px;
   display:block;
+}
+
+.export_link{
+  background: url(images/export.png) no-repeat scroll;
+  height: 16px;
+  width: 16px;
+  display:block;  
 }
 
 input.labelHighlight,textarea.labelHighlight {

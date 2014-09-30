@@ -65,6 +65,12 @@ class Budget < ActiveRecord::Base
     name
   end
 
+  def car_domain
+    ""
+    "#{domain}" if domain
+    "#{car.domain}" if car
+  end
+  
   def brand_name
     brand ? brand.name : ""
   end
@@ -202,6 +208,58 @@ class Budget < ActiveRecord::Base
     bg_values << budget.created_at
     bg_values << budget.updated_at
 
+  end
+
+  def self.budget_report_to_csv(params)
+    bList = find_by_params params
+    
+    CSV.generate do |csv|
+      csv << [I18n.t('budget'), I18n.t('car'), I18n.t('client'), I18n.t('operator'), I18n.t('budget_date'), I18n.t('budget_price'), I18n.t('service_id'), I18n.t('service'), I18n.t('service_price'), I18n.t('material_amount'), I18n.t('material_price'), I18n.t('material_total_price'), I18n.t('material_code'), I18n.t('material_prov_code'), I18n.t('material')]
+    
+      if bList.present?
+        bList.each do |b|
+          budget = Budget.find b.id #para obtener el presupuesto completo
+
+          budget_fd = true
+          row_budget = [budget.id, nil, nil, nil, nil, nil]
+          row_budget_fd = [budget.id, budget.car_domain, budget.full_name, budget.creator.full_name, I18n.l(budget.created_at, :format => :short), budget.total_price]
+
+          budget.services.each do |service|
+            service_fd = true
+            row_service = [service.service_type.id, service.service_type.native_name, nil]
+            row_service_fd = [service.service_type.id, service.service_type.native_name, service.total_price]
+
+            if(service.material_services.present?)
+              service.material_services.each do |mat_service|
+                if budget_fd
+                  row = row_budget_fd
+                  budget_fd = false
+                else
+                  row = row_budget
+                end
+
+                row_material = [mat_service.amount, mat_service.price, mat_service.total_price, mat_service.material_code, mat_service.material_prov_code, mat_service.material_name]
+
+                if service_fd
+                  csv << row + row_service_fd + row_material
+                  service_fd = false
+                else
+                  csv << row + row_service + row_material
+                end
+              end
+            else
+              if budget_fd
+                row = row_budget_fd
+                budget_fd = false
+              else
+                row = row_budget
+              end
+              csv << row + row_service_fd
+            end
+          end
+        end
+      end
+    end
   end
 
 end
