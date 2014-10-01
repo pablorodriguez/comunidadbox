@@ -1,7 +1,8 @@
 .box_bottom
-  %h1 
-    = t(".list_of_clients")  
-  = link_to (t'export'), export_clients_path(:format => :csv, :params => @filters_params_exp), :title => "Exportar"
+  %h1.left= t(".list_of_clients")
+  .title_actions
+    .action        
+      = link_to "", export_clients_path(:format => :csv, :params => @filters_params_exp),:class =>"export_link",:title => t('export')
 - for client in clients  
   - is_client = current_user.is_client?(client)
   .row[client]
