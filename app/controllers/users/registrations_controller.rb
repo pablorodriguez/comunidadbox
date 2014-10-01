@@ -17,7 +17,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       company.active=1
       company.build_address unless company.address
     end
-    
   end
   
   def update
