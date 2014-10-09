@@ -60,8 +60,7 @@ class WorkordersController < ApplicationController
     filters_params[:order_by] = @order_by
 
     @filters_params_exp = filters_params
-    @filters_params_exp[:user] = nil
-    
+    #@filters_params_exp[:user] = nil
     @workorders = Workorder.find_by_params(filters_params)
     
     @material = nil;
