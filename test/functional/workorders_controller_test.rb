@@ -7,8 +7,10 @@ class WorkordersControllerTest < ActionController::TestCase
     
     @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
+    @hugo = create(:hugo_rodriguez)
     @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
     @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo_2 = create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company)
   end
 
   test "cant print other workorder company" do
@@ -93,6 +95,24 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("div#report_material",:count =>0)
     assert_select("div#report_detail",:count =>0)
   end
+
+
+  test "user do not list other workorder" do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in @user
+    get :index
+    assert_response :success
+    assert_template :index
+
+    assert_select(".row",2)
+    
+    assert_select(".price_b",:text => "$60,00",:count=>2)
+    assert_select("div#report_amount",0)
+    assert_select("div#report_quantity",0)
+    assert_select("div#report_material",0)
+    assert_select("div#report_detail",0)
+  end
+
 
   test "new work order form budget with car" do
     sign_in @employer    
