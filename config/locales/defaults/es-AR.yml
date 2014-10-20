@@ -39,6 +39,7 @@ es-AR:
   friday: "Viernes"
   saturday: "Sábado"
   business_name: "Razón Social"
+  cuit: "Cuit"
   web_site: "Sitio Web"
   months: "Meses"
   years: "Años"
