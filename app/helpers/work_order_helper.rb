@@ -1,15 +1,11 @@
 module WorkOrderHelper
   
   def show_company_info car
-    html =""
-    if (car.user.company_name && (not car.user.company_name.empty?))
-      html = content_tag(:label,"[#{car.user.company_name}]",:title => I18n.translate("business_name"))
+    capture do
+      concat content_tag(:label,"[#{car.user.company_name}]",:title => I18n.translate("business_name")) if (car.user.company_name && (not car.user.company_name.empty?))
+      concat " "    
+      concat content_tag(:label,"[#{car.user.cuit}]",:title => I18n.translate("cuit")) if (car.user.cuit && (not car.user.cuit.empty?))
     end
-
-    if (car.user.cuit && (not car.user.cuit.empty?))
-      html << content_tag(:label,"[#{car.user.cuit}]",:title => I18n.translate("cuit"))
-    end
-    html
   end
 
   def show_rank(cal,css="")
