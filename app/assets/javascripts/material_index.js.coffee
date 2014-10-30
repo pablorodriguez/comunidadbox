@@ -2,6 +2,14 @@ $ ->
   if $("#materials_index").notExist()
     return
 
+  $("a#import_export").click ->
+    $("#materials").slideToggle()
+    $(".upload_file").slideToggle()
+
+  $("a#material_list").click ->
+    $("#materials").slideToggle()
+    $(".upload_file").slideToggle()
+
   show_form = ->
     $(@).parent().parent().parent().hide().next().show()
 

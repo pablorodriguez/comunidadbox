@@ -64,7 +64,7 @@ module ApplicationHelper
   end
 
   def get_service_types
-    ids = company_id ? CompanyService.companies(company_id) : current_user.service_types    
+    current_user.service_types    
   end
 
   def t_st service_types

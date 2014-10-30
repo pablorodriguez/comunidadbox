@@ -5,15 +5,15 @@ class CompaniesController < ApplicationController
   
   def service_types    
     @company = get_company
-    @not_in = @company.service_type.map(&:id)
+    @not_in = @company.service_types.map(&:id)
     if @not_in.size >0
-      @service_types =ServiceType.where("id NOT IN (?) ",  @not_in).order('name')
+      @service_types = ServiceType.where("id NOT IN (?) ",  @not_in).order('name')
     else
-      @service_types =ServiceType.order('name').all
+      @service_types = ServiceType.order('name').all
     end
-    @company_service_type = @company.service_type
+    @service_types = @company.service_types
 
-    @all_service_types = ServiceType.order('name').all
+    #@all_service_types = ServiceType.order('name').all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -121,13 +121,9 @@ class CompaniesController < ApplicationController
   def activate
     id = params[:id]
     Company.transaction do
-      current_user.companies.each do |c|
-        c.active=false
-        c.save
-      end
-      comp = Company.find id
-      comp.active = true
-      comp.save
+      current_user.companies.each{|c| c.update_attributes(:active => false)}      
+      comp = Company.update(id,:active => true)      
+      set_company_in_cookie [comp.id]
     end
     redirect_to companies_path
   end

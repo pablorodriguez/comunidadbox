@@ -6,7 +6,11 @@
         = link_to "Nueva Lista de Precio", new_price_list_path
 .contentright_s
   .box_bottom
-    %h1 Listas de Precios  
+    %h1
+      = get_company.name
+  .box_bottom
+    %h1 
+      Listas de Precios  
   %table#sort_table.comboxtable
     %thead
       %tr

@@ -1,5 +1,10 @@
 es-AR:
   materials:
+    file_upload:
+      update_from_file: Actualizar desde un archivo
+      import: Importar
+      export: Exportar
+      importing: Importando
     new:
       save: "Grabar"
     edit:

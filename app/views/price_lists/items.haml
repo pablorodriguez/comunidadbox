@@ -6,11 +6,16 @@
     = render "admin/menu"
     = render "update"    
   .contentright_s
+    .box_bottom
+      %h1  
+        = get_company.name
+      %h1
+        = @price_list.name
     = render "file_upload.haml"
     - if @result
       #mpor_price_item
         .box_bottom
-          %h1 Lista de Precios actualizada desde archivo
+          %h1 Actalizar desde un archivo
         .box_bottom          
           %strong 
             Nombre archivo:
@@ -27,43 +32,44 @@
 
     .box_bottom
       %h1 
-        Actualizar Precios:
-        = @price_list.name
-    = form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
-      .box_bottom
-        %table.w
-          %tbody
-            %tr
-              %td
-                %ol
-                  %li
-                    = radio_button_tag :item_update,:all,false,:class=>"checkbox"
-                    = label_tag :item_update, "Todos los materiales",:for => :item_update_all,:class=>:link
-                  %li
-                    = radio_button_tag :item_update, :all_page,false,:class=>"checkbox"
-                    = label_tag :item_update, "Todas las paginas",:for => :item_update_all_page,:class=>:link
-                  %li
-                    = radio_button_tag :item_update, :actual_page,true,:class=>"checkbox"
-                    = label_tag :item_update, "Pagina actual",:for=>:item_update_actual_page,:class=>:link
-              %td
-                Incremento
-                = text_field_tag :percentage,@percentage
-                = link_to_function "Grabar","savePriceList()",:class =>"button"      
-                #service_types_ids{:style =>"display:none"}
-                  = hidden_field_tag "material",@material
-                  = hidden_field_tag "page",@page
-        
-      %table#sort_table.comboxtable
-        %thead
-          %tr.table_header
-            %th{:width=>"25%"}
-              Tipo de Servicio
-            %th{:width=>"45%"}
-              Material
-            %th{:width=>"10%"}
-              Precio
-            %th{:width=>"20%"}
-              Nuevo Precio
-        = render :partial => "item", :collection =>@materials
-    %br      
-    = will_paginate @materials
+        = link_to "Listado de Precios","#",:id=>"price_list_items"
+    #price_list_container
+      = form_for @price_list,:url =>"update_item_price",:html =>{:id =>"price_list_form"} do |f|
+        .box_bottom
+          .import_form
+            %table.w
+              %tbody
+                %tr
+                  %td
+                    %ol
+                      %li
+                        = radio_button_tag :item_update,:all,false,:class=>"checkbox"
+                        = label_tag :item_update, "Todos los materiales",:for => :item_update_all,:class=>:link
+                      %li
+                        = radio_button_tag :item_update, :all_page,false,:class=>"checkbox"
+                        = label_tag :item_update, "Todas las paginas",:for => :item_update_all_page,:class=>:link
+                      %li
+                        = radio_button_tag :item_update, :actual_page,true,:class=>"checkbox"
+                        = label_tag :item_update, "Pagina actual",:for=>:item_update_actual_page,:class=>:link
+                  %td
+                    Incremento
+                    = text_field_tag :percentage,@percentage
+                    = link_to_function "Grabar","savePriceList()",:class =>"button"      
+                    #service_types_ids{:style =>"display:none"}
+                      = hidden_field_tag "material",@material
+                      = hidden_field_tag "page",@page
+          
+        %table#sort_table.comboxtable
+          %thead
+            %tr.table_header
+              %th{:width=>"25%"}
+                Tipo de Servicio
+              %th{:width=>"45%"}
+                Material
+              %th{:width=>"10%"}
+                Precio
+              %th{:width=>"20%"}
+                Nuevo Precio
+            = render :partial => "item", :collection =>@materials
+      %br      
+      = will_paginate @materials

@@ -1,9 +1,10 @@
 .vertical_menu
-  = render "conf/menu"
+  = render "admin/menu"
   = render "actions"
 .contentright_s
   .box_bottom
-    %h1 Nuevo Tipo de Servicio  
+    %h1
+      = t(".new_service_type")
   = form_for @service_type do |f|
     = render :partial=>'form',:locals => {f: f}
     .buttons_container    

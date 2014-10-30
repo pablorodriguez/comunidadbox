@@ -4,7 +4,7 @@ class ServiceTypesController < ApplicationController
   # GET /service_types
   # GET /service_types.xml
   def index
-    @service_types = ServiceType.find(:all,:order=>'name')
+    @service_types = ServiceType.where("company_id IN (?) ",  company_id).order('name')
     
     respond_to do |format|
       format.html # index.html.erb
@@ -139,7 +139,7 @@ class ServiceTypesController < ApplicationController
   # POST /service_types.xml
   def create
     @service_type = ServiceType.new(params[:service_type])
-
+    @service_type.company_id = current_user.company_active.id
     respond_to do |format|
       if @service_type.save
         flash[:notice] = 'El Tipo de Servicio se creo con exito.'
@@ -156,11 +156,9 @@ class ServiceTypesController < ApplicationController
   # PUT /service_types/1.xml
   def update
     @service_type = ServiceType.find(params[:id])
-
     respond_to do |format|
-      if @service_type.update_attributes(params[:service_type])
-        flash[:notice] = 'ServiceType was successfully updated.'
-        format.html { redirect_to(service_types_url) }
+      if @service_type.update_attributes(params[:service_type])      
+        format.html { redirect_to(@service_type) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

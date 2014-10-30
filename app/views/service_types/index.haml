@@ -1,6 +1,6 @@
 -# javascript 'sort.table'
 .vertical_menu
-  = render "conf/menu"
+  = render "admin/menu"
   = render "actions"
 .contentright_s
   .box_bottom
@@ -9,22 +9,24 @@
     %thead
       %tr
         %th Nombre
-        %th Pertenece a
         %th Kms
         %th Días
-        %th
+        -if multiple_company?
+          %th Empresa
+        %th 
     - for service_type in @service_types    
       %tr
         %td
-          = link_to service_type.native_name,service_type              
-        %td 
-          -if service_type.parent   
-            = service_type.parent.native_name
+          = check_box_tag "active","1", (service_type.active == "1"  ? true : false),:disabled => true
+          = link_to service_type.name,service_type              
         %td
           = service_type.kms
         %td
           = service_type.days
+        -if multiple_company?
+          %td
+            = service_type.company.name
         %td
-          = link_to image_tag("edit.png"), edit_service_type_path(service_type)
-          - unless is_assigned service_type
-            = link_to image_tag("delete.png"), service_type,:data => {:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete  
+          = link_to image_tag("edit.png"), edit_service_type_path(service_type)          
+          = link_to image_tag("delete.png"), service_type,:data => {:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete  
+          //= check_box_tag "active","1", (service_type.active == "1"  ? true : false),:id =>service_type.id,:data => {:id =>service_type.id}        

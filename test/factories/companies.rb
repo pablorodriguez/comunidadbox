@@ -7,6 +7,7 @@ FactoryGirl.define do
     website "www.neumaticosvallegrande.com.ar"
     active 1
     address {FactoryGirl.build(:valle_grande_mendoza_plaza_address)}
+    headquarter 1
   end
   
   factory :valle_grande_mendoza_peru, class: Company do

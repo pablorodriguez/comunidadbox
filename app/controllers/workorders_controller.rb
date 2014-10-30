@@ -37,7 +37,7 @@ class WorkordersController < ApplicationController
     @company_services = get_service_types 
     
     @order_by = order_by
-    @service_type_ids =  params[:service_type_ids] || []    
+    @service_type_ids =  params[:service_type_ids] || current_user.service_types.map(&:id)
     
     @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
         
@@ -287,7 +287,7 @@ class WorkordersController < ApplicationController
     @work_order.car = Car.find(params[:car_id]) if params[:car_id]
     @work_order.initialize_with_car_service_offer(company_id)
     
-    @service_types = current_user.service_types
+    @service_types = current_user.service_types_active
        
     if @work_order.company.nil? and @work_order.company_info.nil?
       flash[:notice] ="Para registar un servicio debe seleccionar un prestador"

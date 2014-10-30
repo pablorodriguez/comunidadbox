@@ -4,14 +4,19 @@ es-AR:
       add_task: "Agregar Tarea"
     search_material:
       material_not_found: "Materiales no encontrados"
+    actions:
+      new_service_type: "Nuevo Tipo de Servicio"
     edit:
       save: "Actualizar"
       cancel: "Cancelar"
+      update: "Modificar Tipo de Servicios"
     new:
       save: "Grabar"
       cancel: "Cancelar"
+      new_service_type: Nuevo Tipo de Servicio
     form:
+      service_center: Prestador de Servico
       name: "Nombre"
-      kilometro: "kilometro"
-      belongs_to: "Pertenece a"
-      status: "Estado"  
+      kms: "Kilometros"
+      days: "Días"
+      active: "Activo"  

@@ -1368,10 +1368,11 @@ ol{
   height: 600px;
 }
 
-.vertical_menu .checkbox ,.vertical_menu .radio{
+.checkbox ,.radio{
   height:12px;
   width:15px;
 }
+
 .vertical_menu .input_img{
   width: 21px;
   height: 21px;
@@ -2930,14 +2931,6 @@ ul.tasks li{
   font-size:11px;
 }
 
-.upload_file form{
-  margin: 10px 0px;
-}
-
-.upload_file input{
-  height:30px;
-  margin-top:0px;
-}
 
 .validation_email_msg{
   background-color: #F2F2F2;
@@ -3094,4 +3087,39 @@ ul.tasks li{
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
+}
+
+.import_form{
+  background: none repeat scroll 0 0 #f0f0f0;
+  margin: 10px 5px;
+  padding: 10px;
+  overflow: auto;
+}
+
+.import_form .col1{
+  padding: 5px;
+  text-align: justify;
+  width: 35%;
+}
+
+.import_form .col2{
+  padding: 5px;
+  text-align: justify;
+  width: 60%;
+}
+
+.import_form .important{
+  color: red;
+  font-weight: bold;
+}
+
+.import_form .code{
+  padding:2px 5px;
+  font-weight: bold;
+  background-color: #dbd6d6;
+  margin: 5px;
+  font-size: 12px;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
 }

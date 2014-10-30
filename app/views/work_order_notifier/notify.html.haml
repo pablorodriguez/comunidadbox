@@ -29,7 +29,7 @@
     - for service in @work_order.services
       %tr
         %td
-          = service.service_type.native_name
+          = service.service_type.name
         %td
           = number_to_currency service.total_price
     %tr
@@ -55,5 +55,5 @@
               %td
                 = l event.dueDate
               %td
-                = event.service_type.native_name
+                = event.service_type.name
   

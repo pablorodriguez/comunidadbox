@@ -155,3 +155,4 @@ es-AR:
   car_model: Modelo
   car_year: Año
   creator: Creador
+  import_file_error: Debe seleccionar un archivo para importar

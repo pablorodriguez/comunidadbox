@@ -8,7 +8,7 @@
           %td
             = hidden_field_tag "st_id[]", cso.service_offer.service_type.id,:id =>"st_id_#{cso.service_offer.service_type.id}"
             = hidden_field_tag "cso_ids[]", cso.id,:id =>"cso_ids_#{cso.service_offer.service_type.id}"
-            = cso.service_offer.service_type.native_name
+            = cso.service_offer.service_type.name
           %td
             %span
               = number_to_currency cso.service_offer.final_price        

@@ -8,7 +8,7 @@
             = f.hidden_field :service_type_id,:class=>:service_type_id
             = f.fields_for :service_type do |st_form|
               %label.header_text_lable
-                = st_form.object.native_name
+                = st_form.object.name
           .service_status
             - if company_id
               %select{class: "operator template hide"}

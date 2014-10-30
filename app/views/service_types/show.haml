@@ -1,5 +1,5 @@
 .vertical_menu
-  = render "conf/menu"
+  = render "admin/menu"
   .menu_actions.box_bottom
     %ul
       %li
@@ -11,26 +11,27 @@
   .box_bottom
     %table
       %tr
-        %td.label_title Nombre
         %td
-          =@service_type.native_name
+          Empresa:
+        %td
+          %strong
+            = @service_type.company.name
       %tr
-        %td.label_title Kms
+        %td.label_title Nombre:
+        %td
+          =@service_type.name
+      %tr
+        %td.label_title Kms:
         %td
           = @service_type.kms
-      - if @service_type.parent
-        %tr
-          %td.label_title Pertence a
-          %td
-            = @service_type.parent.name
       %tr
-        %td.label_title Activo
-        %td
-          = check_box_tag "active","1", @service_type.active,:disabled => true  
-  #tasks
-    .box_bottom
-      %h1 Tareas
-    = render :partial => 'tasks', :locals => { :tasks => @tasks, :service_type => @service_type }
+        %td.label_title Activo:
+        %td          
+          = check_box_tag "active","1", (@service_type.active == "1"  ? true : false),:disabled => true
+  //#tasks
+  //  .box_bottom
+  //    %h1 Tareas
+  //  = render :partial => 'tasks', :locals => { :tasks => @tasks, :service_type => @service_type }
   #service_type_materials    
     = render :partial =>"material",:locals => {:materials => @materials}
    

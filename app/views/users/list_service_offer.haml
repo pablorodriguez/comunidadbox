@@ -15,7 +15,7 @@
   - for car_offer in @car_service_offers
     %tr
       %td 
-        = link_to car_offer.service_offer.service_type.native_name, car_offer
+        = link_to car_offer.service_offer.service_type.name, car_offer
       %td
         =car_offer.service_offer.company.name
       %td

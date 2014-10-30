@@ -8,11 +8,11 @@
             = check_box_tag 'all_service_type',1,@all_service_type,:class=>:checkbox
             %label.link{:for => 'all_service_type'}
               Todos
-          -ServiceType.all.each do |service|
+          - current_user.service_types.each do |service|
             %li
               = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
               %label.link{:for=>"service_type_#{service.id}"}
-                =service.native_name
+                =service.name
     %table
       %tbody
         %tr

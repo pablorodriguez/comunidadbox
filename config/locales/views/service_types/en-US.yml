@@ -1,17 +1,22 @@
-en:
+en-US:
   service_types:
     tasks:
       add_task: "add task"
     search_material:
-      material_not_found: "material not found"
+      material_not_found: "Material not found"
+    actions:
+      new_service_type: "New Service Type"
     edit:
-      save: "update"
+      save: "Update"
       cancel: "Cancel"
+      update: "Update Service Type"
     new:
-      save: "save"
+      save: "Save"
       cancel: "Cancel"
+      new_service_type: New Service Type
     form:
+      service_center: "Service Center"
       name: "Name"
-      kilometro: "kilometre"
-      belongs_to: "belongs to"
-      status: "status"
+      kms: "Kilometers"
+      days: "Days"
+      active: "Actvie"

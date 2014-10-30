@@ -8,7 +8,7 @@
   .services    
     - budget.services.each do |s|
       .service
-        = s.service_type.native_name
+        = s.service_type.name
   .budget_info.clear
     %label.bg_id{:title =>t(".number_of_budget")}
       = link_to budget.id, budget

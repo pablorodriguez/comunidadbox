@@ -113,16 +113,18 @@ class User < ActiveRecord::Base
       offers = offers.where("until <= ?",filters[:until].to_datetime.in_time_zone) unless filters[:until].empty?
       offers = offers.where("title like ?","%#{filters[:title]}%") unless filters[:title].empty?
       offers = offers.where("status in (?)",filters[:status]) if filters[:status]
-    end    
+    end
+
     offers
   end
 
+  def service_types_active
+    company.service_types.active
+  end
+  
   def service_types
-    if company
-      return company.service_type
-    else
-      return ServiceType.all
-    end
+    return company.service_types unless company.service_types.empty?
+    return company.user.headquarter.service_types
   end
 
   def all_notes
@@ -154,8 +156,18 @@ class User < ActiveRecord::Base
     cars.select{|c| c.id == car.id}.size > 0
   end
 
-  def employees
-    User.where("employer_id = ? ",id)
+  def employees(company_id = nil)
+    unless company_id
+      comp_ids = get_companies_ids    
+    else
+      comp_ids =[company_id]
+    end
+
+    return User.enabled.where("employer_id IN (?) ",comp_ids)
+  end
+
+  def company_active_employees
+    employees(company_active.id)
   end
 
   def company
@@ -200,6 +212,46 @@ class User < ActiveRecord::Base
     return companies unless companies.empty?
     return employer.user.companies if is_employee? 
     return []
+  end
+
+  def headquarter
+    if companies.empty?
+      return employer.user.headquarter if employer
+    else
+       comp = companies.select{|c| c.headquarter}.first
+       return comp ? comp : company_active
+    end
+
+  end
+
+  
+  def get_company_id_for_materials
+    get_company_id(:materials)
+  end
+
+  def get_company_id_for_service_types
+    get_company_id(:service_types)
+  end
+
+  # Return company id to be use in Materials, Service Types
+  # Context can me materials or service types
+  def get_company_id(context)    
+    id = nil
+    if context == :materials
+      if Material.has_for_company?(company_id)
+        id = company_id 
+      else
+        id = company.user.headquarter.id
+      end
+    elsif context == :service_types
+      if ServiceType.has_for_company?(company_id)
+        id = company_id 
+      else
+        id = company.user.headquarter.id
+      end
+    end
+
+    id
   end
 
   def get_companies_ids
@@ -269,15 +321,6 @@ class User < ActiveRecord::Base
     rescue Exception => e
       logger.debug "Error #{e} (#{e.class})!"
     end
-  end
-
-  def service_types
-    if company
-      sp = company.service_type
-    else
-       sp = ServiceType.all(:order =>"name")
-    end
-   sp
   end
 
   def state

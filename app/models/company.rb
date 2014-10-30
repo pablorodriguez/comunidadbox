@@ -11,8 +11,8 @@ class Company < ActiveRecord::Base
   has_many :companies_users
   has_many :customers, :through => :companies_users, :source => :user
   has_many :price_lists
-  has_many :company_service
-  has_many :service_type, :through => :company_service, :order =>'name'
+  #has_many :company_service
+  has_many :service_types,:order =>'name'
   has_many :workorders
   has_many :employees,:class_name =>'User',:foreign_key =>'employer_id'
   has_many :cars
@@ -26,6 +26,7 @@ class Company < ActiveRecord::Base
   
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
+  scope :headquarters, where("headquarter =1")
 
 
   has_many :material_requests

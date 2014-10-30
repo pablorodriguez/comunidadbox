@@ -302,8 +302,11 @@ ComunidadBox::Application.routes.draw do
     resources :materials do
       collection do
         get :details
-        post :save_service_type
+        get :export
         get :destroy_servicetype
+        
+        post :import
+        post :save_service_type
       end
     end
 

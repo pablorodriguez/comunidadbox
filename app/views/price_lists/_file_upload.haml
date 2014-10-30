@@ -1,7 +1,8 @@
-.upload_file
-  .box_bottom
-    %h1 Actualizar desde archivo
-  .box_bottom  
+.box_bottom
+  %h1 
+    = link_to "Actualizar desde archivo","#",:id =>"update_from_file"
+.box_bottom.upload_file.hide
+  .import_form
     = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
       .left
         = file_field :price, :file

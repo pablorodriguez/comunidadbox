@@ -4,8 +4,9 @@ class MaterialsController < ApplicationController
   authorize_resource
   
   def index
-    page = params[:page] || 1    
-    @materials = Material.find_by_params params
+    page = params[:page] || 1
+    params[:company_id] = current_user.get_company_id_for_materials.to_s
+    @materials = Material.find_by_params(params)    
     @service_type_ids =  params[:service_type_ids] || []    
     respond_to do |format|
       format.js {render :layout => false}    
@@ -123,12 +124,36 @@ class MaterialsController < ApplicationController
 
   def destroy
     @material = Material.find(params[:id])
-    @material.destroy
+    @material.destroy_or_disable
 
     respond_to do |format|
       format.html { redirect_to(materials_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def export    
+    csv = Material.to_csv(current_user.get_company_id_for_materials)
+
+    unless csv.empty?
+      respond_to do |format|
+        format.csv { send_data csv, :filename => "materiales.csv"}
+        format.html {redirect_to materials_path}
+      end
+    else
+      flash[:alert] = t("Error")
+      redirect_to materials_path
+    end
+  end
+
+  def import
+    if params[:file].present?
+      @result = Material.from_csv params[:file], current_user.get_company_id_for_materials,params[:service_type_ids]      
+    else
+      flash[:alert] = t("import_file_error")
+    end
+    redirect_to materials_path
+    
   end
 end
 

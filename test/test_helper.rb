@@ -16,6 +16,21 @@ class ActiveSupport::TestCase
 end
 
 module ComunidadBox::TestHelpers
+  def create_all_company_data(company_id=nil)
+
+    #create tipos de servicios
+    create :oil_change,:company_id => company_id
+    create :tire_change,:company_id => company_id
+    create :alignment_and_balancing,:company_id => company_id
+
+    #crear materiales
+    create :hand_work_material,:company_id => company_id
+
+    #create materiales para tipos de servicios
+    create :hand_work_for_tire_change,:company_id => company_id
+    create :hand_work_oil_change,:company_id => company_id
+    
+  end
   def create_all_default_data
     #create country and states
     #create :argentina
@@ -35,18 +50,6 @@ module ComunidadBox::TestHelpers
     create :credit_card
     create :debit_card
 
-    #create tipos de servicios
-    create :oil_change
-    create :tire_change
-    create :alignment_and_balancing
-
-    #crear materiales
-    create :hand_work_material
-
-    #create materiales para tipos de servicios
-    create :hand_work_for_tire_change
-    create :hand_work_oil_change
-    
     #create roles
     create :administrator
   end

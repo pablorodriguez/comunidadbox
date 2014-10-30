@@ -4,6 +4,7 @@ es-AR:
     menu:
       promotions: Promociones
       my_services: Mis Servicios
+      service_types: Tipos de Servicios
       filter_list: "Listado de Filtros"
       material_request: "Solicitud de material"
       price_list: "Lista de Precios"

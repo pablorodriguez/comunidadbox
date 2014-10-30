@@ -1,5 +1,5 @@
 %td 
-  = service_type_row.native_name
+  = service_type_row.name
 %td
   - mst = material.material_service_type.select{|s| s.service_type_id == service_type_row.id}.first
   - if mst    

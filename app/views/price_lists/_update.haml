@@ -7,7 +7,7 @@
         %tr
           %td
             = check_box_tag "service_type_ids[#{service_type.id}]",service_type.id,@service_type_ids.include?(service_type.id.to_s),:class =>"service_type_id checkbox"
-            = label_tag "service_type_ids[#{service_type.id}]",service_type.native_name,:class =>:link
+            = label_tag "service_type_ids[#{service_type.id}]",service_type.name,:class =>:link
       %tr
         %td
           = text_field_tag "material",@material,:class=>"labelify input",:title=>"Material"

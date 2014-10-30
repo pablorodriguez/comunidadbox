@@ -1,0 +1,51 @@
+.box_bottom
+  %h1
+    =link_to t('.update_from_file'),"#",:id =>"import_export"
+.upload_file.hide
+  .box_bottom
+    .import_form
+      = form_tag import_materials_path, multipart: true do
+        %h4        
+          Por favor indique a que Tipo de Servicio va a asociar los materiales en la importación
+        .box_bottom
+          .col1.left
+            #service_types
+              %ul
+                - current_user.service_types.each do |service|
+                  %li
+                    = check_box_tag 'service_type_ids[]', service.id,false,:id=>"m_service_type_#{service.id}",:class=>"checkbox"
+                    %label.link{:for=>"m_service_type_#{service.id}"}
+                      =service.name
+          .col2.right
+            Para la 
+            %strong
+              Importación de Materiales
+            por favor cree un archivo csv usando Excel u otro programa de oficina donde el primer renglón contenga las siguiente columnas:
+            
+            .code
+              |id|código|código proveedor|nombre|marca|proveedor|
+            .important
+              ¡¡¡ Muy importante respetar el orden de las columnas !!!.            
+            Para los materiales nuevo 
+            %strong
+              id
+            debe estar vacio.
+            %br
+            Debe ingresar valores para
+            %strong
+              Código y Nombre
+            ,el resto son valores opcionales.
+            %br
+            Los nuevos materiales se van a agregar\actualizar a la empresa\sucursal activa del usuario, en este caso a:
+            %br 
+            %strong 
+              = link_to current_user.company_active.name,current_user.company_active
+        .left
+          = file_field_tag :file, :class => :file_margin_top      
+          = submit_tag (t".import"),:disable_with => (t'.importing'),:class =>:button
+          = link_to (t".export"), export_materials_path(:format => :csv), :class => :button 
+  .box_bottom
+    %h4
+      Imagen ilustrativa de como debe ser el archivo para importar materiales
+    = image_tag("csv.png")
+    .export_note

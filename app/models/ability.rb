@@ -48,8 +48,8 @@ class Ability
       user.can_edit?(client)
     end
 
+    
     if user.is_super_admin?
-      can :manage, Material
       can :manage, :conf
       can :manage, Task
       #can :manage, ServiceType
@@ -58,6 +58,7 @@ class Ability
       can :manage, State
       can :manage, ServiceOffer      
     elsif user.id
+      can :manage, Material
       can :details, Material      
     end 
 

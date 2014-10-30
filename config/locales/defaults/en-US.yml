@@ -155,3 +155,4 @@ en-US:
   car_model: Model
   car_year: Year
   creator: Creator
+  import_file_error: You must select a file to import

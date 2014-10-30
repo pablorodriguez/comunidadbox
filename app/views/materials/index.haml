@@ -1,13 +1,18 @@
 .vertical_menu
-  = render "conf/menu"
+  = render "admin/menu"
   = render "search"
   = render "actions"
 #materials_index.contentright_s
   .box_bottom
+    %h1
+      = get_company.name
+  = render "file_upload.haml"
+  .box_bottom
     %h1.left
-      Listado Materiales
+      = link_to "Listado Materiales","#",:id=>"material_list"
     %h2.right
       Cantidad:
       = @materials.count
   #materials
+    = @result if @result
     = render :partial => "all_materials", :locals =>{materials: @materials}

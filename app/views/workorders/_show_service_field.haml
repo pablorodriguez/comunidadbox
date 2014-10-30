@@ -6,7 +6,7 @@
           %h2.inline
             %label.left{:id=>"serviceType"}
               = icon_status f.status
-              = f.service_type.native_name              
+              = f.service_type.name              
               = ": #{f.operator.full_name}" if f.operator              
           .hide
             = f.comment
