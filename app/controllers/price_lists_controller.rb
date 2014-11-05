@@ -60,11 +60,11 @@ class PriceListsController < ApplicationController
   end
   
   def index
-    @price_lists = get_all_price_list(get_company.id)
+    @price_lists = get_all_price_list(company_id)
   end
   
-  def get_all_price_list(company_id)
-    PriceList.where("company_id = ?",company_id)
+  def get_all_price_list(company_ids)
+    PriceList.joins(:company).where("company_id IN (?)",company_ids).order("companies.name, name")
   end
   
   def copy
@@ -76,19 +76,8 @@ class PriceListsController < ApplicationController
   end
   
   def activate
-    pl= PriceList.find(params[:id])
-    company_id = get_company.id
-    plActive = PriceList.where("company_id = ? and active=1",company_id).first
-    PriceList.transaction do      
-      if plActive
-        plActive.active=false
-        plActive.save
-      end
-      pl.active=true
-      pl.save
-      
-    end
-    
+    pl = PriceList.find(params[:id])
+    pl.activate    
     redirect_to :action=>:index
   end
   
@@ -99,7 +88,6 @@ class PriceListsController < ApplicationController
 
     respond_to do |format|
       if @price_list.update_attributes(params[:price_list])
-        flash[:notice] = 'Lista de precio actualizada.'
         format.html { redirect_to price_lists_path}
         format.xml  { head :ok }
       else
@@ -180,8 +168,8 @@ class PriceListsController < ApplicationController
 
     unless csv.empty?
 
-      respond_to do |format|
-        format.csv { send_data csv, :filename => "priceList.csv"}
+      respond_to do |format|        
+        format.csv { send_data csv.encode("utf-16", {:invalid => :replace, :undef => :replace, :replace => '?'}), :filename => "priceList.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
         format.html {redirect_to price_lists_path}
       end
       

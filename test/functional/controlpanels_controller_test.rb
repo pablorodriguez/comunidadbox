@@ -5,6 +5,8 @@ class ControlPanelsControllerTest < ActionController::TestCase
   setup do    
     create_all_default_data    
     @employer =  create(:gustavo_de_antonio)
+    create_all_company_data @employer.company_id
+    
     @user = create(:pablo_rodriguez)
     @hugo = create(:hugo_rodriguez)
     create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)

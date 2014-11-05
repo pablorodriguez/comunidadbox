@@ -1,5 +1,5 @@
 class PriceList < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name,:active
   
   has_many :price_list_items
   belongs_to :company
@@ -12,6 +12,13 @@ class PriceList < ActiveRecord::Base
     m = Material.find_by_code(material_code)
     mst = MaterialServiceType.find_by_material_id_and_service_type_id(m.id,service_type_id)
     PriceListItem.find_by_price_list_id_and_material_service_type_id(self.id,mst.id)
+  end
+
+  def activate    
+    PriceList.transaction do
+      PriceList.where("company_id = ?",self.company_id).update_all(:active => false)
+      self.update_attributes :active => (self.active ? false : true)      
+    end    
   end
   
   def self.copy pl_id
@@ -41,6 +48,7 @@ class PriceList < ActiveRecord::Base
   def materials
     
   end
+
   
   def self.get_first_code_nro
     m = Material.first(:order => "id desc")

@@ -47,10 +47,15 @@
         #all_companies.all_companies.hide        
           %ul
             - current_user.get_companies.each do |c|          
+              - comp_active_css = current_user.company_active.id == c.id ? "comp_active" : ""
+              - headquarter_css = c.headquarter ? "headquarter" : ""
+              - title = ""
+              - title = comp_active_css == "comp_active" ? "Empresa Activa" : ""
+              - title = title + (headquarter_css == "headquarter" ? " Casa Central" : "")
               %li
                 = check_box_tag 'company_ids[]', c.id,checked = (c_ids.include?(c.id)),:class=>"checkbox",:id=>"company_id_#{c.id}"
-                %label.link{:for=>"company_id_#{c.id}"}
-                  =c.name
+                %label.link{:for=>"company_id_#{c.id}",:class =>"#{comp_active_css} #{headquarter_css}",:title =>title}
+                  = c.name
             %li
             = check_box_tag "all_company","-1",checked = all_company?,:id=>"all_company_check"
             %label.link{:for=>"all_company_check"}

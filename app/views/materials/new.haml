@@ -6,7 +6,8 @@
         = link_to "Nuevo Material", new_material_path
 .contentright_s
   .box_bottom
-    %h1 Nuevo Material
+    %h1 
+      = "Nuevo Material: #{current_user.headquarter.name}"
   = form_for(@material) do |f|
     = render 'shared/error_messages', :target => @material
     = render :partial =>"form",:locals => {f: f}

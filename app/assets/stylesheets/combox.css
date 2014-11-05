@@ -3123,3 +3123,13 @@ ul.tasks li{
   border-style: solid;
   border-width: 1px;
 }
+
+.comp_active{
+  font-style: italic;
+  color:#B2AC0C;
+}
+
+.headquarter{
+  font-weight: bold;
+  color:#B2AC0C;
+}

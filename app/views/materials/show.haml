@@ -36,6 +36,11 @@
         %td Proveedor
         %td
           = @material.provider
+      %tr
+        %td Cantidad de Servicios
+        %td
+          %strong
+            =number_to_human(@material.total_services)
   .box_bottom
     %h1 Tipos de Servicios
   #servicestypes

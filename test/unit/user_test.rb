@@ -8,6 +8,8 @@ class UserTest < ActiveSupport::TestCase
     create_all_default_data
     @pablo =  create(:pablo_rodriguez)
     @gustavo =  create(:gustavo_de_antonio)
+    create_all_company_data @gustavo.company_id
+    
     @marcelo =  create(:marcelo_de_antonio)
     @emp_walter =  create(:emp_walter)    
     @new_pablo =  create(:new_pablo_rodriguez)

@@ -29,7 +29,7 @@ class MaterialsControllerTest < ActionController::TestCase
     
     post "import", :file => Rack::Test::UploadedFile.new(file, 'text/csv')
 
-    m = Material.where("company_id = ? and code = ?",@employer.get_company_id_for_materials,"CN00492").first
+    m = Material.where("company_id = ? and code = ?",@employer.headquarter.id,"CN00492").first
     assert m.name == "10/11.00-16 AGRICOLA (Valv TR15 - 8 Und/Caja)" 
 
     m = Material.find(100)

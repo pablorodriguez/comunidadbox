@@ -7,6 +7,8 @@ class WorkordersControllerTest < ActionController::TestCase
     
     @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
+    create_all_company_data @employer.company_id
+
     @hugo = create(:hugo_rodriguez)
     @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
     @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
@@ -64,7 +66,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_template :index
 
     assert_select("div",:id=>"workorders",:count=>1)
-    assert_select("div#workorders .row",:count => 2)
+    assert_select("div#workorders .row",:count => 3)
     assert_select("div",:id=>"price_graph_c",:count=>1)
     assert_select("div",:id=>"report_data",:count=>1)
     assert_select("div",:id=>"company_id",:count=>1)
@@ -72,7 +74,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_select("div#all_companies ul li",:count=>3)
     assert_select("#company[value='#{@employer.company.id}']")
 
-    assert_select(".price_b",:text => "$60,00",:count=>2)
+    assert_select(".price_b",:text => "$60,00",:count=>3)
 
     assert_select("div#report_amount")
     assert_select("div#report_quantity")
@@ -182,14 +184,14 @@ class WorkordersControllerTest < ActionController::TestCase
 
 
   test "new work order no company other car" do
-    sign_in create(:hugo_rodriguez)
+    sign_in @hugo
     car = @user.cars.first
     get :new, :car_id => car.to_param    
     assert_response 302  
   end
 
   test "new work order no company own car" do
-    user = create(:hugo_rodriguez)
+    user = @hugo
     sign_in user
     car = user.cars.first
     get :new, :car_id => car.to_param
@@ -198,7 +200,7 @@ class WorkordersControllerTest < ActionController::TestCase
 
 
   test "new work order own car on company" do
-    user = create(:hugo_rodriguez)
+    user = @hugo
     sign_in user
     car = user.cars.first
     get :new, :car_id => car.to_param,:c => "Empresa no registrada"
@@ -208,7 +210,7 @@ class WorkordersControllerTest < ActionController::TestCase
   test "create new work order company" do
     sign_in @employer    
     @request.cookies["company_id"]= @employer.company.id.to_s  
-    client = create(:hugo_rodriguez)
+    client = @hugo
    
     assert_difference('Workorder.count',1,"no hay unan nueva workorder") do
       post :create, :workorder => {

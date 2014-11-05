@@ -5,7 +5,7 @@ class MaterialsController < ApplicationController
   
   def index
     page = params[:page] || 1
-    params[:company_id] = current_user.get_company_id_for_materials.to_s
+    params[:company_id] = current_user.headquarter.id.to_s
     @materials = Material.find_by_params(params)    
     @service_type_ids =  params[:service_type_ids] || []    
     respond_to do |format|
@@ -93,12 +93,11 @@ class MaterialsController < ApplicationController
   end
 
   def create
-    @material = Material.new(params[:material])
-    @material.prov_code = @material.code if @material.prov_code.nil?
-
+    @material = Material.new(params[:material])    
+    @material.company = current_user.headquarter
+    
     respond_to do |format|
       if @material.save
-        flash[:notice] = 'Material creado exitosamente.'
         format.html { redirect_to(@material) }
         format.xml  { render :xml => @material, :status => :created, :location => @material }
       else
@@ -133,7 +132,7 @@ class MaterialsController < ApplicationController
   end
 
   def export    
-    csv = Material.to_csv(current_user.get_company_id_for_materials)
+    csv = Material.to_csv(current_user.headquarter.id)
 
     unless csv.empty?
       respond_to do |format|
@@ -148,7 +147,7 @@ class MaterialsController < ApplicationController
 
   def import
     if params[:file].present?
-      @result = Material.from_csv params[:file], current_user.get_company_id_for_materials,params[:service_type_ids]      
+      @result = Material.from_csv params[:file], current_user.headquarter.id,params[:service_type_ids]      
     else
       flash[:alert] = t("import_file_error")
     end

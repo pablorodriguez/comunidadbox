@@ -119,10 +119,12 @@ class User < ActiveRecord::Base
   end
 
   def service_types_active
+    return [] unless company
     company.service_types.active
   end
   
   def service_types
+    return [] unless company
     return company.service_types unless company.service_types.empty?
     return company.user.headquarter.service_types
   end

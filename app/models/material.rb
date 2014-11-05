@@ -11,6 +11,7 @@ class Material < ActiveRecord::Base
   
   belongs_to :category
   belongs_to :sub_category,:class_name => 'Category', :foreign_key => 'sub_category_id'
+  belongs_to :company
   
   def Material.all_materials(price_list)
     comp_id = price_list.company_id
@@ -23,6 +24,10 @@ class Material < ActiveRecord::Base
   
   def detail
     "#{name} #{brand}"    
+  end
+
+  def total_services
+    Service.joins(:material_services => :material_service_type).where("material_service_types.material_id = ?",self.id).count("material_service_types.material_id")
   end
 
   def destroy_or_disable

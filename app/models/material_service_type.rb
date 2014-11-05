@@ -50,12 +50,12 @@ class MaterialServiceType < ActiveRecord::Base
     #msList = m(user.company_active.id, plid, [], nil, -1) if PriceList.find_by_id(plid).present?
 
     CSV.generate do |csv|
-      csv << ['id', 'plid', 'service', 'material code', 'material name', 'price']
+      csv << ['plid','id','service','material code','material name','price']
 
       if msList.present?
         msList.each do |item|
           if item.material
-            csv << [item.id, plid, I18n.t(item.name), item.code, item.material.name, item.price]
+            csv << [plid,item.id,I18n.t(item.name), item.code, item.material.name, item.price]
           else
             logger.debugger "##### #{item.name} : #{item.id}" 
           end

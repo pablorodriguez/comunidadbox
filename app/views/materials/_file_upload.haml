@@ -36,10 +36,10 @@
               Código y Nombre
             ,el resto son valores opcionales.
             %br
-            Los nuevos materiales se van a agregar\actualizar a la empresa\sucursal activa del usuario, en este caso a:
+            Los nuevos materiales se van a agregar\actualizar a la Casa Central del usuario, en este caso a:
             %br 
             %strong 
-              = link_to current_user.company_active.name,current_user.company_active
+              = link_to current_user.headquarter.name,current_user.headquarter
         .left
           = file_field_tag :file, :class => :file_margin_top      
           = submit_tag (t".import"),:disable_with => (t'.importing'),:class =>:button
@@ -47,5 +47,5 @@
   .box_bottom
     %h4
       Imagen ilustrativa de como debe ser el archivo para importar materiales
-    = image_tag("csv.png")
+    = image_tag("import_material.png")
     .export_note

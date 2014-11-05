@@ -7,6 +7,8 @@ class CarServiceOffersControllerTest < ActionController::TestCase
     
     @pablo =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
+    create_all_company_data @employer.company_id
+    
     @imer_admin = create(:imr_admin)
   
   end

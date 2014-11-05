@@ -2,9 +2,15 @@
   %h1 
     = link_to "Actualizar desde archivo","#",:id =>"update_from_file"
 .box_bottom.upload_file.hide
-  .import_form
-    = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
-      .left
-        = file_field :price, :file
-      .left
-        = submit_tag "Importar",:disable_with => 'Importando...',:class =>:button
+  .box_bottom
+    .import_form
+      = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
+        .left
+          = file_field :price, :file
+        .left
+          = submit_tag "Importar",:disable_with => 'Importando...',:class =>:button
+          = link_to "Exportar", export_price_list_path(@price_list,:format => :csv), :class => :button,:title => "Exportar Lista de precios"
+  .box_bottom
+    %h4
+      Imagen ilustrativa de como debe ser el archivo para importar precios
+    = image_tag("import_price.png")    

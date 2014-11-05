@@ -47,8 +47,10 @@ module ApplicationHelper
       return Company.find(params[:company_id])
     elsif all_company?
       return current_user.company
-    elsif (company_id && company_id.size > 0)
+    elsif (company_id && company_id.size == 1)
       return Company.find(company_id.first)
+    elsif (company_id && company_id.size > 1)
+      return current_user.company_active
     else
       return nil
     end

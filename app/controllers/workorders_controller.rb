@@ -115,8 +115,8 @@ class WorkordersController < ApplicationController
 
     unless csv.empty?
 
-      respond_to do |format|
-        format.csv { send_data csv, :filename => "workordersReport.csv"}
+      respond_to do |format|        
+        format.csv { send_data csv.encode("utf-16", {:invalid => :replace, :undef => :replace, :replace => '?'}), :filename => "workordersReport.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
       end
       
     else
