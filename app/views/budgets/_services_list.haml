@@ -4,7 +4,7 @@
       %tr
         %td{:style=>"width:100px"}=t(".services")
         %td
-          = collection_select :new,:service_type,@service_types,:id,:native_name,{:prompt=> t(".select_type_of_service")},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio"}
+          = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> t(".select_type_of_service")},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio"}
           %hide
             = link_to"","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"        
 #services.overflow

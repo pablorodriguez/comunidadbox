@@ -19,7 +19,7 @@ class ControlPanelsController < ApplicationController
                             :group => ['service_type'])
     
     
-    @services_names= @company_services.inject(""){|result,service| result += "'#{service.native_name}',"}.chop
+    @services_names= @company_services.inject(""){|result,service| result += "'#{service.name}',"}.chop
     
     g_data="name: '> 2 #{t('months')}',data:["
     y_data="name:'1 < #{t('months')} < 2',data:["

@@ -159,7 +159,7 @@ class Budget < ActiveRecord::Base
         bg_values = csv_budget_row_values(budget)
         
         budget.services.each do |service|
-          bg_service_values = bg_values.clone + [service.service_type.native_name]
+          bg_service_values = bg_values.clone + [service.service_type.name]
           
           service.material_services.each do |mat_service|
             row = bg_service_values.clone + [mat_service.material_detail, mat_service.amount, mat_service.price] 
@@ -226,8 +226,8 @@ class Budget < ActiveRecord::Base
 
           budget.services.each do |service|
             service_fd = true
-            row_service = [service.service_type.id, service.service_type.native_name, nil]
-            row_service_fd = [service.service_type.id, service.service_type.native_name, service.total_price]
+            row_service = [service.service_type.id, service.service_type.name, nil]
+            row_service_fd = [service.service_type.id, service.service_type.name, service.total_price]
 
             if(service.material_services.present?)
               service.material_services.each do |mat_service|

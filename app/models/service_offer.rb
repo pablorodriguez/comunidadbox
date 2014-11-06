@@ -48,7 +48,7 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def service_types_names
-    offer_service_types.map{|ost| ost.service_type.native_name}.join(" - ")    
+    offer_service_types.map{|ost| ost.service_type.name}.join(" - ")    
   end
 
   def valid_dates
@@ -166,7 +166,7 @@ class ServiceOffer < ActiveRecord::Base
       json.offer_service_types self.offer_service_types do |ost|
         json.id ost.id
         json.service_type_id ost.service_type.id
-        json.name ost.service_type.native_name
+        json.name ost.service_type.name
         json.show true                
       end
 

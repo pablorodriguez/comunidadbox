@@ -7,7 +7,7 @@
             = icon_status offer.status
         = link_to offer.title, offer,:class =>"view"
         .right
-          = offer.service_types.map(&:native_name).join(", ")          
+          = offer.service_types.map(&:name).join(", ")          
       .service_offer_info
         .service_offer_detail        
           - if multiple_company?

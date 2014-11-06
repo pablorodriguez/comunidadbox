@@ -20,7 +20,7 @@ class ServiceType < ActiveRecord::Base
     Jbuilder.encode do |json|      
       json.array! service_types do |st|           
         json.id st.id
-        json.name st.native_name        
+        json.name st.name        
       end
     end
   end
@@ -47,7 +47,7 @@ class ServiceType < ActiveRecord::Base
 
   def to_builder
     Jbuilder.new do |service_type|      
-      service_type.(self,:id,:native_name)      
+      service_type.(self,:id,:name)      
     end
   end
   

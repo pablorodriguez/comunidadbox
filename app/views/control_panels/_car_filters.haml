@@ -4,7 +4,7 @@
   %table.w
     %tr
       %td
-        =f.collection_select(:service_type_id, @company_services,:id,:native_name,{:include_blank=>t(".service_type")},{:class=>"change long_select"})
+        =f.collection_select(:service_type_id, @company_services,:id,:name,{:include_blank=>t(".service_type")},{:class=>"change long_select"})
     %tr
       %td
         = f.collection_select(:state_id, @states, :id, :name, {:include_blank=> t(".state")},{:class=>"clear change long_select",:placeholder=> t(".state")})

@@ -306,9 +306,9 @@ module ApplicationHelper
   def create_service_type_tool_tip oe
     st=""
     if (oe && oe.respond_to?(:length))
-      st = ServiceType.find(oe).map(&:native_name).join(",")
+      st = ServiceType.find(oe).map(&:name).join(",")
     elsif oe      
-      st = ServiceType.find(oe).native_name
+      st = ServiceType.find(oe).name
     end    
     return st
   end

@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
 
   def service_types_active
     return [] unless company
-    company.service_types.active
+    headquarter.service_types.active
   end
   
   def service_types

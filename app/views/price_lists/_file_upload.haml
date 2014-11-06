@@ -4,6 +4,19 @@
 .box_bottom.upload_file.hide
   .box_bottom
     .import_form
+      %h4
+        Por favor selecciones el archivo con los precios actualizados
+      .box_bottom
+        Antes de importar nuevos precios realize una 
+        %strong
+          exportación
+        , y luego actualize los 
+        %strong
+          precios 
+        usando una hoja de calculos
+        .important
+          Por favor solo modifique los valores de la columna precio, cualquier otro cambio realizado a las otras columnas sera ignorado por la importación      
+        
       = form_for @price_list,:url => price_upload_price_list_path(@price_list),:html =>{:multipart => true} do |f|
         .left
           = file_field :price, :file

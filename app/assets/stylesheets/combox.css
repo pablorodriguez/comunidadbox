@@ -1214,6 +1214,10 @@ input.material{
   float: right;
 }
 
+#budget input.material{
+  width: 92%;  
+}
+
 select.status{
   width: 100px;
 }

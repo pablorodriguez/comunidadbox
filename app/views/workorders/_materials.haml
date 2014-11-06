@@ -15,7 +15,7 @@
         %tr
           %td= t(".service")
           %td
-            = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:native_name),{:class=>"input_medium"}
+            = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:name),{:class=>"input_medium"}
             -#=link_to image_tag('max.png',:class=>"input_img",:title =>"Maximizar Orden de Trabajo"),"#",:id=>"maxim"
         %tr
           %td= t(".material")

@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'test_helper'
       
 class MaterialsControllerTest < ActionController::TestCase
@@ -15,7 +16,7 @@ class MaterialsControllerTest < ActionController::TestCase
   test "upload new materials file" do   
     csv_rows = <<-eos
     id,codigo,codigo proveedor,nombre,marca,provider
-    ,CN00492,CAD1016,10/11.00-16 AGRICOLA (Valv TR15 - 8 Und/Caja),,
+    ,CN00492,CAD1016,10/11.00-16 AGRíCOLA (Valv TR15 - 8 Und/Caja),,
     100,CN00498,CAT13628,12.4-28/13.6-28 (Valv TR218A - 5 Und/Caja),Test,Prov
     101,CN00508,CV1424,13.00-24/14.00-24 (Valv TR220A - 3 Und/Caja),,
     eos
@@ -30,7 +31,7 @@ class MaterialsControllerTest < ActionController::TestCase
     post "import", :file => Rack::Test::UploadedFile.new(file, 'text/csv')
 
     m = Material.where("company_id = ? and code = ?",@employer.headquarter.id,"CN00492").first
-    assert m.name == "10/11.00-16 AGRICOLA (Valv TR15 - 8 Und/Caja)" 
+    assert m.name == "10/11.00-16 AGRíCOLA (Valv TR15 - 8 Und/Caja)" 
 
     m = Material.find(100)
     assert m.brand == "Test"
