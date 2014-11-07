@@ -135,8 +135,8 @@ class MaterialsController < ApplicationController
     csv = Material.to_csv(current_user.headquarter.id)
 
     unless csv.empty?
-      respond_to do |format|
-        format.csv { send_data csv, :filename => "materiales.csv"}
+      respond_to do |format|        
+        format.csv { send_data csv.encode("utf-16", {:invalid => :replace, :undef => :replace, :replace => '?'}), :filename => "materiales.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
         format.html {redirect_to materials_path}
       end
     else

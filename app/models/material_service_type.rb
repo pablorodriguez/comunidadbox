@@ -1,3 +1,5 @@
+require 'iconv'
+
 class MaterialServiceType < ActiveRecord::Base
  attr_accessible :material_id, :service_type_id,:company_id
 
@@ -45,7 +47,7 @@ class MaterialServiceType < ActiveRecord::Base
   
   def self.to_csv_for_update_price(plid, user)
     #para desarrollar mas rapido.. solo traigo la pagina uno para exportar
-    msList = material_to_export(user.company_active.id, plid, []) if PriceList.find_by_id(plid).present?
+    msList = material_to_export(user.headquarter.id, plid, []) if PriceList.find_by_id(plid).present?
     #sin paginar.. trae todos los items
     #msList = m(user.company_active.id, plid, [], nil, -1) if PriceList.find_by_id(plid).present?
 
@@ -54,8 +56,9 @@ class MaterialServiceType < ActiveRecord::Base
 
       if msList.present?
         msList.each do |item|
-          if item.material
-            csv << [plid,item.id,I18n.t(item.name), item.code, item.material.name, item.price]
+          if item.material            
+            csv << [plid,item.id,I18n.t(item.name),item.code, item.material.name, item.price.to_s]
+            #csv << [iconv.iconv(plid.to_s),iconv.iconv(item.id.to_s),iconv.iconv(I18n.t(item.name)), item.code, item.material.name, item.price.to_s]
           else
             logger.debugger "##### #{item.name} : #{item.id}" 
           end
@@ -67,14 +70,18 @@ class MaterialServiceType < ActiveRecord::Base
 
   def self.import_to_update_price(plid, file, current_user)
     pl = PriceList.find_by_id plid
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file.path, :headers => true,:encoding => 'utf-16') do |row|
       #si la playlist no existe o es distinta a la de la que se hizo el export => no actualizo nada
       if pl.blank? || plid.to_i != row['plid'].to_i
         puts 'placeList incorrecta'
         return
       end
-      mst = find_by_id(row["id"].to_i)
-      item = PriceListItem.find_by_price_list_id_and_material_service_type_id(plid, row['id'])
+      mst_id= row['id'].to_i
+      mst = find(mst_id)
+
+      item = PriceListItem.where("price_list_id = ? and material_service_type_id = ?",plid,mst_id).first
+      debugger
+      #find_by_price_list_id_and_material_service_type_id(plid, row['id'])
       if row['price'].present?
         if item && item.price != row['price'].to_f
           #puts '>>>>> actualizando price:' + row.to_yaml
