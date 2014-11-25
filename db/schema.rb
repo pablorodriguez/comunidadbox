@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141020194700) do
+ActiveRecord::Schema.define(:version => 20141124224737) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -782,131 +782,131 @@ ActiveRecord::Schema.define(:version => 20141020194700) do
   add_index "workorders", ["performed"], :name => "workorders_performed_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
-  add_foreign_key "addresses", "companies", :name => "addresses_ibfk_1", :dependent => :delete
-  add_foreign_key "addresses", "states", :name => "addresses_ibfk_2"
-  add_foreign_key "addresses", "users", :name => "addresses_ibfk_3", :dependent => :delete
+  add_foreign_key "addresses", "companies", name: "addresses_ibfk_1", dependent: :delete
+  add_foreign_key "addresses", "states", name: "addresses_ibfk_2"
+  add_foreign_key "addresses", "users", name: "addresses_ibfk_3", dependent: :delete
 
-  add_foreign_key "advertisement_days", "advertisements", :name => "fk_advertisement_days_1", :dependent => :delete
+  add_foreign_key "advertisement_days", "advertisements", name: "fk_advertisement_days_1", dependent: :delete
 
-  add_foreign_key "advertisements", "service_offers", :name => "fk_advertisements_1", :dependent => :delete
+  add_foreign_key "advertisements", "service_offers", name: "fk_advertisements_1", dependent: :delete
 
-  add_foreign_key "alarms", "companies", :name => "alarms_company_id_fk"
-  add_foreign_key "alarms", "users", :name => "alarms_ibfk_1", :dependent => :delete
+  add_foreign_key "alarms", "companies", name: "alarms_company_id_fk"
+  add_foreign_key "alarms", "users", name: "alarms_ibfk_1", dependent: :delete
 
-  add_foreign_key "budgets", "cars", :name => "budgets_car_id_fk", :dependent => :delete
-  add_foreign_key "budgets", "companies", :name => "budgets_company_id_fk", :dependent => :delete
-  add_foreign_key "budgets", "users", :name => "budgets_user_id_fk"
+  add_foreign_key "budgets", "cars", name: "budgets_car_id_fk", dependent: :delete
+  add_foreign_key "budgets", "companies", name: "budgets_company_id_fk", dependent: :delete
+  add_foreign_key "budgets", "users", name: "budgets_user_id_fk"
 
-  add_foreign_key "car_service_offers", "cars", :name => "car_service_offers_ibfk_1", :dependent => :delete
-  add_foreign_key "car_service_offers", "service_offers", :name => "car_service_offers_ibfk_2", :dependent => :delete
-  add_foreign_key "car_service_offers", "services", :name => "car_service_offers_idfk_3", :dependent => :nullify
+  add_foreign_key "car_service_offers", "cars", name: "car_service_offers_ibfk_1", dependent: :delete
+  add_foreign_key "car_service_offers", "service_offers", name: "car_service_offers_ibfk_2", dependent: :delete
+  add_foreign_key "car_service_offers", "services", name: "car_service_offers_idfk_3", dependent: :nullify
 
-  add_foreign_key "cars", "brands", :name => "cars_ibfk_1"
-  add_foreign_key "cars", "models", :name => "cars_ibfk_2"
-  add_foreign_key "cars", "users", :name => "cars_ibfk_3", :dependent => :delete
+  add_foreign_key "cars", "brands", name: "cars_ibfk_1"
+  add_foreign_key "cars", "models", name: "cars_ibfk_2"
+  add_foreign_key "cars", "users", name: "cars_ibfk_3", dependent: :delete
 
-  add_foreign_key "companies", "countries", :name => "companies_ibfk_1"
-  add_foreign_key "companies", "users", :name => "companies_ibfk_2"
+  add_foreign_key "companies", "countries", name: "companies_ibfk_1"
+  add_foreign_key "companies", "users", name: "companies_ibfk_2"
 
-  add_foreign_key "companies_users", "companies", :name => "companies_users_company_id_fk"
-  add_foreign_key "companies_users", "users", :name => "companies_users_user_id_fk", :dependent => :delete
+  add_foreign_key "companies_users", "companies", name: "companies_users_company_id_fk", dependent: :delete
+  add_foreign_key "companies_users", "users", name: "companies_users_user_id_fk", dependent: :delete
 
-  add_foreign_key "company_material_codes", "companies", :name => "company_material_codes_company_id_fk"
-  add_foreign_key "company_material_codes", "material_service_types", :name => "company_material_codes_material_service_type_id_fk"
+  add_foreign_key "company_material_codes", "companies", name: "company_material_codes_company_id_fk"
+  add_foreign_key "company_material_codes", "material_service_types", name: "company_material_codes_material_service_type_id_fk"
 
-  add_foreign_key "company_services", "companies", :name => "company_services_ibfk_1"
-  add_foreign_key "company_services", "service_types", :name => "company_services_ibfk_2"
+  add_foreign_key "company_services", "companies", name: "company_services_company_id_fk", dependent: :delete
+  add_foreign_key "company_services", "service_types", name: "company_services_service_type_id_fk"
 
-  add_foreign_key "events", "services", :name => "events_ibfk_1", :dependent => :delete
+  add_foreign_key "events", "services", name: "events_ibfk_1", dependent: :delete
 
-  add_foreign_key "export_items", "exports", :name => "export_items_export_id_fk"
+  add_foreign_key "export_items", "exports", name: "export_items_export_id_fk"
 
-  add_foreign_key "exports", "companies", :name => "exports_company_id_fk"
-  add_foreign_key "exports", "users", :name => "exports_user_id_fk"
+  add_foreign_key "exports", "companies", name: "exports_company_id_fk"
+  add_foreign_key "exports", "users", name: "exports_user_id_fk"
 
-  add_foreign_key "material_requests", "companies", :name => "material_requests_company_id_fk"
-  add_foreign_key "material_requests", "materials", :name => "material_requests_material_id_fk"
-  add_foreign_key "material_requests", "service_types", :name => "material_requests_service_type_id_fk"
-  add_foreign_key "material_requests", "users", :name => "material_requests_user_id_fk"
+  add_foreign_key "material_requests", "companies", name: "material_requests_company_id_fk"
+  add_foreign_key "material_requests", "materials", name: "material_requests_material_id_fk"
+  add_foreign_key "material_requests", "service_types", name: "material_requests_service_type_id_fk"
+  add_foreign_key "material_requests", "users", name: "material_requests_user_id_fk"
 
-  add_foreign_key "material_service_type_templates", "service_type_templates", :name => "material_service_type_templates_service_type_template_id_fk", :dependent => :delete
+  add_foreign_key "material_service_type_templates", "service_type_templates", name: "material_service_type_templates_service_type_template_id_fk", dependent: :delete
 
-  add_foreign_key "material_service_types", "companies", :name => "material_service_types_company_id_fk"
-  add_foreign_key "material_service_types", "materials", :name => "material_service_types_ibfk_1"
-  add_foreign_key "material_service_types", "service_types", :name => "material_service_types_ibfk_2"
+  add_foreign_key "material_service_types", "companies", name: "material_service_types_company_id_fk"
+  add_foreign_key "material_service_types", "materials", name: "material_service_types_ibfk_1"
+  add_foreign_key "material_service_types", "service_types", name: "material_service_types_ibfk_2"
 
-  add_foreign_key "material_services", "material_service_types", :name => "material_services_ibfk_1"
-  add_foreign_key "material_services", "services", :name => "material_services_ibfk_2", :dependent => :delete
+  add_foreign_key "material_services", "material_service_types", name: "material_services_ibfk_1"
+  add_foreign_key "material_services", "services", name: "material_services_ibfk_2", dependent: :delete
 
-  add_foreign_key "materials", "companies", :name => "materials_company_id_fk"
+  add_foreign_key "materials", "companies", name: "materials_company_id_fk"
 
-  add_foreign_key "messages", "alarms", :name => "messages_alarm_id_fk", :dependent => :delete
-  add_foreign_key "messages", "budgets", :name => "messages_budget_id_fk", :dependent => :delete
-  add_foreign_key "messages", "car_service_offers", :name => "messages_car_service_offer_id_fk"
-  add_foreign_key "messages", "events", :name => "messages_event_id_fk", :dependent => :delete
-  add_foreign_key "messages", "messages", :name => "messages_message_id_fk", :dependent => :delete
-  add_foreign_key "messages", "users", :name => "messages_user_id_fk", :dependent => :delete
-  add_foreign_key "messages", "workorders", :name => "messages_workorder_id_fk", :dependent => :delete
+  add_foreign_key "messages", "alarms", name: "messages_alarm_id_fk", dependent: :delete
+  add_foreign_key "messages", "budgets", name: "messages_budget_id_fk", dependent: :delete
+  add_foreign_key "messages", "car_service_offers", name: "messages_car_service_offer_id_fk"
+  add_foreign_key "messages", "events", name: "messages_event_id_fk", dependent: :delete
+  add_foreign_key "messages", "messages", name: "messages_message_id_fk", dependent: :delete
+  add_foreign_key "messages", "users", name: "messages_user_id_fk", dependent: :delete
+  add_foreign_key "messages", "workorders", name: "messages_workorder_id_fk", dependent: :delete
 
-  add_foreign_key "models", "brands", :name => "models_ibfk_1"
+  add_foreign_key "models", "brands", name: "models_ibfk_1"
 
-  add_foreign_key "notes", "budgets", :name => "notes_budget_id_fk", :dependent => :delete
-  add_foreign_key "notes", "cars", :name => "notes_car_id_fk", :dependent => :delete
-  add_foreign_key "notes", "companies", :name => "notes_company_id_fk"
-  add_foreign_key "notes", "notes", :name => "notes_note_id_fk", :dependent => :delete
-  add_foreign_key "notes", "users", :name => "notes_receiver_id_fk", :column => "receiver_id", :dependent => :delete
-  add_foreign_key "notes", "users", :name => "notes_user_id_fk", :dependent => :delete
-  add_foreign_key "notes", "workorders", :name => "notes_workorder_id_fk", :dependent => :delete
+  add_foreign_key "notes", "budgets", name: "notes_budget_id_fk", dependent: :delete
+  add_foreign_key "notes", "cars", name: "notes_car_id_fk", dependent: :delete
+  add_foreign_key "notes", "companies", name: "notes_company_id_fk", dependent: :delete
+  add_foreign_key "notes", "notes", name: "notes_note_id_fk", dependent: :delete
+  add_foreign_key "notes", "users", name: "notes_receiver_id_fk", column: "receiver_id", dependent: :delete
+  add_foreign_key "notes", "users", name: "notes_user_id_fk", dependent: :delete
+  add_foreign_key "notes", "workorders", name: "notes_workorder_id_fk", dependent: :delete
 
-  add_foreign_key "offer_service_types", "service_offers", :name => "offer_service_types_service_offer_id_fk", :dependent => :delete
-  add_foreign_key "offer_service_types", "service_types", :name => "offer_service_types_service_type_id_fk"
+  add_foreign_key "offer_service_types", "service_offers", name: "offer_service_types_service_offer_id_fk", dependent: :delete
+  add_foreign_key "offer_service_types", "service_types", name: "offer_service_types_service_type_id_fk"
 
-  add_foreign_key "price_list_items", "material_service_types", :name => "price_list_items_ibfk_1"
-  add_foreign_key "price_list_items", "price_lists", :name => "price_list_items_ibfk_2", :dependent => :delete
+  add_foreign_key "price_list_items", "material_service_types", name: "price_list_items_ibfk_1"
+  add_foreign_key "price_list_items", "price_lists", name: "price_list_items_ibfk_2", dependent: :delete
 
-  add_foreign_key "price_offers", "users", :name => "price_offers_user_id_fk"
-  add_foreign_key "price_offers", "workorders", :name => "price_offers_workorder_id_fk"
+  add_foreign_key "price_offers", "users", name: "price_offers_user_id_fk"
+  add_foreign_key "price_offers", "workorders", name: "price_offers_workorder_id_fk"
 
-  add_foreign_key "ranks", "workorders", :name => "ranks_workorder_id_fk"
+  add_foreign_key "ranks", "workorders", name: "ranks_workorder_id_fk", dependent: :delete
 
-  add_foreign_key "service_filters", "brands", :name => "service_filters_ibfk_1", :dependent => :delete
-  add_foreign_key "service_filters", "models", :name => "service_filters_ibfk_2", :dependent => :delete
-  add_foreign_key "service_filters", "service_types", :name => "service_filters_ibfk_3", :dependent => :delete
-  add_foreign_key "service_filters", "states", :name => "service_filters_ibfk_4", :dependent => :delete
-  add_foreign_key "service_filters", "users", :name => "service_filters_ibfk_5", :dependent => :delete
+  add_foreign_key "service_filters", "brands", name: "service_filters_ibfk_1", dependent: :delete
+  add_foreign_key "service_filters", "models", name: "service_filters_ibfk_2", dependent: :delete
+  add_foreign_key "service_filters", "service_types", name: "service_filters_ibfk_3", dependent: :delete
+  add_foreign_key "service_filters", "states", name: "service_filters_ibfk_4", dependent: :delete
+  add_foreign_key "service_filters", "users", name: "service_filters_ibfk_5", dependent: :delete
 
-  add_foreign_key "service_offers", "companies", :name => "service_offers_ibfk_1"
-  add_foreign_key "service_offers", "service_requests", :name => "service_offers_service_request_id_fk", :dependent => :delete
-  add_foreign_key "service_offers", "service_types", :name => "service_offers_ibfk_2"
+  add_foreign_key "service_offers", "companies", name: "service_offers_ibfk_1"
+  add_foreign_key "service_offers", "service_requests", name: "service_offers_service_request_id_fk", dependent: :delete
+  add_foreign_key "service_offers", "service_types", name: "service_offers_ibfk_2"
 
-  add_foreign_key "service_type_templates", "companies", :name => "service_type_templates_company_id_fk"
-  add_foreign_key "service_type_templates", "service_types", :name => "service_type_templates_service_type_id_fk"
+  add_foreign_key "service_type_templates", "companies", name: "service_type_templates_company_id_fk"
+  add_foreign_key "service_type_templates", "service_types", name: "service_type_templates_service_type_id_fk"
 
-  add_foreign_key "service_types", "companies", :name => "service_types_company_id_fk"
+  add_foreign_key "service_types", "companies", name: "service_types_company_id_fk"
 
-  add_foreign_key "service_types_tasks", "service_types", :name => "service_types_tasks_ibfk_1", :dependent => :delete
-  add_foreign_key "service_types_tasks", "tasks", :name => "service_types_tasks_ibfk_2", :dependent => :delete
+  add_foreign_key "service_types_tasks", "service_types", name: "service_types_tasks_ibfk_1", dependent: :delete
+  add_foreign_key "service_types_tasks", "tasks", name: "service_types_tasks_ibfk_2", dependent: :delete
 
-  add_foreign_key "services", "budgets", :name => "services_budget_id_fk", :dependent => :delete
-  add_foreign_key "services", "car_service_offers", :name => "services_car_service_offer_id_fk"
-  add_foreign_key "services", "service_types", :name => "services_ibfk_1"
-  add_foreign_key "services", "users", :name => "services_operator_id_fk", :column => "operator_id"
-  add_foreign_key "services", "workorders", :name => "services_ibfk_2", :dependent => :delete
+  add_foreign_key "services", "budgets", name: "services_budget_id_fk", dependent: :delete
+  add_foreign_key "services", "car_service_offers", name: "services_car_service_offer_id_fk"
+  add_foreign_key "services", "service_types", name: "services_ibfk_1"
+  add_foreign_key "services", "users", name: "services_operator_id_fk", column: "operator_id"
+  add_foreign_key "services", "workorders", name: "services_ibfk_2", dependent: :delete
 
-  add_foreign_key "services_tasks", "services", :name => "services_tasks_ibfk_1"
-  add_foreign_key "services_tasks", "tasks", :name => "services_tasks_ibfk_2"
+  add_foreign_key "services_tasks", "services", name: "services_tasks_ibfk_1"
+  add_foreign_key "services_tasks", "tasks", name: "services_tasks_ibfk_2"
 
-  add_foreign_key "states", "countries", :name => "states_ibfk_1", :dependent => :delete
+  add_foreign_key "states", "countries", name: "states_ibfk_1", dependent: :delete
 
-  add_foreign_key "user_roles", "roles", :name => "user_roles_ibfk_1", :dependent => :delete
-  add_foreign_key "user_roles", "users", :name => "user_roles_ibfk_2", :dependent => :delete
+  add_foreign_key "user_roles", "roles", name: "user_roles_ibfk_1", dependent: :delete
+  add_foreign_key "user_roles", "users", name: "user_roles_ibfk_2", dependent: :delete
 
-  add_foreign_key "users", "companies", :name => "users_ibfk_1", :column => "employer_id"
+  add_foreign_key "users", "companies", name: "users_employer_id_fk", column: "employer_id", dependent: :delete
 
-  add_foreign_key "workorders", "budgets", :name => "workorders_budget_id_fk", :dependent => :delete
-  add_foreign_key "workorders", "cars", :name => "workorders_ibfk_1"
-  add_foreign_key "workorders", "companies", :name => "workorders_ibfk_2"
-  add_foreign_key "workorders", "payment_methods", :name => "workorders_payment_method_id_fk"
-  add_foreign_key "workorders", "users", :name => "workorders_ibfk_3"
+  add_foreign_key "workorders", "budgets", name: "workorders_budget_id_fk", dependent: :delete
+  add_foreign_key "workorders", "cars", name: "workorders_car_id_fk"
+  add_foreign_key "workorders", "companies", name: "workorders_company_id_fk", dependent: :delete
+  add_foreign_key "workorders", "payment_methods", name: "workorders_payment_method_id_fk"
+  add_foreign_key "workorders", "users", name: "workorders_user_id_fk"
 
 end
