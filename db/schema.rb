@@ -213,14 +213,6 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
   add_index "company_material_codes", ["company_id"], :name => "index_company_material_codes_on_company_id"
   add_index "company_material_codes", ["material_service_type_id"], :name => "index_company_material_codes_on_material_service_type_id"
 
-  create_table "company_services", :force => true do |t|
-    t.integer "company_id"
-    t.integer "service_type_id"
-  end
-
-  add_index "company_services", ["company_id"], :name => "company_services_company_id_fk"
-  add_index "company_services", ["service_type_id"], :name => "company_services_service_type_id_fk"
-
   create_table "contacts", :force => true do |t|
     t.string   "from"
     t.string   "name"
@@ -814,9 +806,6 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
   add_foreign_key "company_material_codes", "companies", name: "company_material_codes_company_id_fk"
   add_foreign_key "company_material_codes", "material_service_types", name: "company_material_codes_material_service_type_id_fk"
 
-  add_foreign_key "company_services", "companies", name: "company_services_company_id_fk", dependent: :delete
-  add_foreign_key "company_services", "service_types", name: "company_services_service_type_id_fk"
-
   add_foreign_key "events", "services", name: "events_ibfk_1", dependent: :delete
 
   add_foreign_key "export_items", "exports", name: "export_items_export_id_fk"
@@ -879,7 +868,7 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
   add_foreign_key "service_offers", "service_requests", name: "service_offers_service_request_id_fk", dependent: :delete
   add_foreign_key "service_offers", "service_types", name: "service_offers_ibfk_2"
 
-  add_foreign_key "service_type_templates", "companies", name: "service_type_templates_company_id_fk"
+  add_foreign_key "service_type_templates", "companies", name: "service_type_templates_company_id_fk", dependent: :delete
   add_foreign_key "service_type_templates", "service_types", name: "service_type_templates_service_type_id_fk"
 
   add_foreign_key "service_types", "companies", name: "service_types_company_id_fk"

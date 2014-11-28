@@ -4,6 +4,6 @@
       %th Nombre
       %th  
   %tbody
-    - ServiceType.all.each do |service_type|
+    - current_user.service_types.each do |service_type|
       %tr{:id => service_type.id}
         = render :partial => "service_type_row",:locals =>{material: material,:service_type_row => service_type}

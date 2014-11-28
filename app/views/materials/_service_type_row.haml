@@ -3,7 +3,7 @@
 %td
   - mst = material.material_service_type.select{|s| s.service_type_id == service_type_row.id}.first
   - if mst    
-    = form_tag remove_material_service_type_path(service_type_row),remote: true do      
+    = form_tag remove_service_type_material_path(service_type_row,material),method: :delete do    
       = hidden_field_tag :mst_id,mst.id
       = hidden_field_tag :material_id,material.id      
       = check_box_tag "material_service_type", mst.id,true,:class =>"service_type_id left"

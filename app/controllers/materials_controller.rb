@@ -107,6 +107,20 @@ class MaterialsController < ApplicationController
     end
   end
 
+   def remove
+    @service_type = ServiceType.find params[:service_type_id]
+    @material = Material.find params[:id]
+    @material_service_type = MaterialServiceType.where("service_type_id = ? and material_id = ?",@service_type,params[:id]).first
+    
+    if @material_service_type.can_delete?
+      @material_service_type.destroy
+    else
+       flash[:notice] = 'No se puede desvincular el tipo de servicio. Fue utilizado en servicios realizados'
+    end
+    redirect_to @material
+    
+  end
+
   def update
     @material = Material.find(params[:id])
 

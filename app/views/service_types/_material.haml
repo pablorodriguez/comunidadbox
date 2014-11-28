@@ -23,6 +23,6 @@
       %td
         = material.provider
       %td
-        = link_to image_tag("edit.png"), edit_material_path(material)
-        = link_to image_tag("delete.png"), material, :data => {:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
+        = link_to image_tag("edit.png"),edit_material_path(material)
+        = link_to image_tag("delete.png"),remove_material_service_type_path(material,@service_type), :data => {:confirm => "¿ Esta seguro que desea borrar el material de #{@service_type.name} ?"}, :method => :delete
 = will_paginate @materials

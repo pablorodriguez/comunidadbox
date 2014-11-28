@@ -37,6 +37,10 @@ class Company < ActiveRecord::Base
 
   before_save :update_headquarter
 
+  def self.default_service_types
+    Company.find(1).service_types
+  end
+
   def update_headquarter
     if headquarter
       Company.where("user_id =? and id != ?",self.user.id,self.id).update_all(:headquarter => false)

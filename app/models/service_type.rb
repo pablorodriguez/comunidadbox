@@ -16,6 +16,15 @@ class ServiceType < ActiveRecord::Base
 
   validates_presence_of :name
 
+  def self.is_used service_type,user
+    nro = Service.joins(:workorder).where("service_type_id = ? and company_id IN (?)",service_type.id,user.get_companies_ids).count
+    nro > 0 ? true : false
+  end
+
+  def is_used user
+    ServiceType.is_assigned self,user
+  end
+
   def self.to_builder service_types
     Jbuilder.encode do |json|      
       json.array! service_types do |st|           

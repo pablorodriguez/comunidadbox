@@ -43,11 +43,6 @@ class ControlPanelsController < ApplicationController
     
   end
   
-  
-  def company_services(company_id)
-    CompanyService.includes(:service_type).where("company_id IN (?)",company_id).order('service_types.name').map(&:service_type)
-  end
-  
   def save_filter
     @service_filter = ServiceFilter.new(params[:service_filter])
     respond_to do |format|

@@ -216,6 +216,14 @@ class User < ActiveRecord::Base
     return []
   end
 
+  def get_companies_ids
+    comp = get_companies
+    unless comp.empty?
+      comp = comp.map(&:id)
+    end
+    comp
+  end
+
   def headquarter
     if companies.empty?
       return employer.user.headquarter if employer

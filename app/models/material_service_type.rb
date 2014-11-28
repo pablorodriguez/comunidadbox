@@ -1,4 +1,3 @@
-require 'iconv'
 
 class MaterialServiceType < ActiveRecord::Base
  attr_accessible :material_id, :service_type_id,:company_id
@@ -14,6 +13,10 @@ class MaterialServiceType < ActiveRecord::Base
   
   def self.materials company_id
     MaterialServiceType.includes({:price_list_items_active=>{:price_list=>{}},:service_type=>{:companies=>{}}}).where("companies.id = ? ",company_id)
+  end
+
+  def can_delete?
+    MaterialService.where("material_service_type_id = ?",self.id).count > 0 ? false : true
   end
 
   def self.generate_select_join_str(company_id,price_list_id,service_type_ids)
@@ -57,8 +60,7 @@ class MaterialServiceType < ActiveRecord::Base
       if msList.present?
         msList.each do |item|
           if item.material            
-            csv << [plid,item.id,I18n.t(item.name),item.code, item.material.name, item.price.to_s]
-            #csv << [iconv.iconv(plid.to_s),iconv.iconv(item.id.to_s),iconv.iconv(I18n.t(item.name)), item.code, item.material.name, item.price.to_s]
+            csv << [plid,item.id,I18n.t(item.name),item.code, item.material.name, item.price.to_s]            
           else
             logger.debugger "##### #{item.name} : #{item.id}" 
           end

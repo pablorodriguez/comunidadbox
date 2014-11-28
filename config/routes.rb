@@ -283,12 +283,16 @@ ComunidadBox::Application.routes.draw do
     end
 
     resources :service_types do    
-
+      resources :materials do
+        member do
+          delete :remove
+        end
+      end
+      
       member do
         get :task_list
         put :add_task
-        delete :remove_task
-        post :remove_material
+        delete :remove_task        
         post :add_material
         get :search_material
       end
@@ -300,13 +304,16 @@ ComunidadBox::Application.routes.draw do
     end
 
     resources :materials do
+      
+      resources :service_types do
+        member do
+          delete :remove
+        end
+      end
       collection do
         get :details
-        get :export
-        get :destroy_servicetype
-        
-        post :import
-        post :save_service_type
+        get :export        
+        post :import        
       end
     end
 

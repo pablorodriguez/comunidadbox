@@ -27,10 +27,16 @@ class UpdateFk < ActiveRecord::Migration
 	remove_foreign_key(:notes,:companies)
 	add_foreign_key(:notes,:companies,:dependent => :delete)
 
+	remove_foreign_key(:service_type_templates,:companies)
+	add_foreign_key(:service_type_templates,:companies,:dependent => :delete)
+
 	execute("delete from workorders where company_id=24")
 	execute("delete from workorders where company_id=26")	
+	execute("delete from companies where id in (13,14,19,21,24,25,26)")
 
 	execute("delete  from workorders where id in (14078,16105)")
+
+	drop_table :company_services
 
   end
 

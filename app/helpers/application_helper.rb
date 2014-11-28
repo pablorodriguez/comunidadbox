@@ -254,9 +254,8 @@ module ApplicationHelper
     return st
   end
   
-  def is_assigned service_type
-    s = CompanyService.all(:conditions => ["service_type_id = ?",service_type])
-     (s==nil or s.size==0) ? false:true 
+  def is_assigned service_type,user
+    ServiceType.is_used(service_type,user) > 0 ? false:true 
   end
   
   def link_to_remove_fields(f,association,title = "")

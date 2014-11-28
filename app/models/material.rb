@@ -13,10 +13,11 @@ class Material < ActiveRecord::Base
   belongs_to :sub_category,:class_name => 'Category', :foreign_key => 'sub_category_id'
   belongs_to :company
   
-  def Material.all_materials(price_list)
+  def self.all_materials(price_list)
+    debugger
     comp_id = price_list.company_id
-    comp_service_type = CompanyService.where("company_id = ?",comp_id)
-    service_types_ids = comp_service_type.map{|x| x.service_type_id}
+    comp_service_type = Company.find(comp_id).service_types #CompanyService.where("company_id = ?",comp_id)
+    service_types_ids = comp_service_type.map(&:service_type_id)
     all_materials = MaterialService.where("material_service_types.service_type_id in (?)",service_types_ids,
         :include=>{:material_service_type =>{:service_type=>{}}})
     all_materials

@@ -189,35 +189,6 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def add_service_type
-    company = get_company
-    companyService = company.company_service.build
-    @service_error = false
-    service_type = ServiceType.find(params[:id])
-    @service_type_id =service_type.id
-    companyService.service_type = service_type
-    companyService.save
-    @msg ="Tipo de Servicio asociado exitosamente"
-    respond_to do |format|
-        format.js {render :layout => false}
-    end
-  end
-
-
-  def remove_service_type
-    @service_type_id = params[:id].to_i
-    company_id= get_company.id
-    company_service = CompanyService.where("company_id = ? and service_type_id = ?",company_id,@service_type_id)
-    @msg ="Tipo de Servicio eliminado exitosamente"
-    @service_error = false
-    if company_service != nil
-      company_service[0].delete
-    end
-    respond_to do |format|
-        format.js {render :layout => false}
-    end
-  end
-
 
 
 end
