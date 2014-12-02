@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
 
   has_many :service_filters,:order =>'name'
   has_many :cars
+
+
   has_many :authentications
   has_many :notes,:order => "created_at DESC"
   
@@ -118,13 +120,13 @@ class User < ActiveRecord::Base
     offers
   end
 
-  def service_types_active
-    return [] unless company
+  def service_types_active    
+    return Company.default_service_types unless company
     headquarter.service_types.active
   end
   
   def service_types
-    return [] unless company
+    return Company.default_service_types unless company
     return company.service_types unless company.service_types.empty?
     return company.user.headquarter.service_types
   end
