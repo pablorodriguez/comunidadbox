@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CompanyMaterialCode < ActiveRecord::Base
   belongs_to :company
   belongs_to :material_service_type
@@ -10,9 +11,9 @@ class CompanyMaterialCode < ActiveRecord::Base
 
       query_str = "price_list_items.id, mst.id as mst_id, cmc.id as cmc_id"
 
-      join_str = "LEFT OUTER JOIN material_service_types as mst on mst.id = price_list_items.material_service_type_id 
+      join_str = "LEFT OUTER JOIN material_service_types as mst on mst.id = price_list_items.material_service_type_id
       INNER JOIN service_types as st ON st.id = mst.service_type_id
-      LEFT OUTER JOIN company_material_codes as cmc ON mst.id = cmc.material_service_type_id 
+      LEFT OUTER JOIN company_material_codes as cmc ON mst.id = cmc.material_service_type_id
       LEFT OUTER JOIN materials as m ON m.id = mst.material_id"
 
       pli = []
@@ -35,7 +36,7 @@ class CompanyMaterialCode < ActiveRecord::Base
   				compMaterialCode.material_service_type = MaterialServiceType.find(item.mst_id)
   				list << compMaterialCode
   			end
-  		end 
+  		end
   	end
 
   	list
@@ -52,7 +53,7 @@ class CompanyMaterialCode < ActiveRecord::Base
       csv << ['mst_id', 'service', 'material code', 'material name', 'custom code']
 
       if pliList.present?
-        pliList.each do |item| 
+        pliList.each do |item|
           mst = item.material_service_type
           csv << [mst.id, I18n.t(mst.service_type.name), mst.material.prov_code, mst.material.name, item.code]
         end
@@ -67,7 +68,7 @@ class CompanyMaterialCode < ActiveRecord::Base
 
 
       #verifico que el materialServiceType pertenezca a un priceListItem de la priceList activa del usuario
-      #si no no hago nada con ese registro (con esto evito que un usuario cambie el mst_id en el csv y pueda actualizar 
+      #si no no hago nada con ese registro (con esto evito que un usuario cambie el mst_id en el csv y pueda actualizar
       #cualquier registro)
       if mst.present? && mst.price_list_item_active.present? && mst.price_list_item_active.price_list_id == plid.to_i
 
@@ -92,9 +93,9 @@ class CompanyMaterialCode < ActiveRecord::Base
         elsif mst.present? && mst.company_material_code.present?
           mst.company_material_code.delete
         end
-    
+
       end
-    end    
+    end
   end
 
 end

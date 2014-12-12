@@ -1,11 +1,11 @@
-
+# encoding: utf-8
 class Company < ActiveRecord::Base
   attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo,
   :payment_methods
 
   validates :name,:presence => true
-  validates :address, :presence => true  
-  
+  validates :address, :presence => true
+
   has_one :address
   has_one :price_list_active,:class_name=>"PriceList",:conditions=>"active=1"
   belongs_to :user
@@ -16,7 +16,7 @@ class Company < ActiveRecord::Base
   has_many :service_types,:order =>'name'
   has_many :workorders
   has_many :employees,:class_name =>'User',:foreign_key =>'employer_id'
-  has_many :cars
+  has_many :vehicles
   has_many :service_offers
   has_many :service_type_templates
   has_many :images,:dependent => :destroy,as: :imageable
@@ -36,7 +36,7 @@ class Company < ActiveRecord::Base
   DEFAULT_COMPANY_ID = 1
 
   accepts_nested_attributes_for :address,:reject_if => lambda {|a| a[:street].blank?},:allow_destroy => true
-  accepts_nested_attributes_for :images,:reject_if => lambda {|a| a[:image].blank?},:allow_destroy => true  
+  accepts_nested_attributes_for :images,:reject_if => lambda {|a| a[:image].blank?},:allow_destroy => true
 
   before_save :update_headquarter
 
@@ -55,7 +55,7 @@ class Company < ActiveRecord::Base
   end
 
   def is_employee? usr
-    return (user.id == usr.id || ((usr.employer) && (usr.employer.id == id))) ? true : false    
+    return (user.id == usr.id || ((usr.employer) && (usr.employer.id == id))) ? true : false
   end
 
   def get_logo_url(format=:logo)
@@ -115,7 +115,7 @@ class Company < ActiveRecord::Base
   end
 
   def total_user_ranked
-    Workorder.includes(:ranks).where("ranks.type_rank = 2 and company_id = ?",self.id).count    
+    Workorder.includes(:ranks).where("ranks.type_rank = 2 and company_id = ?",self.id).count
   end
 
   def self.search params
@@ -131,9 +131,9 @@ class Company < ActiveRecord::Base
   end
 
   def future_events
-    company_cars = Car.where("company_id = ?",id)
-    cars_ids = company_cars.each{|c|c.id.to_i}
-    Event.all(:conditions=>["dueDate >= ? and car_id in(?)",Time.zone.now,cars_ids])
+    company_vehicles = Vehicle.where("company_id = ?",id)
+    vehicles_ids = company_vehicles.each{|c|c.id.to_i}
+    Event.all(:conditions => ["dueDate >= ? and vehicle_id in(?)", Time.zone.now,vehicles_ids])
   end
 
   def self.best(state_id = nil)
@@ -144,12 +144,12 @@ class Company < ActiveRecord::Base
   def self.update_customer
     Company.best.each do |c|
       c.workorders.each do |wo|
-        car = wo.car
-        unless car.user.service_centers.include?(c)
-          car.user.service_centers << c
+        vehicle = wo.vehicle
+        unless vehicle.user.service_centers.include?(c)
+          vehicle.user.service_centers << c
         end
-        logger.info "### Car ID: #{car.id} WO: #{wo.id} Company: #{c.name}"
-        car.save
+        logger.info "### Vehicle ID: #{vehicle.id} WO: #{wo.id} Company: #{c.name}"
+        vehicle.save
 
       end
     end
@@ -162,7 +162,7 @@ class Company < ActiveRecord::Base
   def self.is_client?(companies_ids,user_id)
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
   end
-  
+
   def self.is_employee?(companies_ids,user_id)
     User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
   end
@@ -170,10 +170,10 @@ class Company < ActiveRecord::Base
   def self.employees(companies_ids,employee_search)
     #email = params[:email] || ""
     #first_name = params[:first_name] || ""
-    #last_name = params[:last_name] || ""    
+    #last_name = params[:last_name] || ""
     roles_ids = employee_search.roles ? employee_search.roles.map{|v|v.to_i} : []
     active = employee_search.status || "active"
-    
+
     emp = User.where("employer_id IN (?)",companies_ids)
     if  active == "active"
       emp = emp.where("disable is NULL")
@@ -189,7 +189,7 @@ class Company < ActiveRecord::Base
     emp = emp.where("first_name like ?","%#{employee_search.first_name}%") if employee_search.first_name
     emp = emp.where("last_name like ?","%#{employee_search.last_name}%") if employee_search.last_name
     emp
-    
+
   end
 
   def self.clients(companies_ids,params)
@@ -198,14 +198,14 @@ class Company < ActiveRecord::Base
     last_name = params[:last_name] || ""
     email = params[:email] || ""
     company_name = params[:company_name] || ""
-    
-    page = params[:page] || 1 
+
+    page = params[:page] || 1
     clients = User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids)
     clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") unless first_name.empty?
     clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") unless last_name.empty?
     clients = clients.where("users.email like ?","%#{params[:email]}%") unless email.empty?
     clients = clients.where("company_name like ?","%#{params[:company_name]}%") unless company_name.empty?
-    clients.order("users.last_name,users.first_name") 
+    clients.order("users.last_name,users.first_name")
   end
 
   def perform_service_type? st
@@ -217,19 +217,19 @@ class Company < ActiveRecord::Base
     clients = self.clients([company_id],params).limit(30)
 
     CSV.open(filePath, "w+",{:col_sep => ","}) do |csv|
-      csv << ['id', 'first_name','last_name','email','company_name','cuit', 'phone','created_at','updated_at','car_domain','car_brand','car_model','car_year','car_fuel','car_km']
-    
+      csv << ['id', 'first_name','last_name','email','company_name','cuit', 'phone','created_at','updated_at','vehicle_domain','vehicle_brand','vehicle_model','vehicle_year','vehicle_fuel','vehicle_km']
+
       clients.each do |client|
         print '.'
 
         user_row = [client.id, client.first_name, client.last_name, client.email, client.company_name, client.cuit, client.phone, client.created_at, client.updated_at]
-        
-        if client.cars.blank?
+
+        if client.vehicles.blank?
           csv << user_row
         else
-          client.cars.each do |car|
+          client.vehicles.each do |vehicle|
             row = user_row.clone
-            row = row + [car.domain, car.brand.name, car.model.name, car.year, car.fuel, car.km]
+            row = row + [vehicle.domain, vehicle.brand.name, vehicle.model.name, vehicle.year, vehicle.fuel, vehicle.km]
             csv << row
           end
         end
@@ -244,28 +244,28 @@ class Company < ActiveRecord::Base
     cList = clients companies_ids, params
 
     CSV.generate do |csv|
-      csv << [I18n.t('client_id'),I18n.t('last_name'),I18n.t('first_name'),I18n.t('company_name'),I18n.t('email'),I18n.t('phone'),I18n.t('creator'),I18n.t('car_domain'),I18n.t('car_brand'),I18n.t('car_model'),I18n.t('car_year')]
+      csv << [I18n.t('client_id'),I18n.t('last_name'),I18n.t('first_name'),I18n.t('company_name'),I18n.t('email'),I18n.t('phone'),I18n.t('creator'),I18n.t('vehicle_domain'),I18n.t('vehicle_brand'),I18n.t('vehicle_model'),I18n.t('vehicle_year')]
 
       if cList.present?
         cList.each do |client|
-          
+
           client_fd = true
           row_client = [client.id, nil, nil, nil, nil, nil, nil]
           row_client_fd = [client.id, client.last_name, client.first_name, client.company_name, client.email, client.phone]
 
           client.creator ? row_client_fd += [client.creator.company.name] : row_client_fd += [nil]
 
-          if client.cars.blank?
+          if client.vehicles.blank?
             csv << row_client_fd
           else
-            client.cars.each do |car|
-              row_car = [car.domain, car.brand.name, car.model.name, car.year]
+            client.vehicles.each do |vehicle|
+              row_vehicle = [vehicle.domain, vehicle.brand.name, vehicle.model.name, vehicle.year]
 
               if client_fd
-                csv << row_client_fd + row_car
+                csv << row_client_fd + row_vehicle
                 client_fd = false
               else
-                csv << row_client + row_car
+                csv << row_client + row_vehicle
               end
             end
           end

@@ -1,12 +1,13 @@
+# encoding: utf-8
 class ServiceRequest < ActiveRecord::Base
-  attr_accessible :car_id, :company_id, :status, :user_id,:item_service_requests_attributes
+  attr_accessible :vehicle_id, :company_id, :status, :user_id,:item_service_requests_attributes
 
   has_many :item_service_requests
   has_many :service_types,:through => :item_service_requests
   has_many :service_offers
   belongs_to :user
   belongs_to :company
-  belongs_to :car
+  belongs_to :vehicle
 
   default_scope order("service_requests.created_at DESC")
   scope :confirmed, where("status = ?",Status::CONFIRMED)
@@ -14,10 +15,10 @@ class ServiceRequest < ActiveRecord::Base
   accepts_nested_attributes_for :item_service_requests,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
 
 
-  validates_presence_of :user,:car
+  validates_presence_of :user,:vehicle
 
   def car_service_offers
-    CarServiceOffer.where("service_offer_id IN (?) and car_id = ?",service_offers.map(&:id),car.id)
+    CarServiceOffer.where("service_offer_id IN (?) and vehicle_id = ?",service_offers.map(&:id),vehicle.id)
   end
 
   def self.for_user user
@@ -32,31 +33,31 @@ class ServiceRequest < ActiveRecord::Base
     self.user == usr && self.status == Status::OPEN
   end
 
-  def can_delete? usr    
+  def can_delete? usr
     self.user.id == usr.id
   end
 
   def to_builder
-    Jbuilder.encode do |json|  
+    Jbuilder.encode do |json|
       json.(self,:id)
-      json.car(self.car,:id,:domain) if self.car
-      unless car
-        json.car do
+      json.vehicle(self.vehicle,:id,:domain) if self.vehicle
+      unless vehicle
+        json.vehicle do
           json.id ""
           json.domain ""
         end
       end
-      json.item_service_requests self.item_service_requests do |isr|           
+      json.item_service_requests self.item_service_requests do |isr|
         json.id isr.id
         json.description isr.description
         json.show true
         json.service_type do
           json.id isr.service_type.id
           json.name isr.service_type.name
-        end  
+        end
       end
     end
-  end 
+  end
 
-  
+
 end
