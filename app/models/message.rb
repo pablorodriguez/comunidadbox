@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Message < ActiveRecord::Base
   attr_accessible :message,:receiver_id,:message_id,:workorder_id,:budget_id,:event_id,:car_service_offer_id
 
@@ -20,7 +21,7 @@ class Message < ActiveRecord::Base
     MessageMailer.deliver_mail(id)
   end
 
-  def self.messages_for_user(user)    
+  def self.messages_for_user(user)
     #ids = where("user_id = ? and message_id is not null", user.id).pluck(:message_id)
     # where("(user_id = :USER_ID AND message_id is null)",USER_ID: user.id)
     #where("(user_id = :USER_ID AND message_id is null) or id IN (:IDS)",USER_ID: user.id,IDS: ids).order("created_at DESC")
@@ -32,11 +33,11 @@ class Message < ActiveRecord::Base
   end
 
   def self.for_user(user)
-    #User.includes(:messages).where("(messages.user_id = :USER_ID) or (messages.receiver_id = :USER_ID)",USER_ID: user.id).order("users.last_name, users.first_name")    
-    sql ="select * from users where id in(select distinct(id) from (      
+    #User.includes(:messages).where("(messages.user_id = :USER_ID) or (messages.receiver_id = :USER_ID)",USER_ID: user.id).order("users.last_name, users.first_name")
+    sql ="select * from users where id in(select distinct(id) from (
       select distinct(user_id)as id from messages where receiver_id = ?
       union all
-      select distinct(receiver_id)as id from messages where user_id = ?) as msgs) 
+      select distinct(receiver_id)as id from messages where user_id = ?) as msgs)
       order by last_name,first_name
     "
     User.find_by_sql([sql,user.id,user.id])

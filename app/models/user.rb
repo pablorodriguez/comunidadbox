@@ -1,3 +1,4 @@
+# encoding: utf-8
 class User < ActiveRecord::Base
   extend Enumerize
 
@@ -17,19 +18,19 @@ class User < ActiveRecord::Base
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
 
-  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :cars_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes,:employer_id, :role_ids, :user_type
+  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes,:employer_id, :role_ids, :user_type
 
   attr :type, true
 
-  enumerize :user_type, in: {:car_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
+  enumerize :user_type, in: {:vehicle_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
   has_many :service_filters,:order =>'name'
-  has_many :cars
+  has_many :vehicles
 
 
   has_many :authentications
   has_many :notes,:order => "created_at DESC"
-  
+
   belongs_to :creator,:class_name=>'User'
   has_many :companies, :order => 'name ASC'
   has_many :companies_users
@@ -49,15 +50,15 @@ class User < ActiveRecord::Base
 
   has_one :export
   has_many :price_offers
-  
+
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of :first_name, :last_name
-  #validates_presence_of :cars, :on => :create
-  
-  
+  #validates_presence_of :vehicles, :on => :create
+
+
   accepts_nested_attributes_for :address,:reject_if => :all_blank
   accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
-  accepts_nested_attributes_for :cars,:reject_if => :all_blank
+  accepts_nested_attributes_for :vehicles,:reject_if => :all_blank
 
   scope :enabled , where("disable is NULL")
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
@@ -68,11 +69,11 @@ class User < ActiveRecord::Base
 
   def search_material_request(status,detail)
     if self.is_super_admin?
-      m = MaterialRequest.where("description like ?","%#{detail}%")    
+      m = MaterialRequest.where("description like ?","%#{detail}%")
     else
       m = self.material_requests.where("description like ?","%#{detail}%")
-    end    
-    
+    end
+
     unless status.empty?
       m = m.where("status =?",status)
     end
@@ -100,15 +101,15 @@ class User < ActiveRecord::Base
     return (self.company && self.company.id == comp.id)
   end
 
-  def find_service_offers(filters,ids)        
-    if is_super_admin?      
+  def find_service_offers(filters,ids)
+    if is_super_admin?
       offers = ServiceOffer.confirmed
     elsif ids
       offers = ServiceOffer.where("company_id IN (?)",ids)
     else
-      offers = ServiceOffer.cars(cars.map(&:id)).sended
+      offers = ServiceOffer.vehicles(vehicles.map(&:id)).sended
     end
-  
+
     if filters
       offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
       offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
@@ -120,11 +121,11 @@ class User < ActiveRecord::Base
     offers
   end
 
-  def service_types_active    
+  def service_types_active
     return Company.default_service_types unless company
     headquarter.service_types.active
   end
-  
+
   def service_types
     return Company.default_service_types unless company
     return company.service_types unless company.service_types.empty?
@@ -137,8 +138,8 @@ class User < ActiveRecord::Base
 
   def service_offers(status=nil)
     services = []
-    cars.each do |c|
-      so = ServiceOffer.where("car_service_offers.car_id = ?",c.id).includes(:car_service_offer)
+    vehicles.each do |c|
+      so = ServiceOffer.where("car_service_offers.vehicle_id = ?",c.id).includes(:car_service_offer)
       if status
         so = so.where("service_offers.status = ?","Enviado")
       end
@@ -152,17 +153,17 @@ class User < ActiveRecord::Base
     return companies.select{|c| c.id == comp.id}.size > 0 ? true : false
   end
 
-  def cars_ids
-    self.cars.map(&:id)
+  def vehicles_ids
+    self.vehicles.map(&:id)
   end
 
-  def own_car car
-    cars.select{|c| c.id == car.id}.size > 0
+  def own_vehicle vehicle
+    vehicles.select{|c| c.id == vehicle.id}.size > 0
   end
 
   def employees(company_id = nil)
     unless company_id
-      comp_ids = get_companies_ids    
+      comp_ids = get_companies_ids
     else
       comp_ids =[company_id]
     end
@@ -181,7 +182,7 @@ class User < ActiveRecord::Base
 
   def after_initialize2
     self.build_address if self.address.nil?
-    self.cars.build if self.cars.empty?
+    self.vehicles.build if self.vehicles.empty?
     #- @user.user_addresses[0].address = Address.new
   end
 
@@ -214,7 +215,7 @@ class User < ActiveRecord::Base
   def get_companies
     return creator.companies if is_manager?
     return companies unless companies.empty?
-    return employer.user.companies if is_employee? 
+    return employer.user.companies if is_employee?
     return []
   end
 
@@ -236,7 +237,7 @@ class User < ActiveRecord::Base
 
   end
 
-  
+
   def get_company_id_for_materials
     get_company_id(:materials)
   end
@@ -247,17 +248,17 @@ class User < ActiveRecord::Base
 
   # Return company id to be use in Materials, Service Types
   # Context can me materials or service types
-  def get_company_id(context)    
+  def get_company_id(context)
     id = nil
     if context == :materials
       if Material.has_for_company?(company_id)
-        id = company_id 
+        id = company_id
       else
         id = company.user.headquarter.id
       end
     elsif context == :service_types
       if ServiceType.has_for_company?(company_id)
-        id = company_id 
+        id = company_id
       else
         id = company.user.headquarter.id
       end
@@ -272,12 +273,12 @@ class User < ActiveRecord::Base
 
   def future_events(args={})
     per_page = args[:per_page]
-    car_id = args[:car_id]
+    vehicle_id = args[:vehicle_id]
     service_type_id = args[:service_type_id]
 
-    cars_ids = cars.each{|c|c.id.to_i} unless car_id
-    cars_ids = [car_id] if car_id
-    events = Event.where("dueDate >= ? and car_id in(?)",Time.zone.now,cars_ids)
+    vehicles_ids = vehicles.each{|c|c.id.to_i} unless vehicle_id
+    vehicles_ids = [vehicle_id] if vehicle_id
+    events = Event.where("dueDate >= ? and vehicle_id in(?)",Time.zone.now,vehicles_ids)
 
     events = events.includes(:service_type).where("service_types.id = ?",service_type_id) if service_type_id
     events = events.paginate(:page => 1,:per_page=>per_page) if per_page
@@ -299,7 +300,7 @@ class User < ActiveRecord::Base
 
   def is_employee?
     if employer == nil && company_active == nil
-      return false 
+      return false
     end
 
     if employer
@@ -308,7 +309,7 @@ class User < ActiveRecord::Base
     company_active != nil
   end
 
-  def is_car_owner?
+  def is_vehicle_owner?
     !is_employee?
   end
 
@@ -344,11 +345,11 @@ class User < ActiveRecord::Base
   end
 
   def only_client user
-    
+
   end
 
-  def can_edit_car? car
-    self == car.user && is_client?(car.user)
+  def can_edit_vehicle? vehicle
+    self == vehicle.user && is_client?(vehicle.user)
   end
 
   def is_client?(user)
@@ -390,14 +391,14 @@ class User < ActiveRecord::Base
     nro = 0
     email = get_last_email
     nro = email.scan(/\d+/).first.to_i if email
-  
+
     last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
 
     last_number
-    
+
   end
 
-  def self.generate_email_schync        
+  def self.generate_email_schync
     "test#{get_last_number}@comunidadbox.com"
   end
 
@@ -410,7 +411,7 @@ class User < ActiveRecord::Base
     mail
   end
 
-  
+
 
 end
 

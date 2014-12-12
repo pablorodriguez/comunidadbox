@@ -1,9 +1,10 @@
+# encoding: utf-8
 class Alarm < ActiveRecord::Base
   attr_accessible :name, :status, :description, :date_alarm, :time, :time_unit, :date_ini, :date_end, :no_end, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
 
-  belongs_to :user  
+  belongs_to :user
   belongs_to :client, :class_name => 'User', :foreign_key => 'client_id'
-  belongs_to :car, :class_name => 'Car', :foreign_key => 'car_id'
+  belongs_to :vehicle, :class_name => 'Vehicle', :foreign_key => 'vehicle_id'
   belongs_to :event
   belongs_to :company
 
@@ -11,14 +12,14 @@ class Alarm < ActiveRecord::Base
   has_many :notes
 
   validates_presence_of :name, :user,:date_alarm
-  
-  #scope :activ, lambda { |model| { :joins => :car, :conditions =>  ["cars.model_id = ?", model] } }
-  scope :active, where(:status => Status::ACTIVE)  
+
+  #scope :activ, lambda { |model| { :joins => :vehicle, :conditions =>  ["vehicles.model_id = ?", model] } }
+  scope :active, where(:status => Status::ACTIVE)
   scope :next,lambda { |hours| where("TIMESTAMPDIFF(HOUR,NOW(),next_time) <= ?",hours)}
   scope :now, where("(date_ini <= :now and date_end >= :now) or no_end = true", :now => Time.zone.now)
   scope :no_end, where("no_end = true")
 
-  def self.next_minute    
+  def self.next_minute
     where("TIMESTAMPDIFF(SECOND,:now,next_time) <= 60 and TIMESTAMPDIFF(SECOND,:now,next_time) >= 0",:now => Time.zone.now)
   end
 
@@ -31,7 +32,7 @@ class Alarm < ActiveRecord::Base
   scope :run_in_next_hours,lambda{|hrs| where("next_time  BETWEEN ? AND ?",1.minute.ago,hrs.hours.since)}
 
   before_save :set_next_time
-  
+
 
   DAYS_NAME = %W"sunday monday tuesday wednesday thursday friday saturday"
   DAYS = {}
@@ -51,9 +52,9 @@ class Alarm < ActiveRecord::Base
   ]
 
 
-  def init_next_time    
+  def init_next_time
     self.next_time = generate_next_time
-    
+
     #se the companyt if the user have one
     self.company_id = self.user.company_id if self.user.company_id
   end
@@ -75,33 +76,33 @@ class Alarm < ActiveRecord::Base
   def set_next_time
     if (date_alarm_changed? || time_unit_changed? || time_changed?)
       init_next_time
-    end    
+    end
   end
 
   def generate_next_time(base_time= self.date_alarm)
-    d = days_selected    
+    d = days_selected
     if (self.time && (d.empty?))
         new_time = base_time + (self.time.send(self.time_unit))
     elsif (!d.empty?)
-      if self.date_ini        
-        new_time = next_day_selected(self.date_ini) 
+      if self.date_ini
+        new_time = next_day_selected(self.date_ini)
       else
         new_time = next_day_selected(self.date_alarm)
       end
     else
       new_time = self.date_alarm
-    end    
+    end
     new_time.utc
   end
 
   #check if the alarm is on time
   def is_on_time?
     now = Time.zone.now
-    return true if no_end   
+    return true if no_end
     if (date_ini.nil? || date_end.nil?) && (date_alarm >= now)
-      return true 
+      return true
     end
-    
+
     return true if date_end >= now
     return false
   end
@@ -145,11 +146,11 @@ class Alarm < ActiveRecord::Base
   end
 
   def next_day_selected(from=Time.zone.now)
-    if (is_today? && (date_alarm > Time.zone.now))      
+    if (is_today? && (date_alarm > Time.zone.now))
       date_alarm
     else
       days = days_selected
-      days.map{ |s| Chronic.parse("next #{s}", now: from)}.sort.first unless days.empty?    
+      days.map{ |s| Chronic.parse("next #{s}", now: from)}.sort.first unless days.empty?
     end
   end
 
@@ -157,12 +158,12 @@ class Alarm < ActiveRecord::Base
     "Alarma: #{name} , #{description}"
   end
 
-  def notify    
-    logger.info "#### notify alarm #{id} #{Time.zone.now}"    
+  def notify
+    logger.info "#### notify alarm #{id} #{Time.zone.now}"
     update_next_time
-    update_last_time    
+    update_last_time
     send_message
-    save    
+    save
   end
 
   def send_message
@@ -180,11 +181,11 @@ class Alarm < ActiveRecord::Base
     AlarmMailer.alarm(self).deliver
   end
 
-  def self.notify    
+  def self.notify
     logger.debug "#{Time.zone.now} alarms notify called ###########"
     Alarm.next_minute.each do |alarm|
       alarm.deliver_notify
-    end      
+    end
   end
 
   def self.for_event_end_user(event,user)

@@ -1,5 +1,6 @@
+# encoding: utf-8
 class Budget < ActiveRecord::Base
-  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id, :car_id, :user_id,:comment,:services_attributes,:service_type_attributes
+  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id, :vehicle_id, :user_id,:comment,:services_attributes,:service_type_attributes
 
   has_many :services, :dependent => :destroy
   has_many :notes, :order => "CREATED_AT desc"
@@ -9,7 +10,7 @@ class Budget < ActiveRecord::Base
   belongs_to :brand
   belongs_to :model
   belongs_to :user
-  belongs_to :car
+  belongs_to :vehicle
   belongs_to :company
 
 
@@ -17,27 +18,27 @@ class Budget < ActiveRecord::Base
   default_scope order("budgets.created_at DESC")
 
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
- 
-  validate :service_not_empty
-    
 
-  def has_car
-    (car || (domain && brand && model)) != nil
+  validate :service_not_empty
+
+
+  def has_vehicle
+    (vehicle || (domain && brand && model)) != nil
   end
 
   def service_not_empty
     if services.empty?
-      errors[:base] << I18n.t(".must_have_services") 
+      errors[:base] << I18n.t(".must_have_services")
       #{}"El presupuesto debe contener servicios"
     end
-    
+
     #busco auto con el mismo dominio
-    c= Car.find_by_domain(domain)   
+    c= Vehicle.find_by_domain(domain)
     # si lo encuentro y el budget no tiene un auto => agrego error
-    # si lo encuentro y el budget tiene auto cuyo user es distinto al user del auto encontrado => agrego error 
-    if (c && car.nil?) || (c && car && car.user.id != c.user.id)
+    # si lo encuentro y el budget tiene auto cuyo user es distinto al user del auto encontrado => agrego error
+    if (c && vehicle.nil?) || (c && vehicle && vehicle.user.id != c.user.id)
       errors[:base] << "El dominio ingresado ya existe"
-    end  
+    end
 
     if email && user.nil?
       #busco usuario con el mismo email
@@ -50,27 +51,27 @@ class Budget < ActiveRecord::Base
     end
 
     # si el budget tiene usuario y auto y el auto no pertenece al usuario => agrego error
-    if car && user
-      if car.user.id != user.id
-        errors[:base] <<  I18n.t(".car_not_user")
+    if vehicle && user
+      if vehicle.user.id != user.id
+        errors[:base] <<  I18n.t(".vehicle_not_user")
       end
     end
-  
+
   end
 
   def full_name
     name = "#{first_name} #{last_name}" unless user
     name = "#{user.first_name} #{user.last_name}" if user
-    name = "#{car.user.first_name} #{car.user.last_name}" if car
+    name = "#{vehicle.user.first_name} #{vehicle.user.last_name}" if vehicle
     name
   end
 
-  def car_domain
+  def vehicle_domain
     ""
     "#{domain}" if domain
-    "#{car.domain}" if car
+    "#{vehicle.domain}" if vehicle
   end
-  
+
   def brand_name
     brand ? brand.name : ""
   end
@@ -83,27 +84,27 @@ class Budget < ActiveRecord::Base
  	s_total_price=0
     self.services.each do |s|
       s_total_price += s.total_price
-    end   
+    end
     s_total_price
   end
 
   def self.find_by_params(filters)
     domain =  filters[:domain] || ""
-    budget = Budget.includes(:car => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
+    budget = Budget.includes(:vehicle => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
 
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
     unless prop.any?{|k| filters.key?(k.to_sym)}
-      budget = budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")      
+      budget = budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")
     else
-      budget = budget.where("cars.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
-      budget = budget.where("budgets.brand_id = :brand_id OR cars.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
-      budget = budget.where("budgets.model_id = :model_id OR cars.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
-      budget = budget.where("cars.year = ?","#{filters[:year]}") if filters[:year]
+      budget = budget.where("vehicles.domain like :domain or  budgets.domain like :domain",{domain: "%#{domain.upcase}%"}) if filters[:domain]
+      budget = budget.where("budgets.brand_id = :brand_id OR vehicles.brand_id = :brand_id",{brand_id: "#{filters[:brand_id]}"}) if filters[:brand_id]
+      budget = budget.where("budgets.model_id = :model_id OR vehicles.model_id = :model_id",{model_id: "#{filters[:model_id]}"}) if filters[:model_id]
+      budget = budget.where("vehicles.year = ?","#{filters[:year]}") if filters[:year]
 
       budget = budget.where("budgets.first_name like :name OR users.first_name like :name",{name: "%#{filters[:first_name]}%"}) if filters[:first_name]
       budget = budget.where("budgets.last_name like :name OR users.last_name like :name ",{name: "%#{filters[:last_name]}%"}) if filters[:last_name]
       budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
-      
+
       budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
       budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     end
@@ -112,18 +113,18 @@ class Budget < ActiveRecord::Base
       budget = budget.where("budgets.company_id IN (?)",filters[:company_id])
     else
       budget = budget.where("budgets.user_id = ?",filters[:user].id)
-    end    
+    end
 
     budget = budget.where("budgets.id = ?",filters[:budget_id].to_i) if filters [:budget_id]
 
-    
+
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
-    
+
     budget
   end
 
-  def can_show?(user)    
-    (self.car && self.car.user == user) || self.user == user || self.company.is_employee?(user)
+  def can_show?(user)
+    (self.vehicle && self.vehicle.user == user) || self.user == user || self.company.is_employee?(user)
   end
 
   def can_edit? user
@@ -131,12 +132,12 @@ class Budget < ActiveRecord::Base
   end
 
   def can_create_service? user
-    ((user && car) || (user.nil? && car.nil?)) && user.company
+    ((user && vehicle) || (user.nil? && vehicle.nil?)) && user.company
   end
 
   def can_send_message? usr
     if usr.is_employee?
-      if self.user && self.user.id != nil 
+      if self.user && self.user.id != nil
         return true
       else
         return false
@@ -147,7 +148,7 @@ class Budget < ActiveRecord::Base
 
   def self.to_csv(filePath, company_id)
     filters_params = {}
-    filters_params[:company_id] = company_id    
+    filters_params[:company_id] = company_id
     budgets = find_by_params(filters_params).limit(30)
 
 
@@ -155,24 +156,24 @@ class Budget < ActiveRecord::Base
       csv << csv_column_names
 
       budgets.each do |budget|
-        
+
         bg_values = csv_budget_row_values(budget)
-        
+
         budget.services.each do |service|
           bg_service_values = bg_values.clone + [service.service_type.name]
-          
+
           service.material_services.each do |mat_service|
-            row = bg_service_values.clone + [mat_service.material_detail, mat_service.amount, mat_service.price] 
+            row = bg_service_values.clone + [mat_service.material_detail, mat_service.amount, mat_service.price]
             csv << row
           end
 
         end
-      end    
+      end
     end
   end
 
   def self.csv_column_names
-    ["id","company","customer","customer_phone","customer_email","car_domain","car_brand","car_model","comment","created_at","updated_at","service","material","material_amount","material_price"]
+    ["id","company","customer","customer_phone","customer_email","vehicle_domain","vehicle_brand","vehicle_model","comment","created_at","updated_at","service","material","material_amount","material_price"]
   end
 
   def self.csv_budget_row_values(budget)
@@ -180,29 +181,29 @@ class Budget < ActiveRecord::Base
     bg_values = []
     bg_values << budget.id
     bg_values << budget.company.name
-    bg_values << budget.full_name 
-    
+    bg_values << budget.full_name
+
     if budget.user.present?
       bg_values << budget.user.phone
       bg_values << budget.user.email
-    elsif budget.car.present?
-      bg_values << budget.car.user.phone
-      bg_values << budget.car.user.email
+    elsif budget.vehicle.present?
+      bg_values << budget.vehicle.user.phone
+      bg_values << budget.vehicle.user.email
     else
       bg_values << budget.phone
       bg_values << budget.email
-    end      
-      
+    end
 
-    if budget.car.present?
-      bg_values << budget.car.domain
-      bg_values << budget.car.brand.name
-      bg_values << budget.car.model.name
+
+    if budget.vehicle.present?
+      bg_values << budget.vehicle.domain
+      bg_values << budget.vehicle.brand.name
+      bg_values << budget.vehicle.model.name
     else
       bg_values << budget.domain
       bg_values << budget.brand_name
       bg_values << budget.model_name
-    end       
+    end
 
     bg_values << budget.comment
     bg_values << budget.created_at
@@ -212,17 +213,17 @@ class Budget < ActiveRecord::Base
 
   def self.budget_report_to_csv(params)
     bList = find_by_params params
-    
+
     CSV.generate do |csv|
-      csv << [I18n.t('budget'), I18n.t('car'), I18n.t('client'), I18n.t('operator'), I18n.t('budget_date'), I18n.t('budget_price'), I18n.t('service_id'), I18n.t('service'), I18n.t('service_price'), I18n.t('material_amount'), I18n.t('material_price'), I18n.t('material_total_price'), I18n.t('material_code'), I18n.t('material_prov_code'), I18n.t('material')]
-    
+      csv << [I18n.t('budget'), I18n.t('vehicle'), I18n.t('client'), I18n.t('operator'), I18n.t('budget_date'), I18n.t('budget_price'), I18n.t('service_id'), I18n.t('service'), I18n.t('service_price'), I18n.t('material_amount'), I18n.t('material_price'), I18n.t('material_total_price'), I18n.t('material_code'), I18n.t('material_prov_code'), I18n.t('material')]
+
       if bList.present?
         bList.each do |b|
           budget = Budget.find b.id #para obtener el presupuesto completo
 
           budget_fd = true
           row_budget = [budget.id, nil, nil, nil, nil, nil]
-          row_budget_fd = [budget.id, budget.car_domain, budget.full_name, budget.creator.full_name, I18n.l(budget.created_at, :format => :short), budget.total_price]
+          row_budget_fd = [budget.id, budget.vehicle_domain, budget.full_name, budget.creator.full_name, I18n.l(budget.created_at, :format => :short), budget.total_price]
 
           budget.services.each do |service|
             service_fd = true

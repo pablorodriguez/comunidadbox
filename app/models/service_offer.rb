@@ -1,9 +1,10 @@
+# encoding: utf-8
 class ServiceOffer < ActiveRecord::Base
-  include Statused  
+  include Statused
   attr_accessible :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id,:advertisement_attributes
 
   has_many :car_service_offers
-  has_many :cars, :through => :car_service_offers
+  has_many :vehicles, :through => :car_service_offers
   has_many :offer_service_types
   has_many :service_types,:through => :offer_service_types
   has_many :advertisement_days,:through => :advertisement
@@ -16,18 +17,18 @@ class ServiceOffer < ActiveRecord::Base
   validates_presence_of :title, :price, :final_price, :percent
   accepts_nested_attributes_for :offer_service_types,:reject_if => lambda { |m| m[:service_type_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :advertisement,:allow_destroy => true
-  
+
   default_scope {order("service_offers.created_at DESC")}
-  scope :sended ,where("service_offers.status = ?",Status::SENT)  
+  scope :sended ,where("service_offers.status = ?",Status::SENT)
   scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
-  scope :cars, lambda{|cars_ids| where("car_service_offers.car_id in (?)",cars_ids).includes(:car_service_offers)}
+  scope :vehicles, lambda{|vehicles_ids| where("car_service_offers.vehicle_id in (?)",vehicles_ids).includes(:car_service_offers)}
   validate :validate_service_types
 
   after_initialize :custom_init
 
   def custom_init
-    if car_service_offers.empty? and advertisement.nil?      
-      build_advertisement       
+    if car_service_offers.empty? and advertisement.nil?
+      build_advertisement
     end
   end
 
@@ -48,7 +49,7 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def service_types_names
-    offer_service_types.map{|ost| ost.service_type.name}.join(" - ")    
+    offer_service_types.map{|ost| ost.service_type.name}.join(" - ")
   end
 
   def valid_dates
@@ -59,38 +60,38 @@ class ServiceOffer < ActiveRecord::Base
     days << "wednesday" if self.wednesday
     days << "thursday" if self.thursday
     days << "friday" if self.friday
-    days << "saturday" if self.saturday  
+    days << "saturday" if self.saturday
     days
   end
 
-  def my_cars user
-    car_service_offers.select{|cs| cs.car.user.id == user.id}
+  def my_vehicles user
+    car_service_offers.select{|cs| cs.vehicle.user.id == user.id}
   end
 
   #Busco las ofertas de servicio y las agrupo por auto
   def self.get_service_offer_by_user
-    cars = Hash.new
+    vehicles = Hash.new
     service_offers = ServiceOffer.confirmed
-    
-    service_offers.each do |s|            
-      s.cars.each do |c|
-        unless cars[c]
-          cars[c]=Array.new
-        end         
-        cars[c] << sremove_advertisement_entity
+
+    service_offers.each do |s|
+      s.vehicles.each do |c|
+        unless vehicles[c]
+          vehicles[c]=Array.new
+        end
+        vehicles[c] << sremove_advertisement_entity
       end
     end
-    
-    return cars,service_offers
+
+    return vehicles,service_offers
   end
-  
+
   #if user's car belong to service offer car the user can see it
   def can_show? user
     unless self.advertisement_days.empty?
       return true
     end
-    cars_ids = user.cars.map(&:id)
-    CarServiceOffer.where("service_offer_id = ? and car_id IN(?)",self.id,cars_ids).count > 0    
+    vehicles_ids = user.vehicles.map(&:id)
+    CarServiceOffer.where("service_offer_id = ? and vehicle_id IN(?)",self.id,vehicles_ids).count > 0
   end
 
   def can_delete? user
@@ -100,28 +101,28 @@ class ServiceOffer < ActiveRecord::Base
   #Notifico a los autos sus ofertas de servicios
   def self.notify
     #enviar solo a estos autos..prueba
-    cars_id = %w"HRJ549 AOK780"
+    vehicles_id = %w"HRJ549 AOK780"
     logger.info "Service Offer notify"
-    cars,so = get_service_offer_by_user      
-    cars.each do |car,service_offers|        
+    vehicles,so = get_service_offer_by_user
+    vehicles.each do |vehicle,service_offers|
       #if cars_id.include?(car.domain)
         ServiceOffer.transaction do
-          self.notify_service_offer(car,service_offers) 
-          self.update_car_service_offer_status(car,service_offers)
+          self.notify_service_offer(vehicle,service_offers)
+          self.update_car_service_offer_status(vehicle,service_offers)
         end
-      #end    
+      #end
     end
-  
-    #Actualizo el estado de cada Oferta de Servicio a SENT    
+
+    #Actualizo el estado de cada Oferta de Servicio a SENT
     so.each {|s| s.update_attributes(status: Status::SENT)}
 
   end
-  
+
   #Actualizo el estado de la oferta de servicio del auto a SENT
-  def self.update_car_service_offer_status(car,service_offers)
+  def self.update_car_service_offer_status(vehicle,service_offers)
     service_offers.each do |so|
-      CarServiceOffer.where("car_id = ? and service_offer_id = ?",car.id,so.id).update_all(status: Status::SENT)
-    end  
+      CarServiceOffer.where("vehicle_id = ? and service_offer_id = ?",vehicle.id,so.id).update_all(status: Status::SENT)
+    end
   end
 
   def self.weeks(date = Date.today)
@@ -141,7 +142,7 @@ class ServiceOffer < ActiveRecord::Base
 
   def self.weeks_to_json(date= Date.today)
     weeks = self.weeks(date)
-    Jbuilder.encode do |json| 
+    Jbuilder.encode do |json|
       json.array! weeks do |week|
         json.array! week do |day|
           json.day day.day
@@ -158,7 +159,7 @@ class ServiceOffer < ActiveRecord::Base
     date = Date.today
 
     #create service offer object
-    Jbuilder.encode do |json| 
+    Jbuilder.encode do |json|
       json.id self.id
       json.price self.price
       json.percent self.percent
@@ -167,7 +168,7 @@ class ServiceOffer < ActiveRecord::Base
         json.id ost.id
         json.service_type_id ost.service_type.id
         json.name ost.service_type.name
-        json.show true                
+        json.show true
       end
 
       days_with_ad = Hash.new
@@ -175,7 +176,7 @@ class ServiceOffer < ActiveRecord::Base
       if advertisement
         #create advertisement object
 
-        json.advertisement do 
+        json.advertisement do
           json.id self.advertisement.id
 
           #create advertisement days for the service object
@@ -193,46 +194,46 @@ class ServiceOffer < ActiveRecord::Base
         #create calendar's weeks
         weeks_values = ServiceOffer.weeks
 
-        Advertisement.search_other_by_weeks(self,weeks_values).each do |ad|      
-          ad.advertisement_days.each do |ad_day|          
+        Advertisement.search_other_by_weeks(self,weeks_values).each do |ad|
+          ad.advertisement_days.each do |ad_day|
             ad = days_with_ad[ad_day.published_on.to_s] || Hash.new
             ad[ad_day.advertisement.id] = ad_day
             days_with_ad[ad_day.published_on.to_s] = ad
           end
         end
-        
+
         json.weeks weeks_values do |week|
           json.array! week do |day|
             json.day day.day
             json.date day
             json.today date == day
-            json.notmonth date.month != day.month  
-            
+            json.notmonth date.month != day.month
+
             day_ad = days_with_ad[day.to_s] || Hash.new
             nro = day_ad.keys.size
 
             if (date > day) || (nro >=3)
               json.can_no_ad_add true
-            else 
+            else
               json.can_no_ad_add false
             end
 
             json.ad_nro (nro > 0) ? nro : 0
             json.my_ad (nro > 0) ? true : false
             json.has_ad (nro > 0) ? true : false
-            
+
             ads = (1..3).to_a
 
             json.ads do
-              json.array! ads do |index|              
+              json.array! ads do |index|
                 if days_with_ad[day.to_s]
-                  temp = days_with_ad[day.to_s].values[index-1]                  
+                  temp = days_with_ad[day.to_s].values[index-1]
                   json.other_add true if (temp && (temp.advertisement.service_offer.id != self.id))
                   if (temp && (temp.advertisement.service_offer.id == self.id))
-                    json.my_ad true 
+                    json.my_ad true
                     json.so self.id
                     json.advertisement_id temp.advertisement.id
-                  end              
+                  end
                 end
                 json.has_ad (index <= nro ? true : false)
               end
@@ -242,13 +243,13 @@ class ServiceOffer < ActiveRecord::Base
       end
 
     end
-  end 
+  end
 
   private
-  
-  def self.notify_service_offer(car,service_offers)
-    logger.info "Envio de ServiceOffer #{Time.zone.now} para #{car.domain} #{service_offers.map(&:id).join(',')}"
-    message = ServiceOfferMailer.notify(car,service_offers).deliver
+
+  def self.notify_service_offer(vehicle,service_offers)
+    logger.info "Envio de ServiceOffer #{Time.zone.now} para #{vehicle.domain} #{service_offers.map(&:id).join(',')}"
+    message = ServiceOfferMailer.notify(vehicle,service_offers).deliver
   end
 end
 
