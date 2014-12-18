@@ -28,6 +28,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_i18n_locale_from_params
 
+  def get_user_agent_encode
+    request.user_agent.include?("Linux") ? "utf-16" : "iso-8859-1"
+  end
   protected
   def set_i18n_locale_from_params
     if params[:locale]

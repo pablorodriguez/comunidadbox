@@ -166,7 +166,7 @@ class PriceListsController < ApplicationController
   def export
     csv = MaterialServiceType.to_csv_for_update_price params[:id], current_user
     unless csv.empty?
-      encode = "utf-16"
+      encode = get_user_agent_encode
       respond_to do |format|        
         format.csv { send_data csv.encode(encode), 
                       :type => "text/csv; charset=#{encode}; header=present",

@@ -147,7 +147,8 @@ class MaterialsController < ApplicationController
 
   def export    
     csv = Material.to_csv(current_user.headquarter.id)
-    encode = "iso-8859-1"
+    encode = get_user_agent_encode
+    debugger
     unless csv.empty?
       respond_to do |format|        
         format.csv { send_data csv.encode(encode, {:invalid => :replace, :undef => :replace, :replace => '?'}), 
