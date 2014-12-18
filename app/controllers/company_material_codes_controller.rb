@@ -15,10 +15,9 @@ layout "application"
   def export
   	pl = PriceList.find_active_price_list current_user
   	csv = CompanyMaterialCode.to_csv pl.id, current_user
-
   	unless csv.empty?
       respond_to do |format|
-        format.csv { send_data csv, :filename => "materialCodes.csv"}
+        format.csv {send_data csv_string.encode("iso-8859-1"), :filename => "materialCodes.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
         format.html {redirect_to company_material_codes_path}
       end
   	else
