@@ -32,7 +32,7 @@ class BudgetsController < ApplicationController
     @filters_params_exp = filters_params
     @filters_params_exp[:user] = nil
 
-    @budgets = Budget.find_by_params(filters_params).paginate(:page =>page,:per_page =>per_page)    
+    @budgets = Budget.find_by_params(filters_params).paginate(:page =>page,:per_page =>per_page)
 
     @fuels = Car.fuels
     @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)

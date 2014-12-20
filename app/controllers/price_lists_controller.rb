@@ -1,10 +1,10 @@
 class PriceListsController < ApplicationController
   
-  authorize_resource
+  #authorize_resource
 
   def show
     @price_list = PriceList.find(params[:id])
-
+    authorize! :read, @price_list
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @price_list }
@@ -80,7 +80,7 @@ class PriceListsController < ApplicationController
     pl.activate    
     redirect_to :action=>:index
   end
-  
+
    # PUT /models/1
   # PUT /models/1.xml
   def update
@@ -118,19 +118,25 @@ class PriceListsController < ApplicationController
   
   def items
     id = params[:id]
+    @price_list = PriceList.find id
+    authorize! :read, @price_list
+
     @page = params[:page] || 1
     @service_type_ids = params[:service_type_ids] ? params[:service_type_ids].values : []
     @percentage = params[:percentage] || ""
     @material = params[:material] || ""
     company_id= get_company.id
     @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
-      
-    @price_list = PriceList.find id
+
+    respond_to do |format|
+      format.html
+    end
   end
   
   def price_upload
-
     if params[:price][:file].present?
+      price_list = PriceList.find params[:id]
+      authorize! :import, price_list
       MaterialServiceType.import_to_update_price params[:id], params[:price][:file], current_user
     else
       flash[:alert] = t("Error")

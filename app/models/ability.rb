@@ -148,12 +148,17 @@ class Ability
     if user.is_administrator? || user.is_manager?
       can :manage, ServiceOffer
       can :manage, :admin
-      can :manage, PriceList
+      #can :manage, PriceList
       can :manage, :employee
       can :manage, ServiceFilter      
       can :manage, Export
     end
 
+    can [:import,:read], PriceList do |pl|
+      debugger
+      pl.can_edit?(user) && (user.is_administrator? || user.is_manager?)
+    end
+ 
     if user.is_super_admin?
       can :manage, Resque
     end
