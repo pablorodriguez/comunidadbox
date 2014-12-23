@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   def service_offers(status=nil)
     services = []
     vehicles.each do |c|
-      so = ServiceOffer.where("car_service_offers.vehicle_id = ?",c.id).includes(:car_service_offer)
+      so = ServiceOffer.where("vehicle_service_offers.vehicle_id = ?",c.id).includes(:vehicle_service_offer)
       if status
         so = so.where("service_offers.status = ?","Enviado")
       end

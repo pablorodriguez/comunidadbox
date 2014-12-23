@@ -1,16 +1,16 @@
 .vertical_menu
-  = render "conf/menu"  
+  = render "conf/menu"
 .contentright_s
   .box_bottom
     %h1 Modelo
   %p
     %b
-      Marca:  
+      Marca:
     = brand_logo @model.brand.name,true
   %p
     %b
       Nombre:
-    = h @model.name  
+    = h @model.name
   .buttons_container
     = link_to "Modificar", edit_model_path(@model),:class =>:button
     = link_to "Cancelar",models_path

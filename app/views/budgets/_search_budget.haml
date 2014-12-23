@@ -2,12 +2,11 @@
   #wo_form
     .form
       %h3 Buscar
-      = form_tag budgets_path,:remote =>true,:id=>:filter,:method =>:get do               
-        %table    
+      = form_tag budgets_path,:remote =>true,:id=>:filter,:method =>:get do
+        %table
           %tr
             %td
               = text_field_tag 'id', "", :size=>6,:class =>"input labelify",:title=>"Numero"
         .left
           = image_submit_tag("find.png",:class =>"input_img")
     .ajax_loader.right
-          

@@ -1,18 +1,18 @@
-%table.w  
+%table.w
   %tr
     %td
       =t(".domain")
     %td
       .domain_white
-        - if @budget.car
-          = link_to(@budget.car.domain, car_path(@budget.car)) 
+        - if @budget.vehicle
+          = link_to(@budget.vehicle.domain, car_path(@budget.vehicle))
         -else
           = @budget.domain
   %tr
     %td{:style=>"width:100px"}=t(".brand")
     %td
-      = @car.brand.name if @car.brand 
+      = @vehicle.brand.name if @vehicle.brand
   %tr
     %td=t(".model")
-    %td        
-      = @car.model.name if @car.model
+    %td
+      = @vehicle.model.name if @vehicle.model

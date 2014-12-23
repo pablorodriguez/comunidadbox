@@ -1,5 +1,5 @@
 %tr
-  %td    
+  %td
     = f.hidden_field :material_service_type_id,:class => :material_service_type_id
   %td
     .ajax_loader_m.left
@@ -17,7 +17,7 @@
     -else
       = f.text_field :material,:class=>:material
     %input.copy_detail.input_long.hide
-  %td.number    
+  %td.number
     = f.text_field :amount,:class =>"amount right"
   %td.number
     = f.text_field :price ,:class =>"price right"
@@ -25,5 +25,5 @@
     .total_item
       = number_to_currency(f.object.total_price) if f.object.amount
   %td.number
-    = f.hidden_field :_destroy    
+    = f.hidden_field :_destroy
     = link_to_remove_fields f,:material_service,t(".delete_material")

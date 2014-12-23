@@ -7,11 +7,11 @@
 .contentright_s
   -if company_id.size == 1
     .box_bottom
-      %h1 
+      %h1
         = get_company.name
   .box_bottom
-    %h1 
-      Listas de Precios  
+    %h1
+      Listas de Precios
   %table#sort_table.comboxtable
     %thead
       %tr
@@ -21,7 +21,7 @@
           Nombre
         %th
           Estado
-        %th 
+        %th
     - for price_list in @price_lists
       %tr
         -if company_id.size > 1
@@ -40,4 +40,4 @@
           -unless price_list.active
             = link_to image_tag('delete.png'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete,:title =>"Borrar"
           = link_to image_tag('new.png'), copy_price_list_path(price_list),:title =>"Copiar lista de precio"
-    
+

@@ -6,14 +6,14 @@
       %td
         = h service_offer.title
     %tr
-      %td 
+      %td
         = t ".precio"
       %td
         =h number_to_currency(service_offer.price)
-      %td 
+      %td
         = t ".discount"
         \%
-      %td        
+      %td
         = number_to_percentage(service_offer.percent, :precision =>2)
     %tr
       %td
@@ -29,18 +29,18 @@
         = t "since"
       %td
         = (l service_offer.since) if service_offer.since
-      %td 
+      %td
         = t "until"
       %td
-        = (l service_offer.until) if service_offer.until    
-.box_bottom  
-  %table  
+        = (l service_offer.until) if service_offer.until
+.box_bottom
+  %table
     %tr
       %td Comentario
       %td
         =h service_offer.comment
-    %tr  
+    %tr
       %td Dias
-      %td.label_title{:colspan=>3}        
+      %td.label_title{:colspan=>3}
         = service_offer.valid_dates.map{|d| I18n.t(d)}.join(" , ")
 

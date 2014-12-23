@@ -1,25 +1,25 @@
 # encoding: utf-8
 include ActionView::Helpers::NumberHelper
-class CarServiceOffer < ActiveRecord::Base
-  attr_accessible :vehicle,:status
+class VehicleServiceOffer < ActiveRecord::Base
+  attr_accessible :vehicle, :status
   include Statused
 
-  default_scope order('car_service_offers.created_at DESC')
+  default_scope order('vehicle_service_offers.created_at DESC')
   belongs_to :vehicle
   belongs_to :service_offer
   has_one :service
 
-  scope :confirmed, where("car_service_offers.status = ?", Status::CONFIRMED)
+  scope :confirmed, where("vehicle_service_offers.status = ?", Status::CONFIRMED)
   scope :vehicles, lambda{|vehicle_id |where("vehicle_id =?",vehicle_id)}
   scope :company , lambda{|company_ids| where("service_offers.company_id IN (?)",company_ids).includes(:service_offer)}
-  scope :by_status,lambda{|status| where("car_service_offers.status = ?",status)}
+  scope :by_status,lambda{|status| where("vehicle_service_offers.status = ?",status)}
 
   def self.update_with_services(services)
     services.each do |s|
-      if s.car_service_offer_id
-        car_service_offers = CarServiceOffer.find s.car_service_offer_id
-        car_service_offers.status = Status::PERFORMED
-        car_service_offers.save
+      if s.vehicle_service_offer_id
+        vehicle_service_offers = VehicleServiceOffer.find s.vehicle_service_offer_id
+        vehicle_service_offers.status = Status::PERFORMED
+        vehicle_service_offers.save
       end
 
     end
@@ -61,7 +61,7 @@ class CarServiceOffer < ActiveRecord::Base
   end
 
   def self.search_by_vehicles_ids vehicles_ids
-    CarServiceOffer.where("vehicle_id IN (?) and car_service_offers.status IN (?)",vehicles_ids,[Status::CONFIRMED, Status::PERFORMED, Status::SENT]).includes(:service_offer).includes(:vehicle)
+    VehicleServiceOffer.where("vehicle_id IN (?) and vehicle_service_offers.status IN (?)",vehicles_ids,[Status::CONFIRMED, Status::PERFORMED, Status::SENT]).includes(:service_offer).includes(:vehicle)
   end
 
   def self.search_for(vehicle_ids,company_ids)
@@ -70,13 +70,13 @@ class CarServiceOffer < ActiveRecord::Base
   end
 
   def self.search_by_vehicle_and_companies(vehicle_ids,company_ids)
-    cso = CarServiceOffer.vehicles(vehicle_ids).company(company_ids).confirmed.includes(:service_offer)
+    cso = VehicleServiceOffer.vehicles(vehicle_ids).company(company_ids).confirmed.includes(:service_offer)
     cso = cso.where("service_offers.since <= :DATE and service_offers.until >= :DATE",:DATE => Time.now)
-    cso.joins("LEFT JOIN services ON services.car_service_offer_id=car_service_offers.id").where("services.id is null")
+    cso.joins("LEFT JOIN services ON services.vehicle_service_offer_id=vehicle_service_offers.id").where("services.id is null")
   end
 
-  def self.remove_not_valid car_service_offers
-    car_service_offers.delete_if{|offer| offer.is_not_valid_today?}
+  def self.remove_not_valid vehicle_service_offers
+    vehicle_service_offers.delete_if{|offer| offer.is_not_valid_today?}
   end
 
 end

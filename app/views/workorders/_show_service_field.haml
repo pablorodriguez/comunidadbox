@@ -6,8 +6,8 @@
           %h2.inline
             %label.left{:id=>"serviceType"}
               = icon_status f.status
-              = f.service_type.name              
-              = ": #{f.operator.full_name}" if f.operator              
+              = f.service_type.name
+              = ": #{f.operator.full_name}" if f.operator
           .hide
             = f.comment
         %th{:style=>'width:10%'}
@@ -18,15 +18,15 @@
           .total_service
             = number_to_currency(f.total_price)
         %th.number{:style=>'width:5%'}
-      - if f.car_service_offer
-        %tr          
-          %th.number{:colspan=>4}            
-            = link_to "Oferta de Servicio", f.car_service_offer,:target => "_blank"             
-          %th.number            
-            =number_to_currency(f.car_service_offer.service_offer.final_price)
+      - if f.vehicle_service_offer
+        %tr
+          %th.number{:colspan=>4}
+            = link_to "Oferta de Servicio", f.vehicle_service_offer,:target => "_blank"
+          %th.number
+            =number_to_currency(f.vehicle_service_offer.service_offer.final_price)
           %th
-        
-    %tbody      
+
+    %tbody
       - f.material_services.each do |ms|
         =render :partial=> "show_material_service_fields",:locals=>{:f => ms}
   - if f.comment

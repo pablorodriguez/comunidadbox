@@ -1,5 +1,5 @@
 if (<%=@budgets.size%> > 0){
   $(".budgets").html("<%=escape_javascript(render(:partial=>'budgets'))%>");
 }else{
-  $(".budgets").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún presupuesto."}))%>");  
-} 
+  $(".budgets").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún presupuesto."}))%>");
+}

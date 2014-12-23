@@ -1,6 +1,6 @@
 = simple_form_for @price_offer, :method => 'post', :url => save_price_offer_workorder_path(@price_offer.workorder) do |f|
   = render 'shared/error_messages', :target => @price_offer
-  
+
   -if @price_offer.id.present?
     =f.input :id, as: :hidden
 

@@ -1,5 +1,5 @@
 .box_bottom
-  %h1 
+  %h1
     = t ".title"
 
 - for client in @clients
@@ -10,7 +10,7 @@
         %label
           %strong
             - if current_user.company
-              = link_to client.full_name, client_path(client),:title=>"Ver" 
+              = link_to client.full_name, client_path(client),:title=>"Ver"
             - else
               = client.full_name
             %label
@@ -28,13 +28,13 @@
         #unread_message_nro.action
           = unread_message_nro(client)
     -if current_user.company_id
-      - client.cars.each_with_index do |car,index|  
-        .client_car.box_top.left
+      - client.vehicles.each_with_index do |vehicle,index|
+        .client_vehicle.box_top.left
           .detail.left
             .left.domain_white
-              = link_to h(car.domain),car
+              = link_to h(vehicle.domain),vehicle
             %strong
-              = car.brand.name
-              = car.model.name
-              = car.year  
+              = vehicle.brand.name
+              = vehicle.model.name
+              = vehicle.year
 = will_paginate @clients

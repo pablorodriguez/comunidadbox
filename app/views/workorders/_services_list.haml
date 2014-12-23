@@ -1,21 +1,21 @@
 = form_for @work_order,:html =>{:class=>"box_bottom"} do |wo_form|
   #services.overflow
     = wo_form.hidden_field :budget_id
-    = wo_form.hidden_field :car_id
+    = wo_form.hidden_field :vehicle_id
     = wo_form.hidden_field :company_id
     = wo_form.hidden_field :company_info
     #wo-actions.box_bottom
-      = icon_status @work_order.status                                
+      = icon_status @work_order.status
       = wo_form.text_field :performed,:class =>"date input_date_time",:value => l(@work_order.performed),:title=>t(".completed"),:placeholder=> t(".completed")
       - if current_user.company
         = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>t(".delivery_time"),:placeholder => t(".delivery_time")
-            
+
       - if current_user.is_employee?
         = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.native_name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
       - else
         = wo_form.hidden_field :payment_method_id
 
-      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> t(".type_of_service")},{:class=>"sp_input",:title=>t(".new_type_of_service")}     
+      = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> t(".type_of_service")},{:class=>"sp_input",:title=>t(".new_type_of_service")}
 
       %span.hide
         = check_box_tag 'open_for_autopart',nil, @open_for_autopart, class: "vertical_center"
@@ -29,7 +29,7 @@
         .action
           = link_to "","#",:title =>t(".see_comment"),:class=>"add_comment"
         .action
-          = link_to "","#",:title=>t(".search_materials"),:id=>:material_dialog,:class=>"link new"      
+          = link_to "","#",:title=>t(".search_materials"),:id=>:material_dialog,:class=>"link new"
 
       - if wo_form.object.budget
         .right
@@ -37,20 +37,20 @@
             = t(".budget_nro")
             \:
             = link_to wo_form.object.budget.id,wo_form.object.budget
-    = render "comment",:c => wo_form          
+    = render "comment",:c => wo_form
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|
         = render "service_fields",:f => s_form
     #n_s.hide
-      = button_to_add_fields  "Nuevo Servicio",wo_form,:services 
+      = button_to_add_fields  "Nuevo Servicio",wo_form,:services
     #total_work_order.total_work_order
-      = number_to_currency @work_order.total_price    
+      = number_to_currency @work_order.total_price
     = wo_form.fields_for :notes do |n_form|
       = render "note_fields",:f => n_form
 
     -#= wo_form.fields_for :alarms do |a_form|
     -#  = render "alarm_fields",:f => a_form
-    #wo_save.buttons_container      
-      - dis = @update_km ? "disabled" : nil 
-      = wo_form.submit t(".save"),:class =>"button",:data => {"disable-with" => t("saving")},:id => :workorder_submit,:disabled => dis      
-      = link_to  t(".cancel"),car_path(@work_order.car)
+    #wo_save.buttons_container
+      - dis = @update_km ? "disabled" : nil
+      = wo_form.submit t(".save"),:class =>"button",:data => {"disable-with" => t("saving")},:id => :workorder_submit,:disabled => dis
+      = link_to  t(".cancel"),car_path(@work_order.vehicle)

@@ -42,7 +42,7 @@
 //= require budgets
 //= require new_budget
 //= require budgets_form
-//= require car_pagination
+//= require vehicle_pagination
 //= require clients
 //= require new_client
 //= require company_service
@@ -64,7 +64,7 @@
 //= require search_company_map
 //= require company_image
 //= require service_offer
-//= require car_service_offer
+//= require vehicle_service_offer
 //= require jquery.services
 //= require workorder
 //= require service_type

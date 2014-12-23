@@ -1,0 +1,20 @@
+%h1 Autos Seleccionados
+%table.comboxtable
+  %thead
+    %tr
+      %th{:colspan=>4}
+        Información del Autómovil
+    - @vehicles.each do |vehicle_s|
+      %tr
+        %td
+          = vehicle_s.vehicle.domain
+        %td
+          = vehicle_s.vehicle.brand.name
+          = vehicle_s.vehicle.model.name
+        %td
+          = icon_status vehicle_s.status
+        %td
+          -if current_user.vehicles.include?(vehicle_s.vehicle)
+            - if vehicle_s.status == Status::SENT
+              = link_to "C",confirm_vehicle_service_offer_path(vehicle_s),:title =>"Confirmar"
+              = link_to "R",reject_vehicle_service_offer_path(vehicle_s),:title =>"Rechazar"

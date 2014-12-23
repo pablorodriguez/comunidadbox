@@ -7,17 +7,17 @@
   .materials
     = render :partial=>'materials'
 #budget
-  = form_for @budget,:html=>{:class=>:budget} do |f| 
-    = render 'shared/error_messages', :target => @budget    
-    - if @budget.car
-      = render :partial => "car",:locals =>{:car =>@budget.car,:f=>f}
+  = form_for @budget,:html=>{:class=>:budget} do |f|
+    = render 'shared/error_messages', :target => @budget
+    - if @budget.vehicle
+      = render :partial => "vehicle",:locals =>{:vehicle =>@budget.vehicle,:f=>f}
     - if @budget.user
       = render :partial => "client",:locals => {:client =>@budget.user,:f => f}
     - if @budget.user.nil?
-      = render "no_client",:f => f      
-    - if  @budget.car.nil?
-      = render "no_car",:f => f      
-    
+      = render "no_client",:f => f
+    - if  @budget.vehicle.nil?
+      = render "no_vehicle",:f => f
+
     .box_bottom.clear
     .customer
       %table

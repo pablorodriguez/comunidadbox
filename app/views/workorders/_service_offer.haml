@@ -3,7 +3,7 @@
     Ofertas de Servicios
   #service_offer_data
     %table
-      -@car_service_offers.each do |cso|
+      -@vehicle_service_offers.each do |cso|
         %tr
           %td
             = hidden_field_tag "st_id[]", cso.service_offer.service_type.id,:id =>"st_id_#{cso.service_offer.service_type.id}"
@@ -11,7 +11,6 @@
             = cso.service_offer.service_type.name
           %td
             %span
-              = number_to_currency cso.service_offer.final_price        
-              = hidden_field_tag "so_p_#{cso.service_offer.service_type.id}", cso.service_offer.final_price          
-        
-    
+              = number_to_currency cso.service_offer.final_price
+              = hidden_field_tag "so_p_#{cso.service_offer.service_type.id}", cso.service_offer.final_price
+

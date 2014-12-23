@@ -2,28 +2,28 @@
 .vertical_menu
   = render "home/menu"
   = render "home/default_actions"
-.contentright_s  
+.contentright_s
   .box_bottom
     %h1 Ofertas de Servicios
   #service_offers
-  -@car_service_offers.each do |car_service_offer|
-    #service_offer.row[car_service_offer]
-      //= render :partial => "car_service_offer",:collection => 
-      -service_offer = car_service_offer.service_offer
+  -@vehicle_service_offers.each do |vehicle_service_offer|
+    #service_offer.row[vehicle_service_offer]
+      //= render :partial => "vehicle_service_offer",:collection =>
+      -service_offer = vehicle_service_offer.service_offer
       .service_offer_info
-        .service_offer_detail        
-          .company_name        
+        .service_offer_detail
+          .company_name
             = link_to service_offer.company.name,service_offer.company
-          .service_offer_title      
-            = link_to service_offer.title, car_service_offer,:class =>"view"
+          .service_offer_title
+            = link_to service_offer.title, vehicle_service_offer,:class =>"view"
           %strong
             = service_offer.service_types_names
-          = icon_status(car_service_offer.status)
+          = icon_status(vehicle_service_offer.status)
           .domain_white
-            = link_to car_service_offer.car.domain,car_service_offer.car
-          = link_to "Realizado en servicio",car_service_offer.service.workorder,:target =>"_blank" if car_service_offer.service
+            = link_to vehicle_service_offer.vehicle.domain,vehicle_service_offer.vehicle
+          = link_to "Realizado en servicio",vehicle_service_offer.service.workorder,:target =>"_blank" if vehicle_service_offer.service
         .price_detail
-          .price              
+          .price
             Precio:
             = number_to_currency service_offer.final_price
           .discount
@@ -44,4 +44,4 @@
               %ul
                 - service_offer.valid_dates.each do |day|
                   %li
-                    =t day    
+                    =t day

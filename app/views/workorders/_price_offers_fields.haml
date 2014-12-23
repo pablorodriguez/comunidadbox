@@ -7,7 +7,7 @@
             =radio_button_tag('price_offer_selected_id', price_offer.id ,price_offer.confirmed)
           .auto_part
             %strong=(t '.auto_part') + ":"
-            =price_offer.user.full_name  
+            =price_offer.user.full_name
         .body
           %strong=(t '.price') + ':'
           %br=price_offer.price

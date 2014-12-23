@@ -1,20 +1,20 @@
 .box_bottom
   %h1
-    Orden de Trabajo : 
+    Orden de Trabajo :
     = @work_order.id
 #work_order
-  - if current_user.is_client? @work_order.car.user
-    = render :partial=>'car_info',:locals =>{:car=>@work_order.car}
+  - if current_user.is_client? @work_order.vehicle.user
+    = render :partial=>'car_info',:locals =>{:vehicle=>@work_order.vehicle}
   -else
-    = render :partial=>'car_info_no_client',:locals =>{:car=>@work_order.car}
+    = render :partial=>'car_info_no_client',:locals =>{:vehicle=>@work_order.vehicle}
   .box_bottom
     .box_top
       #services.overflow
         #wo-actions.left
-          .service_type.box_bottom      
+          .service_type.box_bottom
             %label{title: "Realizado"}
               = l(@work_order.performed)
-        #services_list.ordencontent    
+        #services_list.ordencontent
           - @work_order.services.each do |s|
             .service_type.box_bottom
               %table.services
@@ -22,11 +22,11 @@
                   %tr
                     %th{:colspan=>2,:style=>'width:60%'}
                       %h2.inline
-                        %label.left{:id=>"serviceType"}                    
-                          = s.service_type.name              
+                        %label.left{:id=>"serviceType"}
+                          = s.service_type.name
                     %th{:style=>'width:10%'}
                       %label.right Cantidad
-                %tbody      
+                %tbody
                   - s.material_services.each do |ms|
                     %tr
                       %td{:colspan=>2}
@@ -35,6 +35,6 @@
                           - if ms.material_service_type
                             %strong
                               = ms.material_service_type.material.prov_code
-                            = ms.material_service_type.material.detail        
-                      %td.number    
-                        = ms.amount       
+                            = ms.material_service_type.material.detail
+                      %td.number
+                        = ms.amount

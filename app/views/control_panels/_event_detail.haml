@@ -7,7 +7,7 @@
     .box_bottom
       .left
         .domain.domain_white
-        %label.car
+        %label.vehicle
         .client_name
           %label.user_full_name
       .right
@@ -17,11 +17,11 @@
           .action
             .new_note{:title => t(".new_note")}
           .action
-            .new_message{:title => t(".new_message")}            
+            .new_message{:title => t(".new_message")}
     .box_bottom
       .block
         .left
-          %label.user_email_label=t("email") 
+          %label.user_email_label=t("email")
           %label.user_email
         .right
           %label.user_phone_label=t(".phone")
@@ -39,7 +39,7 @@
           %label.total_company_spend
         .right
           %label.total_spend_labelTotal=t(".total_spent")
-          %label.total_spend  
+          %label.total_spend
   #event_notes
     = render :partial =>"notes/note_form_np",:locals=>{:wo => nil,:b=>nil,:c => nil,:notes =>[],:id=>0 }
   #alarms.hide

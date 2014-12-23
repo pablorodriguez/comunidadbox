@@ -11,8 +11,8 @@ class Vehicle < ActiveRecord::Base
   belongs_to :brand
   belongs_to :user
   belongs_to :company
-  has_many :car_service_offer
-  has_many :service_offers,:through =>  :car_service_offer,:order =>'created_at'
+  has_many :vehicle_service_offer
+  has_many :service_offers,:through =>  :vehicle_service_offer,:order =>'created_at'
   #has_and_belongs_to_many :offers
 
   validates_presence_of :model,:domain,:year,:km,:kmAverageMonthly
@@ -40,14 +40,14 @@ class Vehicle < ActiveRecord::Base
   end
 
   def search_service_offer companies_ids
-    @today_service_offer ||=  CarServiceOffer.search_for(self.id,companies_ids)
+    @today_service_offer ||=  VehicleServiceOffer.search_for(self.id,companies_ids)
   end
 
   def have_multiple_service_offer company_ids
-    car_service_offer = search_service_offer(company_ids)
-    return false if car_service_offer.size <= 1
+    vehicle_service_offer = search_service_offer(company_ids)
+    return false if vehicle_service_offer.size <= 1
 
-    car_service_offer.service_offer.service_types.map(&:id)
+    vehicle_service_offer.service_offer.service_types.map(&:id)
 
   end
 
@@ -99,8 +99,8 @@ class Vehicle < ActiveRecord::Base
   end
 
   def self.companies ids
-    # Car.includes(:company).where("cars.company_id IN (?)",ids)
-    Car.includes(:company).where(company_id: ids)
+    # Vehicle.includes(:company).where("vehicles.company_id IN (?)",ids)
+    Vehicle.includes(:company).where(company_id: ids)
   end
 
   def update_events
@@ -133,11 +133,11 @@ class Vehicle < ActiveRecord::Base
     end
   end
 
-  def self.to_builder cars
+  def self.to_builder vehicles
     Jbuilder.encode do |json|
-      json.array! cars do |car|
-        json.id car.id
-        json.domain car.domain
+      json.array! vehicles do |vehicle|
+        json.id vehicle.id
+        json.domain vehicle.domain
       end
     end
   end

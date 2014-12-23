@@ -109,7 +109,7 @@ class Ability
       w.vehicle.user == user || user.is_employee?
     end
 
-    can :read, CarServiceOffer do |cso|
+    can :read, VehicleServiceOffer do |cso|
       if user.company
         cso.service_offer.company == user.company
       else

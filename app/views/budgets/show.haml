@@ -1,11 +1,11 @@
 .vertical_menu
-  = render "home/menu"  
+  = render "home/menu"
   .menu_actions.box_bottom
     %ul
       -if @budget.can_edit?(current_user)
         %li
           = link_to "Modificar",edit_budget_path(@budget)
-      %li        
+      %li
         = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
       %li
         %span
@@ -13,18 +13,18 @@
         .ajax_loader.right
       -if company_id
         %li
-          = link_to "Nuevo Presupuesto", new_budget_path      
+          = link_to "Nuevo Presupuesto", new_budget_path
         %li
           = link_to "Crear Servicio",new_workorder_path(:b =>@budget.id),:title =>"Crear servicio"
 
 .contentright_s
-  .div{:id=>"budget-#{@budget.id}"}  
+  .div{:id=>"budget-#{@budget.id}"}
     .box_bottom
       .left
         %h1
           Presupuesto Nro:
           = @budget.id
-        %h2        
+        %h2
           = @budget.company.name
       .right
         %h1
@@ -39,16 +39,16 @@
         .box_bottom
           %h1 Cliente
         = render "client_row"
-      .car.right
+      .vehicle.right
         .box_bottom
           %h1 Autómovil
-        = render "car_row"
+        = render "vehicle_row"
       .comment.clear.box_top
         %table
           %tr
             %td{:style=>"width:104px"} Comentario
             %td
-              = @budget.comment      
+              = @budget.comment
       #services.box_top.clear
         .box_bottom
           .budget_service
@@ -56,7 +56,7 @@
         #services_list.ordencontent
           - @budget.services.each do |s|
             .service_type
-              %table.services            
+              %table.services
                 %thead
                   %tr
                     %th{:style=>'width:60%'}
@@ -75,11 +75,11 @@
                       .total_service
                         = number_to_currency(s.total_price)
                 %tbody
-                  - s.material_services.each do |ms|              
+                  - s.material_services.each do |ms|
                     %tr
                       %td
                         -if ms.material_service_type
-                          %strong 
+                          %strong
                             = ms.material_service_type.material.prov_code
                           = ms.material_service_type.material.name
                           = ms.material_service_type.material.brand
@@ -91,7 +91,7 @@
                         = ms.price
                       %td.number
                         .total_item
-                          = number_to_currency(ms.total_price) 
+                          = number_to_currency(ms.total_price)
 
                   -#=render "material_service_fields",:f => ms_form
 
@@ -102,5 +102,4 @@
           .box_bottom
             %h1 Notas
           .notes
-            = render :partial =>'notes/notes_small_view',:collection => @budget.notes,:as=>:note   
-            
+            = render :partial =>'notes/notes_small_view',:collection => @budget.notes,:as=>:note

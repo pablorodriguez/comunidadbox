@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :hrj549_so, class: CarServiceOffer do
+  factory :hrj549_so, class: VehicleServiceOffer do
     id 1
     state {State.find(1)}
     zip 5500

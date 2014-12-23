@@ -1,11 +1,11 @@
 if (<%=@work_orders.size%> > 0){
   $("#workorders_c").html("<%=escape_javascript(render(:partial=>'workorders'))%>");
 }else{
-  $("#workorders_c").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún servicio."}))%>");  
-} 
+  $("#workorders_c").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún servicio."}))%>");
+}
 //$("#totals").html("<%=escape_javascript(render(:partial=>'totals')) if current_user.is_administrator?%>");
 
-if ($("#price_graph").size() >0){ 
+if ($("#price_graph").size() >0){
   build_price_graph([<%=@price_data%>],"price_graph");
 }
 if ($("#amt_graph").size() > 0){

@@ -1,9 +1,10 @@
+# encoding: utf-8
 class CompaniesController < ApplicationController
   layout "application", :except => [:add_service_type,:remove_service_type,:search]
   skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:search,:search_distance]
   authorize_resource
-  
-  def service_types    
+
+  def service_types
     @company = get_company
     @not_in = @company.service_types.map(&:id)
     if @not_in.size >0
@@ -33,15 +34,15 @@ class CompaniesController < ApplicationController
 
   def search_distance
 
-    @distance = (params[:distance] && !(params[:distance].blank? ))  ? params[:distance] : "10"    
+    @distance = (params[:distance] && !(params[:distance].blank? ))  ? params[:distance] : "10"
     @street = (params[:street] && !(params[:street].blank?)) ? params[:street] : ""
 
     if @street.blank? && (current_user && current_user.addresssize > 0)
-      @street = current_user.address.to_text 
+      @street = current_user.address.to_text
     else
       flash[:error] ="Debe ingresar una direccion"
     end
-    
+
     if (@street  != "")
       distance_in_milles = @distance.to_i * 0.621371192
       logger.debug "### distance_in_milles #{distance_in_milles}, @distance #{@distance} Params #{params[:distance] }"
@@ -62,9 +63,9 @@ class CompaniesController < ApplicationController
       #@circles_json = '[{"lng": ' + lng.to_s + ', "lat": ' + lat.to_s + ', "radius": ' + distance.to_s + ', "strokeWeight" : 3, fillColor: "#FF0000", fillOpacity: 0.2 }]'
       #render :action => 'all'
       respond_to do |format|
-        format.html # index.html.erb      
+        format.html # index.html.erb
       end
-    else        
+    else
       redirect_to all_companies_path
     end
 
@@ -72,7 +73,7 @@ class CompaniesController < ApplicationController
 
   def all
     @companies = Company.best
-    @car_id = params[:car_id]
+    @vehicle_id = params[:vehicle_id]
     @json = []
     respond_to do |format|
       format.html # index.html.erb
@@ -93,8 +94,8 @@ class CompaniesController < ApplicationController
   # GET /companies/1.xml
   def show
     @company = Company.find(params[:id])
-    
-    @json = @company.address.to_gmaps4rails do |address, marker|      
+
+    @json = @company.address.to_gmaps4rails do |address, marker|
       marker.infowindow render_to_string(:partial => "/companies/info_window", :locals => { :address => address}).gsub(/\n/, '').gsub(/"/, '\"')
     end
 
@@ -121,8 +122,8 @@ class CompaniesController < ApplicationController
   def activate
     id = params[:id]
     Company.transaction do
-      current_user.companies.each{|c| c.update_attributes(:active => false)}      
-      comp = Company.update(id,:active => true)      
+      current_user.companies.each{|c| c.update_attributes(:active => false)}
+      comp = Company.update(id,:active => true)
       set_company_in_cookie [comp.id]
     end
     redirect_to companies_path
@@ -150,12 +151,12 @@ class CompaniesController < ApplicationController
         current_user.user_roles << user_role
         current_user.save
         PriceList.copy_default @company.id
-        format.html { redirect_to(@company) }        
+        format.html { redirect_to(@company) }
         format.js { render :action => "show" }
-      else        
+      else
         @company.build_address if @company.address.nil?
         format.html { render :action => "new" }
-        format.js { render :action => "new" }      
+        format.js { render :action => "new" }
       end
     end
   end
@@ -165,7 +166,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
 
-    respond_to do |format|      
+    respond_to do |format|
       if @company.update_attributes(params[:company])
         flash[:notice] = 'La empresa se actualizo correctamente'
         format.html { redirect_to(@company) }

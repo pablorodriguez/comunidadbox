@@ -4,12 +4,12 @@
   =render "home/menu"
   -if company_id && current_user.confirmed
     .box_bottom
-      =render :partial=>"cars/search_car",:locals =>{:cars=>[],:table_id =>:sort_table}
+      =render :partial=>"vehicles/search_vehicle",:locals =>{:vehicles=>[],:table_id =>:sort_table}
   -if company_id
     .box_bottom
-      = render "cars/search_clients"      
+      = render "vehicles/search_clients"
   = render "home/default_actions"
 .contentright_s
-  #cars.data
+  #vehicles.data
   #clients.data
     = render :partial => "list_clients",:locals => {:clients => @clients}

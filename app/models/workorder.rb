@@ -55,12 +55,12 @@ class Workorder < ActiveRecord::Base
     if is_finished?
       regenerate_events
       send_notification if vehicle.user.confirmed_at
-      update_car_service_offers
+      update_vehicle_service_offers
     end
   end
 
-  def update_car_service_offers
-    CarServiceOffer.update_with_services(self.services)
+  def update_vehicle_service_offers
+    VehicleServiceOffer.update_with_services(self.services)
   end
 
   def type(type)
@@ -83,21 +83,21 @@ class Workorder < ActiveRecord::Base
   end
 
   # inicializo uan orden de trabajo con ofertas de servicios realizados
-  def initialize_with_car_service_offer companies_ids
+  def initialize_with_vehicle_service_offer companies_ids
     if vehicle
-      car_services_offers =  vehicle.search_service_offer(companies_ids)
+      vehicle_services_offers =  vehicle.search_service_offer(companies_ids)
 
-      car_services_offers.each do |car_service_offer|
-        car_service_offer.service_offer.service_types.each do |st|
+      vehicle_services_offers.each do |vehicle_service_offer|
+        vehicle_service_offer.service_offer.service_types.each do |st|
 
           prev_service = self.services.find{|s| s.service_type_id == st.id}
 
           if prev_service
-            prev_service.today_car_service_offer << car_service_offer
+            prev_service.today_vehicle_service_offer << vehicle_service_offer
           else
-            new_service = Service.new(service_type_id: st.id,car_service_offer_id: car_service_offer.id)
-            new_service.car_service_offer = car_service_offer
-            new_service.today_car_service_offer << car_service_offer
+            new_service = Service.new(service_type_id: st.id,vehicle_service_offer_id: vehicle_service_offer.id)
+            new_service.vehicle_service_offer = vehicle_service_offer
+            new_service.today_vehicle_service_offer << vehicle_service_offer
             new_service.material_services << MaterialService.new(amount: 1,price: 0)
             self.services << new_service
           end
@@ -159,17 +159,17 @@ class Workorder < ActiveRecord::Base
 
   end
 
-  def find_car_service_offer(company_id,status= Status::CONFIRMED)
-    car_service_offer = CarServiceOffer.vehicles(vehicle.id).company(company_id).by_status(status)
-    car_service_offer.each do |cso|
+  def find_vehicle_service_offer(company_id,status= Status::CONFIRMED)
+    vehicle_service_offer = VehicleServiceOffer.vehicles(vehicle.id).company(company_id).by_status(status)
+    vehicle_service_offer.each do |cso|
       service = services.select{|s| s.service_type.id == cso.service_offer.service_type.id}.first
-      service.car_service_offer = cso if service
+      service.vehicle_service_offer = cso if service
     end
-    car_service_offer
+    vehicle_service_offer
   end
 
-  def car_service_offers
-    services.map{|s| s.car_service_offer}.delete_if{|cso| cso == nil}
+  def vehicle_service_offers
+    services.map{|s| s.vehicle_service_offer}.delete_if{|cso| cso == nil}
   end
 
   def total_price

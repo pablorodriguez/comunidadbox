@@ -1,8 +1,8 @@
 # encoding: utf-8
 class Service < ActiveRecord::Base
 
-  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:car_service_offer_id,:car_service_offer
-  attr_accessor :today_car_service_offer
+  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:vehicle_service_offer_id,:vehicle_service_offer
+  attr_accessor :today_vehicle_service_offer
 
   after_initialize :init_default_value
 
@@ -11,23 +11,23 @@ class Service < ActiveRecord::Base
   has_and_belongs_to_many :tasks
 
   belongs_to :budget
-  belongs_to :car_service_offer
+  belongs_to :vehicle_service_offer
   belongs_to :service_type
   belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
 
-  # belongs_to :car_service_offer
+  # belongs_to :vehicle_service_offer
   has_many :material_services
   belongs_to :workorder, :inverse_of => :services
 
 
   accepts_nested_attributes_for :material_services, :allow_destroy => true
-  accepts_nested_attributes_for :car_service_offer
+  accepts_nested_attributes_for :vehicle_service_offer
   accepts_nested_attributes_for :service_type
 
   normalize_attributes :comment
 
   def init_default_value
-    @today_car_service_offer = []
+    @today_vehicle_service_offer = []
   end
 
   def total_price

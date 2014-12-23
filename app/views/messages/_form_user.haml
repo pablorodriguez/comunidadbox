@@ -1,16 +1,16 @@
 .box_top2
   .msg_errors.hide
   .my_msg
-    = form_for :message,:url => user_messages_path(user),:remote=>true,:html=>{:class=>:message_form}  do |f|  
+    = form_for :message,:url => user_messages_path(user),:remote=>true,:html=>{:class=>:message_form}  do |f|
       = f.text_area :message,:cols=>56,:rows=>2,:class =>:left,:title =>"",:placeholder => t(".message")
       = hidden_field_tag :element_id,element_id
       -if (defined?(msg_object) && (msg_object.class.name == "Workorder"))
         = f.hidden_field :workorder_id,:value => msg_object.id
-        
+
       -if (defined?(msg_object) && (msg_object.class.name == "Budget"))
         = f.hidden_field :budget_id,:value => msg_object.id
 
-      -if (defined?(msg_object) && (msg_object.class.name == "CarServiceOffer"))
-        = f.hidden_field :car_service_offer_id,:value => msg_object.id
-      .left        
+      -if (defined?(msg_object) && (msg_object.class.name == "VehicleServiceOffer"))
+        = f.hidden_field :vehicle_service_offer_id,:value => msg_object.id
+      .left
         = image_submit_tag "ok.png",:title =>"Grabar"

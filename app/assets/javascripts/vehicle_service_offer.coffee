@@ -1,6 +1,6 @@
 $ ->
 
-  unless $(".car_service_offer").exist()
+  unless $(".vehicle_service_offer").exist()
     return
 
   $(".new_message").click ->
