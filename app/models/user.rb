@@ -375,7 +375,7 @@ class User < ActiveRecord::Base
 # 17 ["kilometraje","252025"]
   
   def self.import_clients(file, current_user, company_id, get_company)
-    csv_text = File.read(file.open)
+    csv_text = File.read(file.open,:encoding => 'iso-8859-1')
     csv = CSV.parse(csv_text, :headers => true)
     
     result = {}
@@ -508,6 +508,16 @@ class User < ActiveRecord::Base
         puts "ERRORES!!!"
         puts client.errors.messages.inspect
         failure += 1
+      end
+
+      #if theres is event to add
+      if row[18]
+        service_type_name = row[18]
+        service_type = ServiceType.where("name like ?",service_type_name).first
+        if service_type
+          car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
+        end
+        
       end
       
     end

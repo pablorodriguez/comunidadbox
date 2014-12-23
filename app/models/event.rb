@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  attr_accessible :car,:km,:service_type,:status,:dueDate
+  attr_accessible :car,:km,:service_type,:status,:dueDate,:service_type_id
 
   belongs_to :service_type
   belongs_to :car
