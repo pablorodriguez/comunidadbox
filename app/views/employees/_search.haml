@@ -14,16 +14,16 @@
             %td
               = f.text_field :last_name,:class=>"input",:title=>"Apellido",:placeholder =>"Apellido"
           %tr
-            %td              
+            %td
               %ul
                 -Role.employee_roles.each do |role|
-                  %li                    
+                  %li
                     = check_box_tag "employee_search[roles][]",role.id,checked = @employee_search.roles.include?(role.id.to_s),:id =>"role_#{role.id}"
                     %label.link{:for=>"role_#{role.id}"}
                       = role.detail
           %tr
             %td
-              %ul                
+              %ul
                 %li
                   = f.radio_button 'status', 'active',{checked: @employee_search.status == "active"}
                   %label.link{:for=>"employee_search_status_active"} Activos

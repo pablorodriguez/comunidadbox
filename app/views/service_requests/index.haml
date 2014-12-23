@@ -1,25 +1,25 @@
 
 .vertical_menu
-  = render "custom_actions"  
+  = render "custom_actions"
   = render "home/menu"
   = render "home/default_actions"
 
-.contentright_s    
+.contentright_s
   #default.data
     .box_bottom
       %h1
-        = t(".listing_service_request")    
-    
+        = t(".listing_service_request")
+
     - @service_requests.each do |service_request|
       .row[service_request]
-        .service_request_id{:title =>"Ver"}          
+        .service_request_id{:title =>"Ver"}
           = icon_status(service_request.status)
         .left
-          - if service_request.car
+          - if service_request.vehicle
             .domain_white
-              = link_to service_request.car.domain,service_request.car
-          - if service_request.user != current_user         
-            = link_to service_request.user.full_name,service_request.user,:title =>"Cliente"        
+              = link_to service_request.vehicle.domain,service_request.vehicle
+          - if service_request.user != current_user
+            = link_to service_request.user.full_name,service_request.user,:title =>"Cliente"
         .left
           - service_request.item_service_requests.each do |isr|
             %strong
@@ -34,7 +34,7 @@
           -if service_request.can_edit? current_user
             .action
               = link_to "", edit_service_request_path(service_request),:class =>"edit",:title =>t("edit")
-        - service_request.car_service_offers.each do |cso|
+        - service_request.vehicle_service_offers.each do |cso|
           - if cso.can_show?(current_user)
             .right.clear
               = link_to cso.service_offer.company.name, cso.service_offer.company,:title => t(".service_provider")

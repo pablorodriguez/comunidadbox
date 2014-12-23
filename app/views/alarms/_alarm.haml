@@ -1,7 +1,7 @@
 .alarm.row[alarm]
   .status
     = icon_status alarm.status.to_i
-  .description          
+  .description
     %strong
       =h alarm.name
     =h alarm.description
@@ -9,19 +9,19 @@
     - if current_user.is_super_admin?
       .action
         = link_to "", send_alarm_alarm_path(alarm),:title => "Enviar Alarma",:class =>"sent"
-    .action      
-      = link_to "", alarm_path(alarm), :confirm => '¿ Esta seguro que desea borrar la Alarma ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete 
-    .action        
+    .action
+      = link_to "", alarm_path(alarm), :confirm => '¿ Esta seguro que desea borrar la Alarma ?', :method => :delete,:title =>"Eliminar",:remote=> true,:class=>:delete
+    .action
       = link_to "",edit_alarm_path(alarm),:class=>"edit",:title =>"Modificar"
   .dates
-    -if alarm.time 
-      .time.left        
+    -if alarm.time
+      .time.left
         %strong
           Cada:
         = alarm.time
         = alarm.time_unit
-    .left    
-      -if alarm.date_alarm 
+    .left
+      -if alarm.date_alarm
         %strong
           Fecha:
         = l alarm.date_alarm,:format =>:short

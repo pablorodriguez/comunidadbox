@@ -3,17 +3,17 @@
     .status.left
       = icon_status s_event.status
     .service.left
-      = link_to s_event.service_type.name, s_event        
+      = link_to s_event.service_type.name, s_event
     .workorder.left.clear
       - if s_event.service
         %br
         = link_to "Generado por ... #{s_event.service.workorder.id}", s_event.service.workorder      
       - if s_event.service_done
         %br
-        = link_to "#{Status.status(s_event.status)} por ... #{s_event.service_done.workorder.id}", s_event.service_done.workorder    
+        = link_to "#{Status.status(s_event.status)} por ... #{s_event.service_done.workorder.id}", s_event.service_done.workorder
   .event_info_col2.right
     %div{:class=>"#{event_class(s_event)}"}
-      = s_event.car.domain  
+      = s_event.vehicle.domain
     .due_date
       = l s_event.dueDate
     .clear.right

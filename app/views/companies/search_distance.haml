@@ -4,19 +4,18 @@
 
 .vertical_menu
   - if current_user
-    = render "home/menu"  
+    = render "home/menu"
   = render "search"
   -if current_user
     .menu_actions.box_bottom
       %ul
         - if company_id
           %li
-            = link_to "Nuevo Cliente", new_client_path         
-.contentright_s  
-  #companies.data    
+            = link_to "Nuevo Cliente", new_client_path
+.contentright_s
+  #companies.data
     = render "search_map"
     .hide
       = render "maps"
   #new_company.data.hide
-  #cars.data.hide
-
+  #vehicles.data.hide

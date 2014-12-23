@@ -17,8 +17,8 @@ class ServiceRequest < ActiveRecord::Base
 
   validates_presence_of :user,:vehicle
 
-  def car_service_offers
-    CarServiceOffer.where("service_offer_id IN (?) and vehicle_id = ?",service_offers.map(&:id),vehicle.id)
+  def vehicle_service_offers
+    VehicleServiceOffer.where("service_offer_id IN (?) and vehicle_id = ?",service_offers.map(&:id),vehicle.id)
   end
 
   def self.for_user user

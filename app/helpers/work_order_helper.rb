@@ -1,10 +1,11 @@
+# encoding: utf-8
 module WorkOrderHelper
-  
-  def show_company_info car
+
+  def show_company_info vehicle
     capture do
-      concat content_tag(:label,"[#{car.user.company_name}]",:title => I18n.translate("business_name")) if (car.user.company_name && (not car.user.company_name.empty?))
-      concat " "    
-      concat content_tag(:label,"[#{car.user.cuit}]",:title => I18n.translate("cuit")) if (car.user.cuit && (not car.user.cuit.empty?))
+      concat content_tag(:label,"[#{vehicle.user.company_name}]",:title => I18n.translate("business_name")) if (vehicle.user.company_name && (not vehicle.user.company_name.empty?))
+      concat " "
+      concat content_tag(:label,"[#{vehicle.user.cuit}]",:title => I18n.translate("cuit")) if (vehicle.user.cuit && (not vehicle.user.cuit.empty?))
     end
   end
 
@@ -13,9 +14,9 @@ module WorkOrderHelper
     title =""
 
     cssStarSelect = "star_select #{css} cal"
-    cssStar = "star #{css} cal"  
+    cssStar = "star #{css} cal"
     css ="rank_stars"
-    
+
     if cal > 0
       html = content_tag(:div,"",:class =>cssStarSelect,:id =>1,:title =>title + Rank::VALUES[1])
       (cal-1).times do |n|
@@ -30,10 +31,10 @@ module WorkOrderHelper
         html << content_tag(:div,"",:class =>cssStar,:id =>n+2,:title =>title + Rank::VALUES[n+2])
       end
     end
-    
+
     return content_tag(:div, html,:class =>css)
   end
-  
+
   def get_company_rank(current_user,work_order)
     if work_order.is_finished?
       if(work_order.company_rank_id)
@@ -41,7 +42,7 @@ module WorkOrderHelper
         return link_to("Calif: "<< rank.cal.to_s ,:controller => "ranks" , :action=>"show", :id=>rank.id , :cat=>"company")
       else
         if work_order.company.id != Company::DEFAULT_COMPANY_ID
-          if (company_id && 
+          if (company_id &&
               work_order.company.id == get_company.id)
             return link_to('Calificar...', :controller => "ranks" ,:action => "new" , :wo_id => work_order.id , :cat => "company")
           else
@@ -66,7 +67,7 @@ module WorkOrderHelper
       end
     end
   end
-  
+
 
   def get_my_rank(current_user,work_order)
     if company_id
@@ -85,7 +86,7 @@ module WorkOrderHelper
       end
     end
   end
-  
+
   def get_other_rank(current_user,work_order)
     if company_id
       if work_order.user_rank_id
@@ -103,10 +104,10 @@ module WorkOrderHelper
       end
     end
   end
-  
+
   def can_edit? work_order
     # si la orden esta abierta and la orden fue creada por el dueño del auto or la empresa de la orden es igual a la emprea del usuario loggeado
-    work_order.is_open? && (work_order.user.id == work_order.car.user.id) || (work_order.company.id == get_company.id)
+    work_order.is_open? && (work_order.user.id == work_order.vehicle.user.id) || (work_order.company.id == get_company.id)
   end
-  
+
 end

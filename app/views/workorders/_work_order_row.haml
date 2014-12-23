@@ -1,10 +1,10 @@
 .wo_detail.row[work_order_row]
-  - can_show = work_order_row.can_show?(current_user)  
+  - can_show = work_order_row.can_show?(current_user)
   .domain_white.left
-    = link_to work_order_row.car.domain, work_order_row.car
+    = link_to work_order_row.vehicle.domain, work_order_row.vehicle
   .services
     - work_order_row.services.each do |s|
-      .service             
+      .service
         - if s.comment
           .left
             %label{:class=>"edit_comment comment",:title=>"#{s.comment}"}
@@ -12,7 +12,7 @@
           = s.service_type.name
         .operator.clear
           -if s.operator
-            %label{title: "Operario"}              
+            %label{title: "Operario"}
               = "#{s.operator.first_name} #{s.operator.last_name}"
   .service_info.clear
     %label.wo_id{:title => t(".service_number")}
@@ -23,7 +23,7 @@
     %strong
       =t(".client")
     %label
-      = "#{work_order_row.car.user.first_name} #{work_order_row.car.user.last_name}"      
+      = "#{work_order_row.vehicle.user.first_name} #{work_order_row.vehicle.user.last_name}"
     - if work_order_row.user != current_user
       %strong
         =t(".seller")
@@ -44,29 +44,29 @@
       .ajax_loader.left
       - if work_order_row.can_delete?(current_user)
         .action
-          = link_to("", workorder_path(work_order_row), :data =>{:confirm => '¿ Esta seguro que desea borrar el Servicio ?'},:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete") 
+          = link_to("", workorder_path(work_order_row), :data =>{:confirm => '¿ Esta seguro que desea borrar el Servicio ?'},:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete")
       - if work_order_row.can_edit?(current_user)
         .action
           = link_to("", edit_workorder_path(work_order_row),:class=>"edit",:title =>t(".modify"))
       .action
         = print_to_pdf work_order_row
-      .action        
-        %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}      
+      .action
+        %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}
       -if work_order_row.can_send_message?(current_user)
-        .action        
-          %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.car.user)}}      
+        .action
+          %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(work_order_row.vehicle.user)}}
       -if work_order_row.is_open_for_autopart?
         .action
           = link_to("", price_offers_workorder_path(work_order_row),:class=>"autopart_price_offer",:title =>t(".select_price"))
 
-  -##rank.rank{:id =>"wo_#{work_order_row.id}"}      
+  -##rank.rank{:id =>"wo_#{work_order_row.id}"}
     -#= render 'ranks/view',:workorder => work_order_row
-  
+
   %div{:id=>"wo-notes-#{work_order_row.id}",:class=>"wo_notes clear"}
     = render :partial =>"notes/note_form_np",:locals=>{:wo => work_order_row.id,:b=>nil,:c => nil,:notes =>work_order_row.notes,:id=>work_order_row.id}
   -if work_order_row.can_send_message?(current_user)
     .hide.message{:id => "messages_container_#{work_order_row.id}"}
       - if current_user.is_employee?
-        = render :partial => "/messages/form_user",:locals => {user: work_order_row.car.user,:element_id => work_order_row.id,:msg_object => work_order_row}
+        = render :partial => "/messages/form_user",:locals => {user: work_order_row.vehicle.user,:element_id => work_order_row.id,:msg_object => work_order_row}
       -else
         = render :partial => "/messages/form_user",:locals => {user: work_order_row.user,:element_id => work_order_row.id,:msg_object => work_order_row}

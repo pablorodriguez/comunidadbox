@@ -2,7 +2,7 @@
   = render "home/menu"
   .menu_actions.box_bottom
     %ul
-      - if (@service_offer.status == Status::PENDING || @service_offer.status == Status::OPEN)    
+      - if (@service_offer.status == Status::PENDING || @service_offer.status == Status::OPEN)
         %li
           = link_to t("edit"), edit_service_offer_path(@service_offer),:title =>t("edit")
       -if company_id && @service_offer.status != Status::SENT
@@ -10,16 +10,16 @@
           = link_to t("delete"), @service_offer, :confirm => 'Esta seguro que desea borrar la Oferta de Servicio?', :method => :delete,:title=>t("delete")
 .contentright_s
   .box_bottom
-    %h1            
+    %h1
       = @service_offer.service_types_names
-    %h1       
+    %h1
       = @service_offer.company.name
   = render @service_offer
-  - if current_user.company_id && @service_offer.cars.size > 0
+  - if current_user.company_id && @service_offer.vehicles.size > 0
     = render "list_cars"
   - if @service_offer.advertisement_days.size > 0
     .box_bottom
-      %h3    
+      %h3
         = t ".advertisement"
       .ad_days
         - @service_offer.advertisement_days.each do |ad_days|

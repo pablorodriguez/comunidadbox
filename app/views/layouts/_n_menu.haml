@@ -33,7 +33,7 @@
               = link_to "Prestadores de Servicios", all_companies_path
       / End 5 columns container
     / End 5 columns Item
-    - if user_signed_in? 
+    - if user_signed_in?
       %li
         %a.drop{:href => "#"} Accessos Rápidos
         / Begin 4 columns Item
@@ -41,14 +41,14 @@
           / Begin 4 columns container
           .col_1
             %ul.greybox
-              %li 
-                = link_to "Mis Automóviles", my_cars_path
+              %li
+                = link_to "Mis Automóviles", my_vehicles_path
               - unless company_id
-                %li 
-                  = link_to "Ofertas de Servicio", car_service_offers_path
+                %li
+                  = link_to "Ofertas de Servicio", vehicle_service_offers_path
               - else
-                %li 
-                  = link_to "Buscar Automóviles", cars_path                                
+                %li
+                  = link_to "Buscar Automóviles", vehicles_path
           .col_1
             %ul.greybox
               - if company_id
@@ -66,7 +66,7 @@
           / Begin 3 columns container
           .col_1
             %ul.greybox
-              %li 
+              %li
                 = link_to "Mis Servicios", service_types_companies_path
               %li
                 = link_to "Servicios Realizados" , workorders_path
@@ -89,7 +89,7 @@
       / End 3 columns container
     / End 3 columns Item
     -if user_signed_in? && current_user.is_super_admin?
-      %li.menu_right        
+      %li.menu_right
         %a.drop{:href => "#"} Configuración
         .dropdown_2columns.align_right
           .col_1
@@ -97,11 +97,11 @@
               %li
                 =link_to "Materiales",materials_url
               %li
-                =link_to "Tareas", tasks_path         
+                =link_to "Tareas", tasks_path
               %li
                 = link_to "Tipos de Servicios",service_types_path
               %li
-                = link_to "Marcas",brands_path           
+                = link_to "Marcas",brands_path
           .col_1
             %ul.greybox
               %li
@@ -111,5 +111,5 @@
               %li
                 = link_to "Ofertas de Servicios", service_offers_path
               %li
-                = link_to "Notificacion de Alarmas", list_alarm_now_alarms_path 
+                = link_to "Notificacion de Alarmas", list_alarm_now_alarms_path
 

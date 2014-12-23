@@ -3,8 +3,8 @@ class ServiceOffer < ActiveRecord::Base
   include Statused
   attr_accessible :offer_service_types_attributes, :service_type_id, :title, :status, :comment, :price, :percent,:service_type, :final_price, :since, :until, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :offer_service_types,:company_id,:service_request_id,:advertisement_attributes
 
-  has_many :car_service_offers
-  has_many :vehicles, :through => :car_service_offers
+  has_many :vehicle_service_offers
+  has_many :vehicles, :through => :vehicle_service_offers
   has_many :offer_service_types
   has_many :service_types,:through => :offer_service_types
   has_many :advertisement_days,:through => :advertisement
@@ -21,13 +21,13 @@ class ServiceOffer < ActiveRecord::Base
   default_scope {order("service_offers.created_at DESC")}
   scope :sended ,where("service_offers.status = ?",Status::SENT)
   scope :confirmed, where("service_offers.status = ?",Status::CONFIRMED)
-  scope :vehicles, lambda{|vehicles_ids| where("car_service_offers.vehicle_id in (?)",vehicles_ids).includes(:car_service_offers)}
+  scope :vehicles, lambda{|vehicles_ids| where("vehicle_service_offers.vehicle_id in (?)",vehicles_ids).includes(:vehicle_service_offers)}
   validate :validate_service_types
 
   after_initialize :custom_init
 
   def custom_init
-    if car_service_offers.empty? and advertisement.nil?
+    if vehicle_service_offers.empty? and advertisement.nil?
       build_advertisement
     end
   end
@@ -65,7 +65,7 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   def my_vehicles user
-    car_service_offers.select{|cs| cs.vehicle.user.id == user.id}
+    vehicle_service_offers.select{|cs| cs.vehicle.user.id == user.id}
   end
 
   #Busco las ofertas de servicio y las agrupo por auto
@@ -91,7 +91,7 @@ class ServiceOffer < ActiveRecord::Base
       return true
     end
     vehicles_ids = user.vehicles.map(&:id)
-    CarServiceOffer.where("service_offer_id = ? and vehicle_id IN(?)",self.id,vehicles_ids).count > 0
+    VehicleServiceOffer.where("service_offer_id = ? and vehicle_id IN(?)",self.id,vehicles_ids).count > 0
   end
 
   def can_delete? user
@@ -105,10 +105,10 @@ class ServiceOffer < ActiveRecord::Base
     logger.info "Service Offer notify"
     vehicles,so = get_service_offer_by_user
     vehicles.each do |vehicle,service_offers|
-      #if cars_id.include?(car.domain)
+      #if vehicles_id.include?(vehicle.domain)
         ServiceOffer.transaction do
           self.notify_service_offer(vehicle,service_offers)
-          self.update_car_service_offer_status(vehicle,service_offers)
+          self.update_vehicle_service_offer_status(vehicle,service_offers)
         end
       #end
     end
@@ -119,9 +119,9 @@ class ServiceOffer < ActiveRecord::Base
   end
 
   #Actualizo el estado de la oferta de servicio del auto a SENT
-  def self.update_car_service_offer_status(vehicle,service_offers)
+  def self.update_vehicle_service_offer_status(vehicle,service_offers)
     service_offers.each do |so|
-      CarServiceOffer.where("vehicle_id = ? and service_offer_id = ?",vehicle.id,so.id).update_all(status: Status::SENT)
+      VehicleServiceOffer.where("vehicle_id = ? and service_offer_id = ?",vehicle.id,so.id).update_all(status: Status::SENT)
     end
   end
 

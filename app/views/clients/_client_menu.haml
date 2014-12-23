@@ -1,5 +1,5 @@
 .menu_actions.box_bottom
-  .menu_data    
+  .menu_data
     %ul
       - if company_id
         %li
@@ -8,6 +8,6 @@
           = link_to t(".new_budget"),new_budget_path(:c => @client.id),{:title=>t(".new_budget")}
       - if current_user.can_edit?(@client)
         %li
-          = link_to t(".modify_client"),edit_client_path(@client),{:title=>t(".modify_client")} 
+          = link_to t(".modify_client"),edit_client_path(@client),{:title=>t(".modify_client")}
         %li
-          = link_to t(".new_car"), new_car_path(:user_id=>@client.id),  {:title =>t(".new_car")}
+          = link_to t(".new_vehicle"), new_vehicle_path(:user_id=>@client.id),  {:title =>t(".new_vehicle")}

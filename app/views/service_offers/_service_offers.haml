@@ -7,18 +7,18 @@
             = icon_status offer.status
         = link_to offer.title, offer,:class =>"view"
         .right
-          = offer.service_types.map(&:name).join(", ")          
+          = offer.service_types.map(&:name).join(", ")
       .service_offer_info
-        .service_offer_detail        
+        .service_offer_detail
           - if multiple_company?
-            .company_name        
+            .company_name
               = offer.company.name
         .price_detail
-          .price              
+          .price
             =t(".price")
             \:
             = number_to_currency offer.price
-          .price              
+          .price
             =t(".final_price")
             \:
             = number_to_currency offer.final_price
@@ -47,18 +47,18 @@
           .ad_day{:title => t(".publish_day")}
             %span
               = l ad_days.published_on
-      .actions        
+      .actions
         - if offer.can_delete?(current_user)
           .action
             = link_to image_tag('delete.png'), offer, :confirm => t(".service_offer_delete_confirm_msg"), :method => :delete,:title=> t("delete")
         - if (offer.status == Status::PENDING || offer.status == Status::OPEN)
           .action
             = link_to image_tag('edit.png'), edit_service_offer_path(offer),:title => t("edit")
-      -if (((company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)) && (offer.cars.size > 0))
-        .cars              
-          =t(".cars")
+      -if (((company_id && offer.company.id == get_company.id) || (current_user.is_super_admin?)) && (offer.vehicles.size > 0))
+        .vehicles
+          =t(".vehicles")
           \:
-          = offer.cars.size
+          = offer.vehicles.size
   #paginator_wo
     = will_paginate @offers
 - if current_user.is_super_admin?

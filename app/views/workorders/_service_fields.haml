@@ -31,7 +31,7 @@
           %label.right
             =t("amount")
         %th{:style=>'width:10%'}
-          %label.right 
+          %label.right
             = t("price")
         %th.number{:style=>'width:15%'}
           .total_service
@@ -39,24 +39,24 @@
         %th.number{:style=>'width:5%'}
           .remove_service.right
             = link_to_remove_fields f,:services,t(".delete_service")
-      - if f.object.car_service_offer 
-        %tr          
+      - if f.object.vehicle_service_offer
+        %tr
           %th.number{:colspan=>4}
-            - if f.object.today_car_service_offer
-              = select_tag "car_service_type", options_from_collection_for_select(f.object.today_car_service_offer, "id", "price") ,:class =>"short_select service_offer_select"           
-            = f.text_field :car_service_offer_id
-            = link_to "Oferta de Servicio", f.object.car_service_offer,:target => "_blank",:class =>"car_service_offer_link"
-          %th.number.car_service_offer_price
-            =number_to_currency(f.object.car_service_offer.service_offer.final_price)
+            - if f.object.today_vehicle_service_offer
+              = select_tag "vehicle_service_type", options_from_collection_for_select(f.object.today_vehicle_service_offer, "id", "price") ,:class =>"short_select service_offer_select"
+            = f.text_field :vehicle_service_offer_id
+            = link_to "Oferta de Servicio", f.object.vehicle_service_offer,:target => "_blank",:class =>"vehicle_service_offer_link"
+          %th.number.vehicle_service_offer_price
+            =number_to_currency(f.object.vehicle_service_offer.service_offer.final_price)
           %th
-             
+
     %tbody
       = f.fields_for :material_services do |ms_form|
-        =render "material_service_fields",:f => ms_form      
+        =render "material_service_fields",:f => ms_form
   #n_s.hide
     = button_to_add_fields "Nuevo Material",f,:material_services
   .task_list{:id=>"task_list_#{f.object.service_type_id}"}
     = f.fields_for :service_type do |st_form|
       = render 'task_list', :service_type => st_form, :service => f
-  = render "comment",:c => f  
-    
+  = render "comment",:c => f
+

@@ -21,7 +21,7 @@
                         %label.link{:for=>"service_type_#{service.id}"}
                           =service.name
         .box_bottom
-        %table    
+        %table
           %tr
             %td
               = text_field_tag 'date_from', @date_f,:class =>"input_date labelify",:title =>"Desde"
@@ -44,7 +44,7 @@
           %tr
             %td
               #models
-                = select_tag(:service_filter_model_id,options_from_collection_for_select(@models, :id, :name), {:include_blank=>"-- Modelo --",:class=>'model clear change long_select'})  
+                = select_tag(:service_filter_model_id,options_from_collection_for_select(@models, :id, :name), {:include_blank=>"-- Modelo --",:class=>'model clear change long_select'})
           %tr
             %td
               = select_tag(:fuel,options_from_collection_for_select(@fuels,:to_s,:to_s),{:include_blank=>"-- Combustible --",:class=>"clear change long_select"})
@@ -54,6 +54,6 @@
         .left
           = image_submit_tag("find.png",:class =>"input_img")
     .ajax_loader.right
-          
-          
+
+
 

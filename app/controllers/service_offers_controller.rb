@@ -1,7 +1,7 @@
-class ServiceOffersController < ApplicationController    
+# encoding: utf-8
+class ServiceOffersController < ApplicationController
   skip_before_filter :authenticate_user!,:only =>:show_ad
-  authorize_resource  
-  
+  authorize_resource
 
   def index
     page = params[:page] || 1
@@ -9,17 +9,17 @@ class ServiceOffersController < ApplicationController
     from = (params[:service_offer_since] && (!params[:service_offer_since].empty?)) ? params[:service_offer_since] : ""
     until_d = (params[:service_offer_until] && (!params[:service_offer_until].empty?)) ? params[:service_offer_until] : ""
     service_type_id = (params[:service_type_id] && (!params[:service_type_id].empty?)) ? params[:service_type_id] : ""
-    title = (params[:title] && (!params[:title].empty?)) ? params[:title] : ""   
+    title = (params[:title] && (!params[:title].empty?)) ? params[:title] : ""
     filters ={:form => from,:until=>until_d,:service_type_id=>service_type_id,:status=>params[:status],:title =>title}
-    
+
     @offers = current_user.find_service_offers(filters,company_id).paginate(:per_page=>10,:page =>page)
 
     respond_to do |format|
-      format.html      
+      format.html
     end
   end
 
-  def show_ad    
+  def show_ad
     @service_offer = ServiceOffer.find(params[:id])
     respond_to do |format|
       format.html
@@ -29,27 +29,27 @@ class ServiceOffersController < ApplicationController
             :left_margin => 20,
             :right_margin => 20,
             :top_margin => 15,
-            :bottom_margin => 15},            
+            :bottom_margin => 15},
             :filename=>"advertisement_#{@service_offer.id}.pdf"
-        
+
         render :layout => false
-        }       
-    end  
+        }
+    end
   end
 
   def show
     @service_offer = ServiceOffer.find(params[:id])
     if current_user.is_administrator?
-      @cars = @service_offer.car_service_offers
-    end    
-    @cars = @service_offer.car_service_offers
-    
+      @vehicles = @service_offer.vehicle_service_offers
+    end
+    @vehicles = @service_offer.vehicle_service_offers
+
   end
 
-  def new    
+  def new
     @offer = ServiceOffer.new
-    #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id    
-    
+    #@offer.offer_service_types.build :service_type_id => current_user.service_types.first.id
+
     #@offer.advertisement.advertisement_days.build(:published_on => 2.days.since.to_date)
     #@offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
@@ -70,21 +70,21 @@ class ServiceOffersController < ApplicationController
       flash[:error] = 'Debe elegir al menos un automovil'
       redirect_to :back
     else
-      @offer.car_service_offers = []
-      @events_ids.each do |car_id|
-        car_service_offer = CarServiceOffer.new
-        car_service_offer.car = Car.find(car_id)
-        car_service_offer.service_offer = @offer
-        @offer.car_service_offers << car_service_offer
+      @offer.vehicle_service_offers = []
+      @events_ids.each do |vehicle_id|
+        vehicle_service_offer = VehicleServiceOffer.new
+        vehicle_service_offer.vehicle = Vehicle.find(vehicle_id)
+        vehicle_service_offer.service_offer = @offer
+        @offer.vehicle_service_offers << vehicle_service_offer
       end
-    end    
-    @cars = @offer.car_service_offers
+    end
+    @vehicles = @offer.vehicle_service_offers
   end
-  
+
   def list_offer_confirmed
     @service_confiramdos = get_offer_confirmerd
   end
-  
+
   def get_offer_confirmerd
     ServiceOffer.where("company_id = ? and status= ?",get_company.id,:Confirmado)
   end
@@ -92,27 +92,27 @@ class ServiceOffersController < ApplicationController
   def confirm
     redorect_to :index
   end
-  
-  def create    
+
+  def create
     @offer = ServiceOffer.new(params[:service_offer])
     @offer.company = get_company
-    @car_ids = params[:car_ids] || []
-    @car_ids.each do |car_id|
-      car_service_offer = CarServiceOffer.new
-      car_service_offer.status = Status::OPEN
+    @vehicle_ids = params[:vehicle_ids] || []
+    @vehicle_ids.each do |vehicle_id|
+      vehicle_service_offer = VehicleServiceOffer.new
+      vehicle_service_offer.status = Status::OPEN
       if @offer.is_confirmed?
-        car_service_offer.status = Status::CONFIRMED
+        vehicle_service_offer.status = Status::CONFIRMED
       end
-      
-      car_service_offer.car = Car.find(car_id.to_i)
-      car_service_offer.service_offer = @offer
-      @offer.car_service_offers << car_service_offer      
+
+      vehicle_service_offer.vehicle = Vehicle.find(vehicle_id.to_i)
+      vehicle_service_offer.service_offer = @offer
+      @offer.vehicle_service_offers << vehicle_service_offer
     end
 
-    @cars = @offer.car_service_offers
-    
+    @vehicles = @offer.vehicle_service_offers
+
     if @offer.save
-      respond_to do |format|        
+      respond_to do |format|
         format.html { redirect_to service_offers_path}
         format.js {render :layout => false}
       end
@@ -124,14 +124,14 @@ class ServiceOffersController < ApplicationController
     end
   end
 
-  def edit    
+  def edit
     @offer = ServiceOffer.find(params[:id])
-  
-    @cars = @offer.car_service_offers
+
+    @vehicles = @offer.vehicle_service_offers
     if @offer.status != Status::OPEN
       flash[:notice]="No se puede editar la oferta de servicio ID: #{@offer.id} Status: #{Status.status(@offer.status)}"
       redirect_to service_offers_path
-    end 
+    end
   end
 
   def update
@@ -148,28 +148,28 @@ class ServiceOffersController < ApplicationController
     @offer.destroy
     redirect_to service_offers_path
   end
-    
-  def notify      
+
+  def notify
     #Resque.enqueue ServiceOfferJob
     ServiceOffer.notify
     logger.info "### envio de notificacion service offer"
     redirect_to :action => :index
   end
-  
+
   def notify_email
     users = ServiceOffer.get_service_offer_by_user
     if users.size > 0
-      @car = users.keys[1]
-      @user = @car.user
-      @service_offers = users[@car]
+      @vehicle = users.keys[1]
+      @user = @vehicle.user
+      @service_offers = users[@vehicle]
       respond_to do |format|
         format.html { render :file=>"service_offer_mailer/notify",:layout => "emails" }
       end
-      
+
     end
   end
-   
 
- 
+
+
 end
 

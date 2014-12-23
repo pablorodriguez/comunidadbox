@@ -6,7 +6,7 @@
       %td
         .car_domain
           = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"input_short user_domain",:placeholder =>"XXX999"
-      %td{:colspan=>"2"}  
+      %td{:colspan=>"2"}
         .validation_car_domain.hide
     %tr
       %td
@@ -20,7 +20,7 @@
         = f.text_field :year,:size=>6,:maxlength =>4,:class=>"input_short"
     %tr
       %td
-        %label{ :for => "model_id" }=t(".model") 
+        %label{ :for => "model_id" }=t(".model")
       %td
         #models
           = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model medium_select'})

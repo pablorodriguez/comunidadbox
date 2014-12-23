@@ -5,7 +5,7 @@
 .vertical_menu
   = render "conf/menu"
   = render "actions"
-.contentright_s  
+.contentright_s
   .box_bottom
     %h1 Listado de Marcas
   .all_brands
@@ -23,5 +23,5 @@
           .action
             = link_to image_tag("edit.png"), edit_brand_path(brand),:title => "Modificar"
     .clear
-      = will_paginate @models   
+      = will_paginate @models
 

@@ -23,7 +23,7 @@ data = [
   [I18n.t("until"),I18n.l(@service_offer.until)]
 ]
 
-pdf.table data do      
+pdf.table data do
   cells.padding = [10,10]
   columns(0..1).width=100
   position = "center"

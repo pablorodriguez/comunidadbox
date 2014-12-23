@@ -5,17 +5,17 @@
   = form_for :material,:remote=>true,:url=>details_materials_path,:html=>{:id=>:material_form,:method=>:get} do |f|
     %table.service_table
       %tr
-        %td{:style=>"width:30%"} Servicio        
+        %td{:style=>"width:30%"} Servicio
         %td{:style=>"width:70%"}
-          = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:name),{:class=>"input_medium"}                    
+          = select_tag :service_type,options_from_collection_for_select(@service_types,:id,:name),{:class=>"input_medium"}
       %tr
         %td Material
-        %td          
-          = text_field_tag :term,@detail,:class=>"input_medium left"          
+        %td
+          = text_field_tag :term,@detail,:class=>"input_medium left"
           .ajax_loader.left
           -#= image_submit_tag("find.png",:class =>"input_img")
       %tr
-        %td Material Nuevo        
+        %td Material Nuevo
         %td
           %input{:id=>"new_material",:class=>"input_medium"}
           -#= link_to_function image_tag('add.png',:class=>:input_img,:title =>"Agregar Materiales"),"add_new_material_service_type(this)"

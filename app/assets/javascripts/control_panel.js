@@ -1,6 +1,6 @@
 var cp_eventDetailDialog;
 
-function searchNotes(event_id){  
+function searchNotes(event_id){
   var token = $("input[name='authenticity_token']")[0];
   //AjaxLoader.enable();
   //data: {'authenticity_token':encodeURIComponent(token)},
@@ -25,14 +25,14 @@ function submitServiceOffer(){
 
 	if ($("#events_ids_chk").val() != ""){
 		$('#service_offer_service_type_id').val($('#service_filter_service_type_id') .val());
-		$('#service_offer_form').submit();		
+		$('#service_offer_form').submit();
 	}else{
 		$('#error h2').text("Debe elegir al menos un automovil");
 		$('#error').addClass("errorExplanation");
 		$('#error').show();
 		return false;
 	}
-	
+
 }
 
 function submit_form(){
@@ -68,12 +68,12 @@ function save_filter_callback(){
 
 function edit_filter_name(){
 	$('#service_filter_name').show();
-	$('#filter_label').hide();	
+	$('#filter_label').hide();
 	$('#save_filter').show();
 }
 
 function searchModelControlPanel(event){
-  var brand_id = event.target.id; 
+  var brand_id = event.target.id;
   var token = $("input[name='authenticity_token']").val();
   AjaxLoader.enable();
   $.ajax({
@@ -85,7 +85,7 @@ function searchModelControlPanel(event){
       },
     dataType:'script',
     type:'POST'
-  });  
+  });
 }
 
 function updateEventSelected(checkbox){
@@ -98,15 +98,15 @@ function updateEventSelected(checkbox){
 
 function createNewAlarm(){
   $("#alarms").toggle();
-  $(".notes_container,#mesage").hide();  
+  $(".notes_container,#mesage").hide();
 }
 
-function createNewNote(){  
+function createNewNote(){
   $(".notes_container").toggle();
-  $("#alarms,#message").hide();  
+  $("#alarms,#message").hide();
 }
 
-function createNewMessage(){    
+function createNewMessage(){
   $("#alarms,.notes_container").hide();
   $(".message").toggle();
 }
@@ -121,7 +121,7 @@ jQuery(document).ready( function(){
   $(".add_alarm").click(createNewAlarm);
   $(".new_note").click(createNewNote);
   $(".new_message").click(createNewMessage);
-	
+
 	$('#reload').click(submit_form);
 	$('#new_reload').click(submit_form);
 	$('#save_filter').click(save_filter);
@@ -131,19 +131,19 @@ jQuery(document).ready( function(){
 	$('#save_offer').click(submitServiceOffer);
 	$('#sf').change(submit_form);
 	$('#find_filter').click(toggleSearchFilter);
-	
-  $(".cars .cp_event :checkbox").change(function(){
+
+  $(".vehicles .cp_event :checkbox").change(function(){
     updateEventSelected($(this));
   });
 
-  $(".cars .small_event label").click(function(){
+  $(".vehicles .small_event label").click(function(){
     var checkbox = $(this).parent().parent().parent().parent().find(":checkbox");
     checkbox.click();
     updateEventSelected(checkbox);
   });
 
 	$('#service_filter_brand_id').change(searchModelControlPanel);
-	
+
 	if ($('#service_filter_name').val()){
 		$('#filter_label').text($('#service_filter_name').val());
 		$('#service_filter_name').hide();
@@ -151,26 +151,26 @@ jQuery(document).ready( function(){
 		$('#save_filter').hide();
 	}else{
 		$('#service_filter_name').show();
-		$('#filter_label').hide();		
+		$('#filter_label').hide();
 	}
-	
+
 	$("#events").delegate(".due_date","click",showBigEvent);
 	$("#events").delegate(".big_event","click",hideBigEvent);
 	$("#events").delegate(".my_big_event","click",hideBigEvent);
 	$(".labelify").labelify({ labelledClass: "labelHighlight" });
-	
+
 	$(".pagination a").live("click",function(){
 	   	var page = $.queryString(this.href).page
 	   	var eventIds = "";
 	   	setEventsIds();
-	   	
+
      	$("#page").val(page);
-     	$("#service_filter_form").submit(); 
+     	$("#service_filter_form").submit();
     	return false;
   	});
 
 	checkEventsIds();
-  
+
   //$("#view input:checkbox").click(view);
   $("#select input:checkbox").click(select);
 
@@ -178,10 +178,10 @@ jQuery(document).ready( function(){
 	autoOpen: false ,
     modal: true,
     draggable:true,
-    resizable:false,    
+    resizable:false,
     width:750,
     title: title,
-     close:function(){    	
+     close:function(){
     	var notes_txt = [];
     	$(".notes .note").each(function(){
     		notes_txt.push($(this).children().first().children().first().html().trim());
@@ -199,7 +199,7 @@ jQuery(document).ready( function(){
         $(event_id +" .event_alarm").addClass("has_alarms");
       }else{
         $(event_id +" .event_alarm").removeClass("has_alarms");
-      }      
+      }
 
       $("#repit").attr("checked",false).trigger('change');
 
@@ -207,11 +207,11 @@ jQuery(document).ready( function(){
     	$(".notes_container .note_form").attr("action","");
       $("#message .new_msg_form").attr("action","");
     },
-    open: function(){    	
+    open: function(){
     	$("#notes").hide();
       $("#alarms").hide();
     },
-    buttons: [          
+    buttons: [
           {
             text: done,
             click:function(){
@@ -221,7 +221,7 @@ jQuery(document).ready( function(){
         ]
 	});
 
-  
+
   var dates = $( "#service_filter_date_from, #service_filter_date_to" ).datepicker({
       defaultDate: -30,
       changeMonth: true,
@@ -236,7 +236,7 @@ jQuery(document).ready( function(){
         dates.not( this ).datepicker( "option", option, date );
       }
     });
-   
+
 });
 
 function checkEventsIds(){
@@ -256,9 +256,9 @@ function checkEventsIds(){
   	if (remove_ids != ""){
   		$("#events_ids").val(events_ids.replace(remove_ids,""));
   	}
-  	
+
   }
-	
+
 }
 
 function setEventsIds(){
@@ -270,12 +270,12 @@ function setEventsIds(){
    	if (eventIds != "") {
    		$("#events_ids").val(history_ids + eventIds);
    		console.debug( "Envio estos ids " + $("#events_ids").val());
-   	}	
+   	}
 }
 
 function view(){
   $("#view input:checkbox").each(function(){
-    var value = $(this).attr("value");      
+    var value = $(this).attr("value");
     if (this.checked){
       $("#events ." + value).each(function(){
         $(this).parent().show();
@@ -283,30 +283,30 @@ function view(){
     }else{
       $("#events ." + value).each(function(){
         $(this).parent().hide();
-      });      
+      });
     }
-    
+
   });
-  
+
 }
 
 function select(){
-   
-    var value = $(this).attr("value");      
+
+    var value = $(this).attr("value");
     if (this.checked){
-      $("#events ." + value).each(function(){        
-        var checkbox = $(this).parent().find("input:checkbox");                
+      $("#events ." + value).each(function(){
+        var checkbox = $(this).parent().find("input:checkbox");
         checkbox.prop("checked",true);
         updateEventSelected(checkbox);
       });
     }else{
       $("#events ." + value).each(function(){
-        var checkbox = $(this).parent().find("input:checkbox");  
-        checkbox.prop("checked",false);        
+        var checkbox = $(this).parent().find("input:checkbox");
+        checkbox.prop("checked",false);
         updateEventSelected(checkbox);
-      });      
+      });
     }
-      
+
 }
 
 
@@ -318,11 +318,11 @@ function showBigEvent(){
 	var event = $(this);
 	$("#event_detail").show();
 	var event_detail = $("#event_detail .detail");
-	
+
 	var event_id = event.parent().parent().attr("id");
 	event_id = event_id.match(/\d*$/)[0];
 	searchNotes(event_id);
-	
+
 	var event_data = event.parent().parent();
 
   if (event_data.find('[class^="mi_domain"]').size() > 0){
@@ -331,7 +331,7 @@ function showBigEvent(){
     $(".new_message").hide();
   }
 
-	$.each([".domain",".km",".km_avg",".total_company_spend",".total_spend",".car",".user_full_name",".user_email",".user_phone"],function(index,value){
+	$.each([".domain",".km",".km_avg",".total_company_spend",".total_spend",".vehicle",".user_full_name",".user_email",".user_phone"],function(index,value){
 		var val = event_data.find(value).html();
 		if (val != null){
 			event_detail.find(value).html(val).show();
@@ -339,7 +339,7 @@ function showBigEvent(){
 		}else{
 			event_detail.find(value).html("").hide();
 			event_detail.find(value + "_label").hide();
-		}	
+		}
 	});
 
 	var url = event_data.find(".url").html().trim();
@@ -354,7 +354,7 @@ function showBigEvent(){
 
   $("#messages_container_").attr("id","messages_container_" + event_id);
   $("#notes_container_0").attr("id","notes_container_" + event_id);
-  
+
 
 	cp_eventDetailDialog.dialog("open");
 }
@@ -377,8 +377,8 @@ function toggleSearchFilter(){
 		$('#service_filter_name').hide();
 		$('#save_filter').hide();
 	}
-	
-	
+
+
 }
 
 function filter_change(){

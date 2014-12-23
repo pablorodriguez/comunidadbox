@@ -1,8 +1,8 @@
--#%div{:id=>"note-#{note.id}",:class=>"note clear"}  
+-#%div{:id=>"note-#{note.id}",:class=>"note clear"}
 %div[note]
-  .info_note    
+  .info_note
     .left
-      = note.message  
+      = note.message
     .right
       .date
         %lable{:title =>"Creado el"}
@@ -13,18 +13,18 @@
   .notes_fk
     - if note.event
       = link_to "",event_path(note.event),:class=>"event_s",:title =>"Servicio a Realizar"
-    - if note.workorder      
+    - if note.workorder
       = link_to "",workorder_path(note.workorder),:class =>"service_s",:title =>"Servicio Realizado"
-    - if note.budget      
+    - if note.budget
       = link_to "",budget_path(note.budget),:class=>"budget_s",:title =>"Presupuesto"
-    - if note.car
-      = link_to "",car_path(note.car),:class=>"note_car",:title =>"Automovil"
-    - if note.alarm      
+    - if note.vehicle
+      = link_to "",car_path(note.vehicle),:class=>"note_car",:title =>"Automovil"
+    - if note.alarm
       = link_to "",alarm_path(note.alarm),:class=>"has_alarms",:title =>"Alarma"
-    
+
   -if note.creator_id == current_user.id
     .actions
       .action.hide
         = link_to "",edit_note_path(note),:class=>"edit",:title =>"Modificar"
       .action
-        = link_to "", note_path(note),:method => :delete,:data =>{ :confirm => '¿ Esta seguro que desea borrar la Nota ?'},:title =>"Eliminar",:remote=> true,:class=>:delete        
+        = link_to "", note_path(note),:method => :delete,:data =>{ :confirm => '¿ Esta seguro que desea borrar la Nota ?'},:title =>"Eliminar",:remote=> true,:class=>:delete

@@ -1,0 +1,13 @@
+- if @vehicle_service_offer.is_sent?
+  - content_for :actions do
+    %li
+      = link_to "Confirmar", confirm_vehicle_service_offer_path(@vehicle_service_offer),:title =>"Confirmar oferta de servicio"
+
+.vertical_menu
+  = render "home/menu"
+  = render "home/default_actions"
+.contentright_s
+  .box_bottom
+    %h1
+      Oferta de Servicio
+  = render :partial =>"vehicle_service_offer",:locals =>{:vehicle_service_offer =>@vehicle_service_offer}

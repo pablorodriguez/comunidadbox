@@ -8,11 +8,11 @@
 .contentright_s
   .box_bottom
     %h1
-      = t(".title")       
-      \:  
+      = t(".title")
+      \:
       = @offer.service_types_names
   #service_offer
-    = form_for @offer do |f|    
-      = render :partial => 'form', :locals => {:f => f}  
+    = form_for @offer do |f|
+      = render :partial => 'form', :locals => {:f => f}
     #service_offer_menu
       = render "list_cars"

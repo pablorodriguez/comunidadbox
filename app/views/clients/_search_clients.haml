@@ -4,6 +4,6 @@
     = form_for :clients_path, :remote =>true, :method =>:get do
       = text_field_tag 'email',"",:class=>"labelify",:title=>"Correo Eléctronico"
       = text_field_tag 'first_name',"",:class=>"labelify",:title=>"Nombre"
-      = text_field_tag 'last_name',"",:class=>"labelify",:title=>"Apellido"  
+      = text_field_tag 'last_name',"",:class=>"labelify",:title=>"Apellido"
       = image_submit_tag("find.png",:class =>"input_img")
   .ajax_loader.right
