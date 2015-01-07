@@ -7,10 +7,13 @@ en-US:
       edit: "Edit"
       new_budget: "New Budget"
       new_car: "New Car"
+      new_vehicle: "New Car"
       new_message: "New Message"
       car_delete_confirm: "Delete Car?"
+      vehicle_delete_confirm: "Delete Car?"
       delete: "delete"
       modify_car: "Update Automovile"
+      modify_vehicle: "Update Automovile"
       new_service: "New Service"
       send_message: "Send Message"
     new:
@@ -19,6 +22,7 @@ en-US:
     form:
       personal_information: "Personal Information"
       car_information: "Information from your Car"
+      vehicle_information: "Information from your Car"
       address_information: "Personal Address"
       save: "Save"
       cancel: "Cancel"
@@ -28,6 +32,7 @@ en-US:
       create_new_client: "Create New Client"
       modify_client: "Update Client"
       new_car: "New Car"
+      new_vehicle: "New Car"
     edit:
       modify_client: "Update Client"
       personal_information: "Personal Information"
@@ -62,3 +67,4 @@ en-US:
       new_budget: "New Budget"
       new_service: "New Service"
       modify_car: "Update Automovile"
+      modify_vehicle: "Update Automovile"

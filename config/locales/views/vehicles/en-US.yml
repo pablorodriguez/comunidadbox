@@ -1,0 +1,85 @@
+en-US:
+  vehicles:
+    vehicles:    
+      vehicle_delete_confirm: Are you sure you want to delete the Car?
+      update_vehicle: "Update automovile"
+      title: "List of Cars"
+      year: "Year"
+      km: "km"
+      kmAverageMonthly: "Km monthly average"
+      new_service: "New Service"
+      new_budget: "New Budget"
+    send:
+      message_exit_send: "Message sent successfully"
+    search_vehicle:
+      domain: "Domain"
+      search_vehicles: "Search Cars"
+    search_clients: 
+      search_clients: "Search Clients"
+      email: "Email"
+      name: "Name"
+      last_name: "Last Name"
+    vehicle_info:
+      name: "Name:"
+      business_name: "Business Name:"
+      cuit: "CUIT:"
+      domain: "Domain:"
+      year: "Year:"
+      email: "Email:"
+      brand_model: "Brand and Model:"
+      phone: "Phone:"
+      mileage: "Mileage:"
+      mileage_monthly_average: "Mileage Monthly Average:"
+      last_update: "Last Update:"
+    new_km:
+      message: "Please upgrade mileage in order to create a service."
+      km_current: "Km Current"
+      km_monthly_average: "Km Monthly Average"
+      update_km: "Update KM"
+    services_list:
+      completed: "Completed"  
+    new:
+      new_vehicle_for: "New Car for"
+    vehicle:
+      save: "Save"
+      cancel: "Cancel"
+    vehicle_menu:
+      new_client: "New Client"
+      new_service: "New Service"
+      new_budget: "New Bugdet"
+      modify_client: "Modify Client"
+      new_service: "New Service"
+      new_vehicle: "New Car"
+      modify_vehicle: "Modify Car"
+      messages: "Messages"
+      new_message: "New Message"
+      create_new_client: "Create New Client"
+      services_performed: "Services Performed"
+      services_to_do: "To Perform Service"
+      budgets: "Bugdets"
+      graphic_report: "Graphic Report"
+    search_data:
+      search: "Search"
+      all: "All"
+      from: "From"
+      even: "Even"
+    vehicle_detail:
+      see_client: "See Client"
+      phone: "Phone"
+      total_mileage: "Total Mileage"
+      monthly_average_mileage: "Monthly Average Mileage"
+      km_average: "Km Average" 
+      total_consumed: "Total Consumed"
+      total_consumed_in_your_company: "Total consumed in your company"
+    work_orders:
+      services_performed: "Services Performed"
+    work_order_row:
+      operator: "Operator"
+      number_of_service: "Number of service"  
+      service_provider: "Service Provider"  
+      message_delete: "Are you sure you want to delete the service?" 
+      delete: "Delete"
+      modify: "Modify"
+      notes: "Notes"
+      send_message: "Send Message"
+

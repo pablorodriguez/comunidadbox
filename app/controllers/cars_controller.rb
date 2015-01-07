@@ -1,31 +1,32 @@
+# encoding: utf-8
 class CarsController < ApplicationController
 
   authorize_resource
 
-  layout "application", :except => [:search,:find_models,:search_companies,:km] 
+  layout "application", :except => [:search,:find_models,:search_companies,:km]
   skip_before_filter :authenticate_user!,:only => [:find_models]
-   
+
   # GET /cars
   # GET /cars.xml
   def index
     page = params[:page] || 1
     domain = (params[:domain].strip if params[:domain]) || "%"
     domain = "%" if domain.empty?
-     
+
     per_page = 12
-    
+
     if company_id
       @company_cars = Car.companies(company_id)
     else
       @company_cars = current_user.cars
     end
-    
-    
+
+
     @company_cars = Car.where("domain like ?",domain) if  domain != "%"
 
     @company_id = params[:company_id]
     @company_cars = @company_cars.order("domain asc").paginate(:page =>page,:per_page =>per_page)
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.js { render :layout => false}
@@ -34,20 +35,20 @@ class CarsController < ApplicationController
 
   def service_done
   end
-  
+
   def find_models
     @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
     respond_to do |format|
       format.js { render :layout => false}
     end
   end
-  
-  def km    
+
+  def km
     @car = Car.find(params[:id])
     @car.kmUpdatedAt = Time.zone.now
     new_km = params[:car][:km].to_i
     new_avg= params[:car][:kmAverageMonthly].to_i
-    
+
     @msg = ""
     # valido si cambio km o kmAverageMonthly
     if ((@car.km == new_km) && (@car.kmAverageMonthly == new_avg))
@@ -71,7 +72,7 @@ class CarsController < ApplicationController
     car.update_events
     render :text => new_value
   end
-  
+
   def my
     page = params[:page] || 1
     @companies = Company.best current_user.state
@@ -82,15 +83,15 @@ class CarsController < ApplicationController
     end
     @cars = @user.cars.paginate(:per_page=>15,:page =>page)
   end
-  
+
   # GET /cars/1
   # GET /cars/1.xml
   def show
     @car = Car.find(params[:id])
-    @company_services = get_service_types 
+    @company_services = get_service_types
     @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = params[:all_service_type]
-    
+
     authorize! :read, @car
     @json = []
     @car_id = params[:id]
@@ -107,22 +108,22 @@ class CarsController < ApplicationController
     filters[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
     filters[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
 
-    
+
     @notes = @car.notes.paginate(:per_page=>10,:page =>1)
     per_page = 10
     respond_to do |format|
-      
+
     if data == "all"
-      filters[:domain] = @car.domain      
+      filters[:domain] = @car.domain
       filters[:user] = current_user unless company_id
       @work_orders = Workorder.find_by_params(filters).paginate(:per_page=>per_page,:page =>page)
 
       @budgets = @car.budgets_for(current_user).paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
-      
+
       amt_material = Workorder.group_by_material(filters)
-      count_material = Workorder.group_by_material(filters,false)      
-      
+      count_material = Workorder.group_by_material(filters,false)
+
       @amt_material_data = Workorder.build_material_data(amt_material,count_material)
 
       @amt = Workorder.group_by_service_type(filters,false)
@@ -135,34 +136,34 @@ class CarsController < ApplicationController
         end
       end
 
-      
-      @services_amount =0    
+
+      @services_amount =0
       @amt.each{|key,value| @services_amount += value}
 
       @companies = Company.best(current_user.state)
-      
-      
+
+
       @events = @car.future_events.paginate(:per_page=>per_page,:page =>page)
       @wo_pages = {:d=>"wo"}
       @e_pages = {:d=>"e"}
       format.html # show.html.erb
-      format.js { render "all",:layout => false} 
+      format.js { render "all",:layout => false}
     end
     if data == "e"
       @events = @car.future_events.paginate(:per_page=>10,:page =>page)
       @e_pages = {:d =>"e"}
-      format.js { render "events",:layout => false}        
+      format.js { render "events",:layout => false}
     end
-    
+
     if data =="wo"
       @work_orders = Workorder.for_car(@car_id).paginate(:per_page=>per_page,:page =>page,:order =>"performed desc")
-      @wo_pages = {:d => "wo"}      
+      @wo_pages = {:d => "wo"}
       format.js { render "work_orders",:layout => false}
     end
     end
   end
 
-  def search_companies   
+  def search_companies
     @companies = Company.search params
     @car_id = params[:car_id]
     respond_to do |format|
@@ -179,7 +180,7 @@ class CarsController < ApplicationController
     else
       user=current_user
     end
-       
+
     if params[:b].present?
       @budget = Budget.find(params[:b])
       flash.now.notice ="Antes de registrar un servicio por favor cree el Automovil"
@@ -188,7 +189,7 @@ class CarsController < ApplicationController
       @car.domain = @budget.domain
     end
 
-    
+
     @car.user = user
     @models = Array.new
     respond_to do |format|
@@ -240,10 +241,10 @@ class CarsController < ApplicationController
   # PUT /cars/1.xml
   def update
     @car = Car.find(params[:id])
-    
+
     respond_to do |format|
       if @car.update_attributes(params[:car])
-        @car.update_events        
+        @car.update_events
         format.html { redirect_to(@car) }
         format.xml  { head :ok }
       else
@@ -266,5 +267,5 @@ class CarsController < ApplicationController
       format.js { render :layout => false}
     end
   end
-  
+
 end

@@ -39,7 +39,7 @@
         = link_to t(".service_providers"), all_companies_path
 #menu_actions
   #vehicles_menu.menu_data.hide.box_bottom
-    =render :partial=>"cars/search_car",:locals =>{:vehicles=>[],:table_id =>:sort_table}
+    =render :partial=>"vehicles/search_vehicle",:locals =>{:vehicles=>[],:table_id =>:sort_table}
   #clients_menu.menu_data.hide.box_bottom
     = render "clients/search_clients"
 

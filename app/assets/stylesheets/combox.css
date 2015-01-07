@@ -237,7 +237,7 @@ body {
   display:block;
 }
 
-.note_car{
+.note_vehicle{
   background-image:url(images/car.png);
   height:16px;
   width:16px;
@@ -245,7 +245,7 @@ body {
 }
 
 
-.new_car{
+.new_vehicle{
   background-image:url(images/new_car.png);
   height:16px;
   width:16px;
@@ -261,25 +261,25 @@ body {
   margin-top:36px;
 }
 
-#car_search{
+#vehicle_search{
   width:100%;
 }
 
-#car_search form, #client_search form, #service_center form{
+#vehicle_search form, #client_search form, #service_center form{
   float:left;
   width:100%;
 }
 
-#car_search input, #client_search input, #service_center input,#service_offer_search input, #employees input,.search input{ 
+#vehicle_search input, #client_search input, #service_center input,#service_offer_search input, #employees input,.search input{ 
   margin:2px;
 }
 
-#car_search select, #client_search select{
+#vehicle_search select, #client_search select{
   margin:2px;
   width:140px;
 }
 
-#client_search .ajax_loader, #car_search .ajax_loader, #service_offer_search .ajax_loader, #service_center .ajax_loader, #comp_search .ajax_loader{
+#client_search .ajax_loader, #vehicle_search .ajax_loader, #service_offer_search .ajax_loader, #service_center .ajax_loader, #comp_search .ajax_loader{
   margin-top:-20px;
 }
 
@@ -1727,17 +1727,17 @@ td.number, th.number{
   vertical-align: top;
 }
 
-.client_car{
+.client_vehicle{
   width:80%;
   margin-left:10px;
 }
 
-.car .detail{
+.vehicle .detail{
   float: left;
   width: 60%;
 }
 
-.car_detail{
+.vehicle_detail{
   margin-bottom:3px;
 }
 
@@ -1747,12 +1747,12 @@ td.number, th.number{
 }
 
 
-.car_info{
+.vehicle_info{
   padding: 5px;
   width:70%;
 }
 
-.event_detail .car_info{
+.event_detail .vehicle_info{
   height:45px;
 }
 
@@ -2286,10 +2286,10 @@ select.operator{
   margin-left:0px;
 }
 
-.cars{
+.vehicles{
 }
 
-.cars a{
+.vehicles a{
   color:white;
   text-decoration:none;
 }
@@ -2347,7 +2347,7 @@ select.operator{
   border-width: 2px;
 }
 
-#cars_events ul{
+#vehicles_events ul{
   padding: 0px;
 }
 
@@ -2767,17 +2767,17 @@ input.labelHighlight,textarea.labelHighlight {
   padding: 2px 0px;
 }
 
-.car_detail .domain_brand{
+.vehicle_detail .domain_brand{
   overflow: auto;
 }
 
-.car_detail .brand{
+.vehicle_detail .brand{
   font-size:20px;
   font-weight:bold;
   margin:0px 5px;
 }
 
-.car_detail .domain{
+.vehicle_detail .domain{
   font-size:25px;
   margin:0px 10px;
 }
@@ -2906,7 +2906,7 @@ ul.tasks li{
   margin:5px;
 }
 
-.budget .car, .budget .customer {  
+.budget .vehicle, .budget .customer {  
   width: 48%;
 }
 

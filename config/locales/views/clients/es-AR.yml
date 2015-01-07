@@ -9,8 +9,10 @@ es-AR:
       new_car: "Nuevo Automóvil"
       send_message: "Enviar Mensaje"
       car_delete_confirm: "Desea eliminar Automóvil?"
+      vehicle_delete_confirm: "Desea eliminar Automóvil?"
       delete: "Borrar"
       modify_car: "Modificar Automóvil"
+      modify_vehicle: "Modificar Automóvil"
       new_service: "Nuevo Servicio"
     new:
       new_client: "Nuevo Cliente"
@@ -18,6 +20,7 @@ es-AR:
     form:
       personal_information: "Información Personal"
       car_information: "Información de su auto"
+      vehicle_information: "Información de su auto"
       address_information: "Dirección Personal"
       save: "Grabar"
       cancel: "Cancelar"
@@ -27,6 +30,7 @@ es-AR:
       create_new_client: "Crear Nuevo Cliente"
       modify_client: "Modificar Cliente"
       new_car: "Nuevo Automóvil"
+      new_vehicle: "Nuevo Automóvil"
     edit:
       modify_client: "Modificar Cliente"
       personal_information: "Información Personal"
@@ -60,6 +64,7 @@ es-AR:
       new_budget: "Nuevo Presupuesto"
       new_service: "Nuevo Servicio"
       modify_car: "Modificar Automóvil"
+      modify_vehicle: "Modificar Automóvil"
 
 
 
