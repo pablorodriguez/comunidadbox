@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ComunidadBox::Application.routes.draw do
 
   # The priority is based upon order of creation:
@@ -83,7 +85,7 @@ ComunidadBox::Application.routes.draw do
         post :import
       end
     end
-    
+
     resources :notes
     resources :item_services
     resources :car_filters
@@ -95,7 +97,7 @@ ComunidadBox::Application.routes.draw do
     resources :material_requests
     resources :advertising
 
-    resources :messages do     
+    resources :messages do
       member do
         get :email
         post :read
@@ -133,7 +135,7 @@ ComunidadBox::Application.routes.draw do
       collection do
         get :export
       end
-      member do      
+      member do
         get :print
         get :email
         get :email_s
@@ -165,7 +167,7 @@ ComunidadBox::Application.routes.draw do
         post :save_price_offer
         get :price_offers
         put :confirm_price_offer
-      end    
+      end
     end
 
    resources :companies do
@@ -191,12 +193,34 @@ ComunidadBox::Application.routes.draw do
       collection do
         post :find_models
         post :search
-        post :search_companies      
+        post :search_companies
         get :my
       end
 
-      member do   
-        put :km   
+      member do
+        put :km
+        get :services_done
+        get :future_events
+        get :report_graph
+        get :notes
+        get :alarms
+        get :messages
+      end
+    end
+
+    resources :vehicles do
+      resources :alarms
+      resources :notes
+
+      collection do
+        post :find_models
+        post :search
+        post :search_companies
+        get :my
+      end
+
+      member do
+        put :km
         get :services_done
         get :future_events
         get :report_graph
@@ -223,7 +247,7 @@ ComunidadBox::Application.routes.draw do
         get :unlock
       end
 
-     
+
     end
 
     resources :alarms do
@@ -254,7 +278,7 @@ ComunidadBox::Application.routes.draw do
       collection do
         post :filter_alarms
         get :filter_alarms
-        post :find_models      
+        post :find_models
         post :save_filter
       end
     end
@@ -264,7 +288,7 @@ ComunidadBox::Application.routes.draw do
         post :send_notification
         post :new_s
         get :notify_email
-        get :notify      
+        get :notify
       end
       member do
         get :show_ad
@@ -275,28 +299,28 @@ ComunidadBox::Application.routes.draw do
     resources :car_service_offers do
       member do
         get :confirm
-        get :reject        
+        get :reject
       end
       collection do
         get :confirmed
       end
     end
 
-    resources :service_types do    
+    resources :service_types do
       resources :materials do
         member do
           delete :remove
         end
       end
-      
+
       member do
         get :task_list
         put :add_task
-        delete :remove_task        
+        delete :remove_task
         post :add_material
         get :search_material
       end
-      
+
       collection do
         get :search_sub_category
         put :destroy_material
@@ -304,7 +328,7 @@ ComunidadBox::Application.routes.draw do
     end
 
     resources :materials do
-      
+
       resources :service_types do
         member do
           delete :remove
@@ -312,8 +336,8 @@ ComunidadBox::Application.routes.draw do
       end
       collection do
         get :details
-        get :export        
-        post :import        
+        get :export
+        post :import
       end
     end
 
@@ -348,7 +372,7 @@ ComunidadBox::Application.routes.draw do
         get :run
       end
     end
-    
+
     resources :company_material_codes do
       collection do
         get :export
@@ -357,7 +381,7 @@ ComunidadBox::Application.routes.draw do
     end
 
     root :to => "home#index"
-        
+
   end
 
 end

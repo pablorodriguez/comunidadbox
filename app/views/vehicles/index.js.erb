@@ -1,0 +1,6 @@
+$(".data").hide();
+if (<%=@company_vehicles.size%> > 0){
+  $("#vehicles").html("<%=escape_javascript(render(:partial=>'vehicles',:locals =>{:vehicles=>@company_vehicles}))%>").show();
+}else{
+  $("#vehicles").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ningún autómovil."}))%>").show();
+}

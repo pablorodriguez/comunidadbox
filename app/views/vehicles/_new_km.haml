@@ -1,0 +1,12 @@
+#km_update.overflow.box_bottom
+  .update_km
+    .left.box_right.msg_update_km
+      %h4=t(".message")
+    = form_for(vehicle,:url=> km_vehicle_path(vehicle),:method =>:put,:remote=>true,:html=>{:class=>"update_km_form"}) do |f|
+      = f.label :km , t(".km_current")
+      = f.text_field :km,:autofocus=>true,:class=>"input_short"
+      = f.label :kmAverageMonthly,t(".km_monthly_average")
+      = f.text_field :kmAverageMonthly,:class=>"input_short"
+      = f.submit t(".update_km"),:class=>"button",:disable_with => 'Grabando...'
+  .ajax_loader.left
+  #km_msg.message.hide.clear

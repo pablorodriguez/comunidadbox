@@ -1,0 +1,40 @@
+.box_bottom
+  %h1
+    = t(".title")
+- for vehicle in vehicles
+  .vehicle.row[vehicle]
+    .logo
+      = brand_logo vehicle.brand.name,true
+    .left.domain_white
+      = link_to h(vehicle.domain),vehicle
+    .detail
+      .name
+        = h vehicle.brand.name
+        = h vehicle.model.name
+        %strong
+          = "#{t('.year')}:"
+        = h vehicle.year
+      .km
+        %strong
+          = "#{t('.km')}:"
+        = h vehicle.km
+        %strong
+          = "#{t('.kmAverageMonthly')}:"
+        = h vehicle.kmAverageMonthly
+    .actions
+      - if current_user.can_edit?(vehicle.user)
+        .action
+          = link_to "",vehicle,:data =>{:confirm =>t("vehicle_delete_confirm")},:remote =>true, :method => :delete,:title =>t("delete"),:class=>"delete"
+      - if company_id
+        .action
+          = link_to "",new_budget_path(:ca => vehicle),{:title=>t(".new_budget"),:class=>"new_budget"}
+        .action
+          = link_to "", new_workorder_path(:vehicle_id =>vehicle),{:title=>t(".new_service"),:class=>"new_service"}
+      - else
+        .action
+          = link_to "","#",:data => {:vehicle_id=>"#{vehicle.id}"},:title=>t(".new_service"),:class=>"new_service"
+      - if current_user.can_edit?(vehicle.user)
+        .action
+          = link_to "",edit_vehicle_path(vehicle),{:title=>t(".update_car"),:class=>"edit"}
+
+= will_paginate vehicles

@@ -1,7 +1,7 @@
-%h3=t(".search_cars")
-#car_search.left
+%h3=t(".search_vehicles")
+#vehicle_search.left
   .form
-    = form_tag cars_path, :remote =>true,:method =>:get do |f|      
+    = form_tag vehicles_path, :remote =>true,:method =>:get do |f|
       = hidden_field_tag :company_id,"a"
       %table.w
         %tr
@@ -9,5 +9,5 @@
             = text_field_tag 'domain',"",:class=>"input",:title=>"Dominio",:placeholder=>t(".domain")
         %tr
           %td
-            = image_submit_tag("find.png",:class =>"input_img")  
+            = image_submit_tag("find.png",:class =>"input_img")
   .ajax_loader.right

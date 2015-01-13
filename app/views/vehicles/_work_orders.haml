@@ -1,0 +1,8 @@
+.box_top
+.box_bottom
+  %h1=t(".services_performed")
+#workorders
+  = render :partial =>"work_order_row",:collection => @work_orders
+%br
+#paginator_wo
+  = will_paginate @work_orders,:params => @wo_pages
