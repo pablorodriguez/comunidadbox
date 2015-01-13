@@ -21,6 +21,14 @@ es-AR:
       mileage_monthly_average: "Kilometraje promedio mensual"
       fuel: "Combustible"
       mileage: "Kilometraje"
+    vehicle_fields:
+      domain: "Dominio"
+      brand: "Marca"
+      year: "Año"
+      model: "Modelo"
+      mileage_monthly_average: "Kilometraje promedio mensual"
+      fuel: "Combustible"
+      mileage: "Kilometraje"
     user_address_fields:
       state: "Provincia"
       city: "Cuidad"

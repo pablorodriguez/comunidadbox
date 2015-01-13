@@ -1,0 +1,14 @@
+<% if @msg != "" %>
+    $("#km_msg").html("<%= @msg%>").show();
+    $("#workorder_submit").attr("disabled","disabled");
+<%else%>
+  $("#km_msg").html("").hide();
+  $("#vehicle_km").val("<%=@vehicle.km%>");
+  $("#km").html("<%=@vehicle.km%>").effect("highlight",{},3000);
+  $("#vehicle_kmAverageMonthly").val("<%=@vehicle.kmAverageMonthly%>");
+  $("#kmAverageMonthly").html("<%=@vehicle.kmAverageMonthly%>").effect("highlight",{},3000);
+  $("#kmUpdatedAt").html("<%=l @vehicle.kmUpdatedAt.to_date%>").effect("highlight",{},3000);
+  $("#wo_save").show();
+  $("#km_update").hide();
+  $("#workorder_submit").removeAttr('disabled');
+<%end%>

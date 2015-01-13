@@ -1,0 +1,43 @@
+=render "home/menu"
+
+.menu_actions.box_bottom
+  #vehicles_work_orders_menu.menu_data
+    = hidden_field_tag 'vehicle_id',@vehicle.id
+    %ul
+      - if company_id
+        %li
+          = link_to t(".new_client"),new_client_path,:title=>t(".create_new_client")
+        %li
+          = link_to t(".new_service"),new_workorder_path(:vehicle_id =>@vehicle),:id=>"create_new_service_2",:title=>t(".new_service")
+        %li
+          = link_to t(".new_budget"),new_budget_path(:ca => @vehicle.id),:title=>t("..new_budget")
+        - if current_user.can_edit?(@vehicle.user)
+          %li
+            = link_to t(".modify_client"),edit_client_path(@vehicle.user),{:title=>t(".modify_client")}
+      - else
+        %li
+          = link_to t(".new_service"),"#",:data =>{:vehicle_id => "#{@vehicle_id}"},:title=>t(".new_service"),:id =>"create_new_service"
+        .hide
+          = text_field_tag "new_service_url",new_workorder_path(:vehicle_id =>@vehicle)
+      - if current_user.can_edit?(@vehicle.user)
+        %li
+          = link_to t(".new_vehicle"), new_vehicle_path(:user_id=>@vehicle.user.id),  {:title =>t(".new_car")}
+        %li
+          = link_to t(".modify_car"),edit_vehicle_path(@vehicle),{:title=>t(".modify_car")}
+      - if current_user.is_employee?
+        %li
+          = link_to t(".messages"),"#",:data => {:vehicle_id => "#{@vehicle_id}"},:title=>t(".new_message"),:id =>"create_new_message"
+      %li
+        #service_done.link.menu
+          = link_to t(".services_performed"), "#"
+      %li
+        #future_event.link.menu
+          = link_to t(".services_to_do"),"#"
+      %li
+        #budgets_link.link.menu
+          = link_to t(".budgets"),"#"
+      %li
+        #report_graph.link.menu
+          = link_to t(".graphic_report"),"#"
+
+=render "search_data"

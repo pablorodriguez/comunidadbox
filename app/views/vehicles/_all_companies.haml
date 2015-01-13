@@ -1,0 +1,22 @@
+-if @companies && @companies.size > 0
+  .box_bottom
+    %h1 Prestadores de Servicios
+  - for company in @companies
+    .row
+      .company_detail.link.left
+        .nombre
+          = company.name
+        .address
+          = company.full_address
+        .phone
+          = number_to_phone company.phone
+        .rank
+          ="#{company.total_user_ranked} \\ #{company.total_work_order}. Promedio Calif. [#{number_with_precision(company.user_rank)}]"
+      .actions
+        .action
+          = link_to image_tag('edit.png'),company_path(company),{:title => "Ver",:target => "_blank"}
+        .action
+          = link_to "", new_workorder_path(:company_id=>company.id),{:class=>"new_service_link"}
+-else
+  %label
+    No hay empresas registradas

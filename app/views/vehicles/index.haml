@@ -1,0 +1,21 @@
+-#javascript "vehicle_pagination"
+-#javascript "jquery.ba-url.min"
+
+#all_vehicles
+  .vertical_menu
+    = render "home/menu",:s=>:vehicles
+    .box_bottom
+      =render :partial=>"search_vehicle",:locals =>{:vehicles=>[],:table_id =>:sort_table}
+    -if company_id
+      .box_bottom
+        = render "search_clients"
+    = render "home/default_actions"
+  .contentright_s
+    #vehicles.data
+      - if @company_vehicles.size > 0
+        =render :partial=>"vehicles",:locals =>{:vehicles=>@company_vehicles,:table_id =>:sort_table}
+      - else
+        = render 'shared/message', :msg =>"No hay ningún automóvil"
+    #clients.data.hide
+    #company-selector
+      = render 'company_selector'

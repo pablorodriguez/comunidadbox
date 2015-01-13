@@ -1,0 +1,11 @@
+-# javascript 'accounts'
+.vertical_menu
+  = render "home/menu"
+  = render "home/default_actions"
+.contentright_s
+  .box_bottom
+    %h1
+      = t(".new_vehicle_for")
+      = @vehicle.user.full_name
+      = @vehicle.user.company_name if @vehicle.user.company_name
+  = render :partial=>'vehicle'
