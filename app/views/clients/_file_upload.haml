@@ -1,0 +1,35 @@
+.upload_file
+  .box_bottom
+    %h1=t(".import_clients")
+  .box_bottom  
+    = form_tag({action: :upload}, multipart: true, method: :put) do
+      .left
+        = file_field_tag :file
+      .left
+        = submit_tag (t"import"),:disable_with => (t'importing'),:class =>:button
+  - unless @import_result.nil?
+    %table.comboxtable
+      %thead
+        %tr
+          %th{"colspan" => 2} Resultado
+      %tbody
+        - @import_result[:summary].each do |item|
+          %tr
+            %td
+              = item[0]
+            %td.number
+              = item[1]
+    - unless @import_result[:errors].nil?
+      %table.comboxtable
+        %thead
+          %tr
+            %th{"width" => "100px"} Nro Registro
+            %th Error
+        %tbody
+          - @import_result[:errors].each do |model|
+            - model.errors.full_messages.each do |msg|
+              %tr
+                %td.number
+                  = 1
+                %td
+                  = msg
