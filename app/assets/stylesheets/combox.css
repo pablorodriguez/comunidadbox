@@ -2745,6 +2745,7 @@ input.labelHighlight,textarea.labelHighlight {
 
 .menu_actions a{
   margin-left: 40px;
+  float: left;
 }
 
 .menu_actions li{

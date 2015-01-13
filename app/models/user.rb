@@ -61,8 +61,18 @@ class User < ActiveRecord::Base
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
 
   NULL_ATTRS = %w( company_name cuit )
-  #before_save :nil_if_blank
+  before_save :set_default_data
   #validate :validate_all
+
+  def set_default_data
+    if self.new_record?
+      password = first_name + "test" unless first_name.nil?
+      password = "test" if first_name.nil?
+      password_confirmation = password
+      email = generate_email unless email
+      debugger
+    end
+  end
 
   def search_material_request(status,detail)
     if self.is_super_admin?
@@ -378,9 +388,12 @@ class User < ActiveRecord::Base
     csv_text = File.read(file.open,:encoding => 'iso-8859-1')
     csv = CSV.parse(csv_text, :headers => true)
     
-    result = {}
-    result[:summary] = []
-    result[:errors]  = []
+    result = {
+      :summary => [],
+      :errors => [],
+      :failure => 0,
+      :success => 0
+    }
 
 
     i = 1
@@ -392,24 +405,8 @@ class User < ActiveRecord::Base
       external_id = row[0]
       email = row[4]
 
-      if external_id.nil?
-        failure += 1
-        result[:errors] << [i, "Falta Id Externo"]
-        next
-      end
-
-      client = User.find_by_email email if email.present?
-      
-      if client.present? && client.external_id != external_id
-        failure += 1
-        result[:errors] << [i, "Ya existe un cliente con el email indicado"]
-        next
-      end
-
-      client = User.find_by_external_id external_id
+      client = User.find_by_external_id external_id if external_id
       client = User.new if client.nil?            
-
-      email = generate_email if email.nil?
 
       client.assign_attributes({ 
         :first_name => row[1], 
@@ -420,14 +417,13 @@ class User < ActiveRecord::Base
         :email => email
       })
 
+      #add_error_if_not_valid client,result
+
       if client.id.nil?
         client.external_id = external_id
         client.confirmed = true
 
         client.creator = current_user
-        client.password = client.first_name + "test" unless client.first_name.nil?
-        client.password = "test" if client.first_name.nil?
-        client.password_confirmation = client.password
 
         if client && company_id
           unless client.service_centers.include?(get_company)
@@ -437,56 +433,18 @@ class User < ActiveRecord::Base
 
       end
 
-      if client.first_name.nil?
-        failure += 1
-        result[:errors] << [i, "Falta nombre del cliente"]
-        next
-      end
-      if client.last_name.nil?
-        failure += 1
-        result[:errors] << [i, "Falta apellido del cliente"]
-        next
-      end
       #cargo direccion
-      state = State.find_by_name(row[7]) if row[7]
-      if state.nil?
-        failure += 1
-        result[:errors] << [i, "Provincia incorrecta"]
-        next
-      end
-      
       client.address = Address.new({
-        :state_id => state.id,
+        :state => State.find_by_name(row[7]),
         :city => row[8],
         :street => row[9],
         :zip => row[10]
       })
 
-
       #cargo automovil
       domain = row[11]
       
-      if domain.nil?
-        failure += 1
-        result[:errors] << [i, "Dominio del vehiculo vacio"]
-        next
-      end
-      brand = Brand.find_by_name(row[12])
-      if brand.nil?
-        failure += 1
-        result[:errors] << [i, "Marca de vehiculo incorrecta"]
-        next
-      end
-      model = Model.find_by_name(row[13])
-      if model.nil?
-        failure += 1
-        result[:errors] << [i, "Modelo de vehiculo incorrecto"]
-        next
-      end
-
-      client.cars = [] if client.cars.nil?
-      car = client.cars.detect{|c| c.domain == domain}
-      
+      car = client.cars.where("domain = ?",domain).first
       if car.nil?
         car = Car.new({:domain => domain})
         client.cars << car
@@ -495,25 +453,29 @@ class User < ActiveRecord::Base
       car.assign_attributes({
         :km => row[17], 
         :kmAverageMonthly => row[16],
-        :brand_id => brand.id, 
+        :brand => Brand.find_by_name(row[12]), 
         :year => row[15], 
-        :model_id => model.id, 
+        :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first, 
         :fuel => row[14]
       })
+      debugger
 
-      
-      if client.save
-        success += 1
+      #add_error_if_not_valid car,result
+
+      #add_error_if_not_valid client,result
+      if client.valid? && client.save
+        result[:success] += 1
       else
         puts "ERRORES!!!"
         puts client.errors.messages.inspect
-        failure += 1
+        result[:errors] << client
+        result[:failure] += 1
       end
 
       #if theres is event to add
       if row[18]
         service_type_name = row[18]
-        service_type = ServiceType.where("name like ?",service_type_name).first
+        service_type = ServiceType.find_by_name(service_type_name)
         if service_type
           car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
         end
@@ -522,11 +484,19 @@ class User < ActiveRecord::Base
       
     end
 
-    result[:summary] << ["Registros procesados", (success + failure)]
-    result[:summary] << ["Clientes agregados/actualizados", success]
-    result[:summary] << ["Clientes que no se han agregado", failure]
+    result[:summary] << ["registros procesados", (result[:success] + result[:failure])]
+    result[:summary] << ["Clientes agregados/actualizados", result[:success]]
+    result[:summary] << ["Clientes que no se han agregado", result[:failure]]
 
     result
   end
+
+  def self.add_error_if_not_valid model,result
+    unless model.valid?
+        result[:errors] << model
+        result[:failure] += 1
+    end
+  end
+
 end
 
