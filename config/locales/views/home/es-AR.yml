@@ -19,6 +19,7 @@ es-AR:
     default_actions:
       new_client: "Nuevo Cliente"
       create_new_client: "Crear Nuevo Cliente"
+      import_clients: "Importar Clientes"
     new_menu:
       alarms: "Alarmas"
       messages: "Mensajes"

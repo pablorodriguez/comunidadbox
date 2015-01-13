@@ -4,6 +4,7 @@
       %li
         - if company_id
           = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")}
+          = link_to t(".import_clients"),import_clients_path,{:title=>t(".import_clients")}
         - else      
           = link_to t("new_car"), new_car_path(:user_id=>current_user.id)
       = yield :actions

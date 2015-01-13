@@ -1,5 +1,5 @@
 class Car < ActiveRecord::Base
-  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :year, :model_id, :fuel, :user_id
+  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id,:brand, :year, :model_id,:model, :fuel, :user_id
 
   has_many :workorders
   has_many :budgets
@@ -63,6 +63,7 @@ class Car < ActiveRecord::Base
     if self.new_record?
       self.kmUpdatedAt = Time.new
     end
+
   end
 
   def update_km?

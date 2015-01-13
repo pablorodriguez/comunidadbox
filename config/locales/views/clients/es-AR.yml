@@ -60,16 +60,5 @@ es-AR:
       new_budget: "Nuevo Presupuesto"
       new_service: "Nuevo Servicio"
       modify_car: "Modificar Automóvil"
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    file_upload:
+      import_clients: "Importar Clientes"

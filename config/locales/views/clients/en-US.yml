@@ -62,3 +62,5 @@ en-US:
       new_budget: "New Budget"
       new_service: "New Service"
       modify_car: "Update Automovile"
+    file_upload:
+      import_clients: "Import Clients"

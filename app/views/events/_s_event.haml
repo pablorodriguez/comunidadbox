@@ -5,8 +5,9 @@
     .service.left
       = link_to s_event.service_type.name, s_event        
     .workorder.left.clear
-      %br
-      = link_to "Generado por ... #{s_event.service.workorder.id}", s_event.service.workorder      
+      - if s_event.service
+        %br
+        = link_to "Generado por ... #{s_event.service.workorder.id}", s_event.service.workorder      
       - if s_event.service_done
         %br
         = link_to "#{Status.status(s_event.status)} por ... #{s_event.service_done.workorder.id}", s_event.service_done.workorder    
