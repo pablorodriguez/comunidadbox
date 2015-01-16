@@ -215,7 +215,7 @@ class ClientsController < ApplicationController
     
     #validar que exista un file.. sino mostrar algun mensaje de error
 
-    @import_result = User.import_clients file, current_user, company_id, get_company
+    @import_result = User.import_clients file, current_user, get_company
 
     render :action => 'import'
   end

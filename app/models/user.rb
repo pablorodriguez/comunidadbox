@@ -68,11 +68,12 @@ class User < ActiveRecord::Base
 
   def set_default_data
     if self.new_record?
-      password = first_name + "test" unless first_name.nil?
-      password = "test" if first_name.nil?
-      password_confirmation = password
-      email = generate_email unless email
-      debugger
+      unless self.password
+        self.password = first_name + "test" unless first_name.nil?
+        self.password = "test" if first_name.nil?
+        self.password_confirmation = password
+      end
+      self.email = User.generate_email unless email
     end
   end
 
@@ -439,10 +440,10 @@ class User < ActiveRecord::Base
 # 16 ["kilometraje promedio mensual","2000"],
 # 17 ["kilometraje","252025"]
   
-  def self.import_clients(file, current_user, company_id, get_company)
+  def self.import_clients(file, current_user,company_id)
+    company = Company.find company_id
     csv_text = File.read(file.open,:encoding => 'iso-8859-1')
     csv = CSV.parse(csv_text, :headers => true)
-    
     result = {
       :summary => [],
       :errors => [],
@@ -461,6 +462,7 @@ class User < ActiveRecord::Base
       email = row[4]
 
       client = User.find_by_external_id external_id if external_id
+      debugger
       client = User.new if client.nil?            
 
       client.assign_attributes({ 
@@ -475,14 +477,15 @@ class User < ActiveRecord::Base
       #add_error_if_not_valid client,result
 
       if client.id.nil?
+        client.set_default_data
         client.external_id = external_id
         client.confirmed = true
 
         client.creator = current_user
 
         if client && company_id
-          unless client.service_centers.include?(get_company)
-            client.service_centers << get_company
+          unless client.service_centers.include?(company_id)
+            client.service_centers << company
           end
         end
 
