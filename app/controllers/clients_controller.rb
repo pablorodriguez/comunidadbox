@@ -133,7 +133,9 @@ class ClientsController < ApplicationController
   def new
     @client = User.new
     @client.build_address
-    @client.vehicles.build
+    # @client.vehicles.build
+    @client.cars.build
+    @client.motocycles.build(vehicle_motocycle: VehicleMotorcycle.new)
     if params[:b]
       @budget = Budget.find params[:b]
       @client.first_name = @budget.first_name
