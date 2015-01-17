@@ -19,6 +19,7 @@ en-US:
     default_actions:
       new_client: "New Client"
       create_new_client: "Crear Nuevo Cliente"
+      import_clients: "Import Clients"      
     new_menu:
       alarms: "Alarms"
       messages: "Messages"
@@ -27,4 +28,3 @@ en-US:
       register: "Register"
       service_providers: "Service Providers"
       help: "Help"
-    

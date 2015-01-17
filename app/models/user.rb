@@ -68,8 +68,19 @@ class User < ActiveRecord::Base
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
 
   NULL_ATTRS = %w( company_name cuit )
-  #before_save :nil_if_blank
+  before_save :set_default_data
   #validate :validate_all
+
+  def set_default_data
+    if self.new_record?
+      unless self.password
+        self.password = first_name + "test" unless first_name.nil?
+        self.password = "test" if first_name.nil?
+        self.password_confirmation = password
+      end
+      self.email = User.generate_email unless email
+    end
+  end
 
   def search_material_request(status,detail)
     if self.is_super_admin?
@@ -415,7 +426,140 @@ class User < ActiveRecord::Base
     mail
   end
 
+# 0  ["Id externo","123456"],
+# 1  ["Nombre","Jaime"],
+# 2  ["Apellido","Gil"],
+# 3  ["Teléfono","2616585858"],
+# 4  ["Email","jaimito@jaime.com"],
+# 5  ["CUIT",null],
+# 6  ["Razón Social",null],
+# 7  ["Provincia","Mendoza"],
+# 8  ["Ciudad","Mendoza"],
+# 9  ["Calle","Beltran 158"],
+# 10 ["Código Postal","5500"],
+# 11 ["Dominio","UGB376"],
+# 12 ["Marca","Fiat"],
+# 13 ["Modelo","Palio"],
+# 14 ["Combusitble","Diesel"],
+# 15 ["Año","2000"],
+# 16 ["kilometraje promedio mensual","2000"],
+# 17 ["kilometraje","252025"]
+  
+  def self.import_clients(file, current_user,company_id)
+    company = Company.find company_id
+    csv_text = File.read(file.open,:encoding => 'iso-8859-1')
+    csv = CSV.parse(csv_text, :headers => true)
+    result = {
+      :summary => [],
+      :errors => [],
+      :failure => 0,
+      :success => 0
+    }
 
+
+    i = 1
+    success = 0
+    failure = 0
+
+    csv.each do |row|
+      i+=1
+      external_id = row[0]
+      email = row[4]
+
+      client = User.find_by_external_id external_id if external_id
+      debugger
+      client = User.new if client.nil?            
+
+      client.assign_attributes({ 
+        :first_name => row[1], 
+        :last_name => row[2],
+        :cuit => row[5],
+        :phone => row[3],
+        :company_name => row[6],
+        :email => email
+      })
+
+      #add_error_if_not_valid client,result
+
+      if client.id.nil?
+        client.set_default_data
+        client.external_id = external_id
+        client.confirmed = true
+
+        client.creator = current_user
+
+        if client && company_id
+          unless client.service_centers.include?(company_id)
+            client.service_centers << company
+          end
+        end
+
+      end
+
+      #cargo direccion
+      client.address = Address.new({
+        :state => State.find_by_name(row[7]),
+        :city => row[8],
+        :street => row[9],
+        :zip => row[10]
+      })
+
+      #cargo automovil
+      domain = row[11]
+      
+      car = client.cars.where("domain = ?",domain).first
+      if car.nil?
+        car = Car.new({:domain => domain})
+        client.cars << car
+      end
+
+      car.assign_attributes({
+        :km => row[17], 
+        :kmAverageMonthly => row[16],
+        :brand => Brand.find_by_name(row[12]), 
+        :year => row[15], 
+        :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first, 
+        :fuel => row[14]
+      })
+      debugger
+
+      #add_error_if_not_valid car,result
+
+      #add_error_if_not_valid client,result
+      if client.valid? && client.save
+        result[:success] += 1
+      else
+        puts "ERRORES!!!"
+        puts client.errors.messages.inspect
+        result[:errors] << client
+        result[:failure] += 1
+      end
+
+      #if theres is event to add
+      if row[18]
+        service_type_name = row[18]
+        service_type = ServiceType.find_by_name(service_type_name)
+        if service_type
+          car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
+        end
+        
+      end
+      
+    end
+
+    result[:summary] << ["registros procesados", (result[:success] + result[:failure])]
+    result[:summary] << ["Clientes agregados/actualizados", result[:success]]
+    result[:summary] << ["Clientes que no se han agregado", result[:failure]]
+
+    result
+  end
+
+  def self.add_error_if_not_valid model,result
+    unless model.valid?
+        result[:errors] << model
+        result[:failure] += 1
+    end
+  end
 
 end
 

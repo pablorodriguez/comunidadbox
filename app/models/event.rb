@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Event < ActiveRecord::Base
-  attr_accessible :vehicle, :km, :service_type, :status, :dueDate
+  attr_accessible :vehicle, :km, :service_type, :status, :dueDate, :service_type_id
 
   belongs_to :service_type
   belongs_to :vehicle

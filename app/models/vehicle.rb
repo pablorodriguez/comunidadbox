@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Vehicle < ActiveRecord::Base
-  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :year, :model_id, :fuel, :user_id
+  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :brand, :year, :model_id, :model, :fuel, :user_id
 
   has_many :workorders
   has_many :budgets

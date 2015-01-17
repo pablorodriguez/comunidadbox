@@ -5,8 +5,6 @@ class ServiceType < ActiveRecord::Base
 
   has_many :material_service_type
   has_many :materials ,:through => :material_service_type
-  has_many :company_services
-  has_many :companies, :through => :company_services
   has_many :events
   has_many :service_filters
   has_many :material_requests

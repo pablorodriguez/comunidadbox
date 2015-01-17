@@ -710,6 +710,7 @@ ActiveRecord::Schema.define(:version => 20141211204639) do
     t.string   "authenticatable"
     t.string   "invitation_token"
     t.integer  "user_type"
+    t.string   "external_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

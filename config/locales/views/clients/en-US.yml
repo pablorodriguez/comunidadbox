@@ -68,3 +68,6 @@ en-US:
       new_service: "New Service"
       modify_car: "Update Automovile"
       modify_vehicle: "Update Automovile"
+    file_upload:
+      import_clients: "Import Clients"
+

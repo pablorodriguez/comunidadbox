@@ -7,6 +7,10 @@ class PriceList < ActiveRecord::Base
   alias :prices :price_list_items
   
   @@code_nro=0
+
+  def can_edit?(user)
+    user.own(self.company)
+  end
   
   def price(material_code,service_type_id)
     m = Material.find_by_code(material_code)

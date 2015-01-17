@@ -205,5 +205,22 @@ class ClientsController < ApplicationController
       redirect_to clients_path
     end
   end
+
+  def import
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def upload
+    file = params[:file]
+    
+    #validar que exista un file.. sino mostrar algun mensaje de error
+
+    @import_result = User.import_clients file, current_user, get_company
+
+    render :action => 'import'
+  end
+
 end
 
