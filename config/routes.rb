@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 ComunidadBox::Application.routes.draw do
 
   # The priority is based upon order of creation:

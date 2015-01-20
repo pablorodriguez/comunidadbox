@@ -305,7 +305,7 @@ module ApplicationHelper
   end
 
   def find_models vehicle
-    model = Model.find_all_by_brand_id(vehicle.brand_id,:order=>:name)
+    model = Model.find_all_by_brand_id(vehicle.brand_id, :order => :name)
     model
   end
 

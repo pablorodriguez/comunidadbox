@@ -21,6 +21,15 @@ en-US:
       mileage_monthly_average: Mileage Monthly Average
       fuel: "Fuel"
       mileage: "Mileage"
+    motorcycle_fields:
+      domain: "Domain"
+      brand: "Brand"
+      year: "Year"
+      model: "Model"
+      mileage_monthly_average: Mileage Monthly Average
+      fuel: "Fuel"
+      mileage: "Mileage"
+      chassis: "Chassis"
     vehicle_fields:
       domain: "Domain"
       brand: "Brand"

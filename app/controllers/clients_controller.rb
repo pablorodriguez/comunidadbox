@@ -135,16 +135,19 @@ class ClientsController < ApplicationController
     @client.build_address
     # @client.vehicles.build
     @client.cars.build
-    @client.motocycles.build(vehicle_motocycle: VehicleMotorcycle.new)
+    @client.motorcycles.build
     if params[:b]
       @budget = Budget.find params[:b]
       @client.first_name = @budget.first_name
       @client.last_name =  @budget.last_name
       @client.email = @budget.email
       @client.phone = @budget.phone
-      @client.vehicles.first.domain = @budget.domain
-      @client.vehicles.first.brand = @budget.brand
-      @client.vehicles.first.model =@budget.model
+      @client.cars.first.domain = @budget.domain
+      @client.cars.first.brand = @budget.brand
+      @client.cars.first.model =@budget.model
+      @client.motorcycles.first.domain = @budget.domain
+      @client.motorcycles.first.brand = @budget.brand
+      @client.motorcycles.first.model =@budget.model
       flash.now.notice ="Antes de registrar un servicio por favor cree el cliente"
     end
     respond_to do |format|
@@ -214,7 +217,7 @@ class ClientsController < ApplicationController
 
   def upload
     file = params[:file]
-    
+
     #validar que exista un file.. sino mostrar algun mensaje de error
 
     @import_result = User.import_clients file, current_user, get_company
