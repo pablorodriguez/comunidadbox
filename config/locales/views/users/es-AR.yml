@@ -21,6 +21,16 @@ es-AR:
       mileage_monthly_average: "Kilometraje promedio mensual"
       fuel: "Combustible"
       mileage: "Kilometraje"
+      chassis: "Chasis"
+    motorcycle_fields:
+      domain: "Dominio"
+      brand: "Marca"
+      year: "Año"
+      model: "Modelo"
+      mileage_monthly_average: "Kilometraje promedio mensual"
+      fuel: "Combustible"
+      mileage: "Kilometraje"
+      chassis: "Chasis"
     vehicle_fields:
       domain: "Dominio"
       brand: "Marca"

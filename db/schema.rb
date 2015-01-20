@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141211204639) do
+ActiveRecord::Schema.define(:version => 20150119224343) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -717,15 +717,6 @@ ActiveRecord::Schema.define(:version => 20141211204639) do
   add_index "users", ["employer_id"], :name => "users_employer_id_fk"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
-  create_table "vehicle_motorcycles", :force => true do |t|
-    t.string   "chassis"
-    t.integer  "motorcycle_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "vehicle_motorcycles", ["motorcycle_id"], :name => "index_vehicle_motorcycles_on_motorcycle_id"
-
   create_table "vehicle_service_offers", :force => true do |t|
     t.integer  "vehicle_id"
     t.integer  "service_offer_id"
@@ -755,6 +746,7 @@ ActiveRecord::Schema.define(:version => 20141211204639) do
     t.datetime "updated_at"
     t.datetime "kmUpdatedAt"
     t.string   "type",             :default => "Car"
+    t.string   "chassis"
   end
 
   add_index "vehicles", ["brand_id"], :name => "cars_brand_id_fk"

@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_many :service_filters,:order =>'name'
   has_many :vehicles
   has_many :cars
-  has_many :motocycles
+  has_many :motorcycles
 
 
   has_many :authentications
@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
   # accepts_nested_attributes_for :vehicles,:reject_if => :all_blank
   accepts_nested_attributes_for :cars, :reject_if => :all_blank
-  accepts_nested_attributes_for :motocycles, :reject_if => :all_blank
+  accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
   scope :enabled , where("disable is NULL")
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
@@ -444,7 +444,7 @@ class User < ActiveRecord::Base
 # 15 ["Año","2000"],
 # 16 ["kilometraje promedio mensual","2000"],
 # 17 ["kilometraje","252025"]
-  
+
   def self.import_clients(file, current_user,company_id)
     company = Company.find company_id
     csv_text = File.read(file.open,:encoding => 'iso-8859-1')
@@ -468,10 +468,10 @@ class User < ActiveRecord::Base
 
       client = User.find_by_external_id external_id if external_id
       debugger
-      client = User.new if client.nil?            
+      client = User.new if client.nil?
 
-      client.assign_attributes({ 
-        :first_name => row[1], 
+      client.assign_attributes({
+        :first_name => row[1],
         :last_name => row[2],
         :cuit => row[5],
         :phone => row[3],
@@ -506,7 +506,7 @@ class User < ActiveRecord::Base
 
       #cargo automovil
       domain = row[11]
-      
+
       car = client.cars.where("domain = ?",domain).first
       if car.nil?
         car = Car.new({:domain => domain})
@@ -514,11 +514,11 @@ class User < ActiveRecord::Base
       end
 
       car.assign_attributes({
-        :km => row[17], 
+        :km => row[17],
         :kmAverageMonthly => row[16],
-        :brand => Brand.find_by_name(row[12]), 
-        :year => row[15], 
-        :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first, 
+        :brand => Brand.find_by_name(row[12]),
+        :year => row[15],
+        :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first,
         :fuel => row[14]
       })
       debugger
@@ -542,9 +542,9 @@ class User < ActiveRecord::Base
         if service_type
           car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
         end
-        
+
       end
-      
+
     end
 
     result[:summary] << ["registros procesados", (result[:success] + result[:failure])]
