@@ -1,6 +1,8 @@
 # encoding: utf-8
 class VehiclesController < ApplicationController
   authorize_resource
+  # before_action :set_type, only: [:show, :edit, :update, :destroy]
+  before_filter :set_vehicle
 
   layout "application", :except => [:search,:find_models,:search_companies,:km]
   skip_before_filter :authenticate_user!,:only => [:find_models]
@@ -173,7 +175,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles/new
   # GET /vehicles/new.xml
   def new
-    @vehicle = Vehicle.new
+    @vehicle = vehicle_class.new
     if params[:user_id]
       user = User.find params[:user_id]
     else
@@ -210,12 +212,12 @@ class VehiclesController < ApplicationController
   # POST /vehicles
   # POST /vehicles.xml
   def create
-    @vehicle = Vehicle.new(params[:vehicle])
+    @vehicle = vehicle_class.new(params[:vehicle])
     @vehicle.company = get_company
     parameters = {:vehicle_id => @vehicle.id}
     if params[:budget_id]
       parameters[:b] = params[:budget_id]
-      b =Budget.find params[:budget_id]
+      b = Budget.find params[:budget_id]
 
     end
 
@@ -227,7 +229,7 @@ class VehiclesController < ApplicationController
         end
         format.html { redirect_to(new_workorder_path(:b=>b))} if b
 
-        format.html { redirect_to(new_workorder_path(:vehicle_id=>@vehicle))} if current_user.is_employee?
+        format.html { redirect_to(new_workorder_path(:vehicle_id => @vehicle))} if current_user.is_employee?
 
         format.html { redirect_to(my_vehicles_path)} unless current_user.is_employee?
       else
@@ -265,6 +267,24 @@ class VehiclesController < ApplicationController
       format.html { redirect_to(vehicles_url) }
       format.js { render :layout => false}
     end
+  end
+
+  private
+
+  def set_vehicle
+    @vehicle = vehicle
+  end
+
+  def vehicle
+    Vehicle.vehicles.include?(params[:type]) ? params[:type] : 'Vehicle'
+  end
+
+  def vehicle_class
+    vehicle.constantize
+  end
+
+  def set_type
+    @vehicle = vehicle_class.find(params[:id])
   end
 
 end

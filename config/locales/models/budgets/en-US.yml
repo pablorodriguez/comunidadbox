@@ -1,12 +1,14 @@
 en-US:
   #must_have_services: You must have a Service Type
   car_not_user: "The car does not belong to user"
+  vehicle_not_user: "The vehicle does not belong to user"
   activerecord:
     models:
       budget: 
     attributes:
       budget:
         car: "Car"
+        vehicle: "Vehicle"
         user: "Client"
         first_name: "First first_name"
         last_name: "Last Name"

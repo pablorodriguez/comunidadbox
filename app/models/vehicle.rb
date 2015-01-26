@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Vehicle < ActiveRecord::Base
-  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :year, :model_id, :fuel, :user_id
+  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :brand, :year, :model_id, :model, :fuel, :user_id, :type
 
   has_many :workorders
   has_many :budgets
@@ -24,6 +24,8 @@ class Vehicle < ActiveRecord::Base
   before_save :set_new_attribute
   after_save :update_events
 
+  scope :cars, -> { where(type: 'Car') }
+  scope :motorcycles, -> { where(type: 'Motorcycle') }
 
   attr_accessor :today_service_offer
 
@@ -140,6 +142,10 @@ class Vehicle < ActiveRecord::Base
         json.domain vehicle.domain
       end
     end
+  end
+
+  def self.vehicles
+    %w(Car Motorcycle)
   end
 
 end

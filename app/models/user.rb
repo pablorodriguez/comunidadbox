@@ -18,16 +18,20 @@ class User < ActiveRecord::Base
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
 
-  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes,:employer_id, :role_ids, :user_type
+  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes,
+                  :address_attributes, :password, :password_confirmation, :companies_attributes,
+                  :employer_id, :role_ids, :user_type, :cars_attributes, :motorcycles_attributes
 
   attr :type, true
 
   enumerize :user_type, in: {:vehicle_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
   has_many :service_filters,:order =>'name'
+
   has_many :vehicles
   has_many :cars
   has_many :motorcycles
+  # delegate :cars, :motorcycles, to: :vehicles
 
 
   has_many :authentications
@@ -58,9 +62,9 @@ class User < ActiveRecord::Base
   #validates_presence_of :vehicles, :on => :create
 
 
-  accepts_nested_attributes_for :address,:reject_if => :all_blank
-  accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
-  # accepts_nested_attributes_for :vehicles,:reject_if => :all_blank
+  accepts_nested_attributes_for :address, :reject_if => :all_blank
+  accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
+  # accepts_nested_attributes_for :vehicles, :reject_if => :all_blank
   accepts_nested_attributes_for :cars, :reject_if => :all_blank
   accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 

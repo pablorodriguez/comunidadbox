@@ -1,12 +1,14 @@
 es-AR:
   must_have_services: Debe tener un Tipo de Servicio
   car_not_user: "El automovil no pertenece al usuario"
+  vehicle_not_user: "El vehiculo no pertenece al usuario"
   activerecord:
     models:
       budget: "Automóvil"
     attributes:
       budget:
         car: "Automóvil"
+        vehicle: "Vehiculo"
         user: "Cliente"
         first_name: "Nombre"
         last_name: "Apellido"

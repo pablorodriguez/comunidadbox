@@ -50,6 +50,22 @@ es-AR:
       domain: "Dominio"
       brand: "Marca"
       model: "Modelo"
+    no_vehicle:
+      vehicle: "Vehiculo" 
+      domain: "Dominio"
+      brand: "Marca"
+      model: "Modelo"
+      phone: "Teléfono"
+      email: "Correo "
+    vehicle:
+      vehicle: "Vehiculo"
+      domain: "Dominio"
+      brand: "Marca"
+      model: "Modelo"
+    vehicle_row:
+      domain: "Dominio"
+      brand: "Marca"
+      model: "Modelo"
     form:
       comment: "Comentario"
     services_list:

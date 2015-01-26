@@ -35,6 +35,6 @@
           = link_to "","#",:data => {:vehicle_id=>"#{vehicle.id}"},:title=>t(".new_service"),:class=>"new_service"
       - if current_user.can_edit?(vehicle.user)
         .action
-          = link_to "",edit_vehicle_path(vehicle),{:title=>t(".update_car"),:class=>"edit"}
+          = link_to "",edit_vehicle_path(vehicle),{:title=>t(".update_vehicle"),:class=>"edit"}
 
 = will_paginate vehicles

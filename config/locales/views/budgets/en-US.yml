@@ -48,6 +48,20 @@ en-US:
       domain: "Domain"
       brand: "Brand"
       model: "Model"
+    no_vehicle: 
+      vehicle: "Vehicle" 
+      domain: "Domain"
+      brand: "Marca"
+      model: "Modelo"
+    vehicle:
+      vehicle: "Vehicle"
+      domain: "Domain"
+      brand: "Brand"
+      model: "Model"
+    vehicle_row:
+      domain: "Domain"
+      brand: "Brand"
+      model: "Model"
     form:
       comment: "Comment"
     services_list:
@@ -55,13 +69,3 @@ en-US:
       select_type_of_service: "Select Service Type"
       save: "Save"
       cancel: "Cancel"
-
-      
-      
-
-
-
-
-
-
-    

@@ -9,10 +9,12 @@ es-AR:
       new_car: "Nuevo Automóvil"
       send_message: "Enviar Mensaje"
       car_delete_confirm: "Desea eliminar Automóvil?"
-      vehicle_delete_confirm: "Desea eliminar Automóvil?"
+      motorcycle_delete_confirm: "Desea eliminar Motocicleta?"
+      vehicle_delete_confirm: "Desea eliminar Vehiculo?"
       delete: "Borrar"
       modify_car: "Modificar Automóvil"
-      modify_vehicle: "Modificar Automóvil"
+      modify_motorcycle: "Modificar Motocicleta"
+      modify_vehicle: "Modificar Vehiculo"
       new_service: "Nuevo Servicio"
     new:
       new_client: "Nuevo Cliente"
@@ -20,7 +22,8 @@ es-AR:
     form:
       personal_information: "Información Personal"
       car_information: "Información de su auto"
-      vehicle_information: "Información de su auto"
+      motorcycle_information: "Información de su moto"
+      vehicle_information: "Información de su vehiculo"
       address_information: "Dirección Personal"
       save: "Grabar"
       cancel: "Cancelar"
@@ -30,7 +33,8 @@ es-AR:
       create_new_client: "Crear Nuevo Cliente"
       modify_client: "Modificar Cliente"
       new_car: "Nuevo Automóvil"
-      new_vehicle: "Nuevo Automóvil"
+      new_motorcycle: "Nueva Motocicleta"
+      new_vehicle: "Nuevo Vehiculo"
     edit:
       modify_client: "Modificar Cliente"
       personal_information: "Información Personal"
@@ -64,7 +68,8 @@ es-AR:
       new_budget: "Nuevo Presupuesto"
       new_service: "Nuevo Servicio"
       modify_car: "Modificar Automóvil"
-      modify_vehicle: "Modificar Automóvil"
+      modify_motorcycle: "Modificar Motocicleta"
+      modify_vehicle: "Modificar Vehiculo"
     file_upload:
       import_clients: "Importar Clientes"
 

@@ -8,6 +8,7 @@ en-US:
         last_name: "Last Name"
         password: "Password"
         cars: "Information from your Car"
+        vehicles: "Information from your Vehicle"
         address: "Personal Address"
     erros:
       unique_domain_per_user: "already registered"     
