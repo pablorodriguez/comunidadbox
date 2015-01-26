@@ -1,3 +1,5 @@
+# coding: utf-8
+
 FactoryGirl.define do
 
 
@@ -55,5 +57,11 @@ FactoryGirl.define do
     active 1      
   end
   
+  factory :service_on_warranty, class: ServiceType do
+    id 10
+    name "Servicio en Garantía"
+    kms 0
+    active 1      
+  end
 end
 
