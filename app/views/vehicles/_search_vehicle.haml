@@ -1,7 +1,7 @@
 %h3=t(".search_vehicles")
 #vehicle_search.left
   .form
-    = form_tag vehicles_path, :remote =>true,:method =>:get do |f|
+    = form_tag sti_vehicle_path, :remote =>true,:method =>:get do |f|
       = hidden_field_tag :company_id,"a"
       %table.w
         %tr

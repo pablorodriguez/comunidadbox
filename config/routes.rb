@@ -185,28 +185,6 @@ ComunidadBox::Application.routes.draw do
       end
     end
 
-    resources :cars do
-      resources :alarms
-      resources :notes
-
-      collection do
-        post :find_models
-        post :search
-        post :search_companies
-        get :my
-      end
-
-      member do
-        put :km
-        get :services_done
-        get :future_events
-        get :report_graph
-        get :notes
-        get :alarms
-        get :messages
-      end
-    end
-
     resources :vehicles do
       resources :alarms
       resources :notes
@@ -228,6 +206,51 @@ ComunidadBox::Application.routes.draw do
         get :messages
       end
     end
+
+    resources :cars, controller: 'vehicles', type: 'Car' do
+      resources :alarms
+      resources :notes
+
+      collection do
+        post :find_models
+        post :search
+        post :search_companies
+        get :my
+      end
+
+      member do
+        put :km
+        get :services_done
+        get :future_events
+        get :report_graph
+        get :notes
+        get :alarms
+        get :messages
+      end
+    end
+
+    resources :motorcycles, controller: 'vehicles', type: 'Motorcycle' do
+      resources :alarms
+      resources :notes
+
+      collection do
+        post :find_models
+        post :search
+        post :search_companies
+        get :my
+      end
+
+      member do
+        put :km
+        get :services_done
+        get :future_events
+        get :report_graph
+        get :notes
+        get :alarms
+        get :messages
+      end
+    end
+
 
     resources :users do
       resources :messages

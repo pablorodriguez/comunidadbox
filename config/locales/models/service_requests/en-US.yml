@@ -8,4 +8,5 @@ en-US:
         service_type: "Service Type"
         company: "Company"
         car: "Car"
+        vehicle: "Vehicle"
         status: "Status"

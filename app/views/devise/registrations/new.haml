@@ -10,8 +10,12 @@
       = render 'users/user_row',:f => f
 
   %h2 Información de su auto
-  =f.fields_for :vehicles do |c|
-    = render 'users/car_fields',:f =>c
+  = f.fields_for :cars do |c|
+    = render 'users/car_fields', :f => c
+
+  %h2 Información de su moto
+  = f.fields_for :motorcycles do |m|
+    = render 'users/motorcyc0le_fields', :f => m
 
   %h2 Dirección
   =f.fields_for :address do |a|

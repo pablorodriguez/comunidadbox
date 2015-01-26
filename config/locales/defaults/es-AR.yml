@@ -21,11 +21,11 @@ es-AR:
   until: "Hasta"
   new_client: "Nuevo Cliente"
   car_delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
-  vehicle_delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
+  vehicle_delete_confirm: ¿ Esta seguro que desea borrar el Vehiculo ?
   client_delete_confirm: "¿Esta seguro que desea borrar al Cliente?"
   help_user_registration: "Registración de Usuario"
   help_new_service_own_car: "Dueño de Automóvil registra un servicio"
-  help_new_service_own_vehicle: "Dueño de Automóvil registra un servicio"
+  help_new_service_own_vehicle: "Dueño de Vehiculo registra un servicio"
   help_what_is_comunidadbox: "¿ Que es ComunidadBox ?"
   help_new_client_service_budget: "Prestado de Servicio registra un Cliente, Servicio y Presupuesto"
   help_confirm_user: "Confirmar Usuario"
@@ -103,7 +103,7 @@ es-AR:
       errors_prohibited_plural: "Se produjeron los siguientes %{count} errores"
       errors_prohibited_singular: "Se produjo el siguiente error"
   new_car: "Nuevo Automóvil"
-  new_vehicle: "Nuevo Automóvil"
+  new_vehicle: "Nuevo Vehiculo"
   service_offer: Oferta de Servicio
   show_ad_title: "Titulo"
   show_ad_name: Nombre
@@ -129,7 +129,7 @@ es-AR:
 
   workorder: Orden de Trabajo
   car: Automóvil
-  vehicle: Automóvil
+  vehicle: Vehiculo
   client: Cliente
   salesman: Vendedor
   workorder_date: Fecha
