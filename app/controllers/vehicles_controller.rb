@@ -47,8 +47,8 @@ class VehiclesController < ApplicationController
   def km
     @vehicle = Vehicle.find(params[:id])
     @vehicle.kmUpdatedAt = Time.zone.now
-    new_km = params[:vehicle][:km].to_i
-    new_avg= params[:vehicle][:kmAverageMonthly].to_i
+    new_km = params[:car][:km].to_i
+    new_avg= params[:car][:kmAverageMonthly].to_i
 
     @msg = ""
     # valido si cambio km o kmAverageMonthly

@@ -471,7 +471,6 @@ class User < ActiveRecord::Base
       email = row[4]
 
       client = User.find_by_external_id external_id if external_id
-      debugger
       client = User.new if client.nil?
 
       client.assign_attributes({
@@ -525,7 +524,6 @@ class User < ActiveRecord::Base
         :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first,
         :fuel => row[14]
       })
-      debugger
 
       #add_error_if_not_valid car,result
 

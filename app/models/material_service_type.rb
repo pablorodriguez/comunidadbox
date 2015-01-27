@@ -81,7 +81,6 @@ class MaterialServiceType < ActiveRecord::Base
       mst = find(mst_id)
 
       item = PriceListItem.where("price_list_id = ? and material_service_type_id = ?",plid,mst_id).first
-      debugger
       #find_by_price_list_id_and_material_service_type_id(plid, row['id'])
       if row['price'].present?
         if item && item.price != row['price'].to_f

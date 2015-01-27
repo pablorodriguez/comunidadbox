@@ -14,7 +14,6 @@ class Material < ActiveRecord::Base
   belongs_to :company
   
   def self.all_materials(price_list)
-    debugger
     comp_id = price_list.company_id
     comp_service_type = Company.find(comp_id).service_types #CompanyService.where("company_id = ?",comp_id)
     service_types_ids = comp_service_type.map(&:service_type_id)

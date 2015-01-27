@@ -156,7 +156,6 @@ class Ability
     end
 
     can [:import,:read], PriceList do |pl|
-      debugger
       pl.can_edit?(user) && (user.is_administrator? || user.is_manager?)
     end
  
