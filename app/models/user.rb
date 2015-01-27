@@ -476,7 +476,7 @@ class User < ActiveRecord::Base
       email = row[4]
 
       client = User.find_by_external_id external_id if external_id
-      client = User.new if client.nil?            
+      client = User.new if client.nil?
 
       client.assign_attributes({
         :first_name => row[1],
