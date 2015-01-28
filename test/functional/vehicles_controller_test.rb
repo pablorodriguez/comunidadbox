@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CarsControllerTest < ActionController::TestCase
+class VehiclesControllerTest < ActionController::TestCase
   
   setup do    
     create_all_default_data

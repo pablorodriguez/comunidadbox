@@ -9,7 +9,7 @@ class ClientsControllerTest < ActionController::TestCase
   end
 
 
-  test "should create a client" do
+  test "should create a client with a car" do
   car = build("HRJ549")
   @request.cookies["company_id"]= @employer.company.id.to_s
   sign_in @employer
@@ -40,4 +40,37 @@ class ClientsControllerTest < ActionController::TestCase
   end
   assert_redirected_to clients_path
   end
+  
+  test "should create a client with a motorcycle" do
+  motorcycle = build("m549HRJ")
+  @request.cookies["company_id"]= @employer.company.id.to_s
+  sign_in @employer
+  assert_difference('User.count',1,"no hay nuevos clientes") do
+    post :create, :user => {
+      :first_name => "Pablo",
+      :last_name => "Rodriguez",
+      :phone => "4526157",
+      :email => "pablo@rodriguez.com",
+      
+      :motorcycle_attributes => [
+        {
+          :domain => motorcycle.domain,
+          :brand_id => motorcycle.brand_id,
+          :model_id => motorcycle.model_id,
+          :kmAverageMonthly => motorcycle.kmAverageMonthly,
+          :km => motorcycle.km,
+          :year => motorcycle.year
+        }
+      ],
+      :address_attributes => {
+        :city =>"Godoy Cruz",
+        :street => "Portugal 1324",
+        :zip => "5501",
+        :state_id => State.find(1).id
+      }
+    }
+  end
+  assert_redirected_to clients_path
+  end
+  
 end

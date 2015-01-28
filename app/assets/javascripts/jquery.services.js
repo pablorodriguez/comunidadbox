@@ -169,8 +169,8 @@ function set_service_offer(){
   var text = opt.text();
   ele.next().val(id);  
   var tr = ele.parent().parent();
-  tr.find(".car_service_offer_price").html(text);
-  tr.find(".car_service_offer_link").attr("href","/car_service_offers/" + id);  
+  tr.find(".vehicle_service_offer_price").html(text);
+  tr.find(".vehicle_service_offer_link").attr("href","/vehicle_service_offers/" + id);  
 }
 
 function showTask(ele){

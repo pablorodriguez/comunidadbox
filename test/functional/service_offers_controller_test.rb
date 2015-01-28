@@ -9,7 +9,7 @@ class ServiceOffersControllerTest < ActionController::TestCase
     @pablo = create(:pablo_rodriguez)
     @user = create(:imr_admin)
     @so = create(:so_ad_1_day,:company => @employer.company)
-    @so1 = create(:so_ad_1_day,:company => @employer.company, :cars => @pablo.cars)
+    @so1 = create(:so_ad_1_day,:company => @employer.company, :vehicles => @pablo.cars)
     @so2 = create(:so_ad_2_day,:company => @employer.company)
   end
 

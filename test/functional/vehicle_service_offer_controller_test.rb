@@ -1,6 +1,6 @@
 require 'test_helper'
 		  
-class CarServiceOffersControllerTest < ActionController::TestCase
+class VehicleServiceOffersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   setup do    
     create_all_default_data    
@@ -13,17 +13,17 @@ class CarServiceOffersControllerTest < ActionController::TestCase
   
   end
 
-  test "car service offer list" do
+  test "vehicle service offer list" do
     #sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  cso1 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
-	  cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso1.vehicle_service_offers.create(:vehicle => @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  cso2 = create(:so_change_oil,:company => @imer_admin.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso2.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso2.vehicle_service_offers.create(:vehicle => @pablo.cars.first,:status => Status::CONFIRMED)
 
     @request.env["devise.mapping"] = Devise.mappings[:user]    
     sign_in @pablo
@@ -33,21 +33,21 @@ class CarServiceOffersControllerTest < ActionController::TestCase
 	    get :index
 	    assert_response :success
 	    assert_template :index      
-      assert_not_nil assigns(:car_service_offers)
+      assert_not_nil assigns(:vehicle_service_offers)
     	assert_select("div.row",:count => 2)
 	  
     end
 
   end
 
- 	test "show car service from my company" do
+ 	test "show vehicle service from my company" do
     #sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso = so.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso = so.vehicle_service_offers.create(:vehicle => @pablo.cars.first,:status => Status::CONFIRMED)
 
     @request.env["devise.mapping"] = Devise.mappings[:user]    
     sign_in @employer
@@ -62,14 +62,14 @@ class CarServiceOffersControllerTest < ActionController::TestCase
 
   end
 
- 	test "show car service car owner" do
+ 	test "show vehicle service vehicle owner" do
     #sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso = so.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso = so.vehicle_service_offers.create(:vehicle => @pablo.cars.first,:status => Status::CONFIRMED)
 
     @request.env["devise.mapping"] = Devise.mappings[:user]    
     sign_in @pablo
@@ -84,14 +84,14 @@ class CarServiceOffersControllerTest < ActionController::TestCase
 
   end
 
-  test "show other car service car owner" do
+  test "show other vehicle service vehicle owner" do
     #sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  so = create(:so_change_oil,:company => @imer_admin.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso = so.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso = so.vehicle_service_offers.create(:vehicle => @pablo.cars.first,:status => Status::CONFIRMED)
 
     @request.env["devise.mapping"] = Devise.mappings[:user]    
     sign_in @pablo
@@ -107,14 +107,14 @@ class CarServiceOffersControllerTest < ActionController::TestCase
   end
 
 
-  test "show car service from other company" do
+  test "show vehicle service from other company" do
     #sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  so = create(:so_change_oil,:company => @imer_admin.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso = so.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso = so.vehicle_service_offers.create(:vehicle => @pablo.cars.first,:status => Status::CONFIRMED)
 
     @request.env["devise.mapping"] = Devise.mappings[:user]    
     sign_in @employer
