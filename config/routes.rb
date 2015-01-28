@@ -320,7 +320,7 @@ ComunidadBox::Application.routes.draw do
 
     end
 
-    resources :car_service_offers do
+    resources :vehicle_service_offers do
       member do
         get :confirm
         get :reject

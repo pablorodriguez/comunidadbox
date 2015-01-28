@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CarServiceOfferTest < ActiveSupport::TestCase
+class VehicleServiceOfferTest < ActiveSupport::TestCase
   setup do
     create_all_default_data    
     @pablo =  create(:pablo_rodriguez)
@@ -10,13 +10,13 @@ class CarServiceOfferTest < ActiveSupport::TestCase
   end
 
 
-  test "get car service offer" do
+  test "get vehicle service offer" do
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
 
     now = date_ini + 2.days
 	  service_offer = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end)
-	  service_offer.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  service_offer.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 	  
     Timecop.freeze(date_ini + 1.day) do
 	  	cso = @pablo.cars.first.search_service_offer @employer.company_id
@@ -25,20 +25,20 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 
   end
 
-  test "get car service offer different days 2" do
+  test "get vehicle service offer different days 2" do
   	#sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  cso1 = create(:so_change_oil,:price =>333,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
-	  cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso1.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  cso2 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso2.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso2.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 		cso3 = create(:so_change_oil,:company => @employer.company,:since =>date_end + 1.day,:until=>date_end + 15.days)
-	  cso3.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso3.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  #Detengo el tiempo al sabado 1 de Diciembre del 2012
     Timecop.freeze(date_ini) do
@@ -48,20 +48,20 @@ class CarServiceOfferTest < ActiveSupport::TestCase
   
   end
 
-  test "get car service offer different days 1" do
+  test "get vehicle service offer different days 1" do
     #sabado 1 de Diciembre del 2012
     date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
     cso1 = create(:so_change_oil,:price =>333,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
-    cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+    cso1.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
     cso2 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-    cso2.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+    cso2.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
     cso3 = create(:so_change_oil,:company => @employer.company,:since =>date_end + 1.day,:until=>date_end + 15.days)
-    cso3.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+    cso3.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 
     #Detengo el tiempo al sabado 1 de Diciembre del 2012
@@ -72,17 +72,17 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 
   end
 
-	test "get car service offer different companies" do
+	test "get vehicle service offer different companies" do
   	#sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  cso1 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
-	  cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso1.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  cso2 = create(:so_change_oil,:company => @imer_admin.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso2.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso2.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  #Detengo el tiempo al sabado 1 de Diciembre del 2012
     Timecop.freeze(date_ini) do
@@ -97,17 +97,17 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 
   end
 
-	test "get car service offer different status" do
+	test "get vehicle service offer different status" do
   	#sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  cso1 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
-	  cso1.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso1.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  cso2 = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  cso2.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::SENT)
+	  cso2.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::SENT)
 
 	  #Detengo el tiempo al sabado 1 de Diciembre del 2012
     Timecop.freeze(date_ini) do
@@ -117,21 +117,21 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 
   end
 
-  test "do not list car service offer that belong to a workorder" do
+  test "do not list vehicle service offer that belong to a workorder" do
   	#sabado 1 de Diciembre del 2012
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
 
 	  so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
-	  cso = so.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  cso = so.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)
-	  so.car_service_offers.create(:car=> @pablo.cars.first,:status => Status::CONFIRMED)
+	  so.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  #Agrego la oferta de servcio al servicio
-		wo = build(:wo_oc,:car => @pablo.cars.first,:user => @employer,:company => @employer.company)
-		wo.services.first.car_service_offer = cso
+		wo = build(:wo_oc,:vehicle => @pablo.cars.first,:user => @employer,:company => @employer.company)
+		wo.services.first.vehicle_service_offer = cso
 		wo.services.first.status = Status::FINISHED		
 		wo.save
 	  

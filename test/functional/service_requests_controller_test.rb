@@ -30,7 +30,7 @@ class ServiceRequestsControllerTest < ActionController::TestCase
     sign_in @pablo
     @service_request = build(:sr)
     assert_difference('ServiceRequest.count') do
-      post :create, service_request: { car_id: @service_request.car_id, status: @service_request.status, user_id: @service_request.user_id }
+      post :create, service_request: { vehicle_id: @service_request.vehicle_id, status: @service_request.status, user_id: @service_request.user_id }
     end
 
     assert_redirected_to service_request_path(assigns(:service_request))
@@ -64,7 +64,7 @@ class ServiceRequestsControllerTest < ActionController::TestCase
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in @pablo
     @service_request = create(:sr)
-    put :update, id: @service_request, service_request: { car_id: @service_request.car_id, company_id: @service_request.company_id, status: @service_request.status, user_id: @service_request.user_id }
+    put :update, id: @service_request, service_request: { vehicle_id: @service_request.vehicle_id, company_id: @service_request.company_id, status: @service_request.status, user_id: @service_request.user_id }
     assert_redirected_to service_request_path(assigns(:service_request))
   end
 
@@ -72,7 +72,7 @@ class ServiceRequestsControllerTest < ActionController::TestCase
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @service_request = create(:sr)
     sign_in @employer
-    put :update, id: @service_request, service_request: { car_id: @service_request.car_id, company_id: @service_request.company_id, status: @service_request.status, user_id: @service_request.user_id }
+    put :update, id: @service_request, service_request: { vehicle_id: @service_request.vehicle_id, company_id: @service_request.company_id, status: @service_request.status, user_id: @service_request.user_id }
     assert_redirected_to root_path
   end
 

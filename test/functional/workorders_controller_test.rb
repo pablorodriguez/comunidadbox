@@ -10,9 +10,9 @@ class WorkordersControllerTest < ActionController::TestCase
     create_all_company_data @employer.company_id
 
     @hugo = create(:hugo_rodriguez)
-    @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
-    @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
-    @wo_2 = create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company)
+    @wo_1 = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo_open = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo_2 = create(:wo_oc,:vehicle => @hugo.cars.first,:user => @employer,:company => @employer.company)
   end
 
   test "cant print other workorder company" do
@@ -21,7 +21,7 @@ class WorkordersControllerTest < ActionController::TestCase
 
     #Creo una orden de trabajo para otra empresa
     @imr_admin =  create(:imr_admin)    
-    @wo_imr = create(:wo_tc,:car => @user.cars.first,:user => @imr_admin,:company => @imr_admin.company)
+    @wo_imr = create(:wo_tc,:vehicle => @user.cars.first,:user => @imr_admin,:company => @imr_admin.company)
 
     get :show,:id => @wo_imr.to_param, :format => "pdf"
     assert_redirected_to root_path
@@ -116,17 +116,17 @@ class WorkordersControllerTest < ActionController::TestCase
   end
 
 
-  test "new work order form budget with car" do
+  test "new work order form budget with vehicle" do
     sign_in @employer    
     @request.cookies["company_id"]= @employer.company.id.to_s
-    b = create(:budget_one,:car => @user.cars.first,:company => @employer.company,:creator =>@employer)
+    b = create(:budget_one,:vehicle => @user.cars.first,:company => @employer.company,:creator =>@employer)
     car = @user.cars.first
     get :new, :b => b.id
     assert_response :success
     assert_select("#domain",:text => car.domain,:count=>1)
   end
 
-  test "new work order form budget no car" do
+  test "new work order form budget no vehicle" do
     sign_in @employer    
     @request.cookies["company_id"]= @employer.company.id.to_s
     b = create(:budget_two,:company => @employer.company,:creator =>@employer)
@@ -144,7 +144,7 @@ class WorkordersControllerTest < ActionController::TestCase
   end
 
   test "edit other work order company" do
-    wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
     sign_in @user        
     get :edit ,:id => wo.to_param
     assert_redirected_to root_path    
@@ -170,7 +170,7 @@ class WorkordersControllerTest < ActionController::TestCase
     @request.cookies["company_id"]= @employer.company.id.to_s
 
     car = @user.cars.first
-    get :new, :car_id => car.to_param
+    get :new, :vehicle_id => car.to_param
     assert_response :success
     assert_select("#domain",:text => car.domain,:count=>1)
   end
@@ -183,27 +183,27 @@ class WorkordersControllerTest < ActionController::TestCase
   end
 
 
-  test "new work order no company other car" do
+  test "new work order no company other vehicle" do
     sign_in @hugo
     car = @user.cars.first
-    get :new, :car_id => car.to_param    
+    get :new, :vehicle_id => car.to_param    
     assert_response 302  
   end
 
-  test "new work order no company own car" do
+  test "new work order no company own vehicle" do
     user = @hugo
     sign_in user
     car = user.cars.first
-    get :new, :car_id => car.to_param
+    get :new, :vehicle_id => car.to_param
     assert_response 302 
   end
 
 
-  test "new work order own car on company" do
+  test "new work order own vehicle on company" do
     user = @hugo
     sign_in user
     car = user.cars.first
-    get :new, :car_id => car.to_param,:c => "Empresa no registrada"
+    get :new, :vehicle_id => car.to_param,:c => "Empresa no registrada"
     assert_response :success 
   end
 
@@ -216,7 +216,7 @@ class WorkordersControllerTest < ActionController::TestCase
       post :create, :workorder => {
         :performerd => Time.now.strftime("%d/%m/%Y"),
         :deliver => 1.hour.since.strftime("%d/%m/%Y %H:%m"),
-        :car_id =>client.cars.first.to_param,
+        :vehicle_id =>client.cars.first.to_param,
         :company_id=>@employer.company.to_param,
         :payment_method_id => 1 ,
         :services_attributes => [
