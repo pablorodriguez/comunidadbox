@@ -1,0 +1,14 @@
+-# javascript 'service_offer'
+.vertical_menu
+  = render "admin/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1= Status.model_name.human
+  .box_bottom
+    %p
+      %b
+        = Status.human_attribute_name(:name) + ":"
+      = link_to @custom_status.name,edit_status_path(@custom_status)
+      
+

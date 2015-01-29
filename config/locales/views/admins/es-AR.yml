@@ -14,3 +14,5 @@ es-AR:
       templates: "Plantillas"
       order_to_quote: "Ordenes para Cotizar"
       export_data: "Exportar Datos"
+      payment_methods: "Formas de Pago"
+      statuses: "Estados"

@@ -13,9 +13,10 @@ class Workorder < ActiveRecord::Base
   has_many :notes,:dependent => :destroy
   belongs_to :car
   belongs_to :company
-  belongs_to :user  
+  belongs_to :user
   belongs_to :budget
   belongs_to :payment_method
+  belongs_to :custom_status, :class_name =>"Status"
   has_many :ranks
   has_many :price_offers
 

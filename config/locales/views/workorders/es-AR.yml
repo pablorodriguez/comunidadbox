@@ -63,6 +63,7 @@ es-AR:
       cancel: "Cancelar"      
       budget_nro: Presupuesto Nro
       open_for_autopart: "Disponible para cotizar"
+      create_payment_method: "Crear Forma de Pago"
     service_fields:
       operator: "-- Operario --"
       add_comment: "Agregar Comentario"

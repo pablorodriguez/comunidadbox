@@ -1,14 +1,14 @@
 -# javascript 'service_offer'
 .vertical_menu
-  = render "conf/menu"
+  = render "admin/menu"
   = render "actions"
 .contentright_s
   .box_bottom
-    %h1 Forma de Pago
+    %h1= PaymentMethod.model_name.human
   .box_bottom
     %p
       %b
-        Nombre:
-      = link_to @payment_method.native_name,edit_payment_method_path(@payment_method)
+        = PaymentMethod.human_attribute_name(:name) + ":"
+      = link_to @payment_method.name,edit_payment_method_path(@payment_method)
       
 

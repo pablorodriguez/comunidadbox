@@ -1,10 +1,10 @@
 %table.w
   %tr
-    %td= PaymentMethod.human_attribute_name(:name)
+    %td= Status.human_attribute_name(:name)
   %tr
     %td
       = f.text_field :name      
   
 .buttons_container
   = f.submit t("save"),:class => :button
-  = link_to t("cancel"),payment_methods_path
+  = link_to t("cancel"),statuses_path

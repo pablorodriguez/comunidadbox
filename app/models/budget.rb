@@ -11,6 +11,8 @@ class Budget < ActiveRecord::Base
   belongs_to :user
   belongs_to :car
   belongs_to :company
+  belongs_to :status
+  belongs_to :custom_status,:class_name =>"Status"
 
 
   scope :companies, lambda { |comp_id| {:conditions =>  ["company_id IN (?)", comp_id] } }

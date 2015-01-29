@@ -1,4 +1,7 @@
-class Status
+class Status < ActiveRecord::Base
+  attr_accessible :name
+
+  belongs_to :company
   
   OPEN = 1
   IN_PROCESS = 2

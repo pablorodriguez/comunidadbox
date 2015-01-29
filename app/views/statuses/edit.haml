@@ -6,8 +6,8 @@
 .contentright_s
   .box_bottom
     %h1
-      =t('.edit_payment_method')
-  = form_for @payment_method do |f|
-    = render 'shared/error_messages', :target => @payment_method
+      = t('.edit_status')
+  = form_for @custom_status do |f|
+    = render 'shared/error_messages', :target => @custom_status
     = render :partial => 'form', :locals => {:f => f}
 

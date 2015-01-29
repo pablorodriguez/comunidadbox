@@ -1,0 +1,11 @@
+en-US:
+  statuses:
+    index:
+      statuses_not_found: Statuses not found.
+      confirm_delete: Are you sure you want to delete this Status?
+    new:
+      new_status: New Status
+    actions:
+      new_status: New Status
+    edit:
+      edit_status: Edit Status

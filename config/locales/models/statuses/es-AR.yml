@@ -1,0 +1,9 @@
+es-AR:
+  activerecord:
+    models:
+      status:
+        one: Estado
+        other: Estados
+    attributes:
+      status:
+        name: Nombre

@@ -63,6 +63,7 @@ en-US:
       cancel: "Cancel"      
       budget_nro: Budget Nro
       open_for_autopart: "Open for auto parts"
+      create_payment_method: "Create Payment Method"
     service_fields:
       operator: "-- Operator --"
       add_comment: "Add Comment"

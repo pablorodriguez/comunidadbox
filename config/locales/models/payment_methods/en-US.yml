@@ -1,0 +1,9 @@
+en-US:
+  activerecord:
+    models:
+      payment_method:
+        one: Payment method 
+        other: Payment methods
+    attributes:
+      payment_method:
+        name: Name

@@ -1,18 +1,21 @@
 .vertical_menu
-  = render "conf/menu"
+  = render "admin/menu"
   = render "actions"
 .contentright_s
   .box_bottom
-    %h1 Formas de Pago
-  %table.comboxtable
-    %thead
-      %tr
-        %th Name
-        %th
-    - @payment_methods.each do |pm|
-      %tr
-        %td= pm.native_name
-        %td
-          = link_to image_tag('edit.png'), edit_payment_method_path(pm)
-          = link_to image_tag('delete.png'), pm, :confirm => 'Esta seguro?', :method => :delete
+    %h1= PaymentMethod.model_name.human(:count => 2)
+  - if @payment_methods.any?
+    %table.comboxtable
+      %thead
+        %tr
+          %th= PaymentMethod.human_attribute_name(:name)
+          %th
+      - @payment_methods.each do |pm|
+        %tr
+          %td= pm.name
+          %td
+            = link_to image_tag('edit.png'), edit_payment_method_path(pm)
+            = link_to image_tag('delete.png'), pm, :confirm => t('.confirm_delete'), :method => :delete
+  - else
+    = t('.payment_methods_not_found')
 
