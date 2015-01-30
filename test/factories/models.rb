@@ -6,6 +6,12 @@ FactoryGirl.define do
     brand {Brand.find(1)}
   end
 
+  factory :bora, class: Model do
+    id 3
+    name "Bora"
+    brand {Brand.find(1)}
+  end
+
   factory :astra, class: Model do
     id 2
     name "Astra"

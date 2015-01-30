@@ -467,7 +467,7 @@ class User < ActiveRecord::Base
 
     csv.each do |row|
       i+=1
-      external_id = row[0]
+      external_id = row[0].strip
       email = row[4]
 
       client = User.find_by_external_id external_id if external_id
@@ -525,14 +525,23 @@ class User < ActiveRecord::Base
         :fuel => row[14]
       })
 
-      #add_error_if_not_valid car,result
+      if car.valid?
+        car.save 
 
-      #add_error_if_not_valid client,result
+        #if theres is event to add
+        if row[18]
+          service_type_name = row[18]
+          service_type = ServiceType.find_by_name(service_type_name)
+          if service_type
+            car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
+          end
+          
+        end
+      end
+
       if client.valid? && client.save
         result[:success] += 1
       else
-        puts "ERRORES!!!"
-        puts client.errors.messages.inspect
         result[:errors] << client
         result[:failure] += 1
       end
@@ -549,10 +558,7 @@ class User < ActiveRecord::Base
 
     end
 
-    result[:summary] << ["registros procesados", (result[:success] + result[:failure])]
-    result[:summary] << ["Clientes agregados/actualizados", result[:success]]
-    result[:summary] << ["Clientes que no se han agregado", result[:failure]]
-
+    result[:total_records] = (result[:success] + result[:failure])
     result
   end
 
