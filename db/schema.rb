@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141124224737) do
+ActiveRecord::Schema.define(:version => 20150128234805) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
     t.datetime "updated_at"
     t.integer  "company_id"
     t.text     "comment"
+    t.integer  "custom_status_id"
   end
 
   add_index "budgets", ["car_id"], :name => "budgets_car_id_fk"
@@ -494,6 +495,7 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "company_id"
   end
 
   create_table "price_list_items", :force => true do |t|
@@ -684,6 +686,15 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
 
   add_index "states", ["country_id"], :name => "states_country_id_fk"
 
+  create_table "statuses", :force => true do |t|
+    t.string   "name"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "statuses", ["company_id"], :name => "statuses_company_id_fk"
+
   create_table "tasks", :force => true do |t|
     t.text     "description"
     t.string   "name"
@@ -766,6 +777,7 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
     t.integer  "budget_id"
     t.datetime "deliver"
     t.datetime "deliver_actual"
+    t.integer  "custom_status_id"
   end
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"
@@ -887,6 +899,8 @@ ActiveRecord::Schema.define(:version => 20141124224737) do
   add_foreign_key "services_tasks", "tasks", name: "services_tasks_ibfk_2"
 
   add_foreign_key "states", "countries", name: "states_ibfk_1", dependent: :delete
+
+  add_foreign_key "statuses", "companies", name: "statuses_company_id_fk"
 
   add_foreign_key "user_roles", "roles", name: "user_roles_ibfk_1", dependent: :delete
   add_foreign_key "user_roles", "users", name: "user_roles_ibfk_2", dependent: :delete
