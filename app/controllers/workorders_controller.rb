@@ -226,6 +226,8 @@ class WorkordersController < ApplicationController
 
     @work_order.notes.build if @work_order.notes.empty?
 
+    company = get_company(params)
+
     @payment_methods = company.available_payment_methods
 
     @service_types = current_user.service_types    
@@ -291,7 +293,7 @@ class WorkordersController < ApplicationController
     
     @service_types = current_user.service_types_active
 
-    @payment_methods = company.available_payment_methods
+    @payment_methods = company ? company.available_payment_methods : []
        
     if @work_order.company.nil? and @work_order.company_info.nil?
       flash[:notice] ="Para registar un servicio debe seleccionar un prestador"
