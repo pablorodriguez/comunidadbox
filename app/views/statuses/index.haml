@@ -4,15 +4,17 @@
 .contentright_s
   .box_bottom
     %h1= Status.model_name.human(:count => 2)
-  - if @custom_statuses.any?
+  - if @statuses.any?
     %table.comboxtable
       %thead
         %tr
           %th= Status.human_attribute_name(:name)
+          %th= Status.human_attribute_name(:is_final)
           %th
-      - @custom_statuses.each do |cs|
+      - @statuses.each do |cs|
         %tr
           %td= cs.name
+          %td= check_box_tag "is_final","1", cs.is_final,:disabled => true
           %td
             = link_to image_tag('edit.png'), edit_status_path(cs)
             = link_to image_tag('delete.png'), cs, :confirm => t('.confirm_delete'), :method => :delete

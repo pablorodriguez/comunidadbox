@@ -2,6 +2,7 @@ class CreateStatuses < ActiveRecord::Migration
   def self.up
     create_table :statuses do |t|
       t.string :name
+      t.boolean :is_final
       t.references :company
 
       t.timestamps

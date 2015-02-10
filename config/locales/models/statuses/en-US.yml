@@ -7,3 +7,4 @@ en-US:
     attributes:
       status:
         name: Name
+        is_final: Is final state

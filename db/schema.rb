@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150128234805) do
+ActiveRecord::Schema.define(:version => 20150210042846) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(:version => 20150128234805) do
     t.datetime "updated_at"
     t.integer  "company_id"
     t.text     "comment"
-    t.integer  "custom_status_id"
   end
 
   add_index "budgets", ["car_id"], :name => "budgets_car_id_fk"
@@ -650,6 +649,7 @@ ActiveRecord::Schema.define(:version => 20150128234805) do
     t.integer  "operator_id"
     t.integer  "budget_id"
     t.integer  "car_service_offer_id"
+    t.integer  "status_id"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"
@@ -688,6 +688,7 @@ ActiveRecord::Schema.define(:version => 20150128234805) do
 
   create_table "statuses", :force => true do |t|
     t.string   "name"
+    t.boolean  "is_final"
     t.integer  "company_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -777,7 +778,7 @@ ActiveRecord::Schema.define(:version => 20150128234805) do
     t.integer  "budget_id"
     t.datetime "deliver"
     t.datetime "deliver_actual"
-    t.integer  "custom_status_id"
+    t.integer  "status_id"
   end
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"

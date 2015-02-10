@@ -7,3 +7,4 @@ es-AR:
     attributes:
       status:
         name: Nombre
+        is_final: Es Estado final

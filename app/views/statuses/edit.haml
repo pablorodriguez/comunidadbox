@@ -7,7 +7,7 @@
   .box_bottom
     %h1
       = t('.edit_status')
-  = form_for @custom_status do |f|
-    = render 'shared/error_messages', :target => @custom_status
+  = form_for @status do |f|
+    = render 'shared/error_messages', :target => @status
     = render :partial => 'form', :locals => {:f => f}
 

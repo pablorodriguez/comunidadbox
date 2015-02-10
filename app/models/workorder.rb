@@ -16,7 +16,6 @@ class Workorder < ActiveRecord::Base
   belongs_to :user
   belongs_to :budget
   belongs_to :payment_method
-  belongs_to :custom_status, :class_name =>"Status"
   has_many :ranks
   has_many :price_offers
 

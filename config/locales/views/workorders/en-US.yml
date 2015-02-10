@@ -64,6 +64,8 @@ en-US:
       budget_nro: Budget Nro
       open_for_autopart: "Open for auto parts"
       create_payment_method: "Create Payment Method"
+      custom_status: "Status"
+      create_custom_status: "Create Status"
     service_fields:
       operator: "-- Operator --"
       add_comment: "Add Comment"

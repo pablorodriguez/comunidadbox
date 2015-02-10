@@ -9,6 +9,10 @@
     %p
       %b
         = Status.human_attribute_name(:name) + ":"
-      = link_to @custom_status.name,edit_status_path(@custom_status)
+      = link_to @status.name,edit_status_path(@status)
+    %p
+      %b
+        = Status.human_attribute_name(:is_final) + ":"
+      = check_box_tag "is_final","1", @status.is_final,:disabled => true
       
 

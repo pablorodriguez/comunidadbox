@@ -25,7 +25,7 @@ class Company < ActiveRecord::Base
   has_one :export
   has_many :company_material_code
   has_many :payment_methods
-  has_many :custom_statuses, :class_name => 'Status'
+  has_many :statuses
   
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
