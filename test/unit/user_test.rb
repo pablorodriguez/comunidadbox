@@ -30,12 +30,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "employeer can edit new client not confirmed" do
-    @wo = create(:wo_oc,:vehicle => @new_pablo.cars.first,:user => @gustavo,:company => @gustavo.company)    
+    @wo = create(:wo_oc,:vehicle => @new_pablo.vehicles.first,:user => @gustavo,:company => @gustavo.company)    
     assert @gustavo.can_edit?(@new_pablo)
   end
 
   test "employeer cant edit other company client" do
-    @wo = create(:wo_oc,:vehicle => @new_pablo.cars.first,:user => @imr_emp,:company => @imr_emp.company)    
+    @wo = create(:wo_oc,:vehicle => @new_pablo.vehicles.first,:user => @imr_emp,:company => @imr_emp.company)    
     assert @gustavo.can_edit?(@new_pablo) == false
   end
 
@@ -57,6 +57,7 @@ class UserTest < ActiveSupport::TestCase
     assert_difference('Company.clients(@gustavo.get_companies_ids,{}).size') do
       result = User.import_clients file,@gustavo,@gustavo.company_active.id
     end
+    
 
     assert result[:errors].size == 1
     assert result[:failure] == 1
@@ -75,12 +76,12 @@ class UserTest < ActiveSupport::TestCase
     result = User.import_clients file,@gustavo,@gustavo.company_active.id
 
     client = User.find_by_external_id("AAA12345")
-    car = client.cars.first
+    car = client.vehicles.first
 
     assert client.first_name == "Pablo"
     assert car.year == 2014
     assert I18n.l(car.events.first.dueDate) == '01/07/2015'
-    assert client.cars.size == 1
+    assert client.vehicles.size == 1
 
     csv_rows = <<-eos
     Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,RazÑn Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
@@ -94,7 +95,7 @@ class UserTest < ActiveSupport::TestCase
     result = User.import_clients file,@gustavo,@gustavo.company_active.id
     client = User.find_by_external_id("AAA12345")
 
-    assert client.cars.size == 2
+    assert client.vehicles.size == 2
 
   
   end

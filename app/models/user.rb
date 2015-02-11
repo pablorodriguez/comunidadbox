@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   has_many :service_filters,:order =>'name'
 
   has_many :vehicles
-  has_many :cars
+  #has_many :cars
   has_many :motorcycles
   # delegate :cars, :motorcycles, to: :vehicles
 
@@ -64,8 +64,8 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :address, :reject_if => :all_blank
   accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
-  # accepts_nested_attributes_for :vehicles, :reject_if => :all_blank
-  accepts_nested_attributes_for :cars, :reject_if => :all_blank
+  accepts_nested_attributes_for :vehicles, :reject_if => :all_blank
+  # accepts_nested_attributes_for :cars, :reject_if => :all_blank
   accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
   scope :enabled , where("disable is NULL")
@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
   NULL_ATTRS = %w( company_name cuit )
   before_save :set_default_data
   #validate :validate_all
+  alias :cars :vehicles
 
   def set_default_data
     if self.new_record?
@@ -510,10 +511,10 @@ class User < ActiveRecord::Base
       #cargo automovil
       domain = row[11]
 
-      car = client.cars.where("domain = ?",domain).first
+      car = client.vehicles.where("domain = ?",domain).first
       if car.nil?
         car = Car.new({:domain => domain})
-        client.cars << car
+        client.vehicles << car
       end
 
       car.assign_attributes({
@@ -544,16 +545,6 @@ class User < ActiveRecord::Base
       else
         result[:errors] << client
         result[:failure] += 1
-      end
-
-      #if theres is event to add
-      if row[18]
-        service_type_name = row[18]
-        service_type = ServiceType.find_by_name(service_type_name)
-        if service_type
-          car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
-        end
-
       end
 
     end

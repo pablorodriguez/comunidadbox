@@ -10,7 +10,7 @@
         = f.collection_select(:state_id, @states, :id, :name, {:include_blank=> t(".state")},{:class=>"clear change long_select",:placeholder=> t(".state")})
     %tr  
       %td
-        =f.text_field :city,{:class=>"change",:style=>"width:192px",:placeholder=>t(".city")}
+        = f.text_field :city,:class=>"change",:style=>"width:192px",:placeholder=>t(".city")
     %tr
       %td
         = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>t(".brand")},{:class=>"change long_select"})

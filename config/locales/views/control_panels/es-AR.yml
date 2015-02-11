@@ -4,7 +4,7 @@ es-AR:
       title: "Listado de Autos"
       create_service_offer: "Crear Oferta de Servicio"
       service_type: "Tipo de Serviciossss"    
-    car_filters:
+    vehicle_filters:
       state: "-- Provincia --"
       service_type: "-- Tipo de Servicios --"
       city: "Ciudad"
