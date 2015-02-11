@@ -73,7 +73,7 @@ FactoryGirl.define do
     confirmed 1
     confirmed_at 1.months.ago
     
-    cars {[FactoryGirl.build(:HRJ549)]}
+    vehicles {[FactoryGirl.build(:HRJ549)]}
     motorcycles {[FactoryGirl.build(:m549HRJ)]}
     
   end
@@ -86,7 +86,7 @@ FactoryGirl.define do
     encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
     password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."    
     after(:build) do |user|
-      user.cars << FactoryGirl.create(:HRJ999)
+      user.vehicles << FactoryGirl.create(:HRJ999)
     end
   end
 
@@ -101,7 +101,7 @@ FactoryGirl.define do
     confirmed 1
     confirmed_at 1.months.ago
     after(:build) do |user|
-      user.cars << FactoryGirl.create(:DDD549)
+      user.vehicles << FactoryGirl.create(:DDD549)
     end
   end
 
