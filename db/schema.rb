@@ -279,15 +279,15 @@ ActiveRecord::Schema.define(:version => 20150119224343) do
 
   create_table "material_details", :id => false, :force => true do |t|
     t.string  "prov_code",                :limit => 50
-    t.integer "material_id",                                                           :default => 0, :null => false
+    t.integer "material_id",                                                                   :default => 0, :null => false
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "service_type_id"
-    t.integer "price_list_id",                                                         :default => 0, :null => false
-    t.integer "material_service_type_id",                                              :default => 0, :null => false
-    t.decimal "price",                                  :precision => 10, :scale => 2
-    t.text    "detail_upper"
-    t.text    "detail"
+    t.integer "price_list_id",                                                                 :default => 0, :null => false
+    t.integer "material_service_type_id",                                                      :default => 0, :null => false
+    t.decimal "price",                                          :precision => 10, :scale => 2
+    t.text    "detail_upper",             :limit => 2147483647
+    t.text    "detail",                   :limit => 2147483647
     t.string  "brand"
     t.string  "provider"
     t.integer "company_id"

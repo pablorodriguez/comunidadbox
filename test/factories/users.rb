@@ -72,8 +72,7 @@ FactoryGirl.define do
     confirmed 1
     confirmed_at 1.months.ago
     
-    vehicles {[FactoryGirl.build(:HRJ549)]}
-    motorcycles {[FactoryGirl.build(:m549HRJ)]}
+    vehicles {[FactoryGirl.build(:HRJ549), FactoryGirl.build(:m549HRJ)]}
     
   end
 

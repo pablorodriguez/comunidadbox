@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
   has_many :service_filters,:order =>'name'
 
   has_many :vehicles
-  #has_many :cars
-  has_many :motorcycles
-  # delegate :cars, :motorcycles, to: :vehicles
+  # has_many :cars
+  # has_many :motorcycles
+  delegate :cars, :motorcycles, to: :vehicles
 
 
   has_many :authentications
@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
   accepts_nested_attributes_for :vehicles, :reject_if => :all_blank
   # accepts_nested_attributes_for :cars, :reject_if => :all_blank
-  accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
+  # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
   scope :enabled , where("disable is NULL")
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   NULL_ATTRS = %w( company_name cuit )
   before_save :set_default_data
   #validate :validate_all
-  alias :cars :vehicles
+  # alias :cars :vehicles
 
   def set_default_data
     if self.new_record?
@@ -495,6 +495,8 @@ class User < ActiveRecord::Base
         if client && company_id
           unless client.service_centers.include?(company_id)
             client.service_centers << company
+            # client.companies_users.build(user_id: client, company_id: company)
+            # client.service_centers.build(company: company)
           end
         end
 
@@ -527,7 +529,7 @@ class User < ActiveRecord::Base
       })
 
       if car.valid?
-        car.save 
+        car.save
 
         #if theres is event to add
         if row[18]
@@ -536,7 +538,7 @@ class User < ActiveRecord::Base
           if service_type
             car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
           end
-          
+
         end
       end
 
