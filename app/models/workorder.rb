@@ -48,6 +48,8 @@ class Workorder < ActiveRecord::Base
     unless vehicle.user.service_centers.map(&:id).include?(self.company_id)
       comp = Company.find_by_id(self.company_id)
       vehicle.user.service_centers << comp if comp
+      # vehicle.user.companies_users.create(user_id: vehicle.user.id, company_id: comp.id) if comp
+      # vehicle.user.service_centers.create(company: comp) if comp
     end
   end
 

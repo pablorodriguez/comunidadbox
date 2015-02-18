@@ -12,11 +12,17 @@
           = render 'users/user_row',:f => f
     %h3=t(".vehicle_information")
     .box_bottom
-      = f.fields_for :cars do |c|
-        = render 'users/car_fields', :f => c
-    .box_bottom
-      = f.fields_for :motorcycles do |c|
-        = render 'users/motorcycle_fields', :f => c
+      = f.fields_for :vehicles do |c|
+        - if c.object.class == Car
+          = render 'users/car_fields', :f => c
+        - if c.object.class == Motorcycle
+          = render 'users/motorcycle_fields', :f => c
+    / .box_bottom
+    /   = f.fields_for :cars do |c|
+    /     = render 'users/car_fields', :f => c
+    / .box_bottom
+    /   = f.fields_for :motorcycles do |c|
+    /     = render 'users/motorcycle_fields', :f => c
     %h3=t(".address_information")
     .personal_address.box_bottom
       =f.fields_for :address do |a|
