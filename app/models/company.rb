@@ -278,5 +278,9 @@ class Company < ActiveRecord::Base
   def available_custom_statuses
     custom_statuses.any? ? custom_statuses : get_headquarter.custom_statuses
   end
+
+  def get_final_status
+    statuses.where(is_final: true).first
+  end
 end
 

@@ -228,16 +228,12 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    if self.status != Status::OPEN_FOR_AUTOPART
-      n_status = Status::FINISHED
-      self.services.each do |s|      
-        if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
-          n_status = Status::OPEN
-        end
+    n_status = company.get_final_status
+    if n_status
+      is_final = false
+      if self.services.where(status_id: n_status.id).count == self.services.count
+        self.status = n_status
       end
-
-      n_status = Status::OPEN if self.services.empty?    
-      self.status = n_status    
     end
   end
   
