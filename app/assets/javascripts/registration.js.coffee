@@ -56,4 +56,9 @@ $ ->
   $("#user_email").blur(validate_email)
   $(".user_domain").blur(validate_domain)
   $(".generate_email").click(generate_email)
+  
+  $("#vehicle_type").on("change",->
+    $("#car_fields_container").toggle()
+    $("#motorcycle_fields_container").toggle()
+  )
 

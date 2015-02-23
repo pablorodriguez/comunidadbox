@@ -10,13 +10,25 @@
       %table.w
         %tbody
           = render 'users/user_row',:f => f
-    %h3=t(".vehicle_information")
+    %h3
+      =t(".vehicle_information")      
+    
     .box_bottom
-      = f.fields_for :vehicles do |c|
+      %table
+        %body
+          %tr
+            %td{:style=>"width:100px"}
+              Tipo
+            %td
+              = select_tag(:vehicle_type, options_for_select([[t('.car'), 1],[t('.motorcycle'), 2]]),{:class=>'long_selec'})
+
+      = f.fields_for :vehicles do |c|        
         - if c.object.class == Car
-          = render 'users/car_fields', :f => c
+          #car_fields_container
+            = render 'users/car_fields', :f => c
         - if c.object.class == Motorcycle
-          = render 'users/motorcycle_fields', :f => c
+          #motorcycle_fields_container.hide
+            = render 'users/motorcycle_fields', :f => c
     / .box_bottom
     /   = f.fields_for :cars do |c|
     /     = render 'users/car_fields', :f => c

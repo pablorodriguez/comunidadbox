@@ -88,7 +88,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def set_default_data user
     user.vehicles.build if user.vehicles.empty?
     user.build_address unless user.address
-    debugger
     if user.companies.empty?
       @company = user.companies.build
       @company.build_address if @company.address.nil?
