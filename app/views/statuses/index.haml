@@ -14,7 +14,8 @@
       - @statuses.each do |cs|
         %tr
           %td= cs.name
-          %td= check_box_tag "is_final","1", cs.is_final,:disabled => true
+          %td
+            = image_tag("confirmed.png") if cs.is_final            
           %td
             = link_to image_tag('edit.png'), edit_status_path(cs)
             = link_to image_tag('delete.png'), cs, :confirm => t('.confirm_delete'), :method => :delete

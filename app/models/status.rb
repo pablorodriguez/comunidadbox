@@ -1,5 +1,5 @@
 class Status < ActiveRecord::Base
-  attr_accessible :name, :is_final
+  attr_accessible :name, :is_final,:id,:company_id
 
   belongs_to :company
 
