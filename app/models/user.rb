@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :address, :reject_if => :all_blank
   accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
-  accepts_nested_attributes_for :vehicles, :reject_if => :all_blank
+  accepts_nested_attributes_for :vehicles, :reject_if => :all_blank, :allow_destroy => true
   # accepts_nested_attributes_for :cars, :reject_if => :all_blank
   # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
