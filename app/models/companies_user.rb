@@ -1,5 +1,7 @@
 # encoding: utf-8
 class CompaniesUser < ActiveRecord::Base
+  attr_accessible :user_id, :company_id
+
   belongs_to :user
   belongs_to :company
 

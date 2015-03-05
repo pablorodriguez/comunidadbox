@@ -11,8 +11,8 @@
         %tbody
           = render 'users/user_row',:f => f
     %h3
-      =t(".vehicle_information")      
-    
+      =t(".vehicle_information")
+
     .box_bottom
       %table
         %body
@@ -22,13 +22,15 @@
             %td
               = select_tag(:vehicle_type, options_for_select([[t('.car'), 1],[t('.motorcycle'), 2]]),{:class=>'long_selec'})
 
-      = f.fields_for :vehicles do |c|        
+      = f.fields_for :vehicles do |c|
         - if c.object.class == Car
           #car_fields_container
             = render 'users/car_fields', :f => c
         - if c.object.class == Motorcycle
           #motorcycle_fields_container.hide
             = render 'users/motorcycle_fields', :f => c
+        = c.text_field :type
+        = c.check_box :_destroy
     / .box_bottom
     /   = f.fields_for :cars do |c|
     /     = render 'users/car_fields', :f => c

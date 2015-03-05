@@ -77,6 +77,7 @@ class ClientsController < ApplicationController
     if @client && company_id
       unless @client.service_centers.include?(get_company)
         @client.service_centers << get_company
+        # @client.companies_users.build(user_id: @client, company_id: company_id)
       end
     end
 
