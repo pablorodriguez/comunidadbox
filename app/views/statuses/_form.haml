@@ -1,12 +1,12 @@
-%table.w
+%table
   %tr
     %td= Status.human_attribute_name(:name)
-  %tr
     %td
       = f.text_field :name
   %tr
     %td
-      = Status.human_attribute_name(:is_final) + ': '
+      = Status.human_attribute_name(:is_final)
+    %td
       = f.check_box :is_final,:class=>"checkbox"
 
 .buttons_container

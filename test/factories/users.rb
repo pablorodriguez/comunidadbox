@@ -48,6 +48,7 @@ FactoryGirl.define do
     confirmed 1   
     confirmed_at 1.months.ago     
     roles {[Role.find(5)]}
+    employer {Company.find(3)}
   end 
 
   factory :marcelo_de_antonio, class: User do

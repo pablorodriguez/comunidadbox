@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
-  factory :wo_oc, class: Workorder do            
-    services {[FactoryGirl.build(:service_oc)]}
+  factory :wo_oc, class: Workorder do
+    services {[FactoryGirl.build(:service_oc,:status_id => status_id)]}
     payment_method {PaymentMethod.find(1)}
     deliver 1.hour.since
   end
@@ -21,7 +21,7 @@ FactoryGirl.define do
 
   factory :service_oc, class: Service do
     service_type {ServiceType.find(1)}
-    status Status::FINISHED
+    #status Status::FINISHED
     material_services {[build(:material_service_oc)]}
   end
 
@@ -39,7 +39,7 @@ FactoryGirl.define do
 
   factory :service_tc, class: Service do
     service_type {ServiceType.find(2)}
-    status 4
+    #status 4
     material_services {[build(:material_service_tc)]}
   end
 

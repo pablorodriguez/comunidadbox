@@ -15,6 +15,7 @@ class UserTest < ActiveSupport::TestCase
     @emp_walter =  create(:emp_walter)    
     @new_pablo =  create(:new_pablo_rodriguez)
 
+    @imr_admin =  create(:imr_admin)
     @imr_emp =  create(:imr_emp)
   end
 
@@ -30,12 +31,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "employeer can edit new client not confirmed" do
-    @wo = create(:wo_oc,:car => @new_pablo.cars.first,:user => @gustavo,:company => @gustavo.company)    
+    @wo = create(:wo_oc,:car => @new_pablo.cars.first,:user => @gustavo,:company => @gustavo.company,:status_id => 2)    
     assert @gustavo.can_edit?(@new_pablo)
   end
 
   test "employeer cant edit other company client" do
-    @wo = create(:wo_oc,:car => @new_pablo.cars.first,:user => @imr_emp,:company => @imr_emp.company)    
+    @wo = create(:wo_oc,:car => @new_pablo.cars.first,:user => @imr_emp,:company => @imr_emp.company,:status_id => 2)
     assert @gustavo.can_edit?(@new_pablo) == false
   end
 

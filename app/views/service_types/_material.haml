@@ -3,12 +3,17 @@
 %table.comboxtable
   %thead
     %tr
-      %th Código Prov.
-      %th Código
-      %th Nombre
-      %th Marca
-      %th Proveedor
-      %th
+      %th{:style=>"width:15%"}
+        Código Prov.
+      %th{:style=>"width:15%"}
+        Código
+      %th{:style=>"width:25%"}
+        Nombre
+      %th{:style=>"width:25%"}
+        Marca
+      %th{:style=>"width:10%"}
+        Proveedor
+      %th{:style=>"width:7%"}
   %tbody
   -@materials.each do |material|
     %tr

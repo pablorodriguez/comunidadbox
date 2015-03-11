@@ -17,7 +17,8 @@
             - if current_user.is_employee?           
               = f.select(:status_id,get_company.statuses.collect{|v| [v.name,v.id]},{:selected =>f.object.status_id},{:class=>'input_short',:title=>"Estado"})
             -else
-              = f.hidden_field(:status_id,:value =>get_company.get_final_status)
+              = f.hidden_field(:status_id,:value =>get_final_status)
+
             = f.hidden_field :_destroy            
             .actions
               .action

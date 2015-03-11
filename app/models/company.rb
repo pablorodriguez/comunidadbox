@@ -44,6 +44,10 @@ class Company < ActiveRecord::Base
     Company.find(1).service_types
   end
 
+  def self.default_final_status
+    Company.find(1).get_final_status
+  end
+
   def update_headquarter
     if headquarter
       Company.where("user_id =? and id != ?",self.user.id,self.id).update_all(:headquarter => false)
