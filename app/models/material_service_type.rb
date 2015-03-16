@@ -22,12 +22,11 @@ class MaterialServiceType < ActiveRecord::Base
   def self.generate_select_join_str(company_id,price_list_id,service_type_ids)
     select_str ="material_service_types.id,material_service_types.material_id,m.code,m.name,material_service_types.service_type_id,st.name,pli.price  "
     
-    join_str ="LEFT OUTER JOIN price_list_items as pli ON pli.material_service_type_id = material_service_types.id and pli.price_list_id=#{price_list_id} 
-    LEFT OUTER JOIN service_types as st ON st.id = material_service_types.service_type_id and st.company_id = #{company_id}"
+    join_str =  "LEFT OUTER JOIN price_list_items as pli ON pli.material_service_type_id = material_service_types.id and pli.price_list_id=#{price_list_id} " 
+    join_str += " INNER JOIN service_types as st ON st.id = material_service_types.service_type_id and st.company_id = #{company_id} "
     
-    if (service_type_ids.size > 0)
-      join_str += " and material_service_types.service_type_id in (#{service_type_ids.join(",")})"
-    end
+    join_str += " and material_service_types.service_type_id in (#{service_type_ids.join(",")})" if (service_type_ids.size > 0)
+    
     join_str += " LEFT OUTER JOIN materials as m ON material_service_types.material_id = m.id" 
     return [select_str,join_str]
     
