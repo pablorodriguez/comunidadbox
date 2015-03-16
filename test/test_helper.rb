@@ -42,6 +42,7 @@ module ComunidadBox::TestHelpers
 
     #create model
     create :suran
+    create :bora
     create :astra
 
     #crear formas de pago

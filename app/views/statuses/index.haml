@@ -1,0 +1,24 @@
+.vertical_menu
+  = render "admin/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1= Status.model_name.human(:count => 2)
+  - if @statuses.any?
+    %table.comboxtable
+      %thead
+        %tr
+          %th= Status.human_attribute_name(:name)
+          %th= Status.human_attribute_name(:is_final)
+          %th
+      - @statuses.each do |cs|
+        %tr
+          %td= cs.name
+          %td
+            = image_tag("confirmed.png") if cs.is_final            
+          %td
+            = link_to image_tag('edit.png'), edit_status_path(cs)
+            = link_to image_tag('delete.png'), cs, :confirm => t('.confirm_delete'), :method => :delete
+  - else
+    = t('.statuses_not_found')
+

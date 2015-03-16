@@ -1,5 +1,8 @@
 class PaymentMethod < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name,:company_id
+
+  belongs_to :company
+  
   def self.cash
     @cash ||= PaymentMethod.find(1)
   end
@@ -11,6 +14,4 @@ class PaymentMethod < ActiveRecord::Base
   def self.default_payment
     1
   end
-  
-
 end

@@ -11,7 +11,10 @@
         = wo_form.text_field :deliver,:class =>"date_time input_date_time",:value => (@work_order.deliver ? l(@work_order.deliver,format: :short) : ""),:title=>t(".delivery_time"),:placeholder => t(".delivery_time")
             
       - if current_user.is_employee?
-        = wo_form.select(:payment_method_id,PaymentMethod.all.collect{|v| [v.native_name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
+        - if @payment_methods.any?
+          = wo_form.select(:payment_method_id,@payment_methods.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
+        - else
+          = link_to t(".create_payment_method"), new_payment_method_path
       - else
         = wo_form.hidden_field :payment_method_id
 

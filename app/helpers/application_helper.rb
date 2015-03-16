@@ -42,7 +42,12 @@ module ApplicationHelper
     cookies.permanent[:company_id]= company_id.join(",")
   end
 
-  def get_company params=nil
+  def get_final_status
+    return get_company.get_final_status if get_company
+    return Company.default_final_status
+  end
+
+  def get_company params=nil,default=false
     if ((company_id == nil) && (params &&(params[:company_id])))
       return Company.find(params[:company_id])
     elsif all_company?
@@ -52,7 +57,8 @@ module ApplicationHelper
     elsif (company_id && company_id.size > 1)
       return current_user.company_active
     else
-      return nil
+      return nil unless default
+      return Company.find 1 if default
     end
     #company_id.empty? ? Company.find(params[:company_id]) : Company.where("id IN (?)",company_id).first
   end

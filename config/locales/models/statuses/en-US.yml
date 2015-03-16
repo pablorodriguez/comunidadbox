@@ -1,0 +1,10 @@
+en-US:
+  activerecord:
+    models:
+      status:
+        one: Status 
+        other: Statuses
+    attributes:
+      status:
+        name: Name
+        is_final: Is final state

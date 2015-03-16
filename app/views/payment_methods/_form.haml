@@ -1,7 +1,6 @@
 %table.w
   %tr
-    %td Nombre
-  %tr
+    %td= PaymentMethod.human_attribute_name(:name)
     %td
       = f.text_field :name      
   

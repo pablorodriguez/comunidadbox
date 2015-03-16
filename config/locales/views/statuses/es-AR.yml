@@ -1,0 +1,11 @@
+es-AR:
+  statuses:
+    index:
+      statuses_not_found: No se encontraron estados.
+      confirm_delete: ¿Esta seguro que desea eliminar este estado?
+    new:
+      new_status: Nuevo Estado
+    actions:
+      new_status: Nuevo Estado
+    edit:
+      edit_status: Modificar Estado

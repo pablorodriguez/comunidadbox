@@ -1,7 +1,9 @@
 class PaymentMethodsController < ApplicationController
 
+  layout "application"
+  
   def index
-    @payment_methods = PaymentMethod.all
+    get_payment_methods
   end
 
   def new
@@ -14,8 +16,9 @@ class PaymentMethodsController < ApplicationController
 
   def create
     @payment_method = PaymentMethod.new(params[:payment_method])
+    @payment_method.company = get_company
     if @payment_method.save
-      flash[:notice] = 'La Tarea ha sido creada.'
+      flash[:notice] = 'Forma de Pago creada.'
       redirect_to(@payment_method)
     else
       render :action => "new"
@@ -35,4 +38,18 @@ class PaymentMethodsController < ApplicationController
       render :action => "edit"
     end
   end
+
+  def destroy
+    payment_method = PaymentMethod.find(params[:id])
+    if payment_method
+      payment_method.destroy
+    end
+    redirect_to(payment_methods_url)
+  end
+
+  private
+    def get_payment_methods
+      company = get_company
+      @payment_methods = company.payment_methods
+    end
 end

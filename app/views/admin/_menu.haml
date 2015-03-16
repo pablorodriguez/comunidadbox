@@ -40,4 +40,11 @@
       #employee.link.menu
         = image_tag "nota.png"
         = link_to t(".export_data"), exports_path
-
+    %li
+      #employee.link.menu
+        = image_tag "budget.png"
+        = link_to t(".payment_methods"), payment_methods_path
+    %li
+      #employee.link.menu
+        = image_tag "price.png"
+        = link_to t(".statuses"), statuses_path

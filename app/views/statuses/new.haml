@@ -3,8 +3,8 @@
   = render "actions"
 .contentright_s
   .box_bottom
-    %h1= t('.new_payment_method')
+    %h1= t('.new_status')
     
-  = form_for @payment_method do |f|
-    = render 'shared/error_messages', :target => @payment_method
+  = form_for @status do |f|
+    = render 'shared/error_messages', :target => @status
     = render :partial => 'form', :locals => {:f => f}

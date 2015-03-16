@@ -9,10 +9,12 @@ class ControlPanelsControllerTest < ActionController::TestCase
     
     @user = create(:pablo_rodriguez)
     @hugo = create(:hugo_rodriguez)
-    create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
-    create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company)
-    create(:wo_tc,:car => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now)
-    create(:wo_tc,:car => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now)
+
+    wo1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    wo2 = create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+
+    wo3 = create(:wo_tc,:car => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
+    wo4 = create(:wo_tc,:car => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
   end
 
   test "control panel index company" do

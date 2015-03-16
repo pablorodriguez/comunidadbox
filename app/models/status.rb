@@ -1,4 +1,9 @@
-class Status
+class Status < ActiveRecord::Base
+  attr_accessible :name, :is_final,:id,:company_id
+
+  belongs_to :company
+
+  before_save :clear_final_statuses
   
   OPEN = 1
   IN_PROCESS = 2
@@ -61,6 +66,11 @@ class Status
   def self.status st
     STATUS[st]
   end
-  
+
+  def clear_final_statuses
+    if is_final
+      Status.where(company_id: self.company_id).update_all(is_final: false)
+    end
+  end
   
 end

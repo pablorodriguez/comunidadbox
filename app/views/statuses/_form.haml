@@ -1,0 +1,14 @@
+%table
+  %tr
+    %td= Status.human_attribute_name(:name)
+    %td
+      = f.text_field :name
+  %tr
+    %td
+      = Status.human_attribute_name(:is_final)
+    %td
+      = f.check_box :is_final,:class=>"checkbox"
+
+.buttons_container
+  = f.submit t("save"),:class => :button
+  = link_to t("cancel"),statuses_path

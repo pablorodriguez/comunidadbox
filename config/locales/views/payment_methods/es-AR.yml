@@ -1,0 +1,11 @@
+es-AR:
+  payment_methods:
+    index:
+      payment_methods_not_found: No se encontraron formas de pago.
+      confirm_delete: ¿Esta seguro que desea eliminar esta forma de pago?
+    new:
+      new_payment_method: Nueva Forma de Pago
+    actions:
+      new_payment_method: Nueva Forma de Pago
+    edit:
+      edit_payment_method: Modificar Fomar de Pago

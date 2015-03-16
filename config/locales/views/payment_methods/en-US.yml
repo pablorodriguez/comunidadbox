@@ -1,0 +1,11 @@
+en-US:
+  payment_methods:
+    index:
+      payment_methods_not_found: Payment Methods not found.
+      confirm_delete: Are you sure you want to delete this Payment Method?
+    new:
+      new_payment_method: New Payment Method
+    actions:
+      new_payment_method: New Payment Method
+    edit:
+      edit_payment_method: Edit Payment Method

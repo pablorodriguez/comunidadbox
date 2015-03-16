@@ -14,3 +14,5 @@ en-US:
       templates: "Templates"
       order_to_quote: "Orders to Quote"
       export_data: "Export Datos"
+      payment_methods: "Payment Methods"
+      statuses: "Statuses"

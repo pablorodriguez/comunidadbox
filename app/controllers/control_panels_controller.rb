@@ -91,7 +91,7 @@ class ControlPanelsController < ApplicationController
   
     @other_events = Event.other_events(@service_filter.service_type_id)    
     @events = Event.find_by_params @service_filter,@event_types,@my_clients,@others,company_id
-    
+
     #logger.debug "### SQL #{@events.to_sql}"
     @page = params[:page] || 1
     per_page=90

@@ -1,9 +1,9 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
-  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual,:user_id
+  attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual,:user_id,:status_id
   
-  include Statused  
+  #include Statused  
 
   ORDER_BY = {I18n.t("order_by") =>"workorders.performed desc",I18n.t("domain_descendant")=>"cars.domain desc",I18n.t("domain_ascendant")=>"cars.domain asc",
    I18n.t("done_descendant")=>"workorders.performed desc",I18n.t("done_ascendant") => "workorders.performed asc"}
@@ -13,7 +13,7 @@ class Workorder < ActiveRecord::Base
   has_many :notes,:dependent => :destroy
   belongs_to :car
   belongs_to :company
-  belongs_to :user  
+  belongs_to :user
   belongs_to :budget
   belongs_to :payment_method
   has_many :ranks
@@ -57,6 +57,17 @@ class Workorder < ActiveRecord::Base
       send_notification if car.user.confirmed_at
       update_car_service_offers
     end
+  end
+
+  # La orden de trabajo esta terminada si el estado de todos sus servicios
+  # tienen el final status
+  def is_finished?
+    final_status = company.get_final_status
+    services.where("status_id = ?",final_status.id).count == services.count
+  end
+
+  def is_open_for_autopart?
+    false
   end
 
   def update_car_service_offers
@@ -228,29 +239,13 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    if self.status != Status::OPEN_FOR_AUTOPART
-      n_status = Status::FINISHED
-      self.services.each do |s|      
-        if ((s.status == Status::IN_PROCESS || s.status == Status::OPEN) && (!(s._destroy)))
-          n_status = Status::OPEN
-        end
+    n_status = company.get_final_status
+    if n_status
+      is_final = false
+      if self.services.where(status_id: n_status.id).count == self.services.count
+        self.status = n_status
       end
-
-      n_status = Status::OPEN if self.services.empty?    
-      self.status = n_status    
     end
-  end
-  
-  def finish_old?
-    status == Status::FINISHED
-  end
-   
-  def open_old?
-    status == Status::OPEN
-  end
-
-  def in_progress_old?
-    status == Status::IN_PROCESS
   end
 
   def belong_to_user user
@@ -277,9 +272,7 @@ class Workorder < ActiveRecord::Base
     if ((user.id == usr.id) && usr.is_car_owner?)
       return true
     end
-
     can_edit?(usr)
-
   end
   
   def can_edit?(usr)
@@ -287,7 +280,7 @@ class Workorder < ActiveRecord::Base
       return true
     end
 
-    if (is_open? || is_in_progress? || is_open_for_autopart? )
+    unless (is_finished?)
       if company.is_employee?(usr) && user.is_employee?
         return true
       end

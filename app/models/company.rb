@@ -1,6 +1,7 @@
 
 class Company < ActiveRecord::Base
-  attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo
+  attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo,
+  :payment_methods
 
   validates :name,:presence => true
   validates :address, :presence => true  
@@ -23,6 +24,8 @@ class Company < ActiveRecord::Base
 
   has_one :export
   has_many :company_material_code
+  has_many :payment_methods
+  has_many :statuses
   
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
@@ -39,6 +42,10 @@ class Company < ActiveRecord::Base
 
   def self.default_service_types
     Company.find(1).service_types
+  end
+
+  def self.default_final_status
+    Company.find(1).get_final_status
   end
 
   def update_headquarter
@@ -268,5 +275,16 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def available_payment_methods
+    payment_methods.any? ? payment_methods : get_headquarter.payment_methods
+  end
+
+  def available_custom_statuses
+    custom_statuses.any? ? custom_statuses : get_headquarter.custom_statuses
+  end
+
+  def get_final_status
+    statuses.where(is_final: true).first
+  end
 end
 

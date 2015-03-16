@@ -16,7 +16,7 @@ class WorkorderTest < ActiveSupport::TestCase
   test "event in 2 months" do
     car = @user.cars.first
     performed = Time.zone.now.to_date
-    @wo = create(:wo_oc,:car => car,:user => @employer,:company => @employer.company,:performed => performed)
+    @wo = create(:wo_oc,:car => car,:user => @employer,:company => @employer.company,:performed => performed,:status_id => 2)
     event = @wo.services.first.events.first    
     assert event.dueDate == performed + 2.months,"Event no esta a los 2 meses"
     car.kmAverageMonthly = 2000
@@ -29,7 +29,7 @@ class WorkorderTest < ActiveSupport::TestCase
   end
 
   test "validate dueDate of events generated" do
-    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
     
     event = @wo.services.first.events.first
     new_due_date = @wo.performed + 2.months
@@ -49,7 +49,7 @@ class WorkorderTest < ActiveSupport::TestCase
 
   test "user can delete his workorder close" do
     @wo = create(:wo_oc,:car => @user.cars.first,:user => @user,:company => @employer.company)
-    assert @wo.can_delete?(@user) 
+    assert @wo.can_delete?(@user)
   end
 
   test "user can delete his workorder open" do
@@ -73,12 +73,12 @@ class WorkorderTest < ActiveSupport::TestCase
   end
 
   test "employer cant delete his workorder close" do
-    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
     assert @wo.can_delete?(@employer) == false
   end
 
   test "employer cant edit his workorder close" do
-    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
     assert @wo.can_edit?(@employer) == false
   end
 

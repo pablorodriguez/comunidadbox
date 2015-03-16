@@ -8,6 +8,10 @@ FactoryGirl.define do
     active 1
     address {FactoryGirl.build(:valle_grande_mendoza_plaza_address)}
     headquarter 1
+    after(:build) do |company|
+      company.statuses << FactoryGirl.build(:status_open,:id=>1)
+      company.statuses << FactoryGirl.build(:status_close,:id=>2)
+    end
   end
   
   factory :valle_grande_mendoza_peru, class: Company do
@@ -17,6 +21,11 @@ FactoryGirl.define do
     website "www.neumaticosvallegrande.com.ar"
     active 1
     address {FactoryGirl.build(:valle_grande_mendoza_peru_address)}
+    after(:build) do |company|
+      company.statuses << FactoryGirl.build(:status_open,:id=>3)
+      company.statuses << FactoryGirl.build(:status_close,:id=>4) 
+    end
+
   end
   
 
@@ -27,6 +36,11 @@ FactoryGirl.define do
     website "www.imr.com.ar"
     active 1
     address {FactoryGirl.build(:imr_address)}
+    after(:build) do |company|
+      company.statuses << FactoryGirl.build(:status_open,:id=>5)
+      company.statuses << FactoryGirl.build(:status_close,:id=>6) 
+    end
+
   end
   
 end

@@ -1,0 +1,18 @@
+-# javascript 'service_offer'
+.vertical_menu
+  = render "admin/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1= Status.model_name.human
+  .box_bottom
+    %p
+      %b
+        = Status.human_attribute_name(:name) + ":"
+      = link_to @status.name,edit_status_path(@status)
+    %p
+      %b
+        = Status.human_attribute_name(:is_final) + ":"
+      = check_box_tag "is_final","1", @status.is_final,:disabled => true
+      
+
