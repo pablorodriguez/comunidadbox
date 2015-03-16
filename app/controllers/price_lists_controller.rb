@@ -127,7 +127,6 @@ class PriceListsController < ApplicationController
     @material = params[:material] || ""
     company_id= get_company.id
     @materials = MaterialServiceType.m(company_id,id,@service_type_ids,@material,@page.to_i)
-
     respond_to do |format|
       format.html
     end
