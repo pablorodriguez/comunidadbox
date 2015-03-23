@@ -27,8 +27,9 @@
       .action
         = link_to "", new_budget_path(:c => client.id), { :title => t(".new_budget"), :class => "new_budget" }
       .action
-        = link_to "", new_car_path(:user_id => client.id), { :title => t(".new_car"), :class => "new_car" }
-        = link_to "", new_motorcycle_path(:user_id => client.id), { :title => t(".new_car"), :class => "new_car" }
+        =# link_to "", new_car_path(:user_id => client.id), { :title => t(".new_car"), :class => "new_car" }
+        =# link_to "", new_motorcycle_path(:user_id => client.id), { :title => t(".new_car"), :class => "new_car" }
+        = link_to "", new_vehicle_path(:user_id => client.id), { :title => t(".new_vehicle"), :class => "new_vehicle" }
       .action
         %a{ :title => t(".send_message"), :class => "new_message", :href => "#", :data => { m: user_messages_path(client) } }
     - client.vehicles.each_with_index do |vehicle,index|
@@ -46,7 +47,8 @@
               = link_to "", vehicle, :data => { :confirm => t(".vehicle_delete_confirm")}, :remote =>true, :method => :delete, :title =>t(".delete"), :class=>"delete"
             .action
               =# link_to "", edit_car_path(vehicle), { :title=>t(".modify_vehicle"), :class =>"edit" }
-              = link_to "", sti_vehicle_path(vehicle.type, vehicle, :edit), { :title => t(".modify_vehicle"), :class => "edit" }
+              =# link_to "", sti_vehicle_path(vehicle.type, vehicle, :edit), { :title => t(".modify_vehicle"), :class => "edit" }
+              = link_to "", edit_vehicle_path(vehicle), { :title => t(".modify_vehicle"), :class => "edit" }
           .action
             = link_to "",new_budget_path(:ca => vehicle.id), { :title => t(".new_budget"), :class => "new_budget" }
           .action

@@ -33,7 +33,8 @@
       %td
         %label{ :for => "fuel" }=t(".fuel")
       %td
-        = f.collection_select :fuel, %w(Nafta), :to_s ,:to_s , { :prompt => "Nafta" }, { :class => "medium_select" }
+        =# f.collection_select :fuel, %w(Nafta), :to_s ,:to_s , { :prompt => "Nafta" }, { :class => "medium_select" }
+        = f.collection_select :fuel, %w(Nafta Diesel Gas), :to_s, :to_s,{:prompt=>""}, {:class=>"medium_select"}
       %td{:style=>"width:20px"}
       %td
         %label{ :for => "km" }=t(".mileage")

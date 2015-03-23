@@ -756,14 +756,14 @@ ActiveRecord::Schema.define(:version => 20150207160415) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "kmUpdatedAt"
-    t.string   "type",             :default => "Car"
+    t.string   "vehicle_type",     :default => "Car"
     t.string   "chassis"
   end
 
   add_index "vehicles", ["brand_id"], :name => "cars_brand_id_fk"
   add_index "vehicles", ["model_id"], :name => "cars_model_id_fk"
-  add_index "vehicles", ["type"], :name => "index_vehicles_on_type"
   add_index "vehicles", ["user_id"], :name => "cars_user_id_fk"
+  add_index "vehicles", ["vehicle_type"], :name => "index_vehicles_on_type"
 
   create_table "workorders", :force => true do |t|
     t.text     "comment"

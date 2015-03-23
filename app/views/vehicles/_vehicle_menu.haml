@@ -21,11 +21,12 @@
           = text_field_tag "new_service_url",new_workorder_path(:vehicle_id =>@vehicle)
       - if current_user.can_edit?(@vehicle.user)
         %li
-          = link_to t(".new_car"), new_car_path(:user_id=>@vehicle.user.id), {:title =>t(".new_car")}
-          = link_to t(".new_motorcycle"), new_motorcycle_path(:user_id=>@vehicle.user.id), {:title =>t(".new_motorcycle")}
+          =# link_to t(".new_car"), new_car_path(:user_id=>@vehicle.user.id), {:title =>t(".new_car")}
+          =# link_to t(".new_motorcycle"), new_motorcycle_path(:user_id=>@vehicle.user.id), {:title =>t(".new_motorcycle")}
+          = link_to t(".new_vehicle"), new_vehicle_path(:user_id => @vehicle.user.id), {:title => t(".new_vehicle")}
         %li
-          =# link_to t(".modify_vehicle"), edit_vehicle_path(@vehicle), { :title=>t(".modify_vehicle") }
-          = link_to t(".modify_vehicle"), sti_vehicle_path(@vehicle.type, @vehicle, :edit), { :title=>t(".modify_vehicle") }
+          = link_to t(".modify_vehicle"), edit_vehicle_path(@vehicle), { :title=>t(".modify_vehicle") }
+          =# link_to t(".modify_vehicle"), sti_vehicle_path(@vehicle.type, @vehicle, :edit), { :title=>t(".modify_vehicle") }
       - if current_user.is_employee?
         %li
           = link_to t(".messages"),"#",:data => {:vehicle_id => "#{@vehicle_id}"},:title=>t(".new_message"),:id =>"create_new_message"

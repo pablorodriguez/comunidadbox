@@ -19,7 +19,8 @@
       = link_to "",budget_path(note.budget),:class=>"budget_s",:title =>"Presupuesto"
     - if note.vehicle
       =# link_to "",car_path(note.vehicle),:class=>"note_car",:title =>"Automovil"
-      = link_to "", sti_vehicle_path(note.vehicle.type, note.vehicle), :class => "note_car", :title => "Automovil"
+      =# link_to "", sti_vehicle_path(note.vehicle.type, note.vehicle), :class => "note_car", :title => "Automovil"
+      = link_to "", vehicle_path(note.vehicle), :class => "note_car", :title => "Automovil"
     - if note.alarm
       = link_to "",alarm_path(note.alarm),:class=>"has_alarms",:title =>"Alarma"
 

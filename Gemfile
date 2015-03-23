@@ -47,6 +47,7 @@ group :development, :test do
 end
 
 gem 'pry', :group => :development
+gem 'quiet_assets', group: :development
 
 group :test do
   gem "timecop"

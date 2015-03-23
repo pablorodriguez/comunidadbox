@@ -10,6 +10,8 @@
         %li
           = link_to t(".modify_client"),edit_client_path(@client),{:title=>t(".modify_client")}
         %li
-          = link_to t(".new_car"), new_car_path(:user_id=>@client.id), {:title =>t(".new_car")}
+          = link_to t(".new_vehicle"), new_vehicle_path(:user_id=>@client.id), {:title =>t(".new_vehicle")}
         %li
-          = link_to t(".new_motorcycle"), new_motorcycle_path(:user_id=>@client.id), {:title =>t(".new_motorcycle")}
+          =# link_to t(".new_car"), new_car_path(:user_id=>@client.id), {:title =>t(".new_car")}
+        %li
+          =# link_to t(".new_motorcycle"), new_motorcycle_path(:user_id=>@client.id), {:title =>t(".new_motorcycle")}

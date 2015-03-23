@@ -16,21 +16,25 @@
     .box_bottom
       %table
         %body
-          %tr
-            %td{:style=>"width:100px"}
-              Tipo
-            %td
-              = select_tag(:vehicle_type, options_for_select([[t('.car'), 1],[t('.motorcycle'), 2]]),{:class=>'long_selec'})
+          = f.fields_for :vehicles do |c|
+            %tr
+              %td{:style=>"width:100px"}
+                Tipo
+              %td
+                = c.select(:vehicle_type, options_for_select([[t('.car'), 'Car'], [t('.motorcycle'), 'Motorcycle']]), { :class => 'long_selec' })
+              #car_fields_container
+                = render 'users/vehicle_fields', :f => c
 
-      = f.fields_for :vehicles do |c|
-        - if c.object.class == Car
-          #car_fields_container
-            = render 'users/car_fields', :f => c
-        - if c.object.class == Motorcycle
-          #motorcycle_fields_container.hide
-            = render 'users/motorcycle_fields', :f => c
-        = c.text_field :type
-        = c.check_box :_destroy
+      / = f.fields_for :vehicles do |c|
+      /   = f.select(:vehicle_type, options_for_select([[t('.car'), 'Car'], [t('.motorcycle'), 'Motorcycle']]), { :class => 'long_selec' })
+      /   - if c.object.class == Car
+      /     #car_fields_container
+      /       = render 'users/car_fields', :f => c
+      /   - if c.object.class == Motorcycle
+      /     #motorcycle_fields_container.hide
+      /       = render 'users/motorcycle_fields', :f => c
+      /   =# c.text_field :type
+      /   = c.check_box :_destroy
     / .box_bottom
     /   = f.fields_for :cars do |c|
     /     = render 'users/car_fields', :f => c

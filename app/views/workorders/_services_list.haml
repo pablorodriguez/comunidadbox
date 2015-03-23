@@ -57,4 +57,5 @@
       - dis = @update_km ? "disabled" : nil
       = wo_form.submit t(".save"),:class =>"button",:data => {"disable-with" => t("saving")},:id => :workorder_submit,:disabled => dis
       =# link_to  t(".cancel"),car_path(@work_order.vehicle)
-      = link_to t(".cancel"), sti_vehicle_path(@work_order.vehicle.type, @work_order.vehicle)
+      =# link_to t(".cancel"), sti_vehicle_path(@work_order.vehicle.type, @work_order.vehicle)
+      = link_to  t(".cancel"), vehicle_path(@work_order.vehicle)

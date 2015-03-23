@@ -134,10 +134,11 @@ class ClientsController < ApplicationController
   def new
     @client = User.new
     @client.build_address
-    @client.vehicles.build(type: 'Car')
-    @client.vehicles.build(type: 'Motorcycle')
+    # @client.vehicles.build(type: 'Car')
+    # @client.vehicles.build(type: 'Motorcycle')
     # @client.cars.build
     # @client.motorcycles.build
+    @client.vehicles.build
     if params[:b]
       @budget = Budget.find params[:b]
       @client.first_name = @budget.first_name
@@ -146,16 +147,16 @@ class ClientsController < ApplicationController
       @client.phone = @budget.phone
 
       # car
-      @client.vehicles.detect { |v| v["type"] == 'Car' }.domain = @budget.domain
-      @client.vehicles.detect { |v| v["type"] == 'Car' }.brand = @budget.brand
-      @client.vehicles.detect { |v| v["type"] == 'Car' }.model =@budget.model
+      # @client.vehicles.detect { |v| v["type"] == 'Car' }.domain = @budget.domain
+      # @client.vehicles.detect { |v| v["type"] == 'Car' }.brand = @budget.brand
+      # @client.vehicles.detect { |v| v["type"] == 'Car' }.model =@budget.model
       # @client.vehicles.first.domain = @budget.domain
       # @client.vehicles.first.brand = @budget.brand
       # @client.vehicles.first.model =@budget.model
       # motorcycle
-      @client.vehicles.detect { |v| v["type"] == 'Motorcycle' }.domain = @budget.domain
-      @client.vehicles.detect { |v| v["type"] == 'Motorcycle' }.brand = @budget.brand
-      @client.vehicles.detect { |v| v["type"] == 'Motorcycle' }.model =@budget.model
+      # @client.vehicles.detect { |v| v["type"] == 'Motorcycle' }.domain = @budget.domain
+      # @client.vehicles.detect { |v| v["type"] == 'Motorcycle' }.brand = @budget.brand
+      # @client.vehicles.detect { |v| v["type"] == 'Motorcycle' }.model =@budget.model
       # @client.vehicles.last.domain = @budget.domain
       # @client.vehicles.last.brand = @budget.brand
       # @client.vehicles.last.model =@budget.model
@@ -166,6 +167,9 @@ class ClientsController < ApplicationController
       # @client.motorcycles.first.domain = @budget.domain
       # @client.motorcycles.first.brand = @budget.brand
       # @client.motorcycles.first.model =@budget.model
+      @client.vehicles.first.domain = @budget.domain
+      @client.vehicles.first.brand = @budget.brand
+      @client.vehicles.first.model =@budget.model
       flash.now.notice ="Antes de registrar un servicio por favor cree el cliente"
     end
     respond_to do |format|
