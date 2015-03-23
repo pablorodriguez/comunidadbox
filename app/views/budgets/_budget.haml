@@ -3,7 +3,8 @@
     .domain_white.left
       - if budget.vehicle
         =# link_to(budget.vehicle.domain, car_path(budget.vehicle))
-        = link_to(budget.vehicle.domain, sti_vehicle_path(budget.vehicle.type, budget.vehicle))
+        =# link_to(budget.vehicle.domain, sti_vehicle_path(budget.vehicle.type, budget.vehicle))
+        = link_to(budget.vehicle.domain, vehicle_path(budget.vehicle))
       -else
         = budget.domain
   .services

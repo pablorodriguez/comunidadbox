@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Vehicle < ActiveRecord::Base
-  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :brand, :year, :model_id, :model, :fuel, :user_id, :type
+  attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :brand, :year, :model_id, :model, :fuel, :user_id, :vehicle_type, :chassis
 
   has_many :workorders
   has_many :budgets
@@ -20,12 +20,18 @@ class Vehicle < ActiveRecord::Base
   validates_numericality_of :km, :only_integer => true
   validates_numericality_of :kmAverageMonthly
 
+  validates_format_of :domain, with: /^\d{3}\D{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Motorcycle' }
+  validates_format_of :domain, with: /^\D{3}\d{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car' }
+  validates_uniqueness_of :domain, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car' }
+
   validate :unique_domain
   before_save :set_new_attribute
   after_save :update_events
 
-  scope :cars, -> { where(type: 'Car') }
-  scope :motorcycles, -> { where(type: 'Motorcycle') }
+  # scope :cars, -> { where(type: 'Car') }
+  # scope :motorcycles, -> { where(type: 'Motorcycle') }
+  scope :cars, -> { where(vehicle_type: 'Car') }
+  scope :motorcycles, -> { where(vehicle_type: 'Motorcycle') }
 
   attr_accessor :today_service_offer
 

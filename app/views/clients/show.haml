@@ -70,5 +70,6 @@
           .action
             = link_to "", new_workorder_path(:vehicle_id =>vehicle),{:title=>t(".new_service"),:class =>"new_service"}
           .action
-            =# link_to "", edit_vehicle_path(vehicle),{:title=>t(".modify_vehicle"),:class =>"edit"} if current_user.can_edit?(vehicle.user)
-            = link_to "", sti_vehicle_path(vehicle.type, vehicle, :edit), {:title=>t(".modify_vehicle"), :class =>"edit"} if current_user.can_edit?(vehicle.user)
+            = link_to "", edit_vehicle_path(vehicle),{:title=>t(".modify_vehicle"),:class =>"edit"} if current_user.can_edit?(vehicle.user)
+            =# link_to "", sti_vehicle_path(vehicle.type, vehicle, :edit), {:title=>t(".modify_vehicle"), :class =>"edit"} if current_user.can_edit?(vehicle.user)
+            
