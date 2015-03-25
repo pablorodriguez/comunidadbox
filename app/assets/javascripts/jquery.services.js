@@ -12,11 +12,11 @@ jQuery(document).ready( function(){
 
   $("#work_order_form").delegate(".service_offer_select","change",set_service_offer);  
 
-	$(".text_lable").each(function(){
-		$(this).disable();
-	});
+  $(".text_lable").each(function(){
+    $(this).disable();
+  });
 
-	$('.date').datepicker({
+  $('.date').datepicker({
       showOn: 'button',
       buttonImage: '/images/calendar.png',
       buttonImageOnly: true
@@ -25,48 +25,48 @@ jQuery(document).ready( function(){
   $('.date_time').datetimepicker();
 
 
-	initMaterialItems();
-	$("#maxim").click(maxim);
-	var url_km = $("#url_update_km").val();
-	var url_km_avg = $("#url_update_km_avg").val();
+  initMaterialItems();
+  $("#maxim").click(maxim);
+  var url_km = $("#url_update_km").val();
+  var url_km_avg = $("#url_update_km_avg").val();
 
-	var domain = $.trim($("#domain").html());
-	var param_values ="domain=" + domain;
+  var domain = $.trim($("#domain").html());
+  var param_values ="domain=" + domain;
 
-	
-	$("#service_type_id").change(function(){
-		$("#materials_list").html("");
-		if ($("#detail").val() != ""){
-		  autoCompleteMaterial();
-		}
-	});
+  
+  $("#service_type_id").change(function(){
+    $("#materials_list").html("");
+    if ($("#detail").val() != ""){
+      autoCompleteMaterial();
+    }
+  });
 
-	$(".status").change(updateWorkOrderTotalPrice);
+  $(".status").change(updateWorkOrderTotalPrice);
 
   $("#services").delegate(".add_fields","click",add_fields);
   $("#services").delegate(".delete-button",'click',remove_fields);
 
   
   $(".new_material").live('click',addEmptyMaterial);
-	$("#materials_list table tbody tr").live("click",selectMaterialHandler);
-	$("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
-	$("#materials_list .checkbox").live("click",checkMaterialHandler);
-	$("#wo-actions .add_comment").live("click",showWorkOrderComment);
-	$(".service_status .add_comment").live("click",showServiceComment);
+  $("#materials_list table tbody tr").live("click",selectMaterialHandler);
+  $("#materials_list table tbody tr").live("dblclick",addMaterialServiceTypeHandler);
+  $("#materials_list .checkbox").live("click",checkMaterialHandler);
+  $("#wo-actions .add_comment").live("click",showWorkOrderComment);
+  $(".service_status .add_comment").live("click",showServiceComment);
 
-	$(".notes_link").click(function(){
-		$("#wo_note").slideToggle();
-	});
+  $(".notes_link").click(function(){
+    $("#wo_note").slideToggle();
+  });
 
-	$(".add_alarm").click(function(){
-		$("#wo_alarm").slideToggle();
-	});
+  $(".add_alarm").click(function(){
+    $("#wo_alarm").slideToggle();
+  });
 
-	$("#material_dialog").click(showMaterialDialog);
-	$("#new_service_type").change(addNewServiceType);
+  $("#material_dialog").click(showMaterialDialog);
+  $("#new_service_type").change(addNewServiceType);
 
-	materialDialog = $("#materials").dialog({
-	  autoOpen: false ,
+  materialDialog = $("#materials").dialog({
+    autoOpen: false ,
     modal: true,
     draggable:false,
     resizable:false,
@@ -75,10 +75,12 @@ jQuery(document).ready( function(){
     title: search_material_title,
     close:function(){
       $("#materials_list").html("");
+      $("#term").val("");
       $("#material_erros").hide();
       $("#new_material").val("");
       $("#service_type_id").val("");
       $("#detail").val("");
+      $("#service_type").val("");
     },
     buttons: [
           {
@@ -88,7 +90,7 @@ jQuery(document).ready( function(){
           {
             text: add_material_title,
             click: function() {
-              if (($("#service_type_id").val() == "")
+              if (($("#service_type").val() == "")
                     && ($("#new_material").val() != "")){
                 $("#material_erros").show();
               }else{
@@ -108,33 +110,33 @@ jQuery(document).ready( function(){
             click:function(){$(this).dialog("close");}
           }
         ]
-	});
+  });
 
-	commentDialog = $("#comment_modal").dialog({
-	  autoOpen: false ,
-	  modal: true,
-	  draggable:false,
-	  resizable:false,
-	  title:"Comentario",
-	  open: function(event, ui) {
-	    $("#comment").val("");
-	    $("#comment").val(comment.val());
-	  },
-	});
+  commentDialog = $("#comment_modal").dialog({
+    autoOpen: false ,
+    modal: true,
+    draggable:false,
+    resizable:false,
+    title:"Comentario",
+    open: function(event, ui) {
+      $("#comment").val("");
+      $("#comment").val(comment.val());
+    },
+  });
 
-	$("#save_comment").click(function(){
-		comment.val($("#comment").val());
-	    if (comment.val() != ""){
-	      comment.parent().prev().find(".comment").toggleClass("add_comment edit_comment").attr("title","Agregar Comentario");
-	    }else{
-	      comment.parent().prev().find(".comment").toggleClass("edit_comment add_comment").attr("title","Modificar Comentario"); 
-	    }
-	    commentDialog.dialog("close");
-	});
+  $("#save_comment").click(function(){
+    comment.val($("#comment").val());
+      if (comment.val() != ""){
+        comment.parent().prev().find(".comment").toggleClass("add_comment edit_comment").attr("title","Agregar Comentario");
+      }else{
+        comment.parent().prev().find(".comment").toggleClass("edit_comment add_comment").attr("title","Modificar Comentario"); 
+      }
+      commentDialog.dialog("close");
+  });
 
-	$(".pagination a").live("click",function(){
+  $(".pagination a").live("click",function(){
     $.getScript(this.href);
-  	return false;
+    return false;
   });
 
   $(document).keypress(function(e) {
@@ -172,16 +174,25 @@ function set_service_offer(){
 }
 
 function showTask(ele){
-	$(ele).parent().parent().parent().parent().parent().parent().find(".task_list").slideToggle();
+  $(ele).parent().parent().parent().parent().parent().parent().find(".task_list").slideToggle();
 }
 
 function autoCompleteMaterial(){
   $("#material_erros").hide();
-    var detail = $.trim($("#term").val());
-    if (detail != ""){
-      //$("#detail").val(detail);
-      $("#material_form").submit();
-    }
+  var detail = $.trim($("#term").val());
+  if (detail != ""){
+    var action = $("#material_form").attr("action");
+    var service_type_id = $("#service_type").val();
+    $.ajax({
+      url: action,
+      data: {
+        'service_type':service_type_id,
+        'term':detail     
+      },
+      dataType:'script',
+      type:'GET'
+    });
+  }
 }
 
 function showMaterialDialog(){
@@ -222,165 +233,165 @@ function update_km_avg(event){
 
 function addEmptyMaterial(){
   var element = $(this);
-	var div = $(element).parent().parent().parent().parent().parent().parent().parent().parent();
-	div.find("#material_services_link").click();
-	var tr = div.find("table tr:last");
+  var div = $(element).parent().parent().parent().parent().parent().parent().parent().parent();
+  div.find("#material_services_link").click();
+  var tr = div.find("table tr:last");
   tr.find("td:eq(1)").find("input").focus();
-	tr.find("td:eq(2)").find("input").val("1").blur();
-	tr.find("td:eq(3)").find("input").val("0.0");
-	var ele = tr.find(".material");
+  tr.find("td:eq(2)").find("input").val("1").blur();
+  tr.find("td:eq(3)").find("input").val("0.0");
+  var ele = tr.find(".material");
   ele.show();
   initMaterialAutocomplete(ele);
 }
 
 
 function maxim(element){
-	if ($("#header").is(":visible")){
-		$(element.target).html("Min");
-		$("#header").slideUp();
-		$("#menu").slideUp();
-		$("#wrapmenu").slideUp();
-		$("#footer").slideUp('slow',function(){
-			$("body").removeClass("background");
-		});
+  if ($("#header").is(":visible")){
+    $(element.target).html("Min");
+    $("#header").slideUp();
+    $("#menu").slideUp();
+    $("#wrapmenu").slideUp();
+    $("#footer").slideUp('slow',function(){
+      $("body").removeClass("background");
+    });
 
-		$("#material_per_page").val(15);
-	}else{
-		$(element.target).html("Max");
-		$("#header").slideDown();
-		$("#menu").slideDown();
-		$("#wrapmenu").slideDown();
-		$("#footer").slideDown('slow',function(){
-			$("body").addClass("background");
-		});
+    $("#material_per_page").val(15);
+  }else{
+    $(element.target).html("Max");
+    $("#header").slideDown();
+    $("#menu").slideDown();
+    $("#wrapmenu").slideDown();
+    $("#footer").slideDown('slow',function(){
+      $("body").addClass("background");
+    });
 
-		$("#material_per_page").val(10);
-	}
+    $("#material_per_page").val(10);
+  }
 }
 
 function initMaterialItems(){
-	$(".amount").blur(updateItemTotalPrice);
-	$(".price").blur(updateItemTotalPrice);
+  $(".amount").blur(updateItemTotalPrice);
+  $(".price").blur(updateItemTotalPrice);
 
 }
 
 function updateItemTotalPrice(element){
-	var amount=0;
-	var price=0;
-	var totalLabel ;
-	var ele = $(element.target);
+  var amount=0;
+  var price=0;
+  var totalLabel ;
+  var ele = $(element.target);
 
-	if (ele.hasClass("amount")){
-	  if (ele.val().trim() == ""){
-	    ele.val("1");
-	  }
-		amount = ele.asNumber();
-		price = ele.parent().next().find("input").val();
-		totalLabel = ele.parent().next().next().find(".total_item");
-	}else{
-	  if (ele.val().trim() == ""){
-	    ele.val("0.0");
-	  }
-		amount = ele.parent().prev().find("input").val();
-		price =  ele.val();
-		totalLabel = ele.parent().next().find(".total_item");
-	}
-	var serviceDiv = ele.parent().parent().parent().parent().parent();
-	totalLabel.html(amount * price);
-	totalLabel.formatCurrency();
-	updateTotalService(serviceDiv);
-	updateWorkOrderTotalPrice();
+  if (ele.hasClass("amount")){
+    if (ele.val().trim() == ""){
+      ele.val("1");
+    }
+    amount = ele.asNumber();
+    price = ele.parent().next().find("input").val();
+    totalLabel = ele.parent().next().next().find(".total_item");
+  }else{
+    if (ele.val().trim() == ""){
+      ele.val("0.0");
+    }
+    amount = ele.parent().prev().find("input").val();
+    price =  ele.val();
+    totalLabel = ele.parent().next().find(".total_item");
+  }
+  var serviceDiv = ele.parent().parent().parent().parent().parent();
+  totalLabel.html(amount * price);
+  totalLabel.formatCurrency();
+  updateTotalService(serviceDiv);
+  updateWorkOrderTotalPrice();
 }
 
 function updateTotalService(service_element){
-	var total= 0;
-	var element =$(service_element);
-	var st_id = parseInt(element.find(".service_type_id").val());
-	var so_id = parseInt($("#st_id_" + st_id).val());
-	var cso_id = parseInt($("#cso_ids_" + st_id).val());
+  var total= 0;
+  var element =$(service_element);
+  var st_id = parseInt(element.find(".service_type_id").val());
+  var so_id = parseInt($("#st_id_" + st_id).val());
+  var cso_id = parseInt($("#cso_ids_" + st_id).val());
 
-	if ((so_id == st_id)){
-	 total = $("#so_p_" + st_id).val();
-	}else{
-  	element.find(".total_item").each(function(){
-  		var elem = $(this).parent().parent()[0];
-  		if(elem.style.display != 'none'){
-  			total += $(this).asNumber();
-  		}
+  if ((so_id == st_id)){
+   total = $("#so_p_" + st_id).val();
+  }else{
+    element.find(".total_item").each(function(){
+      var elem = $(this).parent().parent()[0];
+      if(elem.style.display != 'none'){
+        total += $(this).asNumber();
+      }
 
-  	});
-	}
-	element.find(".total_service").html(total).formatCurrency();
+    });
+  }
+  element.find(".total_service").html(total).formatCurrency();
 }
 
 function updateWorkOrderTotalPrice(){
-	var total= 0;
-	$(".total_service").each(function(){
-		var div = $(this).parent().parent().parent().parent().parent();
-		if (div.is(':visible')){
-			if (div.find("table tr:first").find("select :selected").text() != "Cancelado") {
-				total += $(this).asNumber();
-			}
-		}
+  var total= 0;
+  $(".total_service").each(function(){
+    var div = $(this).parent().parent().parent().parent().parent();
+    if (div.is(':visible')){
+      if (div.find("table tr:first").find("select :selected").text() != "Cancelado") {
+        total += $(this).asNumber();
+      }
+    }
 
-	});
-	$("#total_work_order").html(total).formatCurrency();
+  });
+  $("#total_work_order").html(total).formatCurrency();
 }
 
 function search_sub_category(){
-	var category = $('#category_id').val();
-	var action =$('#search_sub_category_url').val();
-	$.ajax({
-		url:action,
-		data:{'id':category},
-		type:'POST',
-		dataType:'script'
-	});
+  var category = $('#category_id').val();
+  var action =$('#search_sub_category_url').val();
+  $.ajax({
+    url:action,
+    data:{'id':category},
+    type:'POST',
+    dataType:'script'
+  });
 }
 
 
 function task_list(){
-	$('#service_type_task').html("");
-	var service_type=$('#service_type_id').val();
-	var action="/service_types/" + service_type + "/task_list.js";
-	var token = $("input[name='authenticity_token']")[0];
-	showServiceTypeAjaxLoader();
-	jQuery.ajax({
-		data:'authenticity_token=' + encodeURIComponent(token),
-		dataType:'script',
-		type:'get',
-		url:action});
+  $('#service_type_task').html("");
+  var service_type=$('#service_type_id').val();
+  var action="/service_types/" + service_type + "/task_list.js";
+  var token = $("input[name='authenticity_token']")[0];
+  showServiceTypeAjaxLoader();
+  jQuery.ajax({
+    data:'authenticity_token=' + encodeURIComponent(token),
+    dataType:'script',
+    type:'get',
+    url:action});
 }
 
 function showServiceTypeAjaxLoader(element){
-	$("#search_task").show();
-	$("#st_ajax_loader").show();
+  $("#search_task").show();
+  $("#st_ajax_loader").show();
 }
 
 function hideServiceTypeAjaxLoader(){
-	$("#search_task").hide();
-	$("#st_ajax_loader").hide();
+  $("#search_task").hide();
+  $("#st_ajax_loader").hide();
 }
 
 function remove_fields(){
   var link = $(this);
   var association = link.data("association");
-	if (association=="services"){
-		//$(link).prev("input[type=hidden]").attr("value", '1');
-		var trs = $(link).parent().parent().parent().parent().parent().find("thead tr");
-		trs.each(function(){
-		  var tr = $(this);
-		  tr.find("a").prev().attr("value", '1');
-		  tr.hide();
-		});
-		$(link).parent().parent().parent().parent().parent().parent().hide();
-	}else{
-		$(link).prev("input[type=hidden]").attr("value", '1');
-		$(link).parent().parent().hide()
-	}
-	var serviceDiv = $(link).parent().parent().parent().parent().parent();
-	updateTotalService(serviceDiv);
-	updateWorkOrderTotalPrice();
+  if (association=="services"){
+    //$(link).prev("input[type=hidden]").attr("value", '1');
+    var trs = $(link).parent().parent().parent().parent().parent().find("thead tr");
+    trs.each(function(){
+      var tr = $(this);
+      tr.find("a").prev().attr("value", '1');
+      tr.hide();
+    });
+    $(link).parent().parent().parent().parent().parent().parent().hide();
+  }else{
+    $(link).prev("input[type=hidden]").attr("value", '1');
+    $(link).parent().parent().hide()
+  }
+  var serviceDiv = $(link).parent().parent().parent().parent().parent();
+  updateTotalService(serviceDiv);
+  updateWorkOrderTotalPrice();
 
 }
 
@@ -388,18 +399,18 @@ function add_fields(){
   var link = $(this);
   var association = link.data("association");
   var content = link.data("content");
-	var msg="";
-	var new_id = new Date().getTime();
-	var regexp = new RegExp("new_" + association, "g");
-	if (association =="material_services"){
-		var div = $(link).parent().parent();
-    div.find('table tbody').append(content.replace(regexp, new_id));		
-	}else if (association =="services"){
-		content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
-		$("#services").find("#services_list").append(content.replace(regexp, new_id));
-		
-	}
-	initMaterialItems();
+  var msg="";
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  if (association =="material_services"){
+    var div = $(link).parent().parent();
+    div.find('table tbody').append(content.replace(regexp, new_id));    
+  }else if (association =="services"){
+    content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
+    $("#services").find("#services_list").append(content.replace(regexp, new_id));
+    
+  }
+  initMaterialItems();
 }
 
 function initMaterialsPagination(){
@@ -446,6 +457,8 @@ function add_new_material_service_type(){
   });
 
   initMaterialItems();
+  $("#new_material").val("");
+  $("#term").val("")
 }
 
 function addNewServiceType(){
@@ -472,8 +485,10 @@ function add_material_service_type(){
   add_materials_service_types(checks);
 }
 
-function getServiceTypeDiv(serviceTypeIdElement){
-
+function getServiceTypeDiv(serviceTypeIdElement,addEmptyMaterial){
+  
+  if (addEmptyMaterial == null) addEmptyMaterial = true;
+  
   var serviceTypeId = $(serviceTypeIdElement).val();
   var serviceType = $(serviceTypeIdElement +" option:selected").text();
 
@@ -489,13 +504,15 @@ function getServiceTypeDiv(serviceTypeIdElement){
       }
     });
 
-  if (serviceTypeDiv==null){
+  if (serviceTypeDiv == null){
       $("#services_link").click();
       var serviceTypes = $(".service_type");
       serviceTypeDiv = $(serviceTypes[serviceTypes.length-1])
       serviceTypeDiv.find("#serviceType").text(serviceType);
       serviceTypeDiv.find(".service_type_id")[0].value=serviceTypeId;
-      serviceTypeDiv.find("a.new_material").click();
+      if (addEmptyMaterial){
+        serviceTypeDiv.find("a.new_material").click();
+      }
   }
 
   addTaskList(serviceTypeId)
@@ -504,61 +521,61 @@ function getServiceTypeDiv(serviceTypeIdElement){
 }
 
 function add_materials_service_types(elements){
-	var serviceTypeDiv= null;
-	elements.each(function(){
-		var ele = $(this);
-		ele.attr("checked",false)
-		var tr0 = ele.parent().parent();
+  var serviceTypeDiv= null;
+  elements.each(function(){
+    var ele = $(this);
+    ele.attr("checked",false)
+    var tr0 = ele.parent().parent();
 
-		var serviceTypeId = $("#service_type").val();
-		var serviceType = $("#service_type option:selected").text();
+    var serviceTypeId = $("#service_type").val();
+    var serviceType = $("#service_type option:selected").text();
 
-		var materialServiceTypeId = this.id;
-		var material =$.trim(tr0.find("td:eq(1)").html());
-		var price = tr0.find("td:eq(2)").asNumber();
+    var materialServiceTypeId = this.id;
+    var material =$.trim(tr0.find("td:eq(1)").html());
+    var price = tr0.find("td:eq(2)").asNumber();
 
-		serviceTypeDiv = getServiceTypeDiv("#service_type");
+    serviceTypeDiv = getServiceTypeDiv("#service_type",false);
 
-		serviceTypeDiv.show();		
-		var materialButton = serviceTypeDiv.find("#material_services_link");
-		materialButton.click();
+    serviceTypeDiv.show();    
+    var materialButton = serviceTypeDiv.find("#material_services_link");
+    materialButton.click();
 
-		var tr = serviceTypeDiv.find("table tr:last");
-		tr = $(tr[0]);
+    var tr = serviceTypeDiv.find("table tr:last");
+    tr = $(tr[0]);
 
-		tr.find("td:eq(0) :input").val(materialServiceTypeId);
-		var input = tr.find("td:eq(1) .material");
+    tr.find("td:eq(0) :input").val(materialServiceTypeId);
+    var input = tr.find("td:eq(1) .material");
     input.val(material);
     input.prev().show();
     input.next().val(material);
     initMaterialAutocomplete(input);
 
-		tr.find("td:eq(2) :input").val(1)
-		tr3 = tr.find("td:eq(3) :input");
-		tr3.val(price);
-		//tr3.formatCurrency(tr3);
-		//tr3.toNumber();
-		var total = tr.find("td:eq(4)").find(".total_item").html(price);
-		total.formatCurrency(total);
-		tr.find(".text_lable").each(function(){
-			$(this).disable();
-		});
+    tr.find("td:eq(2) :input").val(1)
+    tr3 = tr.find("td:eq(3) :input");
+    tr3.val(price);
+    //tr3.formatCurrency(tr3);
+    //tr3.toNumber();
+    var total = tr.find("td:eq(4)").find(".total_item").html(price);
+    total.formatCurrency(total);
+    tr.find(".text_lable").each(function(){
+      $(this).disable();
+    });
 
-	});
-	initMaterialItems();
-	updateTotalService(serviceTypeDiv);
-	updateWorkOrderTotalPrice();
-	$("#materials_list").find(":checked").each(function(){
-		$(this).attr('checked',false);
-	});
+  });
+  initMaterialItems();
+  updateTotalService(serviceTypeDiv);
+  updateWorkOrderTotalPrice();
+  $("#materials_list").find(":checked").each(function(){
+    $(this).attr('checked',false);
+  });
 }
 
-function showWorkOrderComment(link){	
-	$(this).parent().parent().parent().parent().parent().parent().parent().find(".comment_div").first().slideToggle();	
+function showWorkOrderComment(link){  
+  $(this).parent().parent().parent().parent().parent().parent().parent().find(".comment_div").first().slideToggle();  
 }
 
-function showServiceComment(link){	
-	$(this).parent().parent().parent().parent().parent().parent().parent().parent().find(".comment_div").first().slideToggle();	
+function showServiceComment(link){  
+  $(this).parent().parent().parent().parent().parent().parent().parent().parent().find(".comment_div").first().slideToggle(); 
 }
 
 function searchServiceTypeMaterial(link){

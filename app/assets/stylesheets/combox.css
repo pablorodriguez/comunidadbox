@@ -2766,6 +2766,7 @@ input.labelHighlight,textarea.labelHighlight {
 
 .menu_actions li{
   padding: 2px 0px;
+  clear: both;
 }
 
 .car_detail .domain_brand{

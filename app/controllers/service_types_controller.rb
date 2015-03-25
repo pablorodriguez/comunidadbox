@@ -56,8 +56,7 @@ class ServiceTypesController < ApplicationController
     @material_service_type = MaterialServiceType.new
     @material_service_type.service_type = @service_type
     @material_service_type.material = @material
-    debugger
-    
+   
     respond_to do |format|
       if @material_service_type.save        
         format.js { render :file => "service_types/add_material",:layout => false}
