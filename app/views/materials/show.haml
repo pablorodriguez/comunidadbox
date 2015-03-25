@@ -4,12 +4,13 @@
 -# stylesheets 'demo_table'
 .vertical_menu
   = render "admin/menu"  
-  .menu_actions.box_bottom
-    %ul
-      %li
-        = link_to "Nuevo Material", new_material_path   
-      %li
-        = link_to "Modificar",edit_material_path(@material)
+  .menu_actions
+    .box_bottom
+      %ul
+        %li
+          = link_to "Nuevo Material", new_material_path   
+        %li
+          = link_to "Modificar",edit_material_path(@material)
 .contentright_s
   #material_show
   .box_bottom

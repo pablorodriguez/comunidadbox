@@ -11,6 +11,9 @@
           = link_to t(".new_service"),new_workorder_path(:car_id =>@car),:id=>"create_new_service_2",:title=>t(".new_service")
         %li          
           = link_to t(".new_budget"),new_budget_path(:ca => @car.id),:title=>t("..new_budget")
+        %li
+          #budgets_link.link.menu
+            = link_to t(".budgets"),"#"
         - if current_user.can_edit?(@car.user)
           %li
             = link_to t(".modify_client"),edit_client_path(@car.user),{:title=>t(".modify_client")} 
@@ -24,9 +27,6 @@
           = link_to t(".new_car"), new_car_path(:user_id=>@car.user.id),  {:title =>t(".new_car")}
         %li  
           = link_to t(".modify_car"),edit_car_path(@car),{:title=>t(".modify_car")}   
-      - if current_user.is_employee?
-        %li
-          = link_to t(".messages"),"#",:data => {:car_id => "#{@car_id}"},:title=>t(".new_message"),:id =>"create_new_message"
       %li
         #service_done.link.menu
           = link_to t(".services_performed"), "#"
@@ -34,11 +34,11 @@
         #future_event.link.menu
           = link_to t(".services_to_do"),"#"
       %li
-        #budgets_link.link.menu
-          = link_to t(".budgets"),"#"
-      %li
         #report_graph.link.menu
           = link_to t(".graphic_report"),"#"
+      - if current_user.is_employee?
+        %li
+          = link_to t(".messages"),"#",:data => {:car_id => "#{@car_id}"},:title=>t(".new_message"),:id =>"create_new_message"
 
 =render "search_data"
     

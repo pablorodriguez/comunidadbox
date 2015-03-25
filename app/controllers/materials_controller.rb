@@ -26,6 +26,7 @@ class MaterialsController < ApplicationController
     @page = params[:page] || 1
     @per_page = params[:per_page] || 10
     @materials = MaterialDetail.search(@company_id,@service_type_id,@detail).paginate(:per_page=>@per_page,:page => @page)
+    
     respond_to do |format|
       format.js {render :layout => false}
       format.json { render :json => @materials.to_json(:methods => :price_fmt)}
