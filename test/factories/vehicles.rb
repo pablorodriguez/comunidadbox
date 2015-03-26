@@ -1,7 +1,8 @@
 FactoryGirl.define do
 
- factory :DDD549, class: Car do
+ factory :DDD549, class: Vehicle do
     domain "DDD549"
+    vehicle_type "Car"
     model {Model.find(1)}
     brand {Brand.find(1)}
     year 2009
@@ -10,8 +11,9 @@ FactoryGirl.define do
     fuel "Nafta"    
   end
 
-  factory :HRJ549, class: Car do
-    domain "HRJ549"    
+  factory :HRJ549, class: Vehicle do
+    domain "HRJ549"
+    vehicle_type "Car" 
     model {Model.find(1)}
     brand {Brand.find(2)}
     year 2010
@@ -20,7 +22,7 @@ FactoryGirl.define do
     fuel "Diesel"
   end
 
-  factory :HRJ999, class: Car do
+  factory :HRJ999, class: Vehicle do
     domain "HRJ999"    
     model {Model.find(1)}
     brand {Brand.find(2)}

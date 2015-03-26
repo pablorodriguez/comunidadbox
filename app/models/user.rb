@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes,
                   :address_attributes, :password, :password_confirmation, :companies_attributes,
-                  :employer_id, :role_ids, :user_type, :cars_attributes, :motorcycles_attributes
+                  :employer_id, :role_ids, :user_type, :vehicles_attributes
 
   attr :type, true
 
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   has_many :vehicles
   # has_many :cars
   # has_many :motorcycles
-  delegate :cars, :motorcycles, to: :vehicles
+  # delegate :cars, :motorcycles, to: :vehicles
 
 
   has_many :authentications
@@ -67,6 +67,16 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :vehicles, :reject_if => :all_blank, :allow_destroy => true
   # accepts_nested_attributes_for :cars, :reject_if => :all_blank
   # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
+
+  #scope :motorcycles,where("vehicle_type = 'Motorcyle'")
+  
+  def cars
+    self.vehicles.select{|v| v.vehicle_type == "Car"}
+  end
+  
+  def motorcycles
+    self.vehicles.select{|v| v.vehicle_type == "Motorcycle"}
+  end
 
   scope :enabled , where("disable is NULL")
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
@@ -520,7 +530,7 @@ class User < ActiveRecord::Base
 
       car = client.vehicles.where("domain = ?",domain).first
       if car.nil?
-        car = Car.new({:domain => domain})
+        car = Vehicle.new({:domain => domain,:vehicle_type => "Car"})
         client.vehicles << car
       end
 
