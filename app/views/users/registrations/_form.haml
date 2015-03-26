@@ -23,7 +23,7 @@
     #car_info.box_bottom
       %h3=t(".information_car")
       =f.fields_for :vehicles do |c|
-        = render 'users/car_fields',:f =>c
+        = render 'users/vehicle_fields',:f =>c
     #personal_address.box_bottom
       %h3=t(".personal_address")
       =f.fields_for :address do |a|

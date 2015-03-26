@@ -1,7 +1,8 @@
 FactoryGirl.define do
 
-  factory :m549HRJ, class: Motorcycle do
+  factory :m549HRJ, class: Vehicle do
     domain "549HRJ"
+    vehicle_type "Motorcycle"
     model {Model.find(1)}
     brand {Brand.find(2)}
     year 2010
@@ -11,8 +12,9 @@ FactoryGirl.define do
     chassis "549HRJ"
   end
 
-  factory :m999HRJ, class: Motorcycle do
-    domain "999HRJ"    
+  factory :m999HRJ, class: Vehicle do
+    domain "999HRJ"
+    vehicle_type "Motorcycle"
     model {Model.find(1)}
     brand {Brand.find(2)}
     year 2010

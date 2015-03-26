@@ -33,7 +33,7 @@ class WorkorderTest < ActiveSupport::TestCase
     
     event = @wo.services.first.events.first
     new_due_date = @wo.performed + 2.months
-    assert(new_due_date == event.dueDate, "New Date: #{new_due_date} <> Event: #{event.dueDate} --- WO: #{@wo.performed} Vehicle Km Avg: #{@wo.car.kmAverageMonthly} ST: #{event.service.service_type.kms}")
+    assert(new_due_date == event.dueDate, "New Date: #{new_due_date} <> Event: #{event.dueDate} --- WO: #{@wo.performed} Vehicle Km Avg: #{@wo.vehicle.kmAverageMonthly} ST: #{event.service.service_type.kms}")
 
   end
 
