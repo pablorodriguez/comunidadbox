@@ -10,9 +10,9 @@ class WorkordersControllerTest < ActionController::TestCase
     create_all_company_data @employer.company_id
 
     @hugo = create(:hugo_rodriguez)
-    @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
-    @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company)
-    @wo_2 = create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company)
+    @wo_1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    @wo_open = create(:wo_oc_open,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 1)
+    @wo_2 = create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
   end
 
   test "cant print other workorder company" do
@@ -21,7 +21,7 @@ class WorkordersControllerTest < ActionController::TestCase
 
     #Creo una orden de trabajo para otra empresa
     @imr_admin =  create(:imr_admin)    
-    @wo_imr = create(:wo_tc,:car => @user.cars.first,:user => @imr_admin,:company => @imr_admin.company)
+    @wo_imr = create(:wo_tc,:car => @user.cars.first,:user => @imr_admin,:company => @imr_admin.company,:status_id => 1)
 
     get :show,:id => @wo_imr.to_param, :format => "pdf"
     assert_redirected_to root_path
@@ -144,7 +144,7 @@ class WorkordersControllerTest < ActionController::TestCase
   end
 
   test "edit other work order company" do
-    wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company)
+    wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 1)
     sign_in @user        
     get :edit ,:id => wo.to_param
     assert_redirected_to root_path    
@@ -211,7 +211,6 @@ class WorkordersControllerTest < ActionController::TestCase
     sign_in @employer    
     @request.cookies["company_id"]= @employer.company.id.to_s  
     client = @hugo
-   
     assert_difference('Workorder.count',1,"no hay unan nueva workorder") do
       post :create, :workorder => {
         :performerd => Time.now.strftime("%d/%m/%Y"),
@@ -221,7 +220,7 @@ class WorkordersControllerTest < ActionController::TestCase
         :payment_method_id => 1 ,
         :services_attributes => [
           {
-            :status => 1,
+            :status_id => 1,
             :service_type_id => 1,
             :material_services_attributes =>[
               {
@@ -236,6 +235,37 @@ class WorkordersControllerTest < ActionController::TestCase
       }
     end
     assert_redirected_to assigns(:work_order)
+  end
+
+  test "create new work order company no performed" do
+    sign_in @employer    
+    @request.cookies["company_id"]= @employer.company.id.to_s  
+    client = @hugo
+   
+    assert_difference('Workorder.count',1,"no hay unan nueva workorder") do
+      post :create, :workorder => {
+        :deliver => 1.hour.since.strftime("%d/%m/%Y %H:%m"),
+        :car_id =>client.cars.first.to_param,
+        :company_id=>@employer.company.to_param,
+        :payment_method_id => 1 ,
+        :services_attributes => [
+          {
+            :status_id => 1,
+            :service_type_id => 1,
+            :material_services_attributes =>[
+              {
+              :material => "FILTRO DE AIRE",
+              :amount =>"2",
+              :price => "250",
+              :_destroy => "false"
+              }
+            ]          
+          }
+        ]
+      }
+    end
+    assert_not_nil assigns(:work_order)
+    assert_redirected_to assigns(:work_order)    
   end
 
 end

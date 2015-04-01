@@ -212,7 +212,7 @@ class WorkordersController < ApplicationController
       @car_service_offers = []
       @car_service_offers = @work_order.find_car_service_offer(company_id) if company_id
       @service_types = get_service_types
-      @work_order.is_open_for_autopart ? @open_for_autopart = true : @open_for_autopart = false 
+      @work_order.is_open_for_autopart? ? @open_for_autopart = true : @open_for_autopart = false 
       format.html { render :action => "edit" }
     end
 
@@ -262,13 +262,13 @@ class WorkordersController < ApplicationController
           service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])
         end
       end
-
       redirect_to @work_order
     else
+      @payment_methods = get_company(params).available_payment_methods
       @service_types = current_user.service_types
       @work_order.car = Car.find(params[:car_id]) if (params[:car_id])
       #@car_service_offers = @work_order.find_car_service_offer(company_id)
-      @work_order.is_open_for_autopart ? @open_for_autopart = true : @open_for_autopart = false 
+      @work_order.is_open_for_autopart? ? @open_for_autopart = true : @open_for_autopart = false 
       render :action => 'new'
     end
   end

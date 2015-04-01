@@ -1,7 +1,9 @@
 class Service < ActiveRecord::Base
 
-  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:car_service_offer_id,:car_service_offer
+  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:car_service_offer_id,:car_service_offer,:status_id
   attr_accessor :today_car_service_offer
+
+  validates :status_id, :presence => true, :unless => Proc.new { |s| s.workorder_id.nil? }
 
   after_initialize :init_default_value 
   

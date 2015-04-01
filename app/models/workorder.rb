@@ -25,8 +25,7 @@ class Workorder < ActiveRecord::Base
   #validates :services ,:length =>{:minimum => 1}
   #validates_presence_of :deliver, :message => "Debe ingresar una hora de entrega"
   validates_presence_of :performed, :message => I18n.t(".must_enter_performed_date")
-  
-
+ 
   #,:message =>"La orden de trabajo debe contener servicios"
   validate :validate_all
 
@@ -239,11 +238,11 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    n_status = company.get_final_status
-    if n_status
+    final_status = company.get_final_status
+    if final_status
       is_final = false
-      if self.services.where(status_id: n_status.id).count == self.services.count
-        self.status = n_status
+      if self.services.where(status_id: final_status.id).count == self.services.count
+        self.status_id = final_status.id
       end
     end
   end
