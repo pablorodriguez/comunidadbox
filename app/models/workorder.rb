@@ -16,6 +16,7 @@ class Workorder < ActiveRecord::Base
   belongs_to :user
   belongs_to :budget
   belongs_to :payment_method
+  belongs_to :status
   has_many :ranks
   has_many :price_offers
 
@@ -36,6 +37,10 @@ class Workorder < ActiveRecord::Base
   after_initialize :init
 
   normalize_attributes :comment
+
+  def status_name
+    status ? status.name : ""
+  end
 
   def before_save_call_back
     set_status
@@ -140,21 +145,13 @@ class Workorder < ActiveRecord::Base
   def init  
     if self.performed.nil?
       self.performed = I18n.l(Time.zone.now.to_date)       
-    else
-      logger.debug "########################  no inicializo performed #{self.performed}"
     end
-
-    self.status = Status::OPEN unless self.status
-
-    self.payment_method = PaymentMethod.find PaymentMethod.default_payment unless self.payment_method  
 
   end
   
   def validate_all
-    logger.debug "####### entro a validate all #{self.services}"
     if self.services.empty?
       errors[:services] << "La orden de trabajo debe contener servicios"
-      logger.debug "############################# service esta vacio"
     end
 
     if self.user.company
@@ -185,7 +182,7 @@ class Workorder < ActiveRecord::Base
   def total_price
     s_total_price=0
     self.services.each do |s|
-      s_total_price += s.total_price if s.status != Status::CANCELLED  
+      s_total_price += s.total_price  
     end   
     s_total_price
   end
@@ -238,9 +235,9 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
+    self.status_id = nil
     final_status = company.get_final_status
     if final_status
-      is_final = false
       if self.services.where(status_id: final_status.id).count == self.services.count
         self.status_id = final_status.id
       end

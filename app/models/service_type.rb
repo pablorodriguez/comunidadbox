@@ -48,10 +48,6 @@ class ServiceType < ActiveRecord::Base
     self.days and self.days > 0
   end
 
-  def native_name
-    I18n.t(name)
-  end
-
   def to_builder
     Jbuilder.new do |service_type|      
       service_type.(self,:id,:name)      

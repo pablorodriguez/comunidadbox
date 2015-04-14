@@ -24,7 +24,7 @@ if (@work_order.company_info && !(@work_order.company_info.empty?))
 end
 
 
-pdf.text "Estado: #{Status.status(@work_order.status)}, Realizado: #{l @work_order.performed.to_date}", :size=>fs,:style =>:bold
+pdf.text "Estado: #{@work_order.status_name}, Realizado: #{l @work_order.performed.to_date}", :size=>fs,:style =>:bold
 pdf.text "Vendedor: #{@work_order.user.full_name}",:size=>fs
 pdf.text "Forma de Pago: #{@work_order.payment_method.name}",:size=>fs
 pdf.move_down(5)
@@ -36,7 +36,7 @@ pdf.move_down(5)
 	
 	operator = service.operator ? "Operario: #{service.operator.full_name} \n" : ""
 	data =[[
-			"Servicio: #{service.service_type.native_name} \n Estado: #{Status.status service.status}",
+			"Servicio: #{service.service_type.name} \n Estado: #{service.status.name}",
 			"#{operator} Total:  #{number_to_currency(service.total_price)}"
 			]]
   

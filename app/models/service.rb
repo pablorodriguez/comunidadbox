@@ -15,6 +15,7 @@ class Service < ActiveRecord::Base
   belongs_to :car_service_offer
   belongs_to :service_type
   belongs_to :operator, :class_name => 'User', :foreign_key => 'operator_id'
+  belongs_to :status
 
   belongs_to :car_service_offer
   has_many :material_services

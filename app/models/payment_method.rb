@@ -7,10 +7,6 @@ class PaymentMethod < ActiveRecord::Base
     @cash ||= PaymentMethod.find(1)
   end
 
-  def native_name
-    I18n.t(name)
-  end
-
   def self.default_payment
     1
   end

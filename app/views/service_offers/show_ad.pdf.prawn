@@ -11,7 +11,7 @@ pdf.text @service_offer.company.phone
 
 pdf.move_down(10)
 
-pdf.text @service_offer.service_types.map(&:native_name).join(", "),:style =>:bold
+pdf.text @service_offer.service_types.map(&:name).join(", "),:style =>:bold
 
 pdf.move_down(25)
 

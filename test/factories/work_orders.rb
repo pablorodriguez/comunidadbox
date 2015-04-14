@@ -14,13 +14,11 @@ FactoryGirl.define do
 
   factory :service_oc_open, class: Service do
     service_type {ServiceType.find(1)}
-    status Status::OPEN
     material_services {[build(:material_service_oc)]}
   end
 
   factory :service_oc, class: Service do
     service_type {ServiceType.find(1)}
-    #status Status::FINISHED
     material_services {[build(:material_service_oc)]}
   end
 
@@ -38,7 +36,6 @@ FactoryGirl.define do
 
   factory :service_tc, class: Service do
     service_type {ServiceType.find(2)}
-    #status 4
     material_services {[build(:material_service_tc)]}
   end
 

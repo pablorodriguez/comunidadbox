@@ -35,13 +35,13 @@ class UpdateFk < ActiveRecord::Migration
     execute("delete from companies where id in (13,14,19,21,24,25,26)")
 
 	execute("delete  from workorders where id in (14078,16105)")
-	execute("update service_types set company_id = 28 where id in (13,14)")
+	
     
     execute("delete pli from price_list_items pli where material_service_type_id IN (select id from material_service_types where service_type_id is null);")
 	execute("delete from material_service_types where service_type_id is null")
 
     execute("delete  from workorders where id in (14078,16105)")
-    execute("update service_types set company_id = 28 where id in (13,14)")
+   
 
     drop_table :company_services
 

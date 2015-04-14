@@ -19,7 +19,6 @@ FactoryGirl.define do
 
   factory :service_oc_b, class: Service do
     service_type {ServiceType.find(1)}
-    status 4
     material_services {[build(:material_service_oc_b)]}
   end
 

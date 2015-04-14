@@ -33,7 +33,7 @@ pdf.grid(0,0).bounding_box do
     ["Email: #{user.email}","Km. Actual: #{@work_order.km}"],
     [company_name,"Km. Promedio Mensual: #{car.kmAverageMonthly}"]
   ]
-  data_info << ["CUIT:#{user.cuit}","#{Status.status(@work_order.status)}"] if user.cuit
+  data_info << ["CUIT:#{user.cuit}","#{@work_order.status_name}"] if user.cuit
   data_info << [address,"#{@work_order.payment_method.name}"]
   data_info << ["Vendedor: #{@work_order.user.full_name}",""]
   data_info << ["Realizado: #{l @work_order.performed.to_date}",""]
@@ -64,7 +64,7 @@ pdf.grid(0,0).bounding_box do
     operario = service.operator ? "Operario: #{service.operator.full_name} \n" :""
   
   	data =[[
-  			"#{service.service_type.native_name} [#{Status.status service.status}]",
+  			"#{service.service_type.name} [#{service.status.name}]",
   			"#{operario}"
   			]]
     
@@ -154,7 +154,7 @@ pdf.grid(0,1).bounding_box do
   end
 
   data_info = [[
-    "Vendedor: #{@work_order.user.full_name} [#{Status.status(@work_order.status)}]",
+    "Vendedor: #{@work_order.user.full_name}",
     "Realizado: #{l @work_order.performed.to_date} [#{@work_order.payment_method.name}]"
     ]]
   
@@ -170,7 +170,7 @@ pdf.grid(0,1).bounding_box do
     operario = service.operator ? "Operario: #{service.operator.full_name} " : ""
     
     data =[[
-        "#{service.service_type.native_name} [#{Status.status service.status}]",
+        "#{service.service_type.name} [#{service.status.name}]",
         "#{operario}"
       ]]
     

@@ -16,3 +16,4 @@ export/**/*
 .sass-cache
 .rvmrc
 vcr.log
+shared

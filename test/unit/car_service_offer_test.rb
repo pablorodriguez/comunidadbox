@@ -132,7 +132,7 @@ class CarServiceOfferTest < ActiveSupport::TestCase
 	  #Agrego la oferta de servcio al servicio
 		wo = build(:wo_oc,:car => @pablo.cars.first,:user => @employer,:company => @employer.company)
 		wo.services.first.car_service_offer = cso
-		wo.services.first.status = Status::FINISHED		
+		wo.services.first.status =  @employer.company.get_final_status		
 		wo.save
 	  
 	  #Detengo el tiempo al sabado 1 de Diciembre del 2012
