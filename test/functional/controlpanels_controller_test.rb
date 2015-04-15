@@ -15,6 +15,7 @@ class ControlPanelsControllerTest < ActionController::TestCase
 
     wo3 = create(:wo_tc,:vehicle => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
     wo4 = create(:wo_tc,:vehicle => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
+
   end
 
   test "control panel index company" do

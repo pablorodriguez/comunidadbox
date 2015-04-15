@@ -16,7 +16,7 @@ class WorkorderTest < ActiveSupport::TestCase
   test "event in 2 months" do
     car = @user.cars.first
     performed = Time.zone.now.to_date
-    @wo = create(:wo_oc,:car => car,:user => @employer,:company => @employer.company,:performed => performed,:status_id => 2)
+    @wo = create(:wo_oc,:vehicle => car,:user => @employer,:company => @employer.company,:performed => performed,:status_id => 2)
     event = @wo.services.first.events.first    
     assert event.dueDate == performed + 2.months,"Event no esta a los 2 meses"
     car.kmAverageMonthly = 2000
@@ -29,7 +29,7 @@ class WorkorderTest < ActiveSupport::TestCase
   end
 
   test "validate dueDate of events generated" do
-    @wo = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
     
     event = @wo.services.first.events.first
     new_due_date = @wo.performed + 2.months

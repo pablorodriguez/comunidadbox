@@ -26,7 +26,6 @@ class Company < ActiveRecord::Base
   has_many :company_material_code
   has_many :payment_methods
   has_many :statuses
-  
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
   scope :headquarters, where("headquarter =1")

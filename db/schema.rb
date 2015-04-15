@@ -615,6 +615,7 @@ ActiveRecord::Schema.define(:version => 20150207160415) do
     t.integer  "operator_id"
     t.integer  "budget_id"
     t.integer  "status_id"
+    t.integer  "vehicle_service_offer_id"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"

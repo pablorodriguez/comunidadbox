@@ -267,7 +267,6 @@ class WorkordersController < ApplicationController
     else
       @payment_methods = get_company(params).available_payment_methods
       @service_types = current_user.service_types
-
       @work_order.vehicle = Vehicle.find(params[:vehicle_id]) if (params[:vehicle_id])
       #@vehicle_service_offers = @work_order.find_vehicle_service_offer(company_id)
       @work_order.is_open_for_autopart ? @open_for_autopart = true : @open_for_autopart = false
@@ -296,7 +295,6 @@ class WorkordersController < ApplicationController
     @service_types = current_user.service_types_active
 
     @payment_methods = company ? company.available_payment_methods : []
-
     if @work_order.company.nil? and @work_order.company_info.nil?
       flash[:notice] ="Para registar un servicio debe seleccionar un prestador"
       redirect_to root_path
