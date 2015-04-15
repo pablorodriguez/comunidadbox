@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :user_roles
 
   has_one :address,:dependent => :destroy
-  has_one :company_active,:class_name=>"Company",:conditions=>"active=1"
+  #has_one :company_active,:class_name=>"Company",:conditions=>"active=1"
   belongs_to :employer,:class_name =>"Company",:foreign_key=>'employer_id'
 
   has_many :alarms, :dependent => :destroy
@@ -65,6 +65,11 @@ class User < ActiveRecord::Base
   NULL_ATTRS = %w( company_name cuit )
   before_save :set_default_data
   #validate :validate_all
+
+  def company_active
+    return employer if employer
+    return companies.where("active=1").first
+  end
 
   def set_default_data
     if self.new_record?
