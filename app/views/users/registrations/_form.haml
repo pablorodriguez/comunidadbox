@@ -20,10 +20,11 @@
         = recaptcha_tags  
 -if (current_user == nil) || (!current_user.is_super_admin?)
   #user_data
-    #car_info.box_bottom
+    #car_info
       %h3=t(".information_car")
       =f.fields_for :cars do |c|
-        = render 'users/car_fields',:f =>c
+        .box_bottom
+          = render 'users/car_fields',:f =>c
     #personal_address.box_bottom
       %h3=t(".personal_address")
       =f.fields_for :address do |a|
