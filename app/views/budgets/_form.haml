@@ -16,14 +16,16 @@
     - if @budget.user.nil?
       = render "no_client",:f => f      
     - if  @budget.car.nil?
+      %br
       = render "no_car",:f => f      
     
     .box_bottom.clear
-    .customer
-      %table
+    .customer_c
+      %table.w
         %tr
-          %td{:style=>"width:100px"}=t(".comment")
+          %td{:style=>"width:100px"}
+            = t(".comment")
           %td
-            = f.text_area :comment,:rows =>3,:cols =>67
+            = f.text_area :comment,:rows =>3,:cols =>31
     #services.box_top
       = render :partial=>'services_list',:locals =>{:f=>f}
