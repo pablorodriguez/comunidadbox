@@ -19,7 +19,8 @@ class ChangeServiceType < ActiveRecord::Migration
     
     execute("update service_types set company_id = 28 where id in (13,14)")
     execute("update service_types set company_id = 28 where id in (13,14)")
-
+    execute "update service_types set company_id=12 where company_id is null"
+    
     execute "update materials set company_id = 12 where company_id is null"
     execute "update material_service_types set company_id = 12 where company_id is null"
 

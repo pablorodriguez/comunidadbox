@@ -294,7 +294,7 @@ class WorkordersController < ApplicationController
     @service_types = current_user.service_types_active
 
     @payment_methods = company ? company.available_payment_methods : []
-       
+    
     if @work_order.company.nil? and @work_order.company_info.nil?
       flash[:notice] ="Para registar un servicio debe seleccionar un prestador"
       redirect_to root_path

@@ -12,7 +12,7 @@
             
       - if current_user.is_employee?
         - if @payment_methods.any?
-          = wo_form.select(:payment_method_id,@payment_methods.collect{|v| [v.name,v.id]},{:selected =>wo_form.object.payment_method.id},{:class=>'input_short',:title=>t(".type_pay")})
+          = wo_form.select(:payment_method_id,@payment_methods.collect{|v| [v.name,v.id]},{:class=>'input_short',:title=>t(".type_pay")})
         - else
           = link_to t(".create_payment_method"), new_payment_method_path
       - else
