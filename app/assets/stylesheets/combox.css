@@ -1910,6 +1910,11 @@ td.number, th.number{
   width: 93px;
 }
 
+.domain_red label, .mi_domain_red label,.mi_domain_yellow label,.domain_yellow label,.mi_domain_green label,.domain_green label{
+  display: block;
+  padding-top: 2px;
+}
+
 .domain_yellow{
   background-image:url(images/patente_yellow.png);
   color: white;
@@ -1941,6 +1946,8 @@ td.number, th.number{
 .domain_white a{
   color: white;
   font-size: 20px;
+  display: block;
+  padding-top: 3px;
 }
 
 .price{
