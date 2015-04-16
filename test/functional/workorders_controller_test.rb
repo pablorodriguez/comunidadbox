@@ -246,7 +246,7 @@ class WorkordersControllerTest < ActionController::TestCase
     assert_difference('Workorder.count',1,"no hay unan nueva workorder") do
       post :create, :workorder => {
         :deliver => 1.hour.since.strftime("%d/%m/%Y %H:%m"),
-        :car_id =>client.cars.first.to_param,
+        :vehicle_id =>client.cars.first.to_param,
         :company_id=>@employer.company.to_param,
         :payment_method_id => 1 ,
         :services_attributes => [

@@ -269,7 +269,7 @@ class WorkordersController < ApplicationController
       @service_types = current_user.service_types
       @work_order.vehicle = Vehicle.find(params[:vehicle_id]) if (params[:vehicle_id])
       #@vehicle_service_offers = @work_order.find_vehicle_service_offer(company_id)
-      @work_order.is_open_for_autopart ? @open_for_autopart = true : @open_for_autopart = false
+      @work_order.is_open_for_autopart? ? @open_for_autopart = true : @open_for_autopart = false
       render :action => 'new'
     end
   end

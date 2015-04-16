@@ -2,10 +2,15 @@
   %tbody
     %tr
       %td{:style=>"width:100px"}
+        Tipo
+      %td
+        = f.select(:vehicle_type, options_for_select([[t('.car'), 'Car'], [t('.motorcycle'), 'Motorcycle']]),{},{:class=>'medium_select vehicle_type'})
+      %td{:style=>"width:20px"}
+      %td{:style=>"width:100px"}
         %label{ :for => "domain" }=t(".domain")
       %td
         .car_domain
-          = f.text_field :domain, :size=>8, :maxlength =>6, :class=>"input_short user_domain", :placeholder => "999XXX"
+          = f.text_field :domain, :size=>8, :maxlength =>6, :class=>"input_short user_domain", :placeholder => "XXX999"
       %td{:colspan=>"2"}
         .validation_car_domain.hide
     %tr
@@ -34,15 +39,16 @@
         %label{ :for => "fuel" }=t(".fuel")
       %td
         =# f.collection_select :fuel, %w(Nafta), :to_s ,:to_s , { :prompt => "Nafta" }, { :class => "medium_select" }
-        = f.collection_select :fuel, %w(Nafta Diesel Gas), :to_s, :to_s,{:prompt=>""}, {:class=>"medium_select"}
+        = f.collection_select :fuel, %w(Nafta Diesel Gas), :to_s, :to_s,{:prompt=>""}, {:class=>"medium_select fuel"}
       %td{:style=>"width:20px"}
       %td
         %label{ :for => "km" }=t(".mileage")
       %td
         = f.text_field :km,:size=>10,:class=>"input_short"
-    %tr
+    %tr.chassis_row.hide
       %td{:style=>"width:100px"}
         %label{ :for => "chassis" }=t(".chassis")
       %td
         .car_domain
           = f.text_field :chassis, :size => 10, :class => 'input_short'
+    %tr

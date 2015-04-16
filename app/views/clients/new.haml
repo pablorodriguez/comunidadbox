@@ -6,11 +6,10 @@
     .message
       %h2= flash[:message]
   .box_bottom
-    .left
-      %h1=t(".new_client")
-    -if @budget
-      .right
-        %h1=t(".budget_number")
-        = link_to @budget.id,@budget
+    %h1=t(".new_client")
+  -if @budget
+    .right
+      %h1=t(".budget_number")
+      = link_to @budget.id,@budget
   = render 'form'
 

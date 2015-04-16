@@ -57,8 +57,16 @@ $ ->
   $(".user_domain").blur(validate_domain)
   $(".generate_email").click(generate_email)
   
-  $("#vehicle_type").on("change",->
-    $("#car_fields_container").toggle()
-    $("#motorcycle_fields_container").toggle()
+  $(".vehicle_type").on("change",->
+    $(".chassis_row").toggle()
+    $('select.fuel option:eq(1)').prop('selected', true)
+    select = $('select.fuel')
+    select.attr('disabled', !select.attr('disabled'));
+  
+    $(this).toggle (->
+      $(".user_domain").attr("placeholder","999XXX")
+    ), ->
+      $(".user_domain").attr("placeholder","XXX999")
+
   )
 

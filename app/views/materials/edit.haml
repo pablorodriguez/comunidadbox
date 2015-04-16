@@ -1,11 +1,6 @@
 .vertical_menu
-  = render "conf/menu"  
-  .menu_actions.box_bottom
-    %ul
-      %li
-        = link_to "Nuevo Material", new_material_path   
-      %li
-        = link_to "Modificar",edit_material_path(@material)
+  = render "admin/menu"
+  = render "actions"
 .contentright_s
   .box_bottom
     %h1
@@ -14,6 +9,6 @@
     = render 'shared/error_messages', :target => @material
     =render :partial =>"form",:locals => {f: f}
     .buttons_container  
-      = f.submit t(".update"),:class=>"button" 
-      = link_to t(".cancel"),materials_path
+      = f.submit t("update"),:class=>"button" 
+      = link_to t("cancel"),materials_path
   

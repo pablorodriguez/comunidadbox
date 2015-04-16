@@ -131,7 +131,7 @@ class VehicleServiceOfferTest < ActiveSupport::TestCase
 
 	  #Agrego la oferta de servcio al servicio
 		wo = build(:wo_oc,:vehicle => @pablo.cars.first,:user => @employer,:company => @employer.company)
-		wo.services.first.car_service_offer = cso
+		wo.services.first.vehicle_service_offer = cso
 		wo.services.first.status =  @employer.company.get_final_status		
 		wo.save
 	  

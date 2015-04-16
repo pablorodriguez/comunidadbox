@@ -16,35 +16,13 @@
     .box_bottom
       %table
         %body
-          = f.fields_for :vehicles do |c|
-            %tr
-              %td{:style=>"width:100px"}
-                Tipo
-              %td
-                = c.select(:vehicle_type, options_for_select([[t('.car'), 'Car'], [t('.motorcycle'), 'Motorcycle']]), { :class => 'long_selec' })
-              #car_fields_container
-                = render 'users/vehicle_fields', :f => c
-
-      / = f.fields_for :vehicles do |c|
-      /   = f.select(:vehicle_type, options_for_select([[t('.car'), 'Car'], [t('.motorcycle'), 'Motorcycle']]), { :class => 'long_selec' })
-      /   - if c.object.class == Car
-      /     #car_fields_container
-      /       = render 'users/car_fields', :f => c
-      /   - if c.object.class == Motorcycle
-      /     #motorcycle_fields_container.hide
-      /       = render 'users/motorcycle_fields', :f => c
-      /   =# c.text_field :type
-      /   = c.check_box :_destroy
-    / .box_bottom
-    /   = f.fields_for :cars do |c|
-    /     = render 'users/car_fields', :f => c
-    / .box_bottom
-    /   = f.fields_for :motorcycles do |c|
-    /     = render 'users/motorcycle_fields', :f => c
+          = f.fields_for :vehicles do |c|         
+            #car_fields_container
+              = render 'users/vehicle_fields', :f => c
     %h3=t(".address_information")
     .personal_address.box_bottom
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f => a
-  .buttons_container
-    = f.submit t(".save"),:class=>:button,:data => {"disable-with" => t("saving")}
-    = link_to t(".cancel"),clients_path
+    .buttons_container
+      = f.submit t(".save"),:class=>:button,:data => {"disable-with" => t("saving")}
+      = link_to t(".cancel"),clients_path

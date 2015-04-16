@@ -28,6 +28,8 @@ es-AR:
       address_information: "Dirección Personal"
       save: "Grabar"
       cancel: "Cancelar"
+      car: "Automóvil"
+      motorcycle: "Motocicleta"
     client_menu:
       new_client: "Nuevo Cliente"
       new_budget: "Nuevo Presupuesto"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150207160415) do
+ActiveRecord::Schema.define(:version => 20150309134734) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -614,8 +614,8 @@ ActiveRecord::Schema.define(:version => 20150207160415) do
     t.integer  "status"
     t.integer  "operator_id"
     t.integer  "budget_id"
-    t.integer  "status_id"
     t.integer  "vehicle_service_offer_id"
+    t.integer  "status_id"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"
