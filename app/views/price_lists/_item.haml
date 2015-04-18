@@ -2,7 +2,8 @@
   %td
     = item.name
   %td
-    = "[#{item.material.prov_code}]"
+    -unless item.material.prov_code.empty?
+      = "[#{item.material.prov_code}]" 
     = item.material.name
   %td.currency.number    
     = number_to_currency item.price

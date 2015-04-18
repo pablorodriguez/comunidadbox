@@ -15,7 +15,7 @@ class Vehicle < ActiveRecord::Base
   has_many :service_offers,:through =>  :vehicle_service_offer,:order =>'created_at'
   #has_and_belongs_to_many :offers
 
-  validates_presence_of :model,:domain,:year,:km,:kmAverageMonthly
+  validates_presence_of :brand,:model,:domain,:year,:km,:kmAverageMonthly
   validates_numericality_of :year, :only_integer => true, :greater_than_or_equal_to => 1885
   validates_numericality_of :km, :only_integer => true
   validates_numericality_of :kmAverageMonthly

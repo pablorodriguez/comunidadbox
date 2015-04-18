@@ -35,7 +35,6 @@ class ClientsController < ApplicationController
     @client = User.find(params[:id])
     authorize! :destroy, @client
     @client.destroy
-
     respond_to do |format|
       format.js { render :layout => false}
     end
@@ -241,9 +240,7 @@ class ClientsController < ApplicationController
     file = params[:file]
 
     #validar que exista un file.. sino mostrar algun mensaje de error
-
-    @import_result = User.import_clients file, current_user, get_company
-
+    @import_result = User.import_clients file, current_user, get_company,get_user_agent_encode
     render :action => 'import'
   end
 

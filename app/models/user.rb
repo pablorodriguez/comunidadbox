@@ -20,9 +20,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes,
                   :address_attributes, :password, :password_confirmation, :companies_attributes,
-                  :employer_id, :role_ids, :user_type, :vehicles_attributes
-
-  attr :type, true
+                  :employer_id, :role_ids, :user_type, :vehicles_attributes,:external_id
 
   enumerize :user_type, in: {:vehicle_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
@@ -69,7 +67,8 @@ class User < ActiveRecord::Base
   # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
   #scope :motorcycles,where("vehicle_type = 'Motorcyle'")
-  
+  after_initialize :set_default_data
+
   def cars
     self.vehicles.select{|v| v.vehicle_type == "Car"}
   end
@@ -464,10 +463,12 @@ class User < ActiveRecord::Base
 # 15 ["Año","2000"],
 # 16 ["kilometraje promedio mensual","2000"],
 # 17 ["kilometraje","252025"]
+# 18 ["Tipo de Servicio","Mantenimiento General"]
+# 19 ["Fecha","12/12/2015"]
 
-  def self.import_clients(file, current_user,company_id)
+  def self.import_clients(file, current_user,company_id,encode)
     company = Company.find company_id
-    csv_text = File.read(file.open,:encoding => 'iso-8859-1')
+    csv_text = File.read(file.open,:encoding => encode)
     csv = CSV.parse(csv_text, :headers => true)
     result = {
       :summary => [],
@@ -489,78 +490,71 @@ class User < ActiveRecord::Base
       client = User.find_by_external_id external_id if external_id
       client = User.new if client.nil?
 
-      client.assign_attributes({
-        :first_name => row[1],
-        :last_name => row[2],
-        :cuit => row[5],
-        :phone => row[3],
-        :company_name => row[6],
-        :email => email
-      })
+      brand = Brand.find_by_name(row[12])
+      brand_id = brand ? brand.id : ""
+      model = brand_id ? Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first : nil
+      model_id = model ? model.id : ""
 
-      #add_error_if_not_valid client,result
+      params = {
+        user:{
+          first_name: row[1],
+          last_name: row[2],
+          cuit: row[5],
+          phone: row[3],
+          company_name: row[6],
+          email: email,
+          external_id: external_id,
+          confirmed: true,
+          creator_id: current_user.id,
+          address_attributes: {
+            state: State.find_by_name(row[7]),
+            city: row[8],
+            street: row[9],
+            zip: row[10]
+          },
+          vehicles_attributes:[{
+            domain: row[11],
+            km: row[17],
+            kmAverageMonthly: row[16],
+            brand_id: brand_id,
+            year: row[15],
+            model_id: model_id,
+            fuel: row[14],
+            vehicle_type: "Car"
+          }]
+        }
+      }
+      client2 = User.new(params[:user])
 
+      debugger
       if client.id.nil?
-        client.set_default_data
-        client.external_id = external_id
-        client.confirmed = true
-
-        client.creator = current_user
-
         if client && company_id
           unless client.service_centers.include?(company_id)
             client.service_centers << company
-            # client.companies_users.build(user_id: client, company_id: company)
-            # client.service_centers.build(company: company)
           end
         end
-
       end
 
-      #cargo direccion
-      client.address = Address.new({
-        :state => State.find_by_name(row[7]),
-        :city => row[8],
-        :street => row[9],
-        :zip => row[10]
-      })
-
-      #cargo automovil
-      domain = row[11]
-
-      car = client.vehicles.where("domain = ?",domain).first
-      if car.nil?
-        car = Vehicle.new({:domain => domain,:vehicle_type => "Car"})
-        client.vehicles << car
-      end
-
-      car.assign_attributes({
-        :km => row[17],
-        :kmAverageMonthly => row[16],
-        :brand => Brand.find_by_name(row[12]),
-        :year => row[15],
-        :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first,
-        :fuel => row[14]
-      })
-
-      if car.valid?
-        car.save
-
-        #if theres is event to add
-        if row[18]
-          service_type_name = row[18]
-          service_type = ServiceType.find_by_name(service_type_name)
-          if service_type
-            car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
-          end
-
+      client.valid?
+      #if theres is event to add
+      if row[18]
+        service_type_name = row[18]
+        service_type = company.service_types.where("name = ?",service_type_name).first
+        create_event = true
+        unless service_type ? true : false
+          client.errors[:base] << "#{service_type_name} no es un Tipo de Servicio valido"
         end
       end
 
-      if client.valid? && client.save
+      if client.errors.empty? 
+        client.save
+        if create_event
+          car.events.build({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
+        end
         result[:success] += 1
       else
-        result[:errors] << client
+        debugger
+        result[:errors] << [i,client]
         result[:failure] += 1
       end
 

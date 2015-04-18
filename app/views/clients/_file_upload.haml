@@ -26,10 +26,11 @@
             %th{"width" => "100px"} Nro Registro
             %th Error
         %tbody
-          - @import_result[:errors].each do |model|
-            - model.errors.full_messages.each do |msg|
-              %tr
-                %td.number
-                  = 1
-                %td
+          - @import_result[:errors].each do |row|
+            %tr
+              %td.number
+                = row[0]
+              %td
+                - row[1].errors.full_messages.each do |msg|
                   = msg
+                  %br

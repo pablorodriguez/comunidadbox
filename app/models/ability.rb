@@ -45,7 +45,7 @@ class Ability
       user.can_edit?(c.user)
     end
 
-    can :destroy, :client do |client|
+    can :destroy, User do |client|
       user.can_edit?(client)
     end
 

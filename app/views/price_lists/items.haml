@@ -7,10 +7,10 @@
     = render "update"    
   .contentright_s
     .box_bottom
-      %h1  
-        = @price_list.company.name
       %h1
         = @price_list.name
+        \:
+        = @price_list.company.name
     = render "file_upload.haml"
     - if @result
       #mpor_price_item

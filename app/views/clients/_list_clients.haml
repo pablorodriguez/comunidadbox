@@ -21,7 +21,7 @@
     .actions
       - if current_user.can_edit?(client)
         .action
-          /= link_to "", client_path(client), :data => { :confirm => t("client_delete_confirm")}, :remote => true, :method => :delete, :title => t("delete"), :class => "delete"
+          = link_to "", client_path(client), :data => { :confirm => t("client_delete_confirm")}, :remote => true, :method => :delete, :title => t("delete"), :class => "delete"
         .action
           = link_to "", edit_client_path(client), { :title => t(".modify_client"), :class =>"edit" }
       .action
