@@ -62,7 +62,6 @@ class Workorder < ActiveRecord::Base
       update_car_service_offers
     end
   end
-
   # La orden de trabajo esta terminada si el estado de todos sus servicios
   # tienen el final status
   def is_finished?
@@ -411,7 +410,7 @@ class Workorder < ActiveRecord::Base
 
   def self.csv_workorder_row_values(wo)
 #               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
-    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
+    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, wo.status.name, wo.payment_method.name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
   end
 
   def self.workorder_report_to_csv(params)
@@ -517,7 +516,7 @@ class Workorder < ActiveRecord::Base
     #workorders = workorders.where("car_id in (?)",filters[:user].cars.map{|c| c.id})
     
     workorders = workorders.where("workorders.id = ?", filters[:workorder_id]) if filters[:workorder_id]
-    workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
+    workorders = workorders.where("workorders.status_id = ? or workorders.status_id is null", filters[:wo_status_id]) if filters[:wo_status_id]
     
     workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]    
     workorders

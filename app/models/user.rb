@@ -143,8 +143,8 @@ class User < ActiveRecord::Base
   
   def service_types
     return Company.default_service_types unless company
-    return company.service_types unless company.service_types.empty?
-    return company.user.headquarter.service_types
+    return company.service_types.active unless company.service_types.empty?
+    return company.user.headquarter.service_types.active
   end
 
   def all_notes

@@ -37,7 +37,7 @@ class WorkordersController < ApplicationController
     @company_services = get_service_types 
     
     @order_by = order_by
-    @service_type_ids =  params[:service_type_ids] || current_user.service_types.map(&:id)
+    @service_type_ids =  params[:service_type_ids] || [] #current_user.service_types.map(&:id)
     
     @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
         
