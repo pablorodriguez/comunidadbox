@@ -284,7 +284,9 @@ class Company < ActiveRecord::Base
   end
 
   def get_final_status
-    statuses.where(is_final: true).first
+    final_status = statuses.where(is_final: true).first
+    final_status = final_status ? final_status : user.headquarter.get_final_status
+    final_status
   end
 
 end
