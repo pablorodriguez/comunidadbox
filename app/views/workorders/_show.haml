@@ -1,7 +1,10 @@
 .box_bottom
   %h1
-    Orden de Trabajo: 
-    = @work_order.id  
+    Orden de Trabajo
+    \: 
+    = @work_order.id
+    \:
+    = @work_order.status_name 
   %h1
     = @work_order.company_name
 #work_order

@@ -5,7 +5,8 @@
         %th{:colspan=>2,:style=>'width:60%'}
           %h2.inline
             %label.left{:id=>"serviceType"}
-              = icon_status f.status
+              = f.status_name
+              \:
               = f.service_type.name              
               = ": #{f.operator.full_name}" if f.operator              
           .hide

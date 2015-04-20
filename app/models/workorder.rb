@@ -66,6 +66,7 @@ class Workorder < ActiveRecord::Base
   # La orden de trabajo esta terminada si el estado de todos sus servicios
   # tienen el final status
   def is_finished?
+    return false unless status_id
     final_status = company.get_final_status
     services.where("status_id = ?",final_status.id).count == services.count
   end
@@ -235,13 +236,9 @@ class Workorder < ActiveRecord::Base
   end
   
   def set_status
-    self.status_id = nil
     final_status = company.get_final_status
-    if final_status
-      if self.services.where(status_id: final_status.id).count == self.services.count
-        self.status_id = final_status.id
-      end
-    end
+    service_status_id = self.services.map(&:status_id).uniq
+    self.status_id = service_status_id.size == 1 ? service_status_id.first : nil
   end
 
   def belong_to_user user
@@ -275,6 +272,7 @@ class Workorder < ActiveRecord::Base
     if ((user.id == usr.id) && user.is_car_owner?)
       return true
     end
+    return true if status_id == id
 
     unless (is_finished?)
       if company.is_employee?(usr) && user.is_employee?

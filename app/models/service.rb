@@ -41,6 +41,10 @@ class Service < ActiveRecord::Base
     
     m_total_price
   end
+
+  def status_name
+    self.status_id ? self.status.name : ""
+  end
   
   def cancelled
     status == Status::CANCELLED

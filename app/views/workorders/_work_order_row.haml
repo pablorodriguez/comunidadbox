@@ -20,6 +20,7 @@
         = link_to work_order_row.id, price_offer_workorder_path(work_order_row)
       -else
         = link_to work_order_row.id,work_order_row
+      = work_order_row.status_name
     %strong
       =t(".client")
     %label
