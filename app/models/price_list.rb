@@ -11,6 +11,11 @@ class PriceList < ActiveRecord::Base
   def can_edit?(user)
     user.own(self.company)
   end
+
+  def can_delete?(user)
+    return false if (self.company.headquarter and self.active)
+    return user.own(self.company)
+  end
   
   def price(material_code,service_type_id)
     m = Material.find_by_code(material_code)

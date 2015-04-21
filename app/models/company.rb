@@ -1,4 +1,3 @@
-
 class Company < ActiveRecord::Base
   attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo,
   :payment_methods
@@ -47,6 +46,11 @@ class Company < ActiveRecord::Base
   def self.default_final_status
     Company.find(1).get_final_status
   end
+
+  def get_active_price_list
+    price_list_active || user.headquarter.price_list_active
+  end
+
 
   def update_headquarter
     if headquarter
