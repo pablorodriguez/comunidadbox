@@ -66,7 +66,7 @@ class Workorder < ActiveRecord::Base
   # tienen el final status
   def is_finished?
     return false unless status_id
-    final_status = company.get_final_status
+    final_status = company ? company.get_final_status : Company.default_final_status
     services.where("status_id = ?",final_status.id).count == services.count
   end
 
@@ -224,18 +224,14 @@ class Workorder < ActiveRecord::Base
   def regenerate_events
     
     Event.transaction do
-      services.each do |service|                
-        service.events.each do |e|
-          e.destroy
-        end
-      end
+      services.each{|service| service.events.clear}
       generate_events
     end
     
   end
   
   def set_status
-    final_status = company.get_final_status
+    final_status = company ? company.get_final_status : Company.default_final_status
     service_status_id = self.services.map(&:status_id).uniq
     self.status_id = service_status_id.size == 1 ? service_status_id.first : nil
   end
@@ -554,6 +550,5 @@ class Workorder < ActiveRecord::Base
     end
     rank
   end
-
 
 end
