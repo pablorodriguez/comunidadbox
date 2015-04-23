@@ -7,3 +7,4 @@ es-AR:
     attributes:
       payment_method:
         name: Nombre
+        active: Activo

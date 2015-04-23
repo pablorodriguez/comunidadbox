@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150421023300) do
+ActiveRecord::Schema.define(:version => 20150423143244) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -495,6 +495,7 @@ ActiveRecord::Schema.define(:version => 20150421023300) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
+    t.boolean  "active"
   end
 
   create_table "price_list_items", :force => true do |t|
@@ -773,18 +774,19 @@ ActiveRecord::Schema.define(:version => 20150421023300) do
     t.integer  "km"
     t.date     "performed"
     t.integer  "status"
-    t.integer  "payment_method_id"
+    t.integer  "payment_method_id_old"
     t.string   "company_info"
     t.integer  "budget_id"
     t.datetime "deliver"
     t.datetime "deliver_actual"
     t.integer  "status_id"
+    t.integer  "payment_method_id"
   end
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"
   add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
-  add_index "workorders", ["payment_method_id"], :name => "workorders_payment_method_id_fk"
+  add_index "workorders", ["payment_method_id_old"], :name => "workorders_payment_method_id_fk"
   add_index "workorders", ["performed"], :name => "workorders_performed_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
 
@@ -911,7 +913,6 @@ ActiveRecord::Schema.define(:version => 20150421023300) do
   add_foreign_key "workorders", "budgets", name: "workorders_budget_id_fk", dependent: :delete
   add_foreign_key "workorders", "cars", name: "workorders_car_id_fk"
   add_foreign_key "workorders", "companies", name: "workorders_company_id_fk", dependent: :delete
-  add_foreign_key "workorders", "payment_methods", name: "workorders_payment_method_id_fk"
   add_foreign_key "workorders", "users", name: "workorders_user_id_fk"
 
 end

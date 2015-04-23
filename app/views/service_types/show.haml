@@ -27,6 +27,7 @@
       %tr
         %td.label_title Activo:
         %td          
+          = @service_type.active
           = check_box_tag "active","1", (@service_type.active == "1"  ? true : false),:disabled => true
   //#tasks
   //  .box_bottom
@@ -34,4 +35,5 @@
   //  = render :partial => 'tasks', :locals => { :tasks => @tasks, :service_type => @service_type }
   #service_type_materials    
     = render :partial =>"material",:locals => {:materials => @materials}
-   
+  .buttons_container
+    = link_to "Cancelar", service_types_path 
