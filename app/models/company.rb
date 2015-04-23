@@ -280,7 +280,7 @@ class Company < ActiveRecord::Base
   end
 
   def available_payment_methods
-    payment_methods.any? ? payment_methods : get_headquarter.payment_methods
+    payment_methods.any? ? payment_methods.active : get_headquarter.payment_methods.active
   end
 
   def available_custom_statuses

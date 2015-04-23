@@ -6,9 +6,14 @@
   .box_bottom
     %h1= PaymentMethod.model_name.human
   .box_bottom
-    %p
-      %b
-        = PaymentMethod.human_attribute_name(:name) + ":"
-      = link_to @payment_method.name,edit_payment_method_path(@payment_method)
-      
-
+    %table
+      %tr
+        %td= PaymentMethod.human_attribute_name(:name)
+        %td
+          = link_to @payment_method.name,edit_payment_method_path(@payment_method)
+      %tr
+        %td.label_title Activo:
+        %td          
+          = check_box_tag "active","1",@payment_method.active,:disabled => true
+  .buttons_container
+    = link_to "Cancelar", payment_methods_path

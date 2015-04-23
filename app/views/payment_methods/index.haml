@@ -12,7 +12,9 @@
           %th
       - @payment_methods.each do |pm|
         %tr
-          %td= pm.name
+          %td
+            = check_box_tag "active","1",pm.active,:disabled => true
+            = link_to pm.name,pm
           %td
             = link_to image_tag('edit.png'), edit_payment_method_path(pm)
             = link_to image_tag('delete.png'), pm, :confirm => t('.confirm_delete'), :method => :delete
