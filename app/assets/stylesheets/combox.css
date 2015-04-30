@@ -1748,7 +1748,7 @@ td.number, th.number{
 }
 
 .brand_logo{
-  padding: 5px;
+  padding: 0px 5px;
 }
 
 
@@ -1863,8 +1863,13 @@ td.number, th.number{
   word-wrap: break-word;
 }
 
-.motorcycle label, .motorcycle a{
-  padding: 5px 0px;
+.car label,.car a{
+  padding: 3px 0px;
+  display: block;
+}
+
+.motorcycle label, .motorcycle a {
+  padding: 4px 0px;
   display: block;
 }
 
@@ -1975,7 +1980,6 @@ td.number, th.number{
   color: white;
   font-size: 20px;
   display: block;
-  padding-top: 3px;
 }
 
 .price{

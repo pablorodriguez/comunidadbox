@@ -38,8 +38,9 @@ class WorkordersController < ApplicationController
     @company_services = get_service_types
 
     @order_by = order_by
-    @service_type_ids =  params[:service_type_ids] || current_user.service_types.map(&:id)
 
+    @service_type_ids =  params[:service_type_ids] || [] #current_user.service_types.map(&:id)
+    
     @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
 
     filters_params ={}
@@ -99,7 +100,8 @@ class WorkordersController < ApplicationController
     @services_amount =0
     @amt.each{|key,value| @services_amount += value}
 
-    @status = {-1=>I18n.t("state")}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
+    #@status = {-1=>I18n.t("state")}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
+    @status = [[I18n.t("state"),"-1"]] + get_company.available_custom_statuses.collect{|v| [v.name,v.id]}
 
     respond_to do |format|
       format.html

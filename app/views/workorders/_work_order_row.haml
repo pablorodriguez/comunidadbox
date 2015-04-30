@@ -1,7 +1,6 @@
 .wo_detail.row[work_order_row]
   - can_show = work_order_row.can_show?(current_user)
-  .domain_white.left
-    = link_to work_order_row.vehicle.domain, work_order_row.vehicle
+  = link_to_domain work_order_row.vehicle
   .services
     - work_order_row.services.each do |s|
       .service
@@ -20,6 +19,7 @@
         = link_to work_order_row.id, price_offer_workorder_path(work_order_row)
       -else
         = link_to work_order_row.id,work_order_row
+      = work_order_row.status_name
     %strong
       =t(".client")
     %label

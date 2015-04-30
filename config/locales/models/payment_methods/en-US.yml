@@ -7,3 +7,4 @@ en-US:
     attributes:
       payment_method:
         name: Name
+        active: Active

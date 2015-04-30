@@ -37,7 +37,7 @@
           = link_to '-Exp-', export_price_list_path(price_list,:format => :csv), :title => "Exportar Lista de precios"
           -unless price_list.company.nil?
             = link_to image_tag('edit.png'), edit_price_list_path(price_list),:title =>"Modificar"
-          -unless price_list.active
+          -if price_list.can_delete?(current_user)
             = link_to image_tag('delete.png'), price_list, :confirm => '¿ Esta seguro que desea borrarlo ?', :method => :delete,:title =>"Borrar"
           = link_to image_tag('new.png'), copy_price_list_path(price_list),:title =>"Copiar lista de precio"
 

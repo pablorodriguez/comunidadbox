@@ -112,14 +112,11 @@ class Vehicle < ActiveRecord::Base
   end
 
   def update_events
-    future_events.active.each do |event|
-      if event.km
+    future_events.active.readonly(false).each do |event|      
+      if event.km 
         months = (event.km - km) / kmAverageMonthly
-        #old_date = event.dueDate
-        e = Event.find event.id
-        e.dueDate = months.months.since.to_date
-        e.save
-        #puts "Old Date: #{old_date}, KM: #{event.km} , New Date: #{event.dueDate} Months : #{months}"
+        event.dueDate = months.months.since.to_date
+        event.save      
       end
     end
   end
@@ -141,6 +138,13 @@ class Vehicle < ActiveRecord::Base
     else
       budgets
     end
+  end
+  def is_car?
+    self.vehicle_type == "Car"
+  end
+
+  def is_motorcycle?
+    self.vehicle_type == "Motorcycle"
   end
 
   def self.to_builder vehicles

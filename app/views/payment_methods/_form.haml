@@ -3,7 +3,10 @@
     %td= PaymentMethod.human_attribute_name(:name)
     %td
       = f.text_field :name      
-  
+  %tr
+    %td= PaymentMethod.human_attribute_name(:active)
+    %td
+      = f.check_box :active
 .buttons_container
   = f.submit t("save"),:class => :button
   = link_to t("cancel"),payment_methods_path

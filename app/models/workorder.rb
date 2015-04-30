@@ -60,11 +60,11 @@ class Workorder < ActiveRecord::Base
       update_vehicle_service_offers
     end
   end
-
   # La orden de trabajo esta terminada si el estado de todos sus servicios
   # tienen el final status
   def is_finished?
-    final_status = company.get_final_status
+    return false unless status_id
+    final_status = company ? company.get_final_status : Company.default_final_status
     services.where("status_id = ?",final_status.id).count == services.count
   end
 
@@ -150,7 +150,8 @@ class Workorder < ActiveRecord::Base
     end
 
     if self.user.company
-      unless deliver
+      if self.deliver.nil? and self.vehicle.is_car?
+        debugger
         errors[:deliver] << "no puede ser vacio"
       end
       unless user.company.is_employee?(user)
@@ -215,24 +216,16 @@ class Workorder < ActiveRecord::Base
   def regenerate_events
 
     Event.transaction do
-      services.each do |service|
-        service.events.each do |e|
-          e.destroy
-        end
-      end
+      services.each{|service| service.events.clear}
       generate_events
     end
 
   end
 
   def set_status
-    self.status_id = nil
-    final_status = company.get_final_status
-    if final_status
-      if self.services.where(status_id: final_status.id).count == self.services.count
-        self.status_id = final_status.id
-      end
-    end
+    final_status = company ? company.get_final_status : Company.default_final_status
+    service_status_id = self.services.map(&:status_id).uniq
+    self.status_id = service_status_id.size == 1 ? service_status_id.first : nil
   end
 
   def belong_to_user user
@@ -266,6 +259,7 @@ class Workorder < ActiveRecord::Base
     if ((user.id == usr.id) && user.is_vehicle_owner?)
       return true
     end
+    return true if status_id == id
 
     unless (is_finished?)
       if company.is_employee?(usr) && user.is_employee?
@@ -403,8 +397,8 @@ class Workorder < ActiveRecord::Base
   end
 
   def self.csv_workorder_row_values(wo)
-#               ["id" ,"company"       ,"vehicle"         ,"vehicle_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
-    wo_values = [wo.id, wo.company.name, wo.vehicle.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, Status::STATUS[wo.status], wo.payment_method.name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
+#               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
+    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, wo.status.name, wo.payment_method.name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
   end
 
   def self.workorder_report_to_csv(params)
@@ -510,9 +504,9 @@ class Workorder < ActiveRecord::Base
     #workorders = workorders.where("vehicle_id in (?)",filters[:user].vehicles.map{|c| c.id})
 
     workorders = workorders.where("workorders.id = ?", filters[:workorder_id]) if filters[:workorder_id]
-    workorders = workorders.where("workorders.status = ?", filters[:wo_status_id]) if filters[:wo_status_id]
-
-    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
+    workorders = workorders.where("workorders.status_id = ? or workorders.status_id is null", filters[:wo_status_id]) if filters[:wo_status_id]
+    
+    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]    
     workorders
   end
 
@@ -548,6 +542,5 @@ class Workorder < ActiveRecord::Base
     end
     rank
   end
-
 
 end

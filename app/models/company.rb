@@ -1,4 +1,3 @@
-# encoding: utf-8
 class Company < ActiveRecord::Base
   attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo,
   :payment_methods
@@ -46,6 +45,11 @@ class Company < ActiveRecord::Base
   def self.default_final_status
     Company.find(1).get_final_status
   end
+
+  def get_active_price_list
+    price_list_active || user.headquarter.price_list_active
+  end
+
 
   def update_headquarter
     if headquarter
@@ -275,15 +279,18 @@ class Company < ActiveRecord::Base
   end
 
   def available_payment_methods
-    payment_methods.any? ? payment_methods : get_headquarter.payment_methods
+    payment_methods.any? ? payment_methods.active : get_headquarter.payment_methods.active
   end
 
   def available_custom_statuses
-    custom_statuses.any? ? custom_statuses : get_headquarter.custom_statuses
+    statuses.any? ? statuses : get_headquarter.statuses
   end
 
   def get_final_status
-    statuses.where(is_final: true).first
+    final_status = statuses.where(is_final: true).first
+    final_status = final_status ? final_status : user.headquarter.get_final_status
+    final_status
   end
+
 end
 

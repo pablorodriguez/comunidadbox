@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150421023300) do
+ActiveRecord::Schema.define(:version => 20150423143244) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -461,6 +461,7 @@ ActiveRecord::Schema.define(:version => 20150421023300) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
+    t.boolean  "active"
   end
 
   create_table "price_list_items", :force => true do |t|
