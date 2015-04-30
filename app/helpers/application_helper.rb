@@ -129,9 +129,22 @@ module ApplicationHelper
     return css
   end
 
+  def domain vehicle
+    content_tag(:div,:class=>"domain #{vehicle.vehicle_type.downcase}") do
+      content_tag(:label,vehicle.domain)
+    end
+  end
+
+  def link_to_domain vehicle
+    content_tag(:div,:class=>"domain #{vehicle.vehicle_type.downcase}") do
+      link_to vehicle.domain,vehicle
+    end
+  end
+
   def brand_logo brand_name,thumb=false
-    return image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name) if thumb
-    return image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name)
+    content_tag :div,:class=>"brand_logo" do 
+      image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name)
+    end
 
   end
   def current_col_css(column)

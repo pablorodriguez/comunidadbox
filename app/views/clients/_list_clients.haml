@@ -35,8 +35,7 @@
     - client.vehicles.each_with_index do |vehicle,index|
       .client_vehicle.box_top.left[vehicle]
         .detail.left
-          .left.domain_white
-            = link_to h(vehicle.domain), vehicle
+          = link_to_domain vehicle
           %strong
             = vehicle.brand.name
             = vehicle.model.name

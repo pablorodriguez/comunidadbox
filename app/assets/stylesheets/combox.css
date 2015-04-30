@@ -1739,11 +1739,16 @@ td.number, th.number{
 
 .vehicle_detail{
   margin-bottom:3px;
+  overflow: auto;
 }
 
 .logo{
   float: left;
   margin: 0px 5px 0px 5px;
+}
+
+.brand_logo{
+  padding: 5px;
 }
 
 
@@ -1840,7 +1845,30 @@ td.number, th.number{
   clear: both;
 }
 
-.domain_white{
+.motorcycle{
+  background-image: url("images/motorcycle.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  height: 35px;
+  line-height: 90%;
+  margin-bottom: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 15px 10px;
+  text-align: center;
+  width: 43px;
+  word-wrap: break-word;
+}
+
+.motorcycle label, .motorcycle a{
+  padding: 5px 0px;
+  display: block;
+}
+
+.car{
   background-image:url(images/patente.png);
   color: white;
   font-size: 20px;
@@ -1943,7 +1971,7 @@ td.number, th.number{
   width: 93px;
 }
 
-.domain_white a{
+.domain a{
   color: white;
   font-size: 20px;
   display: block;
@@ -2291,9 +2319,6 @@ select.operator{
 
 #control_panel{
   margin-left:0px;
-}
-
-.vehicles{
 }
 
 .vehicles a{
@@ -2786,7 +2811,7 @@ input.labelHighlight,textarea.labelHighlight {
   margin:0px 5px;
 }
 
-.vehicle_detail .domain{
+.vehicle_detail_old .domain{
   font-size:25px;
   margin:0px 10px;
 }

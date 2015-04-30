@@ -3,11 +3,6 @@
   = f.hidden_field :user_id
   = hidden_field_tag "budget_id", @budget.id if @budget
   .box_bottom
-    %tr
-      %td{:style=>"width:100px"}
-        Tipo
-      %td
-        = f.select(:vehicle_type, options_for_select([[t('.car'), 'Car'], [t('.motorcycle'), 'Motorcycle']], :selected => @vehicle.vehicle_type), { :class => 'long_selec' })
     = render :partial => "users/vehicle_fields",:locals => {:f => f}
     / - if f.object.type == 'Car'
     /   = render :partial => "users/car_fields",:locals => {:f => f}
@@ -16,6 +11,6 @@
   .buttons_container
     = f.submit t(".save"), :class=>"button"
     - if current_user.company
-      = link_to t(".cancel"), client_path(@vehicle.user)
+      = link_to t(".cancel"), @vehicle
     - else
       = link_to t(".cancel"), my_vehicles_path
