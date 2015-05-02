@@ -131,13 +131,15 @@ jQuery(document).ready( function(){
 	$('#save_offer').click(submitServiceOffer);
 	$('#sf').change(submit_form);
 	$('#find_filter').click(toggleSearchFilter);
-
+  //$("#view input:checkbox").click(view);
+  $("#select input:checkbox").click(select);
+  
   $(".vehicles .cp_event :checkbox").change(function(){
     updateEventSelected($(this));
   });
 
   $(".vehicles .small_event label").click(function(){
-    var checkbox = $(this).parent().parent().parent().parent().find(":checkbox");
+    var checkbox = $(this).parent().parent().parent().find(":checkbox");
     checkbox.click();
     updateEventSelected(checkbox);
   });
@@ -171,8 +173,7 @@ jQuery(document).ready( function(){
 
 	checkEventsIds();
 
-  //$("#view input:checkbox").click(view);
-  $("#select input:checkbox").click(select);
+
 
   cp_eventDetailDialog = $("#event_detail").dialog({
 	autoOpen: false ,

@@ -302,7 +302,8 @@ class Workorder < ActiveRecord::Base
     end
 
     if newDueDate
-      event = service.events.build(vehicle: self.vehicle,km: (self.vehicle.km + service_type.kms),
+      new_kms = service_type.kms ? (self.vehicle.km + service_type.kms) : 0
+      event = service.events.build(vehicle: self.vehicle,km: new_kms,
         service_type: service_type,status: (Status::ACTIVE),dueDate: newDueDate)
     end
 

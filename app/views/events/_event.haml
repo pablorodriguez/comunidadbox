@@ -1,5 +1,5 @@
 - is_client = current_user.is_client?(event.user)
-.event[event]
+.cp_event.event[event]
   .small_event
     - oe = @other_events[event.vehicle_id]
     - css = oe ? "other_event qtip":""

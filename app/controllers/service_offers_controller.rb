@@ -54,6 +54,7 @@ class ServiceOffersController < ApplicationController
     #@offer.advertisement.advertisement_days.build(:published_on => 3.days.since.to_date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @advertisements_by_date = Advertisement.search_by_date @date
+    @vehicles = []
   end
 
 

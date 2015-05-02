@@ -2,7 +2,7 @@
 - unless ads.empty?
   .box_bottom
   .advertisements
-    - ServiceOffer.today_advertisements.each do |service_offer|
+    - ads.each do |service_offer|
       .advertisement
         .company_name
           = link_to service_offer.company.name,service_offer.company,:target =>"_blank"

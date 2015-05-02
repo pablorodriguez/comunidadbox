@@ -12,8 +12,9 @@
         %br
         = link_to "#{Status.status(s_event.status)} por ... #{s_event.service_done.workorder.id}", s_event.service_done.workorder
   .event_info_col2.right
-    %div{:class=>"#{event_class(s_event)}"}
-      = s_event.vehicle.domain
+    %div{:class=>"#{my_event_class(s_event)}"}
+      %label
+        = s_event.vehicle.domain
     .due_date
       = l s_event.dueDate
     .clear.right

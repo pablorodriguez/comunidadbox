@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes,
                   :address_attributes, :password, :password_confirmation, :companies_attributes,
                   :employer_id, :role_ids, :user_type, :vehicles_attributes,:external_id
+  
+  attr :type, true
 
   enumerize :user_type, in: {:vehicle_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
@@ -95,7 +97,7 @@ class User < ActiveRecord::Base
       unless self.password
         self.password = first_name + "test" unless first_name.nil?
         self.password = "test" if first_name.nil?
-        self.password_confirmation = password
+        self.password_confirmation = self.password
       end
       self.email = User.generate_email unless email
     end

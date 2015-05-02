@@ -31,8 +31,7 @@
           = hidden_field_tag("events_ids_chk")
           #events.vehicles.box_bottom
             - @page_events.each do |event|
-              .cp_event
-                = render event
+              = render event
       - else
         = render(:partial=>'shared/message',:locals =>{:msg =>"No se encontraron eventos."})
     .clear

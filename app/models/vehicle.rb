@@ -20,8 +20,8 @@ class Vehicle < ActiveRecord::Base
   validates_numericality_of :km, :only_integer => true
   validates_numericality_of :kmAverageMonthly
 
-  validates_format_of :domain, with: /^\d{3}\D{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Motorcycle' }
-  validates_format_of :domain, with: /^\D{3}\d{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car' }
+  validates_format_of :domain, with: /^\d{3}\D{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Motorcycle'},:message =>"con formato incorrecto (999XXX)"
+  validates_format_of :domain, with: /^\D{3}\d{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car'},:message =>"con formato incorrecto (XXX999)"
   validates_uniqueness_of :domain, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car' }
 
   validate :unique_domain

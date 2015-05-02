@@ -107,9 +107,9 @@ module ApplicationHelper
   end
 
   def event_class event
-    css = "domain_green" if event.is_green
-    css = "domain_red" if event.is_red
-    css = "domain_yellow" if event.is_yellow
+    css = "green" if event.is_green
+    css = "red" if event.is_red
+    css = "yellow" if event.is_yellow
     return css
   end
 
@@ -122,9 +122,10 @@ module ApplicationHelper
   end
 
   def my_event_class event
-    css = event_class event
+    vehicle = event.vehicle
+    css = vehicle.vehicle_type.downcase + " " + event_class(event)
     if ((event.service.workorder.company) && (company_id.include?(event.service.workorder.company.id.to_s)))
-      css = "mi_" + css
+      css = "my " + css
     end
     return css
   end

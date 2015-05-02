@@ -124,7 +124,7 @@ class WorkordersControllerTest < ActionController::TestCase
     car = @user.cars.first
     get :new, :b => b.id
     assert_response :success
-    assert_select("#domain",:text => car.domain,:count=>1)
+    assert_select(".domain",:text => car.domain,:count=>1)
   end
 
   test "new work order form budget no vehicle" do
@@ -173,7 +173,7 @@ class WorkordersControllerTest < ActionController::TestCase
     car = @user.cars.first
     get :new, :vehicle_id => car.to_param
     assert_response :success
-    assert_select("#domain",:text => car.domain,:count=>1)
+    assert_select(".domain",:text => car.domain,:count=>1)
   end
 
    test "show work order company" do

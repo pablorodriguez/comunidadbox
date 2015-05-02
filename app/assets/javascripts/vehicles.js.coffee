@@ -4,7 +4,7 @@ $ ->
 
   $(".vehicle_type").on("change",->
     $(".chassis_row").toggle()
-    $('select.fuel option:eq(1)').prop('selected', true)
+    $('select.fuel option:eq(0)').prop('selected', true)
     select = $('select.fuel')
     select.attr('disabled', !select.attr('disabled'));
   

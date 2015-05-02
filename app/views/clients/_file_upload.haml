@@ -2,11 +2,25 @@
   .box_bottom
     %h1=t(".import_clients")
   .box_bottom  
-    = form_tag({action: :upload}, multipart: true, method: :put) do
-      .left
-        = file_field_tag :file
-      .left
-        = submit_tag (t"import"),:disable_with => (t'importing'),:class =>:button
+    .import_form
+      %h4 Por favor seleccione el archivo con los nuevos clientes a importar
+      Para la importación de clientes por favor selecciones un archivo (CSV) con el formato que indica la imagen respetando los nombres de las columnas
+      %br
+        Los nuevos clientes van a agregar \ actualizar a la Empresa del usuario, en este caso a:
+        %br 
+        %strong 
+          = link_to current_user.company.name,current_user.company
+      .box_bottom
+      = form_tag({action: :upload}, multipart: true, method: :put) do
+        .left
+          = file_field_tag :file, :class => :file_margin_top
+        .left
+          = submit_tag (t"import"),:disable_with => (t'importing'),:class =>:button
+  .box_bottom
+    %h4
+      Imagen ilustrativa de como debe ser el archivo para importar clientes
+    = image_tag("/images/import_client.png")
+    .export_note
   - unless @import_result.nil?
     %table.comboxtable
       %thead

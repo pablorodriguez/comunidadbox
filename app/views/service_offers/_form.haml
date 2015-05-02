@@ -109,65 +109,57 @@
                 %li
                   = check_box_tag :todos,"1",false,{:class=>"day checkbox"}
                   = label_tag :todos, t(".all"),:class => :link
-      #advertisements_test
-        = f.fields_for :advertisement do |ad_form|
-          %h3
-            = t ".advertisement"
-          .hide
-            = ad_form.label :id,:class =>"input_short"
-            = ad_form.text_field :id,:class =>"input_short"
-            = ad_form.label :service_offer_id,:class =>"input_short"
-            = ad_form.text_field :service_offer_id,:class =>"input_short"
-          //%h3 Ad Days
-          //= ad_form.fields_for :advertisement_days do |ad_days_form|
-          //  = ad_days_form.label :id
-          //  = ad_days_form.text_field :id
-          //  %br
-          //  = ad_days_form.label :advertisement_id
-          //  = ad_days_form.text_field :advertisement_id
-          //  %br
-          //  = ad_days_form.label :published_on
-          //  = ad_days_form.text_field :published_on
-      #advertisements_fields.hide
-        %h3 Angular Fields
-        //.add_days
-        //  %lable Ad ID
-        //  %input.input_short{"ng-model" => "service_offer.advertisement.id"}
-        .add_days{"ng-repeat" =>"ad_day in service_offer.advertisement.advertisement_days"}
-          %lable Ad Id
-          %input.input_short{:type => "text","ng-model" =>"ad_day.advertisement_id",:placeholder =>"advertisement_id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][advertisement_id]"}
-          %br
-          %lable Ad Days Id
-          %input.input_short{:type => "text","ng-model" =>"ad_day.id",:placeholder =>"id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][id]"}
-          %br
-          %lable Ad Days Published On
-          %input.input_short{:type => "text","ng-model" =>"ad_day.published_on",:placeholder =>"id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][published_on]"}
-          %input.input_short{:type => "text","ng-model" => "ad_day.destroy",:placeholder =>"destroy",:name => "service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][_destroy]"}
+      -if @vehicles.empty?
+        #advertisements_test
+          = f.fields_for :advertisement do |ad_form|
+            %h3
+              = t ".advertisement"
+            .hide
+              = ad_form.label :id,:class =>"input_short"
+              = ad_form.text_field :id,:class =>"input_short"
+              = ad_form.label :service_offer_id,:class =>"input_short"
+              = ad_form.text_field :service_offer_id,:class =>"input_short"
 
-      .advertisements{"ng-show" =>"service_offer.advertisement"}
-        %table.calendar
-          %thead
-            %tr
-              %th
-                = t("sunday")
-              %th
-                = t("monday")
-              %th
-                = t("tuesday")
-              %th
-                = t("wednesday")
-              %th
-                = t("thursday")
-              %th
-                = t("friday")
-              %th
-                = t("saturday")
-          %tbody
-            %tr{"ng-repeat" =>"week in service_offer.weeks"}
-              %td{"ng-repeat" => "day in week","ng-class" => "{today: day.today,notmonth: day.notmonth,has_ad: day.has_ad,can_no_ad_add: day.can_no_ad_add,can_ad_add: !day.can_no_ad_add}","ng-click" =>"add_day(day)"}
-                .ad_day
-                  {{day.day}}
-                .ad{"ng-repeat" =>"ad in day.ads","ng-class" => "{my_ad: ad.my_ad,no_ad: !ad.has_ad,other_ad: ad.other_add}"}
+        #advertisements_fields.hide
+          %h3 Angular Fields
+          //.add_days
+          //  %lable Ad ID
+          //  %input.input_short{"ng-model" => "service_offer.advertisement.id"}
+          .add_days{"ng-repeat" =>"ad_day in service_offer.advertisement.advertisement_days"}
+            %lable Ad Id
+            %input.input_short{:type => "text","ng-model" =>"ad_day.advertisement_id",:placeholder =>"advertisement_id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][advertisement_id]"}
+            %br
+            %lable Ad Days Id
+            %input.input_short{:type => "text","ng-model" =>"ad_day.id",:placeholder =>"id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][id]"}
+            %br
+            %lable Ad Days Published On
+            %input.input_short{:type => "text","ng-model" =>"ad_day.published_on",:placeholder =>"id",:name =>"service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][published_on]"}
+            %input.input_short{:type => "text","ng-model" => "ad_day.destroy",:placeholder =>"destroy",:name => "service_offer[advertisement_attributes][advertisement_days_attributes][{{$index}}][_destroy]"}
+
+        .advertisements{"ng-show" =>"service_offer.advertisement"}
+          %table.calendar
+            %thead
+              %tr
+                %th
+                  = t("sunday")
+                %th
+                  = t("monday")
+                %th
+                  = t("tuesday")
+                %th
+                  = t("wednesday")
+                %th
+                  = t("thursday")
+                %th
+                  = t("friday")
+                %th
+                  = t("saturday")
+            %tbody
+              %tr{"ng-repeat" =>"week in service_offer.weeks"}
+                %td{"ng-repeat" => "day in week","ng-class" => "{today: day.today,notmonth: day.notmonth,has_ad: day.has_ad,can_no_ad_add: day.can_no_ad_add,can_ad_add: !day.can_no_ad_add}","ng-click" =>"add_day(day)"}
+                  .ad_day
+                    {{day.day}}
+                  .ad{"ng-repeat" =>"ad in day.ads","ng-class" => "{my_ad: ad.my_ad,no_ad: !ad.has_ad,other_ad: ad.other_add}"}
       .buttons_container
         = f.submit t("save"),:class=>"button"
         = link_to 'Cancelar', service_offers_path
