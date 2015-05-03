@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes,
                   :address_attributes, :password, :password_confirmation, :companies_attributes,
-                  :employer_id, :role_ids, :user_type, :vehicles_attributes,:external_id
+                  :employer_id, :role_ids, :user_type, :vehicles_attributes,:external_id,:close_system
   
   attr :type, true
 

@@ -6,6 +6,7 @@ es-AR:
       company:
         name: "Nombre"
         address: "Dirección"
+        headquarter: "Casa Central"
     errors:
       models:
         company:

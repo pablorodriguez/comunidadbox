@@ -7,10 +7,10 @@ $ ->
     $('select.fuel option:eq(0)').prop('selected', true)
     select = $('select.fuel')
     select.attr('disabled', !select.attr('disabled'));
-  
-    $(this).toggle (->
-      $(".user_domain").attr("placeholder","999XXX")
-    ), ->
+    domain = $(".user_domain")
+    if ($(this).val() == "Car")
       $(".user_domain").attr("placeholder","XXX999")
+    else
+      $(".user_domain").attr("placeholder","999XXX")
 
   )

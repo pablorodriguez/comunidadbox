@@ -55,6 +55,7 @@ en-US:
         password: "Password *"
         password_confiramtion: "Password Confirmation *"
         information_car: "Car's Information"
+        close_system: "Close Mode"
         personal_address: "Address"
         save: "Save"
         cancel: "Cancel"

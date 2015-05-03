@@ -149,10 +149,12 @@ function setUserType(){
     $("#user_data").show();
     $("#company_data").hide();
     $("#autopartist_data").hide();
+    $("tr.close_system").hide().find("input[type=checkbox]").attr("checked",false)
   }else if($("#user_type").val() == 2){
     $("#user_data").hide();
     $("#company_data").show();
     $("#autopartist_data").hide();
+    $("tr.close_system").show();
   }else{
     $("#autopartist_data").show();
     $("#user_data").hide();

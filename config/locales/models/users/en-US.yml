@@ -10,5 +10,6 @@ en-US:
         cars: "Information from your Car"
         vehicles: "Information from your Vehicle"
         address: "Personal Address"
+        close_system: "Close Mode"
     erros:
       unique_domain_per_user: "already registered"     

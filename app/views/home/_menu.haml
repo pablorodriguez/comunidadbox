@@ -33,10 +33,11 @@
           = link_to t(".service_offers") , vehicle_service_offers_path
 
     = render "/home/new_menu"
-    %li
-      #service_center_link.menu
-        = image_tag "find.png"
-        = link_to t(".service_providers"), all_companies_path
+    - unless current_user.close_system
+      %li
+        #service_center_link.menu
+          = image_tag "find.png"
+          = link_to t(".service_providers"), all_companies_path
 #menu_actions
   #vehicles_menu.menu_data.hide.box_bottom
     =render :partial=>"vehicles/search_vehicle",:locals =>{:vehicles=>[],:table_id =>:sort_table}

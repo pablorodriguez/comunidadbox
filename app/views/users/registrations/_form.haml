@@ -14,13 +14,18 @@
           =t(".password_confirmation")
         %td
           = f.password_field :password_confirmation,:class=>"input_medium"
+      %tr.close_system
+        %td
+          = f.label :close_system
+        %td
+          = f.check_box :close_system
   -if recaptcha
     .recpatcha
       #repatcha_tag
         = recaptcha_tags
 -if (current_user == nil) || (!current_user.is_super_admin?)
   #user_data
-    #car_info
+    #car_info.box_bottom
       %h3=t(".information_car")
       =f.fields_for :vehicles do |c|
         = render 'users/vehicle_fields',:f =>c
@@ -38,7 +43,7 @@
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
 
-  .buttons_container
-    = f.submit t(".save"),:class=>"button"
-    = link_to t(".cancel"),root_path
+.buttons_container
+  = f.submit t(".save"),:class=>"button"
+  = link_to t(".cancel"),root_path
 
