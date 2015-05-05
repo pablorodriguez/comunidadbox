@@ -1,0 +1,11 @@
+%h3=t(".brands")
+#service_center
+  .form
+    = form_for :brand, :url => new_company_brand_path, :html => { :method => :get } do |f|
+      %table.w
+        %tr
+          %td
+            = f.select(:brand_id,options_from_collection_for_select(@missing_brands.sort_by{|x| x.name? ? x.name : ""}, :id, :name), {:prompt => "Seleccione una marca"})
+        %tr
+          %td
+            = f.submit t('.new_company_brand'), :class=>"button"

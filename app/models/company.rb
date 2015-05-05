@@ -25,6 +25,8 @@ class Company < ActiveRecord::Base
   has_many :company_material_code
   has_many :payment_methods
   has_many :statuses
+  has_and_belongs_to_many :models
+  has_many :brands, :through => :models, :uniq => true
   
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
@@ -54,6 +56,13 @@ class Company < ActiveRecord::Base
 
   def update_headquarter
     if headquarter
+      if self.persisted?
+        old_hq = Company.where("user_id =? and id != ? and headquarter = ?",self.user.id,self.id, true).last
+        if old_hq
+          models << old_hq.models
+          old_hq.models.clear
+        end
+      end
       Company.where("user_id =? and id != ?",self.user.id,self.id).update_all(:headquarter => false)
     end
   end
@@ -293,5 +302,29 @@ class Company < ActiveRecord::Base
     final_status
   end
 
+  def get_models
+    get_headquarter.models
+  end
+
+  def headquarter_models_by_brand(brand)
+    get_headquarter.models.where(brand_id: brand.id)
+  end
+
+  def assign_model_to_headquarter(model_id, add_to_company)
+    hq = get_headquarter
+    model = Model.find(model_id)
+    if model
+      if add_to_company
+          hq.models << model if !hq.models.exists?(model)
+      else
+        hq.models.delete(model)
+      end
+    end
+  end
+
+  def remove_brand_model_of_headquarters(brand)
+    hq = get_headquarter
+    hq.models.delete(headquarter_models_by_brand(brand))
+  end
 end
 

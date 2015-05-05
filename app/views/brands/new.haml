@@ -3,13 +3,4 @@
 .contentright_s  
   %h1
     Nueva Marca
-  = form_for(@brand) do |f|
-    = render 'shared/error_messages', :target => @brand
-    %p
-      Nombre
-      %br
-      = f.text_field :name
-    %p
-      .buttons_container
-        = f.submit "Grabar",:class => :button
-        = link_to "Cancelar",brands_path
+  = render "form"

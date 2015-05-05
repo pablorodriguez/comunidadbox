@@ -7,6 +7,14 @@
     %b
       Name:
     = h @brand.name
+  %p
+    Tipos de vehículos
+    %br
+    = check_box_tag "active","1",@brand.of_cars,:disabled => true
+    Autos
+    %br
+    = check_box_tag "active","1",@brand.of_motorcycles,:disabled => true
+    Motocicletas
   .buttons_container
     = link_to "Modificar", edit_brand_path(@brand),:class =>:button
     = link_to "Cancelar",brands_path

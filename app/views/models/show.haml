@@ -10,7 +10,15 @@
   %p
     %b
       Nombre:
-    = h @model.name  
+    = h @model.name
+  %p
+    Tipo de vehículo
+    %br
+    = radio_button_tag :type_of_vehicle, "", @model.of_cars?, disabled: true
+    Auto
+    %br
+    = radio_button_tag :type_of_vehicle, "", @model.of_motorcycles?, disabled: true
+    Motocicleta
   .buttons_container
     = link_to "Modificar", edit_model_path(@model),:class =>:button
     = link_to "Cancelar",models_path

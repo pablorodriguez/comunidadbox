@@ -3,11 +3,17 @@
   %p
     Marca
     %br
-    = f.select(:brand_id,options_from_collection_for_select(Brand.find(:all,:order=>'name'), :id, :name), {:prompt => "Seleccione una marca"})
+    = f.select(:brand_id,options_from_collection_for_select(Brand.find(:all,:order=>'name'), :id, :name, @model.persisted? ? @model.brand.id.to_s : nil), {:prompt => "Seleccione una marca"})
   %p
     = f.label :name
     %br
     = f.text_field :name
+  %p
+    Tipo de vehículo
+    - Model::TYPES_OF_VEHICLES.each do |key, value|
+      %br
+      = f.radio_button :type_of_vehicle, key, {checked: @model.type_of_vehicle == key }
+      = value
 
   .buttons_container
     = f.submit "Grabar",:class =>:button

@@ -1,0 +1,20 @@
+en-US:
+  company_brands:
+    company_brands:
+      confirm_delete: Are you sure you want to delete this Brand? All the associated models will be deleted too.
+      selected_models: Models
+    index:
+      brands_not_found: You haven't added any brand yet.
+      my_brands: My Brands
+    new_brand_selector:
+      brands: Brands
+      new_company_brand: Add Brand
+    new:
+      new_company_brand: Add Brand
+      brand_name: Name
+      available_models: Models
+      select_all: Select All
+    actions:
+      new_company_brand: Add Brand
+    edit:
+      edit_available_models: Edit available models

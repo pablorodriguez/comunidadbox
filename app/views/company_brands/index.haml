@@ -1,0 +1,15 @@
+.vertical_menu
+  = render "admin/menu"
+  .menu_actions.box_bottom
+    %ul
+      %li
+        = render "new_brand_selector"
+.contentright_s
+  .box_bottom
+    %h1
+      =t('.my_brands')
+  #all_brands
+    - if @company_brands.any?
+      = render :partial=>"company_brand",:collection => @company_brands,:locals =>{:active => :true}
+    - else
+      = t('.brands_not_found')

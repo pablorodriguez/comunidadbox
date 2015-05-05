@@ -156,3 +156,6 @@ es-AR:
   car_year: Año
   creator: Creador
   import_file_error: Debe seleccionar un archivo para importar
+  types_of_vehicles:
+    car: Auto
+    motorcycle: Moto

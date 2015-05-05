@@ -1,5 +1,5 @@
 class Brand < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :of_cars, :of_motorcycles
 
   has_many :cars
   has_many :models
