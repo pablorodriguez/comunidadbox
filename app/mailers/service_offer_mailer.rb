@@ -12,11 +12,10 @@ class ServiceOfferMailer < ActionMailer::Base
     @user = car.user
     @service_offers = service_offers
     logger.info "### Car : #{@car.domain} Serivce Offer ID: #{@service_offers.size}"
-    
+
     ServiceOffer.transaction do
       mail(:to => car.user.email,:subject => "notificacion de ofertas de servicios")  
     end
-
     
   end
 end
