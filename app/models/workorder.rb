@@ -551,4 +551,13 @@ class Workorder < ActiveRecord::Base
     rank
   end
 
+  def can_view_comments?(user)
+    companies = user.companies
+    if companies.any?
+      companies.include?(company)
+    else
+      false
+    end
+  end
+
 end

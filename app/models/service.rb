@@ -55,4 +55,11 @@ class Service < ActiveRecord::Base
       and services.id != ?",service.service_type.id,service.workorder.car.id,service.workorder.performed,service.id).order("performed desc")
   end
 
+  def can_view_comments?(user)
+    if workorder
+      workorder.can_view_comments?(user)
+    else
+      false
+    end
+  end
 end

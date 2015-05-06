@@ -9,8 +9,8 @@
       = link_to "[#{@work_order.budget.id}]",budget_path(@work_order.budget),:title => "Presupuesto" if @work_order.budget
       - if @work_order.deliver
         %label.right{title: "Hora de Entrega"}
-          = l(@work_order.deliver,format: :short) 
-      - if @work_order.comment
+          = l(@work_order.deliver,format: :short)
+      - if @work_order.comment && @work_order.can_view_comments?(current_user)
         .comment.clear
           = @work_order.comment
   #services_list.ordencontent    
