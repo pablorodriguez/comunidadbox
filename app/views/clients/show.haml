@@ -60,8 +60,8 @@
       .clear.row
         .left
           = brand_logo vehicle.brand.name
-        .domain_white.left
-          = link_to vehicle.domain, vehicle
+        .left
+          = link_to_domain vehicle
         %h1.left
           = "#{vehicle.model.name} #{vehicle.year}"
         .actions

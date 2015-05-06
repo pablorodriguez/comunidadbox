@@ -1,11 +1,10 @@
 # encoding: utf-8
 class ClientsController < ApplicationController
   layout "application", :except => [:search,:find_models]
-  authorize_resource :class => false
-
+  
   def edit
     @client = User.find(params[:id])
-
+    authorize! :update, @client
     @client.build_address unless @client.address
     @models = Array.new
 
@@ -21,6 +20,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = User.find(params[:id])
+    authorize! :read, @client
     @is_client = current_user.is_client?(@client)
 
     respond_to do |format|
@@ -178,8 +178,7 @@ class ClientsController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
-
+    @clients = Company.clients(get_company_id,params).paginate(:page =>page,:per_page =>15)
     @filters_params_exp = params
 
     respond_to do |format|

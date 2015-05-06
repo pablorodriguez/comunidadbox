@@ -5,8 +5,8 @@
   .vehicle.row[vehicle]
     .logo
       = brand_logo vehicle.brand.name,true
-    .left.domain_white
-      = link_to h(vehicle.domain),vehicle
+    .left
+      = link_to_domain vehicle
     .detail
       .name
         = h vehicle.brand.name

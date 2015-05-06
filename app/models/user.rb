@@ -380,6 +380,22 @@ class User < ActiveRecord::Base
     (self.id == user.id) || (user.confirmed_at.nil? && is_client?(user))
   end
 
+  def can_read? user
+    can_read = false
+    can_read = true if self == user 
+    can_read = true if !can_read && user.is_client?(user) 
+    if !can_read && self.company
+      if self.close_system
+        can_read = false
+      else
+        can_read = true 
+      end
+    else
+      can_read = false
+    end
+    can_read
+  end
+
   def only_client user
 
   end

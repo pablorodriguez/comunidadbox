@@ -201,7 +201,6 @@ class Company < ActiveRecord::Base
     last_name = params[:last_name] || ""
     email = params[:email] || ""
     company_name = params[:company_name] || ""
-
     page = params[:page] || 1
     clients = User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids)
     clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") unless first_name.empty?

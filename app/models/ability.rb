@@ -38,17 +38,20 @@ class Ability
     end
 
     can :read, Vehicle do |vehicle|
-      vehicle.user == user || user.company
+      user.can_read?(vehicle.user)
     end
 
     can :destroy, Vehicle do |c|
       user.can_edit?(c.user)
     end
 
-    can :destroy, User do |client|
+    can [:destroy,:update], User do |client|
       user.can_edit?(client)
     end
 
+    can :read,User do |client|
+      user.close_system ?  user.can_read?(client) : true
+    end
 
     if user.is_super_admin?
       can :manage, :conf
@@ -141,10 +144,8 @@ class Ability
       can :manage, :control_panel
       can :create, Budget
       can :manage, Company
-      can :manage, :client
-      #can :index_all, :client
+      can :index, :client
     end
-
 
     if user.is_administrator? || user.is_manager?
       can :manage, ServiceOffer
