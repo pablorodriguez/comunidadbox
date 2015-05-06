@@ -77,7 +77,7 @@ class ServiceOffer < ActiveRecord::Base
         unless cars[c]
           cars[c]=Array.new
         end         
-        cars[c] << sremove_advertisement_entity
+        cars[c] << s
       end
     end
     
