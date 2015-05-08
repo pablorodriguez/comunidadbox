@@ -34,7 +34,8 @@
             %tr
               %td
                 = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>t(".domain")             
-                = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
+                - if @status.any?
+                  = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
         
       %h3
         =t(".order_by")

@@ -32,7 +32,7 @@ class ServiceRequestsController < ApplicationController
   def new
     @service_request = ServiceRequest.new
     @service_request.car = current_user.cars.first if current_user.cars.size == 1
-
+    @service_types = get_service_types
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @service_request }

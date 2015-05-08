@@ -1,7 +1,7 @@
 :javascript
   window.service_request_edit = #{@service_request.id ? true : false};
   window.service_request = #{@service_request.to_builder};
-  window.services_types = #{ServiceType.to_builder(current_user.service_types)}
+  window.services_types = #{ServiceType.to_builder(@service_types)}
   window.cars = #{Car.to_builder(current_user.cars)}
 = render 'shared/error_messages', :target => @service_request
 #serivce_request_app{"ng-app" => "app"}
@@ -18,6 +18,7 @@
               %td
                 .hide
                   = f.text_field :car_id,"ng-model" => "service_request.car.id"
+                  
                 - if @service_request.car
                   .domain_white
                     = @service_request.car.domain 

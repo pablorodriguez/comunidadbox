@@ -213,7 +213,7 @@ class Company < ActiveRecord::Base
   end
 
   def perform_service_type? st
-    service_type.select{|stype| stype.id == st.id}.size > 0
+    service_types.select{|stype| stype.id == st.id}.size > 0
   end
 
   def self.clients_to_csv(filePath, company_id)

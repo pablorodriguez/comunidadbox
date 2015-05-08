@@ -2,15 +2,13 @@
 
     $scope.services_types = window.services_types
     $scope.cars = window.cars
-    
+    $scope.service_request = window.service_request
     if window.service_request_edit
-      $scope.service_request = window.service_request
       for item in $scope.service_request.item_service_requests
         for st in $scope.services_types
           if item.service_type.id == st.id
             item.service_type = st        
     else
-      $scope.service_request = {}
       $scope.service_request.item_service_requests = [   
         id: ""
         name: "shipping[shipping_items_attributes][0][product]"
