@@ -15,16 +15,12 @@ class Vehicle < ActiveRecord::Base
   has_many :service_offers,:through =>  :vehicle_service_offer,:order =>'created_at'
   #has_and_belongs_to_many :offers
 
-  validates_presence_of :brand,:model,:domain,:year,:km,:kmAverageMonthly
+  validates_presence_of :brand,:model,:year,:km,:kmAverageMonthly
   validates_numericality_of :year, :only_integer => true, :greater_than_or_equal_to => 1885
   validates_numericality_of :km, :only_integer => true
   validates_numericality_of :kmAverageMonthly
-
-  validates_format_of :domain, with: /^\d{3}\D{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Motorcycle'},:message =>"con formato incorrecto (999XXX)"
-  validates_format_of :domain, with: /^\D{3}\d{3}/, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car'},:message =>"con formato incorrecto (XXX999)"
-  validates_uniqueness_of :domain, if: Proc.new {|vehicle| vehicle.vehicle_type == 'Car' }
-
-  validate :unique_domain
+  
+  validate :custom_validations
   before_save :set_new_attribute
   after_save :update_events
 
@@ -35,12 +31,28 @@ class Vehicle < ActiveRecord::Base
 
   attr_accessor :today_service_offer
 
-  def unique_domain
+  def custom_validations
+    if vehicle_type == "Car" and domain.nil?
+      errors[:domain] << "El Dominio no puede estar vacio"
+    end
+
+    if domain && !domain.empty? && !valid_domain_format?
+      errors[:domain] << "El Formato del Dominio es incorrecto"
+    end
+    
     if user
       unless user.vehicles.select{|c| c.domain == self.domain && c.id != self.id}.empty?
         errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
       end
     end
+  end
+
+  def valid_domain_format?
+    pattern = /^\D\D\D\d\d\d/
+    if is_motorcycle?
+      pattern = /^\d\d\d\D\D\D/
+    end
+    pattern.match self.domain
   end
 
   def self.fuels

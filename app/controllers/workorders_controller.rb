@@ -193,9 +193,13 @@ class WorkordersController < ApplicationController
   # PUT /brands/1.xml
   def update
     @work_order = Workorder.find(params[:id])
-    @work_order.status = Status::OPEN_FOR_AUTOPART if params['open_for_autopart'].present?
-
     authorize! :update, @work_order
+    
+    @work_order.status = Status::OPEN_FOR_AUTOPART if params['open_for_autopart'].present?
+    
+    company = get_company(params)
+    @payment_methods = company.available_payment_methods
+    
     if params[:workorder][:notes_attributes]
       params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}"
       params[:workorder][:notes_attributes]["0"][:creator_id] = "#{current_user.id}"
@@ -205,7 +209,6 @@ class WorkordersController < ApplicationController
 
     respond_to do |format|
     if @work_order.update_attributes(params[:workorder])
-
       @work_order.services.each{|service| service.tasks.clear}
       if params[:service_type_ids]
         @work_order.services.each do |service|
@@ -233,9 +236,8 @@ class WorkordersController < ApplicationController
     authorize! :update, @work_order
 
     @work_order.notes.build if @work_order.notes.empty?
-
+    
     company = get_company(params)
-
     @payment_methods = company.available_payment_methods
 
     @service_types = current_user.service_types    

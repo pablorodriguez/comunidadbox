@@ -138,7 +138,7 @@ module ApplicationHelper
 
   def link_to_domain vehicle
     content_tag(:div,:class=>"domain #{vehicle.vehicle_type.downcase}") do
-      link_to vehicle.domain,vehicle
+      link_to vehicle.domain.empty? ? "No" : vehicle.domain,vehicle
     end
   end
 

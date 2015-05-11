@@ -151,7 +151,6 @@ class Workorder < ActiveRecord::Base
 
     if self.user.company
       if self.deliver.nil? and self.vehicle.is_car?
-        debugger
         errors[:deliver] << "no puede ser vacio"
       end
       unless user.company.is_employee?(user)
@@ -177,6 +176,10 @@ class Workorder < ActiveRecord::Base
 
   def total_price
     self.services.inject(0){|sum, service| sum + service.total_price } 
+  end
+
+  def payment_method_name
+    payment_method ? payment_method.name : ""
   end
 
   def detail
@@ -487,6 +490,8 @@ class Workorder < ActiveRecord::Base
   def self.find_by_params(filters)
 
     workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:vehicle =>:user,:services => [{:material_services => [{:material_service_type =>[:service_type, :material]}]}])
+
+    workorders = workorders.where("vehicles.id = ?","#{filters[:vehicle_id]}") if filters[:vehicle_id]
 
     workorders = workorders.where("vehicles.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
 

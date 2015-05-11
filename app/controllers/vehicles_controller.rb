@@ -115,10 +115,9 @@ class VehiclesController < ApplicationController
     respond_to do |format|
 
     if data == "all"
-      filters[:domain] = @vehicle.domain
+      filters[:vehicle_id] = @vehicle.id
       filters[:user] = current_user unless company_id
       @work_orders = Workorder.find_by_params(filters).paginate(:per_page=>per_page,:page =>page)
-
       @budgets = @vehicle.budgets_for(current_user).paginate(:per_page=>10,:page=>1)
       @price_data = Workorder.build_graph_data(Workorder.group_by_service_type(filters))
 

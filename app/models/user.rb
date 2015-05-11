@@ -505,9 +505,8 @@ class User < ActiveRecord::Base
       external_id = row[0].strip
       email = row[4]
 
-      client = User.find_by_external_id external_id if external_id
-      client = User.new if client.nil?
-
+      client = external_id ? User.find_by_external_id(external_id) : User.new
+      
       brand = Brand.find_by_name(row[12])
       brand_id = brand ? brand.id : ""
       model = brand_id ? Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first : nil
@@ -542,8 +541,7 @@ class User < ActiveRecord::Base
           }]
         }
       }
-      client2 = User.new(params[:user])
-
+      client = User.new(params[:user])
       debugger
       if client.id.nil?
         if client && company_id
@@ -571,7 +569,6 @@ class User < ActiveRecord::Base
         end
         result[:success] += 1
       else
-        debugger
         result[:errors] << [i,client]
         result[:failure] += 1
       end

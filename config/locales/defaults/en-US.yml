@@ -129,6 +129,7 @@ en-US:
 
   workorder: Workorder
   car: Car
+  motorcycle: Motorcycle
   vehicle: Vehicle
   client: Client
   salesman: Salesman
