@@ -134,6 +134,7 @@ class ClientsController < ApplicationController
     @client = User.new    
     @client.build_address 
     @client.cars.build
+    @company = get_company
     if params[:b]
       @budget = Budget.find params[:b]
       @client.first_name = @budget.first_name
