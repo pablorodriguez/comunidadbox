@@ -302,6 +302,10 @@ class Company < ActiveRecord::Base
     final_status
   end
 
+  def get_brands
+    get_headquarter.brands
+  end
+
   def get_models
     get_headquarter.models
   end

@@ -2,8 +2,9 @@ class CarsController < ApplicationController
 
   authorize_resource
 
-  layout "application", :except => [:search,:find_models,:search_companies,:km] 
-  skip_before_filter :authenticate_user!,:only => [:find_models]
+  layout "application", :except => [:search,:find_models, :find_company_models_by_brand,
+                                    :search_companies,:km]
+  skip_before_filter :authenticate_user!,:only => [:find_models, :find_company_models_by_brand]
    
   # GET /cars
   # GET /cars.xml
@@ -37,6 +38,13 @@ class CarsController < ApplicationController
   
   def find_models
     @models = Model.where("brand_id = ?",params[:brand_id]).order("name")
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
+  end
+
+  def find_company_models_by_brand
+    @models = get_company.get_models.where("brand_id = ?",params[:brand_id]).order("name")
     respond_to do |format|
       format.js { render :layout => false}
     end

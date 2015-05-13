@@ -192,6 +192,7 @@ ComunidadBox::Application.routes.draw do
 
       collection do
         post :find_models
+        post :find_company_models_by_brand
         post :search
         post :search_companies      
         get :my
