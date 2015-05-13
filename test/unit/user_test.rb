@@ -46,8 +46,10 @@ class UserTest < ActiveSupport::TestCase
     assert @gustavo.can_edit?(@new_pablo) == false
   end
 
-  test "import new clientes all ok" do
-    create(:service_on_warranty)
+  test "import new clients all ok" do
+
+    create :service_on_warranty,:company_id => @gustavo.company_active.id
+
 
     csv_rows = <<-eos
     Id externo,Nombre,Apellido,Teléfono,Email,CUIT,Razon Social,Provincia,Ciudad,Calle,Código Postal,Dominio,Marca,Modelo,Combustible,Año,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
@@ -65,7 +67,7 @@ class UserTest < ActiveSupport::TestCase
     debugger
     assert result[:errors].size == 1, "Error in number of errors"
     assert result[:failure] == 1, "Error in number of failure"
-    assert result[:total_records] == 2, "Error in number of recrods"
+    assert result[:total_records] == 2, "Error in number of records"
     assert result[:success] == 1, "Error in number of success"
 
   end

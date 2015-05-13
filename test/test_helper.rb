@@ -22,7 +22,7 @@ module ComunidadBox::TestHelpers
     create :oil_change,:company_id => company_id
     create :tire_change,:company_id => company_id
     create :alignment_and_balancing,:company_id => company_id
-
+   
     #crear materiales
     create :hand_work_material,:company_id => company_id
 

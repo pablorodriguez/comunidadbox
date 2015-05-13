@@ -542,7 +542,6 @@ class User < ActiveRecord::Base
         }
       }
       client = User.new(params[:user])
-      debugger
       if client.id.nil?
         if client && company_id
           unless client.service_centers.include?(company_id)
@@ -565,6 +564,7 @@ class User < ActiveRecord::Base
       if client.errors.empty? 
         client.save
         if create_event
+          car = client.vehicles.first
           car.events.build({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
         end
         result[:success] += 1
