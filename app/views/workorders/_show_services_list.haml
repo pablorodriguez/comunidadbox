@@ -10,7 +10,7 @@
       - if @work_order.deliver
         %label.right{title: "Hora de Entrega"}
           = l(@work_order.deliver,format: :short)
-      - if @work_order.comment
+      - if @work_order.comment && @work_order.can_view_comments?(current_user)
         .comment.clear
           = @work_order.comment
   #services_list.ordencontent

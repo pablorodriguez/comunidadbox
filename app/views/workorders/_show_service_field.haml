@@ -30,6 +30,6 @@
     %tbody
       - f.material_services.each do |ms|
         =render :partial=> "show_material_service_fields",:locals=>{:f => ms}
-  - if f.comment
+  - if f.comment && f.can_view_comments?(current_user)
     .comment.clear
       = f.comment

@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Brand < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :of_cars, :of_motorcycles
 
   has_many :vehicles
   has_many :models

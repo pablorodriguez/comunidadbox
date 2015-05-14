@@ -100,13 +100,13 @@ class WorkordersController < ApplicationController
     @services_amount =0
     @amt.each{|key,value| @services_amount += value}
 
-    #@status = {-1=>I18n.t("state")}.merge!(Status::WO_STATUS).collect{|v,k| [k,v]}
+    available_custom_statuses = []
     company = get_company
     if company
-      @status = [[I18n.t("state"),"-1"]] + company.available_custom_statuses.collect{|v| [v.name,v.id]}
-    else
-      @status = []
+      available_custom_statuses = company.available_custom_statuses.collect{|v| [v.name,v.id]}
     end
+
+    @status = [[I18n.t("state"),"-1"]] + available_custom_statuses
 
     respond_to do |format|
       format.html

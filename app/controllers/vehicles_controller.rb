@@ -4,11 +4,12 @@ class VehiclesController < ApplicationController
   # before_action :set_type, only: [:show, :edit, :update, :destroy]
   before_filter :set_vehicle
 
-  layout "application", :except => [:search,:find_models,:search_companies,:km]
-  skip_before_filter :authenticate_user!,:only => [:find_models]
-
-  # GET /vehicles
-  # GET /vehicles.xml
+  layout "application", :except => [:search,:find_models, :find_company_models_by_brand,
+                                    :search_companies,:km]
+  skip_before_filter :authenticate_user!,:only => [:find_models, :find_company_models_by_brand]
+   
+  # GET /cars
+  # GET /cars.xml
   def index
     page = params[:page] || 1
     domain = (params[:domain].strip if params[:domain]) || "%"
@@ -44,12 +45,19 @@ class VehiclesController < ApplicationController
     end
   end
 
-  def km
-    @vehicle = Vehicle.find(params[:id])
-    @vehicle.kmUpdatedAt = Time.zone.now
-    new_km = params[:vehicle][:km].to_i
-    new_avg= params[:vehicle][:kmAverageMonthly].to_i
-
+  def find_company_models_by_brand
+    @models = get_company.get_models.where("brand_id = ?",params[:brand_id]).order("name")
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
+  end
+  
+  def km    
+    @car = Car.find(params[:id])
+    @car.kmUpdatedAt = Time.zone.now
+    new_km = params[:car][:km].to_i
+    new_avg= params[:car][:kmAverageMonthly].to_i
+    
     @msg = ""
     # valido si cambio km o kmAverageMonthly
     if ((@vehicle.km == new_km) && (@vehicle.kmAverageMonthly == new_avg))

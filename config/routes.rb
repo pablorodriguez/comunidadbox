@@ -96,6 +96,7 @@ ComunidadBox::Application.routes.draw do
     resources :material_requests
     resources :advertising
     resources :statuses
+    #resources :company_brands
 
     resources :messages do
       member do
@@ -192,6 +193,7 @@ ComunidadBox::Application.routes.draw do
 
       collection do
         post :find_models
+        post :find_company_models_by_brand
         post :search
         post :search_companies
         get :my
@@ -404,6 +406,16 @@ ComunidadBox::Application.routes.draw do
         post :import
       end
     end
+
+    #resources :company_brands do
+    #  collection do
+    #    get :index
+    #    post :add_models
+    #  end
+    #  member do
+    #    delete :remove
+    #  end
+    #end
 
     root :to => "home#index"
 

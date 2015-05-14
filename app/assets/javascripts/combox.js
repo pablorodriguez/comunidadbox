@@ -133,7 +133,7 @@ jQuery(document).ready( function(){
 
 
   $('.brand').live("change",searchModel);
-
+  $('.company_brand').live("change",searchModelByCompany);
 
 });
 
@@ -168,6 +168,22 @@ function searchModel(event){
   //AjaxLoader.enable();
   $.ajax({
     url: "/vehicles/find_models",
+      data: {
+        'id':brand_id,
+        'brand_id':$("#"+brand_id).val(),
+        'authenticity_token':encodeURIComponent(token)
+      },
+    dataType:'script',
+    type:'POST'
+  });
+}
+
+function searchModelByCompany(event){
+  var brand_id = event.target.id;
+  var token = $("input[name='authenticity_token']")[0];
+  //AjaxLoader.enable();
+  $.ajax({
+    url: "/cars/find_company_models_by_brand",
       data: {
         'id':brand_id,
         'brand_id':$("#"+brand_id).val(),

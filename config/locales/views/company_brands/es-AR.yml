@@ -1,0 +1,20 @@
+es-AR:
+  company_brands:
+    company_brand:
+      confirm_delete: "¿Está seguro que desea eliminar esta Marca? Al hacerlo, se eliminarán todos los modelos asociados."
+      selected_models: Modelos seleccionados
+    index:
+      brands_not_found: Aún no ha agregado ninguna Marca.
+      my_brands: Mis Marcas 
+    new_brand_selector:
+      brands: Marcas
+      new_company_brand: Agregar Marca
+    new:
+      new_company_brand: Agregar Marca
+      brand_name: Nombre de Marca
+      available_models: Modelos disponibles
+      select_all: Seleccionar Todos
+    actions:
+      new_company_brand: Agregar Marca
+    edit:
+      edit_available_models: Modificar Modelos disponibles

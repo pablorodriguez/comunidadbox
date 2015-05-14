@@ -57,8 +57,6 @@ class Ability
       can :manage, :conf
       can :manage, Task
       #can :manage, ServiceType
-      can :manage, Brand
-      can :manage, Model
       can :manage, State
       can :manage, ServiceOffer
     elsif user.id
@@ -145,6 +143,8 @@ class Ability
       can :create, Budget
       can :manage, Company
       can :index, :client
+      can :manage, Brand
+      can :manage, Model
     end
 
     if user.is_administrator? || user.is_manager?

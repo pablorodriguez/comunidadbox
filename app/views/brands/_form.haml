@@ -1,0 +1,21 @@
+= form_for(@brand) do |f|
+  = render 'shared/error_messages', :target => @brand
+  %table
+    %tbody
+      %tr
+        %td
+          = Brand.human_attribute_name(:name)
+        %td
+          = f.text_field :name
+      %tr
+        %td
+          Tipos de vehículo
+        %td
+          = f.check_box :of_cars
+          = f.label :of_cars
+          = f.check_box :of_motorcycles
+          = f.label :of_motorcycles
+  %p
+    .buttons_container
+      = f.submit "Grabar",:class => :button
+      = link_to "Cancelar",@brand

@@ -1,16 +1,34 @@
 .vertical_menu
-  = render "conf/menu"
+  - if current_user.is_super_admin?
+    = render "conf/menu"
+  - else
+    = render "admin/menu"
+  = render "actions"
 .contentright_s
   .box_bottom
     %h1 Modelo
-  %p
-    %b
-      Marca:
-    = brand_logo @model.brand.name,true
-  %p
-    %b
-      Nombre:
-    = h @model.name
-  .buttons_container
-    = link_to "Modificar", edit_model_path(@model),:class =>:button
-    = link_to "Cancelar",models_path
+  
+  %table
+    %tbody
+      %tr
+        %td
+          %b
+            Marca:
+        %td
+          = link_to @model.brand.name,@model.brand
+      %tr
+        %td
+          %b
+            Nombre:
+        %td
+          = h @model.name
+      %tr
+        %td
+          %b
+            Tipos de vehículos:
+        %td
+          = check_box_tag "active","1",@model.brand.of_cars,:disabled => true
+          Autos
+          %br
+          = check_box_tag "active","1",@model.brand.of_motorcycles,:disabled => true
+          Motocicletas

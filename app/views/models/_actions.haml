@@ -14,5 +14,8 @@
     %ul
       %li
         = link_to "Nuevo Modelo", new_model_path
-      %li
-        = link_to "Exportar Excel", models_path(format:"xls")
+      - if @model
+        %li
+          = link_to "Modificar", edit_model_path(@model)
+      //%li
+        //= link_to "Exportar Excel", models_path(format:"xls")

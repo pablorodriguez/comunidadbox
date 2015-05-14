@@ -3,7 +3,8 @@
 -# stylesheets 'demo_page'
 -# stylesheets 'demo_table'
 .vertical_menu
-  = render "conf/menu"
+  //= render "conf/menu"
+  = render "admin/menu"
   = render "actions"
 .contentright_s
   .box_bottom
@@ -18,7 +19,7 @@
         %actions
           .action
             = link_to image_tag("delete.png"), brand,:data =>{:confirm => '¿ Esta seguro que desea borrarlo ?'}, :method => :delete
-          .action
+          .action.hide
             = link_to image_tag("car.png"),models_path(:b => brand.id),:title =>"Ver modelos"
           .action
             = link_to image_tag("edit.png"), edit_brand_path(brand),:title => "Modificar"

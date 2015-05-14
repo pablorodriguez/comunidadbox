@@ -1,0 +1,25 @@
+-#javascript "compnay_brands"
+
+.vertical_menu
+  = render "admin/menu"
+.contentright_s
+  .box_bottom
+    %h1= t('.new_company_brand')
+  %p
+    %b
+      = t('.brand_name') + ': '
+    = h @brand.name
+  %p
+    %b
+      = t('.available_models') + ': '
+    = form_for :models, :url => add_models_company_brands_path,:method => :post do |f|
+      #models_checkboxs
+        - @brand.models.each do |brand_model|
+          = f.check_box brand_model.id, checked_value: brand_model.id, :class => "checkbox", :checked => @company_models.include?(brand_model)
+          = brand_model.name
+          %br
+      %p{:class => "button", :id => "select_all_models", :style => "cursor: pointer;"}
+        = t('.select_all')
+      .buttons_container
+        = f.submit t("save"), :class =>:button
+        = link_to t("cancel"), company_brands_path

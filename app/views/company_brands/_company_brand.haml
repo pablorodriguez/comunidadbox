@@ -1,0 +1,19 @@
+.row
+  .brand_detail
+    .actions        
+      .action
+        = link_to "", new_company_brand_path(:params => { brand: { brand_id: company_brand.id}}),{:title =>"Seleccionar Modelos",:class=>"edit"}
+        = link_to image_tag('delete.png'), remove_company_brand_path(company_brand), :confirm => t('.confirm_delete'), :method => :delete
+    .left
+      .nombre
+        = link_to company_brand.name, brand_path(company_brand),{:title => "Ver"}
+    %br
+    %p
+      %b
+        = t('.selected_models') + ': '
+      - @company.headquarter_models_by_brand(company_brand).each do |model|
+        %p
+          = model.name
+
+            
+        

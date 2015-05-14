@@ -323,6 +323,11 @@ module ApplicationHelper
     model
   end
 
+  def find_company_models_by_brand car, company
+    model = company.get_models.where(brand_id: car.brand_id).order(:name)
+    model
+  end
+
   def create_service_type_tool_tip oe
     st=""
     if (oe && oe.respond_to?(:length))

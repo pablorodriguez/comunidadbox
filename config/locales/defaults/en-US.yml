@@ -165,3 +165,6 @@ en-US:
   vehicle_year: Year
   creator: Creator
   import_file_error: You must select a file to import
+  types_of_vehicles:
+    car: Car
+    motorcycle: Motorcycle

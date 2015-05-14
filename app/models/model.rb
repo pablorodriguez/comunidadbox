@@ -1,12 +1,17 @@
 # encoding: utf-8
 class Model < ActiveRecord::Base
-  attr_accessible :brand_id, :name
+  attr_accessible :brand_id, :name, :type_of_vehicle
 
   scope :all_sorted, includes("brand").order('brands.name,models.name')
 
   has_many :vehicles
   belongs_to :brand
+  has_and_belongs_to_many :companies
+
   validates_presence_of :brand
+  validate :brand_has_that_type_of_vehicle
+
+  TYPES_OF_VEHICLES = { 1 => I18n.t("types_of_vehicles.car"), 2 => I18n.t("types_of_vehicles.motorcycle")}
 
   def self.to_csv(options={})
     CSV.generate(options) do |csv|
@@ -54,5 +59,14 @@ class Model < ActiveRecord::Base
     end
   end
 
-
+  def brand_has_that_type_of_vehicle
+    brand_has_that_type = false
+    case type_of_vehicle
+      when 1
+        brand_has_that_type = brand.of_cars
+      when 2
+        brand_has_that_type = brand.of_motorcycles
+    end
+    errors.add(:base, "La Marca seleccionada no posee el tipo de vehiculo indicado") if !brand_has_that_type
+  end
 end
