@@ -6,8 +6,7 @@
       %h4 Por favor seleccione el archivo con los nuevos clientes a importar
       Para la importación de clientes por favor selecciones un archivo (CSV) con el formato que indica la imagen respetando los nombres de las columnas
       %br
-        Los nuevos clientes van a agregar \ actualizar a la Empresa del usuario, en este caso a:
-        %br 
+        Los nuevos clientes van a agregar \ actualizar a la Empresa del usuario:
         %strong 
           = link_to current_user.company.name,current_user.company
       .box_bottom
@@ -16,6 +15,8 @@
           = file_field_tag :file, :class => :file_margin_top
         .left
           = submit_tag (t"import"),:disable_with => (t'importing'),:class =>:button
+          %strong
+            = link_to "Bajar Archivo Ejemplo", "/data/import_clients.csv"
   .box_bottom
     %h4
       Imagen ilustrativa de como debe ser el archivo para importar clientes
