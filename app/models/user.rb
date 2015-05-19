@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   has_many :price_offers
 
   validates_uniqueness_of :email, :case_sensitive => false
-  validates_presence_of :first_name, :last_name
+  #validates_presence_of :first_name, :last_name
   #validates_presence_of :vehicles, :on => :create
 
 
@@ -70,6 +70,13 @@ class User < ActiveRecord::Base
 
   #scope :motorcycles,where("vehicle_type = 'Motorcyle'")
   after_initialize :set_default_data
+  validate :custom_validations
+
+  def custom_validations
+    if first_name.empty? && last_name.empty? && company_name.empty?
+      errors[:domain] << "El Dominio no puede estar vacio"
+    end
+  end
 
   def cars
     self.vehicles.select{|v| v.vehicle_type == "Car"}
@@ -504,8 +511,8 @@ class User < ActiveRecord::Base
       i+=1
       external_id = row[0].strip
       email = row[4]
-
-      client = external_id ? User.find_by_external_id(external_id) : User.new
+      
+      client = User.find_by_external_id(external_id) if external_id 
       
       brand = Brand.find_by_name(row[12])
       brand_id = brand ? brand.id : ""
@@ -531,19 +538,26 @@ class User < ActiveRecord::Base
           },
           vehicles_attributes:[{
             domain: row[11],
-            km: row[17],
-            kmAverageMonthly: row[16],
+            chasis: row[14],
+            km: row[18],
+            kmAverageMonthly: row[17],
             brand_id: brand_id,
-            year: row[15],
+            year: row[16],
             model_id: model_id,
-            fuel: row[14],
+            fuel: row[15],
             vehicle_type: "Car"
           }]
         }
       }
-      client = User.new(params[:user])
-      if client.id.nil?
-        if client && company_id
+      
+      unless client
+        client = User.new(params[:user])
+      else
+        client.update_attributes(params[:user])
+      end
+
+      unless client.new_record?
+        if company_id
           unless client.service_centers.include?(company_id)
             client.service_centers << company
           end
@@ -552,8 +566,8 @@ class User < ActiveRecord::Base
 
       client.valid?
       #if theres is event to add
-      if row[18]
-        service_type_name = row[18]
+      if row[19]
+        service_type_name = row[19]
         service_type = company.service_types.where("name = ?",service_type_name).first
         create_event = true
         unless service_type ? true : false
@@ -565,7 +579,7 @@ class User < ActiveRecord::Base
         client.save
         if create_event
           car = client.vehicles.first
-          car.events.build({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
+          car.events.create({:service_type_id => service_type.id,:dueDate => row[20],:status =>Status::ACTIVE})
         end
         result[:success] += 1
       else

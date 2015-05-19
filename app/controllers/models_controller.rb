@@ -98,7 +98,7 @@ class ModelsController < ApplicationController
   end
 
   def import
-    Model.import(params[:file])
+    Model.import(params[:file],get_company_id)
     redirect_to models_path, notice: "Modelos importado con exito"
   end
 end

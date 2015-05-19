@@ -7,7 +7,7 @@ class BrandsController < ApplicationController
     page = params[:page] || 1
     per_page = 20
     brand = params[:b] || ""
-    brand = "%#{@brand}%"
+    brand = "%#{brand}%"
     
     @company = get_company
     @brands = @company.get_headquarter.brands
@@ -50,7 +50,6 @@ class BrandsController < ApplicationController
   # POST /brands.xml
   def create
     @brand = Brand.new(params[:brand])
-    debugger
     @brand.company_id = current_user.company_id
 
     respond_to do |format|

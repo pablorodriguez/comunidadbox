@@ -6,7 +6,7 @@ FactoryGirl.define do
     phone "0261-4526157"
     website "www.neumaticosvallegrande.com.ar"
     active 1
-    address {FactoryGirl.build(:valle_grande_mendoza_plaza_address)}
+    address {FactoryGirl.build(:test_address)}
     headquarter 1
     after(:build) do |company|
       company.statuses << FactoryGirl.build(:status_open,:id=>1)
@@ -20,7 +20,7 @@ FactoryGirl.define do
     phone "0261-4526157"
     website "www.neumaticosvallegrande.com.ar"
     active 1
-    address {FactoryGirl.build(:valle_grande_mendoza_peru_address)}
+    address {FactoryGirl.build(:test_2_address)}
     after(:build) do |company|
       company.statuses << FactoryGirl.build(:status_open,:id=>3)
       company.statuses << FactoryGirl.build(:status_close,:id=>4) 

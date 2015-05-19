@@ -12,16 +12,6 @@
           = f.label :name
         %td
           = f.text_field :name
-      %tr
-        %td
-          Tipo de vehículo
-        %td
-          - Model::TYPES_OF_VEHICLES.each do |key, value|
-            %br
-            = f.radio_button :type_of_vehicle, key, {checked: @model.type_of_vehicle == key }
-            %label.link{:for=>"model_type_of_vehicle_#{key}"} 
-              = value
-
   .buttons_container
     = f.submit "Grabar",:class =>:button
-    = link_to "Cancelar",models_path
+    = link_to "Cancelar",brands_path

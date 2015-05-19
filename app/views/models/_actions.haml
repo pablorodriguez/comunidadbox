@@ -1,4 +1,4 @@
-.box_bottom
+.box_bottom.hide
   %h3 Buscar
   = form_for :model, :url => models_path,:method => :get do |f|
     %table.w
@@ -14,8 +14,8 @@
     %ul
       %li
         = link_to "Nuevo Modelo", new_model_path
-      - if @model
+      - unless @model.new_record?
         %li
           = link_to "Modificar", edit_model_path(@model)
       //%li
-        //= link_to "Exportar Excel", models_path(format:"xls")
+      //= link_to "Exportar Excel", models_path(format:"xls")

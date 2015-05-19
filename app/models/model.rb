@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Model < ActiveRecord::Base
-  attr_accessible :brand_id, :name, :type_of_vehicle
+  attr_accessible :brand_id, :name
 
   scope :all_sorted, includes("brand").order('brands.name,models.name')
 
@@ -9,7 +9,7 @@ class Model < ActiveRecord::Base
   has_and_belongs_to_many :companies
 
   validates_presence_of :brand
-  validate :brand_has_that_type_of_vehicle
+  #validate :brand_has_that_type_of_vehicle
 
   TYPES_OF_VEHICLES = { 1 => I18n.t("types_of_vehicles.car"), 2 => I18n.t("types_of_vehicles.motorcycle")}
 
@@ -40,22 +40,21 @@ class Model < ActiveRecord::Base
   end
 
 
-  def self.import(file)
-    CSV.foreach(file.path,{:headers =>  true, :col_sep =>"\t"}) do |row|
-      brand = Brand.find_by_name(row["brand"]) || new
+  def self.import(file,company_id)
+    CSV.foreach(file.path,{:headers =>  true}) do |row|
+      brand = Brand.where("UPPER(name) = ?",row["brand"].upcase).first || Brand.new
       unless brand.id
         brand.name = row["brand"]
+        brand.company_id = company_id
+        brand.of_motorcycles = 1
         brand.save
       end
 
-      model = find_by_name(row["model"]) || new
+      model = Model.where("UPPER(name) = ?",row["model".upcase]).first || Model.new
+      model.name = row["model"]
+      model.brand_id = brand.id
+      model.save
 
-      unless model.id
-        model.name = row["model"]
-        brand.models << model
-      else
-        model.name = model.name.de
-      end
     end
   end
 

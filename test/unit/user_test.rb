@@ -20,9 +20,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "user with duplicate domain" do
-    u1 = build(:pablo_rodriguez)
-    u1.vehicles << FactoryGirl.build(:HRJ549)
-    assert u1.valid?
+    @pablo.vehicles << FactoryGirl.build(:HRJ549)
+    assert !@pablo.valid?
   end
 
   test "user is employee" do   
@@ -52,9 +51,9 @@ class UserTest < ActiveSupport::TestCase
 
 
     csv_rows = <<-eos
-    Id externo,Nombre,Apellido,Teléfono,Email,CUIT,Razon Social,Provincia,Ciudad,Calle,Código Postal,Dominio,Marca,Modelo,Combustible,Año,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
-    123456,Jaime,,2616585858,jaimito8@jaime.com,,,Mendoza,Mendoza,Beltran 158,5500,UGB376,Fiat2,Palio,Diesel,2000,2000,252025,Servicio en Garantía,1/6/15
-    AAA12345,Leonardo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,Nafta,2010,2000,70000,Servicio en Garantía,1/7/2015
+    Id externo,Nombre,Apellido,Teléfono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Código Postal,Dominio,Marca,Modelo,Serie,Combustible,Año,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    123456,Jaime,Dardo,2616585858,jaimito8@jaime.com,,,Mendoza,Mendoza,Beltran 158,5500,UGB376,Fiat2,Palio,RR3444,Diesel,2000,2000,252025,Servicio en Garantía,1/6/15
+    AAA12345,Leonardo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,FGT555,Nafta,2010,2000,70000,Servicio en Garantía,1/7/2015
     eos
 
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
@@ -64,20 +63,22 @@ class UserTest < ActiveSupport::TestCase
     result = []
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
 
-    debugger
     assert result[:errors].size == 1, "Error in number of errors"
     assert result[:failure] == 1, "Error in number of failure"
     assert result[:total_records] == 2, "Error in number of records"
     assert result[:success] == 1, "Error in number of success"
 
+    vehicle = Vehicle.where("chasis = ?","RR3444")
+    assert vehicle
+
   end
 
   test "import new clients" do
-    create(:service_on_warranty)
+    create :service_on_warranty,:company_id => @gustavo.company_active.id
 
     csv_rows = <<-eos
-    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,RazÑn Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
-    AAA12345,Pablo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,Nafta,2014,2000,70000,Servicio en Garantía,1/7/2015
+    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Serie,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    AAA12345,Pablo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,,Nafta,2014,2000,70000,Servicio en Garantía,1/7/2015
     eos
 
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
@@ -85,7 +86,6 @@ class UserTest < ActiveSupport::TestCase
     file.rewind
 
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
-
     client = User.find_by_external_id("AAA12345")
     car = client.vehicles.first
 
@@ -95,8 +95,8 @@ class UserTest < ActiveSupport::TestCase
     assert client.vehicles.size == 1
 
     csv_rows = <<-eos
-    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,RazÑn Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
-    AAA12345,Pablo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,EJE688,Volkswagen,Bora,Nafta,2012,2000,70000,Servicio en Garantía,1/7/2016
+    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Serie,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    AAA12345,AntonioPablo,Rossi,2615568584,pabloantonio@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,EJE688,Volkswagen,Bora,,Nafta,2012,2000,70000,Servicio en Garantía,1/7/2016
     eos
 
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
@@ -107,6 +107,9 @@ class UserTest < ActiveSupport::TestCase
     client = User.find_by_external_id("AAA12345")
 
     assert client.vehicles.size == 2
+    assert client.last_name == "Rossi"
+    assert client.first_name == "AntonioPablo"
+    assert client.email == "pabloantonio@gmail.com"
 
   
   end

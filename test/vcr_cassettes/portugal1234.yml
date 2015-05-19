@@ -1,0 +1,150 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Argentina%20Mendoza%20Mendoza%20Cnel%20Plaza%2072&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Tue, 19 May 2015 02:15:18 GMT
+      Expires:
+      - Wed, 20 May 2015 02:15:18 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=1
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: US-ASCII
+      string: ! "{\n   \"results\" : [\n      {\n         \"address_components\" :
+        [\n            {\n               \"long_name\" : \"72\",\n               \"short_name\"
+        : \"72\",\n               \"types\" : [ \"street_number\" ]\n            },\n
+        \           {\n               \"long_name\" : \"Plaza Cnel.\",\n               \"short_name\"
+        : \"Plaza Cnel.\",\n               \"types\" : [ \"route\" ]\n            },\n
+        \           {\n               \"long_name\" : \"Mendoza\",\n               \"short_name\"
+        : \"Mendoza\",\n               \"types\" : [ \"locality\", \"political\" ]\n
+        \           },\n            {\n               \"long_name\" : \"Mendoza\",\n
+        \              \"short_name\" : \"MZ\",\n               \"types\" : [ \"administrative_area_level_1\",
+        \"political\" ]\n            },\n            {\n               \"long_name\"
+        : \"Argentina\",\n               \"short_name\" : \"AR\",\n               \"types\"
+        : [ \"country\", \"political\" ]\n            }\n         ],\n         \"formatted_address\"
+        : \"Plaza Cnel. 72, Mendoza, Mendoza, Argentina\",\n         \"geometry\"
+        : {\n            \"bounds\" : {\n               \"northeast\" : {\n                  \"lat\"
+        : -32.8799434,\n                  \"lng\" : -68.8375413\n               },\n
+        \              \"southwest\" : {\n                  \"lat\" : -32.8799588,\n
+        \                 \"lng\" : -68.8375432\n               }\n            },\n
+        \           \"location\" : {\n               \"lat\" : -32.8799588,\n               \"lng\"
+        : -68.8375432\n            },\n            \"location_type\" : \"RANGE_INTERPOLATED\",\n
+        \           \"viewport\" : {\n               \"northeast\" : {\n                  \"lat\"
+        : -32.8786021197085,\n                  \"lng\" : -68.8361932697085\n               },\n
+        \              \"southwest\" : {\n                  \"lat\" : -32.8813000802915,\n
+        \                 \"lng\" : -68.83889123029151\n               }\n            }\n
+        \        },\n         \"partial_match\" : true,\n         \"place_id\" : \"EitQbGF6YSBDbmVsLiA3MiwgTWVuZG96YSwgTWVuZG96YSwgQXJnZW50aW5h\",\n
+        \        \"types\" : [ \"street_address\" ]\n      }\n   ],\n   \"status\"
+        : \"OK\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 19 May 2015 02:15:18 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Argentina%20Mendoza%20Godoy%20Cruz%20Portugal%201324&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Tue, 19 May 2015 02:15:18 GMT
+      Expires:
+      - Wed, 20 May 2015 02:15:18 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=1
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: US-ASCII
+      string: ! "{\n   \"results\" : [\n      {\n         \"address_components\" :
+        [\n            {\n               \"long_name\" : \"1324\",\n               \"short_name\"
+        : \"1324\",\n               \"types\" : [ \"street_number\" ]\n            },\n
+        \           {\n               \"long_name\" : \"Portugal\",\n               \"short_name\"
+        : \"Portugal\",\n               \"types\" : [ \"route\" ]\n            },\n
+        \           {\n               \"long_name\" : \"Godoy Cruz\",\n               \"short_name\"
+        : \"Godoy Cruz\",\n               \"types\" : [ \"locality\", \"political\"
+        ]\n            },\n            {\n               \"long_name\" : \"Godoy Cruz
+        Department\",\n               \"short_name\" : \"Godoy Cruz Department\",\n
+        \              \"types\" : [ \"administrative_area_level_2\", \"political\"
+        ]\n            },\n            {\n               \"long_name\" : \"Mendoza\",\n
+        \              \"short_name\" : \"MZ\",\n               \"types\" : [ \"administrative_area_level_1\",
+        \"political\" ]\n            },\n            {\n               \"long_name\"
+        : \"Argentina\",\n               \"short_name\" : \"AR\",\n               \"types\"
+        : [ \"country\", \"political\" ]\n            }\n         ],\n         \"formatted_address\"
+        : \"Portugal 1324, Godoy Cruz, Mendoza, Argentina\",\n         \"geometry\"
+        : {\n            \"bounds\" : {\n               \"northeast\" : {\n                  \"lat\"
+        : -32.9402696,\n                  \"lng\" : -68.8396867\n               },\n
+        \              \"southwest\" : {\n                  \"lat\" : -32.9402739,\n
+        \                 \"lng\" : -68.83970440000002\n               }\n            },\n
+        \           \"location\" : {\n               \"lat\" : -32.9402739,\n               \"lng\"
+        : -68.8396867\n            },\n            \"location_type\" : \"RANGE_INTERPOLATED\",\n
+        \           \"viewport\" : {\n               \"northeast\" : {\n                  \"lat\"
+        : -32.9389227697085,\n                  \"lng\" : -68.83834656970852\n               },\n
+        \              \"southwest\" : {\n                  \"lat\" : -32.9416207302915,\n
+        \                 \"lng\" : -68.84104453029153\n               }\n            }\n
+        \        },\n         \"place_id\" : \"Ei1Qb3J0dWdhbCAxMzI0LCBHb2RveSBDcnV6LCBNZW5kb3phLCBBcmdlbnRpbmE\",\n
+        \        \"types\" : [ \"street_address\" ]\n      }\n   ],\n   \"status\"
+        : \"OK\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 19 May 2015 02:15:19 GMT
+recorded_with: VCR 2.7.0
