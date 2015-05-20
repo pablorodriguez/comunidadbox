@@ -183,7 +183,7 @@ function searchModelByCompany(event){
   var token = $("input[name='authenticity_token']")[0];
   //AjaxLoader.enable();
   $.ajax({
-    url: "/cars/find_company_models_by_brand",
+    url: "/vehicles/find_models",
       data: {
         'id':brand_id,
         'brand_id':$("#"+brand_id).val(),

@@ -14,7 +14,7 @@
     %ul
       %li
         = link_to "Nuevo Modelo", new_model_path
-      - unless @model.new_record?
+      - if @model && !@model.new_record?
         %li
           = link_to "Modificar", edit_model_path(@model)
       //%li

@@ -27,6 +27,7 @@ class Company < ActiveRecord::Base
   has_many :statuses
   has_and_belongs_to_many :models
   has_many :brands
+  has_many :models,:through => :brands
   
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")

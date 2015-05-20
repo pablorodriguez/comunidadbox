@@ -419,7 +419,6 @@ ActiveRecord::Schema.define(:version => 20150514195637) do
     t.integer  "brand_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "company_id"
   end
 
   add_index "models", ["brand_id"], :name => "models_brand_id_fk"

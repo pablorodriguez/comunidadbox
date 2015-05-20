@@ -3,7 +3,7 @@
   = f.hidden_field :user_id
   = hidden_field_tag "budget_id", @budget.id if @budget
   .box_bottom
-    = render :partial => "users/vehicle_fields",:locals => {:f => f}
+    = render :partial => "users/vehicle_fields",:locals => {:f => f,:model => @models}
     / - if f.object.type == 'Car'
     /   = render :partial => "users/car_fields",:locals => {:f => f}
     / - elsif f.object.type == 'Motorcycle'

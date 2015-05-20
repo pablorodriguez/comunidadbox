@@ -97,6 +97,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles/1.xml
   def show
     @vehicle = Vehicle.find(params[:id])
+    @company = get_company
     @company_services = get_service_types
     @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = params[:all_service_type]
@@ -149,7 +150,7 @@ class VehiclesController < ApplicationController
       @amt.each{|key,value| @services_amount += value}
 
       @companies = Company.best(current_user.state)
-
+      debugger
 
       @events = @vehicle.future_events.paginate(:per_page=>per_page,:page =>page)
       @wo_pages = {:d=>"wo"}
@@ -209,6 +210,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles/1/edit
   def edit
     @vehicle = Vehicle.find(params[:id])
+    @company = get_company
     authorize! :update, @vehicle
     @models = Model.find_by_brand_id(@vehicle.brand.id)
     respond_to do |format|
@@ -249,7 +251,7 @@ class VehiclesController < ApplicationController
   # PUT /vehicles/1.xml
   def update
     @vehicle = Vehicle.find(params[:id])
-
+    @company = get_company
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
         @vehicle.update_events

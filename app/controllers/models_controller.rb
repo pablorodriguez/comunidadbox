@@ -99,6 +99,6 @@ class ModelsController < ApplicationController
 
   def import
     Model.import(params[:file],get_company_id)
-    redirect_to models_path, notice: "Modelos importado con exito"
+    redirect_to brands_path, notice: "Modelos importado con exito"
   end
 end

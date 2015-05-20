@@ -6,11 +6,8 @@ class Model < ActiveRecord::Base
 
   has_many :vehicles
   belongs_to :brand
-  has_and_belongs_to_many :companies
-
   validates_presence_of :brand
-  #validate :brand_has_that_type_of_vehicle
-
+  
   TYPES_OF_VEHICLES = { 1 => I18n.t("types_of_vehicles.car"), 2 => I18n.t("types_of_vehicles.motorcycle")}
 
   def self.to_csv(options={})
@@ -42,18 +39,23 @@ class Model < ActiveRecord::Base
 
   def self.import(file,company_id)
     CSV.foreach(file.path,{:headers =>  true}) do |row|
-      brand = Brand.where("UPPER(name) = ?",row["brand"].upcase).first || Brand.new
-      unless brand.id
-        brand.name = row["brand"]
-        brand.company_id = company_id
-        brand.of_motorcycles = 1
-        brand.save
-      end
 
-      model = Model.where("UPPER(name) = ?",row["model".upcase]).first || Model.new
-      model.name = row["model"]
-      model.brand_id = brand.id
-      model.save
+      if row["brand"]
+        brand = Brand.where("UPPER(name) = ? and company_id = ?",row["brand"].upcase,company_id).first || Brand.new
+        unless brand.id
+          brand.name = row["brand"]
+          brand.company_id = company_id
+          brand.of_motorcycles = 1
+          brand.save
+        end
+        
+        if row["model"]
+          model = Model.where("UPPER(name) = ? and brand_id =?",row["model".upcase],company_id).first || Model.new
+          model.name = row["model"]
+          model.brand_id = brand.id
+          model.save
+        end
+      end
 
     end
   end

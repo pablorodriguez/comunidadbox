@@ -324,7 +324,7 @@ module ApplicationHelper
   end
 
   def find_company_models_by_brand car, company
-    model = company.get_models.where(brand_id: car.brand_id).order(:name)
+    model = company.models.where(brand_id: car.brand_id).order(:name)
     model
   end
 
