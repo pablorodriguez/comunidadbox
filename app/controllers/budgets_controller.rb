@@ -92,7 +92,6 @@ class BudgetsController < ApplicationController
   def new
     @budget = Budget.new
     authorize! :create, @budget
-    debugger
     @company = get_company
     @service_types = get_service_types
     if params[:c]
