@@ -2,7 +2,7 @@
   #vehicle_domain.barradatos
   = domain @vehicle
   .left
-    = brand_logo @vehicle.brand.name
+    = brand_logo @vehicle.brand.logo_name
   - if can_show?(@vehicle.user)
     .big_domain
       %label

@@ -57,19 +57,20 @@
               = @client.address.zip
   .client_vehicles
     - @client.vehicles.each do |vehicle|
-      .clear.row
+      .row[vehicle]
         .left
-          = brand_logo vehicle.brand.name
+          = brand_logo vehicle.brand.logo_name
         .left
           = link_to_domain vehicle
         %h1.left
           = "#{vehicle.model.name} #{vehicle.year}"
         .actions
+          - if current_user.can_edit?(vehicle.user)
+            .action
+              = link_to "", vehicle, :data => { :confirm => t("vehicle_delete_confirm")}, :remote =>true, :method => :delete, :title =>t("delete"), :class=>"delete"
           .action
             = link_to "", new_budget_path(:ca => vehicle.id),{:title=>t(".new_budget"),:class=>"new_budget"}
           .action
             = link_to "", new_workorder_path(:vehicle_id =>vehicle),{:title=>t(".new_service"),:class =>"new_service"}
           .action
-            = link_to "", edit_vehicle_path(vehicle),{:title=>t(".modify_vehicle"),:class =>"edit"} if current_user.can_edit?(vehicle.user)
-            =# link_to "", sti_vehicle_path(vehicle.type, vehicle, :edit), {:title=>t(".modify_vehicle"), :class =>"edit"} if current_user.can_edit?(vehicle.user)
-            
+            = link_to "", edit_vehicle_path(vehicle),{:title=>t(".modify_vehicle"),:class =>"edit"}

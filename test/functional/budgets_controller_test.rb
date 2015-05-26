@@ -48,6 +48,7 @@ class BudgetsControllerTest < ActionController::TestCase
   
   test "should get new" do
     sign_in @employer
+    @request.cookies["company_id"]= @employer.company.id.to_s
     get :new
     assert_response :success
     assert_select("input#budget_first_name")

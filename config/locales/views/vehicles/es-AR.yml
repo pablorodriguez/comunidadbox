@@ -82,4 +82,16 @@ es-AR:
       modify: "Modificar"
       notes: "Notas"
       send_message: "Enviar Mensaje"
+    budgets:
+      list_of_budgets: "Presupuestos"
+      number_of_budget: "Número del Presupuesto"
+      client: "Cliente"
+      operator: "Operario"
+      message: "¿Está seguro que desea borrar el Presupuesto?"
+      delete: "Eliminar"
+      create_service: "Crear Servicio"
+      modify: "Modificar"
+      print: "Imprimir"
+      notes: "Notas"
+      send_message: "Enviar Mensaje"
 

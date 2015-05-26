@@ -82,4 +82,15 @@ en-US:
       modify: "Modify"
       notes: "Notes"
       send_message: "Send Message"
+    budgets:
+      list_of_budgets: "List of Budgets"
+      number_of_budget: "Number of Budget"
+      client: "Client"
+      operator: "Operator"
+      message: "Are you sure you want to delete the budget?"
+      delete: "Delete"
+      create_service: "Create Service"
+      modify: "Update"
+      print: "Print"
+      notes: "Notes"
 

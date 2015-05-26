@@ -3,13 +3,10 @@
     %td
       =t(".domain")
     %td
-      .domain_white
-        - if @budget.vehicle
-          =# link_to(@budget.vehicle.domain, car_path(@budget.vehicle))
-          =# link_to(@budget.vehicle.domain, sti_vehicle_path(@budget.vehicle.type, @budget.vehicle))
-          = link_to(@budget.vehicle.domain, vehicle_path(@budget.vehicle))
-        - else
-          = @budget.domain
+      - if @budget.vehicle
+        = link_to_domain @budget.vehicle
+      - else
+        = @budget.domain
   %tr
     %td{:style=>"width:100px"}=t(".brand")
     %td
@@ -18,3 +15,8 @@
     %td=t(".model")
     %td
       = @vehicle.model.name if @vehicle.model
+  - if @vehicle.chassis
+    %tr
+      %td=t(".chassis")
+      %td
+        = @vehicle.chassis

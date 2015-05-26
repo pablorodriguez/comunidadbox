@@ -298,7 +298,11 @@ class Company < ActiveRecord::Base
 
   def get_final_status
     final_status = statuses.where(is_final: true).first
-    final_status = final_status ? final_status : user.headquarter.get_final_status
+    unless final_status
+      if user.headquarter != user.company_active
+        user.headquarter.get_final_status
+      end
+    end
     final_status
   end
 

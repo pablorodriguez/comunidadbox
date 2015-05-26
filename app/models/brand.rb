@@ -5,6 +5,10 @@ class Brand < ActiveRecord::Base
   has_many :vehicles
   has_many :models
 
+  def logo_name
+    of_cars ? name : "#{name}_moto"
+  end
+
   def self.import
     messageFiles = "D:\\Users\\pablo\\Documents\\My Empresa\\ComunidadBox\\database\\auto-brand-model-fram.txt"
     last_brand =''

@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Budget < ActiveRecord::Base
-  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id, :vehicle_id, :user_id,:comment,:services_attributes,:service_type_attributes
+  attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id,:vehicle_type,:chassis, :vehicle_id, :user_id,:comment,:services_attributes,:service_type_attributes
 
   has_many :services, :dependent => :destroy
   has_many :notes, :order => "CREATED_AT desc"
@@ -27,6 +27,10 @@ class Budget < ActiveRecord::Base
     (vehicle || (domain && brand && model)) != nil
   end
 
+  def has_client?
+    user != nil
+  end
+
   def service_not_empty
     if services.empty?
       errors[:base] << I18n.t(".must_have_services")
@@ -34,12 +38,12 @@ class Budget < ActiveRecord::Base
     end
 
     #busco auto con el mismo dominio
-    c= Vehicle.find_by_domain(domain)
+    #c= Vehicle.find_by_domain(domain)
     # si lo encuentro y el budget no tiene un auto => agrego error
     # si lo encuentro y el budget tiene auto cuyo user es distinto al user del auto encontrado => agrego error
-    if (c && vehicle.nil?) || (c && vehicle && vehicle.user.id != c.user.id)
-      errors[:base] << "El dominio ingresado ya existe"
-    end
+    #if (c && vehicle.nil?) || (c && vehicle && vehicle.user.id != c.user.id)
+    #  errors[:base] << "El dominio ingresado ya existe"
+    #end
 
     if email && user.nil?
       #busco usuario con el mismo email

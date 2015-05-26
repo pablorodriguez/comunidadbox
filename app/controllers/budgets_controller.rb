@@ -80,7 +80,7 @@ class BudgetsController < ApplicationController
 
     @vehicle = @budget
     @vehicle = @budget.vehicle if @budget.vehicle
-
+    @company = get_company
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @budget }
@@ -92,7 +92,8 @@ class BudgetsController < ApplicationController
   def new
     @budget = Budget.new
     authorize! :create, @budget
-
+    debugger
+    @company = get_company
     @service_types = get_service_types
     if params[:c]
       c = User.find(params[:c])
@@ -115,7 +116,7 @@ class BudgetsController < ApplicationController
   def edit
     @budget = Budget.find(params[:id])
     authorize! :update, @budget
-
+    @company = get_company
     @service_types = get_service_types
   end
 
@@ -146,7 +147,7 @@ class BudgetsController < ApplicationController
   def update
     @budget = Budget.find(params[:id])
     authorize! :update, @budget
-
+    @company = get_company
     @service_types = get_service_types
     respond_to do |format|
       if @budget.update_attributes(params[:budget])

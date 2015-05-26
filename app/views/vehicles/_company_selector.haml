@@ -21,7 +21,7 @@
             %tr
               %td
                 = hidden_field_tag "vehicle_id",@vehicle_id
-                = f.collection_select(:state_id, State.find(:all,:order=>:name), :id, :name, {:prompt=>"-- Provincia --"},{:class=>"state medium_select"})
+                = select_tag "state_id", options_from_collection_for_select(State.find(:all,:order=>:name), "id", "name"),{:prompt=>"-- Provincia --",:class=>"state medium_select"}
                 = image_submit_tag("find.png",:class =>"input_img")
     .ajax_loader.right
   .menu_actions

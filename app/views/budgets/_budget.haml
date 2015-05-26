@@ -2,9 +2,10 @@
   - if (budget.domain && (!budget.domain.empty?)) || budget.vehicle
     .domain_white.left
       - if budget.vehicle
-        =# link_to(budget.vehicle.domain, car_path(budget.vehicle))
-        =# link_to(budget.vehicle.domain, sti_vehicle_path(budget.vehicle.type, budget.vehicle))
-        = link_to(budget.vehicle.domain, vehicle_path(budget.vehicle))
+        //= link_to(budget.vehicle.domain, car_path(budget.vehicle))
+        //= link_to(budget.vehicle.domain, sti_vehicle_path(budget.vehicle.type, budget.vehicle))
+        //= link_to(budget.vehicle.domain, vehicle_path(budget.vehicle))
+        = link_to_domain budget.vehicle
       -else
         = budget.domain
   .services
@@ -18,7 +19,10 @@
       %strong
         =t(".client")
     %label
-      = budget.full_name
+      - if budget.has_client?
+        = link_to budget.full_name,client_path(budget.user)
+      - else
+        = budget.full_name
     %label
       %strong
         =t(".operator")

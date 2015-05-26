@@ -53,10 +53,10 @@ class VehiclesController < ApplicationController
   end
   
   def km    
-    @car = Car.find(params[:id])
-    @car.kmUpdatedAt = Time.zone.now
-    new_km = params[:car][:km].to_i
-    new_avg= params[:car][:kmAverageMonthly].to_i
+    @vehicle = Vehicle.find(params[:id])
+    @vehicle.kmUpdatedAt = Time.zone.now
+    new_km = params[:vehicle][:km].to_i
+    new_avg= params[:vehicle][:kmAverageMonthly].to_i
     
     @msg = ""
     # valido si cambio km o kmAverageMonthly
@@ -150,8 +150,7 @@ class VehiclesController < ApplicationController
       @amt.each{|key,value| @services_amount += value}
 
       @companies = Company.best(current_user.state)
-      debugger
-
+      
       @events = @vehicle.future_events.paginate(:per_page=>per_page,:page =>page)
       @wo_pages = {:d=>"wo"}
       @e_pages = {:d=>"e"}
@@ -189,6 +188,7 @@ class VehiclesController < ApplicationController
     else
       user=current_user
     end
+    @company = get_company
 
     if params[:b].present?
       @budget = Budget.find(params[:b])
@@ -196,6 +196,8 @@ class VehiclesController < ApplicationController
       @vehicle.brand = @budget.brand
       @vehicle.model = @budget.model
       @vehicle.domain = @budget.domain
+      @vehicle.vehicle_type = @budget.vehicle_type
+      @vehicle.chassis = @budget.chassis
     end
 
 
@@ -223,6 +225,7 @@ class VehiclesController < ApplicationController
   def create
     @vehicle = vehicle_class.new(params[:vehicle])
     @vehicle.company = get_company
+    @company = get_company
     parameters = {:vehicle_id => @vehicle.id}
     if params[:budget_id]
       parameters[:b] = params[:budget_id]

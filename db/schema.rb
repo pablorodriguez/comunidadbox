@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150514195637) do
+ActiveRecord::Schema.define(:version => 20150520222850) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -131,6 +131,8 @@ ActiveRecord::Schema.define(:version => 20150514195637) do
     t.datetime "updated_at"
     t.integer  "company_id"
     t.text     "comment"
+    t.string   "vehicle_type"
+    t.string   "chassis"
   end
 
   add_index "budgets", ["company_id"], :name => "budgets_company_id_fk"
