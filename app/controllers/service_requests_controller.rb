@@ -1,8 +1,9 @@
+# encoding: utf-8
 class ServiceRequestsController < ApplicationController
   # GET /service_requests
   # GET /service_requests.json
   def index
-    
+
     @service_requests = ServiceRequest.for_user current_user
 
     respond_to do |format|
@@ -18,11 +19,11 @@ class ServiceRequestsController < ApplicationController
 
     if company_id
       @offer = ServiceOffer.new(:company_id => get_company_id,:service_request_id =>@service_request.id)
-      @offer.build_offer_service_types @service_request.service_types      
-      @offer.car_service_offers << CarServiceOffer.new(:car => @service_request.car)
+      @offer.build_offer_service_types @service_request.service_types
+      @offer.vehicle_service_offers << VehicleServiceOffer.new(:vehicle => @service_request.vehicle)
     end
     respond_to do |format|
-      format.html # show.html.erb      
+      format.html # show.html.erb
       format.json {render :layout => false}
     end
   end
@@ -31,7 +32,7 @@ class ServiceRequestsController < ApplicationController
   # GET /service_requests/new.json
   def new
     @service_request = ServiceRequest.new
-    @service_request.car = current_user.cars.first if current_user.cars.size == 1
+    @service_request.vehicle = current_user.vehicles.first if current_user.vehicles.size == 1
     @service_types = get_service_types
     respond_to do |format|
       format.html # new.html.erb

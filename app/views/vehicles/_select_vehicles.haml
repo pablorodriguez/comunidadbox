@@ -1,0 +1,15 @@
+.box_bottom
+  %h1
+    Otros autos para seleccionar
+.vehicles_select
+  - @vehicles.each do |c|
+    .vehicle.box_bottom
+      .domain
+        = c.domain
+      .vehicle_info
+        = c.brand.name
+        = c.model.name
+        = c.km
+        = c.kmAverageMonthly
+      .actions
+        = link_to "",new_workorder_path(:vehicle_id=>c.id,:b=>@budget.id),:class=>"new_service",:title=>"Nuevo Servicio"

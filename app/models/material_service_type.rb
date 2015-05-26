@@ -58,9 +58,7 @@ class MaterialServiceType < ActiveRecord::Base
       if msList.present?
         msList.each do |item|
           if item.material            
-            csv << [plid,item.id,I18n.t(item.name),item.code, item.material.name, item.price.to_s]            
-          else
-            logger.debugger "##### #{item.name} : #{item.id}" 
+            csv << [plid,item.id,item.name,item.code, item.material.name, item.price.to_s]            
           end
         end
       end
@@ -68,9 +66,9 @@ class MaterialServiceType < ActiveRecord::Base
 
   end
 
-  def self.import_to_update_price(plid, file, current_user)
+  def self.import_to_update_price(plid, file, current_user,encode)
     pl = PriceList.find_by_id plid
-    CSV.foreach(file.path, :headers => true,:encoding => 'utf-16') do |row|
+    CSV.foreach(file.path, :headers => true,:encoding => encode) do |row|
       #si la playlist no existe o es distinta a la de la que se hizo el export => no actualizo nada
       if pl.blank? || plid.to_i != row['plid'].to_i
         puts 'placeList incorrecta'
@@ -83,11 +81,9 @@ class MaterialServiceType < ActiveRecord::Base
       #find_by_price_list_id_and_material_service_type_id(plid, row['id'])
       if row['price'].present?
         if item && item.price != row['price'].to_f
-          #puts '>>>>> actualizando price:' + row.to_yaml
           item.price = row['price'].to_f
           item.save
         else
-          #puts '>>>>> creando priceListItem:' + row.to_yaml
           pli = PriceListItem.new
           pli.material_service_type = mst
           pli.price = row['price'].to_f
@@ -95,7 +91,6 @@ class MaterialServiceType < ActiveRecord::Base
         end
       else
         if item
-          #puts '>>>>> eliminando priceListItem:' + row.to_yaml
           item.delete
         end
       end

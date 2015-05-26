@@ -1,0 +1,31 @@
+-# javascript 'jquery.ba-url.min'
+-# javascript 'jquery.labelify'
+-# javascript 'vehicle_pagination'
+-# javascript "notes"
+-# javascript 'rank'
+-# javascript 'highcharts'
+.vertical_menu
+  = render "vehicle_menu"
+.contentright_s
+  #all_vehicles
+    #vehicle_detail
+      = render "vehicle_detail"
+    #vehicles_work_orders.data
+      = render "work_orders"
+    #vehicles_future_events.hide.data
+      = render "events"
+    #vehicle_budgets.data.hide.box_top
+      = render "budgets"
+    #vehicles_report_graphics.hide.data.box_top
+      = render 'graphics'
+    #vehicles_alarms.data.hide
+      = render 'alarms'
+    #vehicles_messages.data.hide
+      .box_bottom{:id =>"messages_container_#{@vehicle.user.id}"}
+        /= render :partial =>'/messages/message',:collection => @messages
+        = render :partial => "/messages/form_user",:locals => {user: @vehicle.user,:element_id => @vehicle.user.id}
+    - if @companies
+      #company-selector.data.hide
+        = render 'company_selector'
+.hide
+  = render "companies/gmap4rails"

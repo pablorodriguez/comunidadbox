@@ -1,0 +1,10 @@
+.box_top
+.box_bottom
+  %h1
+    Servicios a Realizar
+- @events.each do |e|
+  = render :partial => "events/s_event", :locals =>{:s_event => e}
+
+%br
+#paginator_event
+  = will_paginate @events,:params => @e_pages

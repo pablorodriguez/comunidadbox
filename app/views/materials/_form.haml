@@ -1,25 +1,32 @@
-%p
-  %label{ :for => "prov_code" } 
-    = t ".prov_code"
-  %br
-  = f.text_field :prov_code
-%p
-  %label{ :for => "code" }
-  = t ".code"
-  %br
-  = f.text_field :code,:placeholder=>"XX99999"
-%p
-  %label{ :for => "name"}
-  = t ".name"
-  %br
-  = f.text_field :name
-%p
-  %label{ :for => "brand"}
-  = t "brand"
-  %br
-  = f.text_field :brand
-%p
-  %label{ :for => "provider"}
-  = t "provider"
-  %br
-  = f.text_field :provider
+%table.w
+  %tbody
+    %tr
+      %td{:style=>"width:150px"}
+        %label{ :for => "prov_code" } 
+          = t ".prov_code"
+      %td
+        = f.text_field :prov_code
+    %tr
+      %td
+        %label{ :for => "code" }
+          = t ".code"
+      %td
+        = f.text_field :code,:placeholder=>"XX99999"
+    %tr
+      %td
+        %label{ :for => "name"}
+          = t ".name"
+      %td
+        = f.text_field :name
+    %tr
+      %td
+        %label{ :for => "brand"}
+        = t "brand"
+      %td
+        = f.text_field :brand
+    %tr
+      %td
+        %label{ :for => "provider"}
+        = t "provider"
+      %td
+        = f.text_field :provider

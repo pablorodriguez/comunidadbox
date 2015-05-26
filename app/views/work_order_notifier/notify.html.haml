@@ -11,10 +11,10 @@
     %thead
       %tr{:style=>"background-color:#F2EAB7;padding:5px"}
         %th{:colspan=>2} Detalle de los servicios realizados
-    %tr      
+    %tr
       %td
         Prestador de Servicio
-      %td  
+      %td
         = link_to @work_order.company_name, company_url(@work_order.company,:locale => I18n.locale),:target =>"_blank"
     %tr
       %td
@@ -36,24 +36,23 @@
       %td
         Total
       %td
-        = number_to_currency @work_order.total_price          
-  -if @user.future_events.size > 0      
+        = number_to_currency @work_order.total_price
+  -if @user.future_events.size > 0
     %br
     Sus proximos servicios de mantenimiento a realizar son
-    - for car in @user.cars        
-      - if car.future_events.size > 0
+    - for vehicle in @user.vehicles
+      - if vehicle.future_events.size > 0
         %br
         %h4{:style=>"margin: 2px 2px 0px 2px"}
-          = "Auto: #{car.domain}"
+          = "Auto: #{vehicle.domain}"
         %table{:style=>"width:80%;margin:0 auto"}
           %thead
             %tr{:style=>"background-color:#F2EAB7;padding:5px"}
               %th Vencimiento
-              %th Tipo de Servicio         
-          -for event in car.future_events
+              %th Tipo de Servicio
+          -for event in vehicle.future_events
             %tr
               %td
                 = l event.dueDate
               %td
                 = event.service_type.name
-  

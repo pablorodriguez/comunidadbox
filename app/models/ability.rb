@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ability
   include CanCan::Ability
   def initialize(user)
@@ -32,60 +33,61 @@ class Ability
 
     user ||= User.new
 
-    can :manage, Car do |car|
-      car.user == user || user.can_edit?(car.user)
+    can :manage, Vehicle do |vehicle|
+      vehicle.user == user || user.can_edit?(vehicle.user)
     end
 
-    can :read, Car do |car|
-      car.user == user || user.company
+    can :read, Vehicle do |vehicle|
+      user.can_read?(vehicle.user)
     end
 
-    can :destroy, Car do |c|
+    can :destroy, Vehicle do |c|
       user.can_edit?(c.user)
     end
 
-    can :destroy, :client do |client|
+    can [:destroy,:update], User do |client|
       user.can_edit?(client)
     end
 
-    
+    can :read,User do |client|
+      user.close_system ?  user.can_read?(client) : true
+    end
+
     if user.is_super_admin?
       can :manage, :conf
       can :manage, Task
       #can :manage, ServiceType
-      can :manage, Brand
-      can :manage, Model
       can :manage, State
-      can :manage, ServiceOffer      
+      can :manage, ServiceOffer
     elsif user.id
       can :manage, Material
-      can :details, Material      
-    end 
+      can :details, Material
+    end
 
-    can :create, Workorder do |w|      
+    can :create, Workorder do |w|
       value = (w.company && w.company.is_employee?(user)) ? true :false
 
       unless value
-        value = (w.car.user == user)
+        value = (w.vehicle.user == user)
       end
-      
+
       value
     end
 
     can [:update], ServiceRequest do |sr|
-      sr.can_edit? user      
+      sr.can_edit? user
     end
 
     can [:destroy], ServiceRequest do |sr|
-      sr.can_delete? user      
+      sr.can_delete? user
     end
 
     can :show_ad,ServiceOffer do |s|
       true
     end
 
-    can :read,ServiceOffer do |s|      
-      s.can_show? user      
+    can :read,ServiceOffer do |s|
+      s.can_show? user
     end
 
     can :update,ServiceOffer do |so|
@@ -99,20 +101,20 @@ class Ability
     can :confirm,ServiceOffer do |s|
       s.can_confirm? user
     end
-  
+
     can [:update,:destroy], Workorder do |w|
       w.user == user || w.can_edit?(user)
     end
 
     can :read, Workorder do |w|
-      w.car.user == user || user.is_employee?
+      w.vehicle.user == user || user.is_employee?
     end
 
-    can :read, CarServiceOffer do |cso|          
+    can :read, VehicleServiceOffer do |cso|
       if user.company
-        cso.service_offer.company == user.company 
+        cso.service_offer.company == user.company
       else
-        user.own_car(cso.car)
+        user.own_vehicle(cso.vehicle)
       end
     end
 
@@ -125,7 +127,7 @@ class Ability
     end
 
     can :read, Budget do |b|
-      b.can_show?(user)      
+      b.can_show?(user)
     end
 
     can [:destroy,:update], Budget do |b|
@@ -135,22 +137,22 @@ class Ability
     can [:destroy,:update],ServiceTypeTemplate do |t|
       Company.is_employee?([t.company_id],user.id)
     end
-     
+
     if user.has_company? || user.is_employee?
       can :manage, :control_panel
       can :create, Budget
       can :manage, Company
-      can :manage, :client
-      #can :index_all, :client
+      can :index, :client
+      can :manage, Brand
+      can :manage, Model
     end
-
 
     if user.is_administrator? || user.is_manager?
       can :manage, ServiceOffer
       can :manage, :admin
       #can :manage, PriceList
       can :manage, :employee
-      can :manage, ServiceFilter      
+      can :manage, ServiceFilter
       can :manage, Export
     end
 

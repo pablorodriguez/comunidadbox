@@ -1,15 +1,15 @@
 .box_bottom
   %h1.left= t(".list_of_clients")
   .title_actions
-    .action        
+    .action
       = link_to "", export_clients_path(:format => :csv, :params => @filters_params_exp),:class =>"export_link",:title => t('export')
-- for client in clients  
+- for client in clients
   - is_client = current_user.is_client?(client)
   .row[client]
-    .client      
+    .client
       - if is_client
-        %label       
-          = link_to client.full_name, client_path(client),:title=>t(".see") 
+        %label
+          = link_to client.full_name, client_path(client),:title=>t(".see")
         %label.phone
           = number_to_phone client.phone
         %label
@@ -21,34 +21,37 @@
     .actions
       - if current_user.can_edit?(client)
         .action
-          /= link_to "",client_path(client),:data => {:confirm =>t("client_delete_confirm")},:remote =>true, :method => :delete,:title =>t("delete"),:class =>"delete"
+          = link_to "", client_path(client), :data => { :confirm => t("client_delete_confirm")}, :remote => true, :method => :delete, :title => t("delete"), :class => "delete"
         .action
-          = link_to "",edit_client_path(client),{:title=>t(".modify_client") ,:class =>"edit"} 
+          = link_to "", edit_client_path(client), { :title => t(".modify_client"), :class =>"edit" }
       .action
-        = link_to "",new_budget_path(:c => client.id),{:title=>t(".new_budget"),:class=>"new_budget"}
+        = link_to "", new_budget_path(:c => client.id), { :title => t(".new_budget"), :class => "new_budget" }
       .action
-        = link_to "", new_car_path(:user_id=>client.id),{:title =>t(".new_car"),:class =>"new_car"}        
+        =# link_to "", new_car_path(:user_id => client.id), { :title => t(".new_car"), :class => "new_car" }
+        =# link_to "", new_motorcycle_path(:user_id => client.id), { :title => t(".new_car"), :class => "new_car" }
+        = link_to "", new_vehicle_path(:user_id => client.id), { :title => t(".new_vehicle"), :class => "new_vehicle" }
       .action
-        %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#",:data =>{m: user_messages_path(client)}}
-    - client.cars.each_with_index do |car,index|  
-      .client_car.box_top.left[car]
+        %a{ :title => t(".send_message"), :class => "new_message", :href => "#", :data => { m: user_messages_path(client) } }
+    - client.vehicles.each_with_index do |vehicle,index|
+      .client_vehicle.box_top.left[vehicle]
         .detail.left
-          .left.domain_white
-            = link_to h(car.domain),car
+          = link_to_domain vehicle
           %strong
-            = car.brand.name
-            = car.model.name
-            = car.year
+            = vehicle.brand.name
+            = vehicle.model.name
+            = vehicle.year
         .actions
-          - if current_user.can_edit?(car.user)
-            .action          
-              = link_to "",car, :data =>{:confirm =>t(".car_delete_confirm")},:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete"
+          - if current_user.can_edit?(vehicle.user)
             .action
-              = link_to "",edit_car_path(car),{:title=>t(".modify_car"),:class =>"edit"}
+              = link_to "", vehicle, :data => { :confirm => t(".vehicle_delete_confirm")}, :remote =>true, :method => :delete, :title =>t(".delete"), :class=>"delete"
+            .action
+              =# link_to "", edit_car_path(vehicle), { :title=>t(".modify_vehicle"), :class =>"edit" }
+              =# link_to "", sti_vehicle_path(vehicle.type, vehicle, :edit), { :title => t(".modify_vehicle"), :class => "edit" }
+              = link_to "", edit_vehicle_path(vehicle), { :title => t(".modify_vehicle"), :class => "edit" }
           .action
-            = link_to "",new_budget_path(:ca => car.id),{:title=>t(".new_budget"),:class=>"new_budget"}
+            = link_to "",new_budget_path(:ca => vehicle.id), { :title => t(".new_budget"), :class => "new_budget" }
           .action
-            = link_to "", new_workorder_path(:car_id =>car),{:title=>t(".new_service"),:class =>"new_service"}
-    .hide.box_top.w.message{:id => "messages_container_#{client.id}"}
-      = render :partial => "/messages/form_user",:locals => {user: client,:element_id =>client.id}
+            = link_to "", new_workorder_path(:vehicle_id =>vehicle), { :title => t(".new_service"), :class => "new_service" }
+    .hide.box_top.w.message{ :id => "messages_container_#{client.id}" }
+      = render :partial => "/messages/form_user", :locals => {user: client, :element_id => client.id }
 = will_paginate @clients

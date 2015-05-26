@@ -1,6 +1,6 @@
 company = @work_order.company
-car =@work_order.car
-user = car.user
+vehicle =@work_order.vehicle
+user = vehicle.user
 fs=14
 
 pdf.move_down(25)
@@ -28,27 +28,27 @@ pdf.text "Estado: #{@work_order.status_name}, Realizado: #{l @work_order.perform
 pdf.text "Vendedor: #{@work_order.user.full_name}",:size=>fs
 pdf.text "Forma de Pago: #{@work_order.payment_method.name}",:size=>fs
 pdf.move_down(5)
-pdf.text "Automovil: #{car.domain}",:size=>20,:style =>:bold,:size=>fs
-pdf.text "Marca: #{car.brand.name} ,Modelo: #{car.model.name.strip!} ,Año: #{car.year} ,Km: #{@work_order.km}, Km. Actual: #{car.km}",:size=>fs
+pdf.text "Automovil: #{vehicle.domain}",:size=>20,:style =>:bold,:size=>fs
+pdf.text "Marca: #{vehicle.brand.name} ,Modelo: #{vehicle.model.name.strip!} ,Año: #{vehicle.year} ,Km: #{@work_order.km}, Km. Actual: #{vehicle.km}",:size=>fs
 pdf.move_down(5)
 
 @work_order.services.each do |service|
-	
+
 	operator = service.operator ? "Operario: #{service.operator.full_name} \n" : ""
 	data =[[
 			"Servicio: #{service.service_type.name} \n Estado: #{service.status.name}",
 			"#{operator} Total:  #{number_to_currency(service.total_price)}"
 			]]
-  
-	if service.car_service_offer
+
+	if service.vehicle_service_offer
 		cso =[
-		 "Oferta de Servicio: #{service.car_service_offer.service_offer.company.name}, #{service.car_service_offer.service_offer.title}",
-		 "Total:  #{number_to_currency(service.car_service_offer.service_offer.final_price)}"
+		 "Oferta de Servicio: #{service.vehicle_service_offer.service_offer.company.name}, #{service.vehicle_service_offer.service_offer.title}",
+		 "Total:  #{number_to_currency(service.vehicle_service_offer.service_offer.final_price)}"
 		 ]
-		data << cso  
-	end			
-			
-	pdf.table data,:cell_style => {:size => fs} do		
+		data << cso
+	end
+
+	pdf.table data,:cell_style => {:size => fs} do
 		width = 540
 		column(1).style{|c| c.align = :right}
 		[0,1].each do |i|
@@ -56,46 +56,46 @@ pdf.move_down(5)
 			column(i).width = 270
 		end
 	end
-		
+
 	pdf.move_down(5)
 
 	column_widths = [330,70,70,70]
 
 	materials = [["Material","Cantidad","Precio","Total"]]
 	materials += service.material_services.map do |ms|
-		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material 
+		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material
 		[
 			mat,
 			ms.amount,
 			number_to_currency(ms.price),
-			number_to_currency(ms.total_price)			
-		]	
+			number_to_currency(ms.total_price)
+		]
 	end
-	
+
 	pdf.table materials, :cell_style => {:size => fs} do
-		width = 540		
+		width = 540
 		[1,2,3].each{|c1| column(c1).style{|c| c.align = :right} }
     column_widths.each_index{|i| column(i).width = column_widths[i] }
-	end		
-		
+	end
+
 	pdf.move_down(10)
-	
+
 	unless service.comment
 	 pdf.text "Comentarios: #{service.comment}",:size=>fs
 	end
-	  
-	
+
+
 end
 pdf.move_down(5)
-total =[[    
+total =[[
 		"Total: #{number_to_currency(@work_order.total_price)}"
 		]]
-		
+
 pdf.table total,:cell_style => {:size => fs},:width =>540 do
-	
+
   column_widths.each_index{|i| column(i).width = column_widths[i] }
 
 	column(0).style{|c| c.align = :right}
-	column(0).style{|c| c.border_width = 0}	
+	column(0).style{|c| c.border_width = 0}
 end
 

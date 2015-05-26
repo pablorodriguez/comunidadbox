@@ -8,4 +8,6 @@
   %h2 Información de su auto
   =f.fields_for :cars do |c|
     = render 'users/car_fields',:f =>c
+  =f.fields_for :motorcycles do |m|
+    = render 'users/motorcycle_fields', :f => m
   %p= f.submit "Grabar",:btn=>"btn"

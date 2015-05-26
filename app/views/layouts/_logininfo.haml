@@ -30,8 +30,12 @@
         = hidden_field_tag("company",company_id.join(","))
         %li          
           #company_id.company_id.right                        
-            %h3.link{:title => t(".company_name")}  
-              = get_company.name
+            - if(current_user.get_companies.size == 1)
+              %h3
+                =link_to get_company.name,get_company
+            - else
+              %h3.link{:title => t(".company_name")}  
+                = get_company.name
             %h3.link{:title => t(".select_company")}              
               - if current_user.is_administrator? && (current_user.get_companies.size > 1)
                 - if multiple_company?
@@ -42,7 +46,7 @@
         %h3          
           = link_to "?", help_path,:title => t(".help"),:id => "help_link"
     - c_ids = get_companies.map(&:id)
-    -if current_user.is_administrator? && (!current_user.get_companies.empty?)
+    -if current_user.is_administrator? && (current_user.get_companies.size > 1)
       = form_tag set_company_home_index_path,:id=>:comp_form do |f|
         #all_companies.all_companies.hide        
           %ul

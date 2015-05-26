@@ -1,0 +1,45 @@
+.datos_personales
+  %table.tabla_datos_personales
+    %tr
+      %td
+        %h3=t(".name")
+      %td
+        = vehicle.user.full_name
+        = show_company_info vehicle
+      %td
+        %h3=t(".domain")
+      %td
+        = link_to_domain vehicle
+      %td
+        %h3=t(".year")
+      %td
+        = vehicle.year
+    %tr
+      %td
+        %h3=t(".email")
+      %td
+        = vehicle.user.email
+      %td
+        %h3=t(".brand_model")
+      %td
+        = "#{vehicle.brand.name} #{vehicle.model.name}"
+      %td
+        %h3=t(".phone")
+      %td
+        = number_to_phone vehicle.user.phone
+    %tr
+      %td
+        %h3=t(".mileage")
+      %td
+        %span#km
+          = vehicle.km
+      %td
+        %h3=t(".mileage_monthly_average")
+      %td
+        %span#kmAverageMonthly
+          = vehicle.kmAverageMonthly
+      %td
+        %h3=t(".last_update")
+      %td
+        %span#kmUpdatedAt
+          = l vehicle.kmUpdatedAt.to_date if vehicle.kmUpdatedAt

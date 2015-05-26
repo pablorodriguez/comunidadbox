@@ -1,7 +1,7 @@
 - total = 0
 %table.w
   %tbody
-  - @count_data.keys.sort.each do |k|              
+  - @count_data.keys.sort.each do |k|
     %tr
       %td
         = t(k)
@@ -12,5 +12,5 @@
     %td.box_top
       %strong Total
     %td.number.box_top
-      %strong 
+      %strong
         = total

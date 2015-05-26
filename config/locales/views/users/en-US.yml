@@ -21,6 +21,23 @@ en-US:
       mileage_monthly_average: Mileage Monthly Average
       fuel: "Fuel"
       mileage: "Mileage"
+    motorcycle_fields:
+      domain: "Domain"
+      brand: "Brand"
+      year: "Year"
+      model: "Model"
+      mileage_monthly_average: Mileage Monthly Average
+      fuel: "Fuel"
+      mileage: "Mileage"
+      chassis: "Chassis"
+    vehicle_fields:
+      domain: "Domain"
+      brand: "Brand"
+      year: "Year"
+      model: "Model"
+      mileage_monthly_average: Mileage Monthly Average
+      fuel: "Fuel"
+      mileage: "Mileage"
     user_address_fields:
       state: "State"
       city: "City"
@@ -38,6 +55,7 @@ en-US:
         password: "Password *"
         password_confiramtion: "Password Confirmation *"
         information_car: "Car's Information"
+        close_system: "Close Mode"
         personal_address: "Address"
         save: "Save"
         cancel: "Cancel"

@@ -1,8 +1,0 @@
-.vertical_menu
-  = render "home/menu"
-  = render "home/default_actions"
-.contentright_s  
-  .box_bottom    
-    %h1 Ofertas de Servicios Confirmadas
-  #service_offers        
-    = render :partial => "car_service_offer_confirmed",:collection => @car_service_offers,:as =>"car_service_offer"

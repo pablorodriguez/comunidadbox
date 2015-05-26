@@ -1,0 +1,19 @@
+.vehicle.right
+  .box_bottom
+    %h1=t(".vehicle")
+    = f.hidden_field :vehicle_id
+  %table
+    %tr
+      %td=t(".domain")
+      %td
+        .domain_white
+          = link_to vehicle.domain, vehicle
+    %tr
+      %td{:style=>"width:100px"}=t(".brand")
+      %td
+        = vehicle.brand.name
+    %tr
+      %td=t(".model")
+      %td
+        = vehicle.model.name
+

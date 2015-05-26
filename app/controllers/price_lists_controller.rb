@@ -136,7 +136,7 @@ class PriceListsController < ApplicationController
     if params[:price][:file].present?
       price_list = PriceList.find params[:id]
       authorize! :import, price_list
-      MaterialServiceType.import_to_update_price params[:id], params[:price][:file], current_user
+      MaterialServiceType.import_to_update_price params[:id], params[:price][:file], current_user,get_user_agent_encode
     else
       flash[:alert] = t("Error")
     end

@@ -1,12 +1,12 @@
 - is_client = current_user.is_client?(event.user)
-.event[event]
+.cp_event.event[event]
   .small_event
-    - oe = @other_events[event.car_id]
-    - css = oe ? "other_event qtip":""      
+    - oe = @other_events[event.vehicle_id]
+    - css = oe ? "other_event qtip":""
     %div{:class=>"#{my_event_class(event)} #{css}"}
       - st = create_service_type_tool_tip oe
       %label{:title =>"#{st}",:class =>:link}
-        = event.car.domain
+        = event.vehicle.domain
     - if is_client
       .link.due_date{:title =>"Mas Detalle"}
         = l event.dueDate
@@ -15,7 +15,7 @@
         = l event.dueDate
     -unless event.is_green
       .hide
-        = check_box_tag("checked_ids[]", event.car.id,false,{:class=>"checkbox"})
+        = check_box_tag("checked_ids[]", event.vehicle.id,false,{:class=>"checkbox"})
     - e_css = event.notes.empty? ? "" : "has_notes"
     - a_css = event.has_alarms_for?(current_user) ? "has_alarms" : ""
     .left
@@ -29,24 +29,24 @@
       .alarm_url
         = event_alarms_path(event)
       .message_url
-        = user_messages_path(event.car.user)
+        = user_messages_path(event.vehicle.user)
       .domain
-        = link_to event.car.domain, car_path(event.car)
-      .car
-        = "#{event.car.brand.name} #{event.car.model.name}"
+        = link_to event.vehicle.domain, vehicle_path(event.vehicle)
+      .vehicle
+        = "#{event.vehicle.brand.name} #{event.vehicle.model.name}"
       .km
-        = number_with_precision event.car.km,:precision =>0
+        = number_with_precision event.vehicle.km,:precision =>0
       .km_avg
-        = number_with_precision event.car.kmAverageMonthly,:precision =>0
+        = number_with_precision event.vehicle.kmAverageMonthly,:precision =>0
       .due_date
         = l event.dueDate
       .total_company_spend
-        = number_to_currency(event.car.total_spend(company_id,event.service_type.id))
+        = number_to_currency(event.vehicle.total_spend(company_id,event.service_type.id))
       .total_spend
-        = number_to_currency(event.car.total_spend(nil,event.service_type.id))
+        = number_to_currency(event.vehicle.total_spend(nil,event.service_type.id))
       .user_full_name
-        = event.car.user.full_name
+        = event.vehicle.user.full_name
       .user_email
-        = event.car.user.email      
+        = event.vehicle.user.email
       .user_phone
-        = number_to_phone event.car.user.try(:phone)
+        = number_to_phone event.vehicle.user.try(:phone)

@@ -1,3 +1,4 @@
+# encoding: utf-8
 #recien agrego este comment
 if RUBY_VERSION =~ /1.9/
     Encoding.default_external = Encoding::UTF_8
@@ -36,16 +37,17 @@ group :assets do
   gem 'therubyracer', :platform => :ruby
   # gem 'twitter-bootstrap-rails'
   # gem 'bootstrap-sass'
-  gem 'uglifier', '>= 1.0.3'  
+  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development, :test do
   #gem 'turn'
   gem "better_errors"
-  #gem 'rack-mini-profiler'  
+  #gem 'rack-mini-profiler'
 end
 
 gem 'pry', :group => :development
+gem 'quiet_assets', group: :development
 
 group :test do
   gem "timecop"

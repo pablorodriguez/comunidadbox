@@ -3,12 +3,12 @@
   .title_actions
     .action
       %a.export_link#export_material_report{:href => "#",:title => t('export')}
-#amt_material_graph.box_bottom  
+#amt_material_graph.box_bottom
   %table.comboxtable
     %thead
       %tr
         %th Material
-        %th Total Facturado        
+        %th Total Facturado
         %th Cantidad
         %th Porcentaje
     %tbody
@@ -19,8 +19,7 @@
             = key
           %td.number
             = number_with_precision value[0],:precision =>2
-          %td.number            
+          %td.number
             = number_with_precision value[2],:precision =>0
           %td.number
             = number_to_percentage value[1]
-  

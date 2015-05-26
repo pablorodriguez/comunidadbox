@@ -1,0 +1,22 @@
+%table.w
+  %tr
+    %td
+      =t(".domain")
+    %td
+      - if @budget.vehicle
+        = link_to_domain @budget.vehicle
+      - else
+        = @budget.domain
+  %tr
+    %td{:style=>"width:100px"}=t(".brand")
+    %td
+      = @vehicle.brand.name if @vehicle.brand
+  %tr
+    %td=t(".model")
+    %td
+      = @vehicle.model.name if @vehicle.model
+  - if @vehicle.chassis
+    %tr
+      %td=t(".chassis")
+      %td
+        = @vehicle.chassis

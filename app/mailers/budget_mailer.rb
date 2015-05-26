@@ -1,16 +1,17 @@
-class BudgetMailer < ActionMailer::Base  
+# encoding: utf-8
+class BudgetMailer < ActionMailer::Base
   default :from => "ComunidadBox <info@comunidadbox.com>"
   layout "emails"
-  
+
   def email(budget)
     @budget = budget
     @client = @budget
     @client = @budget.user if @budget.user
-    @client = @budget.car.user if @budget.car
+    @client = @budget.vehicle.user if @budget.vehicle
 
-    @car = @budget
-    @car = @budget.car if @budget.car 
-    
+    @vehicle = @budget
+    @vehicle = @budget.vehicle if @budget.vehicle
+
     mail(:to => @client.email,:subject => "presupuesto #{budget.creator.company.name} Nro: #{budget.id}")
   end
 end

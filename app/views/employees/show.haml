@@ -5,7 +5,7 @@
       %li
         = link_to "Nuevo Empleado", new_employee_path
       %li
-        = link_to "Modificar", edit_employee_path(@user) 
+        = link_to "Modificar", edit_employee_path(@user)
 
 .contentright_s
   #user
@@ -13,6 +13,6 @@
       %h1 Empleado
     .box_bottom
       = render 'user_show'
-      - if @user.address            
+      - if @user.address
         #address
-          = render 'address_show', :address => @user.address     
+          = render 'address_show', :address => @user.address

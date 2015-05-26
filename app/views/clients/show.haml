@@ -10,7 +10,7 @@
       %tbody
         %tr
           %td{:width=>"100px"}=t(".name")
-   
+
           %td
             = @client.first_name
         %tr
@@ -55,19 +55,22 @@
             %td=t(".zip")
             %td
               = @client.address.zip
-  .client_cars
-    - @client.cars.each do |car|
-      .clear.row
+  .client_vehicles
+    - @client.vehicles.each do |vehicle|
+      .row[vehicle]
         .left
-          = brand_logo car.brand.name            
-        .domain_white.left
-          = link_to car.domain, car
+          = brand_logo vehicle.brand.logo_name
+        .left
+          = link_to_domain vehicle
         %h1.left
-          = "#{car.model.name} #{car.year}"
+          = "#{vehicle.model.name} #{vehicle.year}"
         .actions
+          - if current_user.can_edit?(vehicle.user)
+            .action
+              = link_to "", vehicle, :data => { :confirm => t("vehicle_delete_confirm")}, :remote =>true, :method => :delete, :title =>t("delete"), :class=>"delete"
           .action
-            = link_to "",new_budget_path(:ca => car.id),{:title=>t(".new_budget"),:class=>"new_budget"}
+            = link_to "", new_budget_path(:ca => vehicle.id),{:title=>t(".new_budget"),:class=>"new_budget"}
           .action
-            = link_to "", new_workorder_path(:car_id =>car),{:title=>t(".new_service"),:class =>"new_service"}
+            = link_to "", new_workorder_path(:vehicle_id =>vehicle),{:title=>t(".new_service"),:class =>"new_service"}
           .action
-            = link_to "",edit_car_path(car),{:title=>t(".modify_car"),:class =>"edit"} if current_user.can_edit?(car.user)
+            = link_to "", edit_vehicle_path(vehicle),{:title=>t(".modify_vehicle"),:class =>"edit"}

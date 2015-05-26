@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150507195637) do
+ActiveRecord::Schema.define(:version => 20150520222850) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.boolean  "no_end",      :default => false
     t.datetime "next_time"
     t.datetime "last_time"
-    t.integer  "car_id"
+    t.integer  "vehicle_id"
     t.integer  "client_id"
     t.integer  "event_id"
     t.integer  "company_id"
@@ -111,6 +111,9 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "of_cars"
+    t.boolean  "of_motorcycles"
+    t.integer  "company_id"
   end
 
   create_table "budgets", :force => true do |t|
@@ -123,50 +126,18 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.integer  "model_id"
     t.string   "domain"
     t.integer  "user_id"
-    t.integer  "car_id"
+    t.integer  "vehicle_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
     t.text     "comment"
+    t.string   "vehicle_type"
+    t.string   "chassis"
   end
 
-  add_index "budgets", ["car_id"], :name => "budgets_car_id_fk"
   add_index "budgets", ["company_id"], :name => "budgets_company_id_fk"
   add_index "budgets", ["user_id"], :name => "budgets_user_id_fk"
-
-  create_table "car_service_offers", :force => true do |t|
-    t.integer  "car_id"
-    t.integer  "service_offer_id"
-    t.integer  "service_id"
-    t.integer  "status"
-    t.string   "status_old"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "car_service_offers", ["car_id"], :name => "car_service_offers_car_id_fk"
-  add_index "car_service_offers", ["service_id"], :name => "car_service_offers_idfk_3"
-  add_index "car_service_offers", ["service_offer_id"], :name => "car_service_offers_service_offer_id_fk"
-
-  create_table "cars", :force => true do |t|
-    t.string   "domain"
-    t.integer  "model_id"
-    t.integer  "brand_id"
-    t.integer  "year"
-    t.integer  "km"
-    t.integer  "kmAverageMonthly"
-    t.boolean  "public"
-    t.integer  "user_id"
-    t.string   "fuel"
-    t.integer  "company_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "kmUpdatedAt"
-  end
-
-  add_index "cars", ["brand_id"], :name => "cars_brand_id_fk"
-  add_index "cars", ["model_id"], :name => "cars_model_id_fk"
-  add_index "cars", ["user_id"], :name => "cars_user_id_fk"
+  add_index "budgets", ["vehicle_id"], :name => "budgets_vehicle_id_fk"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -191,6 +162,11 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
 
   add_index "companies", ["country_id"], :name => "companies_country_id_fk"
   add_index "companies", ["user_id"], :name => "companies_user_id_fk"
+
+  create_table "companies_models", :id => false, :force => true do |t|
+    t.integer "company_id"
+    t.integer "model_id"
+  end
 
   create_table "companies_users", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -243,7 +219,7 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "events", :force => true do |t|
-    t.integer  "car_id"
+    t.integer  "vehicle_id"
     t.integer  "service_type_id"
     t.integer  "service_id"
     t.integer  "service_done_id"
@@ -419,7 +395,7 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
 
   create_table "messages", :force => true do |t|
     t.text     "message"
-    t.boolean  "read",                 :default => false
+    t.boolean  "read",                     :default => false
     t.integer  "user_id"
     t.integer  "receiver_id"
     t.integer  "event_id"
@@ -427,17 +403,17 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.integer  "budget_id"
     t.integer  "message_id"
     t.integer  "alarm_id"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
-    t.integer  "car_service_offer_id"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.integer  "vehicle_service_offer_id"
   end
 
   add_index "messages", ["alarm_id"], :name => "messages_alarm_id_fk"
   add_index "messages", ["budget_id"], :name => "messages_budget_id_fk"
-  add_index "messages", ["car_service_offer_id"], :name => "messages_car_service_offer_id_fk"
   add_index "messages", ["event_id"], :name => "messages_event_id_fk"
   add_index "messages", ["message_id"], :name => "messages_message_id_fk"
   add_index "messages", ["user_id"], :name => "messages_user_id_fk"
+  add_index "messages", ["vehicle_service_offer_id"], :name => "messages_vehicle_service_offer_id_fk"
   add_index "messages", ["workorder_id"], :name => "messages_workorder_id_fk"
 
   create_table "models", :force => true do |t|
@@ -468,16 +444,16 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.integer  "receiver_id"
     t.integer  "respond_to_id"
     t.integer  "alarm_id"
-    t.integer  "car_id"
+    t.integer  "vehicle_id"
     t.integer  "company_id"
   end
 
   add_index "notes", ["budget_id"], :name => "notes_budget_id_fk"
-  add_index "notes", ["car_id"], :name => "notes_car_id_fk"
   add_index "notes", ["company_id"], :name => "notes_company_id_fk"
   add_index "notes", ["note_id"], :name => "notes_note_id_fk"
   add_index "notes", ["receiver_id"], :name => "notes_receiver_id_fk"
   add_index "notes", ["user_id"], :name => "notes_user_id_fk"
+  add_index "notes", ["vehicle_id"], :name => "notes_vehicle_id_fk"
   add_index "notes", ["workorder_id"], :name => "notes_workorder_id_fk"
 
   create_table "offer_service_types", :force => true do |t|
@@ -599,7 +575,7 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
 
   create_table "service_requests", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "car_id"
+    t.integer  "vehicle_id"
     t.integer  "status"
     t.integer  "company_id"
     t.datetime "created_at", :null => false
@@ -643,20 +619,20 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.string   "comment"
     t.integer  "workorder_id"
     t.integer  "service_type_id"
-    t.string   "material",             :limit => 250
+    t.string   "material",                 :limit => 250
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status"
     t.integer  "operator_id"
     t.integer  "budget_id"
-    t.integer  "car_service_offer_id"
+    t.integer  "vehicle_service_offer_id"
     t.integer  "status_id"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"
-  add_index "services", ["car_service_offer_id"], :name => "services_car_service_offer_id_fk"
   add_index "services", ["operator_id"], :name => "services_operator_id_fk"
   add_index "services", ["service_type_id"], :name => "services_service_type_id_fk"
+  add_index "services", ["vehicle_service_offer_id"], :name => "services_vehicle_service_offer_id_fk"
   add_index "services", ["workorder_id"], :name => "services_workorder_id_fk"
 
   create_table "services_tasks", :id => false, :force => true do |t|
@@ -758,16 +734,54 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
     t.string   "invitation_token"
     t.integer  "user_type"
     t.string   "external_id"
+    t.boolean  "close_system"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["employer_id"], :name => "users_employer_id_fk"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "vehicle_service_offers", :force => true do |t|
+    t.integer  "vehicle_id"
+    t.integer  "service_offer_id"
+    t.integer  "service_id"
+    t.integer  "status"
+    t.string   "status_old"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vehicle_service_offers", ["service_id"], :name => "car_service_offers_idfk_3"
+  add_index "vehicle_service_offers", ["service_offer_id"], :name => "car_service_offers_service_offer_id_fk"
+  add_index "vehicle_service_offers", ["vehicle_id"], :name => "vehicle_service_offers_vehicle_id_fk"
+
+  create_table "vehicles", :force => true do |t|
+    t.string   "domain"
+    t.integer  "model_id"
+    t.integer  "brand_id"
+    t.integer  "year"
+    t.integer  "km"
+    t.integer  "kmAverageMonthly"
+    t.boolean  "public"
+    t.integer  "user_id"
+    t.string   "fuel"
+    t.integer  "company_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "kmUpdatedAt"
+    t.string   "vehicle_type",     :default => "Car"
+    t.string   "chassis"
+  end
+
+  add_index "vehicles", ["brand_id"], :name => "cars_brand_id_fk"
+  add_index "vehicles", ["model_id"], :name => "cars_model_id_fk"
+  add_index "vehicles", ["user_id"], :name => "cars_user_id_fk"
+  add_index "vehicles", ["vehicle_type"], :name => "index_vehicles_on_type"
+
   create_table "workorders", :force => true do |t|
     t.text     "comment"
     t.integer  "company_id"
-    t.integer  "car_id"
+    t.integer  "vehicle_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -784,11 +798,11 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
   end
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"
-  add_index "workorders", ["car_id"], :name => "workorders_car_id_fk"
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
   add_index "workorders", ["payment_method_id_old"], :name => "workorders_payment_method_id_fk"
   add_index "workorders", ["performed"], :name => "workorders_performed_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"
+  add_index "workorders", ["vehicle_id"], :name => "workorders_vehicle_id_fk"
 
   add_foreign_key "addresses", "companies", name: "addresses_ibfk_1", dependent: :delete
   add_foreign_key "addresses", "states", name: "addresses_ibfk_2"
@@ -801,17 +815,9 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
   add_foreign_key "alarms", "companies", name: "alarms_company_id_fk"
   add_foreign_key "alarms", "users", name: "alarms_ibfk_1", dependent: :delete
 
-  add_foreign_key "budgets", "cars", name: "budgets_car_id_fk", dependent: :delete
   add_foreign_key "budgets", "companies", name: "budgets_company_id_fk", dependent: :delete
   add_foreign_key "budgets", "users", name: "budgets_user_id_fk"
-
-  add_foreign_key "car_service_offers", "cars", name: "car_service_offers_ibfk_1", dependent: :delete
-  add_foreign_key "car_service_offers", "service_offers", name: "car_service_offers_ibfk_2", dependent: :delete
-  add_foreign_key "car_service_offers", "services", name: "car_service_offers_idfk_3", dependent: :nullify
-
-  add_foreign_key "cars", "brands", name: "cars_ibfk_1"
-  add_foreign_key "cars", "models", name: "cars_ibfk_2"
-  add_foreign_key "cars", "users", name: "cars_ibfk_3", dependent: :delete
+  add_foreign_key "budgets", "vehicles", name: "budgets_vehicle_id_fk", dependent: :delete
 
   add_foreign_key "companies", "countries", name: "companies_ibfk_1"
   add_foreign_key "companies", "users", name: "companies_ibfk_2"
@@ -847,20 +853,20 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
 
   add_foreign_key "messages", "alarms", name: "messages_alarm_id_fk", dependent: :delete
   add_foreign_key "messages", "budgets", name: "messages_budget_id_fk", dependent: :delete
-  add_foreign_key "messages", "car_service_offers", name: "messages_car_service_offer_id_fk"
   add_foreign_key "messages", "events", name: "messages_event_id_fk", dependent: :delete
   add_foreign_key "messages", "messages", name: "messages_message_id_fk", dependent: :delete
   add_foreign_key "messages", "users", name: "messages_user_id_fk", dependent: :delete
+  add_foreign_key "messages", "vehicle_service_offers", name: "messages_vehicle_service_offer_id_fk"
   add_foreign_key "messages", "workorders", name: "messages_workorder_id_fk", dependent: :delete
 
   add_foreign_key "models", "brands", name: "models_ibfk_1"
 
   add_foreign_key "notes", "budgets", name: "notes_budget_id_fk", dependent: :delete
-  add_foreign_key "notes", "cars", name: "notes_car_id_fk", dependent: :delete
   add_foreign_key "notes", "companies", name: "notes_company_id_fk", dependent: :delete
   add_foreign_key "notes", "notes", name: "notes_note_id_fk", dependent: :delete
   add_foreign_key "notes", "users", name: "notes_receiver_id_fk", column: "receiver_id", dependent: :delete
   add_foreign_key "notes", "users", name: "notes_user_id_fk", dependent: :delete
+  add_foreign_key "notes", "vehicles", name: "notes_vehicle_id_fk", dependent: :delete
   add_foreign_key "notes", "workorders", name: "notes_workorder_id_fk", dependent: :delete
 
   add_foreign_key "offer_service_types", "service_offers", name: "offer_service_types_service_offer_id_fk", dependent: :delete
@@ -893,9 +899,9 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
   add_foreign_key "service_types_tasks", "tasks", name: "service_types_tasks_ibfk_2", dependent: :delete
 
   add_foreign_key "services", "budgets", name: "services_budget_id_fk", dependent: :delete
-  add_foreign_key "services", "car_service_offers", name: "services_car_service_offer_id_fk"
   add_foreign_key "services", "service_types", name: "services_ibfk_1"
   add_foreign_key "services", "users", name: "services_operator_id_fk", column: "operator_id"
+  add_foreign_key "services", "vehicle_service_offers", name: "services_vehicle_service_offer_id_fk"
   add_foreign_key "services", "workorders", name: "services_ibfk_2", dependent: :delete
 
   add_foreign_key "services_tasks", "services", name: "services_tasks_ibfk_1"
@@ -910,9 +916,17 @@ ActiveRecord::Schema.define(:version => 20150507195637) do
 
   add_foreign_key "users", "companies", name: "users_employer_id_fk", column: "employer_id", dependent: :delete
 
+  add_foreign_key "vehicle_service_offers", "service_offers", name: "vehicle_service_offers_ibfk_2", dependent: :delete
+  add_foreign_key "vehicle_service_offers", "services", name: "car_service_offers_idfk_3", dependent: :nullify
+  add_foreign_key "vehicle_service_offers", "vehicles", name: "vehicle_service_offers_vehicle_id_fk", dependent: :delete
+
+  add_foreign_key "vehicles", "brands", name: "vehicles_ibfk_1"
+  add_foreign_key "vehicles", "models", name: "vehicles_ibfk_2"
+  add_foreign_key "vehicles", "users", name: "vehicles_ibfk_3", dependent: :delete
+
   add_foreign_key "workorders", "budgets", name: "workorders_budget_id_fk", dependent: :delete
-  add_foreign_key "workorders", "cars", name: "workorders_car_id_fk"
   add_foreign_key "workorders", "companies", name: "workorders_company_id_fk", dependent: :delete
   add_foreign_key "workorders", "users", name: "workorders_user_id_fk"
+  add_foreign_key "workorders", "vehicles", name: "workorders_vehicle_id_fk"
 
 end

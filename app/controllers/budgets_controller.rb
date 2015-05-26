@@ -1,5 +1,6 @@
+# encoding: utf-8
 class BudgetsController < ApplicationController
-  
+
   # GET /budgets
   # GET /budgets.xml
   def index
@@ -21,7 +22,7 @@ class BudgetsController < ApplicationController
     filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
     filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
-    filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)    
+    filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
     filters_params[:company_id] = company_id
     filters_params[:user] = current_user
     filters_params[:budget_id] = @budget_id if (@budget_id && (!@budget_id.empty?))
@@ -34,11 +35,11 @@ class BudgetsController < ApplicationController
 
     @budgets = Budget.find_by_params(filters_params).paginate(:page =>page,:per_page =>per_page)
 
-    @fuels = Car.fuels
+    @fuels = Vehicle.fuels
     @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)
     @states = State.order(:name)
     @company_services = get_service_types
-    @brands = Brand.order(:name)    
+    @brands = Brand.order(:name)
 
     @models = Array.new
     @models = Model.find_all_by_brand_id(filters_params[:brand_id],:order=>:name) if filters_params[:brand_id]
@@ -60,7 +61,7 @@ class BudgetsController < ApplicationController
       respond_to do |format|
         format.csv { send_data csv.encode("utf-16", {:invalid => :replace, :undef => :replace, :replace => '?'}), :filename => "budgetsReport.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
       end
-      
+
     else
       flash[:alert] = t("Error")
       redirect_to badgets_path
@@ -75,11 +76,11 @@ class BudgetsController < ApplicationController
 
     @client = @budget
     @client = @budget.user if @budget.user
-    @client = @budget.car.user if @budget.car
+    @client = @budget.vehicle.user if @budget.vehicle
 
-    @car = @budget
-    @car = @budget.car if @budget.car
-    
+    @vehicle = @budget
+    @vehicle = @budget.vehicle if @budget.vehicle
+    @company = get_company
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @budget }
@@ -91,16 +92,16 @@ class BudgetsController < ApplicationController
   def new
     @budget = Budget.new
     authorize! :create, @budget
-
+    @company = get_company
     @service_types = get_service_types
     if params[:c]
-      c = User.find(params[:c]) 
+      c = User.find(params[:c])
       @budget.user = c if c
-      #@budget.car = c.cars.first if c.cars.size == 1
+      #@budget.vehicle = c.vehicles.first if c.vehicles.size == 1
     end
     if params[:ca]
-      ca = Car.find(params[:ca])
-      @budget.car = ca if ca
+      ca = Vehicle.find(params[:ca])
+      @budget.vehicle = ca if ca
       @budget.user = ca.user
     end
 
@@ -114,7 +115,7 @@ class BudgetsController < ApplicationController
   def edit
     @budget = Budget.find(params[:id])
     authorize! :update, @budget
-
+    @company = get_company
     @service_types = get_service_types
   end
 
@@ -122,7 +123,7 @@ class BudgetsController < ApplicationController
   # POST /budgets.xml
   def create
     @budget = Budget.new(params[:budget])
-    
+
     authorize! :create, @budget
 
     @budget.creator = current_user
@@ -143,9 +144,9 @@ class BudgetsController < ApplicationController
   # PUT /budgets/1
   # PUT /budgets/1.xml
   def update
-    @budget = Budget.find(params[:id])    
+    @budget = Budget.find(params[:id])
     authorize! :update, @budget
-
+    @company = get_company
     @service_types = get_service_types
     respond_to do |format|
       if @budget.update_attributes(params[:budget])
@@ -178,10 +179,10 @@ class BudgetsController < ApplicationController
 
     @client = @budget
     @client = @budget.user if @budget.user
-    @client = @budget.car.user if @budget.car
+    @client = @budget.vehicle.user if @budget.vehicle
 
-    @car = @budget
-    @car = @budget.car if @budget.car
+    @vehicle = @budget
+    @vehicle = @budget.vehicle if @budget.vehicle
 
     respond_to do |format|
       format.html
@@ -208,7 +209,7 @@ class BudgetsController < ApplicationController
       format.html {redirect_to budget }
       format.js { render :layout => false}
     end
-    
+
   end
 
   def email_s
@@ -216,10 +217,10 @@ class BudgetsController < ApplicationController
 
     @client = @budget
     @client = @budget.user if @budget.user
-    @client = @budget.car.user if @budget.car
+    @client = @budget.vehicle.user if @budget.vehicle
 
-    @car = @budget
-    @car = @budget.car if @budget.car 
+    @vehicle = @budget
+    @vehicle = @budget.vehicle if @budget.vehicle
 
     respond_to do |format|
       format.html { render :file=>"budget_mailer/email",:layout => "emails" }

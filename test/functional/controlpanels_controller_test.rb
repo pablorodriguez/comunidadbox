@@ -3,18 +3,18 @@ require 'test_helper'
 class ControlPanelsControllerTest < ActionController::TestCase
   
   setup do    
-    create_all_default_data    
+    create_all_default_data
     @employer =  create(:gustavo_de_antonio)
     create_all_company_data @employer.company_id
-    
     @user = create(:pablo_rodriguez)
     @hugo = create(:hugo_rodriguez)
 
-    wo1 = create(:wo_oc,:car => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
-    wo2 = create(:wo_oc,:car => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    wo1 = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    wo2 = create(:wo_oc,:vehicle => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
 
-    wo3 = create(:wo_tc,:car => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
-    wo4 = create(:wo_tc,:car => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
+    wo3 = create(:wo_tc,:vehicle => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
+    wo4 = create(:wo_tc,:vehicle => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
+
   end
 
   test "control panel index company" do

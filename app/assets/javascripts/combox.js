@@ -14,7 +14,7 @@ $.fn.notExist = function(){
     return jQuery(this).length == 0;
 };
 
-jQuery(document).ready( function(){  
+jQuery(document).ready( function(){
 
   $("#msgs .close").click(function(){
     $(this).parent().hide();
@@ -28,15 +28,15 @@ jQuery(document).ready( function(){
     history.back(-1);
   });
 
-  $("form[data-remote='true']").live('ajax:success',function(){    
+  $("form[data-remote='true']").live('ajax:success',function(){
     if (!$(this).data("no-reset")){
       this.reset();
     }
   });
-  
+
 
   $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
-  
+
   $(".down_icon").click(function(e){
     $("#home_menu").show();
     $(this).css("background","white");
@@ -45,7 +45,7 @@ jQuery(document).ready( function(){
   });
 
   $("#company_id ").click(function(event){
-    $("#all_companies").show();    
+    $("#all_companies").show();
   });
 
   $("#all_companies .checkbox").click(function(event){
@@ -66,7 +66,7 @@ jQuery(document).ready( function(){
     event.stopPropagation();
   });
 
-  $("#all_company_check").click(function(event){    
+  $("#all_company_check").click(function(event){
     $("#all_companies :checkbox").attr("checked",$(this).attr("checked"));
     event.stopPropagation();
     change_company=true;
@@ -100,7 +100,7 @@ jQuery(document).ready( function(){
       }
 
       errorText += "</ul>";
-      
+
       //Chequero que exista el div para mostrar errores
       if ($("#msgs .alert").size() == 0){
         $("#msgs").html("<div class='alert'></div>")
@@ -111,30 +111,30 @@ jQuery(document).ready( function(){
   all_company = $("#all_companies");
 
   $(document).bind('click', function(e) {
-    if (!$(e.target).hasClass("down_icon")){      
+    if (!$(e.target).hasClass("down_icon")){
       if (showMenu){
         $(".down_icon").css("background","")
-        $("#home_menu").hide();  
+        $("#home_menu").hide();
         showMenu = false;
       }
     }
 
-    
+
     if ($(e.target).parent().attr("id") != "company_id"){
       if (all_company.is(":visible")){
         if (change_company){
-          $("#comp_form").submit();  
+          $("#comp_form").submit();
         }
         all_company.hide();
       }
     }
-    
+
   });
 
 
   $('.brand').live("change",searchModel);
+  $('.company_brand').live("change",searchModelByCompany);
 
-      
 });
 
 function set_link_to_function(links,func){
@@ -148,25 +148,43 @@ function setUserType(){
   if ($("#user_type").val() == 1){
     $("#user_data").show();
     $("#company_data").hide();
-    $("#autopartist_data").hide();    
+    $("#autopartist_data").hide();
+    $("tr.close_system").hide().find("input[type=checkbox]").attr("checked",false)
   }else if($("#user_type").val() == 2){
     $("#user_data").hide();
     $("#company_data").show();
     $("#autopartist_data").hide();
+    $("tr.close_system").show();
   }else{
     $("#autopartist_data").show();
     $("#user_data").hide();
-    $("#company_data").hide();    
+    $("#company_data").hide();
   }
 }
 
 function searchModel(event){
-  var brand_id = event.target.id; 
+  var brand_id = event.target.id;
   var token = $("input[name='authenticity_token']")[0];
   //AjaxLoader.enable();
   $.ajax({
-    url: "/cars/find_models",
-      data: { 
+    url: "/vehicles/find_models",
+      data: {
+        'id':brand_id,
+        'brand_id':$("#"+brand_id).val(),
+        'authenticity_token':encodeURIComponent(token)
+      },
+    dataType:'script',
+    type:'POST'
+  });
+}
+
+function searchModelByCompany(event){
+  var brand_id = event.target.id;
+  var token = $("input[name='authenticity_token']")[0];
+  //AjaxLoader.enable();
+  $.ajax({
+    url: "/vehicles/find_models",
+      data: {
         'id':brand_id,
         'brand_id':$("#"+brand_id).val(),
         'authenticity_token':encodeURIComponent(token)
@@ -177,17 +195,17 @@ function searchModel(event){
 }
 
 function showHideContent(link,data){
-  $(".contentright_s .data").hide();  
+  $(".contentright_s .data").hide();
   //$("#menu_options .selected").removeClass("selected");
   //link.addClass("selected");
-  
-  $(data).show();
-  //$("#menu_actions").animate({'left':'210px'}); 
 
-  //$(".menu_data.showed").hide().removeClass("showed"); 
-  $(data + "_menu").show().addClass("showed"); 
-  
-  //$("#menu_actions").animate({'left':'0px'}); 
+  $(data).show();
+  //$("#menu_actions").animate({'left':'210px'});
+
+  //$(".menu_data.showed").hide().removeClass("showed");
+  $(data + "_menu").show().addClass("showed");
+
+  //$("#menu_actions").animate({'left':'0px'});
 }
 
 function showGRAvatar(){
@@ -215,11 +233,11 @@ AjaxLoader={
     if (idElement) {
       defaultId = idElement;
     }
-    
+
     $(defaultId).hide();
-    //$('#car_domains :input').each(function(){
+    //$('#vehicle_domains :input').each(function(){
     //  $(this).attr("disabled", "disabled");
-    //});   
+    //});
   },
   enable:function(idElement){
     var defaultId="#ajax_loader";
@@ -227,10 +245,10 @@ AjaxLoader={
       defaultId = idElement;
     }
     $(defaultId).show();
-    //$('#car_domains :input').each(function(){
+    //$('#vehicle_domains :input').each(function(){
     //  $(this).attr("disabled", "");
     //});
-    //$('#car_domain').val("");
+    //$('#vehicle_domain').val("");
   }
 };
 
@@ -243,8 +261,8 @@ function build_amt_graph(data,container) {
          margin: [50, 10, 0, 0],
          plotBackgroundColor: 'none',
          plotBorderWidth: 0,
-         plotShadow: false                
-      },      
+         plotShadow: false
+      },
       title: {
          text: ''
       },
@@ -258,7 +276,7 @@ function build_amt_graph(data,container) {
          name: '',
          size: '65%',
          innerSize: '40%',
-         data: data,         
+         data: data,
          dataLabels: {
             enabled: true,
             formatter: function() {
@@ -278,8 +296,8 @@ function build_price_graph(data,container,title) {
          margin: [50, 10, 0, 0],
          plotBackgroundColor: 'none',
          plotBorderWidth: 0,
-         plotShadow: false                
-      },      
+         plotShadow: false
+      },
       title: {
          text: ''
       },
@@ -293,7 +311,7 @@ function build_price_graph(data,container,title) {
          name: '',
          size: '65%',
          innerSize: '40%',
-         data: data,         
+         data: data,
          dataLabels: {
             enabled: true,
             formatter: function() {

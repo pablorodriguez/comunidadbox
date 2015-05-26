@@ -10,14 +10,14 @@
   #err
     = render 'shared/error_messages', :target => @work_order
   #work_order
-    .box_bottom      
-      #car_info.barradatos      
-        = render :partial=>'cars/car_info',:locals =>{:car=>@work_order.car}
+    .box_bottom
+      #vehicle_info.barradatos
+        = render :partial => 'vehicles/vehicle_info', :locals => { :vehicle => @work_order.vehicle }
   - if @update_km
-    #car_new_km
-      = render :partial=>'cars/new_km',:locals =>{:car=>@work_order.car}
+    #vehicle_new_km
+      = render :partial => 'vehicles/new_km', :locals => { :vehicle => @work_order.vehicle }
   #materials.hide
     .materials
-      = render :partial=>'materials'
+      = render :partial => 'materials'
   #work_order_form
-    = render :partial=>'services_list',:locals =>{:work_order=>@work_order}  
+    = render :partial => 'services_list', :locals => { :work_order => @work_order }

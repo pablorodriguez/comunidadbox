@@ -1,0 +1,9 @@
+en-US:
+  activerecord:
+    models:
+      brand: Brand
+    attributes:
+      brand:
+        of_motorcycles: "Motorcycle"
+        of_cars: "Car"
+        name: "Name"

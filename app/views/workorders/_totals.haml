@@ -1,7 +1,7 @@
 .box_bottom
   %h1.left Detalle del Reporte
   .title_actions
-    .action                
+    .action
       %a.export_link#export_detail_report{:href => "#",:title => t('export')}
 %table.w
   %col{:width=>"60%"}
@@ -21,4 +21,4 @@
     %td.number
       %strong
         = number_to_currency @workorder_amount
-        
+

@@ -16,7 +16,7 @@ class BudgetTest < ActiveSupport::TestCase
   end
 
   test "bidget can send message" do
-    budget =  create(:budget_hrj549,:creator => @employer,:company => @employer.company,:user =>@pablo,:car => @pablo.cars.first)
+    budget =  create(:budget_hrj549,:creator => @employer,:company => @employer.company,:user =>@pablo, :vehicle => @pablo.cars.first)
     assert budget.can_send_message?(@employer)
   end
 

@@ -7,14 +7,14 @@
   :javascript
     $(document).ready(function() {;
       build_price_graph([#{@price_data}],"price_graph");
-      build_amt_graph([#{@amt_data}],"amt_graph");      
+      build_amt_graph([#{@amt_data}],"amt_graph");
     })
 #all-workorder
   .vertical_menu
     #menu_options
       = render "home/menu"
       - if current_user.is_administrator?
-        %ul.box_bottom 
+        %ul.box_bottom
           %li
             #report_amount.link.menu
               = image_tag "graph.png"
@@ -22,7 +22,7 @@
           %li
             #report_quantity.link.menu
               = image_tag "graph_money.png"
-              =t(".amount_report")       
+              =t(".amount_report")
           %li
             #report_material.link.menu
               = image_tag "graph_money.png"
@@ -34,36 +34,36 @@
     .box_bottom
       = render 'search'
     - if company_id
-      .menu_actions.box_bottom      
+      .menu_actions.box_bottom
         %ul
           %li
-            = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")} 
+            = link_to t(".new_client"),new_client_path,{:title=>t(".create_new_client")}
 
   .contentright_s
     - if @work_orders.size > 0
-      #workorders_c.data          
+      #workorders_c.data
         #workorders
           = render 'workorders'
       - if current_user.is_administrator?
-        #price_graph_c.data.hide.chart            
+        #price_graph_c.data.hide.chart
           .box_bottom
-            %h1.left Importes por Tipo de Servicios            
+            %h1.left Importes por Tipo de Servicios
             .title_actions
               .action
                 %a.export_link#export_price_report{:href => "#",:title => t('export')}
 
-          #price_graph.box_bottom.graph          
+          #price_graph.box_bottom.graph
           #price_report.box_bottom
             = render "price_report"
         #amt_graph_c.data.hide.chart
           .box_bottom
-            %h1.left Cantidad por Tipo de Servicios            
+            %h1.left Cantidad por Tipo de Servicios
             .title_actions
               .action
                 %a.export_link#export_amount_report{:href => "#",:title => t('export')}
           #amt_graph.box_bottom.graph
           #amt_report.box_bottom
-            = render "amount_report"                 
+            = render "amount_report"
         #amt_material_graph_c.data.hide.chart
           = render "material_report"
         #report_data.data.box_bottom.hide

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class User < ActiveRecord::Base
   extend Enumerize
 
@@ -17,19 +18,25 @@ class User < ActiveRecord::Base
   # Get Imge from GRAvatar
   # is_gravtastic(:size=> 50,:default =>"mm")
 
-  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :cars_attributes, :address_attributes, :password, :password_confirmation, :companies_attributes,:employer_id, :role_ids, :user_type
-
+  attr_accessible :first_name, :last_name, :phone, :email, :cuit, :company_name, :vehicles_attributes,
+                  :address_attributes, :password, :password_confirmation, :companies_attributes,
+                  :employer_id, :role_ids, :user_type, :vehicles_attributes,:external_id,:close_system
+  
   attr :type, true
 
-  enumerize :user_type, in: {:car_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
+  enumerize :user_type, in: {:vehicle_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
   has_many :service_filters,:order =>'name'
-  has_many :cars
+
+  has_many :vehicles
+  # has_many :cars
+  # has_many :motorcycles
+  # delegate :cars, :motorcycles, to: :vehicles
 
 
   has_many :authentications
   has_many :notes,:order => "created_at DESC"
-  
+
   belongs_to :creator,:class_name=>'User'
   has_many :companies, :order => 'name ASC'
   has_many :companies_users
@@ -49,15 +56,35 @@ class User < ActiveRecord::Base
 
   has_one :export
   has_many :price_offers
-  
+
   validates_uniqueness_of :email, :case_sensitive => false
-  validates_presence_of :first_name, :last_name
-  #validates_presence_of :cars, :on => :create
+  #validates_presence_of :first_name, :last_name
+  #validates_presence_of :vehicles, :on => :create
+
+
+  accepts_nested_attributes_for :address, :reject_if => :all_blank
+  accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
+  accepts_nested_attributes_for :vehicles, :reject_if => :all_blank, :allow_destroy => true
+  # accepts_nested_attributes_for :cars, :reject_if => :all_blank
+  # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
+
+  #scope :motorcycles,where("vehicle_type = 'Motorcyle'")
+  after_initialize :set_default_data
+  validate :custom_validations
+
+  def custom_validations
+    if first_name.empty? && last_name.empty? && company_name.empty?
+      errors[:domain] << "El Dominio no puede estar vacio"
+    end
+  end
+
+  def cars
+    self.vehicles.select{|v| v.vehicle_type == "Car"}
+  end
   
-  
-  accepts_nested_attributes_for :address,:reject_if => :all_blank
-  accepts_nested_attributes_for :companies,:reject_if =>lambda {|a| a[:name].blank?}
-  accepts_nested_attributes_for :cars,:reject_if => :all_blank
+  def motorcycles
+    self.vehicles.select{|v| v.vehicle_type == "Motorcycle"}
+  end
 
   scope :enabled , where("disable is NULL")
   scope :clients ,lambda{joins("left outer join companies on companies.user_id = users.id").where("companies.user_id is NULL")}
@@ -65,6 +92,7 @@ class User < ActiveRecord::Base
   NULL_ATTRS = %w( company_name cuit )
   before_save :set_default_data
   #validate :validate_all
+  # alias :cars :vehicles
 
   def company_active
     return employer if employer
@@ -76,7 +104,7 @@ class User < ActiveRecord::Base
       unless self.password
         self.password = first_name + "test" unless first_name.nil?
         self.password = "test" if first_name.nil?
-        self.password_confirmation = password
+        self.password_confirmation = self.password
       end
       self.email = User.generate_email unless email
     end
@@ -84,11 +112,11 @@ class User < ActiveRecord::Base
 
   def search_material_request(status,detail)
     if self.is_super_admin?
-      m = MaterialRequest.where("description like ?","%#{detail}%")    
+      m = MaterialRequest.where("description like ?","%#{detail}%")
     else
       m = self.material_requests.where("description like ?","%#{detail}%")
-    end    
-    
+    end
+
     unless status.empty?
       m = m.where("status =?",status)
     end
@@ -116,15 +144,15 @@ class User < ActiveRecord::Base
     return (self.company && self.company.id == comp.id)
   end
 
-  def find_service_offers(filters,ids)        
-    if is_super_admin?      
+  def find_service_offers(filters,ids)
+    if is_super_admin?
       offers = ServiceOffer.confirmed
     elsif ids
       offers = ServiceOffer.where("company_id IN (?)",ids)
     else
-      offers = ServiceOffer.cars(cars.map(&:id)).sended
+      offers = ServiceOffer.vehicles(vehicles.map(&:id)).sended
     end
-  
+
     if filters
       offers = offers.where("service_type_id = ?",filters[:service_type_id]) unless filters[:service_type_id].empty?
       offers = offers.where("since >= ?",filters[:form].to_datetime.in_time_zone) unless filters[:form].empty?
@@ -136,11 +164,11 @@ class User < ActiveRecord::Base
     offers
   end
 
-  def service_types_active    
+  def service_types_active
     return Company.default_service_types unless company
     headquarter.service_types.active
   end
-  
+
   def service_types
     return Company.default_service_types unless company
     return company.service_types.active unless company.service_types.empty?
@@ -153,8 +181,8 @@ class User < ActiveRecord::Base
 
   def service_offers(status=nil)
     services = []
-    cars.each do |c|
-      so = ServiceOffer.where("car_service_offers.car_id = ?",c.id).includes(:car_service_offer)
+    vehicles.each do |c|
+      so = ServiceOffer.where("vehicle_service_offers.vehicle_id = ?",c.id).includes(:vehicle_service_offer)
       if status
         so = so.where("service_offers.status = ?","Enviado")
       end
@@ -168,17 +196,17 @@ class User < ActiveRecord::Base
     return companies.select{|c| c.id == comp.id}.size > 0 ? true : false
   end
 
-  def cars_ids
-    self.cars.map(&:id)
+  def vehicles_ids
+    self.vehicles.map(&:id)
   end
 
-  def own_car car
-    cars.select{|c| c.id == car.id}.size > 0
+  def own_vehicle vehicle
+    vehicles.select{|c| c.id == vehicle.id}.size > 0
   end
 
   def employees(company_id = nil)
     unless company_id
-      comp_ids = get_companies_ids    
+      comp_ids = get_companies_ids
     else
       comp_ids =[company_id]
     end
@@ -197,7 +225,7 @@ class User < ActiveRecord::Base
 
   def after_initialize2
     self.build_address if self.address.nil?
-    self.cars.build if self.cars.empty?
+    self.vehicles.build if self.vehicles.empty?
     #- @user.user_addresses[0].address = Address.new
   end
 
@@ -230,7 +258,7 @@ class User < ActiveRecord::Base
   def get_companies
     return creator.companies if is_manager?
     return companies unless companies.empty?
-    return employer.user.companies if is_employee? 
+    return employer.user.companies if is_employee?
     return []
   end
 
@@ -252,7 +280,7 @@ class User < ActiveRecord::Base
 
   end
 
-  
+
   def get_company_id_for_materials
     get_company_id(:materials)
   end
@@ -263,17 +291,17 @@ class User < ActiveRecord::Base
 
   # Return company id to be use in Materials, Service Types
   # Context can me materials or service types
-  def get_company_id(context)    
+  def get_company_id(context)
     id = nil
     if context == :materials
       if Material.has_for_company?(company_id)
-        id = company_id 
+        id = company_id
       else
         id = company.user.headquarter.id
       end
     elsif context == :service_types
       if ServiceType.has_for_company?(company_id)
-        id = company_id 
+        id = company_id
       else
         id = company.user.headquarter.id
       end
@@ -288,12 +316,12 @@ class User < ActiveRecord::Base
 
   def future_events(args={})
     per_page = args[:per_page]
-    car_id = args[:car_id]
+    vehicle_id = args[:vehicle_id]
     service_type_id = args[:service_type_id]
 
-    cars_ids = cars.each{|c|c.id.to_i} unless car_id
-    cars_ids = [car_id] if car_id
-    events = Event.where("dueDate >= ? and car_id in(?)",Time.zone.now,cars_ids)
+    vehicles_ids = vehicles.each{|c|c.id.to_i} unless vehicle_id
+    vehicles_ids = [vehicle_id] if vehicle_id
+    events = Event.where("dueDate >= ? and vehicle_id in(?)",Time.zone.now,vehicles_ids)
 
     events = events.includes(:service_type).where("service_types.id = ?",service_type_id) if service_type_id
     events = events.paginate(:page => 1,:per_page=>per_page) if per_page
@@ -315,7 +343,7 @@ class User < ActiveRecord::Base
 
   def is_employee?
     if employer == nil && company_active == nil
-      return false 
+      return false
     end
 
     if employer
@@ -324,7 +352,7 @@ class User < ActiveRecord::Base
     company_active != nil
   end
 
-  def is_car_owner?
+  def is_vehicle_owner?
     !is_employee?
   end
 
@@ -359,12 +387,28 @@ class User < ActiveRecord::Base
     (self.id == user.id) || (user.confirmed_at.nil? && is_client?(user))
   end
 
-  def only_client user
-    
+  def can_read? user
+    can_read = false
+    can_read = true if self == user 
+    can_read = true if !can_read && user.is_client?(user) 
+    if !can_read && self.company
+      if self.close_system
+        can_read = false
+      else
+        can_read = true 
+      end
+    else
+      can_read = false
+    end
+    can_read
   end
 
-  def can_edit_car? car
-    self == car.user && is_client?(car.user)
+  def only_client user
+
+  end
+
+  def can_edit_vehicle? vehicle
+    self == vehicle.user && is_client?(vehicle.user)
   end
 
   def is_client?(user)
@@ -406,14 +450,14 @@ class User < ActiveRecord::Base
     nro = 0
     email = get_last_email
     nro = email.scan(/\d+/).first.to_i if email
-  
+
     last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
 
     last_number
-    
+
   end
 
-  def self.generate_email_schync        
+  def self.generate_email_schync
     "test#{get_last_number}@comunidadbox.com"
   end
 
@@ -444,10 +488,12 @@ class User < ActiveRecord::Base
 # 15 ["Año","2000"],
 # 16 ["kilometraje promedio mensual","2000"],
 # 17 ["kilometraje","252025"]
-  
-  def self.import_clients(file, current_user,company_id)
+# 18 ["Tipo de Servicio","Mantenimiento General"]
+# 19 ["Fecha","12/12/2015"]
+
+  def self.import_clients(file, current_user,company_id,encode)
     company = Company.find company_id
-    csv_text = File.read(file.open,:encoding => 'iso-8859-1')
+    csv_text = File.read(file.open,:encoding => encode)
     csv = CSV.parse(csv_text, :headers => true)
     result = {
       :summary => [],
@@ -465,84 +511,82 @@ class User < ActiveRecord::Base
       i+=1
       external_id = row[0].strip
       email = row[4]
+      
+      client = User.find_by_external_id(external_id) if external_id 
+      
+      brand = Brand.find_by_name(row[12])
+      brand_id = brand ? brand.id : ""
+      model = brand_id ? Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first : nil
+      model_id = model ? model.id : ""
 
-      client = User.find_by_external_id external_id if external_id
-      client = User.new if client.nil?            
+      params = {
+        user:{
+          first_name: row[1],
+          last_name: row[2],
+          cuit: row[5],
+          phone: row[3],
+          company_name: row[6],
+          email: email,
+          external_id: external_id,
+          confirmed: true,
+          creator_id: current_user.id,
+          address_attributes: {
+            state: State.find_by_name(row[7]),
+            city: row[8],
+            street: row[9],
+            zip: row[10]
+          },
+          vehicles_attributes:[{
+            domain: row[11],
+            chasis: row[14],
+            km: row[18],
+            kmAverageMonthly: row[17],
+            brand_id: brand_id,
+            year: row[16],
+            model_id: model_id,
+            fuel: row[15],
+            vehicle_type: "Car"
+          }]
+        }
+      }
+      
+      unless client
+        client = User.new(params[:user])
+      else
+        client.update_attributes(params[:user])
+      end
 
-      client.assign_attributes({ 
-        :first_name => row[1], 
-        :last_name => row[2],
-        :cuit => row[5],
-        :phone => row[3],
-        :company_name => row[6],
-        :email => email
-      })
-
-      #add_error_if_not_valid client,result
-
-      if client.id.nil?
-        client.set_default_data
-        client.external_id = external_id
-        client.confirmed = true
-
-        client.creator = current_user
-
-        if client && company_id
+      unless client.new_record?
+        if company_id
           unless client.service_centers.include?(company_id)
             client.service_centers << company
           end
         end
-
       end
 
-      #cargo direccion
-      client.address = Address.new({
-        :state => State.find_by_name(row[7]),
-        :city => row[8],
-        :street => row[9],
-        :zip => row[10]
-      })
-
-      #cargo automovil
-      domain = row[11]
-      
-      car = client.cars.where("domain = ?",domain).first
-      if car.nil?
-        car = Car.new({:domain => domain})
-        client.cars << car
-      end
-
-      car.assign_attributes({
-        :km => row[17], 
-        :kmAverageMonthly => row[16],
-        :brand => Brand.find_by_name(row[12]), 
-        :year => row[15], 
-        :model => Model.includes("brand").where("brands.name =? and models.name =?",row[12],row[13]).first, 
-        :fuel => row[14]
-      })
-
-      if car.valid?
-        car.save 
-
-        #if theres is event to add
-        if row[18]
-          service_type_name = row[18]
-          service_type = ServiceType.find_by_name(service_type_name)
-          if service_type
-            car.events.create({:service_type_id => service_type.id,:dueDate => row[19],:status =>Status::ACTIVE})
-          end
-          
+      client.valid?
+      #if theres is event to add
+      if row[19]
+        service_type_name = row[19]
+        service_type = company.service_types.where("name = ?",service_type_name).first
+        create_event = true
+        unless service_type ? true : false
+          client.errors[:base] << "#{service_type_name} no es un Tipo de Servicio valido"
         end
       end
 
-      if client.valid? && client.save
+      if client.errors.empty? 
+        client.save
+        if create_event
+          car = client.vehicles.first
+          car.events.create({:service_type_id => service_type.id,:dueDate => row[20],:status =>Status::ACTIVE})
+        end
         result[:success] += 1
       else
-        result[:errors] << client
+        result[:errors] << [i,client]
         result[:failure] += 1
       end
 
-      
     end
 
     result[:total_records] = (result[:success] + result[:failure])
@@ -557,4 +601,3 @@ class User < ActiveRecord::Base
   end
 
 end
-

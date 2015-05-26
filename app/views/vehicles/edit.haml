@@ -1,0 +1,29 @@
+.vertical_menu
+  =render "home/menu"
+  = render "home/default_actions"
+.contentright_s
+  .box_bottom
+    %h1 Modificar Auto
+  .box_bottom
+    %h3 Información Cliente
+    %table.w
+      %tbody
+        %tr
+          %td{:width=>"100px"}
+            Nombre
+          %td
+            = @vehicle.user.first_name
+        %tr
+          %td Apellido
+          %td
+            = @vehicle.user.last_name
+        %tr
+          %td Email
+          %td
+            = @vehicle.user.email
+        %tr
+          %td Teléfono
+          %td
+            = @vehicle.user.phone
+  %h3 Información Autómovil
+  = render :partial=>'vehicle'

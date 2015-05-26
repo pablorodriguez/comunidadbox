@@ -1,0 +1,39 @@
+%br
+.customer
+  .box_bottom
+    %h1=t(".vehicle")
+  %table.w
+    - if f.object.user && !f.object.persisted?
+      %tr
+        %td{:style=>"width:100px"} Automóvil
+        %td
+          = f.collection_select(:vehicle_id,f.object.user.vehicles,:id,:domain,{:prompt=>"Seleccione un auto"},{:class=>"long_select"})
+    %tr
+      %td{:style=>"width:100px"}
+        Tipo
+      %td
+        = f.select(:vehicle_type, options_for_select([[t('car'), 'Car'], [t('motorcycle'), 'Motorcycle']],f.object.vehicle_type),{},{:class=>'medium_select vehicle_type'})
+    %tr
+      %td{:style=>"width:100px"}=t(".domain")
+      %td#domain
+        .left
+          = f.text_field :domain,:size=>8, :maxlength =>6,:class=>"input_short left",:placeholder=>"XXX999"
+          .ajax_loader.left
+        .validation_domain.hide
+    %tr
+      %td=t(".brand")
+      %td
+        = f.collection_select(:brand_id, @company.get_brands.order(:name), :id, :name, {:include_blank=>:true},{:class=>"brand long_select"})
+    %tr
+      %td=t(".model")
+      %td
+        #models
+          = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model long_select'})
+    - chassis_css = f.object.vehicle_type == "Motorcycle" ? "" : "hide"
+    %tr.chassis_row{:class => "#{chassis_css}"}
+      %td{:style=>"width:100px"}
+        %label{ :for => "chassis" }=t(".chassis")
+        = chassis_css
+        = f.object.vehicle_type
+      %td
+        = f.text_field :chassis, :size => 10, :class => 'input_short'

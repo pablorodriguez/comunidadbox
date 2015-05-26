@@ -1,14 +1,17 @@
 = form_for(@model) do |f|
   = render 'shared/error_messages', :target => @model
-  %p
-    Marca
-    %br
-    = f.select(:brand_id,options_from_collection_for_select(Brand.find(:all,:order=>'name'), :id, :name), {:prompt => "Seleccione una marca"})
-  %p
-    = f.label :name
-    %br
-    = f.text_field :name
-
+  %table
+    %tbody
+      %tr
+        %td
+          Marca
+        %td
+          = f.select(:brand_id,options_from_collection_for_select(Brand.find(:all,:order=>'name'), :id, :name, @model.persisted? ? @model.brand.id.to_s : nil), {:prompt => "Seleccione una marca"})
+      %tr
+        %td
+          = f.label :name
+        %td
+          = f.text_field :name
   .buttons_container
     = f.submit "Grabar",:class =>:button
-    = link_to "Cancelar",models_path
+    = link_to "Cancelar",brands_path

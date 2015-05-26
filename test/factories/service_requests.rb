@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
 
-  factory :sr,class: ServiceRequest do    
+  factory :sr, class: ServiceRequest do    
     user {User.find_by_email("pablo@comunidadbox.com")}
-    car {Car.find_by_domain("HRJ549")}
+    vehicle {Vehicle.find_by_domain("HRJ549")}
     status Status::OPEN    
   end
 

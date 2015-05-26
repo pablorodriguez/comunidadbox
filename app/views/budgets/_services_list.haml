@@ -6,16 +6,16 @@
         %td
           = collection_select :new,:service_type,@service_types,:id,:name,{:prompt=> t(".select_type_of_service")},{:class=>"input_medium left",:title=>"Agregar nuevo tipo de servicio"}
           .hide
-            = link_to"","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"        
+            = link_to"","#",:title=>"Buscar Materiales (Ctrl+M)",:id=>:material_dialog,:class=>"link new"
 #services.overflow
   #services_list.ordencontent
     = f.fields_for :services do |s_form|
       = render "service_fields",:f => s_form
   #n_s.hide
-    = button_to_add_fields  "Nuevo Servicio",f,:services 
-  .box_bottom    
+    = button_to_add_fields  "Nuevo Servicio",f,:services
+  .box_bottom
     #total_budget
-      = number_to_currency @budget.total_price    
+      = number_to_currency @budget.total_price
   .buttons_container
-    = f.submit t(".save"),:class =>"button",:data => {"disable-with" => t("saving")}    
+    = f.submit t(".save"),:class =>"button",:data => {"disable-with" => t("saving")}
     = link_to t(".cancel"),@budget

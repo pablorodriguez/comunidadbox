@@ -21,9 +21,11 @@ en-US:
   until: "Until"
   new_client: "New Client"
   car_delete_confirm: "Are you sure you want to delete the Automobile?"
+  vehicle_delete_confirm: "Are you sure you want to delete the Vehicle?"
   client_delete_confirm: "Are you sure you want to delete the customer ?"
   help_user_registration: "User Registration"
   help_new_service_own_car: "New Service for Automobile Owner"
+  help_new_service_own_vehicle: "New Service for Vehicle Owner"
   help_what_is_comunidadbox: "¿ What is ComunidadBox ?"
   help_new_client_service_budget: "New Client, Service and Budget"
   help_confirm_user: "Confirm User"
@@ -101,6 +103,7 @@ en-US:
       errors_prohibited_plural: "There were the following %{count} errors "
       errors_prohibited_singular: The following error occurred
   new_car: "New Car"
+  new_vehicle: "New Vehicle"
   service_offer: Service Offer
   show_ad_title: "Title"
   show_ad_name: Name
@@ -126,6 +129,8 @@ en-US:
 
   workorder: Workorder
   car: Car
+  motorcycle: Motorcycle
+  vehicle: Vehicle
   client: Client
   salesman: Salesman
   workorder_date: Date
@@ -154,5 +159,12 @@ en-US:
   car_brand: Brand
   car_model: Model
   car_year: Year
+  vehicle_domain: Domain
+  vehicle_brand: Brand
+  vehicle_model: Model
+  vehicle_year: Year
   creator: Creator
   import_file_error: You must select a file to import
+  types_of_vehicles:
+    car: Car
+    motorcycle: Motorcycle

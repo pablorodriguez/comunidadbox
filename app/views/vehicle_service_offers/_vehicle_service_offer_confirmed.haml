@@ -1,0 +1,38 @@
+#div{:id=>"row_#{vehicle_service_offer.id}",:class=>"service_offer_row row"}
+  -service_offer = vehicle_service_offer.service_offer
+  .service_offer_info
+    .service_offer_detail
+      .company_name
+        = link_to service_offer.company.name,service_offer.company
+      .service_offer_title
+        = link_to service_offer.title, vehicle_service_offer,:class =>"view"
+      %strong
+        = service_offer.service_types_names
+      .domain_white
+        = link_to vehicle_service_offer.vehicle.domain,vehicle_service_offer.vehicle
+    .price_detail
+      .price
+        Precio:
+        = number_to_currency service_offer.final_price
+      .discount
+        Descuento:
+        = number_to_percentage(service_offer.percent, :precision =>2)
+    .valid
+      .service_offer_valid
+        %strong
+          Valido
+        %span
+          = l service_offer.since unless service_offer.since.nil?
+        %span
+          = l service_offer.until unless service_offer.until.nil?
+      .service_offer_dates
+        %strong
+          Dias
+        .days
+          %ul
+            - service_offer.valid_dates.each do |day|
+              %li
+                =day
+    .actions
+      .action
+        = link_to "", new_workorder_path(:vehicle_id=>vehicle_service_offer.vehicle),{:title=>"Nuevo Servicio",:class =>"new_service"}

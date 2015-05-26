@@ -6,6 +6,7 @@
       %td
         = @company.name
         %strong
+          \:
           = @company.headquarter ? t('.headquarter') : t('.subsidiary')
     %tr.header
       %td=t(".web")

@@ -1,5 +1,9 @@
 .vertical_menu
-  = render "conf/menu"  
+  - if current_user.is_super_admin?
+    = render "conf/menu"
+  - else
+    = render "admin/menu"
+  = render "actions"
 .contentright_s
   .box_bottom
     %h1 Modificar Modelo

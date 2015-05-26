@@ -6,6 +6,7 @@ en-US:
       company:
         name: "Name"
         address: "Address"
+        headquarter: "Headquarter"
     errors:
       models:
         company:

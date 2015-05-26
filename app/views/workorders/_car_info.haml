@@ -1,51 +1,49 @@
-#car_info.barradatos
+#vehicle_info.barradatos
   .datos_personales
     %table.tabla_datos_personales
       %tr
         %td
           %h3 Nombre
         %td
-          = car.user.full_name
-          = show_company_info car
+          = vehicle.user.full_name
+          = show_company_info vehicle
         %td
           %h3 Dominio
         %td
-          %p#domain.domain_white
-            = link_to car.domain, car          
+          = link_to_domain vehicle
         %td
           %h3 Año
         %td
-          = car.year
-      %tr  
+          = vehicle.year
+      %tr
         %td
           %h3 Email
         %td
-          = car.user.email
+          = vehicle.user.email
         %td
           %h3 Marca y Modelo
         %td
-          = "#{car.brand.name} #{car.model.name}"
+          = "#{vehicle.brand.name} #{vehicle.model.name}"
         %td
           %h3 Teléfono
         %td
-          = number_to_phone(car.user.phone)
+          = number_to_phone(vehicle.user.phone)
       %tr
         %td
           %h3
             Kilometraje
         %td
           %span#km
-            -#= car.km unless @work_order.km
+            -#= vehicle.km unless @work_order.km
             = @work_order.km if @work_order.km
         %td
           %h3
             Kilometraje promedio mensual
         %td
           %span#kmAverageMonthly
-            = car.kmAverageMonthly
+            = vehicle.kmAverageMonthly
         %td
           %h3 Ultima actualización
-        %td 
+        %td
           %span#kmUpdatedAt
-            = l car.kmUpdatedAt.to_date if car.kmUpdatedAt
-            
+            = l vehicle.kmUpdatedAt.to_date if vehicle.kmUpdatedAt

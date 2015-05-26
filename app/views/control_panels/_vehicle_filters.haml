@@ -1,0 +1,80 @@
+#search.box_bottom
+  %h3 
+    = t "search"
+  %table.w
+    %tr
+      %td
+        =f.collection_select(:service_type_id, @company_services,:id,:name,{:include_blank=>t(".service_type")},{:class=>"change long_select"})
+    %tr
+      %td
+        = f.collection_select(:state_id, @states, :id, :name, {:include_blank=> t(".state")},{:class=>"clear change long_select",:placeholder=> t(".state")})
+    %tr  
+      %td
+        = f.text_field :city,:class=>"change",:style=>"width:192px",:placeholder=>t(".city")
+    %tr
+      %td
+        = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>t(".brand")},{:class=>"change long_select"})
+    %tr
+      %td
+        #models
+          = f.collection_select(:model_id, @models, :id, :name, {:prompt=>t(".model")},{:class=>'model change long_select'})  
+    %tr
+      %td
+        =f.collection_select(:fuel,@fuels,:to_s,:to_s,{:include_blank=>t(".fuel")},{:class=>"change long_select"})
+    %tr
+      %td
+        =f.collection_select(:year,@years,:to_i,:to_i,{:include_blank=>t(".year")},{:class=>"change long_select"})
+    %tr        
+      %td
+        = f.text_field 'date_from', :class =>"input_date",:title =>t("since"),:placeholder =>t("since")
+        = f.text_field 'date_to', :class =>"input_date",:title=>t("until"),:placeholder =>t("until")
+#event_types.box_bottom
+  %h3 
+    = t ".select_events"
+  %table.w  
+    %tr      
+      %td
+        = t ".events_types"
+      %td
+        .rojo.left
+          = check_box_tag :red,:red,@event_types[:red],:class =>:checkbox
+        .amarillo.left
+          = check_box_tag :yellow,:yellow,@event_types[:yellow],:class =>:checkbox
+        .verde.left
+          = check_box_tag :green,:green,@event_types[:green],:class =>:checkbox
+    %tr
+      %td
+        = label_tag :my_clients,t(".my_clients"),:class=>:link
+      %td  
+        = check_box_tag :my_clients,true,@my_clients,:class =>:checkbox
+    %tr
+      %td
+        = label_tag :others,t(".others_clients"),:class=>:link
+      %td  
+        = check_box_tag :others,true,@others,:class =>:checkbox
+    %tr
+      %td    
+        = image_tag('find.png',{:id=>:reload,:class=>:link})
+
+#select.box_bottom
+  %h3 
+    = t(".select_clients")
+  %table.w
+    %tr
+      %td
+        = t "my"
+      %td
+        .mi_amarillo.color
+          = check_box_tag :select_yellow,:mi_domain_yellow,false,:class =>:checkbox
+      %td
+        .mi_rojo.color
+          = check_box_tag :select_red,:mi_domain_red,false,:class =>:checkbox
+    %tr
+      %td
+        =t "others"
+      %td
+        .amarillo.color
+          = check_box_tag :select_yellow,:domain_yellow,false,:class =>:checkbox
+      %td
+        .rojo.color
+          = check_box_tag :select_red,:domain_red,false,:class =>:checkbox

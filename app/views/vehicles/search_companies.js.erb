@@ -1,0 +1,5 @@
+if (<%=@companies.size%> > 0){
+  $("#companies").html("<%=escape_javascript(render(:partial=>'/companies/all_companies'))%>")
+}else{
+  $("#companies").html("<%=escape_javascript(render(:partial=>'shared/message',:locals =>{:msg =>"No se encontró ninguna empresa"}))%>");
+}

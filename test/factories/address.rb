@@ -1,6 +1,7 @@
+
 FactoryGirl.define do
 
-  factory :valle_grande_mendoza_plaza_address, class: Address do
+  factory :test_address, class: Address do
     id 1
     state {State.find(1)}
     zip 5500
@@ -8,7 +9,7 @@ FactoryGirl.define do
     city "Mendoza"
   end
   
-  factory :valle_grande_mendoza_peru_address, class: Address do
+  factory :test_2_address, class: Address do
     id 2
     state {State.find(1)}
     zip 5500

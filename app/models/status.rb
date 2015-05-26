@@ -71,6 +71,5 @@ class Status < ActiveRecord::Base
     if is_final
       Status.where(company_id: self.company_id).update_all(is_final: false)
     end
-  end
-  
+  end  
 end

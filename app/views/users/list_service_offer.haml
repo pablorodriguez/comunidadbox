@@ -8,24 +8,23 @@
       %th Servicio
       %th Compañia
       %th Titulo
-      %th Precio      
+      %th Precio
       %th Desde
       %th Hasta
       %th Estado
-  - for car_offer in @car_service_offers
+  - for vehicle_offer in @vehicle_service_offers
     %tr
-      %td 
-        = link_to car_offer.service_offer.service_type.name, car_offer
       %td
-        =car_offer.service_offer.company.name
+        = link_to vehicle_offer.service_offer.service_type.name, vehicle_offer
       %td
-        = car_offer.service_offer.title
+        =vehicle_offer.service_offer.company.name
       %td
-        = number_to_currency car_offer.service_offer.final_price
+        = vehicle_offer.service_offer.title
       %td
-        = car_offer.service_offer.from
+        = number_to_currency vehicle_offer.service_offer.final_price
       %td
-        = car_offer.service_offer.until
+        = vehicle_offer.service_offer.from
       %td
-        = car_offer.status
-        
+        = vehicle_offer.service_offer.until
+      %td
+        = vehicle_offer.status

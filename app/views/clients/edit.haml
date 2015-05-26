@@ -1,7 +1,7 @@
 -# javascript 'clients'
 .vertical_menu
   = render "home/menu"
-  = render "client_menu"   
+  = render "client_menu"
 .contentright_s
   #user_company_address
     .box_bottom
@@ -15,7 +15,7 @@
             %tbody
               = render 'client_row',:f => f
         %h3=t(".address_information")
-        .personal_address.box_bottom      
+        .personal_address.box_bottom
           =f.fields_for :address do |a|
             = render 'users/user_address_fields', :f =>a
       .buttons_container

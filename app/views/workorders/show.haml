@@ -23,17 +23,17 @@
           %li
             = link_to "Eliminar", workorder_path(@work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
 .contentright_s
-  .div{:id=>"wo_#{@work_order.id}"} 
+  .div{:id=>"wo_#{@work_order.id}"}
     = render "show" if can_show
     = render "s_show" unless can_show
 
   - if @work_order.can_rank? current_user
     #ranks_container
       #ranks.ranks.box_bottom
-        = render :partial => "ranks/rank",:locals => {:workorder =>@work_order}      
+        = render :partial => "ranks/rank",:locals => {:workorder =>@work_order}
       .rank_form.hide
         .box_bottom
-          %h3 
+          %h3
             = t('.rank_client') if current_user.company
             = t('.rank_company') unless current_user.company
         - if @rank.new_record?
@@ -42,7 +42,6 @@
           = render :partial => "ranks/edit",:locals => {:workorder =>@work_order,:rank => @rank}
 
   - if @work_order.can_send_message?(current_user)
-    #msg_container.hide      
+    #msg_container.hide
       .box_bottom.w.message{:id=> "messages_container_#{@work_order.id}"}
-        = render :partial => "/messages/form_user",:locals => {user: current_user.company ? @work_order.car.user : @work_order.user,:element_id => @work_order.id}  
-     
+        = render :partial => "/messages/form_user",:locals => {user: current_user.company ? @work_order.vehicle.user : @work_order.user,:element_id => @work_order.id}

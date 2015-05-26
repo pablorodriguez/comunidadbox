@@ -19,6 +19,11 @@ class UserTest < ActiveSupport::TestCase
     @imr_emp =  create(:imr_emp)
   end
 
+  test "user with duplicate domain" do
+    @pablo.vehicles << FactoryGirl.build(:HRJ549)
+    assert !@pablo.valid?
+  end
+
   test "user is employee" do   
     assert @marcelo.is_employee?, "Marcelo de Antonio no es empleado"
     assert @gustavo.is_employee?, "Gustavo de Antonio no es empleado"
@@ -31,23 +36,24 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "employeer can edit new client not confirmed" do
-    @wo = create(:wo_oc,:car => @new_pablo.cars.first,:user => @gustavo,:company => @gustavo.company,:status_id => 2)    
+    @wo = create(:wo_oc,:vehicle => @new_pablo.cars.first,:user => @gustavo,:company => @gustavo.company,:status_id => 2)    
     assert @gustavo.can_edit?(@new_pablo)
   end
 
   test "employeer cant edit other company client" do
-    @wo = create(:wo_oc,:car => @new_pablo.cars.first,:user => @imr_emp,:company => @imr_emp.company,:status_id => 2)
+    @wo = create(:wo_oc,:vehicle => @new_pablo.cars.first,:user => @imr_emp,:company => @imr_emp.company,:status_id => 2)
     assert @gustavo.can_edit?(@new_pablo) == false
   end
 
-  test "import new clients" do
+  test "import new clients all ok" do
 
-    create(:service_on_warranty)
+    create :service_on_warranty,:company_id => @gustavo.company_active.id
+
 
     csv_rows = <<-eos
-    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,RazÑn Social,Provincia,Ciudad,Calle,CÑdigo Postal,Dominio,Marca,Modelo,Combustible,A_o,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
-    123456,Jaime,,2616585858,jaimito8@jaime.com,,,Mendoza,Mendoza,Beltran 158,5500,UGB376,Fiat2,Palio2,Diesel,2000,2000,252025,Servicio en Garantía,1/6/15
-    AAA12345,Leonardo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,Nafta,2010,2000,70000,Servicio en Garantía,1/7/2015
+    Id externo,Nombre,Apellido,Teléfono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Código Postal,Dominio,Marca,Modelo,Serie,Combustible,Año,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    123456,Jaime,Dardo,2616585858,jaimito8@jaime.com,,,Mendoza,Mendoza,Beltran 158,5500,UGB376,Fiat2,Palio,RR3444,Diesel,2000,2000,252025,Servicio en Garantía,1/6/15
+    AAA12345,Leonardo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,FGT555,Nafta,2010,2000,70000,Servicio en Garantía,1/7/2015
     eos
 
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
@@ -55,47 +61,55 @@ class UserTest < ActiveSupport::TestCase
     file.rewind
 
     result = []
-    assert_difference('Company.clients(@gustavo.get_companies_ids,{}).size') do
-      result = User.import_clients file,@gustavo,@gustavo.company_active.id
-    end
+    result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
 
-    assert result[:errors].size == 1
-    assert result[:failure] == 1
-    assert result[:total_records] == 2, "Error in number of recrods"
-    assert result[:success] == 1
+    assert result[:errors].size == 1, "Error in number of errors"
+    assert result[:failure] == 1, "Error in number of failure"
+    assert result[:total_records] == 2, "Error in number of records"
+    assert result[:success] == 1, "Error in number of success"
+
+    vehicle = Vehicle.where("chasis = ?","RR3444")
+    assert vehicle
+
+  end
+
+  test "import new clients" do
+    create :service_on_warranty,:company_id => @gustavo.company_active.id
 
     csv_rows = <<-eos
-    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,RazÑn Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
-    AAA12345,Pablo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,Nafta,2014,2000,70000,Servicio en Garantía,1/7/2015
+    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Serie,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    AAA12345,Pablo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,JBY091,Volkswagen,Suran,,Nafta,2014,2000,70000,Servicio en Garantía,1/7/2015
     eos
 
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
     file.write(csv_rows)
     file.rewind
 
-    result = User.import_clients file,@gustavo,@gustavo.company_active.id
-
+    result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
     client = User.find_by_external_id("AAA12345")
-    car = client.cars.first
+    car = client.vehicles.first
 
     assert client.first_name == "Pablo"
     assert car.year == 2014
     assert I18n.l(car.events.first.dueDate) == '01/07/2015'
-    assert client.cars.size == 1
+    assert client.vehicles.size == 1
 
     csv_rows = <<-eos
-    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,RazÑn Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
-    AAA12345,Pablo,Ruggeri,2615568584,legaru@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,EJE688,Volkswagen,Bora,Nafta,2012,2000,70000,Servicio en Garantía,1/7/2016
+    Id externo,Nombre,Apellido,Tel_fono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Serie,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    AAA12345,AntonioPablo,Rossi,2615568584,pabloantonio@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,EJE688,Volkswagen,Bora,,Nafta,2012,2000,70000,Servicio en Garantía,1/7/2016
     eos
 
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
     file.write(csv_rows)
     file.rewind
 
-    result = User.import_clients file,@gustavo,@gustavo.company_active.id
+    result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
     client = User.find_by_external_id("AAA12345")
 
-    assert client.cars.size == 2
+    assert client.vehicles.size == 2
+    assert client.last_name == "Rossi"
+    assert client.first_name == "AntonioPablo"
+    assert client.email == "pabloantonio@gmail.com"
 
   
   end

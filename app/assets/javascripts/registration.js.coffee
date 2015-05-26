@@ -10,12 +10,12 @@ $ ->
     if value != ""
       $.ajax({
         url: "/users/validate_domain"
-        data: { 
+        data: {
             'domain':value
           }
-        beforeSend: -> 
+        beforeSend: ->
           ajax_ele.show()
-          $(".validation_car_domain").html("")
+          $(".validation_vehicle_domain").html("")
         complete: -> ajax_ele.hide()
         dataType:'script'
         type:'GET'
@@ -29,10 +29,10 @@ $ ->
     if value != ""
       $.ajax({
         url: "/users/validate_email"
-        data: { 
+        data: {
             'email':value
           }
-        beforeSend: -> 
+        beforeSend: ->
           ajax_ele.show()
           $(".validation_email").html("")
         complete: -> ajax_ele.hide()
@@ -45,15 +45,17 @@ $ ->
     ajax_ele = ele.parent().parent().find(".ajax_loader")
     $.ajax({
       url: "/users/generate_email"
-      beforeSend: -> 
+      beforeSend: ->
         ajax_ele.show()
         $(".validation_email").html("").fadeOut()
       complete: -> ajax_ele.hide()
       dataType:'script'
       type:'GET'
     });
-  
-  $("#user_email").blur(validate_email)  
-  $(".user_domain").blur(validate_domain)  
+
+  $("#user_email").blur(validate_email)
+  $(".user_domain").blur(validate_domain)
   $(".generate_email").click(generate_email)
+  
+  
 

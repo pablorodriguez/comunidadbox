@@ -1,19 +1,19 @@
 -# javascript 'service_offer'
 .vertical_menu
   = render "home/menu"
-  #service_offer_search  
+  #service_offer_search
     = render "search"
   .menu_actions.box_bottom
     %ul
       - if company_id
         %li
-          = link_to t(".new_client"), new_client_path      
+          = link_to t(".new_client"), new_client_path
         %li
-          = link_to t(".new_service_offer"), new_service_offer_path      
+          = link_to t(".new_service_offer"), new_service_offer_path
       %li
-        = link_to t(".confirmed") ,confirmed_car_service_offers_path
+        = link_to t(".confirmed") ,confirmed_vehicle_service_offers_path
 .contentright_s
   .box_bottom
-    %h1=t(".service_offers") 
+    %h1=t(".service_offers")
   #service_offers.box_bottom
     = render "service_offers"

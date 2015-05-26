@@ -16,6 +16,17 @@ jQuery(document).ready( function(){
       
     });
 
+    $(".vehicle_type").on("change",function(){
+      if ($(this).val() == "Car"){
+        $("#budget_domain").attr("placeholder","XXX999");
+        $(".chassis_row").hide();
+      }
+      else{
+        $("#budget_domain").attr("placeholder","999XXX");
+        $(".chassis_row").show();
+      }
+    });
+
   
     $("#services").delegate(".add_fields","click",add_fields_budget);
     $("#services").delegate(".delete-button",'click',remove_fields_budget);

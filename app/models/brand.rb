@@ -1,9 +1,14 @@
+# encoding: utf-8
 class Brand < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :of_cars, :of_motorcycles
 
-  has_many :cars
+  has_many :vehicles
   has_many :models
-  
+
+  def logo_name
+    of_cars ? name : "#{name}_moto"
+  end
+
   def self.import
     messageFiles = "D:\\Users\\pablo\\Documents\\My Empresa\\ComunidadBox\\database\\auto-brand-model-fram.txt"
     last_brand =''
@@ -24,7 +29,7 @@ class Brand < ActiveRecord::Base
             brand = Brand.create([:name => brand_name])[0]
             puts " Nueva marca ### #{brand_name}"
           end
-          
+
         end
         models = brand.models.where("name like ?","#{model_name}")
         if models.size > 0
@@ -41,7 +46,7 @@ class Brand < ActiveRecord::Base
     end
     puts "Modelos parecidos: #{parecidos}, Modelos nuevos :#{nuevos}"
   end
-  
+
   def self.remove_duplicate
     brands = Brand.all
     brands.each do |b|
@@ -52,9 +57,9 @@ class Brand < ActiveRecord::Base
           puts "#{mm[0].name} count: #{mm.size}"
         end
       end
-      
+
     end
     puts brands.size
   end
-  
+
 end

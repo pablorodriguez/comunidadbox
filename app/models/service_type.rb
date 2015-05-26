@@ -1,6 +1,6 @@
 class ServiceType < ActiveRecord::Base  
   attr_accessible :name, :kms, :parent_id, :active,:days,:company_id,:code,:old_id
-  #default_scope where("active = 1").order("name")
+  default_scope order("name")
   scope :active, where("active = 1")
 
   has_many :material_service_type

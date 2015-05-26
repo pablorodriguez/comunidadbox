@@ -12,3 +12,6 @@
     %ul
       %li
         = link_to "Nueva Marca", new_brand_path
+      - if @brand
+        %li
+          = link_to "Modificar", edit_brand_path(@brand)

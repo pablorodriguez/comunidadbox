@@ -8,7 +8,7 @@
 #material_erros.errorExplanation.hide
   %h2
     Debe seleccionar un servicio para agregar un nuevo material
-.box_bottom    
+.box_bottom
   #materila_form.left
     = form_for :material,:remote=>true,:url=>details_materials_path,:html=>{:id=>:material_form,:method=>:get} do |f|
       %table.service_table.w
@@ -29,5 +29,5 @@
             -#= link_to_function image_tag('add.png',:class=>:input_img,:title =>"Agregar Materiales"),"add_new_material_service_type(this)"
   .ajax_loader.left
 #materials_list
-  
-		
+
+

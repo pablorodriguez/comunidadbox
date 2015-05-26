@@ -1,3 +1,4 @@
+# encoding: utf-8
 class NotesController < ApplicationController
   layout "application", :except => [:create,:destroy]
   # GET /notes
@@ -48,21 +49,21 @@ class NotesController < ApplicationController
     if params[:event_id]
       event = Event.find(params[:event_id])
       @note = event.notes.build(params[:note])
-      @note.user = event.car.user   
+      @note.user = event.vehicle.user
     else
-      @note = Note.new(params[:note])      
+      @note = Note.new(params[:note])
     end
 
     set_note_element_id
     @id = params[:element_id]
-    
-    @note.creator = current_user    
-    
-    respond_to do |format|               
-      if @note.save              
+
+    @note.creator = current_user
+
+    respond_to do |format|
+      if @note.save
         format.js {render :file=>"notes/new_note",:layout => false}
       else
-        format.js {render :file=>"notes/error",:layout => false}   
+        format.js {render :file=>"notes/error",:layout => false}
       end
     end
   end
@@ -86,7 +87,7 @@ class NotesController < ApplicationController
   def set_note_element_id
     @element_id = "#notes .notes_container"
     @element_id = "#budget_#{@note.budget_id}" if @note.budget_id
-    @element_id = "#workorder_#{@note.workorder_id}" if @note.workorder_id 
+    @element_id = "#workorder_#{@note.workorder_id}" if @note.workorder_id
     @element_id = "#event_notes .notes_container" if @note.event_id
   end
 
@@ -98,7 +99,7 @@ class NotesController < ApplicationController
     @wo_id = @note.workorder_id
 
     set_note_element_id
-    
+
     @note.destroy
 
     respond_to do |format|

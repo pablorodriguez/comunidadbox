@@ -1,0 +1,16 @@
+en-US:
+  activerecord:
+    models:
+      car: "vehicle"
+    attributes:
+      cars:
+        domain: "Domain"
+        model: "Model"
+        brand: "Brand"
+        year: "Year"
+        fuel: "Fuel"
+        brand: "Brand"
+        kmAverageMonthly: "Mileage Monthly Average"
+        km: "Mileage"
+    erros:
+      unique_domain_per_user: "already registered"     

@@ -5,11 +5,11 @@
     %h2 Autos Seleccionados
 
   %table
-    - @cars.each do |car|
+    - @vehicles.each do |vehicle|
       %tr
         %td
-          =h car.domain
-          =hidden_field_tag 'car_ids[]', car.id
+          =h vehicle.domain
+          =hidden_field_tag 'vehicle_ids[]', vehicle.id
   %p
     %h2 Servicio
 

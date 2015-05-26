@@ -1,4 +1,4 @@
-%tr    
+%tr
   %td{:colspan=>2}
     .material
       = f.material unless f.material_service_type
@@ -7,10 +7,10 @@
           = f.material_service_type.material.prov_code
         = f.material_service_type.material.detail
         = f.material_service_type.material.brand
-  %td.number    
+  %td.number
     = f.amount
   %td.number
-    = number_to_currency f.price 
+    = number_to_currency f.price
   %td.number
     .total_item
-      = number_to_currency(f.total_price) 
+      = number_to_currency(f.total_price)

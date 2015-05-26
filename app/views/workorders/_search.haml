@@ -21,7 +21,7 @@
 
         %table
           %tbody
-            %tr        
+            %tr
               %td
                 = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>t(".from"),:placeholder =>t(".from")
                 = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>t(".even"),:placeholder =>t(".even")
@@ -30,13 +30,13 @@
                 = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>t(".number")
             %tr
               %td
-                = text_field_tag 'material', @material, :size=>6, :class =>"input labelify",:title=>t(".material")  
+                = text_field_tag 'material', @material, :size=>6, :class =>"input labelify",:title=>t(".material")
             %tr
               %td
                 = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>t(".domain")             
                 - if @status.any?
                   = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
-        
+
       %h3
         =t(".order_by")
       .clear

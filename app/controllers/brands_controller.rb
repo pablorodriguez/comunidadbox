@@ -6,10 +6,13 @@ class BrandsController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = 20
-    @brand = params[:b] || ""
-    @brand = "%#{@brand}%"    
-    @brands = Brand.where("name like ?",@brand).order('name').paginate(:page =>page,:per_page =>per_page)
-      
+    brand = params[:b] || ""
+    brand = "%#{brand}%"
+    
+    @company = get_company
+    @brands = @company.get_headquarter.brands
+
+    @brands = @brands.where("name like ?",brand).order('name').paginate(:page =>page,:per_page =>per_page)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @brands }
@@ -47,6 +50,8 @@ class BrandsController < ApplicationController
   # POST /brands.xml
   def create
     @brand = Brand.new(params[:brand])
+    @brand.company_id = current_user.company_id
+
     respond_to do |format|
       if @brand.save
         flash[:notice] = 'Brand was successfully created.'

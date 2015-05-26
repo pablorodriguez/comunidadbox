@@ -1,8 +1,8 @@
 :javascript
   window.service_request_edit = #{@service_request.id ? true : false};
   window.service_request = #{@service_request.to_builder};
-  window.services_types = #{ServiceType.to_builder(@service_types)}
-  window.cars = #{Car.to_builder(current_user.cars)}
+  window.services_types = #{ServiceType.to_builder(current_user.service_types)}
+  window.vehicles = #{Vehicle.to_builder(current_user.vehicles)}
 = render 'shared/error_messages', :target => @service_request
 #serivce_request_app{"ng-app" => "app"}
   %div{"ng-controller"=>"serviceRequestCtrl"}
@@ -13,19 +13,18 @@
             %tr
               %td
                 %strong
-                  = ServiceRequest.human_attribute_name(:car)
+                  = ServiceRequest.human_attribute_name(:vehicle)
                   \:
               %td
                 .hide
-                  = f.text_field :car_id,"ng-model" => "service_request.car.id"
-                  
-                - if @service_request.car
+                  = f.text_field :vehicle_id,"ng-model" => "service_request.vehicle.id"
+                - if @service_request.vehicle
                   .domain_white
-                    = @service_request.car.domain 
+                    = @service_request.vehicle.domain
                 - else
                   .domain_white.inline-block
-                    {{service_request.car.domain}}
-                  %select.short_select{:type  => "text","ng-model" =>"service_request.car","ng-options" => "car.domain for car in cars"}               
+                    {{service_request.vehicle.domain}}
+                  %select.short_select{:type  => "text","ng-model" =>"service_request.vehicle","ng-options" => "vehicle.domain for vehicle in vehicles"}
             %tr
               %td
                 %strong
@@ -35,7 +34,7 @@
                 = f.select(:status,Status::SR_STATUS.collect{|k,v| [v,k]},{:selected =>f.object.status},{:class=>'long_select',:title=>"Estado"})
       .box_bottom
         %h1.inline-block
-          = t(".services")            
+          = t(".services")
         .inline-block
           %a.new{:href=>"#","ng-click" =>"add_item()"}
       .box_bottom
@@ -43,18 +42,18 @@
           %tbody
 
             %tr{"ng-repeat" =>"item in service_request.item_service_requests","ng-show" =>"item.show"}
-              %td                
+              %td
                 %select.big_select{:type  => "text","ng-model" =>"item.service_type","ng-options" => "value.name for value in services_types"}
-                %a.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(item,$index)"}                
+                %a.remove_item_service_requests.delete{:href => "#", :title => "Borrar servicio","ng-click" =>"destroy(item,$index)"}
                 .hide
-                  {{$index}}                
+                  {{$index}}
                   %input.input_short{:type => "text","ng-model" =>"item.id",:placeholder =>"id",:name =>"service_request[item_service_requests_attributes][{{$index}}][id]"}
-                  %input.input_short{:type => "text","ng-model" =>"item.service_type.id",:placeholder =>"st_id",:name =>"service_request[item_service_requests_attributes][{{$index}}][service_type_id]"}              
+                  %input.input_short{:type => "text","ng-model" =>"item.service_type.id",:placeholder =>"st_id",:name =>"service_request[item_service_requests_attributes][{{$index}}][service_type_id]"}
                   %input{:name => "service_request[item_service_requests_attributes][{{$index}}][_destroy]", :type => "text", :value => "false","ng-model" => "item.destroy"}
                 %br
-                %textarea{:rows=>"5",:cols=>"80",:name => "service_request[item_service_requests_attributes][{{$index}}][description]",:placeholder =>"descripción",:autocomplete => true,"ng-model" =>"item.description"}                            
+                %textarea{:rows=>"5",:cols=>"80",:name => "service_request[item_service_requests_attributes][{{$index}}][description]",:placeholder =>"descripción",:autocomplete => true,"ng-model" =>"item.description"}
       .buttons_container
         = f.submit "Grabar",:class =>"button"
         = link_to 'Cancelar', service_requests_path
 
-        
+

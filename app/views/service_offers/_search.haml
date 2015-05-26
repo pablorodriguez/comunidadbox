@@ -21,7 +21,7 @@
       %h3=t(".state")
       %table
         %tr
-          %td          
+          %td
             #sended
               = check_box_tag("status[]",Status::SENT,false,:class=>"checkbox",:id=>"status_sended")
               = label_tag 'status_sended',t(".send"),:class =>"link"
@@ -30,7 +30,7 @@
               = label_tag 'status_open',t(".open"),:class =>"link"
             #confirm
               = check_box_tag("status[]",Status::CONFIRMED,false,:class=>"checkbox",:id=>"status_confirm")
-              = label_tag 'status_confirm',t(".confirmed"),:class =>"link" 
+              = label_tag 'status_confirm',t(".confirmed"),:class =>"link"
             #cancel
               = check_box_tag("status[]",Status::CANCELLED,false,:class=>"checkbox",:id=>"status_cancel")
               = label_tag 'status_cancel',t(".canceled"),:class =>"link"

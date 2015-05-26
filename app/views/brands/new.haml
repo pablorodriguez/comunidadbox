@@ -1,15 +1,13 @@
 .vertical_menu
-  = render "conf/menu"
+  - if current_user.is_super_admin?
+    = render "conf/menu"
+  - else
+    = render "admin/menu"
 .contentright_s  
-  %h1
-    Nueva Marca
-  = form_for(@brand) do |f|
-    = render 'shared/error_messages', :target => @brand
-    %p
-      Nombre
-      %br
-      = f.text_field :name
-    %p
-      .buttons_container
-        = f.submit "Grabar",:class => :button
-        = link_to "Cancelar",brands_path
+  .box_bottom
+    %h1
+      Nueva Marca
+      \:
+      = get_company.name
+  %br
+  = render "form"

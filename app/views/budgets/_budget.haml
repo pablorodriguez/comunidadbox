@@ -1,11 +1,14 @@
 .budget_row.row[budget]
-  - if (budget.domain && (!budget.domain.empty?)) || budget.car 
-    .domain_white.left       
-      - if budget.car
-        = link_to(budget.car.domain, car_path(budget.car)) 
+  - if (budget.domain && (!budget.domain.empty?)) || budget.vehicle
+    .domain_white.left
+      - if budget.vehicle
+        //= link_to(budget.vehicle.domain, car_path(budget.vehicle))
+        //= link_to(budget.vehicle.domain, sti_vehicle_path(budget.vehicle.type, budget.vehicle))
+        //= link_to(budget.vehicle.domain, vehicle_path(budget.vehicle))
+        = link_to_domain budget.vehicle
       -else
         = budget.domain
-  .services    
+  .services
     - budget.services.each do |s|
       .service
         = s.service_type.name
@@ -16,7 +19,10 @@
       %strong
         =t(".client")
     %label
-      = budget.full_name
+      - if budget.has_client?
+        = link_to budget.full_name,client_path(budget.user)
+      - else
+        = budget.full_name
     %label
       %strong
         =t(".operator")
@@ -30,26 +36,26 @@
   - if (multiple_company? || not(current_user.company))
     .clear.left
       = budget.company.name
-  
+
   .actions
     - if budget.can_edit?(current_user)
-      .action     
+      .action
         = link_to "", budget_path(budget), :data => {:confirm => t(".message")},:remote =>true, :method => :delete,:title =>t(".delete"),:class=>"delete"
     - if company_id
       .action
         = link_to "",new_workorder_path(:b =>budget.id),:title =>t(".create_service"),:class=>:new_service
       .action
         = link_to "",edit_budget_path(budget),:title=>t(".modify"),:class=>"edit"
-    .action  
+    .action
       = link_to "",print_budget_path(budget,:format =>'pdf'),:target => "_blank",:title =>t(".print"),:class =>:pdf
     .action
-      %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}      
+      %a{:title=>t(".notes"),:class=>"new_note_link",:href=>"#"}
     - n_css = budget.notes.empty? ? "hide" : ""
     -if budget.can_send_message?(current_user)
-      .action        
+      .action
         %a{:title=>t(".send_message"),:class=>"new_message",:href=>"#"}
 
-  = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes,:id=>budget.id}    
+  = render :partial =>"notes/note_form_np",:locals=>{:b => budget.id,:wo=>nil,:c => nil,:notes => budget.notes,:id=>budget.id}
   -if budget.can_send_message?(current_user)
     .hide.message{:id => "messages_container_#{budget.id}"}
       - if current_user.is_employee?

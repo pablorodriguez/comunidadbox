@@ -1,0 +1,34 @@
+.vehicle_detail.clear
+  #vehicle_domain.barradatos
+  = domain @vehicle
+  .left
+    = brand_logo @vehicle.brand.logo_name
+  - if can_show?(@vehicle.user)
+    .big_domain
+      %label
+        %strong
+          = link_to @vehicle.user.full_name, client_path(@vehicle.user),:title => t(".see_client")
+      %label{:title=>t(".phone")}
+        =number_to_phone(@vehicle.user.phone)
+      .right
+        = @vehicle.user.email
+      .clear
+        .left{:title =>t(".total_mileage")}
+          Km:
+          %strong
+            = number_with_precision @vehicle.km,:precision=>0
+        .right{:title =>t(".monthly_average_mileage")}
+          =t(".km_average")
+          %strong
+            = number_with_precision @vehicle.kmAverageMonthly,:precision=>0
+      .vehicle_spend.clear
+        %left
+          %label{:title=>t(".total_consumed")}
+            = number_to_currency @vehicle.total_spend
+        - if company_id
+          %strong.right
+            %lable{:title=>t(".total_consumed_in_your_company")}
+              = number_to_currency @vehicle.total_spend(company_id)
+  .brand.left.clear
+    = h @vehicle.model.name
+    = @vehicle.year

@@ -2,34 +2,38 @@
 #personal_info.box_bottom
   %h3=t(".personal_info")
   %table.w
-    %tbody        
+    %tbody
       = render 'users/user_row',:f => f
       %tr
         %td
           %label{ :for => "password" }=t(".password")
         %td
-          = f.password_field :password,:class=>"input_medium"  
+          = f.password_field :password,:class=>"input_medium"
       %tr
-        %td    
+        %td
           =t(".password_confirmation")
         %td
-          = f.password_field :password_confirmation,:class=>"input_medium"  
+          = f.password_field :password_confirmation,:class=>"input_medium"
+      %tr.close_system
+        %td
+          = f.label :close_system
+        %td
+          = f.check_box :close_system
   -if recaptcha
-    .recpatcha      
+    .recpatcha
       #repatcha_tag
-        = recaptcha_tags  
+        = recaptcha_tags
 -if (current_user == nil) || (!current_user.is_super_admin?)
   #user_data
-    #car_info
+    #car_info.box_bottom
       %h3=t(".information_car")
-      =f.fields_for :cars do |c|
-        .box_bottom
-          = render 'users/car_fields',:f =>c
+      =f.fields_for :vehicles do |c|
+        = render 'users/vehicle_fields',:f =>c
     #personal_address.box_bottom
       %h3=t(".personal_address")
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
-- unless current_user  
+- unless current_user
   =f.fields_for :companies do |c|
     #company_data.hide
       = render 'companies/form', :f => c
@@ -39,7 +43,7 @@
       =f.fields_for :address do |a|
         = render 'users/user_address_fields', :f =>a
 
-.buttons_container 
+.buttons_container
   = f.submit t(".save"),:class=>"button"
   = link_to t(".cancel"),root_path
-    
+

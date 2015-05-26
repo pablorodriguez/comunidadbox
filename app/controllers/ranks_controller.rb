@@ -1,3 +1,4 @@
+# encoding: utf-8
 class RanksController < ApplicationController
   layout "application", :except => [:create]
   # GET /ranks
@@ -13,18 +14,18 @@ class RanksController < ApplicationController
 
   # GET /ranks/1
   # GET /ranks/1.xml
-  def show 
-    @rank = Rank.find(params[:id])    
+  def show
+    @rank = Rank.find(params[:id])
     if(params[:cat]=="company")
       work_orders = Workorder.find_all_by_company_rank_id @rank.id
       company = Company.find work_orders.first.company_id
-      
+
       @pagetitle = "Calificacion de: " << company.name
     else
       work_orders = Workorder.find_all_by_user_rank_id @rank.id
-      car = work_orders.first.car
-      user = User.find car.user_id
-      @pagetitle = car.domain << "-" << user.last_name << ", " <<user.first_name
+      vehicle = work_orders.first.vehicle
+      user = User.find vehicle.user_id
+      @pagetitle = vehicle.domain << "-" << user.last_name << ", " <<user.first_name
     end
 
     respond_to do |format|
@@ -38,7 +39,7 @@ class RanksController < ApplicationController
   def new
     @rank = Rank.new
     @work_order = Workorder.find params[:wo_id]
-    @car = @work_order.car
+    @vehicle = @work_order.vehicle
     @cat = params[:cat]
     respond_to do |format|
       format.html # new.html.erb

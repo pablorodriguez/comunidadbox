@@ -3,14 +3,17 @@ require 'test_helper'
 class BudgetsControllerTest < ActionController::TestCase
 
   setup do  
-    create_all_default_data            
+    
+    create_all_default_data  
     @employer =  create(:gustavo_de_antonio)    
     create_all_company_data @employer.company_id
     @emp_walter =  create(:emp_walter,:employer => @employer.companies.first)
   end
 
   test "should get index" do
-    budget =  create(:budget_two,:creator => @employer,:company => @employer.company)
+      
+    create(:budget_two,:creator => @employer,:company => @employer.company)
+    
     @request.cookies["company_id"]= @employer.company.id.to_s
     sign_in @employer
     get :index
@@ -45,6 +48,7 @@ class BudgetsControllerTest < ActionController::TestCase
   
   test "should get new" do
     sign_in @employer
+    @request.cookies["company_id"]= @employer.company.id.to_s
     get :new
     assert_response :success
     assert_select("input#budget_first_name")
