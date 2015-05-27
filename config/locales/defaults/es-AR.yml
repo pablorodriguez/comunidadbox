@@ -21,6 +21,7 @@ es-AR:
   until: "Hasta"
   new_client: "Nuevo Cliente"
   car_delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
+  model_delete_confirm: ¿ Está seguro que desea borrar el Modelo ?
   vehicle_delete_confirm: ¿ Esta seguro que desea borrar el Vehiculo ?
   client_delete_confirm: "¿Esta seguro que desea borrar al Cliente?"
   help_user_registration: "Registración de Usuario"

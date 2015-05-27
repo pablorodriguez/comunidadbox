@@ -1,0 +1,6 @@
+en-US:
+  brands:
+    import:
+      import_title: "Import car's models from a file"
+      import: "Import"
+    index:

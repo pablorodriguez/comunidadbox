@@ -1,0 +1,9 @@
+.box_bottom
+  %h1 
+    = t(".import_title")
+.box_bottom
+  %br  
+  = form_tag import_models_path,multipart: true do
+    = file_field_tag :file
+    = submit_tag t(".import")
+  %br

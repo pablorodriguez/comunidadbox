@@ -286,7 +286,7 @@ ComunidadBox::Application.routes.draw do
 
     resources :clients do
       collection do
-        post :search
+        get :search
         get :index_all
         get :export
         get :import

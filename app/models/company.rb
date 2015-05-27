@@ -213,13 +213,12 @@ class Company < ActiveRecord::Base
     email = params[:email] || ""
     company_name = params[:company_name] || ""
     page = params[:page] || 1
-    debugger
     clients = User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids)
     clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") unless first_name.empty?
     clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") unless last_name.empty?
     clients = clients.where("users.email like ?","%#{params[:email]}%") unless email.empty?
     clients = clients.where("company_name like ?","%#{params[:company_name]}%") unless company_name.empty?
-    clients.order("users.last_name,users.first_name")
+    clients.order("users.created_at")
   end
 
   def perform_service_type? st

@@ -26,9 +26,11 @@
           = check_box_tag "active","1",@brand.of_motorcycles,:disabled => true
           Motocicletas
   -unless @brand.models.empty?
-    %br
-      .box_bottom
-        %h1 Modelos
+    .box_bottom
+      %h1 Modelos
     - @brand.models.each do |model|
-      = link_to model.name,model
-      %br
+      .row[model]
+        = link_to model.name,model
+        .actions
+          .action
+            = link_to "", model_path(model), :data => { :confirm => t("model_delete_confirm")}, :remote => true, :method => :delete, :title => t("delete"), :class => "delete"

@@ -41,7 +41,10 @@ class ClientsControllerTest < ActionController::TestCase
         }
       end
     end
+
     assert_redirected_to clients_path
+    new_client = User.where("email like ?","pablo@rodriguez.com").first
+    assert @employer.is_client?(new_client)
   end
   
   test "should create a client with a motorcycle" do

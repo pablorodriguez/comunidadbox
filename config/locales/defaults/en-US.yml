@@ -21,6 +21,7 @@ en-US:
   until: "Until"
   new_client: "New Client"
   car_delete_confirm: "Are you sure you want to delete the Automobile?"
+  model_delete_confirm: "Are you sure you want to delete the Model?"
   vehicle_delete_confirm: "Are you sure you want to delete the Vehicle?"
   client_delete_confirm: "Are you sure you want to delete the customer ?"
   help_user_registration: "User Registration"

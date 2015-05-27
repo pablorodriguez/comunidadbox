@@ -42,7 +42,11 @@ class ModelsController < ApplicationController
   # GET /models/new.xml
   def new
     @model = Model.new
-
+    brand_id = params[:b]
+    if brand_id
+      @brand = Brand.find brand_id
+      @model.brand = @brand
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @model }
@@ -61,7 +65,7 @@ class ModelsController < ApplicationController
 
     respond_to do |format|
       if @model.save        
-        format.html { redirect_to models_path }        
+        format.html { redirect_to @model }        
       else
         format.html { render :action => "new" }        
       end
@@ -93,7 +97,7 @@ class ModelsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(models_url) }
-      format.xml  { head :ok }
+      format.js { render :layout => false}
     end
   end
 

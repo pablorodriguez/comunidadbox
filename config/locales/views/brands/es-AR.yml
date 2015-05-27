@@ -1,0 +1,6 @@
+es-AR:
+  brands:
+    import:
+      import_title: "Importar modelos desde un archivo"
+      import: "Importar"
+    index:

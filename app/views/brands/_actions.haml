@@ -12,6 +12,11 @@
     %ul
       %li
         = link_to "Nueva Marca", new_brand_path
+      - unless @brand
+        %li
+          = link_to "Nuevo Modelo", new_model_path
       - if @brand
         %li
           = link_to "Modificar", edit_brand_path(@brand)
+        %li
+          = link_to "Nuevo Modelo", new_model_path(:params =>{:b => @brand})

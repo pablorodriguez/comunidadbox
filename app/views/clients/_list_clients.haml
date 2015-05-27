@@ -14,7 +14,8 @@
           = number_to_phone client.phone
         %label
           = client.email
-
+        .right
+          = l client.created_at.to_date
     .left.clear.client
       = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
 
