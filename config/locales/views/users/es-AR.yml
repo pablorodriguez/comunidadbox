@@ -11,7 +11,7 @@ es-AR:
       name: "Nombre"
       last_name: "Apellido"
       phone: "Teléfono"
-      email: "Email *"
+      email: "Email"
       cuit: "CUIT"      
     car_fields:
       domain: "Dominio"
@@ -52,8 +52,8 @@ es-AR:
         auto_part: 'Autopartista'
       form:
         personal_info: "Información Personal"
-        password: "Clave *"
-        password_confirmation: "Confirmar Clave *"
+        password: "Clave"
+        password_confirmation: "Confirmar Clave"
         close_system: "Modalidad Cerrado"
         information_car: "Información de su auto"
         personal_address: "Dirección Personal"

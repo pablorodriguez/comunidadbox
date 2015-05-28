@@ -28,13 +28,34 @@
         %tr
           %th{"colspan" => 2} Resultado
       %tbody
-        - @import_result[:summary].each do |item|
-          %tr
-            %td
-              = item[0]
-            %td.number
-              = item[1]
+        %tr
+          %td.number{"width" => "100px"}
+            = @import_result[:total_records]
+          %td
+            Registros Procesados
+        %tr
+          %td.number
+            = @import_result[:new_records]
+          %td
+            = @import_result[:new_records] > 1 ? "Nuevos Clientes" : "Nuevo Cliente"
+        %tr
+          %td.number
+            = @import_result[:updates]
+          %td
+            Actualizaciones
+        %tr
+          %td.number
+            = @import_result[:success]
+          %td
+            Exitos
+        %tr
+          %td.number
+            = @import_result[:failure]
+          %td
+            Errores
+
     - unless @import_result[:errors].nil?
+      %br
       %table.comboxtable
         %thead
           %tr

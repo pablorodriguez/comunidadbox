@@ -19,8 +19,8 @@ en-US:
     new:
       new_budget: "New Budget"
     no_client: 
-      name: "Name *"
-      last_name: "Last Name *"
+      name: "Name"
+      last_name: "Last Name"
       phone: "Phone"
       email: "Email"
     client:

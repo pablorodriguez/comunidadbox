@@ -9,7 +9,7 @@
     %table.w
       %tbody
         %tr
-          %td{:width=>"100px"}=t(".name")
+          %td{:width=>"150px"}=t(".name")
 
           %td
             = @client.first_name
@@ -34,6 +34,13 @@
             %td=t(".phone")
             %td
               = number_to_phone @client.phone
+          - if @client.external_id
+            %tr
+              %td
+                Id Externo
+              %td
+                = @client.external_id
+                
   - if @client.address && @is_client
     .box_bottom
       %h3=t(".address")

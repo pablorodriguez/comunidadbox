@@ -510,132 +510,141 @@ class User < ActiveRecord::Base
       :summary => [],
       :errors => [],
       :failure => 0,
-      :success => 0
+      :success => 0,
+      :new_records =>0,
+      :updates =>0
     }
-
 
     i = 1
     success = 0
     failure = 0
 
     csv.each do |row|
-      i+=1
-      external_id = row[0]
-      created_at = row[1]
-      first_name = row[2]
-      last_name = row[3]
-      phone = row[4]
-      email = row[5]
-      cuit = row[6]
-      company_name = row[7]
-      state_name = row[8]
-      city = row[9]
-      street = row[10]
-      zip = row[11]
-      domain = row[12]
-      brand_name = row[13]
-      model_name = row[14]
-      chassis = row[15]
-      fuel = row[16]
-      year = row[17]
-      kmAverageMonthly = row[18] || 0
-      km = row[19] || 0
-      service_type_name = row[20]
-      event_due_date = row[21]
-
-      client = User.find_by_external_id(external_id) if external_id 
-      brand = Brand.find_by_name(brand_name)
-
-      if model_name && brand.nil?
-        model = Model.includes("brand").where("models.name like ? and brands.company_id = ?",model_name,company_id).first
-      else
-        model = brand_id ? Model.includes("brand").where("brands.name =? and models.name =?",brand_name,model_name).first : nil
-      end
-
-      model_id = model ? model.id : ""
-      if brand.nil? and !model.nil?
-        brand = model.brand
-      end
-      brand_id = brand ? brand.id : ""
-
-      vehicle_type = (model && model.brand.of_cars) ? "Car" : "Motorcycle"
-      state = State.find_by_name(state_name)
-      state_id = state ? state.id : nil
-
-      params = {
-        user:{
-          first_name: first_name,
-          last_name: last_name,
-          cuit: cuit,
-          phone: phone,
-          company_name: company_name,
-          email: email,
-          external_id: external_id,
-          creator_id: current_user.id,
-          created_at: created_at,
-          address_attributes: {
-            state_id: state_id,
-            city: city,
-            street: street,
-            zip: zip
-          },
-          vehicles_attributes:[{
-            domain: domain,
-            chassis: chassis,
-            km: km,
-            kmAverageMonthly: kmAverageMonthly,
-            brand_id: brand_id,
-            year: year,
-            model_id: model_id,
-            fuel: fuel,
-            vehicle_type: vehicle_type
-          }]
-        }
-      }
-
-      unless client
-        client = User.new(params[:user])
-      else
-        client.update_attributes(params[:user])
-      end
-      client.skip_confirmation!
-
-      unless client.new_record?
-        if company_id
-          unless client.service_centers.include?(company_id)
-            client.service_centers << company
+      begin
+        i+=1
+        params = create_client_params(row,current_user,company)
+        client = User.find_by_external_id(params[:user][:external_id]) if params[:user][:external_id] 
+        client = User.new(params[:user]) unless client
+        
+        #if theres is event to add
+        service_type = nil
+        if params[:service_type_name]
+          service_type = company.service_types.where("name = ?",params[:service_type_name]).first
+          unless service_type
+            client.errors[:base] << "#{service_type_name} no es un Tipo de Servicio valido"
           end
         end
-      end
 
-      client.valid?
-      #if theres is event to add
-      if service_type_name
-        service_type = company.service_types.where("name = ?",service_type_name).first
-        create_event = true
-        unless service_type ? true : false
-          client.errors[:base] << "#{service_type_name} no es un Tipo de Servicio valido"
+        unless client.id
+          client.skip_confirmation!
+          save_ok = client.save
+          save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
+          result[:new_records] += 1
+        else
+          params[:user].delete(:email)
+          save_ok = client.update_attributes(params[:user])
+          result[:updates] += 1
         end
-      end
 
-      if client.errors.empty? 
-        client.save
-        client.update_attributes({confirmed_at: nil})
-
-        if create_event
-          car = client.vehicles.first
-          car.events.create({:service_type_id => service_type.id,:dueDate => event_due_date,:status =>Status::ACTIVE})
+        if save_ok
+          result[:success] += 1
+        else
+          result[:errors] << [i,client]
         end
-        result[:success] += 1
-      else
+
+        if service_type
+          vehicle = client.vehicles.first
+          vehicle.events.create({:service_type_id => service_type.id,:dueDate => params[:event_due_date],:status =>Status::ACTIVE})
+        end
+
+      rescue Exception => e  
+        logger.error e.message
         result[:errors] << [i,client]
-        result[:failure] += 1
       end
 
     end
 
+    result[:failure] = result[:errors].size
     result[:total_records] = (result[:success] + result[:failure])
     result
+  end
+
+
+  def self.create_client_params row,current_user,company
+    external_id = row[0]
+    created_at = row[1]
+    first_name = row[2]
+    last_name = row[3]
+    phone = row[4]
+    email = row[5]
+    cuit = row[6]
+    company_name = row[7]
+    state_name = row[8]
+    city = row[9]
+    street = row[10]
+    zip = row[11]
+    domain = row[12]
+    brand_name = row[13]
+    model_name = row[14]
+    chassis = row[15]
+    fuel = row[16]
+    year = row[17]
+    kmAverageMonthly = row[18] || 0
+    km = row[19] || 0
+    service_type_name = row[20]
+    event_due_date = row[21]
+
+    brand = Brand.find_by_name(brand_name)
+
+    if model_name && brand.nil?
+      model = Model.includes("brand").where("models.name like ? and brands.company_id = ?",model_name,company.id).first
+    else
+      model = brand_id ? Model.includes("brand").where("brands.name =? and models.name =?",brand_name,model_name).first : nil
+    end
+
+    model_id = model ? model.id : ""
+    if brand.nil? and !model.nil?
+      brand = model.brand
+    end
+    brand_id = brand ? brand.id : ""
+
+    vehicle_type = (model && model.brand.of_cars) ? "Car" : "Motorcycle"
+    state = State.find_by_name(state_name)
+    state_id = state ? state.id : nil
+
+    params = {
+      event_due_date: event_due_date,
+      service_type_name: service_type_name,
+      user:{
+        first_name: first_name,
+        last_name: last_name,
+        cuit: cuit,
+        phone: phone,
+        company_name: company_name,
+        email: email,
+        external_id: external_id,
+        creator_id: current_user.id,
+        created_at: created_at,
+        address_attributes: {
+          state_id: state_id,
+          city: city,
+          street: street,
+          zip: zip
+        },
+        vehicles_attributes:[{
+          domain: domain,
+          chassis: chassis,
+          km: km,
+          kmAverageMonthly: kmAverageMonthly,
+          brand_id: brand_id,
+          year: year,
+          model_id: model_id,
+          fuel: fuel,
+          vehicle_type: vehicle_type
+        }]
+      }
+    }
+    params
   end
 
   def self.add_error_if_not_valid model,result

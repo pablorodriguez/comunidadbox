@@ -19,8 +19,8 @@ es-AR:
     new:
       new_budget: "Nuevo Presupuesto"
     no_client: 
-      name: "Nombre *"
-      last_name: "Apellido *"
+      name: "Nombre"
+      last_name: "Apellido"
       phone: "Teléfono"
       email: "Correo Electrónico"
     client:

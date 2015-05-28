@@ -11,7 +11,7 @@ en-US:
       name: "Name"
       last_name: "Last Name"
       phone: "Phone"
-      email: "Email *"
+      email: "Email"
       cuit: "CUIT"
     car_fields:
       domain: "Domain"
@@ -52,8 +52,8 @@ en-US:
         auto_part: 'Auto Part'
       form:
         personal_address: "Personal Address"
-        password: "Password *"
-        password_confiramtion: "Password Confirmation *"
+        password: "Password"
+        password_confiramtion: "Password Confirmation"
         information_car: "Car's Information"
         close_system: "Close Mode"
         personal_address: "Address"

@@ -40,11 +40,6 @@ class Vehicle < ActiveRecord::Base
       errors[:domain] << "El Formato del Dominio es incorrecto"
     end
     
-    if user
-      unless user.vehicles.select{|c| c.domain == self.domain && c.id != self.id}.empty?
-        errors[:domain] << I18n.t("activerecord.erros.unique_domain_per_user")
-      end
-    end
   end
 
   def valid_domain_format?

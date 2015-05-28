@@ -195,7 +195,6 @@ class WorkordersController < ApplicationController
   def update
     @work_order = Workorder.find(params[:id])
     authorize! :update, @work_order
-    
     @work_order.status = Status::OPEN_FOR_AUTOPART if params['open_for_autopart'].present?
     
     company = get_company(params)
@@ -253,7 +252,6 @@ class WorkordersController < ApplicationController
     params[:workorder][:notes_attributes]["0"][:user_id] = "#{current_user.id}" if params[:workorder][:notes_attributes]
 
     @work_order = Workorder.new(params[:workorder])
-
     @work_order.status = Status::OPEN_FOR_AUTOPART if params['open_for_autopart'].present?
 
     authorize! :create, @work_order

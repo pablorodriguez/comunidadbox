@@ -47,7 +47,7 @@ en-US:
     client_row:
       name: "Name"
       last_name: "Last Name"
-      email: "Email *"
+      email: "Email"
       social_reason: "Social Reason"
       cuit: "CUIT"
       phone: "Phone"
@@ -55,7 +55,7 @@ en-US:
       name: "Name"
       last_name: "Last Name"
       phone: "Phone"
-      email: "Email *"
+      email: "Email"
     show:
       client: "Client"
       personal_information: "Personal Information"

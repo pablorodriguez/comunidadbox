@@ -47,20 +47,20 @@ es-AR:
     client_row:
       name: "Nombre"
       last_name: "Apellido"
-      email: "Correo Electrónico *"
+      email: "Correo Electrónico"
       cuit: "CUIT"
       phone: "Teléfono"
     user:
       name: "Nombre"
       last_name: "Apellido"
       phone: "Teléfono"
-      email: "Correo Electrónico *"
+      email: "Correo Electrónico"
     show:
       client: "Cliente"
       ersonal_information: "Información Personal"
       name: "Nombre"
       last_name: "Apellido"
-      email: "Correo Electrónico *"
+      email: "Correo Electrónico"
       cuit: "CUIT"
       phone: "Teléfono"
       address: "Dirección"
