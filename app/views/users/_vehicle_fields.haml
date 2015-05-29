@@ -57,7 +57,7 @@
     %tr.chassis_row{:class => "#{chassis_css}"}
       %td{:style=>"width:100px"}
         %label{ :for => "chassis" }=t(".chassis")
-      %td
+      %td{:colspan =>3}
         .car_domain
-          = f.text_field :chassis, :size => 10, :class => 'input_short'
+          = f.text_field :chassis, :size => 10, :class => 'input_medium'
     %tr

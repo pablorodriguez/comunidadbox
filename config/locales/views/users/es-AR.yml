@@ -30,7 +30,7 @@ es-AR:
       mileage_monthly_average: "Kilometraje promedio mensual"
       fuel: "Combustible"
       mileage: "Kilometraje"
-      chassis: "Chasis"
+      
     vehicle_fields:
       domain: "Dominio"
       brand: "Marca"
@@ -39,6 +39,7 @@ es-AR:
       mileage_monthly_average: "Kilometraje promedio mensual"
       fuel: "Combustible"
       mileage: "Kilometraje"
+      chassis: "Chasis"
     user_address_fields:
       state: "Provincia"
       city: "Cuidad"

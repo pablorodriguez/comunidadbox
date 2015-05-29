@@ -12,8 +12,9 @@
           = link_to client.full_name, client_path(client),:title=>t(".see")
         %label.phone
           = number_to_phone client.phone
-        %label
-          = client.email
+        - unless client.email.end_with?("@comunidadbox.com")
+          %label
+            = client.email
         .right
           = l client.created_at.to_date
     .left.clear.client
@@ -41,6 +42,8 @@
             = vehicle.brand.name
             = vehicle.model.name
             = vehicle.year
+          %strong{:title =>"Chasis"}
+            = vehicle.chassis
         .actions
           - if current_user.can_edit?(vehicle.user)
             .action

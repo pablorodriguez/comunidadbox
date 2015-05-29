@@ -39,7 +39,7 @@ en-US:
     services_list:
       completed: "Completed"  
     new:
-      new_vehicle_for: "New Car for"
+      new_vehicle_for: "New Vehicle"
     vehicle:
       save: "Save"
       cancel: "Cancel"

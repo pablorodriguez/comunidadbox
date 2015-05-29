@@ -12,17 +12,17 @@
         = f.text_field :last_name,:class=>"input_medium"
     %tr
       %td
+        %label{ :for => "company_name" }=t("business_name")
+      %td
+        = f.text_field :company_name,:class=>"input_medium"
+    %tr
+      %td
         %label{ :for => "email" }=t(".email")
       %td
         = f.text_field :email,:class=>"input_medium"
     %tr
       %td
-        %label{ :for => "email" }=t("business_name")
-      %td
-        = f.text_field :company_name,:class=>"input_medium"
-    %tr
-      %td
-        %label{ :for => "email" }=t(".cuit")
+        %label{ :for => "cuit" }=t(".cuit")
       %td
         = f.text_field :cuit,:class=>"input_medium"
     %tr

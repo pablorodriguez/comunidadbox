@@ -39,7 +39,7 @@ es-AR:
     services_list:
       completed: "Completado"
     new:
-      new_vehicle_for: "Nuevo Auto para"
+      new_vehicle_for: "Nuevo Vehículo"
     vehicle:
       save: "Grabar"
       cancel: "Cancelar"

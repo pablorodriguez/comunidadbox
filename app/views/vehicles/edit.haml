@@ -3,7 +3,7 @@
   = render "home/default_actions"
 .contentright_s
   .box_bottom
-    %h1 Modificar Auto
+    %h1 Modificar Vehiculo
   .box_bottom
     %h3 Información Cliente
     %table.w
@@ -18,6 +18,10 @@
           %td
             = @vehicle.user.last_name
         %tr
+          %td Razón Social            
+          %td
+            = @vehicle.user.company_name
+        %tr
           %td Email
           %td
             = @vehicle.user.email
@@ -25,5 +29,6 @@
           %td Teléfono
           %td
             = @vehicle.user.phone
-  %h3 Información Autómovil
+
+  %h3 Información Vehiculo
   = render :partial=>'vehicle'
