@@ -226,7 +226,7 @@ class Company < ActiveRecord::Base
     clients = clients.where("DATE(users.created_at) >= ?",date_f.to_date) unless date_f.empty?
     clients = clients.where("DATE(users.created_at <= ?",date_t.to_date) unless date_t.empty?
 
-    clients.order("users.created_at")
+    clients.order("users.created_at DESC")
   end
 
   def perform_service_type? st
