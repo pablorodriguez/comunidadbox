@@ -12,9 +12,9 @@ class VehiclesController < ApplicationController
   # GET /cars.xml
   def index
     page = params[:page] || 1
-    domain = (params[:domain].strip if params[:domain]) || "%"
-    domain = "%" if domain.empty?
-
+    domain = params[:domain] || ""
+    chassis = params[:chassis] || ""
+    
     per_page = 12
 
     if company_id
@@ -23,11 +23,12 @@ class VehiclesController < ApplicationController
       @company_vehicles = current_user.vehicles
     end
 
-
-    @company_vehicles = Vehicle.where("domain like ?",domain) if  domain != "%"
+    @company_vehicles = Vehicle.order("domain asc")
+    @company_vehicles = @company_vehicles.where("domain like ?","%#{domain}%") unless domain.empty?
+    @company_vehicles = @company_vehicles.where("chassis like ?","%#{chassis}%") unless chassis.empty?
 
     @company_id = params[:company_id]
-    @company_vehicles = @company_vehicles.order("domain asc").paginate(:page =>page,:per_page =>per_page)
+    @company_vehicles = @company_vehicles.paginate(:page =>page,:per_page =>per_page)
 
     respond_to do |format|
       format.html # index.html.erb

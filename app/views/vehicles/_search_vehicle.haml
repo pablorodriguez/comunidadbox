@@ -9,5 +9,8 @@
             = text_field_tag 'domain',"",:class=>"input",:title=>"Dominio",:placeholder=>t(".domain")
         %tr
           %td
+            = text_field_tag 'chassis',"",:class=>"input",:title=>"Chasis",:placeholder=>"Chasis"
+        %tr
+          %td
             = image_submit_tag("find.png",:class =>"input_img")
   .ajax_loader.right

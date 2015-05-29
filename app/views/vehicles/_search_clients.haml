@@ -7,6 +7,10 @@
         %thead
           %tr
             %td
+              = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>t("since"),:placeholder =>t("since")
+              = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>t("until"),:placeholder =>t("until")
+          %tr
+            %td
               = text_field_tag 'email',"",:class=>"input",:placeholder=>t(".email")
           %tr
             %td

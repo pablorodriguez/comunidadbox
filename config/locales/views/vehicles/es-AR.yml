@@ -2,8 +2,8 @@ es-AR:
   vehicles:
     vehicles:    
       delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
-      update_vehicle: "Modificar automóvil"
-      title: "Listado de Automóviles"
+      update_vehicle: "Modificar Vehículo"
+      title: "Listado de Vehículo"
       year: "Año"
       km: "km"
       kmAverageMonthly: "Km Promedio Mensual"

@@ -202,6 +202,7 @@ class ClientsController < ApplicationController
 
     #validar que exista un file.. sino mostrar algun mensaje de error
     @import_result = User.import_clients file, current_user, get_company,get_user_agent_encode
+    flash[:alert] = @import_result[:fatal] if @import_result[:fatal]
     render :action => 'import'
   end
 

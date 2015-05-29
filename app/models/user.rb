@@ -560,7 +560,7 @@ class User < ActiveRecord::Base
       rescue Exception => e  
         logger.error e.message
         debugger
-        result[:errors] << [i,client]
+        result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
       end
 
     end

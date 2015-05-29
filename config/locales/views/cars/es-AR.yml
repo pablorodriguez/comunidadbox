@@ -3,7 +3,7 @@ es-AR:
     cars:    
       delete_confirm: ¿ Esta seguro que desea borrar el Automóvil ?
       update_car: "Modificar automóvil"
-      title: "Listado de Automóviles"
+      title: "Listado de Vehículos"
       year: "Año"
       km: "km"
       kmAverageMonthly: "Km Promedio Mensual"
