@@ -24,6 +24,10 @@
       .box_bottom{:id =>"messages_container_#{@vehicle.user.id}"}
         /= render :partial =>'/messages/message',:collection => @messages
         = render :partial => "/messages/form_user",:locals => {user: @vehicle.user,:element_id => @vehicle.user.id}
+  .buttons_container
+    - if current_user.can_edit?(@vehicle.user)
+      = link_to t("edit"),edit_vehicle_path(@vehicle),{:class=>:button}
+    = link_to t("cancel"),client_path(@vehicle.user)
     - if @companies
       #company-selector.data.hide
         = render 'company_selector'

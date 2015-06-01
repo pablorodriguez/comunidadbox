@@ -3,9 +3,9 @@ require 'test_helper'
 class VehicleServiceOfferTest < ActiveSupport::TestCase
   setup do
     create_all_default_data    
-    @pablo =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
     create_all_company_data @employer.company_id
+    @pablo =  create(:pablo_rodriguez)
     @imer_admin = create(:imr_admin)
   end
 

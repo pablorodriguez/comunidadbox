@@ -5,9 +5,9 @@ class WorkorderTest < ActiveSupport::TestCase
 
   setup do
     create_all_default_data    
-    @user =  create(:pablo_rodriguez)
     @employer =  create(:gustavo_de_antonio)
     create_all_company_data @employer.company_id
+    @user =  create(:pablo_rodriguez)
     
     @emp_walter =  create(:emp_walter)
     

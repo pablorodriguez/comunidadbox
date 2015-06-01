@@ -70,10 +70,10 @@ class User < ActiveRecord::Base
   # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
   #scope :motorcycles,where("vehicle_type = 'Motorcyle'")
-  after_initialize :set_default_data
+  #after_initialize :set_default_data
   validate :custom_validations
   after_save :set_client_data
-  before_save :set_default_data
+  before_validation :set_default_data
 
   def set_client_data
     if creator_id
@@ -106,6 +106,10 @@ class User < ActiveRecord::Base
   #validate :validate_all
   # alias :cars :vehicles
 
+  def valid_eamil
+    email.end_with?("@comunidadbox.com") ? "" : email
+  end
+
   def company_active
     return employer if employer
     return companies.where("active=1").first
@@ -117,7 +121,10 @@ class User < ActiveRecord::Base
         self.password = "test12345"
         self.password_confirmation = self.password
       end
-      self.email = User.generate_email unless email
+      if self.email.try(:empty?)
+        self.email = User.generate_email
+        skip_confirmation!
+      end
     end
   end
 
@@ -525,7 +532,6 @@ class User < ActiveRecord::Base
         params = create_client_params(row,current_user,company)
         client = User.find_by_external_id(params[:user][:external_id]) if params[:user][:external_id] 
         client = User.new(params[:user]) unless client
-        
         #if theres is event to add
         service_type = nil
         if params[:service_type_name]
@@ -541,7 +547,6 @@ class User < ActiveRecord::Base
           save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
           result[:new_records] += 1
         else
-          params[:user].delete(:email)
           save_ok = client.update_attributes(params[:user])
           result[:updates] += 1
         end
@@ -559,7 +564,6 @@ class User < ActiveRecord::Base
 
       rescue Exception => e  
         logger.error e.message
-        debugger
         result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
       end
 
@@ -572,7 +576,7 @@ class User < ActiveRecord::Base
 
 
   def self.create_client_params row,current_user,company
-    external_id = row[0]
+    external_id = row[0].strip
     created_at = row[1]
     first_name = row[2]
     last_name = row[3]

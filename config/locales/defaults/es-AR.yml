@@ -169,3 +169,4 @@ es-AR:
   types_of_vehicles:
     car: Autómovil
     motorcycle: Motocicleta
+  chassis: "Chasis"

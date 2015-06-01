@@ -81,3 +81,6 @@
             = link_to "", new_workorder_path(:vehicle_id =>vehicle),{:title=>t(".new_service"),:class =>"new_service"}
           .action
             = link_to "", edit_vehicle_path(vehicle),{:title=>t(".modify_vehicle"),:class =>"edit"}
+  .buttons_container
+    = link_to t("edit"),edit_client_path(@client),{:class=>:button}
+    = link_to t("cancel"),clients_path

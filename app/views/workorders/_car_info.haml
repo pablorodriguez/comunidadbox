@@ -5,8 +5,7 @@
         %td
           %h3 Nombre
         %td
-          = vehicle.user.full_name
-          = show_company_info vehicle
+          = link_to vehicle.user.full_name,client_path(vehicle.user)
         %td
           %h3 Dominio
         %td
@@ -19,7 +18,7 @@
         %td
           %h3 Email
         %td
-          = vehicle.user.email
+          = vehicle.user.valid_eamil
         %td
           %h3 Marca y Modelo
         %td

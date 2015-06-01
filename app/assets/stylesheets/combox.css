@@ -2,6 +2,9 @@
 /* CSS Document 
 #F2F2F2
 */
+.client_vehicles,#all_vehicles{
+  overflow: auto;
+}
 
 .user_status_radio{
   margin-left: -4px;

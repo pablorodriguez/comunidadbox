@@ -8,6 +8,4 @@
           = link_to t(".new_budget"),new_budget_path(:c => @client.id),{:title=>t(".new_budget")}
       - if current_user.can_edit?(@client)
         %li
-          = link_to t(".modify_client"),edit_client_path(@client),{:title=>t(".modify_client")}
-        %li
           = link_to t(".new_vehicle"), new_vehicle_path(:user_id=>@client.id), {:title =>t(".new_vehicle")}

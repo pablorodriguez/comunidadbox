@@ -34,14 +34,15 @@ class WorkordersController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = 10
-
+    params.delete_if{|k,v| v.empty? || v == "-1"}
+    
     @company_services = get_service_types
 
     @order_by = order_by
 
     @service_type_ids =  params[:service_type_ids] || [] #current_user.service_types.map(&:id)
     
-    @status_id = params[:wo_status_id] if params[:wo_status_id] && (!params[:wo_status_id].empty?) && (params[:wo_status_id] != "-1")
+    @status_id = params[:wo_status_id] if params[:wo_status_id] && params[:wo_status_id] != "-1"
 
     filters_params ={}
     @date_f = params[:date_from]
@@ -50,21 +51,20 @@ class WorkordersController < ApplicationController
     @wo_id = params[:number]
     @material = params[:material]
 
-    filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
-    filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
-    filters_params[:domain] = @domain if (@domain && (!@domain.empty?))
-    filters_params[:service_type_ids] = @service_type_ids unless (@service_type_ids.empty?)
+    filters_params[:date_from] = @date_f if @date_f
+    filters_params[:date_to] =  @date_t if @date_t
+    filters_params[:domain] = @domain if @domain
+    filters_params[:service_type_ids] = @service_type_ids 
     filters_params[:wo_status_id] = @status_id if @status_id
-    filters_params[:company_id] = company_id if company_id
-    filters_params[:material] = @material if (@material && (!@material.empty?))
-    filters_params[:user] = current_user
-    filters_params[:workorder_id] = @wo_id if (@wo_id && (!@wo_id.empty?))
-    filters_params[:order_by] = @order_by
-
-    @filters_params_exp = filters_params
+    params[:company_id] = company_id if company_id
+    filters_params[:material] = @material if @material
+    params[:user] = current_user
+    filters_params[:workorder_id] = @wo_id if @wo_id 
+    params[:order_by] = @order_by
+    
+    @filters_params_exp = params
     #@filters_params_exp[:user] = nil
-    @workorders = Workorder.find_by_params(filters_params)
-
+    @workorders = Workorder.find_by_params(params)
     @material = nil;
 
     @count= @workorders.count()
@@ -76,9 +76,9 @@ class WorkordersController < ApplicationController
 
     @price={}
     @report_data.each_pair do |k,v|
-      @price[ServiceType.find(k).name] = v if k
+      @price[ServiceType.find(k).name] = v.to_f if k
     end
-
+    
     @price_data = Workorder.build_graph_data(@report_data)
     @amt = Workorder.group_by_service_type(filters_params,false)
     @count_material = Workorder.group_by_material(filters_params,false)

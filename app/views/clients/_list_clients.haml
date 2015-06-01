@@ -17,8 +17,9 @@
             = client.email
         .right
           = l client.created_at.to_date
-    .left.clear.client
-      = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
+    - if multiple_company?
+      .left.clear.client
+        = link_to client.creator.company.name, company_path(client.creator.company) if client.creator
 
     .actions
       - if current_user.can_edit?(client)

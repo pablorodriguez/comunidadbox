@@ -33,6 +33,11 @@ pdf.grid(0,0).bounding_box do
     ["Email: #{user.email}","Km. Actual: #{@work_order.km}"],
     [company_name,"Km. Promedio Mensual: #{vehicle.kmAverageMonthly}"]
   ]
+
+  unless vehicle.chassis.try(:empty?)
+    data_info.insert(2,["","Chassis: #{vehicle.chassis}"])
+  end
+
   data_info << ["CUIT:#{user.cuit}","#{@work_order.status_name}"] if user.cuit
   data_info << [address,"#{@work_order.payment_method.name}"]
   data_info << ["Vendedor: #{@work_order.user.full_name}",""]

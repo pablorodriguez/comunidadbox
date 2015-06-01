@@ -13,17 +13,21 @@
           -if s.operator
             %label{title: "Operario"}
               = "#{s.operator.first_name} #{s.operator.last_name}"
+  - unless work_order_row.vehicle.chassis.try(:empty?)
+    .right{:title =>t("chassis")}
+      = work_order_row.vehicle.chassis
   .service_info.clear
     %label.wo_id{:title => t(".service_number")}
       -if current_user.user_type.present? && current_user.user_type.auto_part?
         = link_to work_order_row.id, price_offer_workorder_path(work_order_row)
       -else
         = link_to work_order_row.id,work_order_row
+    %strong
       = work_order_row.status_name
     %strong
       =t(".client")
     %label
-      = "#{work_order_row.vehicle.user.first_name} #{work_order_row.vehicle.user.last_name}"
+      = work_order_row.vehicle.user.full_name
     - if work_order_row.user != current_user
       %strong
         =t(".seller")

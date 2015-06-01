@@ -10,18 +10,7 @@
         - if @work_order.can_send_message?(current_user)
           %li
             %a.send_msg{:href=>"#"}Enviar Mensaje
-        %li
-          - if @work_order.can_show_pdf? current_user
-            = link_to "Imprimir",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
-          - elsif @work_order.can_print_pdf? current_user
-            = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir"
-
-        -if @work_order.can_edit?(current_user)
-          %li
-            = link_to "Modificar", edit_workorder_path(@work_order)
-        - if @work_order.can_delete?(current_user)
-          %li
-            = link_to "Eliminar", workorder_path(@work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar"
+         
 .contentright_s
   .div{:id=>"wo_#{@work_order.id}"}
     = render "show" if can_show

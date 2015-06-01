@@ -121,6 +121,7 @@ class ClientsController < ApplicationController
     @client = User.new
     @client.build_address
     @client.vehicles.build
+    @client.email = ""
     @company = get_company
     if params[:b]
       @budget = Budget.find params[:b]
@@ -133,6 +134,7 @@ class ClientsController < ApplicationController
       @client.vehicles.first.model =@budget.model
       flash.now.notice ="Antes de registrar un servicio por favor cree el cliente"
     end
+    
     respond_to do |format|
       format.html
     end

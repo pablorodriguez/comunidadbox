@@ -490,10 +490,15 @@ class Workorder < ActiveRecord::Base
   def self.find_by_params(filters)
 
     workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:vehicle =>:user,:services => [{:material_services => [{:material_service_type =>[:service_type, :material]}]}])
+    
+    workorders = workorders.where("users.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
+    workorders = workorders.where("users.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
+    workorders = workorders.where("users.company_name like ?","%#{filters[:company_name]}%") if filters[:company_name]
 
     workorders = workorders.where("vehicles.id = ?","#{filters[:vehicle_id]}") if filters[:vehicle_id]
 
     workorders = workorders.where("vehicles.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
+    workorders = workorders.where("vehicles.chassis like ?","%#{filters[:chassis].upcase}%") if filters[:chassis]
 
     #workorders = workorders.order("service_types.name")
 

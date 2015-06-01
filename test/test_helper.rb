@@ -29,16 +29,10 @@ module ComunidadBox::TestHelpers
     #create materiales para tipos de servicios
     create :hand_work_for_tire_change,:company_id => company_id
     create :hand_work_oil_change,:company_id => company_id
-    
-  end
-  def create_all_default_data
-    #create country and states
-    #create :argentina
-    create :mendoza
-
+   
     #create brand
-    create :chevrolet
-    create :vw
+    create :chevrolet,:company_id => company_id
+    create :vw,:company_id => company_id
 
     #create model
     create :suran
@@ -46,10 +40,17 @@ module ComunidadBox::TestHelpers
     create :astra
 
     #crear formas de pago
-    create :cash
-    create :check
-    create :credit_card
-    create :debit_card
+    create :cash,:company_id => company_id
+    create :check,:company_id => company_id
+    create :credit_card,:company_id => company_id
+    create :debit_card,:company_id => company_id
+    
+  end
+  def create_all_default_data
+    #create country and states
+    #create :argentina
+    create :mendoza
+
 
     #create roles
     create :administrator

@@ -27,10 +27,22 @@
                 = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>t(".even"),:placeholder =>t(".even")
             %tr
               %td
+                = text_field_tag 'first_name', @numero, :size=>6,:class =>"input labelify",:title=>t("first_name")
+            %tr
+              %td
+                = text_field_tag 'last_name', @numero, :size=>6,:class =>"input labelify",:title=>t("last_name")
+            %tr
+              %td
+                = text_field_tag 'company_name', @numero, :size=>6,:class =>"input labelify",:title=>t("company_name")
+            %tr
+              %td
                 = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>t(".number")
             %tr
               %td
                 = text_field_tag 'material', @material, :size=>6, :class =>"input labelify",:title=>t(".material")
+            %tr
+              %td
+                = text_field_tag 'chassis', @material, :size=>6, :class =>"input labelify",:title=>t("chassis")
             %tr
               %td
                 = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>t(".domain")             

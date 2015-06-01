@@ -2,11 +2,7 @@
   %tr
     %td{:style=>"width:100px"}=t(".name")
     %td
-      = @client.first_name
-  %tr
-    %td=t(".last_name")
-    %td
-      = @client.last_name
+      = link_to @client.full_name,client_path(@client)
   %tr
     %td=t(".phone")
     %td
