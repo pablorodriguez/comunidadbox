@@ -70,21 +70,20 @@ class WorkordersController < ApplicationController
     @count= @workorders.count()
     @work_orders = @workorders.paginate(:page =>page,:per_page =>per_page)
 
-    @report_data = Workorder.group_by_service_type(filters_params)
-
+    @report_data = Workorder.group_by_service_type(params)
     @workorder_amount= @work_orders.sum(&:total_price)
 
     @price={}
     @report_data.each_pair do |k,v|
       @price[ServiceType.find(k).name] = v.to_f if k
     end
-    
-    @price_data = Workorder.build_graph_data(@report_data)
-    @amt = Workorder.group_by_service_type(filters_params,false)
-    @count_material = Workorder.group_by_material(filters_params,false)
 
-    amt_material = Workorder.group_by_material(filters_params)
-    count_material = Workorder.group_by_material(filters_params,false)
+    @price_data = Workorder.build_graph_data(@report_data)
+    @amt = Workorder.group_by_service_type(params,false)
+    @count_material = Workorder.group_by_material(params,false)
+
+    amt_material = Workorder.group_by_material(params)
+    count_material = Workorder.group_by_material(params,false)
     @amt_material_data = Workorder.build_material_data(amt_material,count_material)
 
 

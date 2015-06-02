@@ -88,6 +88,8 @@ class UserTest < ActiveSupport::TestCase
 
     result = []
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
+    debugger
+    
     assert result[:errors].size == 0, "Error in number of errors"
     assert result[:failure] == 0, "Error in number of failure"
     assert result[:total_records] == 1, "Error in number of records"
