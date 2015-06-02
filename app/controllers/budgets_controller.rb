@@ -59,7 +59,7 @@ class BudgetsController < ApplicationController
     unless csv.empty?
 
       respond_to do |format|
-        format.csv { send_data csv.encode("utf-16", {:invalid => :replace, :undef => :replace, :replace => '?'}), :filename => "budgetsReport.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
+        format.csv { send_data csv.encode("iso-8859-1"), :filename => "budgetsReport.csv", :type => 'text/csv; charset=iso-8859-1; header=present'}
       end
 
     else

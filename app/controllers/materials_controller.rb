@@ -155,11 +155,10 @@ class MaterialsController < ApplicationController
 
   def export    
     csv = Material.to_csv(current_user.headquarter.id)
-    encode = get_user_agent_encode
+    #encode = get_user_agent_encode
     unless csv.empty?
       respond_to do |format|        
-        format.csv { send_data csv.encode(encode, {:invalid => :replace, :undef => :replace, :replace => '?'}), 
-        :filename => "materiales.csv", :type => "text/csv; charset=#{encode}; header=present"}
+        format.csv { send_data csv.encode("iso-8859-1"),:filename => "materiales.csv", :type => "text/csv; charset=#"iso-8859-1"; header=present"}
         format.html {redirect_to materials_path}
       end
     else
