@@ -158,7 +158,7 @@ class MaterialsController < ApplicationController
     #encode = get_user_agent_encode
     unless csv.empty?
       respond_to do |format|        
-        format.csv { send_data csv.encode("iso-8859-1"),:filename => "materiales.csv", :type => "text/csv; charset=#"iso-8859-1"; header=present"}
+        format.csv { send_data csv.encode("iso-8859-1"),:filename => "materiales.csv", :type => "text/csv; charset=iso-8859-1; header=present"}
         format.html {redirect_to materials_path}
       end
     else
