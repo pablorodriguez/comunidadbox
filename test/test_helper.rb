@@ -33,11 +33,14 @@ module ComunidadBox::TestHelpers
     #create brand
     create :chevrolet,:company_id => company_id
     create :vw,:company_id => company_id
+    create :fiat,:company_id => company_id
+
 
     #create model
     create :suran
     create :bora
     create :astra
+    create :palio
 
     #crear formas de pago
     create :cash,:company_id => company_id

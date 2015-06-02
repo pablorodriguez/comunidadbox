@@ -72,6 +72,32 @@ class UserTest < ActiveSupport::TestCase
 
   end
 
+  test "import new clients minimal info" do
+
+    create :service_on_warranty,:company_id => @gustavo.company_active.id
+
+
+    csv_rows = <<-eos
+    Id externo,Fecha,Nombre,Apellido,Teléfono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Código Postal,Dominio,Marca,Modelo,Serie,Combustible,Año,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
+    123456,22/05/2015,,,,,,,,,,,DDD333,Fiat,Palio,RR3444,Diesel,2000,2000,252025,Servicio en Garantía,1/6/15
+    eos
+
+    file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
+    file.write(csv_rows)
+    file.rewind
+
+    result = []
+    result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
+    assert result[:errors].size == 0, "Error in number of errors"
+    assert result[:failure] == 0, "Error in number of failure"
+    assert result[:total_records] == 1, "Error in number of records"
+    assert result[:success] == 1, "Error in number of success"
+
+    vehicle = Vehicle.where("chasis = ?","RR3444")
+    assert vehicle
+
+  end
+
   test "import new clients" do
     create :service_on_warranty,:company_id => @gustavo.company_active.id
 

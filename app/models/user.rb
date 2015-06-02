@@ -71,9 +71,9 @@ class User < ActiveRecord::Base
 
   #scope :motorcycles,where("vehicle_type = 'Motorcyle'")
   #after_initialize :set_default_data
+  before_validation :set_default_data
   validate :custom_validations
   after_save :set_client_data
-  before_validation :set_default_data
 
   def set_client_data
     if creator_id
@@ -85,9 +85,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def set_default_data
+    if new_record?
+      unless self.password
+        self.password = "test12345"
+        self.password_confirmation = self.password
+      end
+      if ((self.email == nil) || (self.email.empty? == true))
+        self.email = User.generate_email
+        skip_confirmation!
+      end
+    end
+  end
+
   def custom_validations
-    if (first_name.nil? || first_name.empty?) && (last_name.nil? || last_name.empty?) && company_name.empty?
-      errors[:domain] << "El Dominio no puede estar vacio"
+    if first_name.try(:empty?) && last_name.try(:empty?) && company_name.try(:empty?)
+      errors[:base] << "Debe ingresar Nombre y Apellido o Razón Social"
     end
   end
 
@@ -106,7 +119,7 @@ class User < ActiveRecord::Base
   #validate :validate_all
   # alias :cars :vehicles
 
-  def valid_eamil
+  def valid_email
     email.end_with?("@comunidadbox.com") ? "" : email
   end
 
@@ -115,18 +128,6 @@ class User < ActiveRecord::Base
     return companies.where("active=1").first
   end
 
-  def set_default_data
-    if self.new_record?
-      unless self.password
-        self.password = "test12345"
-        self.password_confirmation = self.password
-      end
-      if self.email.try(:empty?)
-        self.email = User.generate_email
-        skip_confirmation!
-      end
-    end
-  end
 
   def search_material_request(status,detail)
     if self.is_super_admin?
@@ -542,7 +543,6 @@ class User < ActiveRecord::Base
         end
 
         unless client.id
-          client.skip_confirmation!
           save_ok = client.save
           save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
           result[:new_records] += 1
@@ -553,16 +553,15 @@ class User < ActiveRecord::Base
 
         if save_ok
           result[:success] += 1
+          if service_type
+            vehicle = client.vehicles.first
+            vehicle.events.create({:service_type_id => service_type.id,:dueDate => params[:event_due_date],:status =>Status::ACTIVE})
+          end          
         else
           result[:errors] << [i,client]
         end
 
-        if service_type
-          vehicle = client.vehicles.first
-          vehicle.events.create({:service_type_id => service_type.id,:dueDate => params[:event_due_date],:status =>Status::ACTIVE})
-        end
-
-      rescue Exception => e  
+      rescue Exception => e
         logger.error e.message
         result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
       end

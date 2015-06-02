@@ -10,6 +10,9 @@
         %h3=t(".domain")
       %td
         = link_to_domain vehicle
+        - if vehicle.chassis
+          %lable{:title =>"Chasis"}
+            = vehicle.chassis
       %td
         %h3=t(".year")
       %td
@@ -18,7 +21,7 @@
       %td
         %h3=t(".email")
       %td
-        = vehicle.user.email
+        = vehicle.user.valid_email
       %td
         %h3=t(".brand_model")
       %td

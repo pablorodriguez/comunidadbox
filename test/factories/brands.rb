@@ -12,6 +12,12 @@ FactoryGirl.define do
     of_cars true
   end
 
+  factory :fiat, class: Brand do
+    id 3
+    name "Fiat"
+    of_cars true
+  end
+
   
   
 end
