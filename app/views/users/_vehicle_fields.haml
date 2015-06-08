@@ -18,11 +18,7 @@
       %td
         %label{ :for => "brand_id" }=t(".brand")
       %td
-        - company_not_present = @company.persisted?
-        - if company_not_present
-          = f.collection_select(:brand_id, @company.get_brands.order(:name), :id, :name, {:include_blank=>:true},{:class=>"company_brand medium_select"})
-        - else
-          = f.collection_select(:brand_id, Brand.find(:all,:order=>:name), :id, :name, {:include_blank=>:true},{:class=>"brand medium_select"})
+        = f.collection_select(:brand_id, @brands, :id, :name, {:include_blank=>:true},{:class=>"brands medium_select"})      
       %td{:style=>"width:20px"}
       %td
         %label{ :for => "year" }=t(".year")
@@ -33,10 +29,7 @@
         %label{ :for => "model_id" }=t(".model")
       %td
         #models
-          - if company_not_present
-            = f.collection_select(:model_id, find_company_models_by_brand(f.object, @company), 'id', 'name', {:include_blank=>:true},{:class=>'model medium_select'})
-          - else
-            = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model medium_select'})
+          = f.collection_select(:model_id, @models, 'id', 'name', {:include_blank=>:true},{:class=>'models medium_select'})
       %td{:style=>"width:20px"}
       %td
         %label{ :for => "email" }=t(".mileage_monthly_average")

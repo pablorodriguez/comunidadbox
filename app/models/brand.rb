@@ -4,6 +4,7 @@ class Brand < ActiveRecord::Base
 
   has_many :vehicles
   has_many :models
+  belongs_to :company
 
   def logo_name
     of_cars ? name : "#{name}_moto"

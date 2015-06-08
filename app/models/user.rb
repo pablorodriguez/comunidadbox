@@ -544,7 +544,6 @@ class User < ActiveRecord::Base
 
         unless client.id
           save_ok = client.save
-          debugger
           
           save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
           result[:new_records] += 1

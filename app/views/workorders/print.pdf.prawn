@@ -114,7 +114,7 @@ pdf.grid(0,0).bounding_box do
 
   	pdf.move_down(10)
 
-  	unless service.comment
+  	if service.comment
   	 pdf.text "Comentario: #{service.comment}",:size=>fs
   	end
   end

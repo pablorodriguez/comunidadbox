@@ -9,7 +9,7 @@ es-AR:
       tutorials: "Tutoriales - Comunidadbox"
     menu:
       clients: "Clientes"
-      my_cars: "Mis Autos"
+      my_vehicles: "Mis Vehículos"
       control_panel: "Panel de Control"
       services_made: "Servicios Realizados"
       services_requests: "Solicitudes de Servicios"
@@ -28,7 +28,3 @@ es-AR:
       register: "Registrar"
       service_providers: "Prestadores de servicio"
       help: "Ayuda"
-    
-  
- 
-    

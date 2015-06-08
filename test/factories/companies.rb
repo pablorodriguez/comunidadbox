@@ -1,7 +1,21 @@
 FactoryGirl.define do
 
-  factory :valle_grande_mendoza_plaza, class: Company do
+  factory :comunidadbox, class: Company do
     id 1
+    name "ComunidadBox"    
+    phone "0261-4526157"
+    website "www.comunidadbox.com"
+    active 1
+    address {FactoryGirl.build(:combox_address)}
+    headquarter 1
+    after(:build) do |company|
+      company.statuses << FactoryGirl.build(:status_open,:id=>10)
+      company.statuses << FactoryGirl.build(:status_close,:id=>20)
+    end
+  end
+
+  factory :valle_grande_mendoza_plaza, class: Company do
+    id 4
     name "Valle Grande Neumaticos-Mendoza (Cnel. Plaza)"    
     phone "0261-4526157"
     website "www.neumaticosvallegrande.com.ar"

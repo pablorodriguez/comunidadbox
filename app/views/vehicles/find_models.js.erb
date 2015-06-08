@@ -1,1 +1,1 @@
-$('.model').html("<%=escape_javascript(render(:partial=>'models',:locals=>{:models=>@models}))%>");
+$('.models').html("'<option>Modelo...</option>'+<%=escape_javascript(render(:partial=>'models',:locals=>{:models=>@models}))%>");

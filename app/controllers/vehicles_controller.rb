@@ -6,7 +6,7 @@ class VehiclesController < ApplicationController
 
   layout "application", :except => [:search,:find_models, :find_company_models_by_brand,
                                     :search_companies,:km]
-  skip_before_filter :authenticate_user!,:only => [:find_models, :find_company_models_by_brand]
+  skip_before_filter :authenticate_user!,:only => [:find_models,:find_brands, :find_company_models_by_brand]
    
   # GET /cars
   # GET /cars.xml
@@ -37,6 +37,18 @@ class VehiclesController < ApplicationController
   end
 
   def service_done
+  end
+
+  def find_brands
+    type = params[:type]
+    if type == "Car"
+      @brands = Brand.where("company_id =? and of_cars =1",get_company.id)
+    else
+      @brands = Brand.where("company_id =? and of_motorcycles=1",get_company.id)
+    end
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
   end
 
   def find_models
@@ -190,7 +202,8 @@ class VehiclesController < ApplicationController
       user=current_user
     end
     @company = get_company
-
+    @brands = @company.get_brands.order(:name)
+    @models = []
     if params[:b].present?
       @budget = Budget.find(params[:b])
       flash.now.notice ="Antes de registrar un servicio por favor cree el Automovil"
@@ -213,9 +226,11 @@ class VehiclesController < ApplicationController
   # GET /vehicles/1/edit
   def edit
     @vehicle = Vehicle.find(params[:id])
-    @company = get_company
     authorize! :update, @vehicle
-    @models = Model.find_by_brand_id(@vehicle.brand.id)
+    @company = get_company
+    @brands = @vehicle.brand.company.get_brands.order(:name)
+    @models = @vehicle.brand.models
+
     respond_to do |format|
       format.html
     end

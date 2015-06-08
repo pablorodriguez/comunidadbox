@@ -4,6 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
     build_resource({})
     resource.type ="1"
+    @company = get_company
+    @brands = @company.get_brands.order(:name)
+    @models = []
+
     set_default_data resource
     respond_to do |format|
       format.js { render :layout => false}
@@ -12,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @company = get_company
     resource.build_address unless resource.address
     unless resource.company
       company = resource.companies.build

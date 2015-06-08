@@ -283,13 +283,15 @@ class WorkordersController < ApplicationController
 
   def new
     @work_order = Workorder.new
+    
     @open_for_autopart = false
 
     company = get_company(params)
 
     @work_order.company_info  = params[:c] if params[:c]
 
-    @work_order.company = company if company
+    #set company if it is not ComunidadBox
+    @work_order.company = company if company.id != 1
     @work_order.notes.build
 
     # si no hay parametro de auto, no hay parametro de presupuesto tomo el primer auto del usuario registrado
@@ -297,6 +299,7 @@ class WorkordersController < ApplicationController
 
     # si viene un vehicle_id lo busco y se lo asigno a la orden de trabajo
     @work_order.vehicle = Vehicle.find(params[:vehicle_id]) if params[:vehicle_id]
+     
     @work_order.initialize_with_vehicle_service_offer(company_id)
 
     @service_types = current_user.service_types_active
@@ -334,7 +337,8 @@ class WorkordersController < ApplicationController
     end
 
     @update_km= @work_order.vehicle.update_km?
-    #authorize! :create, @work_order
+    authorize! :create, @work_order
+ 
     respond_to do |format|
       format.html
     end

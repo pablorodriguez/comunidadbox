@@ -112,4 +112,18 @@ FactoryGirl.define do
     end
   end
 
+  factory :admin, class: User do
+    first_name "Admin"
+    last_name "Admin"
+    email "admin@comunidadbox.com"    
+    password "admintest"
+    password_confirmation "admintest"
+    confirmed 1
+    confirmed_at 1.months.ago
+    roles {[Role.find(-1)]}
+    after(:build) do |user|
+      user.companies << FactoryGirl.build(:comunidadbox)
+    end
+  end
+
 end

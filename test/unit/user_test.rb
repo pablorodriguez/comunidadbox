@@ -62,10 +62,9 @@ class UserTest < ActiveSupport::TestCase
 
     result = []
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
-    assert result[:errors].size == 1, "Error in number of errors"
-    assert result[:failure] == 1, "Error in number of failure"
-    assert result[:total_records] == 2, "Error in number of records"
-    assert result[:success] == 1, "Error in number of success"
+    assert result[:errors].size == 0, "There is error"
+    assert result[:failure] == 0, "Error in number of failure"
+    assert result[:success] == 2, "Error in number of success"
 
     vehicle = Vehicle.where("chasis = ?","RR3444")
     assert vehicle
@@ -88,7 +87,6 @@ class UserTest < ActiveSupport::TestCase
 
     result = []
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
-    debugger
     
     assert result[:errors].size == 0, "Error in number of errors"
     assert result[:failure] == 0, "Error in number of failure"

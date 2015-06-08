@@ -192,7 +192,8 @@ ComunidadBox::Application.routes.draw do
       resources :notes
 
       collection do
-        post :find_models
+        get :find_models
+        get :find_brands
         post :find_company_models_by_brand
         post :search
         post :search_companies

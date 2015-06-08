@@ -24,5 +24,13 @@ FactoryGirl.define do
     street "Rio Negro S/N"
     city "Real del Padre"
   end
+
+  factory :combox_address, class: Address do
+    id 4
+    state {State.find(1)}
+    zip 5500
+    street "Cnel Plaza 72"
+    city "Mendoza"
+  end
   
 end

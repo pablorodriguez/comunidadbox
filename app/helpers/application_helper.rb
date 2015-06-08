@@ -57,11 +57,11 @@ module ApplicationHelper
       return Company.find(company_id.first)
     elsif (company_id && company_id.size > 1)
       return current_user.company_active
+    elsif params && params[:company_id] 
+      return Company.find(params[:company_id])
     else
-      return nil unless default
-      return Company.find 1 if default
+      return Company.find 1
     end
-    #company_id.empty? ? Company.find(params[:company_id]) : Company.where("id IN (?)",company_id).first
   end
 
   def get_companies params=nil
@@ -124,7 +124,7 @@ module ApplicationHelper
   def my_event_class event
     vehicle = event.vehicle
     css = vehicle.vehicle_type.downcase + " " + event_class(event)
-    if ((event.service.workorder.company) && (company_id.include?(event.service.workorder.company.id.to_s)))
+    if ((event.service.workorder.company) && (company_id && company_id.include?(event.service.workorder.company.id.to_s)))
       css = "my " + css
     end
     return css

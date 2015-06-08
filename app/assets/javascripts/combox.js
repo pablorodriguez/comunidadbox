@@ -132,8 +132,9 @@ jQuery(document).ready( function(){
   });
 
 
-  $('.brand').live("change",searchModel);
-  $('.company_brand').live("change",searchModelByCompany);
+  $('.brands').live("change",searchModel);
+  //$('.company_brand').live("change",searchModelByCompany);
+  $('.vehicle_type').live("change",searchBrands);
 
 });
 
@@ -164,17 +165,28 @@ function setUserType(){
 
 function searchModel(event){
   var brand_id = event.target.id;
-  var token = $("input[name='authenticity_token']")[0];
-  //AjaxLoader.enable();
   $.ajax({
     url: "/vehicles/find_models",
       data: {
         'id':brand_id,
-        'brand_id':$("#"+brand_id).val(),
-        'authenticity_token':encodeURIComponent(token)
+        'brand_id':$("#"+brand_id).val()
       },
     dataType:'script',
-    type:'POST'
+    type:'GET'
+  });
+}
+
+function searchBrands(event){
+  var vehicle_type =$(event.target).val();
+  var token = $("input[name='authenticity_token']")[0];
+  //AjaxLoader.enable();
+  $.ajax({
+    url: "/vehicles/find_brands",
+      data: {
+        'type':vehicle_type
+      },
+    dataType:'script',
+    type:'GET'
   });
 }
 

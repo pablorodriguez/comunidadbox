@@ -6,7 +6,8 @@ class ClientsController < ApplicationController
     @client = User.find(params[:id])
     authorize! :update, @client
     @client.build_address unless @client.address
-    @models = Array.new
+    @brands = @company.get_brands.order(:name)
+    @models = []
 
     unless current_user.is_client?(@client)
       flash[:notice] = "No puede modificar un cliente que no es suyo"
@@ -123,6 +124,8 @@ class ClientsController < ApplicationController
     @client.vehicles.build
     @client.email = ""
     @company = get_company
+    @brands = @company.get_brands.order(:name)
+    @models = []
     if params[:b]
       @budget = Budget.find params[:b]
       @client.first_name = @budget.first_name

@@ -50,13 +50,16 @@ module ComunidadBox::TestHelpers
     
   end
   def create_all_default_data
+    create :mendoza
+    #create roles
+    create :super_admin
+    create :administrator
+
+    create :admin
     #create country and states
     #create :argentina
-    create :mendoza
 
 
-    #create roles
-    create :administrator
   end
 end
 
