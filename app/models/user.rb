@@ -532,6 +532,7 @@ class User < ActiveRecord::Base
         i+=1
         params = create_client_params(row,current_user,company)
         client = User.find_by_external_id(params[:user][:external_id]) if params[:user][:external_id] 
+        params[:user].delete_if{|k,v| v.nil?}
         client = User.new(params[:user]) unless client
         #if theres is event to add
         service_type = nil
@@ -544,7 +545,6 @@ class User < ActiveRecord::Base
 
         unless client.id
           save_ok = client.save
-          
           save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
           result[:new_records] += 1
         else

@@ -224,8 +224,7 @@ class Company < ActiveRecord::Base
     clients = clients.where("company_name like ?","%#{params[:company_name]}%") unless company_name.empty?
     
     clients = clients.where("DATE(users.created_at) >= ?",date_f.to_date) unless date_f.empty?
-    clients = clients.where("DATE(users.created_at <= ?",date_t.to_date) unless date_t.empty?
-
+    clients = clients.where("DATE(users.created_at) <= ?",date_t.to_date) unless date_t.empty?
     clients.order("users.created_at DESC")
   end
 

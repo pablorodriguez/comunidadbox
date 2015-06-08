@@ -5,7 +5,7 @@ class Address < ActiveRecord::Base
   belongs_to :company
   belongs_to :state
 
-  validates_presence_of :state,:zip
+  validates_presence_of :state
   
   acts_as_gmappable :lat => 'lat', :lng => 'lng', :process_geocoding => false
 
