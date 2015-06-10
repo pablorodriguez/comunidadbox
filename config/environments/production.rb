@@ -89,7 +89,7 @@ ComunidadBox::Application.configure do
   config.middleware.use ExceptionNotification::Rack,
     :email => {
       :email_prefix => "[PREFIX] ",
-      :sender_address => %{"notifier" <notifier@example.com>},
-      :exception_recipients => %w{exceptions@example.com}
+      :sender_address => %{"error notifier" <notifier@comunidadbox.com>},
+      :exception_recipients => %w{pablo@comunidadbox.com}
     }
 end
