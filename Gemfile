@@ -44,6 +44,7 @@ group :development, :test do
   #gem 'turn'
   gem "better_errors"
   #gem 'rack-mini-profiler'
+  gem 'exception_notification'
 end
 
 gem 'pry', :group => :development

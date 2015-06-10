@@ -85,4 +85,11 @@ ComunidadBox::Application.configure do
 
   ENV['file_path'] = '/home/deployer/apps/comunidadbox/export_files'
   ENV['image_file_path'] = '/home/deployer/apps/comunidadbox/image_files'
+
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[PREFIX] ",
+      :sender_address => %{"notifier" <notifier@example.com>},
+      :exception_recipients => %w{exceptions@example.com}
+    }
 end
