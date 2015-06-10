@@ -23,12 +23,12 @@
     %tr
       %td=t(".brand")
       %td
-        = f.collection_select(:brand_id, @company.get_brands.order(:name), :id, :name, {:include_blank=>:true},{:class=>"brand long_select"})
+        = f.collection_select(:brand_id, @company.get_brands.order(:name), :id, :name, {:include_blank=>:true},{:class=>"brands long_select"})
     %tr
       %td=t(".model")
       %td
         #models
-          = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'model long_select'})
+          = f.collection_select(:model_id, find_models(f.object), 'id', 'name', {:include_blank=>:true},{:class=>'models long_select'})
     - chassis_css = f.object.vehicle_type == "Motorcycle" ? "" : "hide"
     %tr.chassis_row{:class => "#{chassis_css}"}
       %td{:style=>"width:100px"}
