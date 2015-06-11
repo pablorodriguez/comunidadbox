@@ -403,7 +403,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit? user
-    (self.id == user.id) || (user.confirmed_at.nil? && is_client?(user))
+    (self.id == user.id) || (user.last_sign_in_at.nil? && is_client?(user))
   end
 
   def can_read? user
