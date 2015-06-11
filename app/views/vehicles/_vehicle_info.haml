@@ -4,7 +4,7 @@
       %td
         %h3=t(".name")
       %td
-        = vehicle.user.full_name
+        = link_to vehicle.user.full_name,client_path(vehicle.user)
         = show_company_info vehicle
       %td
         %h3=t(".domain")
