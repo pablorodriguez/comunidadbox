@@ -59,14 +59,6 @@ ComunidadBox::Application.configure do
     :enable_starttls_auto => true  
   }
 
-  config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[PREFIX] ",
-      :sender_address => %{"notifier" <notifier@example.com>},
-      :exception_recipients => %w{pablo@comunidadbox.com}
-    }
-
-
 
   #config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
   ENV['file_path'] = '/home/pablo/sites/comunidadbox_export_files'
