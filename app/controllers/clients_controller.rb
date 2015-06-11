@@ -5,6 +5,7 @@ class ClientsController < ApplicationController
   def edit
     @client = User.find(params[:id])
     authorize! :update, @client
+    @company = get_company
     @client.build_address unless @client.address
     @brands = @company.get_brands.order(:name)
     @models = []
