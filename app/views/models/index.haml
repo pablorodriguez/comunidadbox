@@ -17,7 +17,7 @@
       - for model in @models
         .row
           .left
-            = brand_logo model.brand.name,true
+            = brand_logo model.brand.logo_name,true
           .left
             = link_to h(model.name),model
           .actions

@@ -50,7 +50,8 @@ class ClientsController < ApplicationController
     else
       @company = get_company
       @brands = @company.get_brands.order(:name)
-      @models = []
+      @models = @client.vehicles.first.brand_id ? @client.vehicles.first.brand.models : []
+
       flash[:notice]= 'Error al actualizar los datos'
       render :action => 'edit'
     end
@@ -148,7 +149,7 @@ class ClientsController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @clients = Company.clients(get_company_id,params).paginate(:page =>page,:per_page =>15)
+    @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
     @filters_params_exp = params
 
     respond_to do |format|

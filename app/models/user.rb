@@ -600,8 +600,8 @@ class User < ActiveRecord::Base
     service_type_name = row[20]
     event_due_date = row[21]
 
-    brand = Brand.find_by_name(brand_name)
-
+    brand = company.brands.where("name like ?",brand_name).first
+ 
     if model_name && brand.nil?
       model = Model.includes("brand").where("models.name like ? and brands.company_id = ?",model_name,company.id).first
     else

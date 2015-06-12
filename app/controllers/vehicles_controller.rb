@@ -274,12 +274,16 @@ class VehiclesController < ApplicationController
   def update
     @vehicle = Vehicle.find(params[:id])
     @company = get_company
+
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
         @vehicle.update_events
         format.html { redirect_to(@vehicle) }
         format.xml  { head :ok }
       else
+        @brands = @company.get_brands.order(:name)
+        @models = @vehicle.brand_id ? @vehicle.brand.models : []
+
         format.html { render :action => "edit" }
         format.xml  { render :xml => @vehicle.errors, :status => :unprocessable_entity }
       end

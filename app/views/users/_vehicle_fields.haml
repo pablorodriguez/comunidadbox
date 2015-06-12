@@ -10,8 +10,9 @@
       %td{:style=>"width:100px"}
         %label{ :for => "domain" }=t(".domain")
       %td
+        - domain_format = f.object.is_car? ? "XXX999" : "999XXX"
         .car_domain
-          = f.text_field :domain, :size=>8, :maxlength =>6, :class=>"input_short user_domain", :placeholder => "XXX999"
+          = f.text_field :domain, :size=>8, :maxlength =>6, :class=>"input_short user_domain", :placeholder =>domain_format
       %td{:colspan=>"2"}
         .validation_car_domain.hide
     %tr

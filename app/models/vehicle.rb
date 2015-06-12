@@ -19,7 +19,7 @@ class Vehicle < ActiveRecord::Base
   validates_numericality_of :year, :only_integer => true, :greater_than_or_equal_to => 1885
   validates_numericality_of :km, :only_integer => true
   validates_numericality_of :kmAverageMonthly,:only_integer => true
-  
+ 
   validate :custom_validations
   before_save :set_new_attribute
   after_save :update_events

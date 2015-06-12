@@ -144,7 +144,7 @@ module ApplicationHelper
 
   def brand_logo brand_name,thumb=false
     content_tag :div,:class=>"brand_logo" do 
-      image_tag("/images/brands/#{brand_name}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name)
+      image_tag("/images/brands/#{brand_name.downcase}.png",:size =>"50x50",:atl=>brand_name,:title =>brand_name)
     end
 
   end

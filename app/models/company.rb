@@ -215,8 +215,7 @@ class Company < ActiveRecord::Base
     date_f = params[:date_from] ||  ""
     date_t =params[:date_to] || ""
     page = params[:page] || 1
-
-
+  
     clients = User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids)
     clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") unless first_name.empty?
     clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") unless last_name.empty?

@@ -1,9 +1,9 @@
 es-AR:
   activerecord:
     models:
-      car: "vehicle"
+      vehicle: "vehicle"
     attributes:
-      car:
+      vehicle:
         domain: "Dominio"
         model: "Modelo"
         brand: "Marca"
