@@ -239,9 +239,12 @@ class VehiclesController < ApplicationController
   # POST /vehicles
   # POST /vehicles.xml
   def create
-    @vehicle = vehicle_class.new(params[:vehicle])
-    @vehicle.company = get_company
+    @vehicle = Vehicle.new(params[:vehicle])
     @company = get_company
+    @vehicle.company = @company
+    @brands = @company.get_brands.order(:name)
+    @models = @vehicle.brand_id ? @vehicle.brand.models : []
+    
     parameters = {:vehicle_id => @vehicle.id}
     if params[:budget_id]
       parameters[:b] = params[:budget_id]

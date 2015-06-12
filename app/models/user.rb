@@ -431,6 +431,7 @@ class User < ActiveRecord::Base
   end
 
   def is_client?(user)
+    return false if user.id.nil?
     Company.is_client?(get_companies_ids,user.id)
   end
 

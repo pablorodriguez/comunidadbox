@@ -44,11 +44,13 @@ class ClientsController < ApplicationController
 
   def update
     @client = User.find(params[:id])
-    @models = Array.new
-
+    
     if @client.update_attributes(params[:user])
       render :action =>"show"
     else
+      @company = get_company
+      @brands = @company.get_brands.order(:name)
+      @models = []
       flash[:notice]= 'Error al actualizar los datos'
       render :action => 'edit'
     end
@@ -72,7 +74,6 @@ class ClientsController < ApplicationController
     end
 
     @budget = Budget.find(params[:budget_id]) if params[:budget_id]
-
     if @client.save
         if params[:budget_id]
           @budget.user = @client
@@ -110,10 +111,11 @@ class ClientsController < ApplicationController
         end
 
     else
+      @brands = @company.get_brands.order(:name)
+      @models = @client.vehicles.first.brand_id ? @client.vehicles.first.brand.models : []
+
       @client.vehicles.build if @client.vehicles.empty?
       @client.build_address unless @client.address
-      logger.debug "### voy a new action error"
-      # si hay error voy al view
       render :action => 'new'
     end
 
