@@ -268,4 +268,12 @@ class Budget < ActiveRecord::Base
     end
   end
 
+  def self.service_types_for user,company_id
+    st = ServiceType.joins(:services => :budget)
+    st = st.where("budgets.company_id = ?",company_id)if company_id
+    st = st.where("budgets.user_id = ?",user.id) unless company_id
+    st = st.group("service_types.id")
+    st
+  end
+
 end

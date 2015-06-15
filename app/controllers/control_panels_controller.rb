@@ -5,7 +5,7 @@ class ControlPanelsController < ApplicationController
 
   def index
 
-    @company_services = get_service_types
+    @company_services = current_user.service_types
     @not_in = (res = (@company_services.each {|x| x.id.to_i }).uniq).length == 0 ? '' : res
 
     @eventos_rojo = Event.red.group(:service_type_id).count
@@ -84,10 +84,12 @@ class ControlPanelsController < ApplicationController
     end
 
     @company_services = get_service_types
-    @brands = Brand.order(:name)
-    @models  = Array.new
-    if @service_filter.brand_id
-      @models = Model.find_all_by_brand_id(@service_filter.brand_id,:order=>:name)
+    @company = get_company
+    @brands = @company.get_brands.order(:name)
+    @models = [] 
+
+    if @service_filter.brand_id 
+      @models = Brand.find(@service_filter.brand_id).models
     end
 
     @other_events = Event.other_events(@service_filter.service_type_id)

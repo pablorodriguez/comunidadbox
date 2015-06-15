@@ -54,7 +54,6 @@ class BrandsController < ApplicationController
 
     respond_to do |format|
       if @brand.save
-        flash[:notice] = 'Brand was successfully created.'
         format.html { redirect_to(@brand) }
         format.xml  { render :xml => @brand, :status => :created, :location => @brand }
       else

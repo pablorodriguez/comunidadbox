@@ -36,7 +36,7 @@ class WorkordersController < ApplicationController
     per_page = 10
     params.delete_if{|k,v| v.empty? || v == "-1"}
     
-    @company_services = get_service_types
+    @company_services = get_workorder_service_types
 
     @order_by = order_by
 
@@ -395,6 +395,10 @@ class WorkordersController < ApplicationController
 
   def order_by
     params[:order_by] && (not Workorder::ORDER_BY.values.select{|v| v == params[:order_by]}.empty?) ? params[:order_by] : "workorders.performed desc"
+  end
+
+  def get_workorder_service_types
+    Workorder.service_types_for(current_user,company_id)
   end
 
 end

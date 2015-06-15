@@ -11,6 +11,7 @@ class ServiceType < ActiveRecord::Base
   has_and_belongs_to_many :tasks
   belongs_to :parent, :class_name=>"ServiceType"
   belongs_to :company
+  has_many :services
 
   validates_presence_of :name
 

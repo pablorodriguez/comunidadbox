@@ -73,7 +73,7 @@ module ApplicationHelper
   end
 
   def get_service_types
-    current_user.service_types
+    current_user.service_types_active
   end
 
   def t_st service_types
@@ -123,9 +123,10 @@ module ApplicationHelper
 
   def my_event_class event
     vehicle = event.vehicle
-    css = vehicle.vehicle_type.downcase + " " + event_class(event)
+    css = vehicle.vehicle_type.downcase + "_domain_" + event_class(event)
+    #debugger
     if ((event.service.workorder.company) && (company_id && company_id.include?(event.service.workorder.company.id.to_s)))
-      css = "my " + css
+      css = "my_" + css
     end
     return css
   end

@@ -1888,7 +1888,7 @@ td.number, th.number{
   width: 93px;
 }
 
-.mi_domain_red{
+.my_car_domain_red{
   background-image:url(images/mi_patente_red.png);  
   color: white;
   font-size: 20px;
@@ -1902,7 +1902,7 @@ td.number, th.number{
   width: 93px;
 }
 
-.mi_domain_yellow{
+.my_car_domain_yellow{
   background-image:url(images/mi_patente_yellow.png);
   color: white;
   font-size: 20px;
@@ -1916,7 +1916,7 @@ td.number, th.number{
   width: 93px;
 }
 
-.mi_domain_green{
+.my_car_domain_green{
   background-image:url(images/mi_patente_green.png);
   color: white;
   font-size: 20px;
@@ -1930,7 +1930,7 @@ td.number, th.number{
   width: 93px;
 }
 
-.domain_red{
+.car_domain_red{
   background-image:url(images/patente_red.png);
   color: white;
   font-size: 20px;
@@ -1944,12 +1944,12 @@ td.number, th.number{
   width: 93px;
 }
 
-.domain_red label, .mi_domain_red label,.mi_domain_yellow label,.domain_yellow label,.mi_domain_green label,.domain_green label{
+.car_domain_red label, .my_car_domain_red label,.my_car_domain_yellow label,.car_domain_yellow label,.my_car_domain_green label,.car_domain_green label{
   display: block;
   padding-top: 2px;
 }
 
-.domain_yellow{
+.car_domain_yellow{
   background-image:url(images/patente_yellow.png);
   color: white;
   font-size: 20px;
@@ -1963,7 +1963,7 @@ td.number, th.number{
   width: 93px;
 }
 
-.domain_green{
+.car_domain_green{
   background-image:url(images/patente_green.png);
   color: white;
   font-size: 20px;
@@ -2206,23 +2206,23 @@ select.operator{
   overflow: auto;
 }
 
-.select_event .rojo, .select_event .amarillo, .select_event .verde, .select_event .mi_rojo, .select_event .mi_amarillo{
+.select_event .red, .select_event .amarillo, .select_event .verde, .select_event .my_red, .select_event .mi_amarillo{
   height:20px;  
 }
 
-.rojo{
+.red{
   border: 1px solid red;
   background-color: #F7C8C8;
   overflow: auto;
 }
 
-.mi_rojo{
+.my_red{
   border: 1px solid red;  
   overflow: auto;
   background-color: #F77979;
 }
 
-.amarillo{
+.yellow{
   background-color:#FCFCCF;
   border: 1px solid #FF8057 ;
   overflow: auto;
@@ -2234,7 +2234,7 @@ select.operator{
   overflow: auto;
 }
 
-.verde{
+.green{
   background-color:#A0FFA0 ;
   border: 1px solid green;
   overflow: auto;
@@ -2338,8 +2338,6 @@ select.operator{
 .small_event_selected{
   background: none repeat scroll 0 0 #D8DB41;
   border-color: #BFBA00;
-  border-radius: 5px 5px 5px 5px;
-  border-style: ridge;
 }
 
 .other_event{  

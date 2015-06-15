@@ -7,7 +7,7 @@ class BudgetsController < ApplicationController
     page = params[:page] || 1
     per_page = 10
 
-    @company_services = get_service_types
+    @company_services = get_budget_service_types
     @service_type_ids =  params[:service_type_ids] || []
     @all_service_type = @service_type_ids.size > 0 ? true : false
 
@@ -16,7 +16,7 @@ class BudgetsController < ApplicationController
     @date_t = params[:date_to]
     @domain = params[:domain]
     @budget_id = params[:number]
-
+    
     filters_params[:first_name] = params[:first_name] if (params[:first_name] && !(params[:first_name].empty?))
     filters_params[:last_name] = params[:last_name] if (params[:last_name] && !(params[:last_name].empty?))
     filters_params[:date_from] = @date_f if (@date_f && (!@date_f.empty?))
@@ -31,14 +31,14 @@ class BudgetsController < ApplicationController
     filters_params[:year] = params[:year] if(params[:year] && !(params[:year].empty?))
 
     @filters_params_exp = filters_params
-    @filters_params_exp[:user] = nil
-
+    
     @budgets = Budget.find_by_params(filters_params).paginate(:page =>page,:per_page =>per_page)
+    
+    @filters_params_exp[:user] = nil
 
     @fuels = Vehicle.fuels
     @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)
     @states = State.order(:name)
-    @company_services = get_service_types
     @brands = Brand.order(:name)
 
     @models = Array.new
@@ -225,5 +225,9 @@ class BudgetsController < ApplicationController
     respond_to do |format|
       format.html { render :file=>"budget_mailer/email",:layout => "emails" }
     end
+  end
+
+  def get_budget_service_types
+    Budget.service_types_for(current_user,company_id)
   end
 end

@@ -72,7 +72,6 @@ class EmployeesController < ApplicationController
     @employee.confirmed =1
     
     if @employee.save
-      flash[:notice] = "Empleado creado exitosamente!"
       redirect_to employees_path
     else
       render :action => 'new'

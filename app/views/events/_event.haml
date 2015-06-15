@@ -3,7 +3,7 @@
   .small_event
     - oe = @other_events[event.vehicle_id]
     - css = oe ? "other_event qtip":""
-    %div{:class=>"#{my_event_class(event)} #{css}"}
+    %div{:class=>"#{my_event_class(event)} #{css} AA"}
       - st = create_service_type_tool_tip oe
       %label{:title =>"#{st}",:class =>:link}
         = event.vehicle.domain

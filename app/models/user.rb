@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address, :reject_if => :all_blank
   accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
   accepts_nested_attributes_for :vehicles, :reject_if => :all_blank, :allow_destroy => true
+  
   # accepts_nested_attributes_for :cars, :reject_if => :all_blank
   # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
 
@@ -73,7 +74,7 @@ class User < ActiveRecord::Base
   #after_initialize :set_default_data
   before_validation :set_default_data
   validate :custom_validations
-  after_save :set_client_data
+  #after_save :set_client_data
 
   def set_client_data
     if creator_id
@@ -185,13 +186,14 @@ class User < ActiveRecord::Base
 
   def service_types_active
     return Company.default_service_types unless company
-    headquarter.service_types.active
+    return company.service_types.active unless company.service_types.empty?
+    return company.user.headquarter.service_types.active
   end
 
   def service_types
     return Company.default_service_types unless company
-    return company.service_types.active unless company.service_types.empty?
-    return company.user.headquarter.service_types.active
+    return company.service_types unless company.service_types.empty?
+    return company.user.headquarter.service_types
   end
 
   def all_notes

@@ -7,9 +7,7 @@ class ClientsController < ApplicationController
     authorize! :update, @client
     @company = get_company
     @client.build_address unless @client.address
-    @brands = @company.get_brands.order(:name)
-    @models = []
-
+    
     unless current_user.is_client?(@client)
       flash[:notice] = "No puede modificar un cliente que no es suyo"
       return redirect_to clients_path
@@ -46,7 +44,7 @@ class ClientsController < ApplicationController
     @client = User.find(params[:id])
     
     if @client.update_attributes(params[:user])
-      render :action =>"show"
+      redirect_to client_path @client
     else
       @company = get_company
       @brands = @company.get_brands.order(:name)
@@ -75,6 +73,8 @@ class ClientsController < ApplicationController
     end
 
     @budget = Budget.find(params[:budget_id]) if params[:budget_id]
+    @client.companies_users.build({:company_id => @company.id})
+
     if @client.save
         if params[:budget_id]
           @budget.user = @client
@@ -151,7 +151,6 @@ class ClientsController < ApplicationController
     page = params[:page] || 1
     @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
     @filters_params_exp = params
-
     respond_to do |format|
       format.html
       format.js { render :layout => false}
