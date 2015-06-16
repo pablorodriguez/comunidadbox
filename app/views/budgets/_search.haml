@@ -32,25 +32,27 @@
           %tr
             %td
               = text_field_tag 'domain', @domain, :size=>6,:class =>"input labelify",:title=>"Dominio"
-          %tr
-            %td
-              = text_field_tag 'first_name', @first_name,:class =>"input labelify",:title =>"Nombre"
-          %tr
-            %td
-              = text_field_tag 'last_name', @first_name,:class =>"input labelify",:title =>"Apellido"
-          %tr
-            %td
-              = select_tag(:brand_id,options_from_collection_for_select(@brands, :id, :name), :include_blank =>"-- Marca --",:class=>"clear change long_select")
-          %tr
-            %td
-              #models
-                = select_tag(:service_filter_model_id,options_from_collection_for_select(@models, :id, :name), {:include_blank=>"-- Modelo --",:class=>'model clear change long_select'})
-          %tr
-            %td
-              = select_tag(:fuel,options_from_collection_for_select(@fuels,:to_s,:to_s),{:include_blank=>"-- Combustible --",:class=>"clear change long_select"})
-          %tr
-            %td
-              = select_tag(:year,options_from_collection_for_select(@years,:to_i,:to_i),{:include_blank=>"-- Año --",:class=>"clear change long_select"})
+          
+          -if current_user.is_employee?
+            %tr
+              %td
+                = text_field_tag 'first_name', @first_name,:class =>"input labelify",:title =>"Nombre"
+            %tr
+              %td
+                = text_field_tag 'last_name', @first_name,:class =>"input labelify",:title =>"Apellido"
+            %tr
+              %td
+                = select_tag(:brand_id,options_from_collection_for_select(@brands, :id, :name), :include_blank =>"-- Marca --",:class=>"clear change long_select")
+            %tr
+              %td
+                #models
+                  = select_tag(:service_filter_model_id,options_from_collection_for_select(@models, :id, :name), {:include_blank=>"-- Modelo --",:class=>'model clear change long_select'})
+            %tr
+              %td
+                = select_tag(:fuel,options_from_collection_for_select(@fuels,:to_s,:to_s),{:include_blank=>"-- Combustible --",:class=>"clear change long_select"})
+            %tr
+              %td
+                = select_tag(:year,options_from_collection_for_select(@years,:to_i,:to_i),{:include_blank=>"-- Año --",:class=>"clear change long_select"})
         .left
           = image_submit_tag("find.png",:class =>"input_img")
     .ajax_loader.right

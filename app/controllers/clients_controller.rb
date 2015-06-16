@@ -1,7 +1,8 @@
 # encoding: utf-8
 class ClientsController < ApplicationController
   layout "application", :except => [:search,:find_models]
-  
+  authorize_resource :class => false
+
   def edit
     @client = User.find(params[:id])
     authorize! :update, @client

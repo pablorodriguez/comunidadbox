@@ -499,7 +499,7 @@ class Workorder < ActiveRecord::Base
 
     workorders = workorders.where("vehicles.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
     workorders = workorders.where("vehicles.chassis like ?","%#{filters[:chassis].upcase}%") if filters[:chassis]
-
+    
     #workorders = workorders.order("service_types.name")
 
     workorders = workorders.where("workorders.vehicle_id IN (?)", filters[:user].vehicles.map(&:id)) if filters[:user] && filters[:user].company.nil?

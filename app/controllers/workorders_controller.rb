@@ -56,7 +56,14 @@ class WorkordersController < ApplicationController
     filters_params[:domain] = @domain if @domain
     filters_params[:service_type_ids] = @service_type_ids 
     filters_params[:wo_status_id] = @status_id if @status_id
-    params[:company_id] = company_id if company_id
+    
+    if search_multiple_company(params)
+      params[:company_id] = nil
+    else
+      params[:company_id] = company_id if company_id
+    end
+
+
     filters_params[:material] = @material if @material
     params[:user] = current_user
     filters_params[:workorder_id] = @wo_id if @wo_id 
@@ -102,6 +109,7 @@ class WorkordersController < ApplicationController
 
     available_custom_statuses = []
     company = get_company
+
     if company
       available_custom_statuses = company.available_custom_statuses.collect{|v| [v.name,v.id]}
     end
@@ -392,6 +400,10 @@ class WorkordersController < ApplicationController
   end
 
   private
+
+  def search_multiple_company params
+    false
+  end
 
   def order_by
     params[:order_by] && (not Workorder::ORDER_BY.values.select{|v| v == params[:order_by]}.empty?) ? params[:order_by] : "workorders.performed desc"

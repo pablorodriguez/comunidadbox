@@ -25,27 +25,28 @@
               %td
                 = text_field_tag 'date_from', @date_f,:class =>"input_date",:title =>t(".from"),:placeholder =>t(".from")
                 = text_field_tag 'date_to', @date_t,:class =>"input_date",:title=>t(".even"),:placeholder =>t(".even")
+            -if current_user.is_employee?
+              %tr
+                %td
+                  = text_field_tag 'first_name', @first_name, :size=>6,:class =>"input",:title=>t("first_name"),:placeholder => t("first_name")
+              %tr
+                %td
+                  = text_field_tag 'last_name', @last_name, :size=>6,:class =>"input",:title=>t("last_name"),:placeholder => t("last_name")
+              %tr
+                %td
+                  = text_field_tag 'company_name', @company_name, :size=>6,:class =>"input",:title=>t("company_name"),:placeholder => t("company_name")
             %tr
               %td
-                = text_field_tag 'first_name', @numero, :size=>6,:class =>"input labelify",:title=>t("first_name")
+                = text_field_tag 'number', @numero, :size=>6,:class =>"input",:title=>t(".number"),:placeholder => t(".number")
             %tr
               %td
-                = text_field_tag 'last_name', @numero, :size=>6,:class =>"input labelify",:title=>t("last_name")
+                = text_field_tag 'material', @material, :size=>6, :class =>"input",:title=>t(".material"),:placeholder => t(".material")
             %tr
               %td
-                = text_field_tag 'company_name', @numero, :size=>6,:class =>"input labelify",:title=>t("company_name")
+                = text_field_tag 'chassis', @chassis, :size=>6, :class =>"input",:title=>t("chassis"),:placeholder => t("chassis")
             %tr
               %td
-                = text_field_tag 'number', @numero, :size=>6,:class =>"input labelify",:title=>t(".number")
-            %tr
-              %td
-                = text_field_tag 'material', @material, :size=>6, :class =>"input labelify",:title=>t(".material")
-            %tr
-              %td
-                = text_field_tag 'chassis', @material, :size=>6, :class =>"input labelify",:title=>t("chassis")
-            %tr
-              %td
-                = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date labelify",:title=>t(".domain")             
+                = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date",:title=>t(".domain"),:placeholder => t(".domain")          
                 - if @status.any?
                   = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
 

@@ -141,7 +141,7 @@ class Ability
       can :manage, :control_panel
       can :create, Budget
       can :manage, Company
-      can :index, :client
+      can :manage, :client
       can :manage, Brand
       can :manage, Model
     end

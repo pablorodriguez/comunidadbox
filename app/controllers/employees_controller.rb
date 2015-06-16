@@ -53,7 +53,8 @@ class EmployeesController < ApplicationController
   end
   
   def index
-    @employee_search = EmployeeSearch.new(params[:employee_search])    
+    params[:employee_search].delete_if{|k,v| v.empty?} if params[:employee_search]
+    @employee_search = EmployeeSearch.new(params[:employee_search])
     @employees = Company.employees(company_id,@employee_search)
     respond_to do |format|
       format.html
