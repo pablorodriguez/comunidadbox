@@ -4,15 +4,12 @@
   = hidden_field_tag "budget_id", @budget.id if @budget
   .box_bottom
     = render :partial => "users/vehicle_fields",:locals => {:f => f,:model => @models}
-    / - if f.object.type == 'Car'
-    /   = render :partial => "users/car_fields",:locals => {:f => f}
-    / - elsif f.object.type == 'Motorcycle'
-    /   = render :partial => "users/motorcycle_fields",:locals => {:f => f}
   .buttons_container
     = f.submit t(".save"), :class=>"button"
-    - if current_user.id == @vehicle.user.id
-      = link_to t(".cancel"), my_vehicles_path
     - if @vehicle.id
       = link_to t(".cancel"), @vehicle
     - else
-      = link_to t(".cancel"), clients_path
+      - if current_user.is_employee?
+        = link_to t(".cancel"), clients_path
+      - else
+        = link_to t(".cancel"), my_vehicles_path

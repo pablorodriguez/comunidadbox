@@ -4,8 +4,11 @@
       %td
         %h3=t(".name")
       %td
-        = link_to vehicle.user.full_name,client_path(vehicle.user)
-        = show_company_info vehicle
+        - if current_user.is_employee?
+          = link_to vehicle.user.full_name,client_path(vehicle.user)
+          = show_company_info vehicle
+        - else
+          = vehicle.user.full_name
       %td
         %h3=t(".domain")
       %td

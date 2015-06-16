@@ -1,6 +1,10 @@
 #menu_options.box_bottom
   %ul
     %li
+      #control_panel_link.menu
+        = image_tag "employee.png"
+        = link_to t(".home"),root_path
+    %li
       #my_services.link.menu
         = image_tag "my_services.png"
         = link_to t('.service_types'), service_types_path

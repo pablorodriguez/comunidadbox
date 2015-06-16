@@ -8,11 +8,12 @@ en-US:
     what_is_combo:
       tutorials: "Tutorials - Comunidadbox"
     menu:
+      home: Home
       clients: "Clients"
       my_vehicles: "My Vehicles"
       control_panel: "Control Panel"
       services_made: "Services"
-      services_requests: "Services Requests"
+      services_requests: "Client's Services"
       budgets: "Budgets"
       service_offers: "Service Offers"
       service_providers: "Service Providers"
