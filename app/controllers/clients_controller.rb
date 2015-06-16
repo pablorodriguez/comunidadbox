@@ -9,11 +9,6 @@ class ClientsController < ApplicationController
     @company = get_company
     @client.build_address unless @client.address
     
-    unless current_user.is_client?(@client)
-      flash[:notice] = "No puede modificar un cliente que no es suyo"
-      return redirect_to clients_path
-    end
-
     respond_to do |format|
       format.html
     end

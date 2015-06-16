@@ -51,14 +51,14 @@ es-AR:
       brand: "Marca"
       model: "Modelo"
     no_vehicle:
-      vehicle: "Vehiculo" 
+      vehicle: "Vehículo" 
       domain: "Dominio"
       brand: "Marca"
       model: "Modelo"
       phone: "Teléfono"
       email: "Correo "
     vehicle:
-      vehicle: "Vehiculo"
+      vehicle: "Vehículo"
       domain: "Dominio"
       brand: "Marca"
       model: "Modelo"

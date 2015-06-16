@@ -6,12 +6,12 @@
       = render 'users/user_row',:f => f
       %tr
         %td
-          %label{ :for => "password" }=t(".password")
+          %label{ :for => "password" }=t("password")
         %td
           = f.password_field :password,:class=>"input_medium"
       %tr
         %td
-          =t(".password_confirmation")
+          =t("password_confirmation")
         %td
           = f.password_field :password_confirmation,:class=>"input_medium"
       %tr.close_system
@@ -19,6 +19,7 @@
           = f.label :close_system
         %td
           = f.check_box :close_system
+  = recaptcha
   -if recaptcha
     .recpatcha
       #repatcha_tag

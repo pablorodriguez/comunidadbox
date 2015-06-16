@@ -8,8 +8,7 @@ es-AR:
         last_name: "Apellido"
         password: "Contraseña"
         cars: "Información de su auto"
-        vehicles: "Información de su vehiculo"
+        vehicles: "Información de su vehículo"
         address: "Dirección Personal"
         domain_duplicated: "Dominio Duplicado"
         close_system: "Modalidad Cerrado"
-  

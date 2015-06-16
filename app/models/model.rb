@@ -68,6 +68,6 @@ class Model < ActiveRecord::Base
       when 2
         brand_has_that_type = brand.of_motorcycles
     end
-    errors.add(:base, "La Marca seleccionada no posee el tipo de vehiculo indicado") if !brand_has_that_type
+    errors.add(:base, "La Marca seleccionada no posee el tipo de vehículo indicado") if !brand_has_that_type
   end
 end

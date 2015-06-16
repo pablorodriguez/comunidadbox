@@ -10,7 +10,9 @@
     /   = render :partial => "users/motorcycle_fields",:locals => {:f => f}
   .buttons_container
     = f.submit t(".save"), :class=>"button"
-    - if current_user.company
+    - if current_user.id == @vehicle.user.id
+      = link_to t(".cancel"), my_vehicles_path
+    - if @vehicle.id
       = link_to t(".cancel"), @vehicle
     - else
-      = link_to t(".cancel"), my_vehicles_path
+      = link_to t(".cancel"), clients_path

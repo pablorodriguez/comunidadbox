@@ -8,5 +8,5 @@ es-AR:
         service_type: "Tipo de Servico"
         company: "Compañia"
         car: "Automóvil"
-        vehicle: "Vehiculo"
+        vehicle: "Vehículo"
         status: "Estado"

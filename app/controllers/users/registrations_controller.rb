@@ -18,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     @company = get_company
     resource.build_address unless resource.address
+   
     unless resource.company
       company = resource.companies.build
       company.active=1

@@ -30,7 +30,6 @@ es-AR:
       mileage_monthly_average: "Kilometraje promedio mensual"
       fuel: "Combustible"
       mileage: "Kilometraje"
-      
     vehicle_fields:
       domain: "Dominio"
       brand: "Marca"
@@ -53,8 +52,6 @@ es-AR:
         auto_part: 'Autopartista'
       form:
         personal_info: "Información Personal"
-        password: "Clave"
-        password_confirmation: "Confirmar Clave"
         close_system: "Modalidad Cerrado"
         information_car: "Información de su auto"
         personal_address: "Dirección Personal"

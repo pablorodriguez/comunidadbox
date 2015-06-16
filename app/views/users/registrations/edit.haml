@@ -1,8 +1,44 @@
+- if @user.is_employee?
+  - content_for :actions do
+    %li
+      = link_to t("my_vehicles"), my_vehicles_path
+
 .vertical_menu
   = render "home/menu"
   = render "home/default_actions"
+
 .contentright_s
   %h1 Modificar Usuario
   .box_bottom
   = form_for @user, :url => registration_path(resource_name), :html => { :method => :put } do |f|
-    = render "form", :f => f ,:recaptcha => false
+    = render 'shared/error_messages', :target => @user
+    #personal_info.box_bottom
+      %h3=t(".personal_info")
+      %table.w
+        %tbody
+          = render 'users/user_row',:f => f
+          %tr
+            %td
+              %label{ :for => "password" }=t("password")
+            %td
+              = f.password_field :password,:class=>"input_medium"
+          %tr
+            %td
+              =t("password_confirmation")
+            %td
+              = f.password_field :password_confirmation,:class=>"input_medium"
+          - if @user.has_company?
+            %tr.close_system
+              %td
+                = f.label :close_system
+              %td
+                = f.check_box :close_system
+    #user_data.box_bottom
+      #personal_address
+        %h3=t(".personal_address")
+        =f.fields_for :address do |a|
+          = render 'users/user_address_fields', :f =>a
+    .buttons_container
+      = f.submit t("save"),:class=>"button"
+      = link_to t("cancel"),root_path
+

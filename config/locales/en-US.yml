@@ -3,6 +3,7 @@ en-US:
   import: Import
   importing: Importing...
   file_not_found: File not found yet.
+  my_vehicles: "My Vehicles"
   date:
     abbr_day_names:
     - Sun

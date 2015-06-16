@@ -52,8 +52,6 @@ en-US:
         auto_part: 'Auto Part'
       form:
         personal_address: "Personal Address"
-        password: "Password"
-        password_confiramtion: "Password Confirmation"
         information_car: "Car's Information"
         close_system: "Close Mode"
         personal_address: "Address"
