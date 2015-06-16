@@ -160,7 +160,7 @@ pdf.grid(0,1).bounding_box do
 
   data_info = [[
     "Vendedor: #{@work_order.user.full_name}",
-    "Realizado: #{l @work_order.performed.to_date} [#{@work_order.payment_method.name}]"
+    "Realizado: #{l @work_order.performed.to_date} [#{@work_order.payment_method_name}]"
     ]]
 
   pdf.table data_info do
