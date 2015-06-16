@@ -1,6 +1,10 @@
 #menu_options.box_bottom
   %ul
     %li
+      #control_panel_link.menu
+        = image_tag "control-panel.png"
+        = link_to t(".home"),root_path
+    %li
       #vehicles_link.menu
         = image_tag "cars.png"
         - if company_id
