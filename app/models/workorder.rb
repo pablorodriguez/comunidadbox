@@ -402,7 +402,7 @@ class Workorder < ActiveRecord::Base
 
   def self.csv_workorder_row_values(wo)
 #               ["id" ,"company"       ,"car"         ,"car_km","user"          ,"performed"  ,"comment"  ,"status"                  ,"payment_method"       ,"budget_id"  ,"deliver"  ,"created_at"  ,"updated_at"]
-    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, wo.status.name, wo.payment_method.name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
+    wo_values = [wo.id, wo.company.name, wo.car.domain, wo.km, wo.user.full_name, wo.performed, wo.comment, wo.status.name, wo.payment_method_name, wo.budget_id, wo.deliver, wo.created_at, wo.updated_at]
   end
 
   def self.workorder_report_to_csv(params)

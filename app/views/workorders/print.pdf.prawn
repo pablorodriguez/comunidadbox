@@ -39,7 +39,7 @@ pdf.grid(0,0).bounding_box do
   end
 
   data_info << ["CUIT:#{user.cuit}","#{@work_order.status_name}"] if user.cuit
-  data_info << [address,"#{@work_order.payment_method.name}"]
+  data_info << [address,"#{@work_order.payment_method_name}"]
   data_info << ["Vendedor: #{@work_order.user.full_name}",""]
   data_info << ["Realizado: #{l @work_order.performed.to_date}",""]
 
