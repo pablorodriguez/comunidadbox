@@ -35,12 +35,12 @@
               %tr
                 %td
                   = text_field_tag 'company_name', @company_name, :size=>6,:class =>"input",:title=>t("company_name"),:placeholder => t("company_name")
+              %tr
+                %td
+                  = text_field_tag 'material', @material, :size=>6, :class =>"input",:title=>t(".material"),:placeholder => t(".material")
             %tr
               %td
                 = text_field_tag 'number', @numero, :size=>6,:class =>"input",:title=>t(".number"),:placeholder => t(".number")
-            %tr
-              %td
-                = text_field_tag 'material', @material, :size=>6, :class =>"input",:title=>t(".material"),:placeholder => t(".material")
             %tr
               %td
                 = text_field_tag 'chassis', @chassis, :size=>6, :class =>"input",:title=>t("chassis"),:placeholder => t("chassis")

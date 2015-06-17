@@ -500,9 +500,7 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("vehicles.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
     workorders = workorders.where("vehicles.chassis like ?","%#{filters[:chassis].upcase}%") if filters[:chassis]
     
-    #workorders = workorders.order("service_types.name")
-
-    workorders = workorders.where("workorders.vehicle_id IN (?)", filters[:user].vehicles.map(&:id)) if filters[:user] && filters[:user].company.nil?
+    workorders = workorders.where("workorders.vehicle_id IN (?)", filters[:user].vehicles.map(&:id)) if filters[:user] && filters[:user].is_vehicle_owner?
 
     workorders = workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
 
@@ -512,9 +510,8 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("workorders.company_id IN (?)",filters[:company_id]) if filters[:company_id]
 
     workorders = workorders.where("lower(materials.name) like ? or lower(material_services.material) like ?" ,"%#{filters[:material].downcase}%", "%#{filters[:material].downcase}%") if filters[:material]
-    #workorders = workorders.where("vehicle_id in (?)",filters[:user].vehicles.map{|c| c.id})
 
-    workorders = workorders.where("workorders.id = ?", filters[:workorder_id]) if filters[:workorder_id]
+    workorders = workorders.where("workorders.id = ?", filters[:number]) if filters[:number]
     workorders = workorders.where("workorders.status_id = ? or workorders.status_id is null", filters[:wo_status_id]) if filters[:wo_status_id]
     
     workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]    

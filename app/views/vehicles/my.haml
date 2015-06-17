@@ -1,9 +1,6 @@
 -# javascript 'jquery.ba-url.min'
 -# javascript 'vehicle_pagination'
-- content_for :actions do
-  %li
-    = link_to t("new_vehicle"), new_vehicle_path(:user_id=>current_user.id), {:title =>t("new_vehicle")}
-  
+
 #all_vehicles
   .vertical_menu
     = render "home/menu"

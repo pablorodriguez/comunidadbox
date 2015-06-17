@@ -28,7 +28,7 @@ pdf.grid(0,0).bounding_box do
   company_name = user.company_name ? "Razon Social: #{user.company_name}" : ""
 
   data_info = [
-    ["Cliente: #{user.full_name}","Automovil: #{vehicle.domain}"],
+    ["Cliente: #{user.full_name}","Dominio: #{vehicle.domain}"],
     ["Teléfono: #{user.phone}","#{vehicle.brand.name}, #{vehicle.model.name}, #{vehicle.year}"],
     ["Email: #{user.email}","Km. Actual: #{@work_order.km}"],
     [company_name,"Km. Promedio Mensual: #{vehicle.kmAverageMonthly}"]
@@ -41,7 +41,7 @@ pdf.grid(0,0).bounding_box do
   data_info << ["CUIT:#{user.cuit}","#{@work_order.status_name}"] if user.cuit
   data_info << [address,"#{@work_order.payment_method_name}"]
   data_info << ["Vendedor: #{@work_order.user.full_name}",""]
-  data_info << ["Realizado: #{l @work_order.performed.to_date}",""]
+  data_info << ["Fecha: #{l @work_order.performed.to_date}",""]
 
 
   pdf.table data_info do
@@ -147,7 +147,7 @@ pdf.grid(0,1).bounding_box do
   pdf.move_down(10)
   data_info = [[
     "Cliente: #{user.full_name} ",
-    "Automovil: #{vehicle.domain} \n #{vehicle.brand.name}, #{vehicle.model.name}, #{vehicle.year} \n Km. Actual: #{@work_order.km} \n Km. Promedio Mensual: #{vehicle.kmAverageMonthly}"
+    "Dominio: #{vehicle.domain} \n #{vehicle.brand.name}, #{vehicle.model.name}, #{vehicle.year} \n Km. Actual: #{@work_order.km} \n Km. Promedio Mensual: #{vehicle.kmAverageMonthly}"
     ]]
 
   pdf.table data_info do
@@ -160,7 +160,7 @@ pdf.grid(0,1).bounding_box do
 
   data_info = [[
     "Vendedor: #{@work_order.user.full_name}",
-    "Realizado: #{l @work_order.performed.to_date} [#{@work_order.payment_method_name}]"
+    "Fecha: #{l @work_order.performed.to_date} [#{@work_order.payment_method_name}]"
     ]]
 
   pdf.table data_info do

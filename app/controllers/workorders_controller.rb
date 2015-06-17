@@ -66,6 +66,7 @@ class WorkordersController < ApplicationController
 
     filters_params[:material] = @material if @material
     params[:user] = current_user
+
     filters_params[:workorder_id] = @wo_id if @wo_id 
     params[:order_by] = @order_by
     

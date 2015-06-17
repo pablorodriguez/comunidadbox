@@ -26,6 +26,7 @@ class VehiclesController < ApplicationController
     @company_vehicles = Vehicle.order("domain asc")
     @company_vehicles = @company_vehicles.where("domain like ?","%#{domain}%") unless domain.empty?
     @company_vehicles = @company_vehicles.where("chassis like ?","%#{chassis}%") unless chassis.empty?
+    @company_vehicles = @company_vehicles.where("user_id = ?",current_user.id) if current_user.is_vehicle_owner?
 
     @company_id = params[:company_id]
     @company_vehicles = @company_vehicles.paginate(:page =>page,:per_page =>per_page)
