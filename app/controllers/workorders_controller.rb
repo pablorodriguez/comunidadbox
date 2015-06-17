@@ -58,7 +58,7 @@ class WorkordersController < ApplicationController
     filters_params[:wo_status_id] = @status_id if @status_id
     
     if search_multiple_company(params)
-      params[:company_id] = nil
+      params[:company_id] = current_user.get_companies_ids
     else
       params[:company_id] = company_id if company_id
     end
@@ -403,7 +403,12 @@ class WorkordersController < ApplicationController
   private
 
   def search_multiple_company params
-    false
+    fields = %W{date_from date_to first_name last_name company_name material number chassis doamin wo_status_id}
+    value = false
+    fields.each do |field|
+      return field if (params[field] != nil)
+    end
+    value
   end
 
   def order_by

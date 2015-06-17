@@ -12,9 +12,14 @@
     - budget.services.each do |s|
       .service
         = s.service_type.name
+  - if multiple_company? || company_id.first != budget.company.id
+    .right
+      %strong{:title => "Prestador de Servicio"}
+        = budget.company.name
   .budget_info.clear
     %label.bg_id{:title =>t(".number_of_budget")}
       = link_to budget.id, budget
+
     %label{title: t(".client")}
       %strong
         =t(".client")

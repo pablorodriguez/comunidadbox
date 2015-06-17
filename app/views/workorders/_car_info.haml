@@ -5,7 +5,10 @@
         %td
           %h3 Nombre
         %td
-          = link_to vehicle.user.full_name,client_path(vehicle.user)
+          -if current_user.is_employee?
+            = link_to vehicle.user.full_name,client_path(vehicle.user)
+          -else
+            = vehicle.user.full_name
         %td
           %h3 Dominio
         %td

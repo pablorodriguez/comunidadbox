@@ -13,8 +13,10 @@
          
 .contentright_s
   .div{:id=>"wo_#{@work_order.id}"}
-    = render "show" if can_show
-    = render "s_show" unless can_show
+    - if can_show
+      = render "show" 
+    - else
+      = render "s_show"
 
   - if @work_order.can_rank? current_user
     #ranks_container

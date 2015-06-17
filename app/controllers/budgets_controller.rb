@@ -23,7 +23,13 @@ class BudgetsController < ApplicationController
     filters_params[:date_to] =  @date_t if (@date_t && (!@date_t.empty?))
     filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
-    filters_params[:company_id] = company_id
+    
+    if search_multiple_company(params)
+      filters_params[:company_id] = current_user.get_companies_ids
+    else
+      filters_params[:company_id] = company_id if company_id
+    end
+    
     filters_params[:user] = current_user
     filters_params[:budget_id] = @budget_id if (@budget_id && (!@budget_id.empty?))
     filters_params[:brand_id] = params[:brand_id] if params[:brand_id] && !(params[:brand_id].empty?)
@@ -229,5 +235,14 @@ class BudgetsController < ApplicationController
 
   def get_budget_service_types
     Budget.service_types_for(current_user,company_id)
+  end
+
+  def search_multiple_company params
+    fields = %W{date_from date_to first_name last_name company_name material number doamin domain_id service_filter_model_id fuel year}
+    value = false
+    fields.each do |field|
+      return field if (params[field] != nil)
+    end
+    value
   end
 end
