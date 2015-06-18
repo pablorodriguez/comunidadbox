@@ -240,7 +240,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_print_pdf? user
-    can_show? user
+    can_show?(user) && user.is_employee?
   end
 
   def can_send_message?(usr)

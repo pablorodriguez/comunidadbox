@@ -21,6 +21,8 @@
 
     - if @work_order.can_delete?(current_user)
       = link_to "Eliminar", workorder_path(@work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>:button
-    
+    - if @work_order.can_print_pdf? current_user
+      = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:button
+
 
     = link_to t("cancel"),workorders_path
