@@ -206,24 +206,15 @@ class Company < ActiveRecord::Base
 
   end
 
-  def self.clients(companies_ids,params)
-
-    first_name = params[:first_name] || ""
-    last_name = params[:last_name] || ""
-    email = params[:email] || ""
-    company_name = params[:company_name] || ""
-    date_f = params[:date_from] ||  ""
-    date_t =params[:date_to] || ""
-    page = params[:page] || 1
-  
-    clients = User.includes(:companies_users).where("companies_users.company_id in (?)", companies_ids)
-    clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") unless first_name.empty?
-    clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") unless last_name.empty?
-    clients = clients.where("users.email like ?","%#{params[:email]}%") unless email.empty?
-    clients = clients.where("company_name like ?","%#{params[:company_name]}%") unless company_name.empty?
+  def self.clients(params)
+    clients = User.includes(:companies_users).where("companies_users.company_id in (?)", params[:companies_ids])
+    clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") if params[:first_name]
+    clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") if params[:last_name]
+    clients = clients.where("users.email like ?","%#{params[:email]}%") if params[:email]
+    clients = clients.where("company_name like ?","%#{params[:company_name]}%") if params[:company_name]
     
-    clients = clients.where("DATE(users.created_at) >= ?",date_f.to_date) unless date_f.empty?
-    clients = clients.where("DATE(users.created_at) <= ?",date_t.to_date) unless date_t.empty?
+    clients = clients.where("DATE(users.created_at) >= ?",date_f.to_date) if params[:date_f]
+    clients = clients.where("DATE(users.created_at) <= ?",date_t.to_date) if params[:date_t]
     clients.order("users.created_at DESC")
   end
 

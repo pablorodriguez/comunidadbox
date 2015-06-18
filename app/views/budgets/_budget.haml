@@ -13,9 +13,8 @@
       .service
         = s.service_type.name
   - if multiple_company? || company_id.first != budget.company.id
-    .right
-      %strong{:title => "Prestador de Servicio"}
-        = budget.company.name
+    .company_name{:title => "Prestador de Servicio"}
+      = budget.company.name
   .budget_info.clear
     %label.bg_id{:title =>t(".number_of_budget")}
       = link_to budget.id, budget
@@ -38,10 +37,6 @@
         = l budget.created_at,:format => :short
       %label.price_b
         = number_to_currency budget.total_price
-  - if (multiple_company? || not(current_user.company))
-    .clear.left
-      = budget.company.name
-
   .actions
     - if budget.can_edit?(current_user)
       .action

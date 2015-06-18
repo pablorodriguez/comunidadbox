@@ -145,7 +145,14 @@ class ClientsController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @clients = Company.clients(current_user.get_companies_ids,params).paginate(:page =>page,:per_page =>15)
+    params.delete_if{|k,v| v.empty?}
+    if search_multiple_company(params)
+      params[:companies_ids] = current_user.get_companies_ids
+    else
+      params[:companies_ids] = get_company
+    end
+
+    @clients = Company.clients(params).paginate(:page =>page,:per_page =>15)
     @filters_params_exp = params
     respond_to do |format|
       format.html
@@ -208,6 +215,15 @@ class ClientsController < ApplicationController
     @import_result = User.import_clients file, current_user, get_company,get_user_agent_encode
     flash[:alert] = @import_result[:fatal] if @import_result[:fatal]
     render :action => 'import'
+  end
+
+  def search_multiple_company params
+    fields = %W{date_from date_to first_name last_name company_name material number chassis doamin wo_status_id}
+    value = false
+    fields.each do |field|
+      return field if (params[field] != nil)
+    end
+    value
   end
 
 end

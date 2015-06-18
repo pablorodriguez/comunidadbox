@@ -57,13 +57,8 @@ class WorkordersController < ApplicationController
     filters_params[:service_type_ids] = @service_type_ids 
     filters_params[:wo_status_id] = @status_id if @status_id
     
-    if search_multiple_company(params)
-      params[:company_id] = current_user.get_companies_ids
-    else
-      params[:company_id] = company_id if company_id
-    end
-
-
+    params[:company_id] = company_id if company_id
+  
     filters_params[:material] = @material if @material
     params[:user] = current_user
 

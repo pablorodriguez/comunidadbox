@@ -1691,8 +1691,7 @@ td.number, th.number{
 
 .services{  
   padding: 2px 0px;
-  float:left;  
-  overflow: auto;  
+  float: left;
 }
 
 .wo_detail .wo_info, .budgets .wo_info{
@@ -3167,4 +3166,11 @@ ul.tasks li{
 .headquarter{
   font-weight: bold;
   color:#B2AC0C;
+}
+
+.company_name{
+  float: right;
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
 }

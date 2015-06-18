@@ -13,6 +13,9 @@
           -if s.operator
             %label{title: "Operario"}
               = "#{s.operator.first_name} #{s.operator.last_name}"
+  - if multiple_company? || current_user.company.nil?
+    .company_name{:title => "Prestador de Servicio"}
+      = work_order_row.company_name
   - unless work_order_row.vehicle.chassis.try(:empty?)
     .right{:title =>t("chassis")}
       = work_order_row.vehicle.chassis
@@ -39,9 +42,6 @@
       - if can_show
         %label.price_b{:title => "Total"}
           = number_to_currency work_order_row.total_price
-  - if multiple_company? || current_user.company.nil?
-    .clear.left
-      = work_order_row.company_name
 
   - if can_show
     .actions

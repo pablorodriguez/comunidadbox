@@ -24,12 +24,8 @@ class BudgetsController < ApplicationController
     filters_params[:domain] = @domain if(params[:domain] && !(params[:domain].empty?))
     filters_params[:service_type_ids] = @service_type_ids  unless (@service_type_ids.empty?)
     
-    if search_multiple_company(params)
-      filters_params[:company_id] = current_user.get_companies_ids
-    else
-      filters_params[:company_id] = company_id if company_id
-    end
-    
+    filters_params[:company_id] = company_id if company_id
+
     filters_params[:user] = current_user
     filters_params[:budget_id] = @budget_id if (@budget_id && (!@budget_id.empty?))
     filters_params[:brand_id] = params[:brand_id] if params[:brand_id] && !(params[:brand_id].empty?)

@@ -560,10 +560,10 @@ class Workorder < ActiveRecord::Base
     end
   end
 
-def self.service_types_for user,company_id
+def self.service_types_for user,companies_ids
     st = ServiceType.joins(:services => :workorder)
-    st = st.where("workorders.company_id = ?",company_id)if company_id
-    st = st.where("workorders.user_id = ?",user.id) unless company_id
+    st = st.where("workorders.company_id IN (?)",companies_ids)if companies_ids
+    st = st.where("workorders.user_id = ?",user.id) unless companies_ids
     st = st.group("service_types.id")
     st
   end
