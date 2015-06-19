@@ -287,7 +287,6 @@ class WorkordersController < ApplicationController
 
   def new
     @work_order = Workorder.new
-    
     @open_for_autopart = false
 
     company = get_company(params)

@@ -9,7 +9,7 @@
       = link_to_domain vehicle
     .detail
       .name
-        = link_to vehicle.user.full_name,vehicle.user
+        = link_to vehicle.user.full_name,client_path(vehicle.user)
         = h vehicle.brand.name
         = h vehicle.model.name
         %strong

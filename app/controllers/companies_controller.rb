@@ -1,7 +1,7 @@
 # encoding: utf-8
 class CompaniesController < ApplicationController
   layout "application", :except => [:add_service_type,:remove_service_type,:search]
-  skip_before_filter :authenticate_user!, :only => [:index,:show,:all,:search,:search_distance]
+  skip_before_filter :authenticate_user!, :only => [:show,:all,:search,:search_distance]
   authorize_resource
 
   def service_types

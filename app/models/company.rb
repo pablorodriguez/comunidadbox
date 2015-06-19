@@ -211,7 +211,7 @@ class Company < ActiveRecord::Base
     clients = clients.where("users.first_name like ?","%#{params[:first_name]}%") if params[:first_name]
     clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") if params[:last_name]
     clients = clients.where("users.email like ?","%#{params[:email]}%") if params[:email]
-    clients = clients.where("company_name like ?","%#{params[:company_name]}%") if params[:company_name]
+    clients = clients.where("users.company_name like ?","%#{params[:company_name]}%") if params[:company_name]
     
     clients = clients.where("DATE(users.created_at) >= ?",date_f.to_date) if params[:date_f]
     clients = clients.where("DATE(users.created_at) <= ?",date_t.to_date) if params[:date_t]

@@ -119,6 +119,7 @@ class UserTest < ActiveSupport::TestCase
     assert I18n.l(car.events.first.dueDate) == '01/07/2015'
     assert client.vehicles.size == 1
 
+    assert Company.clients({:last_name => "Ruggeri",:companies_ids => @gustavo.get_companies_ids}).size == 1
     csv_rows = <<-eos
     Id externo,Fecha,Nombre,Apellido,Tel_fono,Email,CUIT,Razón Social,Provincia,Ciudad,Calle,Codigo Postal,Dominio,Marca,Modelo,Serie,Combustible,Ano,Kilometraje promedio mensual,Kilometraje,Tipo de Servicio,Fecha
     AAA12345,22/05/2015,AntonioPablo,Rossi,2615568584,pabloantonio@gmail.com,,,Mendoza,Mendoza,Beltran 1758,5501,EJE688,Volkswagen,Bora,,Nafta,2012,2000,70000,Servicio en Garantía,1/7/2016

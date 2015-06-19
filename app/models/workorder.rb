@@ -141,7 +141,9 @@ class Workorder < ActiveRecord::Base
   end
 
   def init
-    self.performed = I18n.l(Time.zone.now.to_date) unless self.performed
+    unless self.performed
+      self.performed = I18n.l(Time.zone.now.to_date)
+    end
   end
 
   def validate_all

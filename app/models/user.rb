@@ -536,6 +536,7 @@ class User < ActiveRecord::Base
         params = create_client_params(row,current_user,company)
         client = User.find_by_external_id(params[:user][:external_id]) if params[:user][:external_id] 
         params[:user].delete_if{|k,v| v.nil?}
+
         client = User.new(params[:user]) unless client
         #if theres is event to add
         service_type = nil
@@ -547,12 +548,34 @@ class User < ActiveRecord::Base
         end
 
         unless client.id
+          client.companies_users.build({:company_id => company.id})
           save_ok = client.save
           save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
           result[:new_records] += 1
         else
-          save_ok = client.update_attributes(params[:user])
-          result[:updates] += 1
+          User.transaction do
+            chassis = params[:user][:vehicles_attributes][0][:chassis]
+            vehicle = client.vehicles.where("chassis like ?",chassis).first
+            unless vehicle
+              domain = params[:user][:vehicles_attributes][0][:domain]
+              vehicle = client.vehicles.where("doamin like ?",domain).first
+            end
+
+            if vehicle
+              save_ok = vehicle.update_attributes(params[:user][:vehicles_attributes][0])
+              if save_ok
+                params[:user].delete(:vehicles_attributes)
+              end
+            end
+
+            save_ok = client.update_attributes(params[:user])
+
+            if CompaniesUser.where("company_id = ? and user_id = ?",company.id,client.id).empty?
+              CompaniesUser.create({:company_id => company.id,:user_id => client.id})
+            end
+
+            result[:updates] += 1
+          end
         end
 
         if save_ok
@@ -567,6 +590,7 @@ class User < ActiveRecord::Base
 
       rescue Exception => e
         logger.error e.message
+        debugger
         result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
       end
 
