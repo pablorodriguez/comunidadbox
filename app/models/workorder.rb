@@ -142,7 +142,7 @@ class Workorder < ActiveRecord::Base
 
   def init
     unless self.performed
-      self.performed = I18n.l(Time.zone.now.to_date)
+      self.performed = Time.zone.now.to_date
     end
   end
 
