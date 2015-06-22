@@ -6,6 +6,10 @@ fs=9
 
 logo_path = company.get_logo_url ? "#{::Rails.root.join('public')}#{company.get_logo_url}" : ""
 
+total_rows =@work_order.services.inject(0) do |n,service|
+  n + 2 + service.material_services.size + (service.comment ? 1 : 0)
+end
+
 pdf.define_grid(:columns => 2, :rows => 1, :gutter => 30)
 
 pdf.grid(0,0).bounding_box do
@@ -30,7 +34,7 @@ pdf.grid(0,0).bounding_box do
   data_info = [
     ["Cliente: #{user.full_name}","Dominio: #{vehicle.domain}"],
     ["Teléfono: #{user.phone}","#{vehicle.brand.name}, #{vehicle.model.name}, #{vehicle.year}"],
-    ["Email: #{user.email}","Km. Actual: #{@work_order.km}"],
+    ["Email: #{user.email}","Km. Actual: #{number_with_precision(@work_order.km,locale: I18n.locale)}"],
     [company_name,"Km. Promedio Mensual: #{vehicle.kmAverageMonthly}"]
   ]
 
@@ -38,11 +42,9 @@ pdf.grid(0,0).bounding_box do
     data_info.insert(2,["","Chassis: #{vehicle.chassis}"])
   end
 
-  data_info << ["CUIT:#{user.cuit}","#{@work_order.status_name}"] if user.cuit
-  data_info << [address,"#{@work_order.payment_method_name}"]
-  data_info << ["Vendedor: #{@work_order.user.full_name}",""]
-  data_info << ["Fecha: #{l @work_order.performed.to_date}",""]
-
+  data_info << ["CUIT:#{user.cuit}","Forma de Pago: #{@work_order.payment_method_name}"] if user.cuit
+  data_info << [address,"#{@work_order.payment_method_name}"] if user.address
+  data_info << ["Vendedor: #{@work_order.user.full_name}","Fecha: #{l @work_order.performed.to_date}"]
 
   pdf.table data_info do
     cells.padding=0
@@ -56,17 +58,9 @@ pdf.grid(0,0).bounding_box do
   pdf.move_down 3
 
   column_widths = [242,38,57,58]
-  # materials  = [["Material","Cantidad","Precio","Total"]]
-  # pdf.table materials do
-  #   cells.padding=2
-  #   row(0).font_style=:bold
-  #   [1,2,3].each{|c1|column(c1).style{|c| c.align = :right}}
-  #   column_widths.each_index{|i| column(i).width = column_widths[i] }
-  # end
-  # pdf.move_down 3
 
   @work_order.services.each do |service|
-    operario = service.operator ? "Operario: #{service.operator.full_name} \n" :""
+    operario = service.operator ? "Operario: #{service.operator.full_name}" :""
 
   	data =[[
   			"#{service.service_type.name} [#{service.status.name}]",
@@ -112,17 +106,37 @@ pdf.grid(0,0).bounding_box do
       end
     end
 
-  	pdf.move_down(10)
-
   	if service.comment
+     pdf.move_down(3)
   	 pdf.text "Comentario: #{service.comment}",:size=>fs
   	end
   end
 
-  #pdf.move_down(3)
-  pdf.text "Total: #{number_to_currency(@work_order.total_price)}",:align =>:right,:style =>:bold
-  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left if @work_order.deliver
+  pdf.move_down(5)
+  footer = [
+    [@work_order.comment,"Total: #{number_to_currency(@work_order.total_price)}"],
+    ["Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",""]
+  ]
 
+  column_widths = [300,95]
+  pdf.table footer do
+    cells.padding= [1,5]
+    cells.borders=[]
+    column(1).style do |c|
+      c.align = :right
+      c.font_style = :bold
+    end
+    column_widths.each_index{|i| column(i).width = column_widths[i] }
+  end
+
+  move_rows = (total_rows * 10).to_i
+  pdf.move_down(250 - move_rows)
+
+  # #{total_rows}|#{move_rows}|#{(250 - (total_rows * 7.4)).to_i}|
+
+  pdf.text "Observaciones:............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................."
+  pdf.move_down(20)
+  pdf.text "El precio y los materiales pueden ser modificados por el Prestador de Servicios sin previo aviso",:size => fs-1
 end
 
 
@@ -160,7 +174,7 @@ pdf.grid(0,1).bounding_box do
 
   data_info = [[
     "Vendedor: #{@work_order.user.full_name}",
-    "Fecha: #{l @work_order.performed.to_date} [#{@work_order.payment_method_name}]"
+    "Fecha: #{l @work_order.performed.to_date}"
     ]]
 
   pdf.table data_info do
@@ -212,13 +226,10 @@ pdf.grid(0,1).bounding_box do
       end
     end
 
-    pdf.move_down(10)
-
-    unless service.comment
-     pdf.text "Comentario: #{service.comment}",:size=>fs
-    end
+    pdf.move_down(3)
 
   end
-  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size => fs +4,:style =>:bold,:align=>:left if @work_order.deliver
+  pdf.move_down(5)
+  pdf.text "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",:size =>fs if @work_order.deliver
 
 end
