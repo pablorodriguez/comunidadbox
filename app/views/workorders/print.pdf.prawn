@@ -115,7 +115,7 @@ pdf.grid(0,0).bounding_box do
   pdf.move_down(5)
   footer = [
     [@work_order.comment,"Total: #{number_to_currency(@work_order.total_price)}"],
-    ["Hora de Entrega: #{l(@work_order.deliver,:format => :short)}",""]
+    [@work_order.deliver ? "Hora de Entrega: #{l(@work_order.deliver,:format => :short)}" : "",""]
   ]
 
   column_widths = [300,95]
