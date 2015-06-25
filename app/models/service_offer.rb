@@ -26,6 +26,10 @@ class ServiceOffer < ActiveRecord::Base
 
   after_initialize :custom_init
 
+  def contains_vehicle? vehicle
+    !vehicles.select{|v| v.id = vehicle.id}.empty?
+  end
+
   def custom_init
     if vehicle_service_offers.empty? and advertisement.nil?
       build_advertisement
@@ -73,11 +77,11 @@ class ServiceOffer < ActiveRecord::Base
     vehicles = Hash.new
     service_offers = ServiceOffer.confirmed
     service_offers.each do |s|            
-      s.cars.each do |c|
-        unless cars[c]
-          cars[c]=Array.new
+      s.vehicles.each do |c|
+        unless vehicles[c]
+          vehicles[c]=Array.new
         end         
-        cars[c] << s
+        vehicles[c] << s
       end
     end
 
@@ -247,6 +251,7 @@ class ServiceOffer < ActiveRecord::Base
   private
 
   def self.notify_service_offer(vehicle,service_offers)
+    debugger
     logger.info "Envio de ServiceOffer #{Time.zone.now} para #{vehicle.domain} #{service_offers.map(&:id).join(',')}"
     message = ServiceOfferMailer.notify(vehicle,service_offers).deliver
   end

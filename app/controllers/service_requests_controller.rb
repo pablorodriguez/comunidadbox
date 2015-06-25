@@ -5,7 +5,6 @@ class ServiceRequestsController < ApplicationController
   def index
 
     @service_requests = ServiceRequest.for_user current_user
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @service_requests }
@@ -21,6 +20,7 @@ class ServiceRequestsController < ApplicationController
       @offer = ServiceOffer.new(:company_id => get_company_id,:service_request_id =>@service_request.id)
       @offer.build_offer_service_types @service_request.service_types
       @offer.vehicle_service_offers << VehicleServiceOffer.new(:vehicle => @service_request.vehicle)
+      @vehicles = @offer.vehicle_service_offers
     end
     respond_to do |format|
       format.html # show.html.erb

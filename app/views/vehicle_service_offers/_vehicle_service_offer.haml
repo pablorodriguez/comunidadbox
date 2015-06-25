@@ -1,16 +1,16 @@
-#service_offer.row[vehicle_service_offer]
+#service_offer.box_bottom[vehicle_service_offer]
   -service_offer = vehicle_service_offer.service_offer
   .service_offer_info
     .service_offer_detail
       .company_name
         = link_to service_offer.company.name,service_offer.company
       .service_offer_title
-        = link_to service_offer.title, vehicle_service_offer,:class =>"view"
+        = link_to service_offer.title, service_offer,:title => "Ver Oferta de Servicio"
       %strong
         = service_offer.service_types_names
       = icon_status(vehicle_service_offer.status)
       .domain_white
-        = link_to vehicle_service_offer.vehicle.domain,vehicle_service_offer.vehicle
+        = link_to_domain vehicle_service_offer.vehicle
       = link_to "Realizado en servicio",vehicle_service_offer.service.workorder,:target =>"_blank" if vehicle_service_offer.service
     .price_detail
       .price
@@ -38,3 +38,7 @@
 .clear.message_container.box_bottom
   -usr = current_user.company ? vehicle_service_offer.vehicle.user : vehicle_service_offer.service_offer.company.user
   = render :partial => "/messages/form_user",:locals => {user: usr ,:element_id => vehicle_service_offer.id,:msg_object => vehicle_service_offer}
+.buttons_container
+  - if @vehicle_service_offer.is_sent?
+    = link_to "Confirmar", confirm_vehicle_service_offer_path(@vehicle_service_offer),:title =>"Confirmar oferta de servicio",:class => :button
+  = link_to t("cancel"),vehicle_service_offers_path

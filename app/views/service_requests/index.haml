@@ -16,10 +16,10 @@
           = icon_status(service_request.status)
         .left
           - if service_request.vehicle
-            .domain_white
-              = link_to service_request.vehicle.domain,service_request.vehicle
+            = link_to_domain(service_request.vehicle)
           - if service_request.user != current_user
-            = link_to service_request.user.full_name,service_request.user,:title =>"Cliente"
+            .clear
+            = link_to service_request.user.full_name,client_path(service_request.user),:title =>"Cliente"
         .left
           - service_request.item_service_requests.each do |isr|
             %strong
@@ -27,11 +27,11 @@
             = isr.description
             %br
         = service_request.company.try(:name)
-        .actions.right
-          -if service_request.can_delete? current_user
+        .actions
+          -if service_request.can_delete?(current_user)
             .action
               = link_to '', service_request, method: :delete, data: { confirm: t('.sure_delete_service_request') },:class =>"delete",:title => t("delete")
-          -if service_request.can_edit? current_user
+          -if service_request.can_edit?(current_user)
             .action
               = link_to "", edit_service_request_path(service_request),:class =>"edit",:title =>t("edit")
         - service_request.vehicle_service_offers.each do |cso|

@@ -22,15 +22,15 @@ class ServiceRequest < ActiveRecord::Base
   end
 
   def self.for_user user
-    if user.company_active
+    if user.is_employee?
       ServiceRequest.confirmed
     else
-      ServiceRequest.user(user)
+      ServiceRequest.where("user_id = ?",user.id)
     end
   end
 
   def can_edit? usr
-    self.user == usr && self.status == Status::OPEN
+    (self.user == usr && self.status != Status::SENT)
   end
 
   def can_delete? usr

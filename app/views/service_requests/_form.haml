@@ -19,8 +19,7 @@
                 .hide
                   = f.text_field :vehicle_id,"ng-model" => "service_request.vehicle.id"
                 - if @service_request.vehicle
-                  .domain_white
-                    = @service_request.vehicle.domain
+                  = link_to_domain @service_request.vehicle
                 - else
                   .domain_white.inline-block
                     {{service_request.vehicle.domain}}

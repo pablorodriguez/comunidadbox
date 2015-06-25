@@ -20,7 +20,7 @@
             = service_offer.service_types_names
           = icon_status(vehicle_service_offer.status)
           .domain_white
-            = link_to vehicle_service_offer.vehicle.domain,vehicle_service_offer.vehicle
+            = link_to_domain vehicle_service_offer.vehicle
           = link_to "Realizado en servicio",vehicle_service_offer.service.workorder,:target =>"_blank" if vehicle_service_offer.service
         .price_detail
           .price

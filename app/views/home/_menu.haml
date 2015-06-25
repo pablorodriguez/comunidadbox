@@ -19,7 +19,7 @@
     %li
       #service_done_link.menu
         = image_tag "service.png"
-        = link_to t(".services_requests"), service_requests_path
+        = link_to t(current_user.is_vehicle_owner? ? ".services_requests" : ".services_clients_request"), service_requests_path
     %li
       #control_panel_link.menu
         = image_tag "budget.png"
