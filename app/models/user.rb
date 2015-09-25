@@ -602,6 +602,7 @@ class User < ActiveRecord::Base
         rescue Exception => e
           #debugger
           logger.error e.message
+          logger.error e.backtrace.join("\n")
           result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
         end
 
