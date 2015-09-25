@@ -565,7 +565,7 @@ class User < ActiveRecord::Base
               vehicle = client.vehicles.where("chassis like ?",chassis).first
               unless vehicle
                 domain = params[:user][:vehicles_attributes][0][:domain]
-                vehicle = client.vehicles.where("doamin like ?",domain).first
+                vehicle = client.vehicles.where("domain like ?",domain).first
               end
 
               if vehicle

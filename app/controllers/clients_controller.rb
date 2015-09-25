@@ -218,7 +218,7 @@ class ClientsController < ApplicationController
   end
 
   def search_multiple_company params
-    fields = %W{date_from date_to first_name last_name company_name material number chassis doamin wo_status_id}
+    fields = %W{date_from date_to first_name last_name company_name material number chassis domain wo_status_id}
     value = false
     fields.each do |field|
       return field if (params[field] != nil)

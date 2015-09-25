@@ -234,7 +234,7 @@ class BudgetsController < ApplicationController
   end
 
   def search_multiple_company params
-    fields = %W{date_from date_to first_name last_name company_name material number doamin domain_id service_filter_model_id fuel year}
+    fields = %W{date_from date_to first_name last_name company_name material number domain domain_id service_filter_model_id fuel year}
     value = false
     fields.each do |field|
       return field if (params[field] != nil)
