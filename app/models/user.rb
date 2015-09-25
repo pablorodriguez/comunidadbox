@@ -469,13 +469,15 @@ class User < ActiveRecord::Base
 
 
   def self.get_last_number
-    nro = 0
-    email = get_last_email
-    nro = email.scan(/\d+/).first.to_i if email
+    return Time.now.to_s.gsub('-','').gsub(' ','').gsub(':','')
 
-    last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
+    #nro = 0
+    #email = get_last_email
+    #nro = email.scan(/\d+/).first.to_i if email
 
-    last_number
+    #last_number =   @@last_number < nro ? nro + 1 : @@last_number + 1
+
+    #last_number
 
   end
 
@@ -515,8 +517,6 @@ class User < ActiveRecord::Base
 
   def self.import_clients(file, current_user,company_id,encode)
     company = Company.find company_id
-    csv_text = File.read(file.open,:encoding => encode)
-    csv = CSV.parse(csv_text, :headers => true)
     result = {
       :summary => [],
       :errors => [],
@@ -526,73 +526,86 @@ class User < ActiveRecord::Base
       :updates =>0
     }
 
-    i = 1
-    success = 0
-    failure = 0
+    if file.content_type != "text/csv"
+      result[:fatal] = "Tipo de Archivo incorrecto"
+    else
+      i = 1
+      success = 0
+      failure = 0
 
-    csv.each do |row|
-      begin
-        i+=1
-        params = create_client_params(row,current_user,company)
-        client = User.find_by_external_id(params[:user][:external_id]) if params[:user][:external_id] 
-        params[:user].delete_if{|k,v| v.nil?}
+      csv_text = File.read(file.open,:encoding => encode)
+      csv = CSV.parse(csv_text, :headers => true)
+      csv.each do |row|
+        begin
+          i+=1
+          params = create_client_params(row,current_user,company)
+          client = User.find_by_external_id(params[:user][:external_id]) if params[:user][:external_id] 
+          params[:user].delete_if{|k,v| v.nil?}
 
-        client = User.new(params[:user]) unless client
-        #if theres is event to add
-        service_type = nil
-        if params[:service_type_name]
-          service_type = company.service_types.where("name = ?",params[:service_type_name]).first
-          unless service_type
-            client.errors[:base] << "#{service_type_name} no es un Tipo de Servicio valido"
-          end
-        end
+          client = User.new(params[:user]) unless client
 
-        unless client.id
-          client.companies_users.build({:company_id => company.id})
-          save_ok = client.save
-          save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
-          result[:new_records] += 1
-        else
-          User.transaction do
-            chassis = params[:user][:vehicles_attributes][0][:chassis]
-            vehicle = client.vehicles.where("chassis like ?",chassis).first
-            unless vehicle
-              domain = params[:user][:vehicles_attributes][0][:domain]
-              vehicle = client.vehicles.where("doamin like ?",domain).first
+          
+          #if theres is event to add
+          service_type = nil
+          if params[:service_type_name]
+            service_type = company.service_types.where("name = ?",params[:service_type_name]).first
+            unless service_type
+              client.errors[:base] << "#{service_type_name} no es un Tipo de Servicio valido"
             end
+          end
 
-            if vehicle
-              save_ok = vehicle.update_attributes(params[:user][:vehicles_attributes][0])
-              if save_ok
-                params[:user].delete(:vehicles_attributes)
+          if client.new_record?
+            client.companies_users.build({:company_id => company.id})
+            save_ok = client.save
+            save_ok = client.update_attributes({confirmed_at: nil}) if save_ok
+            result[:new_records] += 1
+          else
+            User.transaction do
+              chassis = params[:user][:vehicles_attributes][0][:chassis]
+              vehicle = client.vehicles.where("chassis like ?",chassis).first
+              unless vehicle
+                domain = params[:user][:vehicles_attributes][0][:domain]
+                vehicle = client.vehicles.where("doamin like ?",domain).first
               end
+
+              if vehicle
+                save_ok = vehicle.update_attributes(params[:user][:vehicles_attributes][0])
+                if save_ok
+                  params[:user].delete(:vehicles_attributes)
+                end
+              end
+
+              save_ok = client.update_attributes(params[:user])
+
+              if CompaniesUser.where("company_id = ? and user_id = ?",company.id,client.id).empty?
+                CompaniesUser.create({:company_id => company.id,:user_id => client.id})
+              end
+
+              result[:updates] += 1
             end
-
-            save_ok = client.update_attributes(params[:user])
-
-            if CompaniesUser.where("company_id = ? and user_id = ?",company.id,client.id).empty?
-              CompaniesUser.create({:company_id => company.id,:user_id => client.id})
-            end
-
-            result[:updates] += 1
           end
+
+          if save_ok
+            result[:success] += 1
+            if service_type
+              vehicle = client.vehicles.first
+              vehicle.events.create({:service_type_id => service_type.id,:dueDate => params[:event_due_date],:status =>Status::ACTIVE})
+            end          
+          else
+            if params[:base_errors].present?
+              #debugger
+              client.errors[:base] = params[:base_errors].join(",")
+            end
+            result[:errors] << [i,client]
+          end
+
+        rescue Exception => e
+          #debugger
+          logger.error e.message
+          result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
         end
 
-        if save_ok
-          result[:success] += 1
-          if service_type
-            vehicle = client.vehicles.first
-            vehicle.events.create({:service_type_id => service_type.id,:dueDate => params[:event_due_date],:status =>Status::ACTIVE})
-          end          
-        else
-          result[:errors] << [i,client]
-        end
-
-      rescue Exception => e
-        logger.error e.message
-        result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"
       end
-
     end
 
     result[:failure] = result[:errors].size
@@ -626,19 +639,18 @@ class User < ActiveRecord::Base
     event_due_date = row[21]
 
     brand = company.brands.where("name like ?",brand_name).first
- 
     if model_name && brand.nil?
       model = Model.includes("brand").where("models.name like ? and brands.company_id = ?",model_name,company.id).first
     else
       model = Model.includes("brand").where("brands.name =? and models.name =? and company_id = ?",brand_name,model_name,company.id).first
     end
 
-    model_id = model ? model.id : ""
+    model_id = model ? model.id.to_i : 0
     if brand.nil? and !model.nil?
       brand = model.brand
     end
     brand_id = brand ? brand.id : ""
-
+   
     vehicle_type = (model && model.brand.of_cars) ? "Car" : "Motorcycle"
     state = State.find_by_name(state_name)
     state_id = state ? state.id : nil
@@ -675,6 +687,12 @@ class User < ActiveRecord::Base
         }]
       }
     }
+    params[:base_errors] = []
+    if model_id == 0
+      #debugger
+      params[:base_errors] << "Modelo " + model_name + " no existe" 
+    end
+    
     params
   end
 

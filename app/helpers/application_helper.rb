@@ -124,7 +124,6 @@ module ApplicationHelper
   def my_event_class event
     vehicle = event.vehicle
     css = vehicle.vehicle_type.downcase + "_domain_" + event_class(event)
-    #debugger
     if ((event.service.workorder.company) && (company_id && company_id.include?(event.service.workorder.company.id.to_s)))
       css = "my_" + css
     end

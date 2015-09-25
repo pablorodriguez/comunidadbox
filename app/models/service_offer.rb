@@ -251,7 +251,6 @@ class ServiceOffer < ActiveRecord::Base
   private
 
   def self.notify_service_offer(vehicle,service_offers)
-    debugger
     logger.info "Envio de ServiceOffer #{Time.zone.now} para #{vehicle.domain} #{service_offers.map(&:id).join(',')}"
     message = ServiceOfferMailer.notify(vehicle,service_offers).deliver
   end
