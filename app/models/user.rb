@@ -690,8 +690,9 @@ class User < ActiveRecord::Base
     }
     params[:base_errors] = []
     if model_id == 0
-      #debugger
-      params[:base_errors] << "Modelo " + model_name + " no existe" 
+      unless model_name.nil?
+        params[:base_errors] << "Modelo " + model_name + " no existe"
+      end
     end
     
     params
