@@ -42,6 +42,7 @@ class ModelsController < ApplicationController
   # GET /models/new.xml
   def new
     @model = Model.new
+    @brands = Brand.for_companies(current_user.get_companies_ids)
     brand_id = params[:b]
     if brand_id
       @brand = Brand.find brand_id

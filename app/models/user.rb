@@ -641,9 +641,9 @@ class User < ActiveRecord::Base
 
     brand = company.brands.where("name like ?",brand_name).first
     if model_name && brand.nil?
-      model = Model.includes("brand").where("models.name like ? and brands.company_id = ?",model_name,company.id).first
+      model = Model.includes("brand").where("models.name like ? and brands.company_id = ?",model_name.strip,company.id).first
     else
-      model = Model.includes("brand").where("brands.name =? and models.name =? and company_id = ?",brand_name,model_name,company.id).first
+      model = Model.includes("brand").where("brands.name =? and models.name =? and company_id = ?",brand_name.strip,model_name,company.id).first
     end
 
     model_id = model ? model.id.to_i : 0

@@ -6,7 +6,7 @@
         %td
           Marca
         %td
-          = f.select(:brand_id,options_from_collection_for_select(Brand.find(:all,:order=>'name'), :id, :name,@model.brand_id), {:prompt => "Seleccione una marca"})
+          = f.select(:brand_id,options_from_collection_for_select(@brands, :id, :name,@model.brand_id), {:prompt => "Seleccione una marca"})
       %tr
         %td
           = f.label :name

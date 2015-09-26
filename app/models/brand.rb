@@ -6,6 +6,10 @@ class Brand < ActiveRecord::Base
   has_many :models
   belongs_to :company
 
+  def self.for_companies companies_ids
+    Brand.where("company_id IN (?)",companies_ids).order("name")
+  end
+
   def logo_name
     of_cars ? name : "#{name}_moto"
   end
