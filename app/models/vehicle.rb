@@ -2,8 +2,8 @@
 class Vehicle < ActiveRecord::Base
   attr_accessible :km, :kmAverageMonthly, :domain, :brand_id, :brand, :year, :model_id, :model, :fuel, :user_id, :vehicle_type, :chassis
 
-  has_many :workorders
-  has_many :budgets
+  has_many :workorders,:dependent=>:destroy
+  has_many :budgets,:dependent=>:destroy
   has_many :events
   has_many :notes
 

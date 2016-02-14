@@ -32,7 +32,9 @@ class ClientsController < ApplicationController
     authorize! :destroy, @client
     @client.destroy
     respond_to do |format|
+      format.html {redirect_to clients_path}
       format.js { render :layout => false}
+
     end
   end
 

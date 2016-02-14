@@ -84,5 +84,5 @@
   .buttons_container
     - if current_user.can_edit?(@client)
       = link_to t("edit"),edit_client_path(@client),{:class=>:button}
-      = link_to t("delete"), @client, :data => { :confirm => t("client_delete_confirm")}, :remote =>true, :method => :delete, :title =>t("delete"),:class => :button
+      = link_to t("delete"), client_path(@client), :data => { :confirm => t("client_delete_confirm")}, :method => :delete, :title =>t("delete"),:class => :button
     = link_to t("cancel"),clients_path

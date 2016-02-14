@@ -1,18 +1,18 @@
 #service_type_templates
-  = simple_form_for @template do |f|
+  = form_for @template do |f|
     %table
       %tbody
         %tr
           %td
             = ServiceTypeTemplate.human_attribute_name(:name)
           %td
-            = f.input :name,:label => false,:input_html =>{:class =>:input_medium}
+            = f.text_field :name,:class =>:input_medium
         %tr
           %td
             = ServiceTypeTemplate.human_attribute_name(:service_type)
           %td
             .left
-              = f.association :service_type,:label => false,:include_blank => t('select_service_type'),:input_html =>{:class =>:input_medium}
+              = f.select :service_type_id,options_from_collection_for_select(@service_types,:id,:name,@template.service_type_id),:include_blank => t('select_service_type'),:class =>:input_medium
 
     .hide
       = button_to_add_fields "Nuevo Material",f,:material_service_type_templates
@@ -29,5 +29,5 @@
             = render "material_service_type_template_fields",:f => f_mst     
     .box_bottom
     .buttons_container
-      = f.button :submit,t('.submit'),:class =>:button
+      = f.submit t('.submit'),:class =>:button
       = link_to t('cancel'), service_type_templates_path

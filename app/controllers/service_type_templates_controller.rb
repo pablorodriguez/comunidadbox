@@ -21,11 +21,14 @@ class ServiceTypeTemplatesController < ApplicationController
 
   def new
       @template = ServiceTypeTemplate.new
+      @service_types = current_user.service_types_active
+
       #@template.material_service_type_template.build
   end
 
   def edit
     @template = ServiceTypeTemplate.find(params[:id])
+    @service_types = current_user.service_types_active
   end
 
   def create

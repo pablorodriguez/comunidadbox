@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   has_many :service_filters,:order =>'name'
 
-  has_many :vehicles
+  has_many :vehicles,:dependent=>:destroy
   # has_many :cars
   # has_many :motorcycles
   # delegate :cars, :motorcycles, to: :vehicles

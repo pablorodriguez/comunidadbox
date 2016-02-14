@@ -68,6 +68,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
        resource.confirmed=false
        resource.roles << Role.find_by_name(Role::ADMINISTRATOR)
     end
+
     if verify_recaptcha
       if resource.save
           flash[:notice] = "Cliente creado exitosamente"
@@ -92,6 +93,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   #Set User entity with default data
   def set_default_data user
+    @company = get_company
+    @brands = @company.get_brands.order(:name)
+    @models = []
+    
     user.vehicles.build if user.vehicles.empty?
     user.build_address unless user.address
     if user.companies.empty?

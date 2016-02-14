@@ -3,12 +3,12 @@
     - css = f.object.material_service_type_id ? "" : "hide"
     .code{:class =>"left #{css}"}
       = image_tag "confirm.png"  
-    = f.input :material_service_type_id,:label => false,:input_html =>{:class =>"input_short service_type_id hide"}
+    = f.text_field :material_service_type_id,:class =>"input_short service_type_id hide"
     = f.hidden_field :_destroy,:class =>:delete_input
   %td
-    = f.input :material,:label => false,:input_html =>{:class =>"material left"}    
+    = f.text_field :material,:class =>"material left"
     %input.material_copy{:value => f.object.material,:class => :hide}
   %td
-    = f.input :amount,:label => false,:input_html =>{:class =>"input_short left amount"}
+    = f.text_field :amount,:class =>"input_short left amount"
   %td
     = link_to "","#",:title => t(".delete"),:class =>"delete delete-button right"
