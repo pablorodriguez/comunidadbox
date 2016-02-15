@@ -1,13 +1,13 @@
-  = render 'shared/error_messages', :target => @user
-  %table
-    %tbody
-      = render :partial => 'users/user_row',:locals  =>{:f => f}
-  %h2 Dirección
-  =f.fields_for :address do |a|
-    = render :partial =>'users/user_address_fields', :locals  =>{:f => a}
-  %h2 Información de su auto
-  =f.fields_for :cars do |c|
-    = render 'users/car_fields',:f =>c
-  =f.fields_for :motorcycles do |m|
-    = render 'users/motorcycle_fields', :f => m
-  %p= f.submit "Grabar",:btn=>"btn"
+= render 'shared/error_messages', :target => @user
+%table
+  %tbody
+    = render :partial => 'users/user_row',:locals  =>{:f => f}
+%h2 Dirección
+=f.fields_for :address do |a|
+  = render :partial =>'users/user_address_fields', :locals  =>{:f => a}
+%h2 Información de su auto
+=f.fields_for :cars do |c|
+  = render 'users/car_fields',:f =>c
+=f.fields_for :motorcycles do |m|
+  = render 'users/motorcycle_fields', :f => m
+%p= f.submit "Grabar",:btn=>"btn"

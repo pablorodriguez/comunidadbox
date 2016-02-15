@@ -284,6 +284,10 @@ class User < ActiveRecord::Base
     return []
   end
 
+  def is_car_owner?
+    get_companies.empty?
+  end
+
   def get_companies_ids
     comp = get_companies
     unless comp.empty?

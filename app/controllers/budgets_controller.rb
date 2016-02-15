@@ -130,7 +130,8 @@ class BudgetsController < ApplicationController
 
     @budget.creator = current_user
     @budget.company = get_company
-
+    @company = get_company
+    
     respond_to do |format|
       if @budget.save
         format.html { redirect_to(@budget) }

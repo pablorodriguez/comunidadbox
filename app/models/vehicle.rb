@@ -4,8 +4,8 @@ class Vehicle < ActiveRecord::Base
 
   has_many :workorders,:dependent=>:destroy
   has_many :budgets,:dependent=>:destroy
-  has_many :events
-  has_many :notes
+  has_many :events,:dependent=>:destroy
+  has_many :notes,:dependent=>:destroy
 
   belongs_to :model
   belongs_to :brand

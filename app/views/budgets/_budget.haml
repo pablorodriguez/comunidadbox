@@ -9,10 +9,11 @@
       -else
         = budget.domain
   .services
+    = company_id
     - budget.services.each do |s|
       .service
         = s.service_type.name
-  - if multiple_company? || company_id.first != budget.company.id
+  - if current_user.is_car_owner? || multiple_company?
     .company_name{:title => "Prestador de Servicio"}
       = budget.company.name
   .budget_info.clear

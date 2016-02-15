@@ -111,10 +111,10 @@ class ClientsController < ApplicationController
 
     else
       @brands = @company.get_brands.order(:name)
-      @models = @client.vehicles.first.brand_id ? @client.vehicles.first.brand.models : []
+      @models = (@client.vehicles.first && @client.vehicles.first.brand_id) ? @client.vehicles.first.brand.models : []
 
       @client.vehicles.build if @client.vehicles.empty?
-      @client.build_address unless @client.address
+      @client.build_address unless @client.address.present?
       render :action => 'new'
     end
 
