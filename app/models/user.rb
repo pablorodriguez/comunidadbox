@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
                   :confirmed,:creator_id,:confirmed_at
   
   attr :type, true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
   enumerize :user_type, in: {:vehicle_owner => 1, :service_center => 2, :auto_part => 3}, predicates: true
 
@@ -65,7 +66,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :address, :reject_if => :all_blank
   accepts_nested_attributes_for :companies, :reject_if =>lambda { |a| a[:name].blank? }
-  accepts_nested_attributes_for :vehicles, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :vehicles, :reject_if => lambda { |v| v[:domain].blank? }, :allow_destroy => true
   
   # accepts_nested_attributes_for :cars, :reject_if => :all_blank
   # accepts_nested_attributes_for :motorcycles, :reject_if => :all_blank
@@ -593,14 +594,12 @@ class User < ActiveRecord::Base
             end          
           else
             if params[:base_errors].present?
-              #debugger
               client.errors[:base] = params[:base_errors].join(",")
             end
             result[:errors] << [i,client]
           end
 
         rescue Exception => e
-          #debugger
           logger.error e.message
           logger.error e.backtrace.join("\n")
           result[:fatal] = "Hay un error en la importación de ventas, por favor contacte al Administrador del sitio. Muchas gracias"

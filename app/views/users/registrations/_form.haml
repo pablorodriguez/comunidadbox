@@ -3,7 +3,7 @@
   %h3=t(".personal_info")
   %table.w
     %tbody
-      = render 'users/user_row',:f => f
+      = render :partial => 'users/user_row',:locals => {:f => f}
       %tr
         %td
           %label{ :for => "password" }=t("password")
@@ -19,8 +19,6 @@
           = f.label :close_system
         %td
           = f.check_box :close_system
-  = recaptcha
-  -if recaptcha
     .recpatcha
       #repatcha_tag
         = recaptcha_tags

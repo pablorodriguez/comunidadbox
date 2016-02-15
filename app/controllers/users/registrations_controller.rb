@@ -95,10 +95,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def set_default_data user
     @company = get_company
     @brands = @company.get_brands.order(:name)
-    @models = []
-    
+    if user.vehicles.first && user.vehicles.first.brand_id.present?
+      @models = user.vehicles.first.brand.models
+    else
+      @models = []
+    end
     user.vehicles.build if user.vehicles.empty?
-    user.build_address unless user.address
+    user.build_address unless user.address.present?
     if user.companies.empty?
       @company = user.companies.build
       @company.build_address if @company.address.nil?
