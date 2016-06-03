@@ -39,7 +39,7 @@
           %h1
             = t(".budget_nro")
             \:
-            = link_to wo_form.object.budget.id,wo_form.object.budget
+            = link_to wo_form.object.budget.nro,wo_form.object.budget
     = render "comment",:c => wo_form
     #services_list.ordencontent
       = wo_form.fields_for :services do |s_form|

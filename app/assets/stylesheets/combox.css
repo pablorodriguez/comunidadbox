@@ -111,6 +111,13 @@ body {
   display:inline-block;
 }
 
+.undelete{
+  background-image:url(images/add.png);
+  height:16px;
+  width:16px;
+  display:inline-block;
+}
+
 .block{
  display:block;
  overflow: auto;
@@ -3173,4 +3180,16 @@ ul.tasks li{
   width: 30%;
   text-align: right;
   font-weight: bold;
+}
+
+.comp_attr_row{
+  height: 20px;
+}
+
+.view_material{
+  padding-left: 22px;
+}
+
+.deleted{
+  color: red
 }

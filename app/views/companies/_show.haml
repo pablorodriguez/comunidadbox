@@ -8,6 +8,10 @@
         %strong
           \:
           = @company.headquarter ? t('.headquarter') : t('.subsidiary')
+    %tr
+      %td Código
+      %td
+        = @company.code
     %tr.header
       %td=t(".web")
       %td

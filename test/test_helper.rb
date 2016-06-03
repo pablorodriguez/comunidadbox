@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all  
+  fixtures :all
 
   # Add more helper methods to be used by all tests here...
 
@@ -22,14 +22,14 @@ module ComunidadBox::TestHelpers
     create :oil_change,:company_id => company_id
     create :tire_change,:company_id => company_id
     create :alignment_and_balancing,:company_id => company_id
-   
+
     #crear materiales
     create :hand_work_material,:company_id => company_id
 
     #create materiales para tipos de servicios
     create :hand_work_for_tire_change,:company_id => company_id
     create :hand_work_oil_change,:company_id => company_id
-   
+
     #create brand
     create :chevrolet,:company_id => company_id
     create :vw,:company_id => company_id
@@ -47,14 +47,14 @@ module ComunidadBox::TestHelpers
     create :check,:company_id => company_id
     create :credit_card,:company_id => company_id
     create :debit_card,:company_id => company_id
-    
+
   end
   def create_all_default_data
     create :mendoza
-    #create roles
     create :super_admin
     create :administrator
 
+    create :employee
     create :admin
     #create country and states
     #create :argentina
@@ -88,7 +88,6 @@ end
 
 require "mocha/setup"
 
-class ActiveSupport::TestCase  
+class ActiveSupport::TestCase
   include ComunidadBox::TestHelpers
 end
-

@@ -1,0 +1,49 @@
+.vertical_menu
+  = render "admin/menu"
+  = render "actions"
+.contentright_s
+  #company_info
+    .box_bottom
+      %h1
+        Configuración
+        \:
+        = @company_attribute.company.name
+    %table.comboxtable.w
+      %thead
+        %tr
+          %th
+          %th
+          %th Últimos Valores
+      %tbody
+        %tr
+          %td{width:'40%'}
+            Control de Materiales
+          %td.number
+            - if @company_attribute.material_control
+              %img{:alt => "Confirmed", :src => "/assets/confirmed.png"}/
+            - else
+              .delete
+          %td
+        %tr
+          %td Orden de Trabajo Número
+          - different_class = @company_attribute.work_order_nro < Workorder.get_last_number(current_user.company_active.id) ? 'red' : ''
+          %td.number{:class =>different_class}
+            %strong
+              = @company_attribute.work_order_nro
+          %td.number
+            %strong
+              = Workorder.get_last_number current_user.company_active.id
+        %tr
+          %td Presupuesto Número
+          - different_class = @company_attribute.budget_nro < Budget.get_last_number(current_user.company_active.id) ? 'red' : ''
+          %td.number{:class =>different_class}
+            %strong
+              = @company_attribute.budget_nro
+          %td.number
+            %strong
+              = Budget.get_last_number current_user.company_active.id
+
+
+  .box_bottom.buttons_container
+    = link_to t("edit"),edit_company_attribute_path(@company_attribute),:class =>"button"
+    = link_to "Cancelar",company_attributes_path

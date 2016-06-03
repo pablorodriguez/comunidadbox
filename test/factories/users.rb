@@ -4,7 +4,7 @@ FactoryGirl.define do
     id 4
     first_name "Gustavo"
     last_name "De Antonio"
-    email "gustavo@comunidadbox.com"    
+    email "gustavo@comunidadbox.com"
     password "gustavotest"
     password_confirmation "gustavotest"
     confirmed 1
@@ -12,7 +12,7 @@ FactoryGirl.define do
     roles {[Role.find(5)]}
     after(:build) do |user|
       user.companies << FactoryGirl.build(:valle_grande_mendoza_peru)
-      user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)      
+      user.companies << FactoryGirl.build(:valle_grande_mendoza_plaza)
     end
   end
 
@@ -24,45 +24,59 @@ FactoryGirl.define do
     password_confirmation "waltertest"
     confirmed 1
     confirmed_at 1.months.ago
-    roles {[create(:employee)]}
+    roles {[Role.find(2)]}
     employer {Company.find(1)}
     creator {User.find(4)}
   end
 
+  factory :emp_vg_peru,class: User do
+    first_name "Emp"
+    last_name "Peru"
+    email "emp@vgperu.com.ar"
+    password "emptest"
+    password_confirmation "emptest"
+    confirmed 1
+    confirmed_at 1.months.ago
+    roles {[Role.find(2)]}
+    employer {Company.find(2)}
+    creator {User.find(4)}
+  end
+
+
   factory :imr_admin, class: User do
     first_name "imr"
     last_name "imr"
-    email "imr@comunidadbox.com"    
+    email "imr@comunidadbox.com"
     password "imrtest"
     password_confirmation "imrtest"
-    confirmed 1    
+    confirmed 1
     confirmed_at 1.months.ago
     after(:build) do |user|
-      user.companies << FactoryGirl.build(:imr)      
+      user.companies << FactoryGirl.build(:imr)
     end
     roles {[Role.find(5)]}
-  end 
+  end
 
   factory :imr_emp, class: User do
     first_name "Marcelo"
     last_name "Battle"
-    email "marcelo_battle2@comunidadbox.com"    
+    email "marcelo_battle2@comunidadbox.com"
     password "marcelotest"
     password_confirmation "marcelotest"
-    confirmed 1   
-    confirmed_at 1.months.ago     
+    confirmed 1
+    confirmed_at 1.months.ago
     roles {[Role.find(5)]}
     employer {Company.find(3)}
-  end 
+  end
 
   factory :marcelo_de_antonio, class: User do
     first_name "Marcelo"
     last_name "De Antonio"
-    email "marcelo@comunidadbox.com"    
+    email "marcelo@comunidadbox.com"
     password "marcelotest"
     password_confirmation "marcelotest"
     confirmed 1
-    confirmed_at 1.months.ago  
+    confirmed_at 1.months.ago
     roles {[Role.find(5)]}
     employer {Company.find(1)}
     creator {User.find(4)}
@@ -78,9 +92,9 @@ FactoryGirl.define do
     password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
     confirmed 1
     confirmed_at 1.months.ago
-    
+
     vehicles {[FactoryGirl.build(:HRJ549), FactoryGirl.build(:m549HRJ)]}
-    
+
   end
 
   factory :new_pablo_rodriguez,class: User do
@@ -90,7 +104,7 @@ FactoryGirl.define do
     password "pablotest"
     password_confirmation "pablotest"
     encrypted_password "$2a$10$ChJ3cHXqLk.mgopoKrfiL.vv414pZMUQFHGWarGO95ehfpWrWCn8G"
-    password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."    
+    password_salt "$2a$10$ChJ3cHXqLk.mgopoKrfiL."
     after(:build) do |user|
       user.vehicles << FactoryGirl.create(:HRJ999)
     end
@@ -115,7 +129,7 @@ FactoryGirl.define do
   factory :admin, class: User do
     first_name "Admin"
     last_name "Admin"
-    email "admin@comunidadbox.com"    
+    email "admin@comunidadbox.com"
     password "admintest"
     password_confirmation "admintest"
     confirmed 1

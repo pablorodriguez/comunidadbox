@@ -18,6 +18,11 @@
                 = check_box_tag 'service_type_ids[]', service.id,checked = @service_type_ids.include?(service.id.to_s),:class=>"checkbox w",:id=>"service_type_#{service.id}"
                 %label.link{:for=>"service_type_#{service.id}"}
                   =service.name
+            %li
+              = check_box_tag 'deleted',1 ,checked = @deleted,:class=>"checkbox w",:id=>"deleted"
+              %label.link{:for=>"deleted"}
+                %strong
+                  Borrados
 
         %table
           %tbody
@@ -49,6 +54,8 @@
                 = text_field_tag 'domain', @domain, :size=>6,:class =>"input_date",:title=>t(".domain"),:placeholder => t(".domain")          
                 - if @status.any?
                   = select_tag(:wo_status_id,options_for_select(@status,@status_id),:class=>"short_select")
+         
+
 
       %h3
         =t(".order_by")

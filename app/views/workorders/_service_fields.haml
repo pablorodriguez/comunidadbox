@@ -37,8 +37,9 @@
           .total_service
             = number_to_currency(f.object.total_price)
         %th.number{:style=>'width:5%'}
-          .remove_service.right
-            = link_to_remove_fields f,:services,t(".delete_service")
+          - unless @work_order.company.control_material?
+            .remove_service.right
+              = link_to_remove_fields f,:services,t(".delete_service")
       - if f.object.vehicle_service_offer
         %tr
           %th.number{:colspan=>4}

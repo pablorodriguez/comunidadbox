@@ -1,7 +1,9 @@
 class MaterialService < ActiveRecord::Base
+  acts_as_paranoid
+
   attr_accessible :material_service_type_id, :material, :amount, :price
   
-  belongs_to :service
+  belongs_to :service,:inverse_of => :material_services
   belongs_to :material_service_type
   
   validates_numericality_of :price

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150605155531) do
+ActiveRecord::Schema.define(:version => 20160525151346) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -133,9 +133,13 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.text     "comment"
     t.string   "vehicle_type"
     t.string   "chassis"
+    t.integer  "nro"
+    t.datetime "deleted_at"
   end
 
+  add_index "budgets", ["company_id", "nro"], :name => "COMPANY_NRO_UNIQUE_KEY", :unique => true
   add_index "budgets", ["company_id"], :name => "budgets_company_id_fk"
+  add_index "budgets", ["deleted_at"], :name => "index_budgets_on_deleted_at"
   add_index "budgets", ["user_id"], :name => "budgets_user_id_fk"
   add_index "budgets", ["vehicle_id"], :name => "budgets_vehicle_id_fk"
 
@@ -158,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.datetime "updated_at"
     t.string   "logo"
     t.boolean  "headquarter"
+    t.string   "code"
   end
 
   add_index "companies", ["country_id"], :name => "companies_country_id_fk"
@@ -177,6 +182,15 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
 
   add_index "companies_users", ["company_id"], :name => "companies_users_company_id_fk"
   add_index "companies_users", ["user_id"], :name => "companies_users_user_id_fk"
+
+  create_table "company_attributes", :force => true do |t|
+    t.integer  "company_id"
+    t.boolean  "material_control"
+    t.integer  "budget_nro"
+    t.integer  "work_order_nro"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "company_material_codes", :force => true do |t|
     t.string   "code"
@@ -229,8 +243,10 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.date     "dueDate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "events", ["deleted_at"], :name => "index_events_on_deleted_at"
   add_index "events", ["service_id"], :name => "events_service_id_fk"
 
   create_table "export_items", :force => true do |t|
@@ -369,8 +385,10 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.integer  "material_service_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "material_services", ["deleted_at"], :name => "index_material_services_on_deleted_at"
   add_index "material_services", ["material_service_type_id"], :name => "material_services_material_service_type_id_fk"
   add_index "material_services", ["service_id"], :name => "material_services_service_id_fk"
 
@@ -627,9 +645,11 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.integer  "budget_id"
     t.integer  "vehicle_service_offer_id"
     t.integer  "status_id"
+    t.datetime "deleted_at"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"
+  add_index "services", ["deleted_at"], :name => "index_services_on_deleted_at"
   add_index "services", ["operator_id"], :name => "services_operator_id_fk"
   add_index "services", ["service_type_id"], :name => "services_service_type_id_fk"
   add_index "services", ["vehicle_service_offer_id"], :name => "services_vehicle_service_offer_id_fk"
@@ -769,7 +789,7 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "kmUpdatedAt"
-    t.string   "vehicle_type",     :default => "Car"
+    t.string   "vehicle_type"
     t.string   "chassis"
   end
 
@@ -795,10 +815,15 @@ ActiveRecord::Schema.define(:version => 20150605155531) do
     t.datetime "deliver_actual"
     t.integer  "status_id"
     t.integer  "payment_method_id"
+    t.integer  "nro"
+    t.datetime "deleted_at"
   end
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"
+  add_index "workorders", ["company_id", "nro"], :name => "COMPANY__NRO_UNIQUE_KEY", :unique => true
+  add_index "workorders", ["company_id", "nro"], :name => "ID_NRO_UNIQUE_KEY", :unique => true
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
+  add_index "workorders", ["deleted_at"], :name => "index_workorders_on_deleted_at"
   add_index "workorders", ["payment_method_id_old"], :name => "workorders_payment_method_id_fk"
   add_index "workorders", ["performed"], :name => "workorders_performed_fk"
   add_index "workorders", ["user_id"], :name => "workorders_user_id_fk"

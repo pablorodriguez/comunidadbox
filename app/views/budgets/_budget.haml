@@ -9,7 +9,6 @@
       -else
         = budget.domain
   .services
-    = company_id
     - budget.services.each do |s|
       .service
         = s.service_type.name
@@ -18,7 +17,7 @@
       = budget.company.name
   .budget_info.clear
     %label.bg_id{:title =>t(".number_of_budget")}
-      = link_to budget.id, budget
+      = link_to budget.nro, budget
 
     %label{title: t(".client")}
       %strong

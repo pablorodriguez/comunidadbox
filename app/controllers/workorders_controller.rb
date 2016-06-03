@@ -17,6 +17,16 @@ class WorkordersController < ApplicationController
 
   end
 
+  def undelete
+    @wo = Workorder.with_deleted.find(params[:id])
+    authorize! :undelete, @wo
+    @wo.restore(:recursive => true)
+
+    respond_to do |format|
+      format.html {redirect_to workorders_path}
+    end
+  end
+
   def autopart
     page = params[:page] || 1
     per_page = 10
@@ -50,12 +60,14 @@ class WorkordersController < ApplicationController
     @domain = params[:domain]
     @wo_id = params[:number]
     @material = params[:material]
+    @deleted = params[:deleted] || false
 
     filters_params[:date_from] = @date_f if @date_f
     filters_params[:date_to] =  @date_t if @date_t
     filters_params[:domain] = @domain if @domain
     filters_params[:service_type_ids] = @service_type_ids 
     filters_params[:wo_status_id] = @status_id if @status_id
+    filters_params[:deleted] = @deleted
     
     params[:company_id] = company_id if company_id
   
@@ -139,7 +151,11 @@ class WorkordersController < ApplicationController
 
   def show
 
-    @work_order = Workorder.find params[:id]
+    if params[:d]
+      @work_order = Workorder.with_deleted.find params[:id]
+    else
+      @work_order = Workorder.find params[:id]
+    end
     @rank =  @work_order.build_rank_for_user(current_user)
     @vehicle = @work_order.vehicle
     authorize! :read, @work_order
@@ -164,7 +180,11 @@ class WorkordersController < ApplicationController
 
   #print workorder for company
   def print
-    @work_order = Workorder.find params[:id]
+    if params[:d]
+      @work_order = Workorder.with_deleted.find params[:id]
+    else
+      @work_order = Workorder.find params[:id]
+    end
     @vehicle = @work_order.vehicle
     authorize! :print, @work_order
 
@@ -268,7 +288,7 @@ class WorkordersController < ApplicationController
     @work_order.notes.first.creator = current_user unless @work_order.notes.empty?
     @work_order.notes.first.user = current_user unless @work_order.notes.empty?
 
-    if @work_order.save
+    if @work_order.new_save
       if params[:service_type_ids]
         @work_order.services.all.each do |service|
           service.tasks << Task.find(params[:service_type_ids][service.service_type.id.to_s][:task_ids])

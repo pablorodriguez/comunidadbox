@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Service < ActiveRecord::Base
+  acts_as_paranoid
 
   attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:vehicle_service_offer_id,:vehicle_service_offer,:status_id
   attr_accessor :today_vehicle_service_offer
@@ -18,7 +19,7 @@ class Service < ActiveRecord::Base
   belongs_to :status
 
   # belongs_to :vehicle_service_offer
-  has_many :material_services
+  has_many :material_services,:dependent => :destroy,:inverse_of => :service
   belongs_to :workorder, :inverse_of => :services
 
 
@@ -27,6 +28,14 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :service_type
 
   normalize_attributes :comment
+
+  def my_material_services
+    if deleted?
+      material_services.with_deleted
+    else
+      material_services
+    end
+  end
 
   def init_default_value
     @today_vehicle_service_offer = []

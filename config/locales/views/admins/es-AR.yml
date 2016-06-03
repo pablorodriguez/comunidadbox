@@ -8,6 +8,7 @@ es-AR:
       filter_list: "Listado de Filtros"
       material_request: "Solicitud de material"
       price_list: "Lista de Precios"
+      company_attributes: "Configuración"
       materials: "Materiales"
       my_companies: "Mis Empresas"
       my_employess: "Mis Empleados"

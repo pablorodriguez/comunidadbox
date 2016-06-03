@@ -15,7 +15,7 @@
     %td=t(".model")
     %td
       = @vehicle.model.name if @vehicle.model
-  - if @vehicle.chassis
+  - if @vehicle.chassis.present?
     %tr
       %td=t(".chassis")
       %td

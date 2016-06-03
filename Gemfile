@@ -26,6 +26,7 @@ gem 'prawnto'
 gem "geokit"
 gem "carrierwave"
 gem "mini_magick"
+gem "paranoia", "~> 1.0"
 
 # Gems used only for assets and not required
 # in production environments by default.

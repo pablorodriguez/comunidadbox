@@ -12,7 +12,7 @@
       .left
         %h1
           Presupuesto Nro:
-          = @budget.id
+          = @budget.nro
         %h2
           = @budget.company.name
       .right
@@ -32,12 +32,13 @@
         .box_bottom
           %h1 Autómovil
         = render "vehicle_row"
-      .comment.clear.box_top
-        %table
-          %tr
-            %td{:style=>"width:104px"} Comentario
-            %td
-              = @budget.comment
+      - if @budget.comment.present?
+        .comment.clear.box_top
+          %table
+            %tr
+              %td{:style=>"width:104px"} Comentario
+              %td
+                = @budget.comment
       #services.box_top.clear
         .box_bottom
           .budget_service

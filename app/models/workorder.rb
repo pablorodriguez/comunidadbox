@@ -2,6 +2,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Workorder < ActiveRecord::Base
+  acts_as_paranoid
 
   attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual,:user_id,:status_id,:vehicle_id
 
@@ -34,6 +35,14 @@ class Workorder < ActiveRecord::Base
 
   normalize_attributes :comment
 
+  def my_services
+    if deleted?
+      services.with_deleted
+    else
+      services
+    end
+  end
+
   def status_name
     status ? status.name : ""
   end
@@ -41,6 +50,11 @@ class Workorder < ActiveRecord::Base
   def before_save_call_back
     set_status
     set_company_client
+    generate_new_number
+  end
+
+  def generate_new_number
+    self.nro = CompanyAttribute.generate_workorder_number self.company_id
   end
 
   def set_company_client
@@ -151,7 +165,11 @@ class Workorder < ActiveRecord::Base
       errors[:services] << "La orden de trabajo debe contener servicios"
     end
 
-    if self.user.company
+    unless self.user
+      errors[:user] << "no puede ser vacio"
+    end
+
+    if self.user && self.user.company
       if self.deliver.nil? and self.vehicle.is_car?
         errors[:deliver] << "no puede ser vacio"
       end
@@ -177,7 +195,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def total_price
-    self.services.inject(0){|sum, service| sum + service.total_price } 
+    self.services.inject(0){|sum, service| sum + service.total_price }
   end
 
   def payment_method_name
@@ -254,20 +272,25 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_delete?(usr)
+    return false if self.deleted?
+
     if ((user.id == usr.id) && usr.is_vehicle_owner?)
       return true
     end
+
     can_edit?(usr)
   end
 
   def can_edit?(usr)
-    if ((user.id == usr.id) && user.is_vehicle_owner?)
+    return false if self.deleted?
+
+    if ((user.id == usr.id) && user.own_this_vehicle?(self.vehicle))
       return true
     end
-    return true if status_id == id
 
-    unless (is_finished?)
-      if company.is_employee?(usr) && user.is_employee?
+    #return true if status_id == id
+    if usr.is_administrator? || (!usr.is_administrator? && !is_finished?)
+      if company.is_employee?(usr)
         return true
       end
     end
@@ -492,7 +515,9 @@ class Workorder < ActiveRecord::Base
   def self.find_by_params(filters)
 
     workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:vehicle =>:user,:services => [{:material_services => [{:material_service_type =>[:service_type, :material]}]}])
-    
+
+    workorders = workorders.with_deleted if filters[:deleted]
+
     workorders = workorders.where("users.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
     workorders = workorders.where("users.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
     workorders = workorders.where("users.company_name like ?","%#{filters[:company_name]}%") if filters[:company_name]
@@ -501,7 +526,7 @@ class Workorder < ActiveRecord::Base
 
     workorders = workorders.where("vehicles.domain like ?","%#{filters[:domain].upcase}%") if filters[:domain]
     workorders = workorders.where("vehicles.chassis like ?","%#{filters[:chassis].upcase}%") if filters[:chassis]
-    
+
     workorders = workorders.where("workorders.vehicle_id IN (?)", filters[:user].vehicles.map(&:id)) if filters[:user] && filters[:user].is_vehicle_owner?
 
     workorders = workorders.where("performed between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
@@ -513,10 +538,10 @@ class Workorder < ActiveRecord::Base
 
     workorders = workorders.where("lower(materials.name) like ? or lower(material_services.material) like ?" ,"%#{filters[:material].downcase}%", "%#{filters[:material].downcase}%") if filters[:material]
 
-    workorders = workorders.where("workorders.id = ?", filters[:number]) if filters[:number]
+    workorders = workorders.where("workorders.nro = ?", filters[:number]) if filters[:number]
     workorders = workorders.where("workorders.status_id = ? or workorders.status_id is null", filters[:wo_status_id]) if filters[:wo_status_id]
-    
-    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]    
+
+    workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
     workorders
   end
 
@@ -562,11 +587,27 @@ class Workorder < ActiveRecord::Base
     end
   end
 
-def self.service_types_for user,companies_ids
+  def new_save
+    result = false
+    begin
+      result = self.save
+    rescue ActiveRecord::RecordNotUnique => e
+      self.errors[:base] << "Número de Orden de Trabajo Duplicado, por favor actualize la Configuracón de la Compañia"
+      result = false
+    end
+    result
+  end
+
+  def self.service_types_for user,companies_ids
     st = ServiceType.joins(:services => :workorder)
     st = st.where("workorders.company_id IN (?)",companies_ids)if companies_ids
     st = st.where("workorders.user_id = ?",user.id) unless companies_ids
     st = st.group("service_types.id")
     st
+  end
+
+  def self.get_last_number company_id
+    o = Workorder.order("nro DESC").where("company_id = ?",company_id).first
+    return (o ? o.nro : 0)
   end
 end

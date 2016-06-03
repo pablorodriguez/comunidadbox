@@ -118,5 +118,22 @@ class ClientsControllerTest < ActionController::TestCase
     assert_template :new
     
   end
+
+  test "employee should create a client from a budget with vehicle info" do
+    skip("implement this .....")
+  end
+
+  test "owner should create a client from a budget with vehicle info" do
+    skip("implement this .....")
+  end
+
+test "employee should create a client from a budget with no vehicle info" do
+    skip("implement this .....")
+  end
+
+  test "owner should create a client from a budget with no vehicle info" do
+    skip("implement this .....")
+  end
+
   
 end

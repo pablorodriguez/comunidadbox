@@ -1,29 +1,53 @@
-%tr
-  %td
-    = f.hidden_field :material_service_type_id,:class => :material_service_type_id
-  %td
-    .ajax_loader_m.left
-    -if f.object.material_service_type_id
-      .code
-        = image_tag "confirm.png"
-    -else
-      .code.hide
-        = image_tag "confirm.png"
+- if f.object.new_record? || !@work_order.company.control_material?
+  %tr
+    %td
+      = f.hidden_field :material_service_type_id,:class => :material_service_type_id
+    %td 
+      .ajax_loader_m.left
+      -if f.object.material_service_type_id
+        .code
+          = image_tag "confirm.png"
+      -else
+        .code.hide
+          = image_tag "confirm.png"
 
-    -if f.object.material_service_type_id
-      %strong
-        = f.object.material_service_type.material.prov_code
-      = f.object.material_service_type.material.name
-    -else
-      = f.text_field :material,:class=>:material
-    %input.copy_detail.input_long.hide
-  %td.number
-    = f.text_field :amount,:class =>"amount right"
-  %td.number
-    = f.text_field :price ,:class =>"price right"
-  %td.number
-    .total_item
-      = number_to_currency(f.object.total_price) if f.object.amount
-  %td.number
-    = f.hidden_field :_destroy
-    = link_to_remove_fields f,:material_service,t(".delete_material")
+      -if f.object.material_service_type_id
+        %strong
+          = f.object.material_service_type.material.prov_code
+        = f.object.material_service_type.material.name
+      -else
+        = f.text_field :material,:class=>:material
+      %input.copy_detail.input_long.hide
+    %td.number
+      = f.text_field :amount,:class =>"amount right"
+    %td.number
+      = f.text_field :price ,:class =>"price right"
+    %td.number
+      .total_item
+        = number_to_currency(f.object.total_price) if f.object.amount
+    %td.number
+      = f.hidden_field :_destroy
+      = link_to_remove_fields f,:material_service,t(".delete_material")
+- else
+  %tr
+    %td
+      //= f.hidden_field :material_service_type_id,:class => :material_service_type_id
+    %td
+
+      -if f.object.material_service_type_id
+        .code
+          = image_tag "confirm.png"
+        %strong
+          = f.object.material_service_type.material.prov_code
+        = f.object.material_service_type.material.name
+      -else
+        .view_material
+          = f.object.material
+    %td.number
+      = f.object.amount
+    %td.number
+      = number_to_currency(f.object.price)
+    %td.number
+      .total_item
+        = number_to_currency(f.object.total_price) if f.object.amount
+    %td.number

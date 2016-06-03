@@ -45,13 +45,14 @@ class Ability
       user.can_edit?(c.user)
     end
 
-    can [:destroy,:update], User do |client|
+    can [:destroy,:update,:edit], User do |client|
       user.can_edit?(client)
     end
 
     can :read,User do |client|
-      user.close_system ?  user.can_read?(client) : true
+      user.can_read?(client)
     end
+
 
     if user.is_super_admin?
       can :manage, :conf
@@ -140,7 +141,9 @@ class Ability
     if user.has_company? || user.is_employee?
       can :manage, :control_panel
       can :create, Budget
-      can :manage, Company
+      can :manage, Company do |company|
+        user.is_administrator? && company.is_employee?(user)
+      end
       can :manage, :client
       can :manage, Brand
       can :manage, Model
@@ -150,9 +153,20 @@ class Ability
       can :manage, ServiceOffer
       can :manage, :admin
       #can :manage, PriceList
-      can :manage, :employee
+      #can :manage, :employee 
       can :manage, ServiceFilter
       can :manage, Export
+      can [:update,:read], CompanyAttribute do |comp_attr|
+        comp_attr.company.is_employee?(user)
+      end
+
+      can :destroy, CompanyAttribute do |comp_attr|
+        (user.company_active.id == comp_attr.company.id && !comp_attr.company.headquarter)
+      end
+
+      can :undelete, Workorder do |w|
+        w.deleted?
+      end
     end
 
     can [:import,:read], PriceList do |pl|
@@ -162,6 +176,8 @@ class Ability
     if user.is_super_admin?
       can :manage, Resque
     end
+
+
 
   end
 end

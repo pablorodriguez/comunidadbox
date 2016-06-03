@@ -66,12 +66,16 @@ class ClientsController < ApplicationController
     @client.creator = current_user
     @client.vehicles.first.company = get_company if @client.vehicles.first
     @company = get_company
+
+    # pro que esto ? si el cliente no tiene address le copiamos la dle empleado que lo registro ? REVISAR
     unless @client.address
       @client.address = current_user.address if current_user.address
     end
 
     @budget = Budget.find(params[:budget_id]) if params[:budget_id]
     @client.companies_users.build({:company_id => @company.id})
+    @brands = @company.get_brands.order(:name)
+    @models = (@client.vehicles.first && @client.vehicles.first.brand_id) ? @client.vehicles.first.brand.models : []
 
     if @client.save
         if params[:budget_id]
@@ -109,9 +113,7 @@ class ClientsController < ApplicationController
           end
         end
 
-    else
-      @brands = @company.get_brands.order(:name)
-      @models = (@client.vehicles.first && @client.vehicles.first.brand_id) ? @client.vehicles.first.brand.models : []
+    else 
 
       @client.vehicles.build if @client.vehicles.empty?
       @client.build_address unless @client.address.present?
@@ -137,6 +139,7 @@ class ClientsController < ApplicationController
       @client.vehicles.first.domain = @budget.domain
       @client.vehicles.first.brand = @budget.brand
       @client.vehicles.first.model =@budget.model
+      @models = @budget.brand.models if @budget.brand
       flash.now.notice ="Antes de registrar un servicio por favor cree el cliente"
     end
     

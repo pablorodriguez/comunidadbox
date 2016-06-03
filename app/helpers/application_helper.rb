@@ -165,8 +165,14 @@ module ApplicationHelper
   end
 
   def print_to_pdf work_order
+
+
     if current_user.is_employee?
-      link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>t("print"),:class =>:pdf
+      if work_order.deleted?
+        link_to "",print_workorder_path(work_order,:format =>'pdf',:params => {"d"=>true}),:target => "_blank",:title =>t("print"),:class =>:pdf
+      else
+        link_to "",print_workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>t("print"),:class =>:pdf
+      end
     else
       link_to "",workorder_path(work_order,:format =>'pdf'),:target => "_blank",:title =>t("print"),:class=>:pdf
     end

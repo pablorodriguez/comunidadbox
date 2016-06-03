@@ -1,6 +1,5 @@
 class EmployeesController < ApplicationController
   layout "application", :except => [:search]
-  authorize_resource :class => false
   
   def new
     @employee = User.new
@@ -12,6 +11,7 @@ class EmployeesController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    authorize! :read, @user
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -20,7 +20,7 @@ class EmployeesController < ApplicationController
   
   def update
     @employee = User.find(params[:id])
-   
+    authorize! :update, @employee
     respond_to do |format|
       if @employee.update_attributes(params[:user])        
         format.html { redirect_to :action => "show" }
@@ -44,6 +44,7 @@ class EmployeesController < ApplicationController
   
   def destroy
     @employee = User.find(params[:id])
+    authorize! :destroy, @employee
     @employee.update_attribute(:disable,true)    
 
     respond_to do |format|
@@ -64,6 +65,7 @@ class EmployeesController < ApplicationController
   
   def edit
     @employee = User.find(params[:id])
+    authorize! :edit, @employee
   end
   
   def create

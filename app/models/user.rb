@@ -288,6 +288,10 @@ class User < ActiveRecord::Base
     get_companies.empty?
   end
 
+  def own_this_vehicle? vehicle
+    self.vehicles.where("id = ?",vehicle.id).count > 0
+  end
+
   def get_companies_ids
     comp = get_companies
     unless comp.empty?
@@ -410,23 +414,27 @@ class User < ActiveRecord::Base
   end
 
   def can_edit? user
-    (self.id == user.id) || (user.last_sign_in_at.nil? && is_client?(user))
+    is_my_employee?(user) || ((self.id == user.id) || (user.last_sign_in_at.nil? && is_client?(user)))
   end
 
   def can_read? user
-    can_read = false
-    can_read = true if self == user 
-    can_read = true if !can_read && user.is_client?(user) 
-    if !can_read && self.company
+    # si es el mismo usuario
+    return true if self == user
+    #si el usuario es cliente 
+    return true if self.is_client?(user)
+    #si el usuario es mi empleado  
+    return is_my_employee?(user) if user.is_employee?
+
+    #si no es mi cliente y no es mi empleado analizo si usa el sistema abierto o no    
+    if self.company
       if self.close_system
-        can_read = false
+        return false
       else
-        can_read = true 
+        return true
       end
-    else
-      can_read = false
     end
-    can_read
+
+    return false
   end
 
   def only_client user
@@ -440,6 +448,11 @@ class User < ActiveRecord::Base
   def is_client?(user)
     return false if user.id.nil?
     Company.is_client?(get_companies_ids,user.id)
+  end
+
+  def is_my_employee? user
+    return false if user.id.nil?
+    Company.is_employee?(get_companies_ids,user.id)
   end
 
   def unread_messages_nro(user=nil)
@@ -706,6 +719,10 @@ class User < ActiveRecord::Base
         result[:errors] << model
         result[:failure] += 1
     end
+  end
+
+  def company_attributes
+    CompanyAttribute.get_attributes_for(self.company_active.id)
   end
 
 end

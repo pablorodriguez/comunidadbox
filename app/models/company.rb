@@ -1,5 +1,5 @@
 class Company < ActiveRecord::Base
-  attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo,
+  attr_accessible :user_id, :name, :active, :cuit, :phone, :website,:headquarter, :address_attributes,:images_attributes,:logo,:remove_logo,:code
   :payment_methods
 
   validates :name,:presence => true
@@ -22,6 +22,7 @@ class Company < ActiveRecord::Base
   mount_uploader :logo, LogoUploader
 
   has_one :export
+  has_one :company_attribute
   has_many :company_material_code
   has_many :payment_methods
   has_many :statuses
@@ -175,7 +176,7 @@ class Company < ActiveRecord::Base
 
   def self.is_client?(companies_ids,user_id)
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
-  end
+  end 
 
   def self.is_employee?(companies_ids,user_id)
     User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
@@ -332,6 +333,10 @@ class Company < ActiveRecord::Base
   def remove_brand_model_of_headquarters(brand)
     hq = get_headquarter
     hq.models.delete(headquarter_models_by_brand(brand))
+  end
+
+  def control_material?
+    self.company_attribute.material_control
   end
 end
 

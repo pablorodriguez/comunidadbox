@@ -21,7 +21,15 @@ class Budget < ActiveRecord::Base
   accepts_nested_attributes_for :services,:reject_if => lambda { |a| a[:service_type_id].blank? }, :allow_destroy => true
 
   validate :service_not_empty
+  before_save :before_save_call_back
 
+  def before_save_call_back
+    self.generate_new_number
+  end
+
+  def generate_new_number
+    self.nro = CompanyAttribute.generate_budget_number self.company_id
+  end
 
   def has_vehicle
     (vehicle || (domain && brand && model)) != nil
@@ -274,6 +282,11 @@ class Budget < ActiveRecord::Base
     st = st.where("budgets.user_id = ?",user.id) unless company_ids
     st = st.group("service_types.id")
     st
+  end
+
+  def self.get_last_number company_id
+    b = Budget.order("nro DESC").where("company_id = ?",company_id).first
+    return (b ? b.nro : 0)
   end
 
 end

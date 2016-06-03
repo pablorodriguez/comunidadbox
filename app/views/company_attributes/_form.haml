@@ -1,0 +1,34 @@
+= render 'shared/error_messages', :target => @employee
+%table.comboxtable
+  %thead
+    %tr
+      %th
+      %th
+      %th
+        Últimos Valores
+  %tbody
+    %tr
+      %td
+        %label
+          Control de Materiales
+      %td
+        = f.check_box :material_control
+      %td
+    %tr
+      %td
+        %label
+          Orden de Trabajo Número
+      %td
+        = f.text_field :work_order_nro
+      %td.number
+        %strong
+          = Workorder.get_last_number current_user.company_active.id
+    %tr
+      %td
+        %label
+          Presupuesto Número
+      %td
+        = f.text_field :budget_nro
+      %td.number
+        %strong
+          = Budget.get_last_number current_user.company_active.id

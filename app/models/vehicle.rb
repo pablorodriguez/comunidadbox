@@ -43,6 +43,7 @@ class Vehicle < ActiveRecord::Base
   end
 
   def valid_domain_format?
+    return true
     pattern = /^\D\D\D\d\d\d/
     if is_motorcycle?
       pattern = /^\d\d\d\D\D\D/

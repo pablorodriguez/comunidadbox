@@ -24,7 +24,7 @@ pdf.grid(0,0).bounding_box do
   pdf.text "Comprobante para Administración"
 
   pdf.move_up(27)
-  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold,:align=>:right
+  pdf.text "Servicio Nro: #{@work_order.nro}",:size => fs +8,:style =>:bold,:align=>:right
 
   pdf.move_down(10)
 
@@ -156,7 +156,7 @@ pdf.grid(0,1).bounding_box do
   pdf.text @work_order.company.name
   pdf.text "Comprobante para Playa Servicios"
   pdf.move_up(27)
-  pdf.text "Servicio Nro: #{@work_order.id}",:size => fs +8,:style =>:bold,:align=>:right
+  pdf.text "Servicio Nro: #{@work_order.nro}",:size => fs +8,:style =>:bold,:align=>:right
 
   pdf.move_down(10)
   data_info = [[

@@ -132,6 +132,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1/edit
   def edit
     @company = Company.find(params[:id])
+    authorize! :manage, @company
     (3-@company.images.size).times{@company.images.build}
     @company.build_logo unless @company.logo
     @user = current_user
@@ -165,7 +166,8 @@ class CompaniesController < ApplicationController
   # PUT /companies/1.xml
   def update
     @company = Company.find(params[:id])
-
+    authorize! :manage, @company
+    
     respond_to do |format|
       if @company.update_attributes(params[:company])
         flash[:notice] = 'La empresa se actualizo correctamente'

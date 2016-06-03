@@ -1,0 +1,16 @@
+-# javascript 'accounts'
+.vertical_menu
+  = render "admin/menu"
+  = render "actions"
+.contentright_s
+  .box_bottom
+    %h1
+      Nueva Configuración:
+      = current_user.company_active.name
+  
+  = form_for @company_attribute do |f|    
+    .box_bottom
+      = render :partial => 'form',:locals  =>{:f => f}
+    .box_bottom.buttons_container
+      = f.submit "Grabar",:class =>"button"
+      = link_to "Cancelar",company_attributes_path

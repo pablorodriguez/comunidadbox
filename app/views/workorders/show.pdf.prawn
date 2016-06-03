@@ -4,7 +4,7 @@ user = vehicle.user
 fs=14
 
 pdf.move_down(25)
-pdf.text "Servicio Nro: #{@work_order.id}",:size=>fs+4,:style =>:bold
+pdf.text "Servicio Nro: #{@work_order.nro}",:size=>fs+4,:style =>:bold
 pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[430,800],:scale =>0.60
 
 pdf.move_down(45)

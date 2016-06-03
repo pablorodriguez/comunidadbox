@@ -71,6 +71,7 @@ ComunidadBox::Application.routes.draw do
     devise_for :users,:controllers => { :registrations => "users/registrations",:sessions =>'users/sessions',:confirmations =>"users/confirmations" }
     match "/help" => "help#index"
 
+    resources :company_attributes
     resources :item_service_requests
     resources :service_requests
     resources :guests
@@ -168,6 +169,7 @@ ComunidadBox::Application.routes.draw do
         post :save_price_offer
         get :price_offers
         put :confirm_price_offer
+        put :undelete
       end
     end
 

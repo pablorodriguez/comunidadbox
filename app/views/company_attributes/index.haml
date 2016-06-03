@@ -1,0 +1,54 @@
+.vertical_menu
+  = render "admin/menu"
+  = render "actions"
+.contentright_s  
+  .box_bottom
+    %h1
+      Configuraciones
+    %table.comboxtable
+      %thead
+        %tr
+          %th Compañia
+          %th Valores
+          %th
+      %tbody
+        - @companies.each do |company|
+          - company_attribute = CompanyAttribute.where("company_id = ?",company.id).first
+          - if company_attribute
+            %tr
+              %td{:style=>"width:45%"}
+                = company.name
+                %strong
+                  = company.headquarter ? "Casa Central" : ""
+              %td{:style=>"width:45%"}
+                .comp_attr_row
+                  %strong 
+                    Control de Materiales:
+                  .right
+                    - if company_attribute.material_control
+                      %img{:alt => "Confirmed", :src => "/assets/confirmed.png"}/
+                    - else
+                      .delete
+                .comp_attr_row
+                  %strong
+                    Númbero Presupuesto:
+                  .right
+                    = number_with_delimiter(company_attribute.budget_nro)
+                .comp_attr_row
+                  %strong
+                    Número Orden de Trabajo
+                  .right
+                    = number_with_delimiter(company_attribute.work_order_nro)
+              %td{:style=>"width:10%"}
+                = link_to image_tag("edit.png"), edit_company_attribute_path(company_attribute)          
+          -else
+            %tr
+              %td
+                = company.name
+                %strong
+                  = company.headquarter ? "Casa Central" : ""
+              %td
+                No tiene configuración
+              %td
+                - if current_user.company_active.id == company.id
+                  = link_to "Crear", new_company_attribute_path
