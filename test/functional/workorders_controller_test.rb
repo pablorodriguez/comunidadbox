@@ -14,6 +14,8 @@ class WorkordersControllerTest < ActionController::TestCase
     @wo_open = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 1)
     @wo_2 = create(:wo_oc,:vehicle => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
 
+    @st_oil_change = ServiceType.where("name like ? and company_id = ? ","Cambio de Aceite",@employer.company.id).first
+    @cash = PaymentMethod.where("name like ?","Efectivo").first
   end
 
   test "cant print other workorder company" do
@@ -21,7 +23,9 @@ class WorkordersControllerTest < ActionController::TestCase
     sign_in @employer
 
     #Creo una orden de trabajo para otra empresa
-    @imr_admin =  create(:imr_admin)    
+    @imr_admin =  create(:imr_admin)
+    create_all_company_data @imr_admin.company_id
+    
     @wo_imr = create(:wo_tc,:vehicle => @user.cars.first,:user => @imr_admin,:company => @imr_admin.company,:status_id => 1)
 
     get :show,:id => @wo_imr.to_param, :format => "pdf"
@@ -218,11 +222,11 @@ class WorkordersControllerTest < ActionController::TestCase
         :deliver => 1.hour.since.strftime("%d/%m/%Y %H:%m"),
         :vehicle_id =>client.cars.first.to_param,
         :company_id=>@employer.company.to_param,
-        :payment_method_id => 1 ,
+        :payment_method_id => @cash.id ,
         :services_attributes => [
           {
             :status_id => 1,
-            :service_type_id => 1,
+            :service_type_id => @st_oil_change.id,
             :material_services_attributes =>[
               {
               :material => "FILTRO DE ACEIT",
@@ -243,16 +247,18 @@ class WorkordersControllerTest < ActionController::TestCase
     @request.cookies["company_id"]= @employer.company.id.to_s  
     client = @hugo
    
+
+
     assert_difference('Workorder.count',1,"no hay unan nueva workorder") do
       post :create, :workorder => {
         :deliver => 1.hour.since.strftime("%d/%m/%Y %H:%m"),
         :vehicle_id =>client.cars.first.to_param,
         :company_id=>@employer.company.to_param,
-        :payment_method_id => 1 ,
+        :payment_method_id => @cash.id,
         :services_attributes => [
           {
             :status_id => 1,
-            :service_type_id => 1,
+            :service_type_id => @st_oil_change.id,
             :material_services_attributes =>[
               {
               :material => "FILTRO DE AIRE",

@@ -7,6 +7,7 @@ class VehicleServiceOfferTest < ActiveSupport::TestCase
     create_all_company_data @employer.company_id
     @pablo =  create(:pablo_rodriguez)
     @imer_admin = create(:imr_admin)
+    create_all_company_data @imer_admin.company_id
   end
 
 
@@ -122,8 +123,7 @@ class VehicleServiceOfferTest < ActiveSupport::TestCase
   	date_ini = Time.new(2012,12,1)
     date_end = date_ini + 1.month
     now = date_ini + 2.days
-
-	  so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
+    so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday => 1)
 	  cso = so.vehicle_service_offers.create(:vehicle=> @pablo.cars.first,:status => Status::CONFIRMED)
 
 	  so = create(:so_change_oil,:company => @employer.company,:since =>date_ini,:until=>date_end,:saturday =>1,:friday => 1)

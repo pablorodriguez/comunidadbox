@@ -31,6 +31,10 @@ class Vehicle < ActiveRecord::Base
 
   attr_accessor :today_service_offer
 
+  after_initialize do |vehicle|
+    vehicle.vehicle_type = 'Car' unless vehicle.vehicle_type
+  end
+
   def custom_validations
     if vehicle_type == "Car" and domain.nil?
       errors[:domain] << "El Dominio no puede estar vacio"

@@ -3,28 +3,10 @@ require 'test_helper'
 class VehicleTest < ActiveSupport::TestCase
   
   setup do
-    Address.any_instance.stubs(:geocode).returns([1,1]) 
     create_all_default_data
     @employer =  create(:gustavo_de_antonio)
     create_all_company_data @employer.company_id
     @pablo =  create(:pablo_rodriguez) 
-  end
-
-  test "validate domain format for car" do
-    vehicle = build :HRJE99
-    vehicle.domain = "4444"
-    
-    assert !vehicle.valid_domain_format?
-    assert !vehicle.valid?
-
-    vehicle.domain = "DDD333"
-    assert vehicle.valid_domain_format?
-
-    vehicle.vehicle_type ="Motorcycle"
-    assert !vehicle.valid_domain_format?
-
-    vehicle.domain = "333DDD"
-    assert vehicle.valid_domain_format?    
   end
 
   test "update km day ago" do

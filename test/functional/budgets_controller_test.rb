@@ -7,7 +7,7 @@ class BudgetsControllerTest < ActionController::TestCase
     create_all_default_data  
     @employer =  create(:gustavo_de_antonio)    
     create_all_company_data @employer.company_id
-    @emp_walter =  create(:emp_walter,:employer => @employer.companies.first)
+    @emp_walter =  create(:emp_walter,:employer => @employer.company)
   end
 
   test "should get index" do
@@ -58,6 +58,7 @@ class BudgetsControllerTest < ActionController::TestCase
     budget =  build(:budget_two,:creator => @employer,:company => @employer.company)
     @request.cookies["company_id"]= @employer.company.id.to_s
     sign_in @employer
+    st = ServiceType.where("company_id = ? and name like ?",@employer.company.id,"Cambio de Neumaticos").first
     assert_difference('Budget.count',1,"no hay nuevos presupuestos") do
       post :create, :budget => {
         :first_name => budget.first_name,
@@ -67,7 +68,7 @@ class BudgetsControllerTest < ActionController::TestCase
         :brand => budget.brand,
         :services_attributes => [
           {
-            :service_type_id => 2,
+            :service_type_id => st.id,
             :material_services_attributes => [{
               :materila => "mano de obra",
               :amount => 2,

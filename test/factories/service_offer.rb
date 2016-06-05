@@ -7,7 +7,7 @@ FactoryGirl.define do
     status Status::SENT
     comment "Nuevo Cambio de Aceite"
     title "Nuevo Cambio de Aceite"
-    offer_service_types {[OfferServiceType.new(service_type_id: 1)]}
+    offer_service_types {[OfferServiceType.new(service_type_id: ServiceType.where("company_id = ? and name like ?",company.id,"Cambio de Aceite").first.id)]}
   end
 
   factory :so_ad_1_day, class: ServiceOffer do    
@@ -18,7 +18,7 @@ FactoryGirl.define do
     comment "Cambio de Aceite" 
     title "Cambio de Aceite Publicidad"
     since Date.parse("01/01/2014")    
-    offer_service_types {[OfferServiceType.new(service_type_id: 1)]}    
+    offer_service_types {[OfferServiceType.new(service_type_id: ServiceType.where("company_id = ? and name like ?",company.id,"Cambio de Aceite").first.id)]}    
   end
   
   factory :advertisement_1,class: Advertisement do
@@ -41,7 +41,7 @@ FactoryGirl.define do
     comment "Cambio de Aceite" 
     title "Cambio de Aceite Publicidad"
     since Date.parse("01/01/2014")    
-    offer_service_types {[OfferServiceType.new(service_type_id: 1)]}    
+    offer_service_types {[OfferServiceType.new(service_type_id: ServiceType.where("company_id = ? and name like ?",company.id,"Cambio de Aceite").first.id)]}    
     advertisement FactoryGirl.build(:advertisement_1)    
   end
 

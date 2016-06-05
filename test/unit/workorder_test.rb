@@ -6,17 +6,21 @@ class WorkorderTest < ActiveSupport::TestCase
   setup do
     create_all_default_data
     @employer =  create(:gustavo_de_antonio)
+    @employer_close_status = @employer.company.get_final_status
+
     create_all_company_data @employer.company_id
     @user =  create(:pablo_rodriguez)
 
     @emp_walter =  create(:emp_walter)
+    CompanyAttribute.create({"company_id" => @emp_walter.company.id})
+    @walter_close_status = @emp_walter.company.get_final_status
 
   end
 
   test "event in 2 months" do
     car = @user.cars.first
     performed = Time.zone.now.to_date
-    @wo = create(:wo_oc,:vehicle => car,:user => @employer,:company => @employer.company,:performed => performed,:status_id => 2)
+    @wo = create(:wo_oc,:vehicle => car,:user => @employer,:company => @employer.company,:performed => performed,:status_id => @employer_close_status.id)
     event = @wo.services.first.events.first
     assert event.dueDate == performed + 2.months,"Event no esta a los 2 meses"
     car.kmAverageMonthly = 2000
@@ -29,7 +33,7 @@ class WorkorderTest < ActiveSupport::TestCase
   end
 
   test "validate dueDate of events generated" do
-    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => @employer_close_status.id)
 
     event = @wo.services.first.events.first
     new_due_date = @wo.performed + 2.months
@@ -72,14 +76,20 @@ class WorkorderTest < ActiveSupport::TestCase
     assert @wo.can_edit?(@user) == false
   end
 
-  test "employer cant delete his workorder close" do
-    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
-    assert @wo.can_delete?(@employer) == false
+  test "employer admin can delete his workorder close" do
+    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => @employer_close_status.id)
+    assert @wo.can_delete?(@employer) == true
   end
 
+  test "employee no admin cant delete his workorder close" do
+    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @emp_walter,:company => @emp_walter.company,:status_id => @walter_close_status.id)
+    assert @wo.can_delete?(@emp_walter) == false
+  end
+
+
   test "employer cant edit his workorder close" do
-    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
-    assert @wo.can_edit?(@employer) == false
+    @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => @employer_close_status.id)
+    assert @wo.can_edit?(@employer) == true
   end
 
   test "employer can edit his workorder open" do
@@ -89,12 +99,12 @@ class WorkorderTest < ActiveSupport::TestCase
 
   test "employer cant edit user workorder open" do
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @user,:company => @employer.company)
-    assert @wo.can_edit?(@employer) == false
+    assert @wo.can_edit?(@employer) == true
   end
 
   test "employer cant edit user workorder close" do
     @wo = create(:wo_oc,:vehicle => @user.cars.first,:user => @user,:company => @employer.company)
-    assert @wo.can_edit?(@employer) == false
+    assert @wo.can_edit?(@employer) == true
   end
 
   test "employer can delete workorder open" do
@@ -126,6 +136,8 @@ class WorkorderTest < ActiveSupport::TestCase
 
   test "validate number generation for branch company" do
     employee_peru = create(:emp_vg_peru)
+    CompanyAttribute.create({"company_id" => employee_peru.company.id})
+
     last_work_order_number = CompanyAttribute.get_last_work_order_number @employer.company_id
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
     assert @wo.nro == 1
@@ -134,33 +146,31 @@ class WorkorderTest < ActiveSupport::TestCase
     assert @wo.nro == 2
 
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
+    assert @wo.nro == 1
+
+    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
+    assert @wo.nro == 2
+
+    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.nro == 3
+
+    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
     assert @wo.nro == 3
 
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
     assert @wo.nro == 4
 
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
-    assert @wo.nro == 5
-
-    vg_peru_attr = CompanyAttribute.create({company_id: employee_peru.company.id})
+    assert @wo.nro == 4
 
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
     assert @wo.nro == 5
 
+    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
+    assert @wo.nro == 5
+
     @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
     assert @wo.nro == 6
-
-    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
-    assert @wo.nro == 6
-
-    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
-    assert @wo.nro == 7
-
-    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company)
-    assert @wo.nro == 7
-
-    @wo = create(:wo_oc_open,:vehicle => @user.cars.first,:user => @employer,:company => employee_peru.company)
-    assert @wo.nro == 8
 
   end
 

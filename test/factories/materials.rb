@@ -13,15 +13,15 @@ FactoryGirl.define do
   end
 
   factory :hand_work_material , class: Material do 
-    id 1
-    code "MM00001"    
-    prov_code "MM00001"
+    #id {generate(:material_id)}
+    code {generate(:code)}
+    prov_code {generate(:prov_code)}
     name "Mano de Obra" 
   end
 
 
   factory :material , class: Material do 
-    id {generate(:material_id)}
+    #id {generate(:material_id)}
     code {generate(:code)}
     prov_code {generate(:prov_code)}
     name "12.4-28/13.6-28 (Valv TR218A - 5 Und/Caja)" 

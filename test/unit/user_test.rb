@@ -4,18 +4,17 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   
   setup do
-    Address.any_instance.stubs(:geocode).returns([1,1]) 
 
     create_all_default_data
     @gustavo =  create(:gustavo_de_antonio)
     create_all_company_data @gustavo.company_id
-
     @pablo =  create(:pablo_rodriguez)
     @marcelo =  create(:marcelo_de_antonio)
     @emp_walter =  create(:emp_walter)    
     @new_pablo =  create(:new_pablo_rodriguez)
 
     @imr_admin =  create(:imr_admin)
+    create_all_company_data @imr_admin.company_id
     @imr_emp =  create(:imr_emp)
   end
 
@@ -60,6 +59,10 @@ class UserTest < ActiveSupport::TestCase
     file.write(csv_rows)
     file.rewind
 
+    def file.original_filename
+        "test.csv"
+    end
+
     result = []
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
     assert result[:errors].size == 0, "There is error"
@@ -84,7 +87,10 @@ class UserTest < ActiveSupport::TestCase
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
     file.write(csv_rows)
     file.rewind
-
+    def file.original_filename
+        "test.csv"
+    end
+    
     result = []
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
     
@@ -109,6 +115,9 @@ class UserTest < ActiveSupport::TestCase
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
     file.write(csv_rows)
     file.rewind
+    def file.original_filename
+        "test.csv"
+    end
 
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
     client = User.find_by_external_id("AAA12345")
@@ -128,7 +137,10 @@ class UserTest < ActiveSupport::TestCase
     file = Tempfile.new('new_users.csv',:encoding => 'iso-8859-1')
     file.write(csv_rows)
     file.rewind
-
+    def file.original_filename
+        "test.csv"
+    end
+    
     result = User.import_clients file,@gustavo,@gustavo.company_active.id,'iso-8859-1'
     client = User.find_by_external_id("AAA12345")
     assert client.vehicles.size == 2

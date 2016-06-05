@@ -10,6 +10,7 @@ class VehicleServiceOffersControllerTest < ActionController::TestCase
     @pablo =  create(:pablo_rodriguez)
     
     @imer_admin = create(:imr_admin)
+    create_all_company_data @imer_admin.company_id
   
   end
 

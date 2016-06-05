@@ -9,11 +9,13 @@ class ControlPanelsControllerTest < ActionController::TestCase
     @user = create(:pablo_rodriguez)
     @hugo = create(:hugo_rodriguez)
 
-    wo1 = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
-    wo2 = create(:wo_oc,:vehicle => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => 2)
+    @final_status = @employer.company.get_final_status
 
-    wo3 = create(:wo_tc,:vehicle => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
-    wo4 = create(:wo_tc,:vehicle => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => 2)
+    wo1 = create(:wo_oc,:vehicle => @user.cars.first,:user => @employer,:company => @employer.company,:status_id => @final_status.id)
+    wo2 = create(:wo_oc,:vehicle => @hugo.cars.first,:user => @employer,:company => @employer.company,:status_id => @final_status.id)
+
+    wo3 = create(:wo_tc,:vehicle => @user.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => @final_status.id)
+    wo4 = create(:wo_tc,:vehicle => @hugo.cars.first,:user => @employer,company: @employer.company,performed: Time.zone.now,:status_id => @final_status.id)
 
   end
 
@@ -28,7 +30,9 @@ class ControlPanelsControllerTest < ActionController::TestCase
   test "filter alarms all events" do
     sign_in @employer        
     @request.cookies["company_id"]= @employer.company.id.to_s
-    get :filter_alarms,:st => 1,:et =>"all"
+    st = ServiceType.where("company_id = ? and name =?",@employer.company.id,"Cambio de Aceite").first
+
+    get :filter_alarms,:st => st.id,:et =>"all"
     assert_response :success
     assert_template :filter_alarms
     assert_select("div#events div.cp_event",:count => 2)    
@@ -46,7 +50,9 @@ class ControlPanelsControllerTest < ActionController::TestCase
   test "filter alarms red events" do
     sign_in @employer        
     @request.cookies["company_id"]= @employer.company.id.to_s
-    get :filter_alarms,:st => 1,:et =>"all"
+    st = ServiceType.where("company_id = ? and name =?",@employer.company.id,"Cambio de Aceite").first
+
+    get :filter_alarms,:st => st.id,:et =>"all"
     assert_response :success
     assert_template :filter_alarms
     assert_select("div#events div.cp_event",:count => 2)

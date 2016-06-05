@@ -610,4 +610,12 @@ class Workorder < ActiveRecord::Base
     o = Workorder.order("nro DESC").where("company_id = ?",company_id).first
     return (o ? o.nro : 0)
   end
+
+  def control_material?
+    if company
+      company.control_material?
+    else
+      false
+    end
+  end
 end

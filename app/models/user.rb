@@ -543,7 +543,6 @@ class User < ActiveRecord::Base
       :new_records =>0,
       :updates =>0
     }
-    
     unless file.original_filename.end_with?(".csv")
       result[:fatal] = "Tipo de Archivo incorrecto"
     else

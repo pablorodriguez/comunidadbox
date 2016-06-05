@@ -45,6 +45,7 @@ group :development, :test do
   #gem 'turn'
   gem "better_errors"
   #gem 'rack-mini-profiler'
+  gem "mocha",:require => false
 end
 
 gem 'exception_notification'
@@ -57,7 +58,6 @@ group :test do
   gem "webmock"
 end
 
-gem "mocha",:require => false
 
 
 # GEOLOCALIZACION Y MAPAS

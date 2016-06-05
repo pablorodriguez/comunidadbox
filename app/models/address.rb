@@ -9,9 +9,9 @@ class Address < ActiveRecord::Base
   
   acts_as_gmappable :lat => 'lat', :lng => 'lng', :process_geocoding => false
 
-  geocoded_by :to_text, :latitude => :lat, :longitude => :lng
+  #geocoded_by :to_text, :latitude => :lat, :longitude => :lng
 
-  after_validation :geocode
+  #after_validation :geocode
   scope :companies, where("company_id is not null")
 
   #, :if => :street_changed?

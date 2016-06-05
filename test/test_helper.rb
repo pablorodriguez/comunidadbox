@@ -2,7 +2,6 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
-
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -12,7 +11,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-
+require "mocha/setup"
 end
 
 module ComunidadBox::TestHelpers
@@ -25,7 +24,6 @@ module ComunidadBox::TestHelpers
 
     #crear materiales
     create :hand_work_material,:company_id => company_id
-
     #create materiales para tipos de servicios
     create :hand_work_for_tire_change,:company_id => company_id
     create :hand_work_oil_change,:company_id => company_id
@@ -47,6 +45,9 @@ module ComunidadBox::TestHelpers
     create :check,:company_id => company_id
     create :credit_card,:company_id => company_id
     create :debit_card,:company_id => company_id
+
+    #create companhy attributes
+    CompanyAttribute.create({"company_id" => company_id})
 
   end
   def create_all_default_data
@@ -86,8 +87,7 @@ VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = true
 end
 
-require "mocha/setup"
-
 class ActiveSupport::TestCase
   include ComunidadBox::TestHelpers
 end
+

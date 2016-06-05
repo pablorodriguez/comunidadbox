@@ -54,10 +54,12 @@ class MaterialsControllerTest < ActionController::TestCase
 
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in @employer
-    
-    post "import", :file => Rack::Test::UploadedFile.new(file, 'text/csv'),:service_type_ids => [1,2,3]
 
-    mst = MaterialServiceType.where("material_id = 100 and service_type_id = 1").first
+    st_ids = ServiceType.where("name IN (?) and company_id = ?  ",["Cambio de Aceite","Cambio de Neumaticos","Alineacion y Balanceo"],@employer.company.id).map(&:id)
+
+    post "import", :file => Rack::Test::UploadedFile.new(file, 'text/csv'),:service_type_ids => st_ids
+
+    mst = MaterialServiceType.where("material_id = ? and service_type_id = ?",100,st_ids[0]).first
     
     assert mst.material.name == "12.4-28/13.6-28 (Valv TR218A - 5 Und/Caja)" 
     assert mst.service_type.id = 1
