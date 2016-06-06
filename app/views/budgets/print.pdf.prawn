@@ -13,7 +13,7 @@ pdf.text "#{company.full_address}, #{company.phone}"
 
 
 pdf.move_down(5)
-pdf.text "Presupuesto Nro: #{@budget.id}",:size=>fs,:size=>10,:style =>:bold
+pdf.text "Presupuesto Nro: #{@budget.nro}",:size=>fs,:size=>10,:style =>:bold
 pdf.move_up(25)
 pdf.text "Realizado: #{l(Date.parse(@budget.created_at.to_s))}",:align=>:right,:size=>10,:style =>:bold
 pdf.text "Responsable de Venta: #{@budget.creator.full_name}",:size =>6,:align=>:right

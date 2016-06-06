@@ -28,7 +28,9 @@ class Budget < ActiveRecord::Base
   end
 
   def generate_new_number
-    self.nro = CompanyAttribute.generate_budget_number self.company_id
+    unless self.nro
+      self.nro = CompanyAttribute.generate_budget_number self.company_id
+    end
   end
 
   def has_vehicle

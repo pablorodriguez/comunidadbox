@@ -7,6 +7,8 @@
     %h1.left=t(".enter_services_done")
     %h1.right
       = @work_order.company_name
+      \:
+      = @work_order.nro
   #err
     = render 'shared/error_messages', :target => @work_order
   #work_order

@@ -16,7 +16,7 @@
   .service_info
     .left
       %label.wo_id{:title => t(".number_of_service")}
-        = link_to work_order_row.id,work_order_row
+        = link_to work_order_row.nro,work_order_row
     - if can_show
       %label{:title =>t(".service_provider")}
         = link_to work_order_row.company_name,work_order_row.company,:target => :_blank

@@ -54,7 +54,9 @@ class Workorder < ActiveRecord::Base
   end
 
   def generate_new_number
-    self.nro = CompanyAttribute.generate_workorder_number self.company_id
+    unless self.nro
+      self.nro = CompanyAttribute.generate_workorder_number self.company_id
+    end
   end
 
   def set_company_client
