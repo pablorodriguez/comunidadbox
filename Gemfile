@@ -6,7 +6,7 @@ if RUBY_VERSION =~ /1.9/
 end
 
 
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
