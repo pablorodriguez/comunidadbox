@@ -1,5 +1,7 @@
 # encoding: utf-8
 class Budget < ActiveRecord::Base
+  acts_as_paranoid
+
   attr_accessible :first_name,:last_name,:phone,:email,:domain,:brand_id,:model_id,:vehicle_type,:chassis, :vehicle_id, :user_id,:comment,:services_attributes,:service_type_attributes
 
   has_many :services, :dependent => :destroy
@@ -118,9 +120,9 @@ class Budget < ActiveRecord::Base
 
       budget = budget.where("budgets.first_name like :name OR users.first_name like :name",{name: "%#{filters[:first_name]}%"}) if filters[:first_name]
       budget = budget.where("budgets.last_name like :name OR users.last_name like :name ",{name: "%#{filters[:last_name]}%"}) if filters[:last_name]
-      budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone) if (filters[:date_from] && filters[:date_to])
+      budget = budget.where("budgets.created_at between ? and ? ",filters[:date_from].to_datetime.in_time_zone,filters[:date_to].to_datetime.in_time_zone + 1.day) if (filters[:date_from] && filters[:date_to])
 
-      budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone) if ((filters[:date_from] == nil) && filters[:date_to])
+      budget = budget.where("budgets.created_at <= ? ",filters[:date_to].to_datetime.in_time_zone + 1.day) if ((filters[:date_from] == nil) && filters[:date_to])
       budget = budget.where("budgets.created_at >= ? ",filters[:date_from].to_datetime.in_time_zone) if (filters[:date_from] && (filters[:date_to] == nil))
     end
 
@@ -130,7 +132,7 @@ class Budget < ActiveRecord::Base
       budget = budget.where("budgets.user_id = ?",filters[:user].id)
     end
 
-    budget = budget.where("budgets.id = ?",filters[:budget_id].to_i) if filters [:budget_id]
+    budget = budget.where("budgets.nro = ?",filters[:budget_id].to_i) if filters [:budget_id]
 
 
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
