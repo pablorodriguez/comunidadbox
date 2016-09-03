@@ -141,6 +141,7 @@ ComunidadBox::Application.routes.draw do
         get :print
         get :email
         get :email_s
+        put :undelete
       end
     end
 

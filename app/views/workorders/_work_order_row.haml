@@ -24,10 +24,7 @@
       -if current_user.user_type.present? && current_user.user_type.auto_part?
         = link_to work_order_row.nro, price_offer_workorder_path(work_order_row)
       -else
-        - if work_order_row.deleted?
-          = link_to work_order_row.nro,workorder_path(work_order_row,:params => {"d"=>true})
-        -else
-          = link_to work_order_row.nro,work_order_row
+        = link_to work_order_row.nro,work_order_row
     %strong
       = work_order_row.status_name
     %strong

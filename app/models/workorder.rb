@@ -518,7 +518,7 @@ class Workorder < ActiveRecord::Base
 
     workorders = Workorder.order(filters[:order_by]).includes(:payment_method,:company,:vehicle =>:user,:services => [{:material_services => [{:material_service_type =>[:service_type, :material]}]}])
 
-    workorders = workorders.with_deleted if filters[:deleted]
+    workorders = workorders.only_deleted if filters[:deleted]
 
     workorders = workorders.where("users.first_name like ?","%#{filters[:first_name]}%") if filters[:first_name]
     workorders = workorders.where("users.last_name like ?","%#{filters[:last_name]}%") if filters[:last_name]
@@ -544,6 +544,7 @@ class Workorder < ActiveRecord::Base
     workorders = workorders.where("workorders.status_id = ? or workorders.status_id is null", filters[:wo_status_id]) if filters[:wo_status_id]
 
     workorders = workorders.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
+    
     workorders
   end
 

@@ -94,12 +94,16 @@
           .notes
             = render :partial =>'notes/notes_small_view',:collection => @budget.notes,:as=>:note
   .buttons_container
+    - if @budget.deleted?
+      = link_to("Restaurar", undelete_budget_path(@budget), :data =>{:confirm => '¿ Esta seguro que desea restaurar el Presupuesto ?'},:method => :put,:title =>"Recuperar",:class=>"button")
+
     -if @budget.can_edit?(current_user)
       = link_to t("edit"),edit_budget_path(@budget),{:class=>:button}
-    -if company_id
+    -if company_id && !@budget.deleted?
       = link_to "Crear Servicio",new_workorder_path(:b =>@budget.id),:title =>"Crear servicio",:class=>:button
     = link_to "Imprimir",print_budget_path(@budget,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class=>:button
-    %span
-      = link_to "Enviar por Correo",email_budget_path(@budget),:remote =>true,:class=>:button
+    - if !@budget.deleted?
+      %span
+        = link_to "Enviar por Correo",email_budget_path(@budget),:remote =>true,:class=>:button
     .ajax_loader
     = link_to t("cancel"),budgets_path

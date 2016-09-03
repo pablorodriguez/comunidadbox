@@ -9,13 +9,14 @@ class BudgetsController < ApplicationController
 
     @company_services = get_budget_service_types
     @service_type_ids =  params[:service_type_ids] || []
-    @all_service_type = @service_type_ids.size > 0 ? true : false
+    @all_service_type = params[:all_service_type] ? true : false
 
     filters_params ={}
     @date_f = params[:date_from]
     @date_t = params[:date_to]
     @domain = params[:domain]
     @budget_id = params[:number]
+    @deleted = params[:deleted] || false
     
     filters_params[:first_name] = params[:first_name] if (params[:first_name] && !(params[:first_name].empty?))
     filters_params[:last_name] = params[:last_name] if (params[:last_name] && !(params[:last_name].empty?))
@@ -31,6 +32,7 @@ class BudgetsController < ApplicationController
     filters_params[:brand_id] = params[:brand_id] if params[:brand_id] && !(params[:brand_id].empty?)
     filters_params[:model_id] = params[:service_filter][:model_id] if params[:service_filter] && !(params[:service_filter][:model_id].empty?)
     filters_params[:year] = params[:year] if(params[:year] && !(params[:year].empty?))
+    filters_params[:deleted] = @deleted
 
     @filters_params_exp = filters_params
     
@@ -41,7 +43,7 @@ class BudgetsController < ApplicationController
     @fuels = Vehicle.fuels
     @years = ((Time.zone.now.year) -25)...((Time.zone.now.year) +2)
     @states = State.order(:name)
-    @brands = Brand.order(:name)
+    @brands = get_company.get_brands
 
     @models = Array.new
     @models = Model.find_all_by_brand_id(filters_params[:brand_id],:order=>:name) if filters_params[:brand_id]
@@ -73,7 +75,7 @@ class BudgetsController < ApplicationController
   # GET /budgets/1
   # GET /budgets/1.xml
   def show
-    @budget = Budget.find(params[:id])
+    @budget = Budget.with_deleted.find(params[:id])
     authorize! :read, @budget
 
     @client = @budget
@@ -241,5 +243,19 @@ class BudgetsController < ApplicationController
       return field if (params[field] != nil)
     end
     value
+  end
+
+    def undelete
+    @budget = Budget.with_deleted.find(params[:id])
+    #authorize! :undelete, @budget
+    @budget.restore(:recursive => true)
+
+    respond_to do |format|
+      if session[:previous_url].match /\/budgets\/\d/
+        format.html {redirect_to @budget}
+      else  
+        format.html {redirect_to budgets_path}
+      end
+    end
   end
 end

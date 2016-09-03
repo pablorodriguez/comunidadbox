@@ -27,6 +27,24 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :set_i18n_locale_from_params
+  before_filter :store_location
+
+  def store_location
+     # store last url - this is needed for post-login redirect to whatever the user last visited.
+    return unless request.get? 
+    return unless current_user
+    
+    if (request.path != "/users/sign_in" &&
+        request.path != "/users/sign_up" &&
+        request.path != "/users/password/new" &&
+        request.path != "/users/password/edit" &&
+        request.path != "/users/confirmation" &&
+        request.path != "/users/sign_out" &&
+        request.path != "/users/auth/linkedin/callback" &&
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath 
+    end
+  end
 
   def get_user_agent_encode
     request.user_agent.include?("Linux") ? "utf-16" : "iso-8859-1"

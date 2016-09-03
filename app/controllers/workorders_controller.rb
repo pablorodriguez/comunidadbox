@@ -151,11 +151,8 @@ class WorkordersController < ApplicationController
 
   def show
 
-    if params[:d]
-      @work_order = Workorder.with_deleted.find params[:id]
-    else
-      @work_order = Workorder.find params[:id]
-    end
+    @work_order = Workorder.with_deleted.find params[:id]
+    
     @rank =  @work_order.build_rank_for_user(current_user)
     @vehicle = @work_order.vehicle
     authorize! :read, @work_order

@@ -109,6 +109,8 @@ class Budget < ActiveRecord::Base
     domain =  filters[:domain] || ""
     budget = Budget.includes(:vehicle => :user).includes(:creator => :companies,:services => [{:material_services =>[{:material_service_type =>:service_type}]}])
 
+    budget = budget.only_deleted if filters[:deleted]
+
     prop = %w"domain brand_id model_id year first_name last_name date_from date_to"
     unless prop.any?{|k| filters.key?(k.to_sym)}
       budget = budget.joins('LEFT OUTER JOIN workorders ON workorders.budget_id = budgets.id').where("workorders.budget_id IS NULL")
@@ -136,7 +138,6 @@ class Budget < ActiveRecord::Base
 
 
     budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
-
     budget
   end
 
@@ -145,6 +146,8 @@ class Budget < ActiveRecord::Base
   end
 
   def can_edit? user
+    return false if self.deleted?
+    
     creator.id == user.id || company.is_employee?(user)
   end
 
