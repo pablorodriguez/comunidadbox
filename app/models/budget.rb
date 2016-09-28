@@ -25,6 +25,14 @@ class Budget < ActiveRecord::Base
   validate :service_not_empty
   before_save :before_save_call_back
 
+  def my_services
+    if deleted?
+      services.with_deleted
+    else
+      services
+    end
+  end
+
   def before_save_call_back
     self.generate_new_number
   end
@@ -98,8 +106,14 @@ class Budget < ActiveRecord::Base
   end
 
   def total_price
- 	s_total_price=0
-    self.services.each do |s|
+   	s_total_price=0
+    if deleted?
+      s= services.with_deleted
+    else
+      s = services
+    end
+
+    s.each do |s|
       s_total_price += s.total_price
     end
     s_total_price

@@ -177,11 +177,7 @@ class WorkordersController < ApplicationController
 
   #print workorder for company
   def print
-    if params[:d]
-      @work_order = Workorder.with_deleted.find params[:id]
-    else
-      @work_order = Workorder.find params[:id]
-    end
+    @work_order = Workorder.with_deleted.find params[:id]
     @vehicle = @work_order.vehicle
     authorize! :print, @work_order
 

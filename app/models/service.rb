@@ -44,7 +44,13 @@ class Service < ActiveRecord::Base
   def total_price
     m_total_price=0
 
-    material_services.each do |m|
+    if deleted?
+      m = material_services.with_deleted
+    else
+      m= material_services
+    end
+
+    m.each do |m|
       m_total_price += m.total_price
     end
 

@@ -179,7 +179,7 @@ class BudgetsController < ApplicationController
   end
 
   def print
-    @budget = Budget.find params[:id]
+    @budget = Budget.with_deleted.find params[:id]
     authorize! :read, @budget
 
     @client = @budget

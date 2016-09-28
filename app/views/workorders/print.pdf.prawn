@@ -6,8 +6,8 @@ fs=9
 
 logo_path = company.get_logo_url ? "#{::Rails.root.join('public')}#{company.get_logo_url}" : ""
 
-total_rows =@work_order.services.inject(0) do |n,service|
-  n + 2 + service.material_services.size + (service.comment ? 1 : 0)
+total_rows =@work_order.my_services.inject(0) do |n,service|
+  n + 2 + service.my_material_services.size + (service.comment ? 1 : 0)
 end
 
 pdf.define_grid(:columns => 2, :rows => 1, :gutter => 30)
@@ -59,7 +59,7 @@ pdf.grid(0,0).bounding_box do
 
   column_widths = [242,38,57,58]
 
-  @work_order.services.each do |service|
+  @work_order.my_services.each do |service|
     operario = service.operator ? "Operario: #{service.operator.full_name}" :""
 
   	data =[[
@@ -83,7 +83,7 @@ pdf.grid(0,0).bounding_box do
     end
     pdf.move_down 2
 
-  	materials =  service.material_services.map do |ms|
+  	materials =  service.my_material_services.map do |ms|
       mat = ms.material_service_type ? "[#{ms.material_service_type.material.prov_code}] #{ms.material_service_type.material.detail}" : ms.material
   		[
   			mat,

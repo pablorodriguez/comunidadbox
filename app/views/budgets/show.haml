@@ -44,7 +44,7 @@
           .budget_service
             %h1 Servicios
         #services_list.ordencontent
-          - @budget.services.each do |s|
+          - @budget.my_services.each do |s|
             .service_type
               %table.services
                 %thead
@@ -65,7 +65,7 @@
                       .total_service
                         = number_to_currency(s.total_price)
                 %tbody
-                  - s.material_services.each do |ms|
+                  - s.my_material_services.each do |ms|
                     %tr
                       %td
                         -if ms.material_service_type

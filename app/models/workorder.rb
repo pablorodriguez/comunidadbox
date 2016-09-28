@@ -197,7 +197,11 @@ class Workorder < ActiveRecord::Base
   end
 
   def total_price
-    self.services.inject(0){|sum, service| sum + service.total_price }
+    if deleted?
+      self.services.with_deleted.inject(0){|sum, service| sum + service.total_price }
+    else
+      self.services.inject(0){|sum, service| sum + service.total_price }
+    end
   end
 
   def payment_method_name
