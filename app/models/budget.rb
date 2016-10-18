@@ -151,7 +151,7 @@ class Budget < ActiveRecord::Base
     budget = budget.where("budgets.nro = ?",filters[:budget_id].to_i) if filters [:budget_id]
 
 
-    budget = budget.where("services.service_type_id IN (?)",filters[:service_type_ids]) if filters[:service_type_ids]
+    budget = budget.where("services.service_type_id IN (?) AND services.deleted_at IS NULL",filters[:service_type_ids]) if filters[:service_type_ids]
     budget
   end
 
