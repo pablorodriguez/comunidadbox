@@ -29,4 +29,3 @@ end
 
 files = Dir.glob("#{db_backups}*.gz")
 files.sort.reverse[10..files.size].each {|f| `rm #{f}` } if files.size > 10
-
