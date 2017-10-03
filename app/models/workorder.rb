@@ -4,6 +4,7 @@ include ActionView::Helpers::NumberHelper
 class Workorder < ActiveRecord::Base
   acts_as_paranoid
 
+  SERVICE_PROTECTED = [15,16,2,8,7,5,12]
   attr_accessible  :budget_id, :car_id, :company_id, :company_info, :performed, :payment_method_id, :comment, :services_attributes, :notes_attributes,:deliver,:deliver_actual,:user_id,:status_id,:vehicle_id
 
   ORDER_BY = {I18n.t("order_by") =>"workorders.performed desc",I18n.t("domain_descendant")=>"vehicles.domain desc",I18n.t("domain_ascendant")=>"vehicles.domain asc",

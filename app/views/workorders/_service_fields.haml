@@ -10,8 +10,9 @@
               %label.header_text_lable
                 = st_form.object.name
           .service_status
-            %label.left
-              Protegido
+            - css = Workorder::SERVICE_PROTECTED.include?(f.object.service_type_id) ? "" : "hide"
+            %label.left.warranty{:class => css}
+              Protección
               = f.check_box :warranty
             - if company_id
               %select{class: "operator template hide"}

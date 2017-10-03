@@ -16,8 +16,6 @@
   .buttons_container
     -if @work_order.can_edit?(current_user)
       = link_to "Modificar", edit_workorder_path(@work_order),{:class=>:button}
-    - if @work_order.can_show_pdf? current_user
-      = link_to "Imprimir",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class => :button
 
     - if @work_order.deleted?
       = link_to("Restaurar", undelete_workorder_path(@work_order), :data =>{:confirm => '¿ Esta seguro que desea restaurar el Servicio ?'},:method => :put,:title =>"Recuperar",:class=>"button")
@@ -26,7 +24,7 @@
 
     - if @work_order.can_print_pdf? current_user
       = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:button
-      = link_to "Imprimir Protegido",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Protegido",:class => :button
 
-
+    - if @work_order.can_show_pdf? current_user
+      = link_to "Imprimir Protección",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Protección",:class => :button
     = link_to t("cancel"),workorders_path

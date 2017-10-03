@@ -13,7 +13,7 @@ jQuery(document).ready( function(){
       $(this).find(".ajax_loader").show();
     }).bind('ajax:complete',function(){
       $(this).find(".ajax_loader").hide();
-      
+
     });
 
     $(".vehicle_type").on("change",function(){
@@ -27,13 +27,13 @@ jQuery(document).ready( function(){
       }
     });
 
-  
+
     $("#services").delegate(".add_fields","click",add_fields_budget);
     $("#services").delegate(".delete-button",'click',remove_fields_budget);
 
     $("#services").delegate(".amount","blur",updateItemTotalPrice_budget);
     $("#services").delegate(".price","blur",updateItemTotalPrice_budget);
-    
+
     $("#material_dialog").click(showMaterialDialog);
     $(".new_material").live('click',addEmptyMaterial_budget);
     $("#materials_list table tbody tr").live("click",selectMaterialHandler);
@@ -103,7 +103,7 @@ function selectMaterialHandler(){
 }
 
 function selectMaterial(element){
-  var check = element.find(":checkbox");  
+  var check = element.find(":checkbox");
   check.attr('checked', !check.attr('checked'));
 }
 
@@ -168,14 +168,14 @@ function add_fields_budget(){
     var regexp = new RegExp("new_" + association, "g");
     if (association =="material_services"){
         var div = $(link).parent().parent();
-        var lastTr = div.find('table tbody');        
+        var lastTr = div.find('table tbody');
         lastTr.append($(content.replace(regexp, new_id)));
     }else if (association =="services"){
         content = content.replace("task_list_","task_list_" + $("#new_service_type").val());
         $("#services").find("#services_list").append($(content.replace(regexp, new_id)));
-        
+
     }
-    
+
 }
 
 function updateItemTotalPrice_budget(){
@@ -221,7 +221,7 @@ function remove_fields_budget(){
           tr.find("a").prev().attr("value", '1');
           tr.hide();
         });
-        row_head.hide();        
+        row_head.hide();
     }else{
         $(link).prev("input[type=hidden]").attr("value", '1');
         $(link).parent().parent().hide();
@@ -273,7 +273,7 @@ function addEmptyMaterial_budget(){
     div.find("#material_services_link").click();
     var tr = div.find("table tr:last");
     tr.find("td:eq(2)").find("input").val("1");
-    tr.find("td:eq(3)").find("input").val("0.0");    
+    tr.find("td:eq(3)").find("input").val("0.0");
     var ele = tr.find(".material");
     ele.show();
     initMaterialAutocomplete(ele);
@@ -327,10 +327,10 @@ function add_materials_service_types(elements){
     });
 
   });
-  
+
   updateTotalService(serviceTypeDiv);
   updateBudgetsTotalPrice();
-    
+
   $("#materials_list").find("input[type=checkbox]:checked").attr('checked',false);
 
 }
