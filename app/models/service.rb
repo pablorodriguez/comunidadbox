@@ -2,12 +2,12 @@
 class Service < ActiveRecord::Base
   acts_as_paranoid
 
-  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:vehicle_service_offer_id,:vehicle_service_offer,:status_id
+  attr_accessible :service_type_id, :operator_id, :status, :material_services_attributes, :comment,:service_type_attributes,:vehicle_service_offer_id,:vehicle_service_offer,:status_id,:warranty
   attr_accessor :today_vehicle_service_offer
 
   validates :status_id, :presence => true, :unless => Proc.new { |s| s.workorder_id.nil? }
 
-  after_initialize :init_default_value   
+  after_initialize :init_default_value
 
   has_many :events,:dependent => :destroy,:inverse_of => :service
   has_and_belongs_to_many :tasks
@@ -60,7 +60,7 @@ class Service < ActiveRecord::Base
   def status_name
     self.status_id ? self.status.name : ""
   end
-  
+
   def cancelled
     status == Status::CANCELLED
   end

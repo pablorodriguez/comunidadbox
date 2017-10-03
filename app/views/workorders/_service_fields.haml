@@ -10,16 +10,19 @@
               %label.header_text_lable
                 = st_form.object.name
           .service_status
+            %label.left
+              Protegido
+              = f.check_box :warranty
             - if company_id
               %select{class: "operator template hide"}
-                %option{value: ""} -- Template --            
-              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => t(".operator"),:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"}) 
-            - if current_user.is_employee?           
+                %option{value: ""} -- Template --
+              = f.collection_select(:operator_id,get_company.operators,:id,:full_name,{:prompt => t(".operator"),:selected =>f.object.operator_id},{:class=>'operator left',:title=>"Operario"})
+            - if current_user.is_employee?
               = f.select(:status_id,get_company.available_custom_statuses.collect{|v| [v.name,v.id]},{:selected =>f.object.status_id},{:class=>'input_short',:title=>"Estado"})
             -else
               = f.hidden_field(:status_id,:value =>get_final_status)
 
-            = f.hidden_field :_destroy            
+            = f.hidden_field :_destroy
             .actions
               .action
                 -#= link_to_function("","addEmptyMaterial(this)",{:class =>"new_material new",:title=>"Agregar nuevo material"})

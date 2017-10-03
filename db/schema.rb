@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160536174654) do
+ActiveRecord::Schema.define(:version => 20171003023857) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -646,6 +646,7 @@ ActiveRecord::Schema.define(:version => 20160536174654) do
     t.integer  "vehicle_service_offer_id"
     t.integer  "status_id"
     t.datetime "deleted_at"
+    t.boolean  "warranty"
   end
 
   add_index "services", ["budget_id"], :name => "services_budget_id_fk"
@@ -789,7 +790,7 @@ ActiveRecord::Schema.define(:version => 20160536174654) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "kmUpdatedAt"
-    t.string   "vehicle_type"
+    t.string   "vehicle_type",     :default => "Car"
     t.string   "chassis"
   end
 
@@ -821,7 +822,6 @@ ActiveRecord::Schema.define(:version => 20160536174654) do
 
   add_index "workorders", ["budget_id"], :name => "workorders_budget_id_fk"
   add_index "workorders", ["company_id", "nro"], :name => "COMPANY__NRO_UNIQUE_KEY", :unique => true
-  add_index "workorders", ["company_id", "nro"], :name => "ID_NRO_UNIQUE_KEY", :unique => true
   add_index "workorders", ["company_id"], :name => "workorders_company_id_fk"
   add_index "workorders", ["deleted_at"], :name => "index_workorders_on_deleted_at"
   add_index "workorders", ["payment_method_id_old"], :name => "workorders_payment_method_id_fk"

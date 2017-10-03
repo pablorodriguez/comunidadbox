@@ -7,8 +7,9 @@
             %label.left{:id=>"serviceType"}
               = f.status_name
               \:
-              = f.service_type.name              
-              = ": #{f.operator.full_name}" if f.operator              
+              = f.service_type.name
+              = ": #{f.operator.full_name}" if f.operator
+              = ": Protegido" if f.warranty
           .hide
             = f.comment
         %th{:style=>'width:10%'}
