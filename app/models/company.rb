@@ -29,7 +29,7 @@ class Company < ActiveRecord::Base
   has_and_belongs_to_many :models
   has_many :brands
   has_many :models,:through => :brands
-  
+
   scope :confirmed, includes(:user).where("users.confirmed = 1")
   scope :not_confirmed, includes(:user).where("users.confirmed = 0")
   scope :headquarters, where("headquarter =1")
@@ -77,6 +77,12 @@ class Company < ActiveRecord::Base
     return logo_url(format) if logo_url
     headquarter = get_headquarter
     headquarter.logo ? headquarter.logo_url(format) : ""
+  end
+
+  def get_code
+    return self.code if self.code.present?
+    headquarter = get_headquarter
+    headquarter.code ? headquarter.code : ""
   end
 
   def get_headquarter
@@ -176,7 +182,7 @@ class Company < ActiveRecord::Base
 
   def self.is_client?(companies_ids,user_id)
     CompaniesUser.where("company_id IN (?) and user_id = ?",companies_ids,user_id).size > 0
-  end 
+  end
 
   def self.is_employee?(companies_ids,user_id)
     User.includes(:companies).where("(users.employer_id IN (?) and users.id = ?) || (companies.user_id = ?)",companies_ids,user_id,user_id).size > 0
@@ -213,7 +219,7 @@ class Company < ActiveRecord::Base
     clients = clients.where("users.last_name like ?","%#{params[:last_name]}%") if params[:last_name]
     clients = clients.where("users.email like ?","%#{params[:email]}%") if params[:email]
     clients = clients.where("users.company_name like ?","%#{params[:company_name]}%") if params[:company_name]
-    
+
     clients = clients.where("DATE(users.created_at) >= ?",date_f.to_date) if params[:date_f]
     clients = clients.where("DATE(users.created_at) <= ?",date_t.to_date) if params[:date_t]
     clients.order("users.created_at DESC")

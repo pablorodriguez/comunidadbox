@@ -36,7 +36,7 @@ pdf.move_down(5)
 
 	operator = service.operator ? "Operario: #{service.operator.full_name} \n" : ""
 	data =[[
-			"Servicio: #{service.service_type.name} #{service.warranty ? ': Protegido' : ''} \n Estado: #{service.status.name}",
+			"Servicio: #{service.service_type.name} #{service.warranty ? ': Protegido ' + @work_order.company.get_code : ''} \n Estado: #{service.status.name}",
 			"#{operator} Total:  #{number_to_currency(service.total_price)}"
 			]]
 

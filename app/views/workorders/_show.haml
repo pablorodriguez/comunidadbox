@@ -1,10 +1,10 @@
 .box_bottom
   %h1
     Orden de Trabajo
-    \: 
+    \:
     = @work_order.nro
     \:
-    = @work_order.status_name 
+    = @work_order.status_name
   %h1
     = @work_order.company_name
 #work_order
@@ -23,8 +23,10 @@
       = link_to("Restaurar", undelete_workorder_path(@work_order), :data =>{:confirm => '¿ Esta seguro que desea restaurar el Servicio ?'},:method => :put,:title =>"Recuperar",:class=>"button")
     - if @work_order.can_delete?(current_user)
       = link_to "Eliminar", workorder_path(@work_order), :confirm => '¿ Esta seguro que desea borrar el Servicio ?', :method => :delete,:title =>"Eliminar",:class=>:button
+
     - if @work_order.can_print_pdf? current_user
       = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:button
+      = link_to "Imprimir Protegido",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Protegido",:class => :button
 
 
     = link_to t("cancel"),workorders_path

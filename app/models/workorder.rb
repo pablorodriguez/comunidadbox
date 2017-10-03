@@ -262,7 +262,7 @@ class Workorder < ActiveRecord::Base
   end
 
   def can_show_pdf? user
-    vehicle.user == user
+    vehicle.user == user || self.company.is_employee?(user)
   end
 
   def can_print_pdf? user
@@ -546,9 +546,9 @@ class Workorder < ActiveRecord::Base
 
     workorders = workorders.where("workorders.nro = ?", filters[:number]) if filters[:number]
     workorders = workorders.where("workorders.status_id = ? or workorders.status_id is null", filters[:wo_status_id]) if filters[:wo_status_id]
-   
+
     workorders = workorders.where("services.service_type_id IN (?) AND services.deleted_at IS NULL",filters[:service_type_ids]) if filters[:service_type_ids]
-    
+
     workorders
   end
 
