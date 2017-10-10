@@ -328,7 +328,7 @@ class Workorder < ActiveRecord::Base
 
     return nil unless service_type.is_periodic?
 
-    newDueDate = nil
+    newDueDate = 90.days.since
     if (service_type.kms && service_type.kms > 0)
       months = (service_type.kms / vehicle.kmAverageMonthly.to_f).round.to_i
       newDueDate = (service.workorder.performed + months.month)
@@ -336,11 +336,9 @@ class Workorder < ActiveRecord::Base
       newDueDate = service_type.days.days.since
     end
 
-    if newDueDate
-      new_kms = service_type.kms ? (self.vehicle.km + service_type.kms) : 0
-      event = service.events.build(vehicle: self.vehicle,km: new_kms,
-        service_type: service_type,status: (Status::ACTIVE),dueDate: newDueDate)
-    end
+    new_kms = service_type.kms ? (self.vehicle.km + service_type.kms) : 0
+    event = service.events.build(vehicle: self.vehicle,km: new_kms,
+      service_type: service_type,status: (Status::ACTIVE),dueDate: newDueDate)
 
     event
   end
