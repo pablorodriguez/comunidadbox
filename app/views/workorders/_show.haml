@@ -25,6 +25,6 @@
     - if @work_order.can_print_pdf? current_user
       = link_to "Imprimir",print_workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir",:class =>:button
 
-    - if @work_order.can_show_pdf? current_user
+    - if @work_order.can_show_pdf?(current_user) && @work_order.have_protections?
       = link_to "Imprimir Protección",workorder_path(@work_order,:format =>'pdf'),:target => "_blank",:title =>"Imprimir Protección",:class => :button
     = link_to t("cancel"),workorders_path

@@ -1,13 +1,16 @@
 company = @work_order.company
 vehicle =@work_order.vehicle
 user = vehicle.user
-fs=14
+fs=10
+total_rows =@work_order.my_services.inject(0) do |n,service|
+  n + 2 + service.my_material_services.size + (service.comment ? 1 : 0)
+end
 
-pdf.move_down(25)
+pdf.move_down(20)
 pdf.text "Servicio Nro: #{@work_order.nro}",:size=>fs+4,:style =>:bold
 pdf.image "#{::Rails.root.join('public','images','logo_n.png')}",:at=>[430,800],:scale =>0.60
 
-pdf.move_down(45)
+pdf.move_down(35)
 pdf.text "Estimado #{user.full_name}",:size=>fs,:style =>:bold
 pdf.text "Muchas gracias por usar Comunidad Box, Ud. ha realizado un servicio en nuestra red de prestadores",:size=>fs
 pdf.move_down(5)
@@ -99,3 +102,15 @@ pdf.table total,:cell_style => {:size => fs},:width =>540 do
 	column(0).style{|c| c.border_width = 0}
 end
 
+if @work_order.have_protections?
+	move_rows = (total_rows * 10).to_i
+	pdf.move_down(350 - move_rows)
+
+	# #{total_rows}|#{move_rows}|#{(250 - (total_rows * 7.4)).to_i}|
+
+	pdf.text "Observaciones: Valle Grande Neumáticos otorgará al titular del certificado un beneficio correspondiente al 50% del total del valor abonado en concepto de PROTECCIÓN VG. No aplica a productos o servicios sobre los cuales no se contrató la Protección.
+El beneficio será aplicado en la compra del próximo producto y/o servicios a realizar al vehículo objeto de la presente y tendrá una validez de 180  días a partir de la fecha del certificado.",:size => fs-2
+	pdf.move_down(10)
+	pdf.text "El precio y los materiales pueden ser modificados por el Prestador de Servicios sin previo aviso",:size => fs-2
+
+end

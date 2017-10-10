@@ -350,6 +350,13 @@ class Workorder < ActiveRecord::Base
     Resque.enqueue WorkorderJob,self.id
   end
 
+  def have_protections?
+    services.detect(&:warranty) != nil
+  end
+
+  def protection_discount_value(discount=0.5)
+    service.total * discount
+  end
 
   def delete_event service
     logger.debug "### #{service.id} #{service.workorder}"

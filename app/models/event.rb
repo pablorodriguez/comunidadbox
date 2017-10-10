@@ -32,7 +32,7 @@ class Event < ActiveRecord::Base
   scope :future, lambda { |day| {:conditions =>  ["dueDate >= ?", day]}}
 
   def is_green
-    dueDate > Time.zone.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
+    (dueDate.present? && dueDate > Time.zone.now.months_since(Event::MONTH_YELLOW).to_date) ? true : false
   end
 
   def belongs_to_company company
@@ -48,11 +48,11 @@ class Event < ActiveRecord::Base
   end
 
   def is_yellow
-    dueDate > Time.zone.now.months_since(Event::MONTH_RED).to_date && dueDate <= Time.zone.now.months_since(Event::MONTH_YELLOW).to_date ? true : false
+    (dueDate.present? && dueDate > Time.zone.now.months_since(Event::MONTH_RED).to_date && dueDate <= Time.zone.now.months_since(Event::MONTH_YELLOW).to_date) ? true : false
   end
 
   def is_red
-    dueDate <= Time.zone.now.months_since(Event::MONTH_RED).to_date ? true : false
+    (dueDate.present? && dueDate <= Time.zone.now.months_since(Event::MONTH_RED).to_date) ? true : false
   end
 
   def self.group_by(service_type_id=nil)
