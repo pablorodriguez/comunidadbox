@@ -1,16 +1,16 @@
 
 class MaterialServiceType < ActiveRecord::Base
- attr_accessible :material_id, :service_type_id,:company_id
+  attr_accessible :material_id, :service_type_id,:company_id,:protected
 
   belongs_to :material
   belongs_to :service_type
   has_many :price_list_items
   has_one :price_list_item_active, :class_name =>"PriceListItem",:include=>"price_list", :conditions =>["price_lists.active =1"]
   has_one :company_material_code
-  
+
   accepts_nested_attributes_for :material
   accepts_nested_attributes_for :service_type
-  
+
   def self.materials company_id
     MaterialServiceType.includes({:price_list_items_active=>{:price_list=>{}},:service_type=>{:companies=>{}}}).where("companies.id = ? ",company_id)
   end
@@ -21,21 +21,21 @@ class MaterialServiceType < ActiveRecord::Base
 
   def self.generate_select_join_str(company_id,price_list_id,service_type_ids)
     select_str ="material_service_types.id,material_service_types.material_id,m.code,m.name,material_service_types.service_type_id,st.name,pli.price  "
-    
-    join_str =  "LEFT OUTER JOIN price_list_items as pli ON pli.material_service_type_id = material_service_types.id and pli.price_list_id=#{price_list_id} " 
+
+    join_str =  "LEFT OUTER JOIN price_list_items as pli ON pli.material_service_type_id = material_service_types.id and pli.price_list_id=#{price_list_id} "
     join_str += " INNER JOIN service_types as st ON st.id = material_service_types.service_type_id and st.company_id = #{company_id} "
-    
+
     join_str += " and material_service_types.service_type_id in (#{service_type_ids.join(",")})" if (service_type_ids.size > 0)
-    
-    join_str += " LEFT OUTER JOIN materials as m ON material_service_types.material_id = m.id" 
+
+    join_str += " LEFT OUTER JOIN materials as m ON material_service_types.material_id = m.id"
     return [select_str,join_str]
-    
+
   end
-  
+
   def self.m(company_id,price_list_id,service_type_ids,material,page)
     select_str,join_str = MaterialServiceType.generate_select_join_str(company_id,price_list_id,service_type_ids)
-    if (page >=0)  
-      return MaterialServiceType.paginate(:per_page=>20,:page =>page,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str,:order =>"st.name,m.name")  
+    if (page >=0)
+      return MaterialServiceType.paginate(:per_page=>20,:page =>page,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str,:order =>"st.name,m.name")
     else
       return MaterialServiceType.find(:all,:select => select_str,:conditions=>['m.name LIKE ?',"%#{material}%"] ,:joins=>join_str)
     end
@@ -45,7 +45,7 @@ class MaterialServiceType < ActiveRecord::Base
     select_str,join_str = MaterialServiceType.generate_select_join_str(company_id,price_list_id,service_type_ids)
     MaterialServiceType.select(select_str).joins(join_str).limit(50)
   end
-  
+
   def self.to_csv_for_update_price(plid, user)
     #para desarrollar mas rapido.. solo traigo la pagina uno para exportar
     msList = material_to_export(user.headquarter.id, plid, []) if PriceList.find_by_id(plid).present?
@@ -57,8 +57,8 @@ class MaterialServiceType < ActiveRecord::Base
 
       if msList.present?
         msList.each do |item|
-          if item.material            
-            csv << [plid,item.id,item.name,item.code, item.material.name, item.price.to_s]            
+          if item.material
+            csv << [plid,item.id,item.name,item.code, item.material.name, item.price.to_s]
           end
         end
       end

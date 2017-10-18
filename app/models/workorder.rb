@@ -205,6 +205,10 @@ class Workorder < ActiveRecord::Base
     end
   end
 
+  def total_protected_price(discount=0.5)
+    self.services.inject(0){|sum,service| sum + service.total_protected_price} * discount
+  end
+
   def payment_method_name
     payment_method ? payment_method.name : ""
   end
@@ -349,12 +353,19 @@ class Workorder < ActiveRecord::Base
   end
 
   def have_protections?
-    services.detect(&:warranty) != nil
+    have_material_protected = false
+    services.each do  |service|
+      service.material_services.each do |material_service|
+        if material_service.material_service_type_id
+          have_material_protected = material_service.material_service_type.protected
+          break if have_material_protected
+        end
+      end
+      break if have_material_protected
+    end
+    have_material_protected
   end
 
-  def protection_discount_value(discount=0.5)
-    service.total * discount
-  end
 
   def delete_event service
     logger.debug "### #{service.id} #{service.workorder}"

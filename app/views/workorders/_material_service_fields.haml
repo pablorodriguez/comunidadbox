@@ -2,19 +2,19 @@
   %tr
     %td
       = f.hidden_field :material_service_type_id,:class => :material_service_type_id
-    %td 
+    %td
       .ajax_loader_m.left
-      -if f.object.material_service_type_id
-        .code
-          = image_tag "confirm.png"
-      -else
-        .code.hide
-          = image_tag "confirm.png"
+
+      .code{class: "#{f.object.material_service_type_id ? '':'hide'}"}
+        = image_tag "confirm.png"
+
+      .protected{class: "#{f.object.material_service_type && f.object.material_service_type.protected ? '' : 'hide'}"}
 
       -if f.object.material_service_type_id
         %strong
           = f.object.material_service_type.material.prov_code
         = f.object.material_service_type.material.name
+
       -else
         = f.text_field :material,:class=>:material
       %input.copy_detail.input_long.hide

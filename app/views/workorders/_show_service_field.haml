@@ -9,7 +9,6 @@
               \:
               = f.service_type.name
               = ": #{f.operator.full_name}" if f.operator
-              = ": Protección #{@work_order.company.get_code}" if f.warranty
           .hide
             = f.comment
         %th{:style=>'width:10%'}

@@ -349,6 +349,8 @@ ComunidadBox::Application.routes.draw do
         put :add_task
         delete :remove_task
         post :add_material
+        post :protect
+        post :unprotect
         get :search_material
       end
 

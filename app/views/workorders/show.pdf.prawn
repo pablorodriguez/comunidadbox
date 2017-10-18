@@ -66,7 +66,12 @@ pdf.move_down(5)
 
 	materials = [["Material","Cantidad","Precio","Total"]]
 	materials += service.material_services.map do |ms|
-		mat = ms.material_service_type ? ms.material_service_type.material.detail : ms.material
+		mat =
+		if ms.material_service_type
+			mat = ms.material_service_type.material.detail + " Protegido"
+		else
+			mat = ms.material
+		end
 		[
 			mat,
 			ms.amount,
@@ -108,6 +113,7 @@ if @work_order.have_protections?
 
 	# #{total_rows}|#{move_rows}|#{(250 - (total_rows * 7.4)).to_i}|
 
+	pdf.text "Beneficio Exclusivo 50% : $ #{@work_order.total_protected_price.to_s}"
 	pdf.text "Observaciones: Valle Grande Neumáticos otorgará al titular del certificado un beneficio correspondiente al 50% del total del valor abonado en concepto de PROTECCIÓN VG. No aplica a productos o servicios sobre los cuales no se contrató la Protección.
 El beneficio será aplicado en la compra del próximo producto y/o servicios a realizar al vehículo objeto de la presente y tendrá una validez de 180  días a partir de la fecha del certificado.",:size => fs-2
 	pdf.move_down(10)

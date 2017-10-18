@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* CSS Document 
+/* CSS Document
 #F2F2F2
 */
 .client_vehicles,#all_vehicles{
@@ -18,12 +18,12 @@
   padding: 5px 0px;
 }
 
-.video{  
+.video{
   padding-top: 10px;
   width: 93%;
 }
 
-.video_home{  
+.video_home{
   padding-top: 10px;
   width: 73%;
 }
@@ -33,7 +33,7 @@
 }
 
 .field_with_errors input{
-  background: #FFAFAF;  
+  background: #FFAFAF;
   color: black;
 }
 
@@ -43,7 +43,7 @@
   padding: 5px;
 }
 
-.service_type .code{  
+.service_type .code{
   float: left;
   padding: 2px 3px 2px 3px;
 }
@@ -69,7 +69,7 @@ body {
 }
 
 .msg_update_km{
-  width:35%;  
+  width:35%;
 }
 
 .update_km{
@@ -90,7 +90,7 @@ body {
 .ajax_loader_m{
   margin:8px 3px;
   background-image:url(images/ajax-loader.gif);
-  height: 11px;  
+  height: 11px;
   width: 16px;
   display:none;
 }
@@ -174,24 +174,24 @@ body {
   background-image:url(images/notes.png);
   background-position:center;
   height:16px;
-  width:16px;  
-  float: left;  
+  width:16px;
+  float: left;
 }
 
 .has_alarms{
   background-image:url(images/new_alarm.png);
   background-position:center;
   height:16px;
-  width:16px;  
-  float: left;  
+  width:16px;
+  float: left;
 }
 
 .new_message{
   background-image:url(images/message.png);
   background-position:center;
   height:16px;
-  width:16px;  
-  float: left;  
+  width:16px;
+  float: left;
 }
 
 .es{
@@ -262,7 +262,17 @@ body {
   display:block;
 }
 
-#service_center_actions .form{  
+.protected{
+  background-image:url(images/protected.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  height:16px;
+  width:16px;
+  display:inline-block;
+  float: left;
+}
+
+#service_center_actions .form{
   width:80%;
   float:left;
 }
@@ -280,7 +290,7 @@ body {
   width:100%;
 }
 
-#vehicle_search input, #client_search input, #service_center input,#service_offer_search input, #employees input,.search input{ 
+#vehicle_search input, #client_search input, #service_center input,#service_offer_search input, #employees input,.search input{
   margin:2px;
 }
 
@@ -304,27 +314,27 @@ body {
 }
 
 #body{
-  padding-bottom:10px;  
+  padding-bottom:10px;
   margin: 0 auto;
-  width:960px;  
+  width:960px;
   padding-top:10px;
   min-height:776px;
 }
 
 #header {
-  background-color:#a8aa3a;       
+  background-color:#a8aa3a;
   background-image:url(images/headerpng.png);
   background-repeat:no-repeat;
   background-position:center;
   box-shadow: 0px 3px 5px #888;
   -moz-box-shadow: 0px 3px 5px #888;
   -webkit-box-shadow: 0px 3px 5px #888;
-  height:56px;  
+  height:56px;
 }
 
-#footer {  
+#footer {
   bottom:0;
-  width:100%;  
+  width:100%;
   height:44px;
   background: #3f3f3f; /* Old browsers */
 background: -moz-linear-gradient(top,  #3f3f3f 21%, #666666 100%, #5e5e5e 100%, #1c1c1c 100%, #2b2b2b 100%); /* FF3.6+ */
@@ -347,7 +357,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f3f3f', end
   width:960px;
   margin:0 auto;
 }
-        
+
 a{
   color:#B2AC0C;
   text-decoration:none;
@@ -401,7 +411,7 @@ h2 {
   font-size:14px;
   font-style:normal;
   color:#B3B3B3;
-  margin:0px; 
+  margin:0px;
   font-weight:400;
 }
 h2 a {
@@ -423,7 +433,7 @@ h2 a:hover {
 
 #wrapmenu {
   background-color:#C1BB00;
-  height:45px; 
+  height:45px;
 }
 
 #menu {
@@ -453,7 +463,7 @@ h2 a:hover {
   background: #C9C20D;
   background: -moz-linear-gradient(top, #DBDB39, #C9C20D);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));
-  
+
   background-image: -webkit-gradient(linear, left top, left bottom, from(#DBDB39), to(#C9C20D));
   background-image: -webkit-linear-gradient(top, #DBDB39, #C9C20D);
   background-image: -moz-linear-gradient(top,  #DBDB39, #C9C20D);
@@ -477,7 +487,7 @@ h2 a:hover {
 
   background: #C9C20D;
   background: -moz-linear-gradient(top, #DBDB39, #C9C20D);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));  
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDB39), to(#C9C20D));
   background-image: -webkit-gradient(linear, left top, left bottom, from(#DBDB39), to(#C9C20D));
   background-image: -webkit-linear-gradient(top, #DBDB39, #C9C20D);
   background-image: -moz-linear-gradient(top,  #DBDB39, #C9C20D);
@@ -486,14 +496,14 @@ h2 a:hover {
   background-image: linear-gradient(top, #DBDB39, #C9C20D);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#DBDB39', EndColorStr='#C9C20D');
   margin-top:-5px;
-  
+
 }
 
-#menu_container a{    
+#menu_container a{
   color: #EEEEEE;
   font-weight:bold;
   font-family: Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
-  font-size: 16px;  
+  font-size: 16px;
   text-decoration: none;
   text-shadow: 1px 1px 1px #000000;
   margin:0px 5px;
@@ -501,11 +511,11 @@ h2 a:hover {
 
 
 #content {
-  overflow:auto;  
-  margin:0 auto;    
-  width:960px;  
+  overflow:auto;
+  margin:0 auto;
+  width:960px;
   min-height:700px;
-  
+
 }
 
 #cont1 {
@@ -515,22 +525,22 @@ h2 a:hover {
 }
 
 .login_links{
-  float: right;  
+  float: right;
   text-align: right;
 }
 
-#login_c {  
+#login_c {
   background-color:#808080;
 }
 
 #login_c h3{
-  color:white;  
+  color:white;
 }
 
 #login_c form{
   margin: 0 auto;
   overflow: auto;
-  padding: 10px;  
+  padding: 10px;
 }
 
 #part1 {
@@ -574,13 +584,13 @@ h2 a:hover {
   color:#B3B3B3;
   margin:0px;
 }
-  
+
 #part3 {
   width:165px;
   height:0px;
 }
 
-#cont3 {  
+#cont3 {
   margin-top:10px;
   overflow: auto;
 }
@@ -588,7 +598,7 @@ h2 a:hover {
 .cuadro{
   height:470px;
   width: 30%;
-  padding: 10px;  
+  padding: 10px;
 }
 
 .middle{
@@ -637,7 +647,7 @@ h2 a:hover {
 }
 
 .list{
-  
+
 }
 
 .cuadro li a {
@@ -670,7 +680,7 @@ h2 a:hover {
   color:#CCC;
 }
 #navcopy {
-  
+
   margin-left:90px;
   float:left;
 }
@@ -683,7 +693,7 @@ h2 a:hover {
 #footer li {
   float:left;
   margin-top:15px;
-  margin-right:5px;  
+  margin-right:5px;
 
 }
 
@@ -808,7 +818,7 @@ margin:0px;
 select{
   height:26px;
   width:175px;
-  padding: 2px;  
+  padding: 2px;
 }
 
 .material_form input{
@@ -826,11 +836,11 @@ select{
 
 .material_view .material div ,.material_form .edit_material div,.material_header div{
   display:inline-block;
-  margin: 0px 3px  
+  margin: 0px 3px
 }
 
 .material_view,.material_view,.material_header{
-  width: 100%;  
+  width: 100%;
 }
 
 input{
@@ -846,11 +856,11 @@ input{
 }
 
 .input_date{
-  width:88px; 
+  width:88px;
 }
 
 .input_date_time{
-  width:120px; 
+  width:120px;
 }
 
 #new_client_budget input{
@@ -871,7 +881,7 @@ input{
   border-color:#F00;
   border-width:thin;
 }
-  
+
 
 #msj_error h6{
   font-family:Open Sans,Trebuchet MS,Arial,Helvetica,sans-serif;
@@ -879,18 +889,18 @@ input{
   color:#B3B3B3;
   font-weight:normal;
   line-height:14px;
-  width:300px;  
+  width:300px;
   float:right;
   margin:0px;
   margin-left:450px;
   margin-right:0px;
   margin-top:-50px;
-  
+
 }
 
-.box {  
-  border-left: 1px solid #DDDDDD; 
-  border-right: 1px solid #DDDDDD; 
+.box {
+  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
   padding: 3px;
   overflow:auto;
 }
@@ -909,7 +919,7 @@ input{
   width:73%;
   margin-left:3px;
   padding-left:10px;
-  float:left;  
+  float:left;
   border-left:thin double #CCCCCC;
   min-height:807px;
 }
@@ -919,13 +929,13 @@ input{
   position: absolute;
   left:187px;
   top:26px;
-  font-size:12px;  
+  font-size:12px;
   background:white;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DDDDDD;
-  padding: 5px 5px 5px 5px;  
+  padding: 5px 5px 5px 5px;
   -moz-box-shadow: 2px 2px 5px #888888;
   -webkit-box-shadow: 2px 2px 5px #888888;
   box-shadow: 2px 2px 5px #888888;
@@ -997,13 +1007,13 @@ td.number input{
   width:70px;
 }
 
-.box h1,.contentleft_s h1, .contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1, 
+.box h1,.contentleft_s h1, .contentleft h1,.contentright h1,.contentleft_u h1,.contentright_u h1,.content h1,
 #work_order_form h1, .company_selector h1, .all_companies h1{
   font-size:20px;
   color:#75787A;
   margin:0px;
 }
-  
+
 .contentleft h2 {
   font-size:12px;
   color:#B3B3B3;
@@ -1047,7 +1057,7 @@ td.number input{
   width:136px;
   text-align:left;
 }
-  
+
 .comboxtable h3{
   font-size:12px;
   color:#B3B3B3;
@@ -1139,14 +1149,14 @@ table.services thead tr th {
 }
 
 
-#avatar_login { 
+#avatar_login {
   float:right;
   position:relative;
   margin-top:5px;
 }
 
 #avatar_login #company_id:hover{
-  color:black;  
+  color:black;
 }
 
 .company_id{
@@ -1157,7 +1167,7 @@ table.services thead tr th {
     width:270px;
 }
 
-#avatar_login .company_id1{ 
+#avatar_login .company_id1{
     padding:3px;
 }
 #avatar_login a {
@@ -1190,7 +1200,7 @@ table.services thead tr th {
   background-color:#E6E6E6;
   margin:0 auto;
   padding:2px 5px;
-  overflow: auto; 
+  overflow: auto;
 }
 
 
@@ -1225,7 +1235,7 @@ input.material{
 }
 
 #budget input.material{
-  width: 92%;  
+  width: 92%;
 }
 
 select.status{
@@ -1252,7 +1262,7 @@ select.status{
 
 td p{
   margin: 0px;
-  width: 50px;  
+  width: 50px;
 }
 
 .tabla_datos_personales h3 {
@@ -1399,7 +1409,7 @@ td.number, th.number{
 }
 
 .service_type{
-  background-color: #F2F2F2;  
+  background-color: #F2F2F2;
   margin: 5px 0px;
   overflow: auto;
 }
@@ -1462,9 +1472,9 @@ td.number, th.number{
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #DF0000;
   margin: 0 auto;
-  padding: 5px;  
-  width: 98%;  
-  
+  padding: 5px;
+  width: 98%;
+
 }
 
 .error_msg{
@@ -1507,9 +1517,9 @@ td.number, th.number{
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;  
+  border-radius: 5px 5px 5px 5px;
   border: 1px solid #099F3A;
-  margin: 0 auto;  
+  margin: 0 auto;
   padding: 5px;
   width: 97%;
 }
@@ -1530,7 +1540,7 @@ td.number, th.number{
   background-color: #DEF9D4;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;  
+  border-radius: 5px 5px 5px 5px;
   border: 1px solid #099F3A;
   margin: 5px;
   padding:5px;
@@ -1552,13 +1562,13 @@ td.number, th.number{
   margin-left: 25px;
   font-style: italic;
 }
- 
+
 .ui-accordion-header{
   background-color: #CCCC00;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-  padding: 5px; 
+  padding: 5px;
   border: 2px solid #AFAFAF;
   cursor: pointer;
   margin:5px 5px 5px 5px;
@@ -1590,11 +1600,11 @@ td.number, th.number{
 }
 
 .service_offer_info{
-  
+
 }
 
 .service_offer_title{
-  font-weight: bold;    
+  font-weight: bold;
   width: 100%;
 }
 
@@ -1602,7 +1612,7 @@ td.number, th.number{
   overflow: auto;
 }
 
-.service_offer_detail{  
+.service_offer_detail{
 }
 
 .service_offer_row{
@@ -1633,7 +1643,7 @@ td.number, th.number{
  text-align:right;
 }
 
-.service_offer_dates ul li{  
+.service_offer_dates ul li{
   float: right;
   margin: 0 3px;
 }
@@ -1665,7 +1675,7 @@ td.number, th.number{
   float: left;
 }
 
-.center{  
+.center{
   margin:auto;
 }
 
@@ -1696,7 +1706,7 @@ td.number, th.number{
   padding: 5px;
 }
 
-.services{  
+.services{
   padding: 2px 0px;
   float: left;
 }
@@ -1704,7 +1714,7 @@ td.number, th.number{
 .wo_detail .wo_info, .budgets .wo_info{
   width:17%;
   float:right;
-  
+
 }
 
 .service_info, .budget_info{
@@ -1780,12 +1790,12 @@ td.number, th.number{
   font-weight: bold;
   float: left;
   margin: 2px 5px 2px 2px;
-  width:85px;  
-  display:block;   
+  width:85px;
+  display:block;
 }
 
 
-.domain_n_old{ 
+.domain_n_old{
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -1798,7 +1808,7 @@ td.number, th.number{
 }
 
 .stars{
-  overflow: auto;  
+  overflow: auto;
 }
 
 .star{
@@ -1816,7 +1826,7 @@ td.number, th.number{
 }
 
 .rank_stars{
-  overflow: auto;  
+  overflow: auto;
   display: inline;
 }
 
@@ -1895,7 +1905,7 @@ td.number, th.number{
 }
 
 .my_car_domain_red{
-  background-image:url(images/mi_patente_red.png);  
+  background-image:url(images/mi_patente_red.png);
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -1914,7 +1924,7 @@ td.number, th.number{
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  height: 23px;  
+  height: 23px;
   margin-top: 2px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1942,7 +1952,7 @@ td.number, th.number{
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  height: 23px;  
+  height: 23px;
   margin-top: 2px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1961,7 +1971,7 @@ td.number, th.number{
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  height: 23px;  
+  height: 23px;
   margin-top: 2px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1975,7 +1985,7 @@ td.number, th.number{
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  height: 23px;  
+  height: 23px;
   margin-top: 2px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1999,7 +2009,7 @@ td.number, th.number{
   font-size: 16px;
   font-weight: bold;
   color: black;
-  margin: 0px 5px;  
+  margin: 0px 5px;
 }
 
 .line{
@@ -2023,7 +2033,7 @@ td.number, th.number{
   padding:2px 5px;
   float: left;
   border-radius: 5px 5px 5px 5px;
-  border: 1px outset #636262; 
+  border: 1px outset #636262;
   min-height:20px;
 }
 
@@ -2033,7 +2043,7 @@ select.operator{
 
 .operator{
   font-size: 11px;
-  float:left;  
+  float:left;
 }
 
 .service a{
@@ -2051,13 +2061,13 @@ select.operator{
   margin: 0px;
 }
 
-/* General dropdown styles */       
-.dropdown dd, .dropdown dt, .dropdown ul { 
-  margin:0px; 
-  padding:0px; 
+/* General dropdown styles */
+.dropdown dd, .dropdown dt, .dropdown ul {
+  margin:0px;
+  padding:0px;
 }
 
-.dropdown dd { 
+.dropdown dd {
   position:relative;
   z-index:1000;
 }
@@ -2066,10 +2076,10 @@ select.operator{
 
 .dropdown dt a {
   background: url(images/arrow.png) no-repeat scroll right center;
-  display:block; 
-  padding-right:20px; 
+  display:block;
+  padding-right:20px;
 }
-    
+
 .dropdown dt a span {
   cursor:pointer; display:block;
   padding:2px 2px 2px 5px;
@@ -2089,13 +2099,13 @@ select.operator{
 
 .dropdown dd ul {
   background:#F7F28C none repeat scroll 0 0;
-  border:1px solid #B2AC0C; 
+  border:1px solid #B2AC0C;
   display:none;
-  list-style:none; 
-  padding:5px 0px; 
-  position:absolute; 
-  left:0px; top:-1px; 
-  width:auto; 
+  list-style:none;
+  padding:5px 0px;
+  position:absolute;
+  left:0px; top:-1px;
+  width:auto;
   min-width:98%;
 }
 
@@ -2104,7 +2114,7 @@ select.operator{
 }
 
 .dropdown dd ul li a {
-  padding:2px 5px 2px 5px; 
+  padding:2px 5px 2px 5px;
   display:block;
   float: left;
   clear: both;
@@ -2167,13 +2177,13 @@ select.operator{
 .pdf{
   background: url(images/pdf.png) no-repeat scroll;
   height: 16px;
-  width: 16px;  
+  width: 16px;
   display:block;
 }
 .info{
   background: url(images/info.png) no-repeat scroll;
   height: 16px;
-  width: 16px;    
+  width: 16px;
   display:block;
 }
 
@@ -2182,7 +2192,7 @@ select.operator{
   background: url(images/notes.png) no-repeat scroll;
   height: 16px;
   width: 16px;
-  
+
 }
 
 #company-selector{
@@ -2195,7 +2205,7 @@ select.operator{
 }
 
 .event{
-  
+
 }
 
 .event_detail{
@@ -2213,7 +2223,7 @@ select.operator{
 }
 
 .select_event .red, .select_event .amarillo, .select_event .verde, .select_event .my_red, .select_event .mi_amarillo{
-  height:20px;  
+  height:20px;
 }
 
 .red{
@@ -2223,7 +2233,7 @@ select.operator{
 }
 
 .my_red{
-  border: 1px solid red;  
+  border: 1px solid red;
   overflow: auto;
   background-color: #F77979;
 }
@@ -2259,7 +2269,7 @@ select.operator{
 .due_date {
   color: black;
   font-size: 11px;
-  font-weight: normal;  
+  font-weight: normal;
   float: right;
   margin-right: 3px;
 }
@@ -2346,7 +2356,7 @@ select.operator{
   border-color: #BFBA00;
 }
 
-.other_event{  
+.other_event{
   color:#CAEFF7;
 }
 
@@ -2418,7 +2428,7 @@ select.operator{
 
 .cp_event{
   display: inline-block;
-  margin: 1px;   
+  margin: 1px;
   overflow: auto;
   float: left;
 }
@@ -2490,8 +2500,8 @@ select.operator{
   color: #222222;
 }
 
-.contentright .ui-widget-header {   
-  background: url("") repeat-x scroll 50% 50% #FFFFFF;    
+.contentright .ui-widget-header {
+  background: url("") repeat-x scroll 50% 50% #FFFFFF;
   border: 0px solid #929090;
   color: #222222;
   font-weight: bold;
@@ -2508,13 +2518,13 @@ select.operator{
 }
 
 .new_note_form{
-  overflow:auto;    
+  overflow:auto;
   margin:10px;
   padding: 5px;
   overflow: auto;
   background: none repeat scroll 0 0 #FFFFCC;
   border-radius: 5px 5px 5px 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .new_note_form textarea{
@@ -2527,7 +2537,7 @@ select.operator{
 }
 
 .notes{
-  width:100%;  
+  width:100%;
 }
 
 .wo_note{
@@ -2547,16 +2557,16 @@ select.operator{
   overflow: auto;
 }
 
-.my_msg{  
+.my_msg{
   padding-left:10px;
   overflow: auto;
   background: none repeat scroll 0 0 #FFFFCC;
   border-radius: 5px 5px 5px 5px;
   border: 0px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   margin: 5px;
   min-height: 21px;
-  padding: 5px 5px;  
+  padding: 5px 5px;
   width: 80%;
   float:left;
 }
@@ -2567,10 +2577,10 @@ select.operator{
   background: none repeat scroll 0 0 #C0EDF7;
   border-radius: 5px 5px 5px 5px;
   border: 0px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   margin: 5px;
   min-height: 21px;
-  padding: 5px 5px;  
+  padding: 5px 5px;
   width: 80%;
   float:right;
   cursor:pointer;
@@ -2582,10 +2592,10 @@ select.operator{
   background: none repeat scroll 0 0 #FFFFCC;
   border-radius: 5px 5px 5px 5px;
   border: 0px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   margin: 10px;
   min-height: 21px;
-  padding: 5px 5px;  
+  padding: 5px 5px;
 }
 
 .unread_msg_nro{
@@ -2639,11 +2649,11 @@ select.operator{
   background: url(images/export.png) no-repeat scroll;
   height: 16px;
   width: 16px;
-  display:block;  
+  display:block;
 }
 
 input.labelHighlight,textarea.labelHighlight {
-  color: #999999; 
+  color: #999999;
   font-style:oblique;
 }
 
@@ -2718,7 +2728,7 @@ input.labelHighlight,textarea.labelHighlight {
 #menu_options .selected ,#menu_options .menu:hover {
   background:#E5E082;
   color:#54534E;
-  font-weight: bold;  
+  font-weight: bold;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
@@ -2728,27 +2738,27 @@ input.labelHighlight,textarea.labelHighlight {
   width:95%;
 }
 
-#menu_options li{    
+#menu_options li{
   margin:2px;
   padding:1px;
   overflow: auto;
   list-style:none outside none;
 }
 
-#menu_options li a:over{  
+#menu_options li a:over{
     color:#54534E;
     font-weight:bold;
 }
 
-#menu_options li a{  
+#menu_options li a{
     color:#54534E;
     text-decoration:none;
 }
 
 
 #menu_options li.selected {
-  color:#54534E;  
-  text-decoration:none;  
+  color:#54534E;
+  text-decoration:none;
 }
 
 #menu_options ul li img{
@@ -2763,11 +2773,11 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 .box_top{
-  border-top:thin double #CCCCCC;    
+  border-top:thin double #CCCCCC;
 }
 
 .box_right{
-  border-right:thin double #CCCCCC;    
+  border-right:thin double #CCCCCC;
 }
 
 .client label{
@@ -2780,17 +2790,17 @@ input.labelHighlight,textarea.labelHighlight {
 }
 
 .client .phone{
-  margin-left:3px;  
+  margin-left:3px;
   font-weight:bold;
 }
 
 #breadcrums_menu{
   width:70%;
-  float:left;  
+  float:left;
 }
 
 #other_menu{
-  float:right; 
+  float:right;
 }
 
 
@@ -2829,7 +2839,7 @@ input.labelHighlight,textarea.labelHighlight {
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 
 .ui-timepicker-div dl {
- text-align: left; 
+ text-align: left;
 }
 
 .ui-timepicker-div dl dt { height: 25px; }
@@ -2920,7 +2930,7 @@ input.labelHighlight,textarea.labelHighlight {
   box-shadow: 2px 2px 5px #888888;
 }
 
-.title{  
+.title{
   margin:0 auto;
 }
 
@@ -2943,7 +2953,7 @@ ul.tasks li{
   margin:5px;
 }
 
-.budget .vehicle, .budget .customer {  
+.budget .vehicle, .budget .customer {
   width: 48%;
 }
 
@@ -2961,7 +2971,7 @@ ul.tasks li{
   width:96%;
 }
 
-.info_note{  
+.info_note{
   display: block;
   float: left;
   overflow: auto;
@@ -2975,7 +2985,7 @@ ul.tasks li{
 
 .validation_email_msg{
   background-color: #F2F2F2;
-  border-radius:5px;  
+  border-radius:5px;
   float: right;
   padding: 4px;
   margin-left: 5px;
@@ -3063,7 +3073,7 @@ ul.tasks li{
   width: 50%;
 }
 
-.advertisements span{ 
+.advertisements span{
   font-size: 15px;
 }
 .advertisements span{

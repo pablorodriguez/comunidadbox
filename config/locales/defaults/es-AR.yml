@@ -98,7 +98,7 @@ es-AR:
   unauthorized:
     manage:
       all: Ud. no esta autorizado a realizar la accion solicitada
-      user: No se les permite administrar otras cuentas de usuario    
+      user: No se les permite administrar otras cuentas de usuario
   shared:
     error_messages:
       errors_prohibited_plural: "Se produjeron los siguientes %{count} errores"
@@ -172,3 +172,4 @@ es-AR:
     car: Autómovil
     motorcycle: Motocicleta
   chassis: "Chasis"
+  update: Actualizar

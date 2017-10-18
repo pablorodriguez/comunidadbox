@@ -57,6 +57,22 @@ class Service < ActiveRecord::Base
     m_total_price
   end
 
+  def total_protected_price
+    m_total_price=0
+
+    if deleted?
+      m = material_services.with_deleted
+    else
+      m= material_services
+    end
+
+    m.each do |m|
+      m_total_price += m.total_protected_price
+    end
+
+    m_total_price
+  end
+
   def status_name
     self.status_id ? self.status.name : ""
   end

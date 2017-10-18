@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171003023857) do
+ActiveRecord::Schema.define(:version => 20171011120354) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "state_id"
@@ -371,6 +371,7 @@ ActiveRecord::Schema.define(:version => 20171003023857) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
+    t.boolean  "protected"
   end
 
   add_index "material_service_types", ["company_id"], :name => "index_material_service_types_on_company_id"

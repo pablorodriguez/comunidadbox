@@ -1,4 +1,4 @@
-en-US:  
+en-US:
   exit: "Exit"
   cancel: "Cancel"
   save: "Save"
@@ -98,7 +98,7 @@ en-US:
   unauthorized:
     manage:
       all: You are not authorized to perform the requested action
-      user: Not allowed to manage other user accounts    
+      user: Not allowed to manage other user accounts
   shared:
     error_messages:
       errors_prohibited_plural: "There were the following %{count} errors "
@@ -172,3 +172,4 @@ en-US:
     car: Car
     motorcycle: Motorcycle
   chassis: "Chassis"
+  update: Update

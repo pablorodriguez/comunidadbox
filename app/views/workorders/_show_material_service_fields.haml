@@ -3,10 +3,13 @@
     .material
       = f.material unless f.material_service_type
       - if f.material_service_type
+        - if f.material_service_type.protected
+          .protected{title: "Protección #{@work_order.company.name}" }
         %strong
           = f.material_service_type.material.prov_code
         = f.material_service_type.material.detail
         = f.material_service_type.material.brand
+
   %td.number
     = f.amount
   %td.number
